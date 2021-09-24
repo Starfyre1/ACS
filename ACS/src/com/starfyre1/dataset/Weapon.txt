@@ -1,0 +1,67 @@
+  // Hand-to-Hand Bladed Weapons:
+  0, false, Great Axe, Iron, 0, 2, 11, 10, 20, 15, -5, 13, 0, 0, 4, 35
+  0, false, Large Axe, Iron, 0, 1, 13, 8, 10, 12, -3, 12, 0, 2, 3, 20
+  0, false, Small Axe, Iron, 0, 0, 5, 6, 6, 6, 3, 10, 0, 0, 0, 10
+  0, false, Bastard Sword, Iron, 0, 1, 13, 8, 15, 12, -2, 13, 0, 2, 3, 20
+  0, false, Broad Sword, Iron, 0, 1, 9, 6, 10, 9, 0, 13, 0, 2, 2, 15
+  0, false, Claymore, Iron, 0, 2, 12, 7, 20, 15, -5, 15, 0, 0, 4, 40
+  0, false, Cutlass, Iron, 0, 0, 5, 6, 8, 6, 0, 10, 0, 1, 0, 10
+  // 0, false, Dagger, Iron, 0, 0, 0, 1, 2, 3, 4, 8, 0, 1D5, 0, 5
+  0, false, Glaive Guisarme, Iron, 0, 2, 11, 10, 25, 18, -5, 9, 0, 0, 3, 10
+  // 0, false, Halberd, Iron,  0, 2, 10, 12, 25, 21, -5, 8, 0, 0, 1D6, 15
+  // 0, false, Halberd/Saber, Iron, 0, 2, 10, 9, 22, 22, -6, 10, 0, 0, 1D6, 20
+  0, false, Katana, Iron, 0, 1, 9, 5, 8, 9, 1, 13, 0, 2, 2, 60
+  // 0, false, Knife, Iron,  0, 0, 0, .25, 1, 2, 5, 6, 0, 1D3, 0, 2
+  // 0, false, Lance, Iron,  0, 3, 10, 10, 30, 18, -4, 9, 0, 2D6, 0, 10
+  0, false, Long Sword, Iron, 0, 0, 9, 6, 10, 9, 0, 12, 0, 2, 0, 15
+  0, false, Rapier, Iron, 0, 0, 0, 4, 5, 6, 3, 7, 0, 0, 0, 20
+  0, false, Saber, Iron, 0, 0, 6, 8, 8, 7, 1, 10, 0, 1, 0, 10
+  0, false, Scimitar, Iron, 0, 0, 7, 7, 8, 6, 0, 10, 0, 1, 0, 8
+  0, false, Scythe, Iron, 0, 2, 10, 10, 15, 18, -5, 9, 0, 0, 3, 25
+  0, false, Short Sword, Iron, 0, 0, 0, 6, 6, 6, 2, 10, 0, 0, 0, 8
+  0, false, Trident, Iron, 1, 1, 11, 8, 12, 12, -1, 12, 0, 0, 1, 15
+  0, false, Wakazashi, Iron, 1, 1, 0, 3, 4, 6, 2, 14, 0, 0, 1, 40
+
+  // Hand-to-Hand Blunt Weapons:
+  0, false, Club, Iron, 1, 1, 7, 5, 5, 8, +1, 10, 0, +0, +1, 0
+  0, false, Flail, Iron, 1, 2, 7, 6, 10, 15, -5, 10, 0, 0, +2, 10
+  0, false, Hercules Club, Iron, 1, 2, 13, 8, 15, 12, -3, 12, 0, 0, +3, 20
+  0, false, Horse Hammer, Iron, 1, 1, 9, 7, 10, 8, +0, 10, 0, +1, +1, 30
+  0, false, Large Mace, Iron, 1, 1, 13, 8, 12, 12, -3, 12, 0, +2, +3, 15
+  0, false, Small Mace, Iron, 1, 0, 0, 4, 8, 6, +2, 10, 0, +0, 0, 10
+  0, false, Morning Star, Iron, 1, 1, 7, 8, 12, 9, -2, 10, 0, +1, +2, 10
+  0, false, Quarter Staff, Iron, 1, 0, 0, 4, 5, 15, -1, 9, 0, +0, 0, 0
+  0, false, Warhammer, Iron, 1, 1, 10, 7, 12, 9, -1, 20, 0, +0, +1, 25
+  0, false, Warpick, Iron, 1, 1, 9, 7, 12, 9, -1, 20, 0, +0, +1, 25
+
+  // Hand-to-Hand Miscellaneous Weapons:
+  // DW Implement range damage bonus
+  // DW Implement entangle for damage bonus
+  // 0, false, Blackjack, Iron, 2,0,0,0, 2, 2, +4, 0, 2, 1D3, 5
+  // 0, false, Garrote, Iron, 2,0,0,0, .25, 6, +4, 0, 1, 1D6/Rnd, 6
+  // 0, false, Whip, Iron, 2,0,0,13, 3, 24, +0, 0, -1, +0/Entangle, 20
+
+  // Thrown Weapons:
+
+  //Item  ST/DX Enc WL Asp Break Damage Cost
+  // DW Implement range damage bonus
+  // DW Implement entangle for damage bonus
+  // 0, false, Blowgun, Iron, 3, 0, 0, 0, 1, 9, +3, 2, 0, 1D2, 0, 15
+  // 0, false, Bolas, Iron, 3, 0, 0, 12, 2, -1, +0, -1, 0, Entangle, 0, 10
+  // 0, false, Shuriken, Iron, 3, 0, 0, 14, .2, -1, +5, 0, -1, 1D3+1, 0, 10
+  // 0, false, Sling, Iron, 3, 0, 0, 11, .5, -1, -2, -1, 0, +0, 0, 5
+  0, false, Spear, Iron, 3, 1, 5, 10, 15, 12, -3, 6, 0, +0, +2, 10
+  // 0, false, Throwing Net, Iron, 3, 0, 9, 9, 10, 12, -3, 9, 0, Entangle, 0, 25
+  // 0, false, Throwing Spikes, Iron, 3, 0, 0, 14, .5, -1, +4, -1, 0, 1D4+1, 0, 12
+  // 0, false, War Dart, Iron, 3, 0, 0, 0, .5, 2, +0, -1, 0, 1D3, 0, 5
+
+  // Bows:
+  //
+  // Item  Enc Damage Bsp ST/BS Range Cost
+  // Composite, Long 8 +2 +1 13/13 120' 500
+  // Composite, Short 6 +1 +2 11/11 90' 350
+  // Crossbow, Heavy 15 +3 -2** 12*/7 90' 300
+  // Crossbow, Light 10 +1 -1** 12*/6 60' 200
+  // Longbow 6 +1 -1 14/12 90' 250
+  // Short bow 4 +0 +0 7/9 60' 150
+  // Strength bow 10 +3*** +1 17/13 90'-160' 1000
