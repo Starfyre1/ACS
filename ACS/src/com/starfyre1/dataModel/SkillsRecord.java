@@ -7,7 +7,7 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.classes.Dwarrow;
 import com.starfyre1.dataset.classes.Dwarves;
 import com.starfyre1.dataset.classes.Thief;
-import com.starfyre1.dataset.classes.elves.Elves;
+import com.starfyre1.dataset.classes.elves.ElvesBase;
 import com.starfyre1.dataset.classes.elves.Sailor;
 import com.starfyre1.dataset.classes.elves.Sithrian;
 import com.starfyre1.dataset.classes.elves.Tellorian;
@@ -195,7 +195,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		// DW implement if needed
 		// boolean innate = mIsInnate[DETECT_MAGIC];
 		int base = 50;
-		int classBonus = classInfo instanceof Elves ? 5 * lvl : classInfo instanceof Dwarrow ? 5 * lvl : 0;
+		int classBonus = classInfo instanceof ElvesBase ? 5 * lvl : classInfo instanceof Dwarrow ? 5 * lvl : 0;
 
 		mDetectMagic = base + classBonus;
 	}

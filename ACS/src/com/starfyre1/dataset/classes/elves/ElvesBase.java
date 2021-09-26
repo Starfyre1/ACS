@@ -5,7 +5,7 @@ package com.starfyre1.dataset.classes.elves;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.startup.ACS;
 
-public class Elves extends BaseClass {
+public class ElvesBase extends BaseClass {
 
 	@Override
 	public int getHitBonus() {

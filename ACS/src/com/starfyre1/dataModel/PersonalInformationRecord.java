@@ -9,7 +9,7 @@ import com.starfyre1.dataset.classes.Dwarrow;
 import com.starfyre1.dataset.classes.Dwarves;
 import com.starfyre1.dataset.classes.HalfElf;
 import com.starfyre1.dataset.classes.Human;
-import com.starfyre1.dataset.classes.elves.Elves;
+import com.starfyre1.dataset.classes.elves.ElvesBase;
 import com.starfyre1.dataset.classes.warriors.WarriorsBase;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.Savable;
@@ -138,7 +138,7 @@ public class PersonalInformationRecord implements Savable {
 		int classWeightBonus = 0;
 
 		int str = stats.getStat(0);
-		if (characterClass instanceof Elves) {
+		if (characterClass instanceof ElvesBase) {
 			if (str < 15) {
 				classHeightBonus = -2;
 				classWeightBonus = -7;
@@ -230,7 +230,7 @@ public class PersonalInformationRecord implements Savable {
 			if (characterClass instanceof Human) {
 				sexWeightBonus = -5;
 				sexHeightBonus = -3;
-			} else if (characterClass instanceof Elves || characterClass instanceof HalfElf) {
+			} else if (characterClass instanceof ElvesBase || characterClass instanceof HalfElf) {
 				sexWeightBonus = -3;
 				sexHeightBonus = -2;
 			} else if (characterClass instanceof Dwarves || characterClass instanceof Dwarrow) {

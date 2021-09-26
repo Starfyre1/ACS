@@ -12,7 +12,7 @@ import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataset.classes.Dwarrow;
 import com.starfyre1.dataset.classes.Dwarves;
 import com.starfyre1.dataset.classes.Thief;
-import com.starfyre1.dataset.classes.elves.Elves;
+import com.starfyre1.dataset.classes.elves.ElvesBase;
 import com.starfyre1.dataset.classes.mages.MagesBase;
 import com.starfyre1.dataset.classes.priests.PriestsBase;
 import com.starfyre1.dataset.classes.warriors.Ranger;
@@ -384,7 +384,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			} else {
 				stanimaLevelBonus = 27 + lvl - 10;
 			}
-		} else if (characterClass instanceof Elves || characterClass instanceof Dwarrow) {
+		} else if (characterClass instanceof ElvesBase || characterClass instanceof Dwarrow) {
 			if (lvl <= 5) {
 				stanimaLevelBonus = (lvl - 1) * 4;
 			} else {
@@ -435,7 +435,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			} else {
 				hpLevelBonus = 9;
 			}
-		} else if (characterClass instanceof Elves || characterClass instanceof Dwarrow) {
+		} else if (characterClass instanceof ElvesBase || characterClass instanceof Dwarrow) {
 			if (lvl <= 10) {
 				hpLevelBonus = lvl - 1;
 			} else {

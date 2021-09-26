@@ -2,7 +2,7 @@
 
 package com.starfyre1.dataset.classes.elves;
 
-public class Tsiri extends Elves {
+public class Tsiri extends ElvesBase {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/

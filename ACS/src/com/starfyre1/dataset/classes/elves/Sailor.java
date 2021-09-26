@@ -2,7 +2,7 @@
 
 package com.starfyre1.dataset.classes.elves;
 
-public class Sailor extends Elves {
+public class Sailor extends ElvesBase {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/

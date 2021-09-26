@@ -2,7 +2,7 @@
 
 package com.starfyre1.dataset.classes.elves;
 
-public class Sithrian extends Elves {
+public class Sithrian extends ElvesBase {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/

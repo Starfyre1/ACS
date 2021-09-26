@@ -2,7 +2,7 @@
 
 package com.starfyre1.dataset.classes.elves;
 
-public class Tellorian extends Elves {
+public class Tellorian extends ElvesBase {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
