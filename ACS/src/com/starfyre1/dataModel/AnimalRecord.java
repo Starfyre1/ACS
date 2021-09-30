@@ -85,7 +85,7 @@ public class AnimalRecord extends TKTableRecord {
 			case 4:
 				yield Integer.valueOf(mTravel); // id 4
 			case 5:
-				yield Integer.valueOf(mHits); // id 5
+				yield mHits; // id 5
 			case 6:
 				yield Integer.valueOf(mHitBonus); // id 6 // 50% chance to increase absorption by 1
 			case 7:

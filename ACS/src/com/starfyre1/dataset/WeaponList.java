@@ -225,21 +225,21 @@ public class WeaponList implements Savable {
 		} else if (DEX_KEY.equals(key)) {
 			mDexterity = TKStringHelpers.getIntValue(value, 0);
 		} else if (ENCUMBER_KEY.equals(key)) {
-			mEncumbrance = TKStringHelpers.getFloatValue(value, 0) * MetalList.getMetal(mMetal).getEnumbrance();
+			mEncumbrance = TKStringHelpers.getFloatValue(value, 0);
 		} else if (LENGTH_KEY.equals(key)) {
 			mWeaponLength = TKStringHelpers.getIntValue(value, 0);
 		} else if (SPEED_KEY.equals(key)) {
-			mAttackSpeed = TKStringHelpers.getIntValue(value, 0) + MetalList.getMetal(mMetal).getASP();
+			mAttackSpeed = TKStringHelpers.getIntValue(value, 0);
 		} else if (BREAK_KEY.equals(key)) {
-			mWeaponBreak = MetalList.getMetal(mMetal).getBreak(TKStringHelpers.getIntValue(value, 0));
+			mWeaponBreak = TKStringHelpers.getIntValue(value, 0);
 		} else if (HIT_BONUS_KEY.equals(key)) {
-			mHitBonus = TKStringHelpers.getIntValue(value, 0) + MetalList.getMetal(mMetal).getHitBonus();
+			mHitBonus = TKStringHelpers.getIntValue(value, 0);
 		} else if (DAMAGE1_KEY.equals(key)) {
-			mDamageOneHanded = TKStringHelpers.getIntValue(value, 0) + MetalList.getMetal(mMetal).getDamage();
+			mDamageOneHanded = TKStringHelpers.getIntValue(value, 0);
 		} else if (DAMAGE2_KEY.equals(key)) {
-			mDamageTwoHanded = TKStringHelpers.getIntValue(value, 0) + MetalList.getMetal(mMetal).getDamage();
+			mDamageTwoHanded = TKStringHelpers.getIntValue(value, 0);
 		} else if (COST_KEY.equals(key)) {
-			mCost = TKStringHelpers.getFloatValue(value, 0f) * MetalList.getMetal(mMetal).getCost();
+			mCost = TKStringHelpers.getFloatValue(value, 0f);
 			mRecords.add(new WeaponRecord(mCount, mEquipped, mName, mMetal, mType, mHanded, mStrength, mDexterity, mEncumbrance, mWeaponLength, mAttackSpeed, mWeaponBreak, mHitBonus, mDamageOneHanded, mDamageTwoHanded, mCost));
 		} else {
 			//DW9:: log this

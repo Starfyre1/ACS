@@ -89,7 +89,6 @@ public class WeaponRecord extends TKTableRecord {
 		mDamageOneHanded = ((Integer) obj.get(13)).intValue();
 		mDamageTwoHanded = obj.get(14) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(14), 0) : ((Integer) obj.get(14)).intValue();
 		mCost = ((Float) obj.get(15)).floatValue();
-
 	}
 
 	/*****************************************************************************
@@ -101,7 +100,6 @@ public class WeaponRecord extends TKTableRecord {
 						mStrength + " " + mDexterity + " " + mEncumbrance + " " + mWeaponLength + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 						mAttackSpeed + " " + mWeaponBreak + " " + mHitBonus + " " + mDamageOneHanded + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 						mDamageTwoHanded + " " + mCost; //$NON-NLS-1$
-
 	}
 
 	@Override

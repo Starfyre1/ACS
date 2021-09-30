@@ -50,17 +50,17 @@ public class MetalList {
 				if (splitLine.length > 11) {
 					System.err.println(splitLine[0]);
 				}
-				MetalRecord record = new MetalRecord(splitLine[0], //
-								TKStringHelpers.getFloatValue(splitLine[1], 0f), //
-								TKStringHelpers.getIntValue(splitLine[2], 0), //
-								TKStringHelpers.getIntValue(splitLine[3], 0), //
-								TKStringHelpers.getIntValue(splitLine[4], 0), //
-								TKStringHelpers.getIntValue(splitLine[5], 0), //
-								TKStringHelpers.getIntValue(splitLine[6], 0), //
-								TKStringHelpers.getIntValue(splitLine[7], 0), //
-								TKStringHelpers.getIntValue(splitLine[8], 0), //
-								splitLine[9], //
-								splitLine[10]);
+				MetalRecord record = new MetalRecord(splitLine[0].trim(), //
+								TKStringHelpers.getFloatValue(splitLine[1].trim(), 0f), //
+								TKStringHelpers.getIntValue(splitLine[2].trim(), 0), //
+								TKStringHelpers.getIntValue(splitLine[3].trim(), 0), //
+								TKStringHelpers.getIntValue(splitLine[4].trim(), 0), //
+								TKStringHelpers.getIntValue(splitLine[5].trim(), 0), //
+								TKStringHelpers.getIntValue(splitLine[6].trim(), 0), //
+								TKStringHelpers.getIntValue(splitLine[7].trim(), 0), //
+								TKStringHelpers.getIntValue(splitLine[8].trim(), 0), //
+								splitLine[9].trim(), //
+								splitLine[10].trim());
 				mMetalMasterList[count++] = record;
 			}
 

@@ -29,8 +29,8 @@ public class MetalRecord {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public MetalRecord(String name, float encumbrance, int damage, int brk, int arBonus, int absorb, //
-					int asp, int hb, int cost, String availability, String magical) {
+	public MetalRecord(String name, float encumbrance, int damage, int brk, //
+					int asp, int hb, int arBonus, int absorb, int cost, String availability, String magical) {
 		mName = name;
 		mEncumbrance = encumbrance;
 		mDamage = damage;
@@ -50,14 +50,14 @@ public class MetalRecord {
 	 ****************************************************************************/
 	@Override
 	public String toString() {
-		return mName + " " + mEncumbrance + " " + mDamage + " " + mBreak + " " + mARBonus + " " + mAbsorb + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-						mASP + " " + mHitBonus + " " + mCost + " " + mAvailability + " " + mMagical; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		return mName + " " + mEncumbrance + " " + mDamage + " " + mBreak + " " + mASP + " " + mHitBonus + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+						mARBonus + " " + mAbsorb + " " + mCost + " " + mAvailability + " " + mMagical; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 	@Override
 	public MetalRecord clone() {
-		return new MetalRecord(mName, mEncumbrance, mDamage, mBreak, mARBonus, mAbsorb, mASP, //
-						mHitBonus, mCost, mAvailability, mMagical);
+		return new MetalRecord(mName, mEncumbrance, mDamage, mBreak, mASP, mHitBonus, //
+						mARBonus, mAbsorb, mCost, mAvailability, mMagical);
 	}
 
 	/*****************************************************************************
