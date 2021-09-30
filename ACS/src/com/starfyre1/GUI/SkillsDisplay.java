@@ -279,14 +279,14 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		mDetectTrapsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectTraps());
 		mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
 		mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDepthSense());
-		mConcealField.setText(TKStringHelpers.EMPTY_STRING + record.getConceal());
-		mStealthField.setText(TKStringHelpers.EMPTY_STRING + record.getStealth());
-		mHearField.setText(TKStringHelpers.EMPTY_STRING + record.getHear());
-		mLockPickField.setText(TKStringHelpers.EMPTY_STRING + record.getLockPick());
-		mPocketPickField.setText(TKStringHelpers.EMPTY_STRING + record.getPocketPick());
-		mClimbField.setText(TKStringHelpers.EMPTY_STRING + record.getClimb());
-		mFindTrapField.setText(TKStringHelpers.EMPTY_STRING + record.getFindTrap());
-		mRemoveTrapField.setText(TKStringHelpers.EMPTY_STRING + record.getRemoveTrap());
+		mConcealField.setText(TKStringHelpers.EMPTY_STRING + (record.getConceal() + record.getConcealLevelBonus()));
+		mStealthField.setText(TKStringHelpers.EMPTY_STRING + (record.getStealth() + record.getStealthLevelBonus()));
+		mHearField.setText(TKStringHelpers.EMPTY_STRING + (record.getHear() + record.getHearLevelBonus()));
+		mLockPickField.setText(TKStringHelpers.EMPTY_STRING + (record.getLockPick() + record.getLockPickLevelBonus()));
+		mPocketPickField.setText(TKStringHelpers.EMPTY_STRING + (record.getPocketPick() + record.getPocketPickLevelBonus()));
+		mClimbField.setText(TKStringHelpers.EMPTY_STRING + (record.getClimb() + record.getClimbLevelBonus()));
+		mFindTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getFindTrap() + record.getFindTrapLevelBonus()));
+		mRemoveTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getRemoveTrap() + record.getRemoveTrapLevelBonus()));
 
 		mConcealLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getConcealLevelBonus());
 		mStealthLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getStealthLevelBonus());
