@@ -46,11 +46,11 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	/*
 		There are many ways to figure your characters Base Armor Rating,
 		the two that have worked best for me in my games are as follows:
-	
+
 		1)	Start your character at a base of 50%, then add the Protection
 			Percentage from the armor you are wearing, this will give you
 			your Armor Rating.
-	
+
 		2)	Start your character with (2 X Dex) + 30% = Base Armor Rating,
 			then add the Protection Percentage from the armor you are
 			wearing, this will give you your Armor Rating.  This rule heavily
@@ -60,7 +60,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			1/2 their allotted carry capacity, at the time of combat.
 			(Remember this is a Optional rule, this way they can't take
 			Total advantage of a 18 Dexterity, and wear Field Plate!)
-	
+
 	*/
 
 	public static final String	FILE_SECTTION_START_KEY		= "DEFENSE_INFORMATION_SECTTION_START";	//$NON-NLS-1$
@@ -98,6 +98,10 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	 ****************************************************************************/
 	private JTextField			mArmorField;
 	private JTextField			mArmorField2;
+
+	private int[]				mArmorCoverage;
+	private int[]				mArmorBonusCoverage;
+	private int[]				mArmorMissileCoverage;
 
 	private JTextField			mHeadTopField;
 	private JTextField			mHeadSideField;
@@ -294,16 +298,17 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mArmorField.setText(TKStringHelpers.EMPTY_STRING + generateArmorRating(true));
 		mArmorField2.setText(TKStringHelpers.EMPTY_STRING + generateArmorRating(false));
 
-		int[] armorCoverage = generateArmorCoverage();
-		mHeadTopField.setText(TKStringHelpers.EMPTY_STRING + armorCoverage[0]);
-		mHeadSideField.setText(TKStringHelpers.EMPTY_STRING + armorCoverage[1]);
-		mHeadFaceField.setText(TKStringHelpers.EMPTY_STRING + armorCoverage[2]);
-		mNeckField.setText(TKStringHelpers.EMPTY_STRING + armorCoverage[3]);
-		mTorsoField.setText(TKStringHelpers.EMPTY_STRING + armorCoverage[4]);
-		mArmsField.setText(TKStringHelpers.EMPTY_STRING + armorCoverage[5]);
-		mHandsField.setText(TKStringHelpers.EMPTY_STRING + armorCoverage[6]);
-		mLegsField.setText(TKStringHelpers.EMPTY_STRING + armorCoverage[7]);
-		mFeetField.setText(TKStringHelpers.EMPTY_STRING + armorCoverage[8]);
+		generateArmorCoverage();
+		mHeadTopField.setText(mArmorCoverage[0] + " / " + mArmorBonusCoverage[0] + " (" + mArmorMissileCoverage[0] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mHeadSideField.setText(mArmorCoverage[1] + " / " + mArmorBonusCoverage[1] + " (" + mArmorMissileCoverage[1] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mHeadFaceField.setText(mArmorCoverage[2] + " / " + mArmorBonusCoverage[2] + " (" + mArmorMissileCoverage[2] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mNeckField.setText(mArmorCoverage[3] + " / " + mArmorBonusCoverage[3] + " (" + mArmorMissileCoverage[3] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mTorsoField.setText(mArmorCoverage[4] + " / " + mArmorBonusCoverage[4] + " (" + mArmorMissileCoverage[4] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mArmsField.setText(mArmorCoverage[5] + " / " + mArmorBonusCoverage[5] + " (" + mArmorMissileCoverage[5] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mHandsField.setText(mArmorCoverage[6] + " / " + mArmorBonusCoverage[6] + " (" + mArmorMissileCoverage[6] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mLegsField.setText(mArmorCoverage[7] + " / " + mArmorBonusCoverage[7] + " (" + mArmorMissileCoverage[7] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mFeetField.setText(mArmorCoverage[8] + " / " + mArmorBonusCoverage[8] + " (" + mArmorMissileCoverage[8] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
 		mHitPointsFullField.setText(TKStringHelpers.EMPTY_STRING + generateFullHitPoints());
 		mStanimaFullField.setText(TKStringHelpers.EMPTY_STRING + generateFullStanima());
 
@@ -339,19 +344,27 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	 * @return An array of the amount of absorption for each location (0=Head-Top, 1=Head-Side,
 	 *         2=Head-Face, 3=Neck, 4=Torso, 5=Arms, 6=Hands, 7=Legs, 8=Feet, 9=Shield)
 	 */
-	private int[] generateArmorCoverage() {
-		int[] armorCoverage = new int[9];
+	private void generateArmorCoverage() {
+		mArmorCoverage = new int[9];
+		mArmorBonusCoverage = new int[9];
+		mArmorMissileCoverage = new int[9];
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		ArrayList<ArmorRecord> records = owner.getEquippedArmorRecords();
 		if (records != null) {
 			for (ArmorRecord record : records) {
 				int[] location = record.getProtectionType();
 				for (int i = 0; i < location.length; i++) {
-					armorCoverage[location[i]] += record.getAbsorption();
+					mArmorCoverage[location[i]] += record.getAbsorption();
+					mArmorMissileCoverage[location[i]] += record.getMissileAbsorption();
+					mArmorBonusCoverage[location[i]] += record.getBonus();
+				}
+			}
+			for (ArmorRecord record : records) {
+				int[] location = record.getProtectionType();
+				for (int element : location) {
 				}
 			}
 		}
-		return armorCoverage;
 	}
 
 	private int generateFullStanima() {

@@ -50,7 +50,7 @@ public class ArmorList implements Savable {
 	private int								mProtectionAmount;
 	private float							mEncumbrance;
 	private int								mAbsorption;
-	private boolean							mBonus;												// 50% chance to increase absorption by 1
+	private int								mBonus;												// 50% chance to increase absorption by 1
 	private int								mMissileAbsorption;
 	private int								mStrengthRequirement;
 	private int								mParry;
@@ -127,7 +127,7 @@ public class ArmorList implements Savable {
 									TKStringHelpers.getIntValue(splitLine[5 + arrayAdjustment], 0), //
 									TKStringHelpers.getFloatValue(splitLine[6 + arrayAdjustment], 0f), //
 									TKStringHelpers.getIntValue(splitLine[7 + arrayAdjustment], 0), //
-									TKStringHelpers.getBoolValue(splitLine[8 + arrayAdjustment], false), //
+									TKStringHelpers.getIntValue(splitLine[8 + arrayAdjustment], 0), //
 									TKStringHelpers.getIntValue(splitLine[9 + arrayAdjustment], 0), //
 									TKStringHelpers.getIntValue(splitLine[10 + arrayAdjustment], 0), //
 									TKStringHelpers.getIntValue(splitLine[11 + arrayAdjustment], 0), //
@@ -205,7 +205,7 @@ public class ArmorList implements Savable {
 			br.write(PROT_KEY + TKStringHelpers.SPACE + record.getProtectionAmount() + System.lineSeparator());
 			br.write(ENCUM_KEY + TKStringHelpers.SPACE + record.getEncumbrance() + System.lineSeparator());
 			br.write(ABSORB_KEY + TKStringHelpers.SPACE + record.getAbsorption() + System.lineSeparator());
-			br.write(BONUS_KEY + TKStringHelpers.SPACE + record.hasBonus() + System.lineSeparator());
+			br.write(BONUS_KEY + TKStringHelpers.SPACE + record.getBonus() + System.lineSeparator());
 			br.write(MISSILE_KEY + TKStringHelpers.SPACE + record.getMissileAbsorption() + System.lineSeparator());
 			br.write(STR_KEY + TKStringHelpers.SPACE + record.getStrengthRequirement() + System.lineSeparator());
 			br.write(PARRY_KEY + TKStringHelpers.SPACE + record.getParry() + System.lineSeparator());
@@ -229,13 +229,14 @@ public class ArmorList implements Savable {
 		} else if (TYPE_KEY.equals(key)) {
 			mProtectionType = TKStringHelpers.getIntArray(value, new int[] {});
 		} else if (PROT_KEY.equals(key)) {
-			mProtectionAmount = TKStringHelpers.getIntValue(value, 0) + MetalList.getMetal(mMetal).getARBonus();
+			mProtectionAmount = TKStringHelpers.getIntValue(value, 0);
 		} else if (ENCUM_KEY.equals(key)) {
-			mEncumbrance = TKStringHelpers.getFloatValue(value, 0f) * MetalList.getMetal(mMetal).getEnumbrance();
+			mEncumbrance = TKStringHelpers.getFloatValue(value, 0f);
 		} else if (ABSORB_KEY.equals(key)) {
-			mAbsorption = TKStringHelpers.getIntValue(value, 0) + MetalList.getMetal(mMetal).getAbsorb();
+			mAbsorption = TKStringHelpers.getIntValue(value, 0);
 		} else if (BONUS_KEY.equals(key)) {
-			mBonus = TKStringHelpers.getBoolValue(value, false);
+			mBonus = TKStringHelpers.getIntValue(value, 0);
+			System.out.println(mName + " " + mBonus);
 		} else if (MISSILE_KEY.equals(key)) {
 			mMissileAbsorption = TKStringHelpers.getIntValue(value, 0);
 		} else if (STR_KEY.equals(key)) {
@@ -243,9 +244,9 @@ public class ArmorList implements Savable {
 		} else if (PARRY_KEY.equals(key)) {
 			mParry = TKStringHelpers.getIntValue(value, 0);
 		} else if (BREAK_KEY.equals(key)) {
-			mBreak = MetalList.getMetal(mMetal).getBreak(TKStringHelpers.getIntValue(value, 0));
+			mBreak = TKStringHelpers.getIntValue(value, 0);
 		} else if (COST_KEY.equals(key)) {
-			mCost = TKStringHelpers.getFloatValue(value, 0) * MetalList.getMetal(mMetal).getCost();
+			mCost = TKStringHelpers.getFloatValue(value, 0);
 			mRecords.add(new ArmorRecord(mCount, mEquipped, mName, mMetal, mProtectionType, mProtectionAmount, mEncumbrance, mAbsorption, mBonus, mMissileAbsorption, mStrengthRequirement, mParry, mBreak, mCost));
 		} else {
 			//DW9:: log this

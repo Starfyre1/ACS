@@ -25,7 +25,7 @@ public class ArmorRecord extends TKTableRecord {
 	private int		mProtectionAmount;		// id 5
 	private float	mEncumbrance;			// id 6
 	private int		mAbsorption;			// id 7
-	private boolean	mBonus;					// id 8 // 50% chance to increase absorption by 1
+	private int		mBonus;					// id 8 // 50% chance to increase absorption by 1
 	private int		mMissileAbsorption;		// id 9
 	private int		mStrengthRequirement;	// id 10
 	private int		mParry;					// id 11
@@ -35,7 +35,7 @@ public class ArmorRecord extends TKTableRecord {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public ArmorRecord(int count, boolean equipped, String name, int metal, int[] protectionType, int protectionAmount, float encumbrance, int absorption, boolean bonus, int missileAbsorption, int strengthRequirement, int parry, int breakage, float cost) {
+	public ArmorRecord(int count, boolean equipped, String name, int metal, int[] protectionType, int protectionAmount, float encumbrance, int absorption, int bonus, int missileAbsorption, int strengthRequirement, int parry, int breakage, float cost) {
 		mCount = count;
 		mEquipped = equipped;
 		mName = name;
@@ -61,7 +61,7 @@ public class ArmorRecord extends TKTableRecord {
 		mProtectionAmount = ((Integer) obj.get(5)).intValue();
 		mEncumbrance = ((Float) obj.get(6)).floatValue();
 		mAbsorption = obj.get(7) instanceof String ? 0 : ((Integer) obj.get(7)).intValue();
-		mBonus = obj.get(8) instanceof String ? false : ((Integer) obj.get(8)).intValue() == 1 ? true : false;
+		mBonus = obj.get(8) instanceof String ? 0 : ((Integer) obj.get(8)).intValue();
 		mMissileAbsorption = ((Integer) obj.get(9)).intValue();
 		mStrengthRequirement = ((Integer) obj.get(10)).intValue();
 		mParry = obj.get(11) instanceof String ? 0 : ((Integer) obj.get(11)).intValue();
@@ -96,7 +96,7 @@ public class ArmorRecord extends TKTableRecord {
 		return new Object[] { mCount > 0 ? Integer.valueOf(mCount) : " ", Boolean.valueOf(mEquipped), mName, //$NON-NLS-1$
 						getMetalName(mMetal), Arrays.toString(mProtectionType), Integer.valueOf(mProtectionAmount), //
 						Float.valueOf(mEncumbrance), mAbsorption > 0 ? Integer.valueOf(mAbsorption) : Integer.valueOf(0), //
-						mBonus ? Integer.valueOf(1) : Integer.valueOf(0), Integer.valueOf(mMissileAbsorption), //
+						mBonus > 0 ? Integer.valueOf(mBonus) : Integer.valueOf(0), Integer.valueOf(mMissileAbsorption), //
 						Integer.valueOf(mStrengthRequirement), mParry > 0 ? Integer.valueOf(mParry) : Integer.valueOf(0), //
 						mBreak > 0 ? Integer.valueOf(mBreak) : Integer.valueOf(0), Float.valueOf(mCost) };
 	}
@@ -121,7 +121,7 @@ public class ArmorRecord extends TKTableRecord {
 			case 7:
 				yield mAbsorption > 0 ? Integer.valueOf(mAbsorption) : " "; // id 5 //$NON-NLS-1$
 			case 8:
-				yield mBonus ? Integer.valueOf(1) : " "; // id 6 // 50% chance to increase absorption by 1 //$NON-NLS-1$
+				yield mBonus > 0 ? Integer.valueOf(mBonus) : Integer.valueOf(0); // id 6 // 50% chance to increase absorption by 1
 			case 9:
 				yield Integer.valueOf(mMissileAbsorption); // id 7
 			case 10:
@@ -209,7 +209,7 @@ public class ArmorRecord extends TKTableRecord {
 	}
 
 	/** @return The bonus. */
-	public boolean hasBonus() {
+	public int getBonus() {
 		return mBonus;
 	}
 

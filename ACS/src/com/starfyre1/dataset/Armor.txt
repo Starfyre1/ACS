@@ -1,65 +1,65 @@
 			// Upper Body Protection (protects Torso & Upper Arms)
-			0, false, "Heavy Cloth Uppers", 0, { 4, 5 }, 3, 1, 0, false, 0, 3, 0, 0, 2
-			0, false, "Ring Cloth Uppers", 0, { 4, 5 }, 5, 1, 0, true, 0, 3, 0, 0, 6
-			0, false, "Laminate Uppers", 0, {4, 5 }, 6, 2, 0, true, 1, 4, 0, 0, 8
-			0, false, "Leather Uppers", 0, {4, 5 }, 7, 1, 0, true, 0, 3, 0, 0, 5
-			0, false, "Studded Leather Uppers", 0, {4, 5 }, 9, 2, 0, true, 1, 4, 0, 0, 10
-			0, false, "Ring Mail Uppers", 0, {4, 5 }, 12, 4, 1, false, 0, 5, 0, 0, 15
-			0, false, "Scale Mail Uppers", 0, {4, 5 }, 15, 10, 1, false, 1, 9, 0, 0, 20
-			0, false, "Chain Mail Uppers", 0, {4, 5 }, 18, 10, 1, true, 1, 9, 0, 0, 80
-			0, false, "Banded Mail Uppers", 0, {4, 5 }, 21, 20, 1, true, 2, 10, 0, 0, 200
-			0, false, "Plate Mail Uppers", 0, {4, 5 }, 24, 40, 2, false, 3, 12, 0, 0, 600
-			0, false, "Field Plate Uppers", 0, {4, 5 }, 28, 50, 3, false, 5, 14, 0, 0, 1000
+			0, false, "Heavy Cloth Uppers", 0, { 4, 5 }, 3, 1, 0, 0, 0, 3, 0, 0, 2
+			0, false, "Ring Cloth Uppers", 0, { 4, 5 }, 5, 1, 0, 1, 0, 3, 0, 0, 6
+			0, false, "Laminate Uppers", 0, {4, 5 }, 6, 2, 0, 1, 1, 4, 0, 0, 8
+			0, false, "Leather Uppers", 0, {4, 5 }, 7, 1, 0, 1, 0, 3, 0, 0, 5
+			0, false, "Studded Leather Uppers", 0, {4, 5 }, 9, 2, 0, 1, 1, 4, 0, 0, 10
+			0, false, "Ring Mail Uppers", 0, {4, 5 }, 12, 4, 1, 0, 0, 5, 0, 0, 15
+			0, false, "Scale Mail Uppers", 0, {4, 5 }, 15, 10, 1, 0, 1, 9, 0, 0, 20
+			0, false, "Chain Mail Uppers", 0, {4, 5 }, 18, 10, 1, 2, 1, 9, 0, 0, 80
+			0, false, "Banded Mail Uppers", 0, {4, 5 }, 21, 20, 1, 2, 2, 10, 0, 0, 200
+			0, false, "Plate Mail Uppers", 0, {4, 5 }, 24, 40, 2, 0, 3, 12, 0, 0, 600
+			0, false, "Field Plate Uppers", 0, {4, 5 }, 28, 50, 3, 0, 5, 14, 0, 0, 1000
 
 			// Lower Body Protection (Protects Upper & Lower Legs)
-			0, false, "Heavy Cloth Lowers", 0, {7 }, 1, 1, 0, false, 0, 3, 0, 0, 5
-			0, false, "Ring Cloth Lowers", 0, {7 }, 2, 2, 0, true, 0, 3, 0, 0, 10
-			0, false, "Laminate Lowers", 0, {7 }, 2, 3, 0, true, 1, 5, 0, 0, 15
-			0, false, "Leather Lowers", 0, {7 }, 2, 2, 0, true, 0, 4, 0, 0, 10
-			0, false, "Studded Leather Lowers", 0, {7 }, 3, 3, 0, true, 1, 4, 0, 0, 25
-			0, false, "Ring Mail Lowers", 0, {7 }, 4, 6, 1, false, 0, 5, 0, 0, 40
-			0, false, "Scale Mail Lowers", 0, {7 }, 5, 8, 1, false, 1, 9, 0, 0, 60
-			0, false, "Chain Mail Lowers", 0, {7 }, 6, 10, 1, true, 1, 9, 0, 0, 100
-			0, false, "Banded Mail Lowers", 0, {7 }, 7, 15, 1, true, 2, 10, 0, 0, 200
-			0, false, "Plate Mail Lowers", 0, {7 }, 8, 25, 2, false, 3, 12, 0, 0, 400
-			0, false, "Field Plate Lowers", 0, {7 }, 10, 30, 3, false, 5, 14, 0, 0, 800
+			0, false, "Heavy Cloth Lowers", 0, {7 }, 1, 1, 0, 0, 0, 3, 0, 0, 5
+			0, false, "Ring Cloth Lowers", 0, {7 }, 2, 2, 0, 1, 0, 3, 0, 0, 10
+			0, false, "Laminate Lowers", 0, {7 }, 2, 3, 0, 1, 1, 5, 0, 0, 15
+			0, false, "Leather Lowers", 0, {7 }, 2, 2, 0, 1, 0, 4, 0, 0, 10
+			0, false, "Studded Leather Lowers", 0, {7 }, 3, 3, 0, 1, 1, 4, 0, 0, 25
+			0, false, "Ring Mail Lowers", 0, {7 }, 4, 6, 1, 0, 0, 5, 0, 0, 40
+			0, false, "Scale Mail Lowers", 0, {7 }, 5, 8, 1, 0, 1, 9, 0, 0, 60
+			0, false, "Chain Mail Lowers", 0, {7 }, 6, 10, 1, 2, 1, 9, 0, 0, 100
+			0, false, "Banded Mail Lowers", 0, {7 }, 7, 15, 1, 2, 2, 10, 0, 0, 200
+			0, false, "Plate Mail Lowers", 0, {7 }, 8, 25, 2, 0, 3, 12, 0, 0, 400
+			0, false, "Field Plate Lowers", 0, {7 }, 10, 30, 3, 0, 5, 14, 0, 0, 800
 
 			// Shields
-			0, false, "Small Leather Shield", 0, {9 }, 5, 5, 0, false, 0, 6, 5, 9, 35
-			0, false, "Small Wood Shield", 0, {9 }, 5, 5, 0, false, 0, 6, 5, 9, 30
-			0, false, "Small Metal Shield", 0, {9 }, 7, 8, 0, false, 0, 8, 7, 12, 50
-			0, false, "Medium Leather Shield", 0, {9 }, 10, 6, 0, false, 0, 9, 10, 11, 60
-			0, false, "Medium Wood Shield", 0, {9 }, 10, 6, 0, false, 0, 9, 10, 11, 50
-			0, false, "Medium Metal Shield", 0, {9 }, 12, 10, 0, false, 0, 11, 12, 14, 75
-			0, false, "Large Leather Shield", 0, {9 }, 15, 7, 0, false, 0, 11, 15, 12, 65
-			0, false, "Large Wood Shield", 0, {9 }, 15, 7, 0, false, 0, 11, 15, 12, 60
-			0, false, "Large Metal Shield", 0, {9 }, 17, 14, 0, false, 0, 13, 17, 17, 100
+			0, false, "Small Leather Shield", 0, {9 }, 5, 5, 0, 0, 0, 6, 5, 9, 35
+			0, false, "Small Wood Shield", 0, {9 }, 5, 5, 0, 0, 0, 6, 5, 9, 30
+			0, false, "Small Metal Shield", 0, {9 }, 7, 8, 0, 0, 0, 8, 7, 12, 50
+			0, false, "Medium Leather Shield", 0, {9 }, 10, 6, 0, 0, 0, 9, 10, 11, 60
+			0, false, "Medium Wood Shield", 0, {9 }, 10, 6, 0, 0, 0, 9, 10, 11, 50
+			0, false, "Medium Metal Shield", 0, {9 }, 12, 10, 0, 0, 0, 11, 12, 14, 75
+			0, false, "Large Leather Shield", 0, {9 }, 15, 7, 0, 0, 0, 11, 15, 12, 65
+			0, false, "Large Wood Shield", 0, {9 }, 15, 7, 0, 0, 0, 11, 15, 12, 60
+			0, false, "Large Metal Shield", 0, {9 }, 17, 14, 0, 0, 0, 13, 17, 17, 100
 
 			// Helms
-			0, false, "Iron Cap", 0, {0 }, 4, 1, 1, false, 1, 3, 0, 0, 20
-			0, false, "Standard Helm", 0, {0, 1 }, 6, 3, 2, false, 2, 4, 0, 0, 40
-			0, false, "Great Helm", 0, {, 0, {0, 1, 2 }, 8, 5, 3, false, 3, 5, 0, 0, 80
-			0, false, "Lancer Helm", 0, {0, 1, 2 }, 10, 7, 4, false, 4, 6, 0, 0, 160
+			0, false, "Iron Cap", 0, {0 }, 4, 1, 1, 0, 1, 3, 0, 0, 20
+			0, false, "Standard Helm", 0, {0, 1 }, 6, 3, 2, 0, 2, 4, 0, 0, 40
+			0, false, "Great Helm", 0, {, 0, {0, 1, 2 }, 8, 5, 3, 0, 3, 5, 0, 0, 80
+			0, false, "Lancer Helm", 0, {0, 1, 2 }, 10, 7, 4, 0, 4, 6, 0, 0, 160
 
 			// Miscellaneous armor
-			0, false, "Leather Collar", 0, {3 }, 1, 1, 1, false, 1, 0, 0, 0, 3
-			0, false, "Metal Collar", 0, {3 }, 2, 2, 2, false, 2, 0, 0, 0, 10
-			0, false, "Ring Cloth Bracers", 0, {5 }, 2, 0.5f, 1, false, 1, 0, 0, 0, 5
-			0, false, "Laminate Bracers", 0, {5 }, 3, 2, 2, false, 2, 0, 0, 0, 10
-			0, false, "Leather Bracers", 0, {5 }, 2, 1, 2, false, 2, 0, 0, 0, 8
-			0, false, "Chain Bracers", 0, {5 }, 3, 3, 3, false, 3, 0, 0, 0, 20
-			0, false, "Plate Mail Bracers", 0, {5 }, 4, 8, 4, false, 4, 0, 0, 0, 50
-			0, false, "Leather Hood", 0, {0, 1 }, 1, 1, 0, true, 1, 0, 0, 0, 3
-			0, false, "Chain Mail Hood", 0, {0, 1 }, 2, 3, 1, false, 2, 0, 0, 0, 20
-			0, false, "Leather Gloves", 0, {6 }, 1, 1, 1, false, 1, 0, 0, 0, 5
-			0, false, "Chain mail Gloves", 0, {6 }, 2, 3, 2, false, 1, 0, 0, 0, 20
-			0, false, "Plate Mail Gloves", 0, {6 }, 3, 5, 3, false, 2, 0, 0, 0, 90
-			0, false, "War Boots", 0, {8 }, 2, 4, 2, false, 2, 0, 0, 0, 10
+			0, false, "Leather Collar", 0, {3 }, 1, 1, 1, 0, 1, 0, 0, 0, 3
+			0, false, "Metal Collar", 0, {3 }, 2, 2, 2, 0, 2, 0, 0, 0, 10
+			0, false, "Ring Cloth Bracers", 0, {5 }, 2, 0.5f, 1, 0, 1, 0, 0, 0, 5
+			0, false, "Laminate Bracers", 0, {5 }, 3, 2, 2, 0, 2, 0, 0, 0, 10
+			0, false, "Leather Bracers", 0, {5 }, 2, 1, 2, 0, 2, 0, 0, 0, 8
+			0, false, "Chain Bracers", 0, {5 }, 3, 3, 3, 0, 3, 0, 0, 0, 20
+			0, false, "Plate Mail Bracers", 0, {5 }, 4, 8, 4, 0, 4, 0, 0, 0, 50
+			0, false, "Leather Hood", 0, {0, 1 }, 1, 1, 0, 1, 1, 0, 0, 0, 3
+			0, false, "Chain Mail Hood", 0, {0, 1 }, 2, 3, 1, 0, 2, 0, 0, 0, 20
+			0, false, "Leather Gloves", 0, {6 }, 1, 1, 1, 0, 1, 0, 0, 0, 5
+			0, false, "Chain mail Gloves", 0, {6 }, 2, 3, 2, 0, 1, 0, 0, 0, 20
+			0, false, "Plate Mail Gloves", 0, {6 }, 3, 5, 3, 0, 2, 0, 0, 0, 90
+			0, false, "War Boots", 0, {8 }, 2, 4, 2, 0, 2, 0, 0, 0, 10
 
 			// Animal Barding
 
 			//		Item			Protection	Absorb		Enc	Cost
-			0, false, "Barding (Leather)", 0, {0, 1, 2, 3, 4, 5, 6, 7, 8 }, 10, 25, 0, false, 1, 0, 0, 0, 100
-			0, false, "Barding (Chain)", 0, {0, 1, 2, 3, 4, 5, 6, 7, 8 }, 20, 75, 1, false, 2, 0, 0, 0, 500
-			0, false, "Barding (Plate)", 0, {0, 1, 2, 3, 4, 5, 6, 7, 8 }, 30, 120, 2, false, 3, 0, 0, 0, 1000
-			0, false, "Barding (Field Plate)", 0, {0, 1, 2, 3, 4, 5, 6, 7, 8 }, 45, 150, 3, false, 5, 0, 0, 0, 2000
+			0, false, "Barding (Leather)", 0, {0, 1, 2, 3, 4, 5, 6, 7, 8 }, 10, 25, 0, 0, 1, 0, 0, 0, 100
+			0, false, "Barding (Chain)", 0, {0, 1, 2, 3, 4, 5, 6, 7, 8 }, 20, 75, 1, 0, 2, 0, 0, 0, 500
+			0, false, "Barding (Plate)", 0, {0, 1, 2, 3, 4, 5, 6, 7, 8 }, 30, 120, 2, 0, 3, 0, 0, 0, 1000
+			0, false, "Barding (Field Plate)", 0, {0, 1, 2, 3, 4, 5, 6, 7, 8 }, 45, 150, 3, 0, 5, 0, 0, 0, 2000
