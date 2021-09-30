@@ -199,10 +199,6 @@ public class ClassList {
 		return MageList.isMage(which) ? character.getMages().getSecondary(which) : character.getPriests().getSecondary(which);
 	}
 
-	/**
-	 * @param class1
-	 * @return
-	 */
 	public static BaseClass getCharacterClass(String class1) {
 		for (ClassesRecord element : mClassesList) {
 			if (element.getName().equals(class1)) {

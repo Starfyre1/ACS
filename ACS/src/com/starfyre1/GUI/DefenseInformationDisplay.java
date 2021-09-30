@@ -46,11 +46,11 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	/*
 		There are many ways to figure your characters Base Armor Rating,
 		the two that have worked best for me in my games are as follows:
-
+	
 		1)	Start your character at a base of 50%, then add the Protection
 			Percentage from the armor you are wearing, this will give you
 			your Armor Rating.
-
+	
 		2)	Start your character with (2 X Dex) + 30% = Base Armor Rating,
 			then add the Protection Percentage from the armor you are
 			wearing, this will give you your Armor Rating.  This rule heavily
@@ -60,7 +60,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			1/2 their allotted carry capacity, at the time of combat.
 			(Remember this is a Optional rule, this way they can't take
 			Total advantage of a 18 Dexterity, and wear Field Plate!)
-
+	
 	*/
 
 	public static final String	FILE_SECTTION_START_KEY		= "DEFENSE_INFORMATION_SECTTION_START";	//$NON-NLS-1$
@@ -341,8 +341,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	}
 
 	/**
-	 * @return An array of the amount of absorption for each location (0=Head-Top, 1=Head-Side,
-	 *         2=Head-Face, 3=Neck, 4=Torso, 5=Arms, 6=Hands, 7=Legs, 8=Feet, 9=Shield)
+	 * An array of the amount of absorption for each location (0=Head-Top, 1=Head-Side, 2=Head-Face,
+	 * 3=Neck, 4=Torso, 5=Arms, 6=Hands, 7=Legs, 8=Feet, 9=Shield)
 	 */
 	private void generateArmorCoverage() {
 		mArmorCoverage = new int[9];
@@ -357,11 +357,6 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 					mArmorCoverage[location[i]] += record.getAbsorption();
 					mArmorMissileCoverage[location[i]] += record.getMissileAbsorption();
 					mArmorBonusCoverage[location[i]] += record.getBonus();
-				}
-			}
-			for (ArmorRecord record : records) {
-				int[] location = record.getProtectionType();
-				for (int element : location) {
 				}
 			}
 		}

@@ -150,17 +150,17 @@ public class SkillsRecord implements LevelListener, Savable {
 		generateAppraise(lvl, classInfo);
 		generateDepthSense(lvl, classInfo);
 		generateHerbalLore(lvl, classInfo);
-		generateBerserk(lvl);
+		generateBerserk();
 		generateUnallocated();
 
 		generateConceal(lvl, classInfo);
 		generateStealth(lvl, classInfo);
 		generateHear(lvl, classInfo);
-		generateLockPick(lvl);
-		generatePocketPick(lvl);
+		generateLockPick();
+		generatePocketPick();
 		generateClimb(lvl, classInfo);
-		generateFindTrap(lvl);
-		generateRemoveTrap(lvl);
+		generateFindTrap();
+		generateRemoveTrap();
 	}
 
 	public void generateBandaging(int lvl, int wisdom, BaseClass classInfo) {
@@ -320,21 +320,21 @@ public class SkillsRecord implements LevelListener, Savable {
 		  		Listener is:				Chance to Hear 		Range
 				Human, Non-thief with a save		20%			60'
 				Vs. Surprise of less than 75%
-
-
+		
+		
 				Human, Non-thief with a save		30%			60'
 				Vs. Surprise of more than 75%
-
+		
 				Elven, Half-Elven and Dwarrow		30% 		120'
-
+		
 				Other--(some monsters will have		20%			60'
 				high hearing abilities)
-
+		
 				Thief					Varies with lvl		60' *
 					*	Add 5’ per 10% above 100% to hear.
-
+		
 				Halve all chances when listening to a door.
-
+		
 		*/
 
 		// DW implement if needed
@@ -346,7 +346,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		mHear = base + mHearLevelBonus + classBonus;
 	}
 
-	public void generateLockPick(int lvl) {
+	public void generateLockPick() {
 		// DW implement if needed
 		// boolean innate = mIsInnate[LOCK_PICK];
 		int base = 20;
@@ -354,7 +354,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		mLockPick = base + mLockPickLevelBonus + getDexModifier();
 	}
 
-	public void generatePocketPick(int lvl) {
+	public void generatePocketPick() {
 		// DW implement if needed
 		// boolean innate = mIsInnate[POCKET_PICK];
 		int base = 20;
@@ -372,7 +372,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		mClimb = base + mClimbLevelBonus + classBonus + getDexModifier();
 	}
 
-	public void generateFindTrap(int lvl) {
+	public void generateFindTrap() {
 		// DW implement if needed
 		// boolean innate = mIsInnate[FIND_TRAP];
 		AttributesRecord record = mCharacterSheet.getAttributesRecord();
@@ -406,7 +406,7 @@ public class SkillsRecord implements LevelListener, Savable {
 	}
 
 	// DW still need to add Dex modifier
-	public void generateRemoveTrap(int lvl) {
+	public void generateRemoveTrap() {
 		// DW implement if needed
 		// boolean innate = mIsInnate[REMOVE_TRAP];
 		int base = 20;
@@ -430,7 +430,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		mHerbalLore = base + classBonus;
 	}
 
-	public void generateBerserk(int lvl) {
+	public void generateBerserk() {
 		// DW implement if needed
 		// boolean innate = mIsInnate[BERSERK];
 		// DW fill this out

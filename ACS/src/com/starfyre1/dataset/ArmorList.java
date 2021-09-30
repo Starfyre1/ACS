@@ -236,7 +236,6 @@ public class ArmorList implements Savable {
 			mAbsorption = TKStringHelpers.getIntValue(value, 0);
 		} else if (BONUS_KEY.equals(key)) {
 			mBonus = TKStringHelpers.getIntValue(value, 0);
-			System.out.println(mName + " " + mBonus);
 		} else if (MISSILE_KEY.equals(key)) {
 			mMissileAbsorption = TKStringHelpers.getIntValue(value, 0);
 		} else if (STR_KEY.equals(key)) {
