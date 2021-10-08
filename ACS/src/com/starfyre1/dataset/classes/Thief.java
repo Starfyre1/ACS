@@ -232,6 +232,97 @@ public class Thief extends BaseClass {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	// Skills
+	@Override
+	public int getBandaging() {
+		return 0;
+	}
+
+	@Override
+	public int getHunting() {
+		return 0;
+	}
+
+	@Override
+	public int getTracking() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectMagic() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectMetals() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectSecretDoors() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectTraps() {
+		return 0;
+	}
+
+	@Override
+	public int getAppraise() {
+		return 0;
+	}
+
+	@Override
+	public int getDepthSense() {
+		return 0;
+	}
+
+	@Override
+	public int getHerbalLore() {
+		return 0;
+	}
+
+	@Override
+	public int getBerserk() {
+		return 0;
+	}
+
+	@Override
+	public int getConceal() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 5;
+	}
+
+	@Override
+	public int getStealth() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 5;
+	}
+
+	@Override
+	public int getHear() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 5;
+	}
+
+	@Override
+	public int getClimb() {
+		return 0;
+	}
+
+	@Override
+	public int getUnallocatedSkills() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 25;
+	}
+
+	// CombatInfo
+	@Override
+	public int getDefenseBonus() {
+		return 0;
+	}
+
 	@Override
 	public int getHitBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
@@ -245,18 +336,18 @@ public class Thief extends BaseClass {
 	}
 
 	@Override
+	public int getBowBonus() {
+		return 0;
+	}
+
+	@Override
 	public int getMovement() {
 		return 12;
 	}
 
 	@Override
-	public int generateUnallocated() {
+	public int getUnallocated() {
 		return 3;
-	}
-
-	@Override
-	public int getBowBonus() {
-		return 0;
 	}
 
 	/*****************************************************************************

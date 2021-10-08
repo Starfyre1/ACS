@@ -17,12 +17,12 @@ public class ArcaneLore extends MagesBase {
 	/*
 		Arcane Lore
 		Second Requisite = Intelligence
-	
+
 			The Mages of Arcane Lore are always pushing the fabric of Magic to
 			it's limits, they create things.  They have vast knowledge, second only
 			to the Priests of Narius.  They have powers over Telekinesis, ESP,
 			and Invisibility.  Their Primary Focus is their Staff.
-	
+
 			Power Zero:						Power One:
 			1)Curse(-1)						1)Antidote (-lots)
 			2)Decipher (-lots)				2)Close (-4)
@@ -50,7 +50,7 @@ public class ArcaneLore extends MagesBase {
 			8)Staff III (-3)F				5)Teleport I (-3)F
 			9)Summons II (-1)				6)Wall of Force (-3)F
 			10)Telepathy (-10)				7)Stonemeld ( -15 )
-	
+
 			Power Four:						Power Five:
 			1)Astral Aid (-120)				1)Disintegrate (-10)F
 			2)Exorcism (-120)				2)Escape (-1)F
@@ -59,7 +59,7 @@ public class ArcaneLore extends MagesBase {
 			5)Rune of Combat III (-lots)	5)Protection V (-5)F
 			6)Telekinesis (-5)F				6)Rune of Protection : Magic (-lots)
 			7)Teleport II (-6)F				7)Safe Teleport (-120)F
-	
+
 			Power Six:						Power Seven:
 			1)Force VI (-8)F				1)Force VII (-9)F
 			2)Geas (-3)						2)Protection VI (-6)F
@@ -73,7 +73,7 @@ public class ArcaneLore extends MagesBase {
 			2)Gate (-90)F
 			3)Rune of Combat V (-lots)
 			4)Symbol III (-360)
-	
+
 	*/
 
 	/*****************************************************************************
@@ -207,43 +207,43 @@ public class ArcaneLore extends MagesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Mages / Priests:
-
+		
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-
+		
 			4)	Add +1 Hit Point per level till the 10th level.
-
+		
 			5)	Add +1% per level to their Save Vs. Surprise.
-
+		
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/
 	}
 
 	@Override
-	public int generateBandaging() {
+	public int getBandaging() {
 		return 20;
 
 	}

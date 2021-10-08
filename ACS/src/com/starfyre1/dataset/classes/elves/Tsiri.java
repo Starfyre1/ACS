@@ -2,6 +2,8 @@
 
 package com.starfyre1.dataset.classes.elves;
 
+import com.starfyre1.startup.ACS;
+
 public class Tsiri extends ElvesBase {
 	/*****************************************************************************
 	 * Constants
@@ -156,18 +158,126 @@ public class Tsiri extends ElvesBase {
 		*/
 	}
 
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
+	// Skills
 	@Override
-	public int generateBandaging() {
+	public int getBandaging() {
 		return 10;
 
 	}
 
-	/*****************************************************************************
-	 * Setter's and Getter's
-	 ****************************************************************************/
+	@Override
+	public int getHunting() {
+		return 0;
+	}
+
+	@Override
+	public int getTracking() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectMagic() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 5;
+	}
+
+	@Override
+	public int getDetectMetals() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectSecretDoors() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		return lvl * 5;
+	}
+
+	@Override
+	public int getDetectTraps() {
+		return 0;
+	}
+
+	@Override
+	public int getAppraise() {
+		return 0;
+	}
+
+	@Override
+	public int getDepthSense() {
+		return 0;
+	}
+
+	@Override
+	public int getHerbalLore() {
+		// DW Verify - herbal healling says all elves, elf type says only sailor and sithrian
+		return 15;
+	}
+
+	@Override
+	public int getBerserk() {
+		return 0;
+	}
+
+	@Override
+	public int getConceal() {
+		return 0;
+	}
+
+	@Override
+	public int getStealth() {
+		return 0;
+	}
+
+	@Override
+	public int getHear() {
+		return 0;
+	}
+
+	@Override
+	public int getClimb() {
+		return 0;
+	}
+
+	@Override
+	public int getUnallocatedSkills() {
+		return 0;
+	}
+
+	// CombatInfo
 	@Override
 	public int getDefenseBonus() {
 		return 5;
+	}
+
+	@Override
+	public int getHitBonus() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return 3 + lvl;
+	}
+
+	@Override
+	public int getMissileBonus() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 2;
+	}
+
+	@Override
+	public int getBowBonus() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return 5 + lvl * 3;
+	}
+
+	@Override
+	public int getMovement() {
+		return 15;
+	}
+
+	@Override
+	public int getUnallocated() {
+		return 3;
 	}
 
 	/*****************************************************************************

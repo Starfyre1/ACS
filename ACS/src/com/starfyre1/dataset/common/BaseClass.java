@@ -18,33 +18,55 @@ public abstract class BaseClass {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	public int generateBandaging() {
-		return 0;
-	}
-
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
 
-	public int getDefenseBonus() {
-		return 0;
-	}
+	// Skills
+	public abstract int getBandaging();
 
-	public int getHitBonus() {
-		return 0;
-	}
+	public abstract int getHerbalLore();
+
+	public abstract int getHunting();
+
+	public abstract int getTracking();
+
+	public abstract int getDetectMagic();
+
+	public abstract int getDetectMetals();
+
+	public abstract int getDetectSecretDoors();
+
+	public abstract int getDetectTraps();
+
+	public abstract int getAppraise();
+
+	public abstract int getDepthSense();
+
+	public abstract int getBerserk();
+
+	public abstract int getConceal();
+
+	public abstract int getStealth();
+
+	public abstract int getHear();
+
+	public abstract int getClimb();
+
+	public abstract int getUnallocatedSkills();
+
+	// CombatInfo
+	public abstract int getDefenseBonus();
+
+	public abstract int getHitBonus();
 
 	public abstract int getMissileBonus();
 
 	public abstract int getBowBonus();
 
-	public int getMovement() {
-		return 0;
-	}
+	public abstract int getMovement();
 
-	public int generateUnallocated() {
-		return 0;
-	}
+	public abstract int getUnallocated();
 
 	/*****************************************************************************
 	 * Serialization

@@ -296,7 +296,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		mClimbLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getClimbLevelBonus());
 		mFindTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getFindTrapLevelBonus());
 		mRemoveTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getRemoveTrapLevelBonus());
-		mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocated());
+		mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocatedSkills());
 	}
 
 	@Override
@@ -332,7 +332,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 				record.setRemoveTrapLevelBonus(TKStringHelpers.getIntValue(mRemoveTrapLevelBonusField.getText(), record.getRemoveTrapLevelBonus()));
 			}
 		}
-		record.generateUnallocated();
+		record.generateUnallocatedSkills();
 		loadDisplay();
 	}
 

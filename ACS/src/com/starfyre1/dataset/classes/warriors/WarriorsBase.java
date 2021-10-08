@@ -4,17 +4,8 @@ package com.starfyre1.dataset.classes.warriors;
 
 import com.starfyre1.dataset.common.BaseClass;
 
-public class WarriorsBase extends BaseClass {
+public abstract class WarriorsBase extends BaseClass {
 
-	@Override
-	public int getMissileBonus() {
-		return 0;
-	}
-
-	@Override
-	public int getBowBonus() {
-		return 0;
-	}
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/

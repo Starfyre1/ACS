@@ -97,15 +97,14 @@ public class Graun extends PriestsBase {
 		*/
 	}
 
-	@Override
-	public int generateBandaging() {
-		return 10;
-
-	}
-
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public int getBandaging() {
+		return 10;
+
+	}
 
 	/*****************************************************************************
 	 * Serialization

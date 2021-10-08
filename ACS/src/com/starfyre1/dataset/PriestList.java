@@ -11,14 +11,14 @@ import com.starfyre1.dataset.classes.priests.MistressNight;
 import com.starfyre1.dataset.classes.priests.Narese;
 import com.starfyre1.dataset.classes.priests.Narius;
 import com.starfyre1.dataset.classes.priests.Orn;
-import com.starfyre1.dataset.classes.priests.Rysh;
+import com.starfyre1.dataset.classes.priests.Ryelle;
 import com.starfyre1.dataset.classes.priests.Sarn;
-import com.starfyre1.dataset.classes.priests.Sautrian;
+import com.starfyre1.dataset.classes.priests.Pelon;
 import com.starfyre1.dataset.classes.priests.Talon;
 import com.starfyre1.dataset.classes.priests.Tarn;
 import com.starfyre1.dataset.classes.priests.Tarot;
 import com.starfyre1.dataset.classes.priests.Thaer;
-import com.starfyre1.dataset.classes.priests.Thantos;
+import com.starfyre1.dataset.classes.priests.Adon;
 import com.starfyre1.dataset.classes.priests.Wynd;
 
 import java.util.ArrayList;
@@ -56,14 +56,14 @@ public class PriestList extends ClassList {
 			mPriestsList.add(new PriestRecord(new Narese(), PRIEST, NARESE, 3, null));
 			mPriestsList.add(new PriestRecord(new Narius(), PRIEST, NARIUS, 3, null));
 			mPriestsList.add(new PriestRecord(new Orn(), PRIEST, ORN, 3, null));
-			mPriestsList.add(new PriestRecord(new Rysh(), PRIEST, RYSH, 3, null));
+			mPriestsList.add(new PriestRecord(new Ryelle(), PRIEST, RYSH, 3, null));
 			mPriestsList.add(new PriestRecord(new Sarn(), PRIEST, SARN, 3, null));
-			mPriestsList.add(new PriestRecord(new Sautrian(), PRIEST, SAUTRIAN, 3, null));
+			mPriestsList.add(new PriestRecord(new Pelon(), PRIEST, SAUTRIAN, 3, null));
 			mPriestsList.add(new PriestRecord(new Talon(), PRIEST, TALON, 3, null));
 			mPriestsList.add(new PriestRecord(new Tarn(), PRIEST, TARN, 3, null));
 			mPriestsList.add(new PriestRecord(new Tarot(), PRIEST, TAROT, 3, null));
 			mPriestsList.add(new PriestRecord(new Thaer(), PRIEST, THAER, 3, null));
-			mPriestsList.add(new PriestRecord(new Thantos(), PRIEST, THANTOS, 3, null));
+			mPriestsList.add(new PriestRecord(new Adon(), PRIEST, THANTOS, 3, null));
 			mPriestsList.add(new PriestRecord(new Wynd(), PRIEST, WYND, 3, null));
 		}
 	}

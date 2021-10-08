@@ -4,18 +4,9 @@ package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
-import com.starfyre1.dataset.classes.Dwarrow;
-import com.starfyre1.dataset.classes.Dwarves;
 import com.starfyre1.dataset.classes.Thief;
-import com.starfyre1.dataset.classes.elves.ElvesBase;
-import com.starfyre1.dataset.classes.elves.Sailor;
-import com.starfyre1.dataset.classes.elves.Sithrian;
-import com.starfyre1.dataset.classes.elves.Tellorian;
-import com.starfyre1.dataset.classes.elves.Tsiri;
-import com.starfyre1.dataset.classes.mages.NaturalLore;
 import com.starfyre1.dataset.classes.warriors.Ranger;
 import com.starfyre1.dataset.common.BaseClass;
-import com.starfyre1.dataset.common.SpellUser;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
 
@@ -140,22 +131,22 @@ public class SkillsRecord implements LevelListener, Savable {
 		//		}
 
 		generateBandaging(lvl, stats.getModifiedStat(AttributesRecord.WIS), classInfo);
-		generateHunting(lvl, stats.getModifiedStat(AttributesRecord.WIS));
-		generateTracking(lvl);
-		generateDetectMagic(lvl, classInfo);
+		generateHunting(classInfo, stats.getModifiedStat(AttributesRecord.WIS));
+		generateTracking(classInfo);
+		generateDetectMagic(classInfo);
 		generateDetectMorals();
-		generateDetectMetals(lvl, classInfo);
-		generateDetectSecretDoors(lvl, classInfo);
+		generateDetectMetals(classInfo);
+		generateDetectSecretDoors(classInfo);
 		generateDetectTraps(lvl, classInfo);
-		generateAppraise(lvl, classInfo);
-		generateDepthSense(lvl, classInfo);
+		generateAppraise(classInfo);
+		generateDepthSense(classInfo);
 		generateHerbalLore(lvl, classInfo);
 		generateBerserk();
-		generateUnallocated();
+		generateUnallocatedSkills();
 
-		generateConceal(lvl, classInfo);
-		generateStealth(lvl, classInfo);
-		generateHear(lvl, classInfo);
+		generateConceal(classInfo);
+		generateStealth(classInfo);
+		generateHear(classInfo);
 		generateLockPick();
 		generatePocketPick();
 		generateClimb(lvl, classInfo);
@@ -169,33 +160,35 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 10 * lvl;
 		int wisdomBonus = wisdom > 12 ? 10 : 0;
 
-		int classBonus = classInfo instanceof SpellUser ? ((SpellUser) classInfo).generateBandaging() : classInfo.generateBandaging();
+		int classBonus = classInfo.getBandaging();
 
 		mBandaging = base + wisdomBonus + classBonus;
 	}
 
-	public void generateHunting(int lvl, int wisdom) {
+	public void generateHunting(BaseClass classInfo, int wisdom) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[HUNTING];
+
+		// Add +20% if they are hunting with a Spear or a Bow.
 		int base = wisdom;
-		int rangerlvlBonus = lvl * 5;
-		mHunting = base + rangerlvlBonus;
+		int classBonus = classInfo.getHunting();
+		mHunting = base + classBonus;
 	}
 
-	public void generateTracking(int lvl) {
+	public void generateTracking(BaseClass classInfo) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[TRACKING];
 		int base = 70;
 		// DW is this only for Ranger, Sithrian, Dwarrow?
-		int lvlBonus = 3 * lvl;
-		mTracking = base + lvlBonus;
+		int classBonus = classInfo.getTracking();
+		mTracking = base + classBonus;
 	}
 
-	public void generateDetectMagic(int lvl, BaseClass classInfo) {
+	public void generateDetectMagic(BaseClass classInfo) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[DETECT_MAGIC];
 		int base = 50;
-		int classBonus = classInfo instanceof ElvesBase ? 5 * lvl : classInfo instanceof Dwarrow ? 5 * lvl : 0;
+		int classBonus = classInfo.getDetectMagic();
 
 		mDetectMagic = base + classBonus;
 	}
@@ -206,44 +199,36 @@ public class SkillsRecord implements LevelListener, Savable {
 		mDetectMorals = 30;
 	}
 
-	public void generateDetectMetals(int lvl, BaseClass classInfo) {
+	public void generateDetectMetals(BaseClass classInfo) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[DETECT_METALS];
-		int base = 50;
-		int classBonus = classInfo instanceof Dwarves ? 5 * lvl : 0;
-		mDetectMetals = base + classBonus;
+		mDetectMetals = classInfo.getDetectMetals();
 	}
 
-	public void generateDetectSecretDoors(int lvl, BaseClass classInfo) {
+	public void generateDetectSecretDoors(BaseClass classInfo) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[DETECT_SECRET_DOORS];
 		int base = 50;
-		int classBonus = classInfo instanceof Tsiri || classInfo instanceof Dwarves ? 5 * lvl : 0;
+		int classBonus = classInfo.getDetectSecretDoors();
 		mDetectSecretDoors = base + classBonus;
 	}
 
 	public void generateDetectTraps(int lvl, BaseClass classInfo) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[DETECT_TRAPS];
-		int base = 50;
-		int classBonus = classInfo instanceof Dwarves ? 5 * lvl : 0;
+		int base = 50 + lvl * 5;
+		int classBonus = classInfo.getDetectTraps();
 		mDetectTraps = base + classBonus;
 	}
 
-	public void generateAppraise(int lvl, BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[APPRAISE];
-		int base = 90;
-		int classBonus = classInfo instanceof Tellorian ? 5 * lvl : classInfo instanceof Dwarves ? lvl : 0;
-		mAppraise = base + classBonus;
+	public void generateAppraise(BaseClass classInfo) {
+		mAppraise = classInfo.getAppraise();
 	}
 
-	public void generateDepthSense(int lvl, BaseClass classInfo) {
+	public void generateDepthSense(BaseClass classInfo) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[DEPTH_SENSE];
-		int base = 60;
-		int classBonus = classInfo instanceof Dwarves ? 3 * lvl : 0;
-		mDepthSense = base + classBonus;
+		mDepthSense = classInfo.getDepthSense();
 	}
 
 	private int getDexModifier() {
@@ -293,27 +278,26 @@ public class SkillsRecord implements LevelListener, Savable {
 		return mod;
 	}
 
-	public void generateConceal(int lvl, BaseClass classInfo) {
+	public void generateConceal(BaseClass classInfo) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[CONCEAL];
 		int base = 20;
-
-		int levelBonus = classInfo instanceof Sailor ? 3 * lvl : classInfo instanceof Tellorian || classInfo instanceof Sithrian || classInfo instanceof Dwarrow || classInfo instanceof Ranger ? 5 * lvl : 0;
+		int levelBonus = classInfo.getConceal();
 
 		mConceal = base + mConcealLevelBonus + levelBonus + getDexModifier();
 	}
 
-	public void generateStealth(int lvl, BaseClass classInfo) {
+	public void generateStealth(BaseClass classInfo) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[STEALTH];
 		int base = 20;
 
-		int classBonus = classInfo instanceof Sailor ? 3 * lvl : classInfo instanceof Tellorian || classInfo instanceof Sithrian || classInfo instanceof Dwarrow || classInfo instanceof Ranger ? 5 * lvl : 0;
+		int classBonus = classInfo.getStealth();
 
 		mStealth = base + mStealthLevelBonus + classBonus + getDexModifier();
 	}
 
-	public void generateHear(int lvl, BaseClass classInfo) {
+	public void generateHear(BaseClass classInfo) {
 		// DW need to modify by this table...
 
 		/*
@@ -341,7 +325,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		// boolean innate = mIsInnate[HEAR];
 		int base = 30;
 
-		int classBonus = classInfo instanceof Sailor ? 3 * lvl : classInfo instanceof Tellorian || classInfo instanceof Sithrian || classInfo instanceof Dwarrow ? 5 * lvl : 0;
+		int classBonus = classInfo.getHear();
 
 		mHear = base + mHearLevelBonus + classBonus;
 	}
@@ -417,7 +401,7 @@ public class SkillsRecord implements LevelListener, Savable {
 	public void generateHerbalLore(int lvl, BaseClass classInfo) {
 		// DW implement if needed
 		// boolean innate = mIsInnate[HERBAL_LORE];
-		int base = 15;
+		int base = 15 + lvl * 3;
 
 		// DW Herbal lore, herbalist, Herbal Healing needs to be updated
 		// double check as some places say 5 * lvl and others say 3 * lvl
@@ -425,7 +409,8 @@ public class SkillsRecord implements LevelListener, Savable {
 		//					5 * lvl;
 		//				}
 
-		int classBonus = classInfo instanceof Sailor || classInfo instanceof Sithrian ? 15 + 3 * lvl : classInfo instanceof Ranger ? 20 + 3 * lvl : classInfo instanceof NaturalLore ? 20 : 0;
+		//		int classBonus = classInfo instanceof Sailor || classInfo instanceof Sithrian ? 15 + 3 * lvl : classInfo instanceof Ranger ? 20 + 3 * lvl : classInfo instanceof NaturalLore ? 20 : 0;
+		int classBonus = classInfo.getHerbalLore();
 
 		mHerbalLore = base + classBonus;
 	}
@@ -437,7 +422,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		mBerserk = 0;
 	}
 
-	public void generateUnallocated() {
+	public void generateUnallocatedSkills() {
 		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
 		int lvl = headerRecord.getLevel() - 1;
 		BaseClass classInfo = headerRecord.getCharacterClass();
@@ -672,12 +657,12 @@ public class SkillsRecord implements LevelListener, Savable {
 	}
 
 	/** @return The unallocated points. */
-	public int getUnallocated() {
+	public int getUnallocatedSkills() {
 		return mUnallocated;
 	}
 
 	/** @param unallocated The value to set for unallocated points. */
-	public void setUnallocated(int unallocated) {
+	public void setUnallocatedSkills(int unallocated) {
 		mUnallocated = unallocated;
 	}
 
@@ -694,7 +679,7 @@ public class SkillsRecord implements LevelListener, Savable {
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
 					if (key.equals(FILE_SECTTION_END_KEY)) {
-						generateUnallocated();
+						generateUnallocatedSkills();
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						// key has no value
@@ -704,7 +689,7 @@ public class SkillsRecord implements LevelListener, Savable {
 					setKeyValuePair(key, value);
 				}
 			}
-			generateUnallocated();
+			generateUnallocatedSkills();
 		} catch (IOException ioe) {
 			//DW9:: Log this
 			System.err.println(ioe.getMessage());

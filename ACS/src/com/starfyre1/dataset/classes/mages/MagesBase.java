@@ -5,7 +5,7 @@ package com.starfyre1.dataset.classes.mages;
 import com.starfyre1.dataset.common.SpellUser;
 import com.starfyre1.startup.ACS;
 
-public class MagesBase extends SpellUser {
+public abstract class MagesBase extends SpellUser {
 
 	/*****************************************************************************
 	 * Constants
@@ -22,14 +22,97 @@ public class MagesBase extends SpellUser {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	@Override
-	public int generateUnallocated() {
-		return 4;
-	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	// Skills
+	@Override
+	public int getBandaging() {
+		return 0;
+	}
+
+	@Override
+	public int getHerbalLore() {
+		return 0;
+	}
+
+	@Override
+	public int getHunting() {
+		return 0;
+	}
+
+	@Override
+	public int getTracking() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectMagic() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectMetals() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectSecretDoors() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectTraps() {
+		return 0;
+	}
+
+	@Override
+	public int getAppraise() {
+		return 0;
+	}
+
+	@Override
+	public int getDepthSense() {
+		return 0;
+	}
+
+	@Override
+	public int getBerserk() {
+		return 0;
+	}
+
+	@Override
+	public int getConceal() {
+		return 0;
+	}
+
+	@Override
+	public int getStealth() {
+		return 0;
+	}
+
+	@Override
+	public int getHear() {
+		return 0;
+	}
+
+	@Override
+	public int getClimb() {
+		return 0;
+	}
+
+	@Override
+	public int getUnallocatedSkills() {
+		return 0;
+	}
+
+	// CombatInfo
+	@Override
+	public int getDefenseBonus() {
+		return 0;
+	}
+
 	@Override
 	public int getHitBonus() {
 		return 2;
@@ -51,6 +134,10 @@ public class MagesBase extends SpellUser {
 		return 12;
 	}
 
+	@Override
+	public int getUnallocated() {
+		return 4;
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

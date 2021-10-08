@@ -310,7 +310,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 
 	public void generateUnallocated() {
 		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
-		int classBonus = headerRecord.getCharacterClass().generateUnallocated();
+		int classBonus = headerRecord.getCharacterClass().getUnallocated();
 		int lvl = headerRecord.getLevel() - 1;
 
 		mUnallocated = classBonus * lvl - mHitLevelBonus - mBowLevelBonus - mCastingSpeedLevelBonus;

@@ -9,7 +9,7 @@ import com.starfyre1.dataset.spells.SpellRecord;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Rysh extends PriestsBase {
+public class Ryelle extends PriestsBase {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -91,7 +91,7 @@ public class Rysh extends PriestsBase {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public Rysh() {
+	public Ryelle() {
 		// Rysh
 		mSecondRequisite = AttributesRecord.WILLPOWER;
 		// Rysh is the Demon Lord of the Plane of Fire called Sylkree, or the

@@ -2,6 +2,8 @@
 
 package com.starfyre1.dataset.classes.elves;
 
+import com.starfyre1.startup.ACS;
+
 public class Tellorian extends ElvesBase {
 	/*****************************************************************************
 	 * Constants
@@ -9,7 +11,7 @@ public class Tellorian extends ElvesBase {
 	/*
 		Minimum Stat’s Required:
 		ST=”12” CON=”*” IN=”12 WS=”13” DX=”13” BS=”*” CH=”10” PA=”11” WP=”11”
-
+	
 				Tellorian’s are the most accessible of Elven kind, they are not
 				shy, and trade with humans and other races at any opportunity.
 				They tend to be tall, and powerfully built, there are a lot of Smith's,
@@ -18,7 +20,7 @@ public class Tellorian extends ElvesBase {
 				the Thieving skills Stealth, Conceal and Hear at the basic
 				percentages. They are also known as White, or Noble Elves, by
 				some other races.
-
+	
 				Unlike their Cousins, they are not primarily Archers, gaining only +2%
 				Initially with a Bow.  They gain a +5% with Long & Broad swords and
 				+7% per level past first, 1% of which must go towards their Bow bonus and 3%
@@ -28,7 +30,7 @@ public class Tellorian extends ElvesBase {
 				from Seven areas of Magic - Arcane Lore, The Elements-Earth, Air & Fire or
 				the Priest's of Thantos, Sautarian & Narius.  Elves are restricted on how
 				far they can progress in Combat skills and Magical powers.
-
+	
 			1)	Tellorian Elves may have a Maximum Hit Bonus of  5 X Strength
 			2)	Tellorian Elves may have a Maximum Missile Bonus of  4 X Dexterity
 			3)	Tellorian Elves may have a Maximum Bow Bonus of  3 X Bow Skill
@@ -41,9 +43,9 @@ public class Tellorian extends ElvesBase {
 					In = 21-22	Maximum level of Magic  = 16th
 					In = 23-24	Maximum level of Magic  = 18th
 					In = 	25	Maximum level of Magic  = 22th
-
+	
 		Other Facts about Tellorian Elves:
-
+	
 			1)	They receive +4 stamina per level past 1st and +1 Hit points.  After 10th
 				level they stop adding +4 and start adding +2 to Stamina.  After 15th level
 				they stop receiving the additional Hit points.
@@ -72,7 +74,7 @@ public class Tellorian extends ElvesBase {
 				Meditate under a slight self-hypnosis.  In this state they are surprised
 				+25% of the time instead of the standard +50% of the time.
 			15)	They are 50% resistant to Magical Sleep spells.
-
+	
 	*/
 
 	/*****************************************************************************
@@ -90,56 +92,167 @@ public class Tellorian extends ElvesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Elves & Dwarrow:
-
+		
 			1)	Add +7% per level past (1st) to their Hit and Bow Bonuses.  They must
 				invest at least +1% into their Hit Bonus and at least +3% into their Bow
 				Bonus, the rest may be split as they desire.  Even when they are Maxed
 				out on their Hit Bonus, they must still invest +1% to it....
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +4 Stamina per level until 5th level, after 5th level add +2 Stamina
 				per level.
-
+		
 			4)	Add +1 Hit Point per level past (1st) until 10th level, after 10th level
 				add +1 hit point for every 3) levels earned.
-
+		
 			5)	Add +1% to their Surprise.
-
+		
 			6)	Add +5% to their Defense.  When their Hit Bonus has maxed out, they must
 				still add +1% to their Defense.  Their Free Attack rises +1% per level.
-
+		
 		*/
-	}
-
-	@Override
-	public int generateBandaging() {
-		return 10;
-
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	// Skills
+	@Override
+	public int getBandaging() {
+		return 10;
+
+	}
+
+	@Override
+	public int getHunting() {
+		return 0;
+	}
+
+	@Override
+	public int getTracking() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectMagic() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 5;
+	}
+
+	@Override
+	public int getDetectMetals() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectSecretDoors() {
+		return 0;
+	}
+
+	@Override
+	public int getDetectTraps() {
+		return 0;
+	}
+
+	@Override
+	public int getAppraise() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		return 90 + lvl;
+	}
+
+	@Override
+	public int getDepthSense() {
+		return 0;
+	}
+
+	@Override
+	public int getHerbalLore() {
+		// DW Verify - herbal healling says all elves, elf type says only sailor and sithrian
+		return 15;
+	}
+
+	@Override
+	public int getBerserk() {
+		return 0;
+	}
+
+	@Override
+	public int getConceal() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 5;
+	}
+
+	@Override
+	public int getStealth() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 5;
+	}
+
+	@Override
+	public int getHear() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 5;
+	}
+
+	@Override
+	public int getClimb() {
+		return 0;
+	}
+
+	@Override
+	public int getUnallocatedSkills() {
+		return 0;
+	}
+
+	// CombatInfo
 	@Override
 	public int getDefenseBonus() {
 		return 5;
+	}
+
+	@Override
+	public int getHitBonus() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return 3 + lvl;
+	}
+
+	@Override
+	public int getMissileBonus() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 2;
+	}
+
+	@Override
+	public int getBowBonus() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return 5 + lvl * 3;
+	}
+
+	@Override
+	public int getMovement() {
+		return 15;
+	}
+
+	@Override
+	public int getUnallocated() {
+		return 3;
 	}
 
 	/*****************************************************************************

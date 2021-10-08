@@ -9,7 +9,7 @@ import com.starfyre1.dataset.spells.SpellRecord;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Thantos extends PriestsBase {
+public class Adon extends PriestsBase {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -99,7 +99,7 @@ public class Thantos extends PriestsBase {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public Thantos() {
+	public Adon() {
 		// Thantos
 		mSecondRequisite = AttributesRecord.STRENGTH;
 

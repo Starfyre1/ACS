@@ -9,7 +9,7 @@ import com.starfyre1.dataset.spells.SpellRecord;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Sautrian extends PriestsBase {
+public class Pelon extends PriestsBase {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -81,7 +81,7 @@ public class Sautrian extends PriestsBase {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public Sautrian() {
+	public Pelon() {
 		// Sautrian
 		mSecondRequisite = AttributesRecord.CHARISMA;
 		// Sautarian is the Goddess of Light, needless to say she is in all respects
@@ -212,15 +212,13 @@ public class Sautrian extends PriestsBase {
 		*/
 	}
 
-	@Override
-	public int generateBandaging() {
-		return 10;
-
-	}
-
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public int getBandaging() {
+		return 10;
+	}
 
 	/*****************************************************************************
 	 * Serialization
