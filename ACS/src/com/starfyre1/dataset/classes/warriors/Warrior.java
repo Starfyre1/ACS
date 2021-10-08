@@ -2,9 +2,10 @@
 
 package com.starfyre1.dataset.classes.warriors;
 
+import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.startup.ACS;
 
-public class Warrior extends WarriorsBase {
+public class Warrior extends BaseClass {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -107,6 +108,11 @@ public class Warrior extends WarriorsBase {
 	}
 
 	@Override
+	public int getHerbalLore() {
+		return 0;
+	}
+
+	@Override
 	public int getHunting() {
 		return 0;
 	}
@@ -147,11 +153,6 @@ public class Warrior extends WarriorsBase {
 	}
 
 	@Override
-	public int getHerbalLore() {
-		return 0;
-	}
-
-	@Override
 	public int getBerserk() {
 		// DW todo
 		return 0;
@@ -184,9 +185,25 @@ public class Warrior extends WarriorsBase {
 
 	// CombatInfo
 	@Override
+	public int getDefenseBonus() {
+		return 0;
+	}
+
+	@Override
+	public int getHitBonus() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return 5 + lvl;
+	}
+
+	@Override
 	public int getMissileBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
 		return 2 + lvl * 3;
+	}
+
+	@Override
+	public int getBowBonus() {
+		return 3;
 	}
 
 	@Override
@@ -197,22 +214,6 @@ public class Warrior extends WarriorsBase {
 	@Override
 	public int getUnallocated() {
 		return 4;
-	}
-
-	@Override
-	public int getHitBonus() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return 5 + lvl;
-	}
-
-	@Override
-	public int getBowBonus() {
-		return 3;
-	}
-
-	@Override
-	public int getDefenseBonus() {
-		return 0;
 	}
 
 	/*****************************************************************************

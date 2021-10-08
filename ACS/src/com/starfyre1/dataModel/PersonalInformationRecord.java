@@ -10,7 +10,7 @@ import com.starfyre1.dataset.classes.Dwarves;
 import com.starfyre1.dataset.classes.HalfElf;
 import com.starfyre1.dataset.classes.Human;
 import com.starfyre1.dataset.classes.elves.ElvesBase;
-import com.starfyre1.dataset.classes.warriors.WarriorsBase;
+import com.starfyre1.dataset.classes.warriors.Warrior;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.Savable;
 
@@ -117,7 +117,7 @@ public class PersonalInformationRecord implements Savable {
 		// Race and Class bonus (step 2 & 3)
 		if (characterClass instanceof Dwarves || characterClass instanceof Dwarrow) {
 			heightValue = (heightValue + 10) / 2;
-		} else if (characterClass instanceof Human && characterClass instanceof WarriorsBase) { //check to see if there are multiple warrior classes (ranger, barbarian, etc) Emailed Glen 09/08/2021 - yes/ implemented...
+		} else if (characterClass instanceof Human && characterClass instanceof Warrior) { //check to see if there are multiple warrior classes (ranger, barbarian, etc) Emailed Glen 09/08/2021 - yes/ implemented...
 			heightValue++;
 		}
 

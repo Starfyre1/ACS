@@ -11,7 +11,7 @@ public class Sailor extends ElvesBase {
 	/*
 		Minimum Stat's Required:
 		ST="10" CON="*" IN="11" WS=”10” DX="12" BS="12" CH="7" PA="11" WP="*"    *=Any
-	
+
 		Elves:		The most common of the Elves in Athri will be the Sailors or Foresters, since
 					One of the Elves listed below cover the Foresters.  I’ll list the waters loving
 					Sailor’s stats and bonuses below.  They will tend toward tall and willowy with
@@ -19,12 +19,12 @@ public class Sailor extends ElvesBase {
 					with Bows and +3% with Longswords, Sabers or Rapiers.  They gain 5% per
 					level past 1st, 2% must go too their Bow bonus, the other 3% to be split between
 					Hit & Bow bonuses.  They will gain 2% past 1st level to their Missile Bonus.
-	
+
 					Elves of all varieties are Magical in nature and may cast spells as a Mage or Priest.
 					They may choose from these six areas of Magic - Natural Lore, the Elements of
 					Air & Water and the Priest’s of Wynd, Lorrell or Chauntil if allowed in the
 					campaign.
-	
+
 			1)	They may have a Maximum Hit Bonus of 3 X Strength
 			2)	They may have a Maximum Missiles Bonus of 2 X Dexterity
 			3)	They may have a Maximum Bow Bonus of 3 X Bow Skill
@@ -58,7 +58,7 @@ public class Sailor extends ElvesBase {
 				Standard +50%.
 			17)	They are 40% resistant to Magical Sleep spells.
 			18)	They add +3% at the characters creation.
-	
+
 	*/
 
 	/*****************************************************************************
@@ -76,41 +76,41 @@ public class Sailor extends ElvesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Elves & Dwarrow:
-
+		
 			1)	Add +7% per level past (1st) to their Hit and Bow Bonuses.  They must
 				invest at least +1% into their Hit Bonus and at least +3% into their Bow
 				Bonus, the rest may be split as they desire.  Even when they are Maxed
 				out on their Hit Bonus, they must still invest +1% to it....
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +4 Stamina per level until 5th level, after 5th level add +2 Stamina
 				per level.
-
+		
 			4)	Add +1 Hit Point per level past (1st) until 10th level, after 10th level
 				add +1 hit point for every 3) levels earned.
-
+		
 			5)	Add +1% to their Surprise.
-
+		
 			6)	Add +5% to their Defense.  When their Hit Bonus has maxed out, they must
 				still add +1% to their Defense.  Their Free Attack rises +1% per level.
-
+		
 		*/
 	}
 
@@ -118,62 +118,6 @@ public class Sailor extends ElvesBase {
 	 * Setter's and Getter's
 	 ****************************************************************************/
 	// Skills
-	@Override
-	public int getBandaging() {
-		return 10;
-	}
-
-	@Override
-	public int getHunting() {
-		return 0;
-	}
-
-	@Override
-	public int getTracking() {
-		return 0;
-	}
-
-	@Override
-	public int getDetectMagic() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return lvl * 5;
-	}
-
-	@Override
-	public int getDetectMetals() {
-		return 0;
-	}
-
-	@Override
-	public int getDetectSecretDoors() {
-		return 0;
-	}
-
-	@Override
-	public int getDetectTraps() {
-		return 0;
-	}
-
-	@Override
-	public int getAppraise() {
-		return 0;
-	}
-
-	@Override
-	public int getDepthSense() {
-		return 0;
-	}
-
-	@Override
-	public int getHerbalLore() {
-		return 15;
-	}
-
-	@Override
-	public int getBerserk() {
-		return 0;
-	}
-
 	@Override
 	public int getConceal() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
@@ -190,50 +134,6 @@ public class Sailor extends ElvesBase {
 	public int getHear() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
 		return lvl * 3;
-	}
-
-	@Override
-	public int getClimb() {
-		return 0;
-	}
-
-	@Override
-	public int getUnallocatedSkills() {
-		return 0;
-	}
-
-	// CombatInfo
-	@Override
-	public int getDefenseBonus() {
-		return 5;
-	}
-
-	@Override
-	public int getHitBonus() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return 3 + lvl;
-	}
-
-	@Override
-	public int getMissileBonus() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return lvl * 2;
-	}
-
-	@Override
-	public int getBowBonus() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return 5 + lvl * 3;
-	}
-
-	@Override
-	public int getMovement() {
-		return 15;
-	}
-
-	@Override
-	public int getUnallocated() {
-		return 3;
 	}
 
 	/*****************************************************************************
