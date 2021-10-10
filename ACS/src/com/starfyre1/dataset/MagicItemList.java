@@ -69,6 +69,10 @@ public class MagicItemList implements Savable {
 		return cost;
 	}
 
+	public void clearRecords() {
+		mRecords = new ArrayList<>(32);
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

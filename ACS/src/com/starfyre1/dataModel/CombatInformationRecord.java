@@ -580,4 +580,10 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		}
 	}
 
+	public void clearRecords() {
+		mHitLevelBonus = 0;
+		mBowLevelBonus = 0;
+		mCastingSpeedLevelBonus = 0;
+	}
+
 }

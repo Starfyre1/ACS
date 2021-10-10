@@ -79,6 +79,10 @@ public class ArmorList implements Savable {
 		return cost;
 	}
 
+	public void clearRecords() {
+		mRecords = new ArrayList<>(52);
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

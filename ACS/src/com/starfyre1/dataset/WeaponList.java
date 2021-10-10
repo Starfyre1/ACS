@@ -83,6 +83,10 @@ public class WeaponList implements Savable {
 		return cost;
 	}
 
+	public void clearRecords() {
+		mRecords = new ArrayList<>(50);
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

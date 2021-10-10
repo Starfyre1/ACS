@@ -71,6 +71,10 @@ public class EquipmentList implements Savable {
 		return cost;
 	}
 
+	public void clearRecords() {
+		mRecords = new ArrayList<>(132);
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

@@ -384,6 +384,9 @@ public class PersonalInformationRecord implements Savable {
 
 	/** @return The socialClass. */
 	public String getSocialClassTitle() {
+		if (mSocialClass == null) {
+			return TKStringHelpers.EMPTY_STRING;
+		}
 		return mSocialClass.getSocialClass();
 	}
 
@@ -514,5 +517,18 @@ public class PersonalInformationRecord implements Savable {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
 		}
+	}
+
+	/**
+	 *
+	 */
+	public void clearRecords() {
+		mHeight = 0;
+		mWeight = 0;
+		mSex = TKStringHelpers.EMPTY_STRING;
+		mHair = TKStringHelpers.EMPTY_STRING;
+		mEyes = TKStringHelpers.EMPTY_STRING;
+		mAge = 0;
+		mSocialClass = null;
 	}
 }

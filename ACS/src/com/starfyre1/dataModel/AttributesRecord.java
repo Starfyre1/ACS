@@ -282,4 +282,14 @@ public class AttributesRecord implements Savable {
 		mStatsOld = mModifiedStats.clone();
 		mModifiedStatsOld = mModifiedStats.clone();
 	}
+
+	/**
+	 *
+	 */
+	public void clearRecords() {
+		mStats = new int[9];
+		mStatsOld = new int[9];
+		mModifiedStats = new int[9];
+		mModifiedStatsOld = new int[9];
+	}
 }

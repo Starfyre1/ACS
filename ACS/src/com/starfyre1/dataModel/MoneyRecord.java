@@ -257,4 +257,17 @@ public class MoneyRecord implements Savable {
 		}
 	}
 
+	/**
+	 *
+	 */
+	public void clearRecords() {
+		mGold = 0;
+		mSilver = 0;
+		mCopper = 0;
+		mGemsArea = TKStringHelpers.EMPTY_STRING;
+		mJewelryArea = TKStringHelpers.EMPTY_STRING;
+		mOtherArea = TKStringHelpers.EMPTY_STRING;
+		updateOldRecords();
+	}
+
 }

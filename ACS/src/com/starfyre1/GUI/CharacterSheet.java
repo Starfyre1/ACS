@@ -96,6 +96,8 @@ public class CharacterSheet implements ActionListener {
 	private static final String				OPEN						= "Open...";				//$NON-NLS-1$
 	private static final String				NEW							= "New";					//$NON-NLS-1$
 	private static final String				FILE						= "File";					//$NON-NLS-1$
+	private static final String				CREATE						= "Create";					//$NON-NLS-1$
+	private static final String				CANCEL						= "Cancel";					//$NON-NLS-1$
 
 	public static final Dimension			CHARACTER_TAB_TABLE_SIZE	= new Dimension(375, 75);
 	public static final Dimension			EQUIPMENT_TAB_TABLE_SIZE	= new Dimension(750, 150);
@@ -433,8 +435,8 @@ public class CharacterSheet implements ActionListener {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
-		mCreateButton = TKComponentHelpers.createButton("Create", this, false); //$NON-NLS-1$
-		mCancelButton = TKComponentHelpers.createButton("Cancel", this); //$NON-NLS-1$
+		mCreateButton = TKComponentHelpers.createButton(CREATE, this, false);
+		mCancelButton = TKComponentHelpers.createButton(CANCEL, this);
 		buttonPanel.add(Box.createHorizontalGlue());
 		buttonPanel.add(mCreateButton);
 		buttonPanel.add(Box.createHorizontalStrut(5));
@@ -464,6 +466,9 @@ public class CharacterSheet implements ActionListener {
 		if (result == JOptionPane.YES_OPTION) {
 			manualEntry();
 			mIsLoadingData = true;
+			if (mAttributesRecord == null) {
+				return;
+			}
 		} else if (result == JOptionPane.NO_OPTION) {
 			mIsLoadingData = true;
 			mAttributesRecord = new AttributesRecord(true);
@@ -564,11 +569,14 @@ public class CharacterSheet implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if (cmd.equals(NEW)) {
+			clearRecords();
 			createAndUpdate();
 		} else if (cmd.equals(OPEN)) {
+			clearRecords();
 			loadAndUpdate();
 		} else if (cmd.equals(CLOSE)) {
-			saveOption();
+			saveOption(false);
+			clearRecords();
 		} else if (cmd.equals(SAVE)) {
 			if (mCharacterFile == null) {
 				saveAs();
@@ -578,7 +586,7 @@ public class CharacterSheet implements ActionListener {
 		} else if (cmd.equals(SAVE_AS)) {
 			saveAs();
 		} else if (cmd.equals(EXIT)) {
-			saveOption();
+			saveOption(true);
 		} else if (cmd.equals(PREFERENCES)) {
 			new PreferencesDisplay(mFrame);
 		} else if (cmd.equals(MARKET_PLACE)) {
@@ -587,16 +595,60 @@ public class CharacterSheet implements ActionListener {
 			new AboutDialog(mFrame);
 		} else if (cmd.equals(HELP)) {
 			// DW open doc's
-		} else if (cmd.equals("Cancel")) { //$NON-NLS-1$
+		} else if (cmd.equals(CANCEL)) {
 			mAttributesEnterDialog.dispose();
-		} else if (cmd.equals("Create")) { //$NON-NLS-1$
+			mAttributesRecord = null;
+		} else if (cmd.equals(CREATE)) {
 			mAttributesRecord.finalizeCreation(true);
 			mAttributesDisplay.loadDisplay();
 			mAttributesEnterDialog.dispose();
 		}
 	}
 
-	private void saveOption() {
+	private void clearRecords() {
+		if (mAttributesRecord != null) {
+			mAttributesRecord.clearRecords();
+		}
+		if (mCombatInformationRecord != null) {
+			mCombatInformationRecord.clearRecords();
+		}
+		if (mHeaderRecord != null) {
+			mHeaderRecord.clearRecords();
+		}
+		if (mPersonalInformationRecord != null) {
+			mPersonalInformationRecord.clearRecords();
+		}
+		if (mMoneyRecord != null) {
+			mMoneyRecord.clearRecords();
+		}
+		if (mSavingThrowsRecord != null) {
+			mSavingThrowsRecord.levelChanged();
+		}
+		if (mSkillsRecord != null) {
+			mSkillsRecord.clearRecords();
+		}
+		if (mEquipmentList != null) {
+			mEquipmentList.clearRecords();
+		}
+		if (mArmorList != null) {
+			mArmorList.clearRecords();
+		}
+		if (mWeaponList != null) {
+			mWeaponList.clearRecords();
+		}
+		if (mAnimalList != null) {
+			mAnimalList.clearRecords();
+		}
+		if (mMagicItemList != null) {
+			mMagicItemList.clearRecords();
+		}
+		mDefenseInformationDisplay.clearRecords();
+		if (mAttributesRecord != null) {
+			loadDisplay();
+		}
+	}
+
+	private void saveOption(boolean exit) {
 		int results = JOptionPane.showConfirmDialog(mFrame, "Do you want to save?", "Save Character?", JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 		if (results == JOptionPane.YES_OPTION) {
 			if (mCharacterFile == null) {
@@ -605,8 +657,14 @@ public class CharacterSheet implements ActionListener {
 				saveFile(new File(mCharacterFile));
 			}
 			prepForExit();
+			if (exit) {
+				System.exit(0);
+			}
 		} else if (results == JOptionPane.NO_OPTION) {
 			prepForExit();
+			if (exit) {
+				System.exit(0);
+			}
 		}
 	}
 
@@ -614,8 +672,6 @@ public class CharacterSheet implements ActionListener {
 		PreferenceStore prefs = PreferenceStore.getInstance();
 		prefs.setWindowBounds(mFrame.getBounds());
 		prefs.saveValues();
-
-		System.exit(0);
 	}
 
 	public void levelChanged() {

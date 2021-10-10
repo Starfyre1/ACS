@@ -20,22 +20,22 @@ public class AnimalList implements Savable {
 	 ****************************************************************************/
 	/*
 		All War-horses have an ASP = +0 and a WL = 9.
-	
+
 		Carry =		Amount in Pounds including the rider, that the animal can
 				carry before reducing it's speed by 1/4.  An animal may not carry
 				more than twice it's allotted Carry.  Animals may drag a weight
 				equal to their Carry X 2, if the load is on wheels, increase it to
 				Carry X 5.
-	
+
 		Move =		Standard movement per round.
-	
+
 		Travel =	Number of miles that may be covered in clear terrain in one day.
 				in wilderness areas the maximum movement would be 25 miles
 				per day.
-	
+
 			All Horses and mules have an Armor Rating of 55% + whatever armor that you
 			buy for them.
-	
+
 	*/
 
 	public static final String				FILE_SECTTION_START_KEY	= "ANIMAL_SECTTION_START";	//$NON-NLS-1$
@@ -101,6 +101,10 @@ public class AnimalList implements Savable {
 			}
 		}
 		return cost;
+	}
+
+	public void clearRecords() {
+		mRecords = new ArrayList<>(26);
 	}
 
 	/*****************************************************************************
