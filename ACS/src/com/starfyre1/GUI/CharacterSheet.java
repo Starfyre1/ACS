@@ -758,6 +758,9 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public int getPercentEncumbrance() {
 		int carry = getPersonalInformationRecord().getCarry();
+		if (carry == 0) {
+			return 0;
+		}
 		float encumbrance = getTotalEncumbrance();
 		return (int) encumbrance / carry * 100;
 	}

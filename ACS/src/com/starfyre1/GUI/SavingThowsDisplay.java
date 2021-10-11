@@ -229,16 +229,17 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 	protected void loadDisplay() {
 		SavingThrowsRecord record = ((CharacterSheet) getOwner()).getSavingThrowsRecord();
 
-		mAgilityField.setText(TKStringHelpers.EMPTY_STRING + record.getAgility());
-		mBleedingField.setText(TKStringHelpers.EMPTY_STRING + record.getBleeding());
-		mMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getMagic());
-		mPoisonField.setText(TKStringHelpers.EMPTY_STRING + record.getPoison());
-		mShockField.setText(TKStringHelpers.EMPTY_STRING + record.getShock());
-		mStressField.setText(TKStringHelpers.EMPTY_STRING + record.getStress());
-		mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconcious());
-		mSupriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSuprise());
-		mPerceptionField.setText(TKStringHelpers.EMPTY_STRING + record.getPerception());
-		mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
-
+		if (record != null) {
+			mAgilityField.setText(TKStringHelpers.EMPTY_STRING + record.getAgility());
+			mBleedingField.setText(TKStringHelpers.EMPTY_STRING + record.getBleeding());
+			mMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getMagic());
+			mPoisonField.setText(TKStringHelpers.EMPTY_STRING + record.getPoison());
+			mShockField.setText(TKStringHelpers.EMPTY_STRING + record.getShock());
+			mStressField.setText(TKStringHelpers.EMPTY_STRING + record.getStress());
+			mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconcious());
+			mSupriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSuprise());
+			mPerceptionField.setText(TKStringHelpers.EMPTY_STRING + record.getPerception());
+			mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
+		}
 	}
 }

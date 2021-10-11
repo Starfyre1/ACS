@@ -166,7 +166,9 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 				popupMenu.add(menuItem, 0);
 			}
 		}
-		//		popupMenu.add(new JMenuItem(SELECT_CLASS), 0);
+		JMenuItem item = new JMenuItem(SELECT_CLASS);
+		item.addActionListener(this);
+		popupMenu.add(item, 0);
 
 		return popupMenu;
 	}
@@ -176,7 +178,11 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		HeaderRecord record = ((CharacterSheet) getOwner()).getHeaderRecord();
 		mPlayerNameField.setText(TKStringHelpers.EMPTY_STRING + record.getPlayerName());
 		mCharacterNameField.setText(TKStringHelpers.EMPTY_STRING + record.getCharacterName());
-		mClassPopup.selectPopupMenuItem(record.getCharacterClassName());
+		if (record.getCharacterClassName().equals(TKStringHelpers.EMPTY_STRING)) {
+			mClassPopup.selectPopupMenuItem(SELECT_CLASS);
+		} else {
+			mClassPopup.selectPopupMenuItem(record.getCharacterClassName());
+		}
 		mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
 		mCurrentExperienceField.setText(TKStringHelpers.EMPTY_STRING + record.getCurrentExperience());
 		mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
@@ -225,6 +231,9 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 
 			if (ACS.getInstance().getClasses().getClassesNamesList().contains(text)) {
 				record.setClass(text);
+				((CharacterSheet) getOwner()).levelChanged();
+			} else {
+				mClassPopup.selectPopupMenuItem(SELECT_CLASS);
 				((CharacterSheet) getOwner()).levelChanged();
 			}
 		}
