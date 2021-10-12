@@ -61,7 +61,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -203,15 +205,6 @@ public class CharacterSheet implements ActionListener {
 
 		createMainMenu();
 
-		Container pane = mFrame.getContentPane();
-
-		JPanel wrapper = new JPanel(new BorderLayout());
-		//		pane.setLayout();
-
-		//		JScrollPane scrollPane = new JScrollPane(wrapper);
-		//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		//		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
 		mHeaderDisplay = new HeaderDisplay(this);
 
 		JTabbedPane tabbedPane = new JTabbedPane();
@@ -231,13 +224,13 @@ public class CharacterSheet implements ActionListener {
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_S);
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_J);
 
+		JPanel wrapper = new JPanel(new BorderLayout());
 		wrapper.add(mHeaderDisplay, BorderLayout.NORTH);
 		wrapper.add(tabbedPane, BorderLayout.CENTER);
 
-		//		pane.add(scrollPane, BorderLayout.NORTH);
-		pane.add(wrapper, BorderLayout.NORTH);
+		Container pane = mFrame.getContentPane();
+		pane.add(wrapper, BorderLayout.CENTER);
 
-		mFrame.setBounds(PreferenceStore.getInstance().getWindowBounds());
 		mFrame.pack();
 		mFrame.setVisible(true);
 	}
@@ -247,12 +240,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	private JComponent makeCharacerTab() {
 
-		JPanel outer = new JPanel();
-		BoxLayout boxLayout = new BoxLayout(outer, BoxLayout.Y_AXIS);
-		outer.setLayout(boxLayout);
-
 		JPanel page = new JPanel(new GridBagLayout());
-
 		GridBagConstraints gbc = new GridBagConstraints();
 
 		gbc.fill = GridBagConstraints.BOTH;
@@ -262,6 +250,7 @@ public class CharacterSheet implements ActionListener {
 		gbc.gridheight = 1;
 		mAttributesDisplay = new AttributesDisplay(this);
 		page.add(mAttributesDisplay, gbc);
+
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = GridBagConstraints.RELATIVE;
 		gbc.gridy = 0;
@@ -269,6 +258,7 @@ public class CharacterSheet implements ActionListener {
 		gbc.gridheight = 1;
 		mSavingThrowsDisplay = new SavingThowsDisplay(this);
 		page.add(mSavingThrowsDisplay, gbc);
+
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = GridBagConstraints.RELATIVE;
 		gbc.gridy = 0;
@@ -284,6 +274,7 @@ public class CharacterSheet implements ActionListener {
 		gbc.gridheight = 1;
 		mSkillsDisplay = new SkillsDisplay(this);
 		page.add(mSkillsDisplay, gbc);
+
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = GridBagConstraints.RELATIVE;
 		gbc.gridy = 1;
@@ -299,6 +290,7 @@ public class CharacterSheet implements ActionListener {
 		gbc.gridheight = 1;
 		mMoneyDisplay = new MoneyDisplay(this);
 		page.add(mMoneyDisplay, gbc);
+
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = GridBagConstraints.RELATIVE;
 		gbc.gridy = 2;
@@ -306,15 +298,15 @@ public class CharacterSheet implements ActionListener {
 		gbc.gridheight = 1;
 		mPersonalInformationDisplay = new PersonalInformationDisplay(this);
 		page.add(mPersonalInformationDisplay, gbc);
+
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = GridBagConstraints.RELATIVE;
 		gbc.gridy = 2;
-		gbc.gridwidth = 2;
+		gbc.gridwidth = 3;
 		gbc.gridheight = 1;
-		mInnateAbilitiesDisplay = new InnateAbilitiesDisplay(this);
-		page.add(mInnateAbilitiesDisplay, gbc);
+		mDefenseInformationDisplay = new DefenseInformationDisplay(this);
+		page.add(mDefenseInformationDisplay, gbc);
 
-		//		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 		gbc.gridwidth = 3;
@@ -327,16 +319,16 @@ public class CharacterSheet implements ActionListener {
 		gbc.gridy = 3;
 		gbc.gridwidth = 3;
 		gbc.gridheight = 1;
-		mDefenseInformationDisplay = new DefenseInformationDisplay(this);
-		page.add(mDefenseInformationDisplay, gbc);
+		mInnateAbilitiesDisplay = new InnateAbilitiesDisplay(this);
+		page.add(mInnateAbilitiesDisplay, gbc);
 
-		//		gbc.fill = GridBagConstraints.BOTH;
 		gbc.gridx = 0;
 		gbc.gridy = 4;
 		gbc.gridwidth = 3;
 		gbc.gridheight = 1;
 		mWeaponInformationDisplay = new WeaponDisplay(null);
 		page.add(mWeaponInformationDisplay, gbc);
+
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		gbc.gridx = GridBagConstraints.RELATIVE;
 		gbc.gridy = 4;
@@ -345,8 +337,11 @@ public class CharacterSheet implements ActionListener {
 		mAttackTotalsDisplay = new AttackTotalsDisplay(this);
 		page.add(mAttackTotalsDisplay, gbc);
 
-		outer.add(page);
-		return outer;
+		JScrollPane scrollPane = new JScrollPane(page);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+		return scrollPane;
 	}
 
 	/**
@@ -386,7 +381,11 @@ public class CharacterSheet implements ActionListener {
 		page.add(mArmorDisplay);
 		page.add(sizer);
 
-		return page;
+		JScrollPane scrollPane = new JScrollPane(page);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+		return scrollPane;
 	}
 
 	private void createMainMenu() {
