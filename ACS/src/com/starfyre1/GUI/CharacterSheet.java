@@ -30,8 +30,6 @@ import com.starfyre1.startup.SystemInfo;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -240,102 +238,65 @@ public class CharacterSheet implements ActionListener {
 	 */
 	private JComponent makeCharacerTab() {
 
-		JPanel page = new JPanel(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
+		JPanel page = new JPanel();
+		BoxLayout boxLayout = new BoxLayout(page, BoxLayout.Y_AXIS);
+		page.setLayout(boxLayout);
 
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.gridwidth = 2;
-		gbc.gridheight = 1;
 		mAttributesDisplay = new AttributesDisplay(this);
-		page.add(mAttributesDisplay, gbc);
-
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = GridBagConstraints.RELATIVE;
-		gbc.gridy = 0;
-		gbc.gridwidth = 1;
-		gbc.gridheight = 1;
 		mSavingThrowsDisplay = new SavingThowsDisplay(this);
-		page.add(mSavingThrowsDisplay, gbc);
-
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = GridBagConstraints.RELATIVE;
-		gbc.gridy = 0;
-		gbc.gridwidth = 3;
-		gbc.gridheight = 1;
 		mCombatInformationDisplay = new CombatInformationDisplay(this);
-		page.add(mCombatInformationDisplay, gbc);
-
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.gridwidth = 3;
-		gbc.gridheight = 1;
 		mSkillsDisplay = new SkillsDisplay(this);
-		page.add(mSkillsDisplay, gbc);
-
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = GridBagConstraints.RELATIVE;
-		gbc.gridy = 1;
-		gbc.gridwidth = 3;
-		gbc.gridheight = 1;
 		mDeterminationPointsDisplay = new DeterminationPointsDisplay(this);
-		page.add(mDeterminationPointsDisplay, gbc);
-
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		gbc.gridwidth = 2;
-		gbc.gridheight = 1;
 		mMoneyDisplay = new MoneyDisplay(this);
-		page.add(mMoneyDisplay, gbc);
-
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = GridBagConstraints.RELATIVE;
-		gbc.gridy = 2;
-		gbc.gridwidth = 2;
-		gbc.gridheight = 1;
 		mPersonalInformationDisplay = new PersonalInformationDisplay(this);
-		page.add(mPersonalInformationDisplay, gbc);
-
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = GridBagConstraints.RELATIVE;
-		gbc.gridy = 2;
-		gbc.gridwidth = 3;
-		gbc.gridheight = 1;
 		mDefenseInformationDisplay = new DefenseInformationDisplay(this);
-		page.add(mDefenseInformationDisplay, gbc);
-
-		gbc.gridx = 0;
-		gbc.gridy = 3;
-		gbc.gridwidth = 3;
-		gbc.gridheight = 1;
 		mArmorInformationDisplay = new ArmorDisplay(null);
-		page.add(mArmorInformationDisplay, gbc);
-
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.gridx = GridBagConstraints.RELATIVE;
-		gbc.gridy = 3;
-		gbc.gridwidth = 3;
-		gbc.gridheight = 1;
 		mInnateAbilitiesDisplay = new InnateAbilitiesDisplay(this);
-		page.add(mInnateAbilitiesDisplay, gbc);
-
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		gbc.gridwidth = 3;
-		gbc.gridheight = 1;
 		mWeaponInformationDisplay = new WeaponDisplay(null);
-		page.add(mWeaponInformationDisplay, gbc);
-
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.gridx = GridBagConstraints.RELATIVE;
-		gbc.gridy = 4;
-		gbc.gridwidth = 3;
-		gbc.gridheight = 1;
 		mAttackTotalsDisplay = new AttackTotalsDisplay(this);
-		page.add(mAttackTotalsDisplay, gbc);
+
+		JPanel wrapper1 = new JPanel();
+		BoxLayout blw = new BoxLayout(wrapper1, BoxLayout.X_AXIS);
+		wrapper1.setLayout(blw);
+
+		wrapper1.add(mAttributesDisplay);
+		wrapper1.add(mSavingThrowsDisplay);
+		wrapper1.add(mCombatInformationDisplay);
+
+		JPanel wrapper2 = new JPanel();
+		BoxLayout blw2 = new BoxLayout(wrapper2, BoxLayout.X_AXIS);
+		wrapper2.setLayout(blw2);
+
+		wrapper2.add(mSkillsDisplay);
+		wrapper2.add(mDeterminationPointsDisplay);
+
+		JPanel wrapper3 = new JPanel();
+		BoxLayout blw3 = new BoxLayout(wrapper3, BoxLayout.X_AXIS);
+		wrapper3.setLayout(blw3);
+
+		wrapper3.add(mMoneyDisplay);
+		wrapper3.add(mPersonalInformationDisplay);
+		wrapper3.add(mDefenseInformationDisplay);
+
+		JPanel wrapper4 = new JPanel();
+		BoxLayout blw4 = new BoxLayout(wrapper4, BoxLayout.X_AXIS);
+		wrapper4.setLayout(blw4);
+
+		wrapper4.add(mArmorInformationDisplay);
+		wrapper4.add(mInnateAbilitiesDisplay);
+
+		JPanel wrapper5 = new JPanel();
+		BoxLayout blw5 = new BoxLayout(wrapper5, BoxLayout.X_AXIS);
+		wrapper5.setLayout(blw5);
+
+		wrapper5.add(mWeaponInformationDisplay);
+		wrapper5.add(mAttackTotalsDisplay);
+
+		page.add(wrapper1);
+		page.add(wrapper2);
+		page.add(wrapper3);
+		page.add(wrapper4);
+		page.add(wrapper5);
 
 		JScrollPane scrollPane = new JScrollPane(page);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
