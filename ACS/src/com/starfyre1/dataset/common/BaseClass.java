@@ -53,6 +53,8 @@ public abstract class BaseClass {
 
 	public abstract int getClimb();
 
+	public abstract int getPerception();
+
 	public abstract int getUnallocatedSkills();
 
 	// CombatInfo

@@ -61,34 +61,39 @@ public class SkillsRecord implements LevelListener, Savable {
 	 ****************************************************************************/
 	private CharacterSheet		mCharacterSheet;
 
+	private int					mAppraise					= 0;
 	private int					mBandaging					= 0;
-	private int					mHunting					= 0;
-	private int					mTracking					= 0;
+	private int					mDepthSense					= 0;
 	private int					mDetectMagic				= 0;
-	private int					mDetectMorals				= 0;
 	private int					mDetectMetals				= 0;
+	private int					mDetectMorals				= 0;
 	private int					mDetectSecretDoors			= 0;
 	private int					mDetectTraps				= 0;
-	private int					mAppraise					= 0;
-	private int					mDepthSense					= 0;
+	private int					mHerbalLore					= 0;
+	private int					mHunting					= 0;
+	private int					mPerception					= 0;
+	private int					mTracking					= 0;
+
+	private int					mBerserk					= 0;
+
+	private int					mClimb						= 0;
 	private int					mConceal					= 0;
-	private int					mStealth					= 0;
+	private int					mFindTrap					= 0;
 	private int					mHear						= 0;
 	private int					mLockPick					= 0;
 	private int					mPocketPick					= 0;
-	private int					mClimb						= 0;
-	private int					mFindTrap					= 0;
 	private int					mRemoveTrap					= 0;
+	private int					mStealth					= 0;
+
+	private int					mClimbLevelBonus			= 0;
 	private int					mConcealLevelBonus			= 0;
-	private int					mStealthLevelBonus			= 0;
+	private int					mFindTrapLevelBonus			= 0;
 	private int					mHearLevelBonus				= 0;
 	private int					mLockPickLevelBonus			= 0;
 	private int					mPocketPickLevelBonus		= 0;
-	private int					mClimbLevelBonus			= 0;
-	private int					mFindTrapLevelBonus			= 0;
 	private int					mRemoveTrapLevelBonus		= 0;
-	private int					mHerbalLore					= 0;
-	private int					mBerserk					= 0;
+	private int					mStealthLevelBonus			= 0;
+
 	private int					mUnallocated				= 0;
 
 	/*****************************************************************************
@@ -142,6 +147,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		generateDepthSense(classInfo);
 		generateHerbalLore(lvl, classInfo);
 		generateBerserk();
+		generatePerception(classInfo, lvl, stats.getModifiedStat(AttributesRecord.INT), stats.getModifiedStat(AttributesRecord.WIS));
 		generateUnallocatedSkills();
 
 		generateConceal(classInfo);
@@ -173,6 +179,12 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = wisdom;
 		int classBonus = classInfo.getHunting();
 		mHunting = base + classBonus;
+	}
+
+	public void generatePerception(BaseClass classInfo, int lvl, int intel, int wisdom) {
+		int base = intel + wisdom + 15 + (lvl - 1) * 2;
+		int classBonus = classInfo.getPerception();
+		mPerception = base + classBonus;
 	}
 
 	public void generateTracking(BaseClass classInfo) {
@@ -304,21 +316,21 @@ public class SkillsRecord implements LevelListener, Savable {
 		  		Listener is:				Chance to Hear 		Range
 				Human, Non-thief with a save		20%			60'
 				Vs. Surprise of less than 75%
-		
-		
+
+
 				Human, Non-thief with a save		30%			60'
 				Vs. Surprise of more than 75%
-		
+
 				Elven, Half-Elven and Dwarrow		30% 		120'
-		
+
 				Other--(some monsters will have		20%			60'
 				high hearing abilities)
-		
+
 				Thief					Varies with lvl		60' *
 					*	Add 5’ per 10% above 100% to hear.
-		
+
 				Halve all chances when listening to a door.
-		
+
 		*/
 
 		// DW implement if needed
@@ -529,6 +541,11 @@ public class SkillsRecord implements LevelListener, Savable {
 	/** @return The herbalLore. */
 	public int getHerbalLore() {
 		return mHerbalLore;
+	}
+
+	/** @return The Perception. */
+	public int getPerception() {
+		return mPerception;
 	}
 
 	/** @return The berserk. */

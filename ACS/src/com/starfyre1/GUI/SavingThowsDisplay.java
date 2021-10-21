@@ -92,7 +92,7 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 	private static final String	PERCEPTION_LABEL	= "Perception";				//$NON-NLS-1$
 
 	// DW add level info to tooltip for real level (+4%/lvl-1)
-	//private static final String	SAVING_THROWS_TOOLTIP	= "Roll Percentile Dice below Saving thow number";	//$NON-NLS-1$
+	//private static final String	SAVING_THROWS_TOOLTIP	= "Roll Percentile Dice below Saving throw number";	//$NON-NLS-1$
 	private static final String	AGILITY_TOOLTIP		= "(DEX * 3) + 10";			//$NON-NLS-1$
 	private static final String	BLEEDING_TOOLTIP	= "STR + (CON * 2) + WP";	//$NON-NLS-1$
 	private static final String	MAGIC_TOOLTIP		= "(INT * 2) + WIS";		//$NON-NLS-1$

@@ -38,6 +38,11 @@ public abstract class PriestsBase extends SpellUser {
 	}
 
 	@Override
+	public int getPerception() {
+		return 0;
+	}
+
+	@Override
 	public int getHunting() {
 		return 0;
 	}

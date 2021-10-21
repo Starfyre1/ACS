@@ -26,16 +26,19 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 	 ****************************************************************************/
 	private static final String	SKILLS_TITLE				= "Skills";					//$NON-NLS-1$
 
+	private static final String	APPRAISE_LABEL				= "Appraise";				//$NON-NLS-1$
 	private static final String	BANDAGING_LABEL				= "Bandaging";				//$NON-NLS-1$
-	private static final String	HUNTING_LABEL				= "Hunting";				//$NON-NLS-1$
-	private static final String	TRACKING_LABEL				= "Tracking";				//$NON-NLS-1$
+	private static final String	DEPTH_SENSE_LABEL			= "Depth Sense";			//$NON-NLS-1$
 	private static final String	DETECT_MAGIC_LABEL			= "Detect Magic";			//$NON-NLS-1$
-	private static final String	DETECT_MORALS_LABEL			= "Detect Morals";			//$NON-NLS-1$
 	private static final String	DETECT_METALS_LABEL			= "Detect Metals";			//$NON-NLS-1$
+	private static final String	DETECT_MORALS_LABEL			= "Detect Morals";			//$NON-NLS-1$
 	private static final String	DETECT_SECRET_DOORS_LABEL	= "Detect Secret Doors";	//$NON-NLS-1$
 	private static final String	DETECT_TRAPS_LABEL			= "Detect Traps";			//$NON-NLS-1$
-	private static final String	APPRAISE_LABEL				= "Appraise";				//$NON-NLS-1$
-	private static final String	DEPTH_SENSE_LABEL			= "Depth Sense";			//$NON-NLS-1$
+	private static final String	HERBAL_LORE_LABEL			= "Herbal Lore";			//$NON-NLS-1$
+	private static final String	HUNTING_LABEL				= "Hunting";				//$NON-NLS-1$
+	private static final String	PERCEPTION_LABEL			= "Perception";				//$NON-NLS-1$
+	private static final String	TRACKING_LABEL				= "Tracking";				//$NON-NLS-1$
+
 	private static final String	CONCEAL_LABEL				= "Conceal";				//$NON-NLS-1$
 	private static final String	STEALTH_LABEL				= "Stealth";				//$NON-NLS-1$
 	private static final String	HEAR_LABEL					= "Hear";					//$NON-NLS-1$
@@ -45,6 +48,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 	private static final String	FIND_TRAP_LABEL				= "Find Trap";				//$NON-NLS-1$
 	private static final String	REMOVE_TRAP_LABEL			= "Remove Trap";			//$NON-NLS-1$
 	private static final String	LEVEL_BONUS_LABEL			= "Level Bonus";			//$NON-NLS-1$
+
 	private static final String	UNALLOCATED_LABEL			= "Unallocated";			//$NON-NLS-1$
 
 	/*****************************************************************************
@@ -52,32 +56,35 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 	 ****************************************************************************/
 	private JTextField			mAppraiseField;
 	private JTextField			mBandagingField;
+	private JTextField			mDepthSenseField;
 	private JTextField			mDetectMagicField;
-	private JTextField			mDetectMoralsField;
 	private JTextField			mDetectMetalsField;
-	private JTextField			mHuntingField;
-	private JTextField			mTrackingField;
+	private JTextField			mDetectMoralsField;
 	private JTextField			mDetectSecretDoorsField;
 	private JTextField			mDetectTrapsField;
-	private JTextField			mDepthSenseField;
+	private JTextField			mHerbalLoreField;
+	private JTextField			mHuntingField;
+	private JTextField			mPerceptionField;
+	private JTextField			mTrackingField;
 
+	private JTextField			mClimbField;
 	private JTextField			mConcealField;
-	private JTextField			mStealthField;
+	private JTextField			mFindTrapField;
 	private JTextField			mHearField;
 	private JTextField			mLockPickField;
 	private JTextField			mPocketPickField;
-	private JTextField			mClimbField;
-	private JTextField			mFindTrapField;
 	private JTextField			mRemoveTrapField;
+	private JTextField			mStealthField;
 
+	private JTextField			mClimbLevelBonusField;
 	private JTextField			mConcealLevelBonusField;
-	private JTextField			mStealthLevelBonusField;
+	private JTextField			mFindTrapLevelBonusField;
 	private JTextField			mHearLevelBonusField;
 	private JTextField			mLockPickLevelBonusField;
 	private JTextField			mPocketPickLevelBonusField;
-	private JTextField			mClimbLevelBonusField;
-	private JTextField			mFindTrapLevelBonusField;
 	private JTextField			mRemoveTrapLevelBonusField;
+	private JTextField			mStealthLevelBonusField;
+
 	private JTextField			mUnallocatedField;
 
 	/*****************************************************************************
@@ -98,10 +105,10 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
 		JPanel outer = new JPanel();
-		outer.setBorder(new EmptyBorder(0, 0, 5, 10));
+		outer.setBorder(new EmptyBorder(0, 5, 5, 10));
 		outer.setLayout(new BoxLayout(outer, BoxLayout.Y_AXIS));
 
-		JPanel wrapper = new JPanel(new GridLayout(11, 5, 5, 0));
+		JPanel wrapper = new JPanel(new GridLayout(12, 5, 5, 0));
 
 		JLabel appraiseLabel = new JLabel(APPRAISE_LABEL, SwingConstants.RIGHT);
 		mAppraiseField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
@@ -140,9 +147,17 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		mDetectTrapsField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mDetectTrapsField.setEditable(false);
 
+		JLabel herbalLoreLabel = new JLabel(HERBAL_LORE_LABEL, SwingConstants.RIGHT);
+		mHerbalLoreField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
+		mHerbalLoreField.setEditable(false);
+
 		JLabel huntingLabel = new JLabel(HUNTING_LABEL, SwingConstants.RIGHT);
 		mHuntingField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mHuntingField.setEditable(false);
+
+		JLabel perceptionLabel = new JLabel(PERCEPTION_LABEL, SwingConstants.RIGHT);
+		mPerceptionField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
+		mPerceptionField.setEditable(false);
 
 		JLabel trackingLabel = new JLabel(TRACKING_LABEL, SwingConstants.RIGHT);
 		mTrackingField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
@@ -242,23 +257,29 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		wrapper.add(mRemoveTrapField);
 		wrapper.add(mRemoveTrapLevelBonusField);
 
-		wrapper.add(huntingLabel);
-		wrapper.add(mHuntingField);
+		wrapper.add(herbalLoreLabel);
+		wrapper.add(mHerbalLoreField);
 		wrapper.add(stealthLabel);
 		wrapper.add(mStealthField);
 		wrapper.add(mStealthLevelBonusField);
+
+		wrapper.add(huntingLabel);
+		wrapper.add(mHuntingField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(unallocatedLabel);
+
+		wrapper.add(perceptionLabel);
+		wrapper.add(mPerceptionField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(mUnallocatedField);
 
 		wrapper.add(trackingLabel);
 		wrapper.add(mTrackingField);
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
-		wrapper.add(unallocatedLabel);
-
 		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(mUnallocatedField);
 
 		outer.add(wrapper);
 		return outer;
@@ -269,33 +290,37 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 
 		SkillsRecord record = ((CharacterSheet) getOwner()).getSkillsRecord();
 
+		mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
 		mBandagingField.setText(TKStringHelpers.EMPTY_STRING + record.getBandaging());
-		mHuntingField.setText(TKStringHelpers.EMPTY_STRING + record.getHunting());
-		mTrackingField.setText(TKStringHelpers.EMPTY_STRING + record.getTracking());
+		mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDepthSense());
 		mDetectMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMagic());
-		mDetectMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMorals());
 		mDetectMetalsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMetals());
+		mDetectMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMorals());
 		mDetectSecretDoorsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectSecretDoors());
 		mDetectTrapsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectTraps());
-		mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
-		mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDepthSense());
+		mHerbalLoreField.setText(TKStringHelpers.EMPTY_STRING + record.getHerbalLore());
+		mHuntingField.setText(TKStringHelpers.EMPTY_STRING + record.getHunting());
+		mPerceptionField.setText(TKStringHelpers.EMPTY_STRING + record.getPerception());
+		mTrackingField.setText(TKStringHelpers.EMPTY_STRING + record.getTracking());
+
+		mClimbField.setText(TKStringHelpers.EMPTY_STRING + (record.getClimb() + record.getClimbLevelBonus()));
 		mConcealField.setText(TKStringHelpers.EMPTY_STRING + (record.getConceal() + record.getConcealLevelBonus()));
-		mStealthField.setText(TKStringHelpers.EMPTY_STRING + (record.getStealth() + record.getStealthLevelBonus()));
+		mFindTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getFindTrap() + record.getFindTrapLevelBonus()));
 		mHearField.setText(TKStringHelpers.EMPTY_STRING + (record.getHear() + record.getHearLevelBonus()));
 		mLockPickField.setText(TKStringHelpers.EMPTY_STRING + (record.getLockPick() + record.getLockPickLevelBonus()));
 		mPocketPickField.setText(TKStringHelpers.EMPTY_STRING + (record.getPocketPick() + record.getPocketPickLevelBonus()));
-		mClimbField.setText(TKStringHelpers.EMPTY_STRING + (record.getClimb() + record.getClimbLevelBonus()));
-		mFindTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getFindTrap() + record.getFindTrapLevelBonus()));
 		mRemoveTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getRemoveTrap() + record.getRemoveTrapLevelBonus()));
+		mStealthField.setText(TKStringHelpers.EMPTY_STRING + (record.getStealth() + record.getStealthLevelBonus()));
 
+		mClimbLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getClimbLevelBonus());
 		mConcealLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getConcealLevelBonus());
-		mStealthLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getStealthLevelBonus());
+		mFindTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getFindTrapLevelBonus());
 		mHearLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHearLevelBonus());
 		mLockPickLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getLockPickLevelBonus());
 		mPocketPickLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getPocketPickLevelBonus());
-		mClimbLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getClimbLevelBonus());
-		mFindTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getFindTrapLevelBonus());
 		mRemoveTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getRemoveTrapLevelBonus());
+		mStealthLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getStealthLevelBonus());
+
 		mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocatedSkills());
 	}
 

@@ -78,6 +78,11 @@ public class Human extends BaseClass {
 	}
 
 	@Override
+	public int getPerception() {
+		return 0;
+	}
+
+	@Override
 	public int getBerserk() {
 		return 0;
 	}
