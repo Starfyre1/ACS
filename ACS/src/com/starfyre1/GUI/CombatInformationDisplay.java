@@ -260,6 +260,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements FocusLi
 				record.setCastingLevelBonus(TKStringHelpers.getIntValue(mCastingSpeedLevelField.getText(), record.getCastingLevelBonus()));
 			} else if (((JTextField) source).equals(mHitLevelBonusField)) {
 				record.setHitLevelBonus(TKStringHelpers.getIntValue(mHitLevelBonusField.getText(), record.getHitLevelBonus()));
+				record.updateDefenseRecord();
 			} else if (((JTextField) source).equals(mBowLevelBonusField)) {
 				record.setBowLevelBonus(TKStringHelpers.getIntValue(mBowLevelBonusField.getText(), record.getBowLevelBonus()));
 			}

@@ -587,4 +587,8 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mCastingSpeedLevelBonus = 0;
 	}
 
+	public void updateDefenseRecord() {
+		generateDefenseAndFreeAttack();
+	}
+
 }
