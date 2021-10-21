@@ -218,9 +218,9 @@ public class WeaponDisplay extends TKTitledDisplay implements TableModelListener
 			model.setValueAt(Integer.valueOf(record.getAttackSpeed() + metal.getASP()), row, 10); // Absorption
 			model.setValueAt(Integer.valueOf(metal.getBreak(record.getWeaponBreak())), row, 11); // Break
 			model.setValueAt(Integer.valueOf(record.getHitBonus() + metal.getHitBonus()), row, 12); // Missile Absorption
-			model.setValueAt(Integer.valueOf(record.getDamageOneHanded() > 0 ? record.getDamageOneHanded() + metal.getDamage() : 0), row, 13); // Missile Absorption
-			model.setValueAt(Integer.valueOf(record.getDamageTwoHanded() > 0 ? record.getDamageTwoHanded() + metal.getDamage() : 0), row, 14); // Missile Absorption
-			model.setValueAt(Float.valueOf(record.getCost() * metal.getCost()), row, 15); // Missile Absorption
+			model.setValueAt(Integer.valueOf(record.getHanded() < 2 ? record.getDamageOneHanded() + metal.getDamage() : 0), row, 13); // 1 handed damage
+			model.setValueAt(Integer.valueOf(record.getHanded() < 3 && record.getHanded() > 0 ? record.getDamageTwoHanded() + metal.getDamage() : 0), row, 14); // 2 handed damage
+			model.setValueAt(Float.valueOf(record.getCost() * metal.getCost()), row, 15); // Cost
 		}
 		updateCost();
 	}

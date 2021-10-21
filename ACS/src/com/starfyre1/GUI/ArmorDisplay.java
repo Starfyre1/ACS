@@ -218,6 +218,7 @@ public class ArmorDisplay extends TKTitledDisplay implements TableModelListener 
 			model.setValueAt(Integer.valueOf(record.getProtectionAmount() + metal.getARBonus()), row, 5); // ProtectionAmount
 			model.setValueAt(Float.valueOf(record.getEncumbrance() * metal.getEnumbrance()), row, 6); // Encumbrance
 			model.setValueAt(Integer.valueOf(record.getAbsorption() + metal.getAbsorb()), row, 7); // Absorption
+			model.setValueAt(Integer.valueOf(record.getBonus() + metal.getAbsorb()), row, 8); // Bonus
 			model.setValueAt(Integer.valueOf(record.getMissileAbsorption() + metal.getAbsorb()), row, 9); // Missile Absorption
 			model.setValueAt(Integer.valueOf(metal.getBreak(record.getBreak())), row, 12); // Break
 			model.setValueAt(Float.valueOf(record.getCost() * metal.getCost()), row, 13); // Missile Absorption
