@@ -43,7 +43,7 @@ public abstract class ElvesBase extends BaseClass {
 
 	@Override
 	public int getDetectMagic() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		return lvl * 5;
 	}
 
