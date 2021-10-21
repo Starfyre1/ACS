@@ -195,7 +195,8 @@ public class HeaderRecord implements Savable {
 	}
 
 	@Override
-	public void setKeyValuePair(String key, String value) {
+	public void setKeyValuePair(String key, Object obj) {
+		String value = (String) obj;
 		value = value.replace("~", " "); //$NON-NLS-1$ //$NON-NLS-2$
 		if (key.equals(PLAYER_NAME_KEY)) {
 			mPlayerName = value;

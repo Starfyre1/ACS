@@ -269,7 +269,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	}
 
 	@Override
-	public void setKeyValuePair(String key, String value) {
+	public void setKeyValuePair(String key, Object obj) {
+		String value = (String) obj;
 		value = value.replace("~", " "); //$NON-NLS-1$ //$NON-NLS-2$
 		if (key.equals(MAGICAL_AREA_KEY)) {
 			mAreaPopup.selectPopupMenuItem(value);

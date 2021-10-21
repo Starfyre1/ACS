@@ -498,7 +498,8 @@ public class PersonalInformationRecord implements Savable {
 	}
 
 	@Override
-	public void setKeyValuePair(String key, String value) {
+	public void setKeyValuePair(String key, Object obj) {
+		String value = (String) obj;
 		if (HEIGHT_KEY.equals(key)) {
 			mHeight = TKStringHelpers.getIntValue(value, 0);
 		} else if (WEIGHT_KEY.equals(key)) {

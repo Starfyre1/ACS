@@ -14,5 +14,5 @@ public interface Savable {
 
 	public void writeValues(BufferedWriter br) throws IOException;
 
-	public void setKeyValuePair(String key, String value);
+	public void setKeyValuePair(String key, Object value);
 }

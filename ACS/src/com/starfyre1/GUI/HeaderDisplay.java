@@ -7,10 +7,12 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.ClassesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
+import com.starfyre1.dataModel.HistoryRecord;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.PriestList;
 import com.starfyre1.startup.ACS;
+import com.starfyre1.storage.HistoryManager;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -29,6 +32,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class HeaderDisplay extends TKTitledDisplay implements FocusListener, ActionListener {
+
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -209,10 +213,18 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 			} else if (((JTextField) source).equals(mCharacterNameField)) {
 				record.setCharacterName(mCharacterNameField.getText());
 			} else if (((JTextField) source).equals(mCurrentExperienceField)) {
-				record.setCurrentExperience(TKStringHelpers.getIntValue(mCurrentExperienceField.getText(), record.getOldExperience()));
+				HistoryManager manager = HistoryManager.getInstance();
+
+				int currentExperience = TKStringHelpers.getIntValue(mCurrentExperienceField.getText(), record.getOldExperience());
+				manager.addRecord(HistoryManager.EXPERIENCE_KEY, new HistoryRecord(new Date(System.currentTimeMillis()), currentExperience));
+				record.setCurrentExperience(currentExperience);
+
 				mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
+				mCurrentExperienceField.setToolTipText(manager.getTooltip(HistoryManager.EXPERIENCE_KEY));
 				mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
 				((CharacterSheet) getOwner()).levelChanged();
+				manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(new Date(System.currentTimeMillis()), record.getLevel()));
+				mLevelField.setToolTipText(manager.getTooltip(HistoryManager.LEVEL_KEY));
 			}
 		}
 	}
@@ -242,6 +254,19 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	/**
+	 * @param tooltip
+	 */
+	public void setLevelToolTip(String tooltip) {
+		mLevelField.setToolTipText(tooltip);
+	}
+
+	/**
+	 * @param tooltip
+	 */
+	public void setCurrentExperienceToolTip(String tooltip) {
+		mCurrentExperienceField.setToolTipText(tooltip);
+	}
 
 	/*****************************************************************************
 	 * Serialization

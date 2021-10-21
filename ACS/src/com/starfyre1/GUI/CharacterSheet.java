@@ -26,6 +26,7 @@ import com.starfyre1.dataset.PriestList;
 import com.starfyre1.dataset.WeaponList;
 import com.starfyre1.startup.ACS;
 import com.starfyre1.startup.SystemInfo;
+import com.starfyre1.storage.HistoryManager;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -958,6 +959,13 @@ public class CharacterSheet implements ActionListener {
 							tokenizer = mAnimalList.readValues(br);
 							break;
 						}
+						case HistoryManager.FILE_SECTTION_START_KEY: {
+							HistoryManager historyManager = HistoryManager.getInstance();
+							tokenizer = historyManager.readValues(br);
+							mHeaderDisplay.setCurrentExperienceToolTip(historyManager.getTooltip(HistoryManager.EXPERIENCE_KEY));
+							mHeaderDisplay.setLevelToolTip(historyManager.getTooltip(HistoryManager.LEVEL_KEY));
+							break;
+						}
 						default:
 							throw new IllegalArgumentException("Unexpected value: " + in); //$NON-NLS-1$
 					}
@@ -1010,6 +1018,7 @@ public class CharacterSheet implements ActionListener {
 			mEquipmentList.saveValues(br);
 			mMagicItemList.saveValues(br);
 			mAnimalList.saveValues(br);
+			HistoryManager.getInstance().saveValues(br);
 			JOptionPane.showMessageDialog(mFrame, "File Saved: " + file.getName()); //$NON-NLS-1$
 		} catch (IOException exception) {
 			exception.printStackTrace();

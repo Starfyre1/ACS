@@ -175,7 +175,8 @@ public class EquipmentList implements Savable {
 	}
 
 	@Override
-	public void setKeyValuePair(String key, String value) {
+	public void setKeyValuePair(String key, Object obj) {
+		String value = (String) obj;
 		if (COUNT_KEY.equals(key)) {
 			mCount = TKStringHelpers.getIntValue(value, 0);
 		} else if (EQUIPPED_KEY.equals(key)) {

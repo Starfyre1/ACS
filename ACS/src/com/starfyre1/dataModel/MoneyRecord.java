@@ -238,7 +238,8 @@ public class MoneyRecord implements Savable {
 	}
 
 	@Override
-	public void setKeyValuePair(String key, String value) {
+	public void setKeyValuePair(String key, Object obj) {
+		String value = (String) obj;
 		if (GOLD_KEY.equals(key)) {
 			mGold = TKStringHelpers.getIntValue(value, 0);
 		} else if (SILVER_KEY.equals(key)) {

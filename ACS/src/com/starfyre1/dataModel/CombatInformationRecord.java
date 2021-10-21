@@ -567,7 +567,8 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	}
 
 	@Override
-	public void setKeyValuePair(String key, String value) {
+	public void setKeyValuePair(String key, Object obj) {
+		String value = (String) obj;
 		if (HIT_LEVEL_BONUS_KEY.equals(key)) {
 			mHitLevelBonus = TKStringHelpers.getIntValue(value, 0);
 		} else if (BOW_LEVEL_BONUS_KEY.equals(key)) {

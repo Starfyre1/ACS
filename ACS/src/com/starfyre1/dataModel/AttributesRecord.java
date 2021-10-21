@@ -244,7 +244,8 @@ public class AttributesRecord implements Savable {
 	}
 
 	@Override
-	public void setKeyValuePair(String key, String value) {
+	public void setKeyValuePair(String key, Object obj) {
+		String value = (String) obj;
 		int stat = TKStringHelpers.getIntValue(value, 0);
 		if (key.equals(STRENGTH_KEY)) {
 			mStats[0] = stat;
