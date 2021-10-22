@@ -77,6 +77,10 @@ public class SystemInfo {
 		return "OS Name: " + OS_NAME;
 	}
 
+	public static Point getCenterLocationPoint(Rectangle outer, Dimension inner) {
+		return new Point((outer.width - inner.width) / 2 + outer.x, (outer.height - inner.height) / 2 + outer.y);
+	}
+
 	public static Point getShellPlacement(Rectangle bounds) {
 		Point location = getMonitorSize();
 

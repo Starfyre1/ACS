@@ -3,11 +3,10 @@
 package com.starfyre1.dataModel;
 
 import com.starfyre1.startup.ACS;
+import com.starfyre1.startup.SystemInfo;
 
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.Date;
 
 import javax.swing.JDialog;
@@ -21,20 +20,20 @@ public class JournalRecord {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
+	private static final Dimension	SIZE	= new Dimension(360, 480);
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private Date		mWorldDate;
-	private Date		mCampainDate;
-	private JTextArea	mJournalEntry;
+	private Date					mWorldDate;
+	private Date					mCampainDate;
+	private JTextArea				mJournalEntry;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
 	public JournalRecord() {
 
-		Rectangle bounds = ACS.getInstance().getCharacterSheet().getFrame().getBounds();
 		mJournalEntry = new JTextArea();
 		mJournalEntry.setBorder(new EmptyBorder(5, 5, 5, 5));
 		mJournalEntry.setEditable(true);
@@ -51,11 +50,9 @@ public class JournalRecord {
 
 		dialog.setTitle("Journal");
 		dialog.setModal(true);
-		dialog.setMinimumSize(new Dimension(360, 480));
-		int x = bounds.width;
-		int y = bounds.height;
-		Point location = new Point((x - 240) / 2, (y - 480) / 2);
-		dialog.setLocation(location);
+		dialog.setMinimumSize(SIZE);
+		dialog.setLocation(SystemInfo.getCenterLocationPoint(ACS.getInstance().getCharacterSheet().getFrame().getBounds(), SIZE));
+
 		dialog.setVisible(true);
 
 	}
