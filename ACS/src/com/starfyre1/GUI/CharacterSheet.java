@@ -31,6 +31,7 @@ import com.starfyre1.storage.HistoryManager;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -892,6 +893,10 @@ public class CharacterSheet implements ActionListener {
 
 	public PriestList getPriests() {
 		return ACS.getInstance().getPriests();
+	}
+
+	public Frame getFrame() {
+		return mFrame;
 	}
 
 	/*****************************************************************************
