@@ -78,18 +78,18 @@ public class SystemInfo {
 	}
 
 	public static Point getShellPlacement(Rectangle bounds) {
-		Point location = getMonitorBounds();
+		Point location = getMonitorSize();
 
 		return new Point((location.x - bounds.width) / 2, (location.y - bounds.height) / 2);
 	}
 
 	public static Point getShellPlacement(Dimension bounds) {
-		Point location = getMonitorBounds();
+		Point location = getMonitorSize();
 
 		return new Point((location.x - bounds.width) / 2, (location.y - bounds.height) / 2);
 	}
 
-	public static Point getMonitorBounds() {
+	public static Point getMonitorSize() {
 		DisplayMode dm = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode();
 
 		return new Point(dm.getWidth(), dm.getHeight());

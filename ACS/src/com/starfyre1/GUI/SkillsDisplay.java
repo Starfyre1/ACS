@@ -24,32 +24,32 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	SKILLS_TITLE				= "Skills";					//$NON-NLS-1$
+	private static final String	SKILLS_TITLE				= "Skills";			//$NON-NLS-1$
 
-	private static final String	APPRAISE_LABEL				= "Appraise";				//$NON-NLS-1$
-	private static final String	BANDAGING_LABEL				= "Bandaging";				//$NON-NLS-1$
-	private static final String	DEPTH_SENSE_LABEL			= "Depth Sense";			//$NON-NLS-1$
-	private static final String	DETECT_MAGIC_LABEL			= "Detect Magic";			//$NON-NLS-1$
-	private static final String	DETECT_METALS_LABEL			= "Detect Metals";			//$NON-NLS-1$
-	private static final String	DETECT_MORALS_LABEL			= "Detect Morals";			//$NON-NLS-1$
-	private static final String	DETECT_SECRET_DOORS_LABEL	= "Detect Secret Doors";	//$NON-NLS-1$
-	private static final String	DETECT_TRAPS_LABEL			= "Detect Traps";			//$NON-NLS-1$
-	private static final String	HERBAL_LORE_LABEL			= "Herbal Lore";			//$NON-NLS-1$
-	private static final String	HUNTING_LABEL				= "Hunting";				//$NON-NLS-1$
-	private static final String	PERCEPTION_LABEL			= "Perception";				//$NON-NLS-1$
-	private static final String	TRACKING_LABEL				= "Tracking";				//$NON-NLS-1$
+	private static final String	APPRAISE_LABEL				= "Appraise";		//$NON-NLS-1$
+	private static final String	BANDAGING_LABEL				= "Bandaging";		//$NON-NLS-1$
+	private static final String	DEPTH_SENSE_LABEL			= "Depth Sense";	//$NON-NLS-1$
+	private static final String	DETECT_MAGIC_LABEL			= "Detect Magic";	//$NON-NLS-1$
+	private static final String	DETECT_METALS_LABEL			= "Detect Metals";	//$NON-NLS-1$
+	private static final String	DETECT_MORALS_LABEL			= "Detect Morals";	//$NON-NLS-1$
+	private static final String	DETECT_SECRET_DOORS_LABEL	= "Secret Doors";	//$NON-NLS-1$
+	private static final String	DETECT_TRAPS_LABEL			= "Detect Traps";	//$NON-NLS-1$
+	private static final String	HERBAL_LORE_LABEL			= "Herbal Lore";	//$NON-NLS-1$
+	private static final String	HUNTING_LABEL				= "Hunting";		//$NON-NLS-1$
+	private static final String	PERCEPTION_LABEL			= "Perception";		//$NON-NLS-1$
+	private static final String	TRACKING_LABEL				= "Tracking";		//$NON-NLS-1$
 
-	private static final String	CONCEAL_LABEL				= "Conceal";				//$NON-NLS-1$
-	private static final String	STEALTH_LABEL				= "Stealth";				//$NON-NLS-1$
-	private static final String	HEAR_LABEL					= "Hear";					//$NON-NLS-1$
-	private static final String	LOCK_PICK_LABEL				= "Lock Pick";				//$NON-NLS-1$
-	private static final String	POCKET_PICK_LABEL			= "Pocket Pick";			//$NON-NLS-1$
-	private static final String	CLIMB_LABEL					= "Climb";					//$NON-NLS-1$
-	private static final String	FIND_TRAP_LABEL				= "Find Trap";				//$NON-NLS-1$
-	private static final String	REMOVE_TRAP_LABEL			= "Remove Trap";			//$NON-NLS-1$
-	private static final String	LEVEL_BONUS_LABEL			= "Level Bonus";			//$NON-NLS-1$
+	private static final String	CONCEAL_LABEL				= "Conceal";		//$NON-NLS-1$
+	private static final String	STEALTH_LABEL				= "Stealth";		//$NON-NLS-1$
+	private static final String	HEAR_LABEL					= "Hear";			//$NON-NLS-1$
+	private static final String	LOCK_PICK_LABEL				= "Lock Pick";		//$NON-NLS-1$
+	private static final String	POCKET_PICK_LABEL			= "Pocket Pick";	//$NON-NLS-1$
+	private static final String	CLIMB_LABEL					= "Climb";			//$NON-NLS-1$
+	private static final String	FIND_TRAP_LABEL				= "Find Trap";		//$NON-NLS-1$
+	private static final String	REMOVE_TRAP_LABEL			= "Remove Trap";	//$NON-NLS-1$
+	private static final String	LEVEL_BONUS_LABEL			= "Level Bonus";	//$NON-NLS-1$
 
-	private static final String	UNALLOCATED_LABEL			= "Unallocated";			//$NON-NLS-1$
+	private static final String	UNALLOCATED_LABEL			= "Unallocated";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -108,7 +108,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		outer.setBorder(new EmptyBorder(0, 5, 5, 10));
 		outer.setLayout(new BoxLayout(outer, BoxLayout.Y_AXIS));
 
-		JPanel wrapper = new JPanel(new GridLayout(12, 5, 5, 0));
+		JPanel wrapper = new JPanel(new GridLayout(11, 7, 5, 0));
 
 		JLabel appraiseLabel = new JLabel(APPRAISE_LABEL, SwingConstants.RIGHT);
 		mAppraiseField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
@@ -209,77 +209,93 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		mUnallocatedField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mUnallocatedField.setEditable(false);
 
-		wrapper.add(appraiseLabel);
-		wrapper.add(mAppraiseField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(levelBonusLabel);
 
-		wrapper.add(bandagingLabel);
-		wrapper.add(mBandagingField);
+		wrapper.add(appraiseLabel);
+		wrapper.add(mAppraiseField);
+		wrapper.add(detectTrapsLabel);
+		wrapper.add(mDetectTrapsField);
 		wrapper.add(climbLabel);
 		wrapper.add(mClimbField);
 		wrapper.add(mClimbLevelBonusField);
 
-		wrapper.add(depthSenseLabel);
-		wrapper.add(mDepthSenseField);
+		wrapper.add(bandagingLabel);
+		wrapper.add(mBandagingField);
+		wrapper.add(herbalLoreLabel);
+		wrapper.add(mHerbalLoreField);
 		wrapper.add(concealLabel);
 		wrapper.add(mConcealField);
 		wrapper.add(mConcealLevelBonusField);
 
-		wrapper.add(detectMagicLabel);
-		wrapper.add(mDetectMagicField);
+		wrapper.add(depthSenseLabel);
+		wrapper.add(mDepthSenseField);
+		wrapper.add(huntingLabel);
+		wrapper.add(mHuntingField);
 		wrapper.add(findTrapLabel);
 		wrapper.add(mFindTrapField);
 		wrapper.add(mFindTrapLevelBonusField);
 
-		wrapper.add(detectMetalsLabel);
-		wrapper.add(mDetectMetalsField);
+		wrapper.add(detectMagicLabel);
+		wrapper.add(mDetectMagicField);
+		wrapper.add(perceptionLabel);
+		wrapper.add(mPerceptionField);
 		wrapper.add(hearLabel);
 		wrapper.add(mHearField);
 		wrapper.add(mHearLevelBonusField);
 
-		wrapper.add(detectMoralsLabel);
-		wrapper.add(mDetectMoralsField);
+		wrapper.add(detectMetalsLabel);
+		wrapper.add(mDetectMetalsField);
+		wrapper.add(detectSecretDoorsLabel);
+		wrapper.add(mDetectSecretDoorsField);
 		wrapper.add(lockPickLabel);
 		wrapper.add(mLockPickField);
 		wrapper.add(mLockPickLevelBonusField);
 
-		wrapper.add(detectSecretDoorsLabel);
-		wrapper.add(mDetectSecretDoorsField);
+		wrapper.add(detectMoralsLabel);
+		wrapper.add(mDetectMoralsField);
+		wrapper.add(trackingLabel);
+		wrapper.add(mTrackingField);
 		wrapper.add(pocketPickLabel);
 		wrapper.add(mPocketPickField);
 		wrapper.add(mPocketPickLevelBonusField);
 
-		wrapper.add(detectTrapsLabel);
-		wrapper.add(mDetectTrapsField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
 		wrapper.add(removeTrapLabel);
 		wrapper.add(mRemoveTrapField);
 		wrapper.add(mRemoveTrapLevelBonusField);
 
-		wrapper.add(herbalLoreLabel);
-		wrapper.add(mHerbalLoreField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
 		wrapper.add(stealthLabel);
 		wrapper.add(mStealthField);
 		wrapper.add(mStealthLevelBonusField);
 
-		wrapper.add(huntingLabel);
-		wrapper.add(mHuntingField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(unallocatedLabel);
 
-		wrapper.add(perceptionLabel);
-		wrapper.add(mPerceptionField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(mUnallocatedField);
-
-		wrapper.add(trackingLabel);
-		wrapper.add(mTrackingField);
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
 
 		outer.add(wrapper);
 		return outer;
