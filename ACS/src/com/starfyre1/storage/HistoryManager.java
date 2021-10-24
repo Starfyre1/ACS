@@ -44,7 +44,6 @@ public class HistoryManager implements Savable {
 	 * Methods
 	 ****************************************************************************/
 	public void addRecord(String key, HistoryRecord record) {
-		int value = record.getNewValue();
 		List<HistoryRecord> list = mTable.get(key);
 		if (list == null) {
 			list = new ArrayList<HistoryRecord>();
