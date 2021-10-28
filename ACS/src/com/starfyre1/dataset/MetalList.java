@@ -34,7 +34,7 @@ public class MetalList {
 	private static void createMetalMasterList() {
 		mMetalMasterList = new MetalRecord[10];
 
-		File in = new File("./src/com/starfyre1/dataset/Metal.txt"); //$NON-NLS-1$
+		File in = new File("./src/com/starfyre1/dataset/rawData/Metal.txt"); //$NON-NLS-1$
 		try {
 			BufferedReader brIn = new BufferedReader(new FileReader(in));
 			int count = 0;

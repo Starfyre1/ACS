@@ -90,7 +90,7 @@ public class EquipmentList implements Savable {
 		if (mEquipmentMasterList == null) {
 			mEquipmentMasterList = new EquipmentRecord[144];
 
-			File in = new File("./src/com/starfyre1/dataset/Equipment.txt"); //$NON-NLS-1$
+			File in = new File("./src/com/starfyre1/dataset/rawData/Equipment.txt"); //$NON-NLS-1$
 			try {
 				BufferedReader brIn = new BufferedReader(new FileReader(in));
 				int count = 0;

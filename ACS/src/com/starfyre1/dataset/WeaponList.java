@@ -106,7 +106,7 @@ public class WeaponList implements Savable {
 		if (mWeaponMasterList == null) {
 			mWeaponMasterList = new WeaponRecord[56];
 
-			File in = new File("./src/com/starfyre1/dataset/Weapon.txt"); //$NON-NLS-1$
+			File in = new File("./src/com/starfyre1/dataset/rawData/Weapon.txt"); //$NON-NLS-1$
 			try {
 				BufferedReader brIn = new BufferedReader(new FileReader(in));
 				int count = 0;

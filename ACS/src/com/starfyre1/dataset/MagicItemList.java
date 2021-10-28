@@ -88,7 +88,7 @@ public class MagicItemList implements Savable {
 		if (mMagicItemMasterList == null) {
 			mMagicItemMasterList = new MagicItemRecord[2];
 
-			File in = new File("./src/com/starfyre1/dataset/MagicItem.txt"); //$NON-NLS-1$
+			File in = new File("./src/com/starfyre1/dataset/rawData/MagicItem.txt"); //$NON-NLS-1$
 			try {
 				BufferedReader brIn = new BufferedReader(new FileReader(in));
 				int count = 0;

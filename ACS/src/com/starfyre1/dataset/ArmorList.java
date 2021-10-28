@@ -102,7 +102,7 @@ public class ArmorList implements Savable {
 		if (mArmorMasterList == null) {
 			mArmorMasterList = new ArmorRecord[52];
 
-			File in = new File("./src/com/starfyre1/dataset/Armor.txt"); //$NON-NLS-1$
+			File in = new File("./src/com/starfyre1/dataset/rawData/Armor.txt"); //$NON-NLS-1$
 			try {
 				BufferedReader brIn = new BufferedReader(new FileReader(in));
 				int count = 0;
