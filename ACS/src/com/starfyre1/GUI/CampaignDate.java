@@ -29,15 +29,14 @@ public class CampaignDate extends JDialog {
 	private static final String	MONTHS_SHORT[]	= { "JAN", "FEB", "MAR", "SPR", "APR", "MAY", "JUN", "SUM", "JULY", "AUG", "SEP", "FAL", "OCT", "NOV", "DEC", "WIN" };													//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
 	private static final String	DAYS_SHORT[]	= { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };																													//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 	private static final int	DATES[]			= { 31, 28, 31, 7, 30, 31, 30, 7, 31, 31, 30, 7, 31, 30, 31, 7 };
-	private static final int	YEAR_AL			= 614;
-	private static final int	YEAR_AD			= YEAR_AL - 267;
+	private static final int	YEAR_AL			= 615;																																									// YEAR_AD			= YEAR_AL - 268;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 
 	private Color				mOldColor		= null;
-	private int					mCurrentYear	= 615;
+	private int					mCurrentYear	= YEAR_AL;
 	private int					mCurrentMonth	= 5;																																									// 0=January... 15=Winter
 	private int					mCurrentDate	= 14;
 	private int					mYear			= mCurrentYear;
@@ -110,7 +109,7 @@ public class CampaignDate extends JDialog {
 				mButton[i].setForeground(Color.BLACK);
 			}
 		}
-		mSpacer.setText(MONTHS[mMonth - 1] + " " + String.format("%04d", mYear)); //$NON-NLS-1$ //$NON-NLS-2$
+		mSpacer.setText(MONTHS[mMonth - 1] + " " + String.format("%04d", Integer.valueOf(mYear))); //$NON-NLS-1$ //$NON-NLS-2$
 		mSpacer.setBackground(Color.WHITE);
 	}
 
@@ -118,7 +117,7 @@ public class CampaignDate extends JDialog {
 		if (mDay.equals("")) { //$NON-NLS-1$
 			return mDay;
 		}
-		return MONTHS_SHORT[mMonth - 1] + " " + mDay + " " + String.format("%04d", mYear); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return MONTHS_SHORT[mMonth - 1] + " " + mDay + ", " + String.format("%04d", Integer.valueOf(mYear)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	private JPanel getButtonPanel() {

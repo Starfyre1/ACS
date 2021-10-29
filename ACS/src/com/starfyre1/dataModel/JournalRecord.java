@@ -2,58 +2,49 @@
 
 package com.starfyre1.dataModel;
 
+import com.starfyre1.GUI.CampaignDate;
 import com.starfyre1.startup.ACS;
-import com.starfyre1.startup.SystemInfo;
 
-import java.awt.Container;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.text.DateFormat;
 import java.util.Date;
 
-import javax.swing.JDialog;
-import javax.swing.JScrollPane;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 
-public class JournalRecord {
+public class JournalRecord extends JTextArea {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final Dimension	SIZE	= new Dimension(360, 480);
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private Date					mWorldDate;
-	private Date					mCampainDate;
-	private JTextArea				mJournalEntry;
+	private Date			mWorldDate;
+	private CampaignDate	mCampainDate;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
 	public JournalRecord() {
+		super();
 
-		mJournalEntry = new JTextArea();
-		mJournalEntry.setBorder(new EmptyBorder(5, 5, 5, 5));
-		mJournalEntry.setEditable(true);
-		mJournalEntry.setLineWrap(true);
-		mJournalEntry.setWrapStyleWord(true);
+		setBorder(new EmptyBorder(5, 5, 5, 5));
+		setEditable(true);
+		setLineWrap(true);
+		setWrapStyleWord(true);
 
-		JScrollPane scrollPane = new JScrollPane(mJournalEntry);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-		JDialog dialog = new JDialog();
-		Container panel = dialog.getContentPane();
-		panel.add(scrollPane);
-
-		dialog.setTitle("Journal");
-		dialog.setModal(true);
-		dialog.setMinimumSize(SIZE);
-		dialog.setLocation(SystemInfo.getCenterLocationPoint(ACS.getInstance().getCharacterSheet().getFrame().getBounds(), SIZE));
-
-		dialog.setVisible(true);
+		mWorldDate = new Date(System.currentTimeMillis());
+		mCampainDate = new CampaignDate(ACS.getInstance().getCharacterSheet().getFrame());
 
 	}
 
@@ -64,29 +55,42 @@ public class JournalRecord {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	public String getJournalRecordHeader() {
-		String header = new String("Test");
+	public JPanel getJournalRecordHeader() {
+		String line1 = new String();
+		String line2 = new String();
 		try {
-			String line1 = "";
-			String line2 = "";
-			if (mJournalEntry.getDocument().getLength() > 0) {
-				int start1 = mJournalEntry.getLineStartOffset(0);
-				int len1 = mJournalEntry.getLineEndOffset(0) - start1;
-				line1 = mJournalEntry.getText(start1, len1);
+			if (getDocument().getLength() > 0) {
+				int start1 = getLineStartOffset(0);
+				int len1 = getLineEndOffset(0) - start1;
+				line1 = getText(start1, len1);
 
-				if (mJournalEntry.getLineCount() > 1) {
-					int start2 = mJournalEntry.getLineStartOffset(1);
-					int len2 = mJournalEntry.getLineEndOffset(1) - start2;
-					line2 = mJournalEntry.getText(start2, len2);
+				if (getLineCount() > 1) {
+					int start2 = getLineStartOffset(1);
+					int len2 = getLineEndOffset(1) - start2;
+					line2 = getText(start2, len2);
 				}
 			}
 
-			header = new String("<html>" + mWorldDate + " " + mCampainDate + "<br>" + line1 + "<br>" + line2);
 		} catch (BadLocationException exception) {
 			exception.printStackTrace();
 		}
 
-		return header;
+		JPanel wrapper = new JPanel(new GridLayout(2, 1, 5, 0));
+		wrapper.setBorder(new EmptyBorder(0, 15, 0, 15));
+		wrapper.add(new JLabel(line1));
+		wrapper.add(new JLabel(line2));
+
+		JPanel panel = new JPanel();
+		BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.X_AXIS);
+		panel.setLayout(boxLayout);
+		panel.setBorder(new CompoundBorder(new LineBorder(Color.BLACK), new EmptyBorder(0, 5, 0, 5)));
+
+		panel.add(new JLabel(mCampainDate.getSelectedDate(), SwingConstants.LEADING));
+		panel.add(wrapper);
+		panel.add(new JLabel(DateFormat.getDateInstance().format(mWorldDate), SwingConstants.TRAILING));
+
+		panel.setMaximumSize(new Dimension(panel.getMaximumSize().width, panel.getMinimumSize().height));
+		return panel;
 	}
 
 	/*****************************************************************************
