@@ -6,32 +6,31 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
-public class CampaignDate extends DateBase {
+public class WorldDate extends DateBase {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
 
-	private static final String	TITLE			= "Campain Date";																																						//$NON-NLS-1$
+	private static final String	TITLE			= "Game Date";																											//$NON-NLS-1$
 
-	private static final String	MONTHS[]		= { "January", "February", "March", "Spring", "April", "May", "June", "Summer", "July", "August", "September", "Fall", "October", "November", "December", "Winter" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
-	private static final int	DATES[]			= { 31, 28, 31, 7, 30, 31, 30, 7, 31, 31, 30, 7, 31, 30, 31, 7 };
-	private static final int	YEAR_AL			= 615;																																									// YEAR_AD			= YEAR_AL - 268;
+	private static final String	MONTHS_SHORT[]	= { "Jan", "Feb", "Mar", "Spr", "Apr", "May", "Jun", "Sum", "Jul", "Aug", "Sep", "Fal", "Oct", "Nov", "Dec", "Win" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
+	private static final String	DAYS_SHORT[]	= { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };																	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 
-	private static int			mCurrentYear	= YEAR_AL;
-	private static int			mCurrentMonth	= 5;																																									// 0=January... 15=Winter
-	private static int			mCurrentDate	= 14;
+	private static int			mCurrentYear	= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+	private static int			mCurrentMonth	= java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);														// 0=January... 15=Winter
+	private static int			mCurrentDate	= java.util.Calendar.getInstance().get(java.util.Calendar.DATE);
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link CampaignDate}.
+	 * Creates a new {@link WorldDate}.
 	 */
-	public CampaignDate(JFrame parent) {
+	public WorldDate(JFrame parent) {
 		super(parent, mCurrentYear, mCurrentMonth, mCurrentDate);
 	}
 
@@ -43,10 +42,12 @@ public class CampaignDate extends DateBase {
 		for (int x = 7; x < mButton.length; x++) {
 			mButton[x].setText(""); //$NON-NLS-1$
 		}
-		int dayOfWeek = getDayOfWeek(mYear, mMonth, mDate);
-		int daysInMonth = DATES[mMonth - 1];
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMMM yyyy"); //$NON-NLS-1$
+		java.util.Calendar cal = java.util.Calendar.getInstance();
+		cal.set(mYear, mMonth, 1);
+		int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
+		int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
-			//			System.out.println(i + " " + (6 + dayOfWeek) + " " + day + " " + daysInMonth);
 			mButton[i].setText("" + day); //$NON-NLS-1$
 			if (day == mCurrentDate && mMonth == mCurrentMonth && mYear == mCurrentYear) {
 				mButton[i].setForeground(Color.RED);
@@ -54,25 +55,14 @@ public class CampaignDate extends DateBase {
 				mButton[i].setForeground(Color.BLACK);
 			}
 		}
-		mSpacer.setText(MONTHS[mMonth - 1] + " " + String.format("%04d", Integer.valueOf(mYear))); //$NON-NLS-1$ //$NON-NLS-2$
+		mSpacer.setText(sdf.format(cal.getTime()));
 		mSpacer.setBackground(Color.WHITE);
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	private int getDayOfWeek(int year, int month, int day) {
 
-		int days = (year - 1) * 393; // == Jan 1 of year
-		for (int i = 0; i < month - 1; i++) { //  == last day of last month
-			days += DATES[i];
-		}
-		days += day; // == number of days since epoch (1/1/1)
-
-		days = days % 7;
-		return days == 0 ? 7 : days;
-
-	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
