@@ -34,8 +34,8 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 	private static final String			NEW_ENTRY			= "New Entry";				//$NON-NLS-1$
 
 	private static final Dimension		SIZE				= new Dimension(360, 480);
-	private static final String			GAME_DATE_LABEL		= "Game Date";				//$NON-NLS-1$
-	private static final String			CALANDER_DATE_lABEL	= "Calander_Date";			//$NON-NLS-1$
+	private static final String			GAME_DATE_LABEL		= "Campaign Date";			//$NON-NLS-1$
+	private static final String			CALANDER_DATE_lABEL	= "Calander Date";			//$NON-NLS-1$
 
 	//DW make non-editable, add journal entry button, add journal entries with border.
 
