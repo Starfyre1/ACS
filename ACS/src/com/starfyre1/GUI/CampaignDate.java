@@ -13,6 +13,7 @@ public class CampaignDate extends DateBase {
 
 	private static final String	TITLE			= "Campain Date";																																						//$NON-NLS-1$
 
+	private static final String	MONTHS_SHORT[]	= { "Jan", "Feb", "Mar", "Spr", "Apr", "May", "Jun", "Sum", "Jul", "Aug", "Sep", "Fal", "Oct", "Nov", "Dec", "Win" };													//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
 	private static final String	MONTHS[]		= { "January", "February", "March", "Spring", "April", "May", "June", "Summer", "July", "August", "September", "Fall", "October", "November", "December", "Winter" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
 	private static final int	DATES[]			= { 31, 28, 31, 7, 30, 31, 30, 7, 31, 31, 30, 7, 31, 30, 31, 7 };
 	private static final int	YEAR_AL			= 615;																																									// YEAR_AD			= YEAR_AL - 268;
@@ -32,7 +33,7 @@ public class CampaignDate extends DateBase {
 	 * Creates a new {@link CampaignDate}.
 	 */
 	public CampaignDate(JFrame parent) {
-		super(parent, mCurrentYear, mCurrentMonth, mCurrentDate);
+		super(parent, TITLE, mCurrentYear, mCurrentMonth, mCurrentDate);
 	}
 
 	/*****************************************************************************
@@ -56,6 +57,14 @@ public class CampaignDate extends DateBase {
 		}
 		mSpacer.setText(MONTHS[mMonth - 1] + " " + String.format("%04d", Integer.valueOf(mYear))); //$NON-NLS-1$ //$NON-NLS-2$
 		mSpacer.setBackground(Color.WHITE);
+	}
+
+	@Override
+	public String getSelectedDate() {
+		if (mDay.equals("")) { //$NON-NLS-1$
+			return mDay;
+		}
+		return MONTHS_SHORT[mMonth - 1] + " " + String.format("%02d", Integer.valueOf(mDay)) + ", " + String.format("%04d", Integer.valueOf(mYear)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 	/*****************************************************************************
