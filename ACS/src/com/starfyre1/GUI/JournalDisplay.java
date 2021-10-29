@@ -61,6 +61,7 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 	protected Component createDisplay() {
 
 		mNewEntryButton = TKComponentHelpers.createButton(NEW_ENTRY, this);
+		mNewEntryButton.setBorderPainted(false);
 
 		JPanel wrapper = new JPanel(new GridLayout(1, 3));
 		wrapper.setBorder(new EmptyBorder(0, 5, 0, 5));
@@ -101,6 +102,7 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 		dialog.setTitle("Journal"); //$NON-NLS-1$
 		dialog.setModal(true);
 		dialog.setMinimumSize(SIZE);
+		// DW fix this to be relative to owner
 		dialog.setLocationRelativeTo(ACS.getInstance().getCharacterSheet().getFrame());
 		dialog.setVisible(true);
 
