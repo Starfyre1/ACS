@@ -80,11 +80,17 @@ public class JournalRecord extends JTextArea {
 				int start1 = getLineStartOffset(0);
 				int len1 = getLineEndOffset(0) - start1;
 				line1 = getText(start1, len1);
+				if (line1.length() > 180) {
+					line1 = line1.substring(0, 150) + "..."; //$NON-NLS-1$
+				}
 
 				if (getLineCount() > 1) {
 					int start2 = getLineStartOffset(1);
 					int len2 = getLineEndOffset(1) - start2;
 					line2 = getText(start2, len2);
+					if (line2.length() > 180) {
+						line2 = line2.substring(0, 150) + "..."; //$NON-NLS-1$
+					}
 				}
 			}
 
@@ -139,10 +145,12 @@ public class JournalRecord extends JTextArea {
 		dialog.setMinimumSize(JournalDisplay.JOURNAL_ENTRY_SIZE);
 		dialog.setLocationRelativeTo(((CharacterSheet) mParent.getOwner()).getFrame());
 		dialog.setVisible(true);
+		if (getDocument().getLength() != 0) {
+			setHeaderText();
+		} else {
+			mParent.removeRecord(this);
+		}
 
-		setHeaderText();
-
-		mParent.revalidate();
 	}
 
 	private JButton getDateButton(String date, ActionListener listener) {

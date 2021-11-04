@@ -69,11 +69,16 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 		wrapper.setMaximumSize(new Dimension(wrapper.getMaximumSize().width, wrapper.getMinimumSize().height));
 
 		mPanel = new JPanel();
-		BoxLayout bl = new BoxLayout(mPanel, BoxLayout.Y_AXIS);
-		mPanel.setLayout(bl);
-		mPanel.add(wrapper, BorderLayout.NORTH);
+		BoxLayout bl2 = new BoxLayout(mPanel, BoxLayout.Y_AXIS);
+		mPanel.setLayout(bl2);
 
-		JScrollPane scrollPane = new JScrollPane(mPanel);
+		JPanel upperPanel = new JPanel();
+		BoxLayout bl = new BoxLayout(upperPanel, BoxLayout.Y_AXIS);
+		upperPanel.setLayout(bl);
+		upperPanel.add(wrapper, BorderLayout.NORTH);
+		upperPanel.add(mPanel, BorderLayout.CENTER);
+
+		JScrollPane scrollPane = new JScrollPane(upperPanel);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -91,10 +96,23 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 		JournalRecord record = new JournalRecord(this);
 		record.displayJournalRecord();
 
-		mEntries.add(record);
-		mPanel.add(record.getJournalRecordHeader(), BorderLayout.CENTER);
-		mPanel.revalidate();
+		if (record.getDocument().getLength() != 0) {
+			mEntries.add(record);
+			mPanel.add(record.getJournalRecordHeader(), BorderLayout.CENTER);
+			mPanel.revalidate();
+		}
+	}
 
+	/**
+	 * @param journalRecord
+	 */
+	public void removeRecord(JournalRecord journalRecord) {
+		mEntries.remove(journalRecord);
+		mPanel.removeAll();
+		for (JournalRecord record : mEntries) {
+			mPanel.add(record.getJournalRecordHeader(), BorderLayout.CENTER);
+		}
+		mPanel.revalidate();
 	}
 
 	/*****************************************************************************
