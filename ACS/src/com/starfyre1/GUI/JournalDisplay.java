@@ -5,7 +5,6 @@ package com.starfyre1.GUI;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.JournalRecord;
-import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -33,7 +31,7 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 	private static final String			JOURNAL_TITLE		= "Journal";				//$NON-NLS-1$
 	private static final String			NEW_ENTRY			= "New Entry";				//$NON-NLS-1$
 
-	private static final Dimension		SIZE				= new Dimension(360, 480);
+	public static final Dimension		JOURNAL_ENTRY_SIZE	= new Dimension(360, 480);
 	private static final String			GAME_DATE_LABEL		= "Campaign Date";			//$NON-NLS-1$
 	private static final String			CALANDER_DATE_lABEL	= "Calander Date";			//$NON-NLS-1$
 
@@ -90,21 +88,8 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 	}
 
 	private void createNewJournalRecord() {
-		JournalRecord record = new JournalRecord();
-		JDialog dialog = new JDialog();
-
-		JScrollPane scrollPane = new JScrollPane(record);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-		dialog.add(scrollPane);
-
-		dialog.setTitle("Journal"); //$NON-NLS-1$
-		dialog.setModal(true);
-		dialog.setMinimumSize(SIZE);
-		// DW fix this to be relative to owner
-		dialog.setLocationRelativeTo(ACS.getInstance().getCharacterSheet().getFrame());
-		dialog.setVisible(true);
+		JournalRecord record = new JournalRecord(this);
+		record.displayJournalRecord();
 
 		mEntries.add(record);
 		mPanel.add(record.getJournalRecordHeader(), BorderLayout.CENTER);

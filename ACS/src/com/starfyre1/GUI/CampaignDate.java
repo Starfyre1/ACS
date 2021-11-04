@@ -2,6 +2,8 @@
 
 package com.starfyre1.GUI;
 
+import com.starfyre1.startup.ACS;
+
 import java.awt.Color;
 
 import javax.swing.JFrame;
@@ -13,18 +15,13 @@ public class CampaignDate extends DateBase {
 
 	private static final String	TITLE			= "Campain Date";																																						//$NON-NLS-1$
 
-	private static final String	MONTHS_SHORT[]	= { "Jan", "Feb", "Mar", "Spr", "Apr", "May", "Jun", "Sum", "Jul", "Aug", "Sep", "Fal", "Oct", "Nov", "Dec", "Win" };													//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
+	static final String			MONTHS_SHORT[]	= { "Jan", "Feb", "Mar", "Spr", "Apr", "May", "Jun", "Sum", "Jul", "Aug", "Sep", "Fal", "Oct", "Nov", "Dec", "Win" };													//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
 	private static final String	MONTHS[]		= { "January", "February", "March", "Spring", "April", "May", "June", "Summer", "July", "August", "September", "Fall", "October", "November", "December", "Winter" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
 	private static final int	DATES[]			= { 31, 28, 31, 7, 30, 31, 30, 7, 31, 31, 30, 7, 31, 30, 31, 7 };
-	private static final int	YEAR_AL			= 615;																																									// YEAR_AD			= YEAR_AL - 268;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-
-	private static int			mCurrentYear	= YEAR_AL;
-	private static int			mCurrentMonth	= 5;																																									// 0=January... 15=Winter
-	private static int			mCurrentDate	= 14;
 
 	/*****************************************************************************
 	 * Constructors
@@ -33,7 +30,7 @@ public class CampaignDate extends DateBase {
 	 * Creates a new {@link CampaignDate}.
 	 */
 	public CampaignDate(JFrame parent) {
-		super(parent, TITLE, mCurrentYear, mCurrentMonth, mCurrentDate);
+		super(parent, TITLE, ACS.getInstance().getCharacterSheet().getCurrentCampaignYear(), ACS.getInstance().getCharacterSheet().getCurrentCampaignMonth(), ACS.getInstance().getCharacterSheet().getCurrentCampaignDate());
 	}
 
 	/*****************************************************************************
@@ -46,10 +43,11 @@ public class CampaignDate extends DateBase {
 		}
 		int dayOfWeek = getDayOfWeek(mYear, mMonth, mDate);
 		int daysInMonth = DATES[mMonth - 1];
+		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			//			System.out.println(i + " " + (6 + dayOfWeek) + " " + day + " " + daysInMonth);
 			mButton[i].setText("" + day); //$NON-NLS-1$
-			if (day == mCurrentDate && mMonth == mCurrentMonth && mYear == mCurrentYear) {
+			if (day == characterSheet.getCurrentCampaignDate() && mMonth == characterSheet.getCurrentCampaignMonth() && mYear == characterSheet.getCurrentCampaignYear()) {
 				mButton[i].setForeground(Color.RED);
 			} else {
 				mButton[i].setForeground(Color.BLACK);

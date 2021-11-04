@@ -2,6 +2,8 @@
 
 package com.starfyre1.GUI;
 
+import com.starfyre1.startup.ACS;
+
 import java.awt.Color;
 
 import javax.swing.JFrame;
@@ -11,15 +13,11 @@ public class WorldDate extends DateBase {
 	 * Constants
 	 ****************************************************************************/
 
-	private static final String	TITLE			= "Calander Date";													//$NON-NLS-1$
+	private static final String TITLE = "Calander Date"; //$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-
-	private static int			mCurrentYear	= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-	private static int			mCurrentMonth	= java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);	// 0=January... 15=Winter
-	private static int			mCurrentDate	= java.util.Calendar.getInstance().get(java.util.Calendar.DATE);
 
 	/*****************************************************************************
 	 * Constructors
@@ -28,7 +26,7 @@ public class WorldDate extends DateBase {
 	 * Creates a new {@link WorldDate}.
 	 */
 	public WorldDate(JFrame parent) {
-		super(parent, TITLE, mCurrentYear, mCurrentMonth, mCurrentDate);
+		super(parent, TITLE, ACS.getInstance().getCharacterSheet().getCurrentWorldYear(), ACS.getInstance().getCharacterSheet().getCurrentWorldMonth(), ACS.getInstance().getCharacterSheet().getCurrentWorldDate());
 	}
 
 	/*****************************************************************************
@@ -44,9 +42,10 @@ public class WorldDate extends DateBase {
 		cal.set(mYear, mMonth, 1);
 		int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
 		int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			mButton[i].setText("" + day); //$NON-NLS-1$
-			if (day == mCurrentDate && mMonth == mCurrentMonth && mYear == mCurrentYear) {
+			if (day == characterSheet.getCurrentWorldDate() && mMonth == characterSheet.getCurrentWorldMonth() && mYear == characterSheet.getCurrentWorldYear()) {
 				mButton[i].setForeground(Color.RED);
 			} else {
 				mButton[i].setForeground(Color.BLACK);
