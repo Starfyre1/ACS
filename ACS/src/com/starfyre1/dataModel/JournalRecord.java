@@ -49,7 +49,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	private JLabel				mHeaderLabel1;
 	private JLabel				mHeaderLabel2;
 	private Color				mOldColor	= null;
-	private boolean				mSaveRecord	= true;
+	private boolean				mSaveRecord	= false;
 
 	/*****************************************************************************
 	 * Constructors
