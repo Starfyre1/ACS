@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -32,8 +33,8 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 	private static final String			NEW_ENTRY			= "New Entry";				//$NON-NLS-1$
 
 	public static final Dimension		JOURNAL_ENTRY_SIZE	= new Dimension(360, 480);
-	private static final String			GAME_DATE_LABEL		= "Campaign Date";			//$NON-NLS-1$
-	private static final String			CALANDER_DATE_lABEL	= "Calander Date";			//$NON-NLS-1$
+	private static final String			CAMPAIGN_DATE_LABEL	= "Campaign Date";			//$NON-NLS-1$
+	private static final String			WORLD_DATE_lABEL	= "World Date";				//$NON-NLS-1$
 
 	//DW make non-editable, add journal entry button, add journal entries with border.
 
@@ -63,9 +64,9 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 
 		JPanel wrapper = new JPanel(new GridLayout(1, 3));
 		wrapper.setBorder(new EmptyBorder(0, 5, 0, 5));
-		wrapper.add(new JLabel(GAME_DATE_LABEL, SwingConstants.LEADING));
+		wrapper.add(new JLabel(CAMPAIGN_DATE_LABEL, SwingConstants.LEADING));
 		wrapper.add(mNewEntryButton);
-		wrapper.add(new JLabel(CALANDER_DATE_lABEL, SwingConstants.TRAILING));
+		wrapper.add(new JLabel(WORLD_DATE_lABEL, SwingConstants.TRAILING));
 		wrapper.setMaximumSize(new Dimension(wrapper.getMaximumSize().width, wrapper.getMinimumSize().height));
 
 		mPanel = new JPanel();
@@ -94,12 +95,11 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 
 	private void createNewJournalRecord() {
 		JournalRecord record = new JournalRecord(this);
-		record.displayJournalRecord();
+		record.displayJournalRecord(false);
 
-		if (record.getDocument().getLength() != 0) {
+		if (record.saveRecord() && record.getDocument().getLength() != 0) {
 			mEntries.add(record);
-			mPanel.add(record.getJournalRecordHeader(), BorderLayout.CENTER);
-			mPanel.revalidate();
+			updatePreviewPanel();
 		}
 	}
 
@@ -108,9 +108,16 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 	 */
 	public void removeRecord(JournalRecord journalRecord) {
 		mEntries.remove(journalRecord);
+		updatePreviewPanel();
+	}
+
+	public void updatePreviewPanel() {
 		mPanel.removeAll();
-		for (JournalRecord record : mEntries) {
-			mPanel.add(record.getJournalRecordHeader(), BorderLayout.CENTER);
+
+		Collections.sort(mEntries);
+
+		for (JournalRecord entry : mEntries) {
+			mPanel.add(entry.getJournalRecordHeader(), BorderLayout.CENTER);
 		}
 		mPanel.revalidate();
 	}

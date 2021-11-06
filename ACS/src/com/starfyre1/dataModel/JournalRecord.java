@@ -6,7 +6,10 @@ import com.starfyre1.GUI.CampaignDate;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.JournalDisplay;
 import com.starfyre1.GUI.WorldDate;
+import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.startup.ACS;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -27,22 +30,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 
-public class JournalRecord extends JTextArea {
+public class JournalRecord extends JTextArea implements Comparable<JournalRecord> {
+
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
+	private static final String	CREATE		= "Create";	//$NON-NLS-1$
+	private static final String	CANCEL		= "Cancel";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private JournalDisplay	mParent;
-	private JButton			mWorldButton;
-	private JButton			mCampaignButton;
-	private String			mWorldDate;
-	private String			mCampaignDate;
-	private JLabel			mHeaderLabel1;
-	private JLabel			mHeaderLabel2;
-	private Color			mOldColor	= null;
+	private JournalDisplay		mParent;
+	private JButton				mWorldButton;
+	private JButton				mCampaignButton;
+	private String				mWorldDate;
+	private String				mCampaignDate;
+	private JLabel				mHeaderLabel1;
+	private JLabel				mHeaderLabel2;
+	private Color				mOldColor	= null;
+	private boolean				mSaveRecord	= true;
 
 	/*****************************************************************************
 	 * Constructors
@@ -111,7 +118,7 @@ public class JournalRecord extends JTextArea {
 		textHeaderPanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent me) {
-				displayJournalRecord();
+				displayJournalRecord(true);
 			}
 		});
 
@@ -131,21 +138,25 @@ public class JournalRecord extends JTextArea {
 		return panel;
 	}
 
-	public void displayJournalRecord() {
+	public void displayJournalRecord(boolean saveRecordIfCancelled) {
 		JDialog dialog = new JDialog();
+		dialog.setLayout(new BorderLayout());
 
 		JScrollPane scrollPane = new JScrollPane(this);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-		dialog.add(scrollPane);
+		JPanel buttonPanel = createButtonPanel(dialog);
+
+		dialog.add(scrollPane, BorderLayout.CENTER);
+		dialog.add(buttonPanel, BorderLayout.SOUTH);
 
 		dialog.setTitle("Journal"); //$NON-NLS-1$
 		dialog.setModal(true);
 		dialog.setMinimumSize(JournalDisplay.JOURNAL_ENTRY_SIZE);
 		dialog.setLocationRelativeTo(((CharacterSheet) mParent.getOwner()).getFrame());
 		dialog.setVisible(true);
-		if (getDocument().getLength() != 0) {
+		if ((saveRecordIfCancelled || saveRecord()) && getDocument().getLength() != 0) {
 			setHeaderText();
 		} else {
 			mParent.removeRecord(this);
@@ -153,8 +164,38 @@ public class JournalRecord extends JTextArea {
 
 	}
 
+	private JPanel createButtonPanel(JDialog dialog) {
+		JPanel panel = new JPanel();
+		JButton cancelButton = new JButton(CANCEL);
+		mSaveRecord = true;
+		cancelButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mSaveRecord = false;
+				dialog.dispose();
+			}
+
+		});
+		JButton createButton = new JButton(CREATE);
+		createButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mSaveRecord = true;
+				dialog.dispose();
+			}
+
+		});
+		panel.add(createButton);
+		panel.add(cancelButton);
+
+		return panel;
+	}
+
 	private JButton getDateButton(String date, ActionListener listener) {
 		JButton dateButton = new JButton(date);
+		dateButton.setFont(ACS.MONOSPACED_FONT);
 		dateButton.setBorderPainted(false);
 		dateButton.setFocusPainted(false);
 		dateButton.addActionListener(listener);
@@ -176,6 +217,35 @@ public class JournalRecord extends JTextArea {
 		return dateButton;
 	}
 
+	/** @return The saveRecord. */
+	public boolean saveRecord() {
+		return mSaveRecord;
+	}
+
+	private int getWorldYear() {
+		return TKStringHelpers.getIntValue(mWorldDate.substring(8), 0);
+	}
+
+	private int getWorldMonth() {
+		return WorldDate.getMonthIndex(mWorldDate.substring(0, 3));
+	}
+
+	private int getWorldDate() {
+		return TKStringHelpers.getIntValue(mWorldDate.substring(4, 6), 0);
+	}
+
+	private int getCampaignYear() {
+		return TKStringHelpers.getIntValue(mCampaignDate.substring(8), 0);
+	}
+
+	private int getCampaignMonth() {
+		return CampaignDate.getMonthIndex(mCampaignDate.substring(0, 3));
+	}
+
+	private int getCampaignDate() {
+		return TKStringHelpers.getIntValue(mCampaignDate.substring(4, 6), 0);
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
@@ -190,7 +260,9 @@ public class JournalRecord extends JTextArea {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			CampaignDate cal = new CampaignDate(((CharacterSheet) mParent.getOwner()).getFrame());
-			mCampaignButton.setText(cal.getSelectedDate());
+			mCampaignDate = cal.getSelectedDate();
+			mCampaignButton.setText(mCampaignDate);
+			mParent.updatePreviewPanel();
 		}
 	}
 
@@ -204,7 +276,29 @@ public class JournalRecord extends JTextArea {
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			WorldDate cal = new WorldDate(((CharacterSheet) mParent.getOwner()).getFrame());
-			mWorldButton.setText(cal.getSelectedDate());
+			mWorldDate = cal.getSelectedDate();
+			mWorldButton.setText(mWorldDate);
+			mParent.updatePreviewPanel();
 		}
+	}
+
+	@Override
+	public int compareTo(JournalRecord o) {
+		if (mWorldDate.equals(o.mWorldDate)) {
+			int year = getCampaignYear();
+			int mth = getCampaignMonth();
+			int date = getCampaignDate();
+			int oYear = o.getCampaignYear();
+			int oMth = o.getCampaignMonth();
+			int oDate = o.getCampaignDate();
+			return year == oYear ? mth == oMth ? date - oDate : mth - oMth : year - oYear;
+		}
+		int year = getWorldYear();
+		int mth = getWorldMonth();
+		int date = getWorldDate();
+		int oYear = o.getWorldYear();
+		int oMth = o.getWorldMonth();
+		int oDate = o.getWorldDate();
+		return year == oYear ? mth == oMth ? date - oDate : mth - oMth : year - oYear;
 	}
 }

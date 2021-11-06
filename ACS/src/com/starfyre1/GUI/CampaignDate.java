@@ -42,7 +42,7 @@ public class CampaignDate extends DateBase {
 			mButton[x].setText(""); //$NON-NLS-1$
 		}
 		int dayOfWeek = getDayOfWeek(mYear, mMonth, mDate);
-		int daysInMonth = DATES[mMonth - 1];
+		int daysInMonth = DATES[mMonth];
 		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			//			System.out.println(i + " " + (6 + dayOfWeek) + " " + day + " " + daysInMonth);
@@ -53,7 +53,7 @@ public class CampaignDate extends DateBase {
 				mButton[i].setForeground(Color.BLACK);
 			}
 		}
-		mSpacer.setText(MONTHS[mMonth - 1] + " " + String.format("%04d", Integer.valueOf(mYear))); //$NON-NLS-1$ //$NON-NLS-2$
+		mSpacer.setText(MONTHS[mMonth] + " " + String.format("%04d", Integer.valueOf(mYear))); //$NON-NLS-1$ //$NON-NLS-2$
 		mSpacer.setBackground(Color.WHITE);
 	}
 
@@ -62,12 +62,26 @@ public class CampaignDate extends DateBase {
 		if (mDay.equals("")) { //$NON-NLS-1$
 			return mDay;
 		}
-		return MONTHS_SHORT[mMonth - 1] + " " + String.format("%02d", Integer.valueOf(mDay)) + ", " + String.format("%04d", Integer.valueOf(mYear)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		return MONTHS_SHORT[mMonth] + " " + String.format("%02d", Integer.valueOf(mDay)) + ", " + String.format("%04d", Integer.valueOf(mYear)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	/**
+	 * @return The true month number... i.e. 1 for Jan, 15 for Win (Winter week)
+	 * @param shortText needs to be the 3 letter abbreviation as specified in MONTHS_SHORT[]
+	 */
+
+	public static int getMonthIndex(String shortText) {
+		for (int i = 0; i < MONTHS_SHORT.length; i++) {
+			if (MONTHS_SHORT[i].equals(shortText)) {
+				return i + 1;
+			}
+		}
+		return 0;
+	}
+
 	private int getDayOfWeek(int year, int month, int day) {
 
 		int days = (year - 1) * 393; // == Jan 1 of year

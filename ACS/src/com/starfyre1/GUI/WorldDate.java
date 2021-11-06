@@ -12,8 +12,9 @@ public class WorldDate extends DateBase {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
+	static final String			MONTHS_SHORT[]	= { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$
 
-	private static final String TITLE = "Calander Date"; //$NON-NLS-1$
+	private static final String	TITLE			= "Calander Date";																			//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -69,6 +70,18 @@ public class WorldDate extends DateBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	/**
+	 * @return The true month number... i.e. 1 for Jan, 12 for Dec
+	 * @param shortText needs to be the 3 letter abbreviation as specified in MONTHS_SHORT
+	 */
+	public static int getMonthIndex(String shortText) {
+		for (int i = 0; i < MONTHS_SHORT.length; i++) {
+			if (MONTHS_SHORT[i].equals(shortText)) {
+				return i + 1;
+			}
+		}
+		return 0;
+	}
 
 	/*****************************************************************************
 	 * Serialization

@@ -8,6 +8,8 @@ import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.MetalList;
 import com.starfyre1.dataset.PriestList;
 
+import java.awt.Font;
+
 import javax.swing.SwingUtilities;
 
 public class ACS {
@@ -26,6 +28,8 @@ public class ACS {
 	private static String		RELEASE_DATE	= "August 01, 2021";													//$NON-NLS-1$
 	private static String		RELEASE_TIME	= "00:00:00.0 UTC/GMT";													//$NON-NLS-1$
 	public static String		COPYRIGHT		= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
+
+	public static final Font	MONOSPACED_FONT	= new Font(Font.MONOSPACED, Font.BOLD, 12);
 
 	/*****************************************************************************
 	 * Member Variables
