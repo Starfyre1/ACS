@@ -3,8 +3,10 @@
 package com.starfyre1.GUI;
 
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.JournalRecord;
+import com.starfyre1.interfaces.Savable;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -12,8 +14,12 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.StringTokenizer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -24,17 +30,24 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class JournalDisplay extends TKTitledDisplay implements ActionListener {
+public class JournalDisplay extends TKTitledDisplay implements ActionListener, Savable {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String			JOURNAL_TITLE		= "Journal";				//$NON-NLS-1$
-	private static final String			NEW_ENTRY			= "New Entry";				//$NON-NLS-1$
+	public static final String			FILE_SECTTION_START_KEY	= "JOURNAL_SECTTION_START";		//$NON-NLS-1$
+	public static final String			FILE_SECTTION_END_KEY	= "JOURNAL_SECTTION_END";		//$NON-NLS-1$
 
-	public static final Dimension		JOURNAL_ENTRY_SIZE	= new Dimension(360, 480);
-	private static final String			CAMPAIGN_DATE_LABEL	= "Campaign Date";			//$NON-NLS-1$
-	private static final String			WORLD_DATE_lABEL	= "World Date";				//$NON-NLS-1$
+	private static final String			CAMPAIGN_KEY			= "CAMPAIGN_KEY";				//$NON-NLS-1$
+	private static final String			JOURNAL_KEY				= "JOURNAL_KEY";				//$NON-NLS-1$
+	private static final String			WORLD_KEY				= "WORLD_KEY";					//$NON-NLS-1$
+
+	private static final String			JOURNAL_TITLE			= "Journal";					//$NON-NLS-1$
+	private static final String			NEW_ENTRY				= "New Entry";					//$NON-NLS-1$
+
+	public static final Dimension		JOURNAL_ENTRY_SIZE		= new Dimension(360, 480);
+	private static final String			CAMPAIGN_DATE_LABEL		= "Campaign Date";				//$NON-NLS-1$
+	private static final String			WORLD_DATE_lABEL		= "World Date";					//$NON-NLS-1$
 
 	//DW make non-editable, add journal entry button, add journal entries with border.
 
@@ -42,8 +55,12 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 	 * Member Variables
 	 ****************************************************************************/
 	private JButton						mNewEntryButton;
-	private ArrayList<JournalRecord>	mEntries			= new ArrayList<>();
+	private ArrayList<JournalRecord>	mEntries				= new ArrayList<>();
 	private JPanel						mPanel;
+
+	private String						mCampaignDate			= TKStringHelpers.EMPTY_STRING;
+	private String						mJournalText			= TKStringHelpers.EMPTY_STRING;
+	private String						mWorldDate				= TKStringHelpers.EMPTY_STRING;
 
 	/*****************************************************************************
 	 * Constructors
@@ -130,8 +147,71 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener {
 	 * Serialization
 	 ****************************************************************************/
 	@Override
+	public StringTokenizer readValues(BufferedReader br) {
+		String in;
+		try {
+			while ((in = br.readLine()) != null) {
+				StringTokenizer tokenizer = new StringTokenizer(in);
+				while (tokenizer.hasMoreTokens()) {
+					String key = tokenizer.nextToken();
+					if (key.equals(FILE_SECTTION_END_KEY)) {
+						updatePreviewPanel();
+						return tokenizer;
+					} else if (!tokenizer.hasMoreTokens()) {
+						String value = ""; //$NON-NLS-1$
+						setKeyValuePair(key, value);
+					} else {
+						String value = tokenizer.nextToken();
+						while (tokenizer.hasMoreTokens()) {
+							value = value + " " + tokenizer.nextToken(); //$NON-NLS-1$
+						}
+						setKeyValuePair(key, value);
+					}
+				}
+			}
+		} catch (IOException ioe) {
+			//DW9:: Log this
+			System.err.println(ioe.getMessage());
+		}
+		return null;
+	}
+
+	@Override
+	public void saveValues(BufferedWriter br) throws IOException {
+		writeValues(br);
+	}
+
+	@Override
+	public void writeValues(BufferedWriter br) throws IOException {
+		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		for (JournalRecord record : mEntries) {
+			br.write(CAMPAIGN_KEY + TKStringHelpers.SPACE + record.getCampaignDate() + System.lineSeparator());
+			br.write(JOURNAL_KEY + TKStringHelpers.SPACE + record.getJournalText().replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+			br.write(WORLD_KEY + TKStringHelpers.SPACE + record.getWorldDate() + System.lineSeparator());
+		}
+		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+	}
+
+	@Override
+	public void setKeyValuePair(String key, Object obj) {
+		String value = (String) obj;
+		value = value.replace("~", "\n "); //$NON-NLS-1$ //$NON-NLS-2$
+		if (CAMPAIGN_KEY.equals(key)) {
+			mCampaignDate = value;
+		} else if (JOURNAL_KEY.equals(key)) {
+			mJournalText = value;
+		} else if (WORLD_KEY.equals(key)) {
+			mWorldDate = value;
+			mEntries.add(new JournalRecord(this, mCampaignDate, mJournalText, mWorldDate));
+		} else {
+			//DW9:: log this
+			System.err.println("Unknown key read from file: " + getClass() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+	}
+
+	@Override
 	protected void loadDisplay() {
-		// DW Load from disk
+		//DW  not used currently... might call createDisplay()
 	}
 
 }

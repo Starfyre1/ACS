@@ -185,6 +185,9 @@ public class CharacterSheet implements ActionListener {
 	// Spell Tab
 	private SpellListDisplay				mSpellTab;
 
+	// Spell Tab
+	private JournalDisplay					mJournalTab;
+
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
@@ -223,12 +226,12 @@ public class CharacterSheet implements ActionListener {
 		JComponent characterTab = makeCharacerTab();
 		JComponent equipmentTab = makeEquipmentTab();
 		mSpellTab = new SpellListDisplay(this);
-		JComponent journalTab = new JournalDisplay(this);
+		mJournalTab = new JournalDisplay(this);
 
 		tabbedPane.addTab(CHARACTER_SHEET_TITLE, ICON, characterTab, CHARACTER_SHEET_TOOLTIP);
 		tabbedPane.addTab(EQUIPMENT_SHEET_TITLE, ICON, equipmentTab, EQUIPMENT_SHEET_TOOLTIP);
 		tabbedPane.addTab(SPELL_SHEET_TITLE, ICON, mSpellTab, SPELL_SHEET_TOOLTIP);
-		tabbedPane.addTab(JOURNAL_SHEET_TITLE, ICON, journalTab, JOURNAL_SHEET_TOOLTIP);
+		tabbedPane.addTab(JOURNAL_SHEET_TITLE, ICON, mJournalTab, JOURNAL_SHEET_TOOLTIP);
 
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_C);
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_E);
@@ -1055,6 +1058,10 @@ public class CharacterSheet implements ActionListener {
 							tokenizer = mAnimalList.readValues(br);
 							break;
 						}
+						case JournalDisplay.FILE_SECTTION_START_KEY: {
+							tokenizer = mJournalTab.readValues(br);
+							break;
+						}
 						case HistoryManager.FILE_SECTTION_START_KEY: {
 							HistoryManager historyManager = HistoryManager.getInstance();
 							tokenizer = historyManager.readValues(br);
@@ -1114,6 +1121,7 @@ public class CharacterSheet implements ActionListener {
 			mEquipmentList.saveValues(br);
 			mMagicItemList.saveValues(br);
 			mAnimalList.saveValues(br);
+			mJournalTab.saveValues(br);
 			HistoryManager.getInstance().saveValues(br);
 			JOptionPane.showMessageDialog(mFrame, "File Saved: " + file.getName()); //$NON-NLS-1$
 		} catch (IOException exception) {

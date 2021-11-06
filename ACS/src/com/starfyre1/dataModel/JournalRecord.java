@@ -29,6 +29,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 public class JournalRecord extends JTextArea implements Comparable<JournalRecord> {
 
@@ -70,6 +71,26 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		CharacterSheet sheet = (CharacterSheet) parent.getOwner();
 		mWorldDate = sheet.getWorldDate();
 		mCampaignDate = sheet.getCampaignDate();
+	}
+
+	public JournalRecord(JournalDisplay parent, String campaignDate, String journalText, String worldDate) {
+		super();
+
+		mParent = parent;
+
+		setBorder(new EmptyBorder(5, 5, 5, 5));
+		setEditable(true);
+		setLineWrap(true);
+		setWrapStyleWord(true);
+
+		mHeaderLabel1 = new JLabel();
+		mHeaderLabel2 = new JLabel();
+
+		mCampaignDate = campaignDate;
+		setText(journalText);
+		mWorldDate = worldDate;
+
+		setHeaderText();
 	}
 
 	/*****************************************************************************
@@ -230,7 +251,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		return WorldDate.getMonthIndex(mWorldDate.substring(0, 3));
 	}
 
-	private int getWorldDate() {
+	private int getWorldDay() {
 		return TKStringHelpers.getIntValue(mWorldDate.substring(4, 6), 0);
 	}
 
@@ -242,8 +263,25 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		return CampaignDate.getMonthIndex(mCampaignDate.substring(0, 3));
 	}
 
-	private int getCampaignDate() {
+	private int getCampaignDay() {
 		return TKStringHelpers.getIntValue(mCampaignDate.substring(4, 6), 0);
+	}
+
+	public String getCampaignDate() {
+		return mCampaignDate;
+	}
+
+	public String getWorldDate() {
+		return mWorldDate;
+	}
+
+	public String getJournalText() {
+		Document doc = getDocument();
+		try {
+			return doc.getText(0, doc.getLength());
+		} catch (BadLocationException exception) {
+			return TKStringHelpers.EMPTY_STRING;
+		}
 	}
 
 	/*****************************************************************************
@@ -287,18 +325,18 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		if (mWorldDate.equals(o.mWorldDate)) {
 			int year = getCampaignYear();
 			int mth = getCampaignMonth();
-			int date = getCampaignDate();
+			int date = getCampaignDay();
 			int oYear = o.getCampaignYear();
 			int oMth = o.getCampaignMonth();
-			int oDate = o.getCampaignDate();
+			int oDate = o.getCampaignDay();
 			return year == oYear ? mth == oMth ? date - oDate : mth - oMth : year - oYear;
 		}
 		int year = getWorldYear();
 		int mth = getWorldMonth();
-		int date = getWorldDate();
+		int date = getWorldDay();
 		int oYear = o.getWorldYear();
 		int oMth = o.getWorldMonth();
-		int oDate = o.getWorldDate();
+		int oDate = o.getWorldDay();
 		return year == oYear ? mth == oMth ? date - oDate : mth - oMth : year - oYear;
 	}
 }
