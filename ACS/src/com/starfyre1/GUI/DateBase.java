@@ -114,7 +114,7 @@ public abstract class DateBase extends JDialog {
 		previous.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				if (mMonth > 1) {
+				if (mMonth > 0) {
 					mMonth--;
 				} else {
 					if (mYear == 1) {
@@ -149,7 +149,7 @@ public abstract class DateBase extends JDialog {
 				if (mMonth < 15) {
 					mMonth++;
 				} else {
-					mMonth = 1;
+					mMonth = 0;
 					mYear++;
 				}
 				displayDate();
