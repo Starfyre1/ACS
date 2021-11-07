@@ -23,6 +23,8 @@ public abstract class BaseClass {
 	 ****************************************************************************/
 
 	// Skills
+	public abstract boolean[] getInnateSkills();
+
 	public abstract int getBandaging();
 
 	public abstract int getHerbalLore();

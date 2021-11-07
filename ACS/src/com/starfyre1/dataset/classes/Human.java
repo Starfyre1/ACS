@@ -14,6 +14,7 @@ public class Human extends BaseClass {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private boolean mInnateSkills[] = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
 	/*****************************************************************************
 	 * Constructors
@@ -27,6 +28,11 @@ public class Human extends BaseClass {
 	 * Setter's and Getter's
 	 ****************************************************************************/
 	// Skills
+	@Override
+	public boolean[] getInnateSkills() {
+		return mInnateSkills;
+	}
+
 	@Override
 	public int getBandaging() {
 		return 0;
@@ -99,7 +105,8 @@ public class Human extends BaseClass {
 
 	@Override
 	public int getHear() {
-		return 0;
+		// DW human, non-thief with save vs surprise > 75% = +10% (30% total)
+		return 20 + 0;
 	}
 
 	@Override

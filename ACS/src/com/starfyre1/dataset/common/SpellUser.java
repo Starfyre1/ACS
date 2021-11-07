@@ -14,8 +14,10 @@ public abstract class SpellUser extends BaseClass {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	public ArrayList<ArrayList<SpellRecord>>	mSpells	= new ArrayList<>();
+	public ArrayList<ArrayList<SpellRecord>>	mSpells			= new ArrayList<>();
 	protected String							mSecondRequisite;
+
+	private boolean								mInnateSkills[]	= { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
 	/*****************************************************************************
 	 * Constructors
@@ -46,6 +48,11 @@ public abstract class SpellUser extends BaseClass {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public boolean[] getInnateSkills() {
+		return mInnateSkills;
+	}
 
 	/*****************************************************************************
 	 * Serialization

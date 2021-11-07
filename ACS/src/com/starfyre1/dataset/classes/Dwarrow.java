@@ -47,6 +47,7 @@ public class Dwarrow extends BaseClass {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private boolean mInnateSkills[] = { true, false, true, true, false, false, false, false, false, false, true, true, true, false, false, false, false, false, false, false };
 
 	/*****************************************************************************
 	 * Constructors
@@ -101,6 +102,11 @@ public class Dwarrow extends BaseClass {
 	 * Setter's and Getter's
 	 ****************************************************************************/
 	// Skills
+	@Override
+	public boolean[] getInnateSkills() {
+		return mInnateSkills;
+	}
+
 	@Override
 	public int getBandaging() {
 		return 10;
@@ -163,6 +169,7 @@ public class Dwarrow extends BaseClass {
 	@Override
 	public int getConceal() {
 		// DW They are excellent at Stealth, Hear and Conceal as the thieving abilities +20% outdoors or +10% indoors at 1st level
+		// DW Verify for conceal, stealth, hearing the 5% for Dwarrow
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		return lvl * 5;
 	}
@@ -178,7 +185,7 @@ public class Dwarrow extends BaseClass {
 	public int getHear() {
 		// DW They are excellent at Stealth, Hear and Conceal as the thieving abilities +20% outdoors or +10% indoors at 1st level
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
-		return lvl * 5;
+		return 30 + lvl * 5;
 	}
 
 	@Override

@@ -48,6 +48,7 @@ public class Warrior extends BaseClass {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private boolean mInnateSkills[] = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true };
 
 	/*****************************************************************************
 	 * Constructors
@@ -101,7 +102,13 @@ public class Warrior extends BaseClass {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
 	// Skills
+	@Override
+	public boolean[] getInnateSkills() {
+		return mInnateSkills;
+	}
+
 	@Override
 	public int getBandaging() {
 		return 0;

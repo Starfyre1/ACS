@@ -4,8 +4,6 @@ package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
-import com.starfyre1.dataset.classes.Thief;
-import com.starfyre1.dataset.classes.warriors.Ranger;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
@@ -32,29 +30,28 @@ public class SkillsRecord implements LevelListener, Savable {
 	public static final String	FIND_TRAP_LEVEL_BONUS_KEY	= "FIND_TRAP_LEVEL_BONUS_KEY";		//$NON-NLS-1$
 	public static final String	REMOVE_TRAP_LEVEL_BONUS_KEY	= "REMOVE_TRAP_LEVEL_BONUS_KEY";	//$NON-NLS-1$
 
-	// DW implement if needed
-	//	private boolean			mIsInnate[]			= new boolean[20];
+	private boolean				mIsInnate[]					= new boolean[20];
 
-	//	private static final int	BANDAGING			= 0;
-	//	private static final int	HUNTING				= 1;
-	//	private static final int	TRACKING			= 2;
-	//	private static final int	DETECT_MAGIC		= 3;
-	//	private static final int	DETECT_MORALS		= 4;
-	//	private static final int	DETECT_METALS		= 5;
-	//	private static final int	DETECT_SECRET_DOORS	= 6;
-	//	private static final int	DETECT_TRAPS		= 7;
-	//	private static final int	APPRAISE			= 8;
-	//	private static final int	DEPTH_SENSE			= 9;
-	//	private static final int	CONCEAL				= 10;
-	//	private static final int	STEALTH				= 11;
-	//	private static final int	HEAR				= 12;
-	//	private static final int	LOCK_PICK			= 13;
-	//	private static final int	POCKET_PICK			= 14;
-	//	private static final int	CLIMB				= 15;
-	//	private static final int	FIND_TRAP			= 16;
-	//	private static final int	REMOVE_TRAP			= 17;
-	//	private static final int	HERBAL_LORE			= 18;
-	//	private static final int	BERSERK				= 19;
+	//	private static final int	BANDAGING					= 0;
+	private static final int	HUNTING						= 1;
+	private static final int	TRACKING					= 2;
+	private static final int	DETECT_MAGIC				= 3;
+	private static final int	DETECT_MORALS				= 4;
+	private static final int	DETECT_METALS				= 5;
+	private static final int	DETECT_SECRET_DOORS			= 6;
+	private static final int	DETECT_TRAPS				= 7;
+	private static final int	APPRAISE					= 8;
+	private static final int	DEPTH_SENSE					= 9;
+	private static final int	CONCEAL						= 10;
+	//	private static final int	STEALTH						= 11;
+	private static final int	HEAR						= 12;
+	private static final int	LOCK_PICK					= 13;
+	private static final int	PICK_POCKET					= 14;
+	private static final int	CLIMB						= 15;
+	private static final int	FIND_TRAP					= 16;
+	private static final int	REMOVE_TRAP					= 17;
+	//	private static final int	HERBAL_LORE					= 18;
+	private static final int	BERSERK						= 19;
 
 	/*****************************************************************************
 	 * Member Variables
@@ -81,7 +78,7 @@ public class SkillsRecord implements LevelListener, Savable {
 	private int					mFindTrap					= 0;
 	private int					mHear						= 0;
 	private int					mLockPick					= 0;
-	private int					mPocketPick					= 0;
+	private int					mPickPocket					= 0;
 	private int					mRemoveTrap					= 0;
 	private int					mStealth					= 0;
 
@@ -90,7 +87,7 @@ public class SkillsRecord implements LevelListener, Savable {
 	private int					mFindTrapLevelBonus			= 0;
 	private int					mHearLevelBonus				= 0;
 	private int					mLockPickLevelBonus			= 0;
-	private int					mPocketPickLevelBonus		= 0;
+	private int					mPickPocketLevelBonus		= 0;
 	private int					mRemoveTrapLevelBonus		= 0;
 	private int					mStealthLevelBonus			= 0;
 
@@ -129,11 +126,10 @@ public class SkillsRecord implements LevelListener, Savable {
 		}
 		int lvl = headerRecord.getLevel();
 
-		// DW implement if needed
-		//		boolean isInnateClass[] = ACS.getInstance().getClasses().getInnateSkills(classInfo);
-		//		if (isInnateClass != null) {
-		//			mIsInnate = isInnateClass;
-		//		}
+		boolean isInnateClass[] = classInfo.getInnateSkills();
+		if (isInnateClass != null) {
+			mIsInnate = isInnateClass;
+		}
 
 		generateBandaging(lvl, stats.getModifiedStat(AttributesRecord.WIS), classInfo);
 		generateHunting(classInfo, stats.getModifiedStat(AttributesRecord.WIS));
@@ -154,14 +150,14 @@ public class SkillsRecord implements LevelListener, Savable {
 		generateStealth(classInfo);
 		generateHear(classInfo);
 		generateLockPick();
-		generatePocketPick();
-		generateClimb(lvl, classInfo);
+		generatePickPocket();
+		generateClimb(classInfo);
 		generateFindTrap();
 		generateRemoveTrap();
 	}
 
 	public void generateBandaging(int lvl, int wisdom, BaseClass classInfo) {
-		// DW implement if needed
+		// implement if needed - Everyone can bandage, does not need to be innate
 		// boolean innate = mIsInnate[BANDAGING];
 		int base = 10 * lvl;
 		int wisdomBonus = wisdom > 12 ? 10 : 0;
@@ -172,12 +168,15 @@ public class SkillsRecord implements LevelListener, Savable {
 	}
 
 	public void generateHunting(BaseClass classInfo, int wisdom) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[HUNTING];
+		boolean innate = mIsInnate[HUNTING];
 
 		// Add +20% if they are hunting with a Spear or a Bow.
-		int base = wisdom;
-		int classBonus = classInfo.getHunting();
+		int base = 0;
+		int classBonus = 0;
+		if (innate) {
+			base = wisdom;
+			classBonus = classInfo.getHunting();
+		}
 		mHunting = base + classBonus;
 	}
 
@@ -188,59 +187,82 @@ public class SkillsRecord implements LevelListener, Savable {
 	}
 
 	public void generateTracking(BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[TRACKING];
-		int base = 70;
-		// DW is this only for Ranger, Sithrian, Dwarrow?
-		int classBonus = classInfo.getTracking();
+		boolean innate = mIsInnate[TRACKING];
+		int base = 0;
+		int classBonus = 0;
+
+		if (innate) {
+			base = 70;
+			classBonus = classInfo.getTracking();
+		}
 		mTracking = base + classBonus;
 	}
 
 	public void generateDetectMagic(BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[DETECT_MAGIC];
-		int base = 50;
-		int classBonus = classInfo.getDetectMagic();
+		boolean innate = mIsInnate[DETECT_MAGIC];
+		int base = 0;
+		int classBonus = 0;
+		if (innate) {
+			base = 50;
+			classBonus = classInfo.getDetectMagic();
+		}
 
 		mDetectMagic = base + classBonus;
 	}
 
 	public void generateDetectMorals() {
-		// DW implement if needed
-		// boolean innate = mIsInnate[DETECT_MORALS];
-		mDetectMorals = 30;
+		boolean innate = mIsInnate[DETECT_MORALS];
+		mDetectMorals = innate ? 30 : 0;
 	}
 
 	public void generateDetectMetals(BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[DETECT_METALS];
-		mDetectMetals = classInfo.getDetectMetals();
+		boolean innate = mIsInnate[DETECT_METALS];
+		mDetectMetals = innate ? classInfo.getDetectMetals() : 0;
 	}
 
 	public void generateDetectSecretDoors(BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[DETECT_SECRET_DOORS];
-		int base = 50;
-		int classBonus = classInfo.getDetectSecretDoors();
+		boolean innate = mIsInnate[DETECT_SECRET_DOORS];
+		int base = 0;
+		int classBonus = 0;
+
+		if (innate) {
+			base = 50;
+			classBonus = classInfo.getDetectSecretDoors();
+		}
 		mDetectSecretDoors = base + classBonus;
 	}
 
 	public void generateDetectTraps(int lvl, BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[DETECT_TRAPS];
-		int base = 50 + lvl * 5;
-		int classBonus = classInfo.getDetectTraps();
+		boolean innate = mIsInnate[DETECT_TRAPS];
+		int base = 0;
+		int classBonus = 0;
+		if (innate) {
+			base = 50 + lvl * 5;
+			classBonus = classInfo.getDetectTraps();
+		}
 		mDetectTraps = base + classBonus;
 	}
 
 	public void generateAppraise(BaseClass classInfo) {
-		mAppraise = classInfo.getAppraise();
+		boolean innate = mIsInnate[APPRAISE];
+		int base = 0;
+		int classBonus = 0;
+		if (innate) {
+			base = 90;
+			classBonus = classInfo.getAppraise();
+		}
+		mAppraise = base + classBonus;
 	}
 
 	public void generateDepthSense(BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[DEPTH_SENSE];
-		mDepthSense = classInfo.getDepthSense();
+		boolean innate = mIsInnate[DEPTH_SENSE];
+		int base = 0;
+		int classBonus = 0;
+		if (innate) {
+			base = 60;
+			classBonus = classInfo.getDepthSense();
+		}
+		mDepthSense = base + classBonus;
 	}
 
 	private int getDexModifier() {
@@ -291,22 +313,31 @@ public class SkillsRecord implements LevelListener, Savable {
 	}
 
 	public void generateConceal(BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[CONCEAL];
-		int base = 20;
-		int levelBonus = classInfo.getConceal();
+		boolean innate = mIsInnate[CONCEAL];
+		int base = 0;
+		int classBonus = 0;
+		int dexModifier = 0;
+		if (innate) {
+			base = 20;
+			classBonus = classInfo.getConceal();
+			dexModifier = getDexModifier();
+		}
 
-		mConceal = base + mConcealLevelBonus + levelBonus + getDexModifier();
+		mConceal = base + mConcealLevelBonus + classBonus + dexModifier;
 	}
 
 	public void generateStealth(BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[STEALTH];
-		int base = 20;
+		boolean innate = mIsInnate[CONCEAL];
+		int base = 0;
+		int classBonus = 0;
+		int dexModifier = 0;
+		if (innate) {
+			base = 20;
+			classBonus = classInfo.getStealth();
+			dexModifier = getDexModifier();
+		}
 
-		int classBonus = classInfo.getStealth();
-
-		mStealth = base + mStealthLevelBonus + classBonus + getDexModifier();
+		mStealth = base + mStealthLevelBonus + classBonus + dexModifier;
 	}
 
 	public void generateHear(BaseClass classInfo) {
@@ -333,44 +364,62 @@ public class SkillsRecord implements LevelListener, Savable {
 
 		*/
 
-		// DW implement if needed
-		// boolean innate = mIsInnate[HEAR];
-		int base = 30;
-
+		boolean innate = mIsInnate[HEAR];
 		int classBonus = classInfo.getHear();
 
-		mHear = base + mHearLevelBonus + classBonus;
+		mHear = classBonus + (innate ? mHearLevelBonus : 0);
 	}
 
 	public void generateLockPick() {
-		// DW implement if needed
-		// boolean innate = mIsInnate[LOCK_PICK];
-		int base = 20;
+		boolean innate = mIsInnate[LOCK_PICK];
+		int base = 0;
+		int dexModifier = 0;
+		if (innate) {
+			base = 20;
+			dexModifier = getDexModifier();
+		}
 
-		mLockPick = base + mLockPickLevelBonus + getDexModifier();
+		mLockPick = base + mLockPickLevelBonus + dexModifier;
 	}
 
-	public void generatePocketPick() {
-		// DW implement if needed
-		// boolean innate = mIsInnate[POCKET_PICK];
-		int base = 20;
+	public void generatePickPocket() {
+		boolean innate = mIsInnate[PICK_POCKET];
+		int base = 0;
+		int dexModifier = 0;
+		if (innate) {
+			base = 20;
+			dexModifier = getDexModifier();
+		}
 
-		mPocketPick = base + mPocketPickLevelBonus + getDexModifier();
+		mPickPocket = base + mPickPocketLevelBonus + dexModifier;
 	}
 
-	public void generateClimb(int lvl, BaseClass classInfo) {
-		// DW implement if needed
-		// boolean innate = mIsInnate[CLIMB];
-		int base = 70;
+	public void generateClimb(BaseClass classInfo) {
+		boolean innate = mIsInnate[CLIMB];
+		int base = 0;
+		int dexModifier = 0;
+		int classBonus = 0;
+		if (innate) {
+			base = 70;
+			dexModifier = getDexModifier();
+			classBonus = classInfo.getClimb();
+		}
 
-		int classBonus = classInfo instanceof Ranger ? 5 * lvl : 0;
-
-		mClimb = base + mClimbLevelBonus + classBonus + getDexModifier();
+		mClimb = base + mClimbLevelBonus + classBonus + dexModifier;
 	}
 
 	public void generateFindTrap() {
-		// DW implement if needed
-		// boolean innate = mIsInnate[FIND_TRAP];
+		boolean innate = mIsInnate[FIND_TRAP];
+		int base = 0;
+		int mod = 0;
+		if (innate) {
+			mod = findTrapModification();
+			base = 20;
+		}
+		mFindTrap = base + mod + mFindTrapLevelBonus;
+	}
+
+	private int findTrapModification() {
 		AttributesRecord record = mCharacterSheet.getAttributesRecord();
 		int stats = record.getModifiedStat(AttributesRecord.INT) + record.getModifiedStat(AttributesRecord.WIS);
 		int mod;
@@ -395,54 +444,45 @@ public class SkillsRecord implements LevelListener, Savable {
 		} else {
 			mod = 25;
 		}
-
-		int base = 20;
-
-		mFindTrap = base + mod + mFindTrapLevelBonus;
+		return mod;
 	}
 
-	// DW still need to add Dex modifier
 	public void generateRemoveTrap() {
-		// DW implement if needed
-		// boolean innate = mIsInnate[REMOVE_TRAP];
-		int base = 20;
+		boolean innate = mIsInnate[REMOVE_TRAP];
+		int base = 0;
+		int dexModifier = 0;
+		if (innate) {
+			base = 20;
+			dexModifier = getDexModifier();
+		}
 
-		mRemoveTrap = base + mRemoveTrapLevelBonus + getDexModifier();
+		mRemoveTrap = base + mRemoveTrapLevelBonus + dexModifier;
 	}
 
 	public void generateHerbalLore(int lvl, BaseClass classInfo) {
-		// DW implement if needed
+		// implement if needed - Everyone can use herbal lore, does not need to be innate
 		// boolean innate = mIsInnate[HERBAL_LORE];
 		int base = 15 + lvl * 3;
-
-		// DW Herbal lore, herbalist, Herbal Healing needs to be updated
-		// double check as some places say 5 * lvl and others say 3 * lvl
-		//				case Classes.RANGER: {
-		//					5 * lvl;
-		//				}
-
-		//		int classBonus = classInfo instanceof Sailor || classInfo instanceof Sithrian ? 15 + 3 * lvl : classInfo instanceof Ranger ? 20 + 3 * lvl : classInfo instanceof NaturalLore ? 20 : 0;
 		int classBonus = classInfo.getHerbalLore();
 
 		mHerbalLore = base + classBonus;
 	}
 
 	public void generateBerserk() {
-		// DW implement if needed
-		// boolean innate = mIsInnate[BERSERK];
-		// DW fill this out
-		mBerserk = 0;
+		boolean innate = mIsInnate[BERSERK];
+		int berserk = 0;
+		if (innate) {
+			// DW fill Berserk out
+		}
+
+		mBerserk = berserk;
 	}
 
 	public void generateUnallocatedSkills() {
-		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
-		int lvl = headerRecord.getLevel() - 1;
-		BaseClass classInfo = headerRecord.getCharacterClass();
+		int value = mCharacterSheet.getHeaderRecord().getCharacterClass().getUnallocatedSkills();
 
-		int value = classInfo instanceof Thief ? 25 : 0;
-
-		mUnallocated = value * lvl - mConcealLevelBonus - mStealthLevelBonus - mHearLevelBonus - mLockPickLevelBonus - //
-						mPocketPickLevelBonus - mClimbLevelBonus - mFindTrapLevelBonus - mRemoveTrapLevelBonus;
+		mUnallocated = value - mConcealLevelBonus - mStealthLevelBonus - mHearLevelBonus - mLockPickLevelBonus - //
+						mPickPocketLevelBonus - mClimbLevelBonus - mFindTrapLevelBonus - mRemoveTrapLevelBonus;
 	}
 
 	/*****************************************************************************
@@ -518,9 +558,9 @@ public class SkillsRecord implements LevelListener, Savable {
 		return mLockPick;
 	}
 
-	/** @return The pocketPick. */
-	public int getPocketPick() {
-		return mPocketPick;
+	/** @return The pickPocket. */
+	public int getPickPocket() {
+		return mPickPocket;
 	}
 
 	/** @return The climb. */
@@ -593,14 +633,14 @@ public class SkillsRecord implements LevelListener, Savable {
 		mLockPickLevelBonus = lockPickLevelBonus;
 	}
 
-	/** @return The pocketPickLevelBonus. */
-	public int getPocketPickLevelBonus() {
-		return mPocketPickLevelBonus;
+	/** @return The pickPocketLevelBonus. */
+	public int getPickPocketLevelBonus() {
+		return mPickPocketLevelBonus;
 	}
 
-	/** @param pocketPickLevelBonus The value to set for pocketPickLevelBonus. */
-	public void setPocketPickLevelBonus(int pocketPickLevelBonus) {
-		mPocketPickLevelBonus = pocketPickLevelBonus;
+	/** @param pickPocketLevelBonus The value to set for pickPocketLevelBonus. */
+	public void setPickPocketLevelBonus(int pickPocketLevelBonus) {
+		mPickPocketLevelBonus = pickPocketLevelBonus;
 	}
 
 	/** @return The climbLevelBonus. */
@@ -653,9 +693,9 @@ public class SkillsRecord implements LevelListener, Savable {
 		mLockPick = lockPick;
 	}
 
-	/** @param pocketPick The value to set for pocketPick. */
-	public void setPocketPick(int pocketPick) {
-		mPocketPick = pocketPick;
+	/** @param pickPocket The value to set for pickPocket. */
+	public void setPickPocket(int pickPocket) {
+		mPickPocket = pickPocket;
 	}
 
 	/** @param climb The value to set for climb. */
@@ -727,7 +767,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		br.write(STEALTH_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mStealthLevelBonus + System.lineSeparator());
 		br.write(HEAR_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mHearLevelBonus + System.lineSeparator());
 		br.write(LOCK_PICK_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mLockPickLevelBonus + System.lineSeparator());
-		br.write(POCKET_PICK_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mPocketPickLevelBonus + System.lineSeparator());
+		br.write(POCKET_PICK_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mPickPocketLevelBonus + System.lineSeparator());
 		br.write(CLIMB_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mClimbLevelBonus + System.lineSeparator());
 		br.write(FIND_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mFindTrapLevelBonus + System.lineSeparator());
 		br.write(REMOVE_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mRemoveTrapLevelBonus + System.lineSeparator());
@@ -746,7 +786,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		} else if (LOCK_PICK_LEVEL_BONUS_KEY.equals(key)) {
 			mLockPickLevelBonus = TKStringHelpers.getIntValue(value, 0);
 		} else if (POCKET_PICK_LEVEL_BONUS_KEY.equals(key)) {
-			mPocketPickLevelBonus = TKStringHelpers.getIntValue(value, 0);
+			mPickPocketLevelBonus = TKStringHelpers.getIntValue(value, 0);
 		} else if (CLIMB_LEVEL_BONUS_KEY.equals(key)) {
 			mClimbLevelBonus = TKStringHelpers.getIntValue(value, 0);
 		} else if (FIND_TRAP_LEVEL_BONUS_KEY.equals(key)) {
@@ -767,7 +807,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		mStealthLevelBonus = 0;
 		mHearLevelBonus = 0;
 		mLockPickLevelBonus = 0;
-		mPocketPickLevelBonus = 0;
+		mPickPocketLevelBonus = 0;
 		mClimbLevelBonus = 0;
 		mFindTrapLevelBonus = 0;
 		mRemoveTrapLevelBonus = 0;

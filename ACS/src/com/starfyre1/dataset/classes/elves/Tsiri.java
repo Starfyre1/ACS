@@ -108,6 +108,7 @@ public class Tsiri extends ElvesBase {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private boolean mInnateSkills[] = { true, false, false, true, false, false, true, false, false, false, true, true, true, false, false, true, true, true, false, false };
 
 	/*****************************************************************************
 	 * Constructors
@@ -163,6 +164,11 @@ public class Tsiri extends ElvesBase {
 	 ****************************************************************************/
 	// Skills
 	@Override
+	public boolean[] getInnateSkills() {
+		return mInnateSkills;
+	}
+
+	@Override
 	public int getDetectSecretDoors() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		return lvl * 5;
@@ -180,7 +186,13 @@ public class Tsiri extends ElvesBase {
 
 	@Override
 	public int getHear() {
-		return 0;
+		return 30 + 0;
+	}
+
+	@Override
+	public int getUnallocatedSkills() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl * 20;
 	}
 
 	/*****************************************************************************

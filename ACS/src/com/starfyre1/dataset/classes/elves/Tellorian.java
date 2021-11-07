@@ -80,6 +80,7 @@ public class Tellorian extends ElvesBase {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private boolean mInnateSkills[] = { true, false, false, true, true, false, false, false, true, false, true, true, true, false, false, false, false, false, true, false };
 
 	/*****************************************************************************
 	 * Constructors
@@ -135,9 +136,13 @@ public class Tellorian extends ElvesBase {
 	 ****************************************************************************/
 	// Skills
 	@Override
+	public boolean[] getInnateSkills() {
+		return mInnateSkills;
+	}
+
+	@Override
 	public int getAppraise() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
-		return 90 + lvl;
+		return ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 	}
 
 	@Override
@@ -155,7 +160,7 @@ public class Tellorian extends ElvesBase {
 	@Override
 	public int getHear() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
-		return lvl * 5;
+		return 30 + lvl * 5;
 	}
 
 	/*****************************************************************************

@@ -43,7 +43,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 	private static final String	STEALTH_LABEL				= "Stealth";		//$NON-NLS-1$
 	private static final String	HEAR_LABEL					= "Hear";			//$NON-NLS-1$
 	private static final String	LOCK_PICK_LABEL				= "Lock Pick";		//$NON-NLS-1$
-	private static final String	POCKET_PICK_LABEL			= "Pocket Pick";	//$NON-NLS-1$
+	private static final String	PICK_POCKET_LABEL			= "Pick Pocket";	//$NON-NLS-1$
 	private static final String	CLIMB_LABEL					= "Climb";			//$NON-NLS-1$
 	private static final String	FIND_TRAP_LABEL				= "Find Trap";		//$NON-NLS-1$
 	private static final String	REMOVE_TRAP_LABEL			= "Remove Trap";	//$NON-NLS-1$
@@ -72,7 +72,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 	private JTextField			mFindTrapField;
 	private JTextField			mHearField;
 	private JTextField			mLockPickField;
-	private JTextField			mPocketPickField;
+	private JTextField			mPickPocketField;
 	private JTextField			mRemoveTrapField;
 	private JTextField			mStealthField;
 
@@ -81,7 +81,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 	private JTextField			mFindTrapLevelBonusField;
 	private JTextField			mHearLevelBonusField;
 	private JTextField			mLockPickLevelBonusField;
-	private JTextField			mPocketPickLevelBonusField;
+	private JTextField			mPickPocketLevelBonusField;
 	private JTextField			mRemoveTrapLevelBonusField;
 	private JTextField			mStealthLevelBonusField;
 
@@ -183,10 +183,10 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		mLockPickField.setEditable(false);
 		mLockPickLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
 
-		JLabel pocketPickLabel = new JLabel(POCKET_PICK_LABEL, SwingConstants.RIGHT);
-		mPocketPickField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
-		mPocketPickField.setEditable(false);
-		mPocketPickLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		JLabel pickPocketLabel = new JLabel(PICK_POCKET_LABEL, SwingConstants.RIGHT);
+		mPickPocketField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
+		mPickPocketField.setEditable(false);
+		mPickPocketLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
 
 		JLabel climbLabel = new JLabel(CLIMB_LABEL, SwingConstants.RIGHT);
 		mClimbField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
@@ -261,9 +261,9 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		wrapper.add(mDetectMoralsField);
 		wrapper.add(trackingLabel);
 		wrapper.add(mTrackingField);
-		wrapper.add(pocketPickLabel);
-		wrapper.add(mPocketPickField);
-		wrapper.add(mPocketPickLevelBonusField);
+		wrapper.add(pickPocketLabel);
+		wrapper.add(mPickPocketField);
+		wrapper.add(mPickPocketLevelBonusField);
 
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
@@ -324,7 +324,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		mFindTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getFindTrap() + record.getFindTrapLevelBonus()));
 		mHearField.setText(TKStringHelpers.EMPTY_STRING + (record.getHear() + record.getHearLevelBonus()));
 		mLockPickField.setText(TKStringHelpers.EMPTY_STRING + (record.getLockPick() + record.getLockPickLevelBonus()));
-		mPocketPickField.setText(TKStringHelpers.EMPTY_STRING + (record.getPocketPick() + record.getPocketPickLevelBonus()));
+		mPickPocketField.setText(TKStringHelpers.EMPTY_STRING + (record.getPickPocket() + record.getPickPocketLevelBonus()));
 		mRemoveTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getRemoveTrap() + record.getRemoveTrapLevelBonus()));
 		mStealthField.setText(TKStringHelpers.EMPTY_STRING + (record.getStealth() + record.getStealthLevelBonus()));
 
@@ -333,7 +333,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		mFindTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getFindTrapLevelBonus());
 		mHearLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHearLevelBonus());
 		mLockPickLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getLockPickLevelBonus());
-		mPocketPickLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getPocketPickLevelBonus());
+		mPickPocketLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getPickPocketLevelBonus());
 		mRemoveTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getRemoveTrapLevelBonus());
 		mStealthLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getStealthLevelBonus());
 
@@ -363,8 +363,8 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 				record.setHearLevelBonus(TKStringHelpers.getIntValue(mHearLevelBonusField.getText(), record.getHearLevelBonus()));
 			} else if (((JTextField) source).equals(mLockPickLevelBonusField)) {
 				record.setLockPickLevelBonus(TKStringHelpers.getIntValue(mLockPickLevelBonusField.getText(), record.getLockPickLevelBonus()));
-			} else if (((JTextField) source).equals(mPocketPickLevelBonusField)) {
-				record.setPocketPickLevelBonus(TKStringHelpers.getIntValue(mPocketPickLevelBonusField.getText(), record.getPocketPickLevelBonus()));
+			} else if (((JTextField) source).equals(mPickPocketLevelBonusField)) {
+				record.setPickPocketLevelBonus(TKStringHelpers.getIntValue(mPickPocketLevelBonusField.getText(), record.getPickPocketLevelBonus()));
 			} else if (((JTextField) source).equals(mClimbLevelBonusField)) {
 				record.setClimbLevelBonus(TKStringHelpers.getIntValue(mClimbLevelBonusField.getText(), record.getClimbLevelBonus()));
 			} else if (((JTextField) source).equals(mFindTrapLevelBonusField)) {

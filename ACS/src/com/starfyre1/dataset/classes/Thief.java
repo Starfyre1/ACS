@@ -180,6 +180,7 @@ public class Thief extends BaseClass {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private boolean mInnateSkills[] = { false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, false, false };
 
 	/*****************************************************************************
 	 * Constructors
@@ -233,6 +234,11 @@ public class Thief extends BaseClass {
 	 * Setter's and Getter's
 	 ****************************************************************************/
 	// Skills
+	@Override
+	public boolean[] getInnateSkills() {
+		return mInnateSkills;
+	}
+
 	@Override
 	public int getBandaging() {
 		return 0;
@@ -290,8 +296,7 @@ public class Thief extends BaseClass {
 
 	@Override
 	public int getConceal() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
-		return lvl * 5;
+		return 0;
 	}
 
 	@Override
@@ -303,7 +308,7 @@ public class Thief extends BaseClass {
 	@Override
 	public int getHear() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
-		return lvl * 5;
+		return 30 + lvl * 5;
 	}
 
 	@Override

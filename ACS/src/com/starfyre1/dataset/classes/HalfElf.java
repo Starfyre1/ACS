@@ -14,6 +14,7 @@ public class HalfElf extends BaseClass {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private boolean mInnateSkills[] = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
 	/*****************************************************************************
 	 * Constructors
@@ -27,6 +28,11 @@ public class HalfElf extends BaseClass {
 	 * Setter's and Getter's
 	 ****************************************************************************/
 	// Skills
+	@Override
+	public boolean[] getInnateSkills() {
+		return mInnateSkills;
+	}
+
 	@Override
 	public int getBandaging() {
 		return 0;
@@ -99,7 +105,7 @@ public class HalfElf extends BaseClass {
 
 	@Override
 	public int getHear() {
-		return 0;
+		return 30 + 0;
 	}
 
 	@Override

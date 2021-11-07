@@ -99,7 +99,7 @@ public abstract class MagesBase extends SpellUser {
 
 	@Override
 	public int getHear() {
-		return 0;
+		return 20 + 0;
 	}
 
 	@Override
