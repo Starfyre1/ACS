@@ -80,54 +80,63 @@ public class AttributesDisplay extends TKTitledDisplay implements FocusListener 
 		strLabel.setToolTipText(STRENGTH_TOOLTIP);
 		mStrField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mStrField.setEditable(false);
+		mStrField.setFocusable(false);
 		mModStrField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel conLabel = new JLabel(AttributesRecord.CONSTITUTION, SwingConstants.RIGHT);
 		conLabel.setToolTipText(CONSTITUTION_TOOLTIP);
 		mConField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mConField.setEditable(false);
+		mConField.setFocusable(false);
 		mModConField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel intLabel = new JLabel(AttributesRecord.INTELLIGENCE, SwingConstants.RIGHT);
 		intLabel.setToolTipText(INTELLIGENCE_TOOLTIP);
 		mIntField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mIntField.setEditable(false);
+		mIntField.setFocusable(false);
 		mModIntField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel wisLabel = new JLabel(AttributesRecord.WISDOM, SwingConstants.RIGHT);
 		wisLabel.setToolTipText(WISDOM_TOOLTIP);
 		mWisField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mWisField.setEditable(false);
+		mWisField.setFocusable(false);
 		mModWisField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel dexLabel = new JLabel(AttributesRecord.DEXTERITY, SwingConstants.RIGHT);
 		dexLabel.setToolTipText(DEXTERITY_TOOLTIP);
 		mDexField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mDexField.setEditable(false);
+		mDexField.setFocusable(false);
 		mModDexField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel bsLabel = new JLabel(AttributesRecord.BOW_SKILL, SwingConstants.RIGHT);
 		bsLabel.setToolTipText(BOW_SKILL_TOOLTIP);
 		mBSField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mBSField.setEditable(false);
+		mBSField.setFocusable(false);
 		mModBSField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel chaLabel = new JLabel(AttributesRecord.CHARISMA, SwingConstants.RIGHT);
 		chaLabel.setToolTipText(CHARISMA_TOOLTIP);
 		mChaField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mChaField.setEditable(false);
+		mChaField.setFocusable(false);
 		mModChaField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel paLabel = new JLabel(AttributesRecord.PERSONAL_APPEARANCE, SwingConstants.RIGHT);
 		paLabel.setToolTipText(PERSONAL_APPERANCE_TOOLTIP);
 		mPAField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mPAField.setEditable(false);
+		mPAField.setFocusable(false);
 		mModPAField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel wpLabel = new JLabel(AttributesRecord.WILLPOWER, SwingConstants.RIGHT);
 		wpLabel.setToolTipText(WILLPOWER_TOOLTIP);
 		mWPField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mWPField.setEditable(false);
+		mWPField.setFocusable(false);
 		mModWPField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		wrapper.add(strLabel);
@@ -181,7 +190,7 @@ public class AttributesDisplay extends TKTitledDisplay implements FocusListener 
 			} else if (((JTextField) source).equals(mModConField)) {
 				record.setModifiedStat(1, TKStringHelpers.getIntValue(mModConField.getText(), record.getModifiedStatOld(1)));
 			} else if (((JTextField) source).equals(mModIntField)) {
-				record.setModifiedStat(2, TKStringHelpers.getIntValue(mModStrField.getText(), record.getModifiedStatOld(2)));
+				record.setModifiedStat(2, TKStringHelpers.getIntValue(mModIntField.getText(), record.getModifiedStatOld(2)));
 			} else if (((JTextField) source).equals(mModWisField)) {
 				record.setModifiedStat(3, TKStringHelpers.getIntValue(mModWisField.getText(), record.getModifiedStatOld(3)));
 			} else if (((JTextField) source).equals(mModDexField)) {

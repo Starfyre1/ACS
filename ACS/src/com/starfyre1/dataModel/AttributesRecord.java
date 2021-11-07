@@ -39,7 +39,7 @@ public class AttributesRecord implements Savable {
 	public static final String	PERSONAL_APPEARANCE		= "Appearance";					//$NON-NLS-1$
 	public static final String	WILLPOWER				= "Willpower";					//$NON-NLS-1$
 
-	public static final int		STR						= 0;							// 0
+	public static final int		STR						= 0;
 	public static final int		CON						= 1;
 	public static final int		INT						= 2;
 	public static final int		WIS						= 3;
