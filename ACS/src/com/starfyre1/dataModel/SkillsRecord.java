@@ -479,7 +479,11 @@ public class SkillsRecord implements LevelListener, Savable {
 	}
 
 	public void generateUnallocatedSkills() {
-		int value = mCharacterSheet.getHeaderRecord().getCharacterClass().getUnallocatedSkills();
+		BaseClass characterClass = mCharacterSheet.getHeaderRecord().getCharacterClass();
+		if (characterClass == null) {
+			return;
+		}
+		int value = characterClass.getUnallocatedSkills();
 
 		mUnallocated = value - mConcealLevelBonus - mStealthLevelBonus - mHearLevelBonus - mLockPickLevelBonus - //
 						mPickPocketLevelBonus - mClimbLevelBonus - mFindTrapLevelBonus - mRemoveTrapLevelBonus;

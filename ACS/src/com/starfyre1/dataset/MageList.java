@@ -45,16 +45,16 @@ public class MageList extends ClassList {
 	@Override
 	public void generateList() {
 		if (mMagesList.isEmpty()) {
-			mMagesList.add(new MageRecord(new ArcaneLore(), MAGE, ARCANE_LORE, 3, null));
-			mMagesList.add(new MageRecord(new Control(), MAGE, CONTROL, 3, null));
-			mMagesList.add(new MageRecord(new Air(), MAGE, AIR_ELEMENTALIST, 3, null));
-			mMagesList.add(new MageRecord(new Earth(), MAGE, EARTH_ELEMENTALIST, 3, null));
-			mMagesList.add(new MageRecord(new Fire(), MAGE, FIRE_ELEMENTALIST, 3, null));
-			mMagesList.add(new MageRecord(new Water(), MAGE, WATER_ELEMENTALIST, 3, null));
-			mMagesList.add(new MageRecord(new Illusion(), MAGE, ILLUSION, 3, null));
-			mMagesList.add(new MageRecord(new NaturalLore(), MAGE, NATURAL_LORE, 3, null));
-			mMagesList.add(new MageRecord(new Necromancer(), MAGE, NECROMANCER, 3, null));
-			mMagesList.add(new MageRecord(new ShadowMagic(), MAGE, SHADOW_MAGIC, 3, null));
+			mMagesList.add(new MageRecord(new ArcaneLore(), MAGE, ARCANE_LORE, 3));
+			mMagesList.add(new MageRecord(new Control(), MAGE, CONTROL, 3));
+			mMagesList.add(new MageRecord(new Air(), MAGE, AIR_ELEMENTALIST, 3));
+			mMagesList.add(new MageRecord(new Earth(), MAGE, EARTH_ELEMENTALIST, 3));
+			mMagesList.add(new MageRecord(new Fire(), MAGE, FIRE_ELEMENTALIST, 3));
+			mMagesList.add(new MageRecord(new Water(), MAGE, WATER_ELEMENTALIST, 3));
+			mMagesList.add(new MageRecord(new Illusion(), MAGE, ILLUSION, 3));
+			mMagesList.add(new MageRecord(new NaturalLore(), MAGE, NATURAL_LORE, 3));
+			mMagesList.add(new MageRecord(new Necromancer(), MAGE, NECROMANCER, 3));
+			mMagesList.add(new MageRecord(new ShadowMagic(), MAGE, SHADOW_MAGIC, 3));
 		}
 	}
 

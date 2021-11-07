@@ -160,6 +160,10 @@ public class AttributesRecord implements Savable {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public int[] getModifiedStats() {
+		return mModifiedStats;
+	}
+
 	public int getStat(int which) {
 		return mStats[which];
 	}

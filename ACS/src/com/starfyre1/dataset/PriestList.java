@@ -4,6 +4,7 @@ package com.starfyre1.dataset;
 
 import com.starfyre1.dataModel.ClassesRecord;
 import com.starfyre1.dataModel.PriestRecord;
+import com.starfyre1.dataset.classes.priests.Adon;
 import com.starfyre1.dataset.classes.priests.Chauntil;
 import com.starfyre1.dataset.classes.priests.Graun;
 import com.starfyre1.dataset.classes.priests.Lorrell;
@@ -11,14 +12,13 @@ import com.starfyre1.dataset.classes.priests.MistressNight;
 import com.starfyre1.dataset.classes.priests.Narese;
 import com.starfyre1.dataset.classes.priests.Narius;
 import com.starfyre1.dataset.classes.priests.Orn;
+import com.starfyre1.dataset.classes.priests.Pelon;
 import com.starfyre1.dataset.classes.priests.Ryelle;
 import com.starfyre1.dataset.classes.priests.Sarn;
-import com.starfyre1.dataset.classes.priests.Pelon;
 import com.starfyre1.dataset.classes.priests.Talon;
 import com.starfyre1.dataset.classes.priests.Tarn;
 import com.starfyre1.dataset.classes.priests.Tarot;
 import com.starfyre1.dataset.classes.priests.Thaer;
-import com.starfyre1.dataset.classes.priests.Adon;
 import com.starfyre1.dataset.classes.priests.Wynd;
 
 import java.util.ArrayList;
@@ -49,22 +49,22 @@ public class PriestList extends ClassList {
 	@Override
 	public void generateList() {
 		if (mPriestsList.isEmpty()) {
-			mPriestsList.add(new PriestRecord(new Chauntil(), PRIEST, CHAUNTIL, 3, null));
-			mPriestsList.add(new PriestRecord(new Graun(), PRIEST, GRAUN, 3, null));
-			mPriestsList.add(new PriestRecord(new Lorrell(), PRIEST, LORRELL, 3, null));
-			mPriestsList.add(new PriestRecord(new MistressNight(), PRIEST, MISTRESS_NIGHT, 3, null));
-			mPriestsList.add(new PriestRecord(new Narese(), PRIEST, NARESE, 3, null));
-			mPriestsList.add(new PriestRecord(new Narius(), PRIEST, NARIUS, 3, null));
-			mPriestsList.add(new PriestRecord(new Orn(), PRIEST, ORN, 3, null));
-			mPriestsList.add(new PriestRecord(new Ryelle(), PRIEST, RYSH, 3, null));
-			mPriestsList.add(new PriestRecord(new Sarn(), PRIEST, SARN, 3, null));
-			mPriestsList.add(new PriestRecord(new Pelon(), PRIEST, SAUTRIAN, 3, null));
-			mPriestsList.add(new PriestRecord(new Talon(), PRIEST, TALON, 3, null));
-			mPriestsList.add(new PriestRecord(new Tarn(), PRIEST, TARN, 3, null));
-			mPriestsList.add(new PriestRecord(new Tarot(), PRIEST, TAROT, 3, null));
-			mPriestsList.add(new PriestRecord(new Thaer(), PRIEST, THAER, 3, null));
-			mPriestsList.add(new PriestRecord(new Adon(), PRIEST, THANTOS, 3, null));
-			mPriestsList.add(new PriestRecord(new Wynd(), PRIEST, WYND, 3, null));
+			mPriestsList.add(new PriestRecord(new Chauntil(), PRIEST, CHAUNTIL, 3));
+			mPriestsList.add(new PriestRecord(new Graun(), PRIEST, GRAUN, 3));
+			mPriestsList.add(new PriestRecord(new Lorrell(), PRIEST, LORRELL, 3));
+			mPriestsList.add(new PriestRecord(new MistressNight(), PRIEST, MISTRESS_NIGHT, 3));
+			mPriestsList.add(new PriestRecord(new Narese(), PRIEST, NARESE, 3));
+			mPriestsList.add(new PriestRecord(new Narius(), PRIEST, NARIUS, 3));
+			mPriestsList.add(new PriestRecord(new Orn(), PRIEST, ORN, 3));
+			mPriestsList.add(new PriestRecord(new Ryelle(), PRIEST, RYSH, 3));
+			mPriestsList.add(new PriestRecord(new Sarn(), PRIEST, SARN, 3));
+			mPriestsList.add(new PriestRecord(new Pelon(), PRIEST, SAUTRIAN, 3));
+			mPriestsList.add(new PriestRecord(new Talon(), PRIEST, TALON, 3));
+			mPriestsList.add(new PriestRecord(new Tarn(), PRIEST, TARN, 3));
+			mPriestsList.add(new PriestRecord(new Tarot(), PRIEST, TAROT, 3));
+			mPriestsList.add(new PriestRecord(new Thaer(), PRIEST, THAER, 3));
+			mPriestsList.add(new PriestRecord(new Adon(), PRIEST, THANTOS, 3));
+			mPriestsList.add(new PriestRecord(new Wynd(), PRIEST, WYND, 3));
 		}
 	}
 

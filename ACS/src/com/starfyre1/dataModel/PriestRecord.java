@@ -11,7 +11,6 @@ public class PriestRecord extends ClassesRecord {
 	//	private String	mType;			// null, priest, Mage
 	//	private String	mName;
 	//	private int		mArmor;			// 0 = none, 1 = light, 2 = medium, 3 = heavy
-	//	private int[]	mMinimumStats;	// null means no minimum stats
 
 	/*****************************************************************************
 	 * Member Variables
@@ -20,8 +19,8 @@ public class PriestRecord extends ClassesRecord {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public PriestRecord(BaseClass baseClass, String group, String name, int armor, int[] stats) {
-		super(baseClass, group, name, armor, stats);
+	public PriestRecord(BaseClass baseClass, String group, String name, int armor) {
+		super(baseClass, group, name, armor);
 	}
 
 	/*****************************************************************************

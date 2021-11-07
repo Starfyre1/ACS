@@ -91,18 +91,18 @@ public class ClassList {
 	 ****************************************************************************/
 	public void generateList() {
 		if (mClassesList.isEmpty()) {
-			mClassesList.add(new ClassesRecord(new Ranger(), WARRIOR, RANGER, 3, new int[] { 12, 12, 11, 12, 12, 12, 10, 0, 10 }));
-			mClassesList.add(new ClassesRecord(new Warrior(), WARRIOR, WARRIOR, 3, new int[] { 10, 10, 0, 0, 0, 0, 0, 0, 0 }));
+			mClassesList.add(new ClassesRecord(new Ranger(), WARRIOR, RANGER, 3));
+			mClassesList.add(new ClassesRecord(new Warrior(), WARRIOR, WARRIOR, 3));
 
-			mClassesList.add(new ClassesRecord(new Sailor(), ELVEN, SAILOR, 3, new int[] { 10, 0, 11, 10, 12, 12, 7, 11, 0 }));
-			mClassesList.add(new ClassesRecord(new Sithrian(), ELVEN, SITHRIAN, 3, new int[] { 10, 12, 12, 13, 14, 13, 7, 10, 11 }));
-			mClassesList.add(new ClassesRecord(new Tellorian(), ELVEN, TELLORIAN, 3, new int[] { 12, 0, 12, 13, 13, 0, 10, 11, 11 }));
-			mClassesList.add(new ClassesRecord(new Tsiri(), ELVEN, TSIRI, 3, new int[] { 12, 10, 13, 12, 14, 13, 10, 0, 12 }));
+			mClassesList.add(new ClassesRecord(new Sailor(), ELVEN, SAILOR, 3));
+			mClassesList.add(new ClassesRecord(new Sithrian(), ELVEN, SITHRIAN, 3));
+			mClassesList.add(new ClassesRecord(new Tellorian(), ELVEN, TELLORIAN, 3));
+			mClassesList.add(new ClassesRecord(new Tsiri(), ELVEN, TSIRI, 3));
 
-			mClassesList.add(new ClassesRecord(new Thief(), null, THIEF, 3, new int[] { 9, 10, 12, 0, 12, 0, 0, 0, 0 }));
-			mClassesList.add(new ClassesRecord(new Human(), null, HUMAN, 3, new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }));
-			mClassesList.add(new ClassesRecord(new Dwarves(), null, DWARVEN, 3, new int[] { 12, 13, 10, 10, 12, 0, 0, 0, 12 }));
-			mClassesList.add(new ClassesRecord(new Dwarrow(), null, DWARROW, 3, new int[] { 10, 12, 12, 12, 15, 15, 0, 0, 12 }));
+			mClassesList.add(new ClassesRecord(new Thief(), null, THIEF, 3));
+			mClassesList.add(new ClassesRecord(new Human(), null, HUMAN, 3));
+			mClassesList.add(new ClassesRecord(new Dwarves(), null, DWARVEN, 3));
+			mClassesList.add(new ClassesRecord(new Dwarrow(), null, DWARROW, 3));
 		}
 	}
 

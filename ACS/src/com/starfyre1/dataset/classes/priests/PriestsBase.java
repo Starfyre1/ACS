@@ -29,6 +29,11 @@ public abstract class PriestsBase extends SpellUser {
 	 ****************************************************************************/
 
 	@Override
+	public int[] getMinimumStats() {
+		return null;
+	}
+
+	@Override
 	public String[] getInnateDisplayList() {
 		return mInnateDisplayList;
 	}

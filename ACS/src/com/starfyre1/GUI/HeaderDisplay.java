@@ -5,12 +5,14 @@ package com.starfyre1.GUI;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
+import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.ClassesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.HistoryRecord;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.PriestList;
+import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.startup.ACS;
 import com.starfyre1.storage.HistoryManager;
 
@@ -157,6 +159,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 			for (int i = 0; i < names.size(); i++) {
 				if (element.getText().equals(records.get(i).getGroup())) {
 					JMenuItem menuItem = new JMenuItem(names.get(i));
+					menuItem.setEnabled(hasMinimumStats(names.get(i)));
 					menuItem.addActionListener(this);
 					element.add(menuItem);
 				}
@@ -166,6 +169,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		for (int i = 0; i < names.size(); i++) {
 			if (records.get(i).getGroup() == null) {
 				JMenuItem menuItem = new JMenuItem(names.get(i));
+				menuItem.setEnabled(hasMinimumStats(names.get(i)));
 				menuItem.addActionListener(this);
 				popupMenu.add(menuItem, 0);
 			}
@@ -177,11 +181,57 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		return popupMenu;
 	}
 
+	public void updateClassPopup() {
+		JMenu menu = mClassPopup.getMenu();
+		updateClassPopup(menu);
+	}
+
+	private void updateClassPopup(JMenu menu) {
+		int n = menu.getItemCount();
+		for (int i = 0; i < n; i++) {
+			JMenuItem item = menu.getItem(i);
+			if (item instanceof JMenu) {
+				updateClassPopup((JMenu) item);
+			} else if (item != null) {
+				item.setEnabled(hasMinimumStats(item.getText()));
+			}
+		}
+	}
+
+	private boolean hasMinimumStats(String name) {
+		if (SELECT_CLASS.equals(name)) {
+			return true;
+		}
+		CharacterSheet sheet = (CharacterSheet) getOwner();
+		AttributesRecord attribs = sheet.getAttributesRecord();
+		if (attribs != null) {
+			int stats[] = attribs.getModifiedStats();
+
+			BaseClass characterClass = ClassList.getCharacterClass(name);
+
+			if (characterClass != null) {
+				int minimum[] = characterClass.getMinimumStats();
+				if (minimum == null) {
+					return true;
+				}
+				for (int i = 0; i < stats.length; i++) {
+					if (stats[i] < minimum[i]) {
+						return false;
+					}
+				}
+
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	protected void loadDisplay() {
 		HeaderRecord record = ((CharacterSheet) getOwner()).getHeaderRecord();
 		mPlayerNameField.setText(TKStringHelpers.EMPTY_STRING + record.getPlayerName());
 		mCharacterNameField.setText(TKStringHelpers.EMPTY_STRING + record.getCharacterName());
+		updateClassPopup();
 		if (record.getCharacterClassName().equals(TKStringHelpers.EMPTY_STRING)) {
 			mClassPopup.selectPopupMenuItem(SELECT_CLASS);
 		} else {

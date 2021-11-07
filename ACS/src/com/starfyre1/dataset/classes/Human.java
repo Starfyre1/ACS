@@ -14,8 +14,9 @@ public class Human extends BaseClass {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private boolean	mInnateSkills[]			= { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
-	private String	mInnateDisplayList[]	= { "None" };																																		//$NON-NLS-1$
+	private boolean[]	mInnateSkills		= { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+	private String[]	mInnateDisplayList	= { "None" };																																		//$NON-NLS-1$
+	private int[]		mMinimumStats		= { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 	/*****************************************************************************
 	 * Constructors
@@ -28,6 +29,11 @@ public class Human extends BaseClass {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public int[] getMinimumStats() {
+		return mMinimumStats;
+	}
 
 	@Override
 	public String[] getInnateDisplayList() {

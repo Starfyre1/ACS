@@ -76,31 +76,31 @@ public class CharacterSheet implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String				CHARACTER_SHEET_TITLE		= "Character Sheet";																																														//$NON-NLS-1$
-	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment Sheet";																																														//$NON-NLS-1$
-	private static final String				SPELL_SHEET_TITLE			= "Spell Sheet";																																															//$NON-NLS-1$
-	private static final String				JOURNAL_SHEET_TITLE			= "Journal Sheet";																																															//$NON-NLS-1$
+	private static final String				CHARACTER_SHEET_TITLE		= "Character Sheet";																																																//$NON-NLS-1$
+	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment Sheet";																																																//$NON-NLS-1$
+	private static final String				SPELL_SHEET_TITLE			= "Spell Sheet";																																																	//$NON-NLS-1$
+	private static final String				JOURNAL_SHEET_TITLE			= "Journal Sheet";																																																	//$NON-NLS-1$
 
 	// DW add something useful for the tooltips or remove them
-	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";																																														//$NON-NLS-1$
-	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";																																														//$NON-NLS-1$
-	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";																																															//$NON-NLS-1$
-	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";																																															//$NON-NLS-1$
+	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";																																																//$NON-NLS-1$
+	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";																																																//$NON-NLS-1$
+	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";																																																	//$NON-NLS-1$
+	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";																																																	//$NON-NLS-1$
 
-	private static final String				ABOUT						= "About";																																																	//$NON-NLS-1$
-	private static final String				HELP						= "Help";																																																	//$NON-NLS-1$
-	private static final String				PREFERENCES					= "Preferences";																																															//$NON-NLS-1$
-	private static final String				OPTIONS						= "Options";																																																//$NON-NLS-1$
-	private static final String				MARKET_PLACE				= "Market Place";																																															//$NON-NLS-1$
-	private static final String				EXIT						= "Exit";																																																	//$NON-NLS-1$
-	private static final String				SAVE_AS						= "Save As...";																																																//$NON-NLS-1$
-	private static final String				SAVE						= "Save";																																																	//$NON-NLS-1$
-	private static final String				CLOSE						= "Close";																																																	//$NON-NLS-1$
-	private static final String				OPEN						= "Open...";																																																//$NON-NLS-1$
-	private static final String				NEW							= "New";																																																	//$NON-NLS-1$
-	private static final String				FILE						= "File";																																																	//$NON-NLS-1$
-	private static final String				CREATE						= "Create";																																																	//$NON-NLS-1$
-	private static final String				CANCEL						= "Cancel";																																																	//$NON-NLS-1$
+	private static final String				ABOUT						= "About";																																																			//$NON-NLS-1$
+	private static final String				HELP						= "Help";																																																			//$NON-NLS-1$
+	private static final String				PREFERENCES					= "Preferences";																																																	//$NON-NLS-1$
+	private static final String				OPTIONS						= "Options";																																																		//$NON-NLS-1$
+	private static final String				MARKET_PLACE				= "Market Place";																																																	//$NON-NLS-1$
+	private static final String				EXIT						= "Exit";																																																			//$NON-NLS-1$
+	private static final String				SAVE_AS						= "Save As...";																																																		//$NON-NLS-1$
+	private static final String				SAVE						= "Save";																																																			//$NON-NLS-1$
+	private static final String				CLOSE						= "Close";																																																			//$NON-NLS-1$
+	private static final String				OPEN						= "Open...";																																																		//$NON-NLS-1$
+	private static final String				NEW							= "New";																																																			//$NON-NLS-1$
+	private static final String				FILE						= "File";																																																			//$NON-NLS-1$
+	private static final String				CREATE						= "Create";																																																			//$NON-NLS-1$
+	private static final String				CANCEL						= "Cancel";																																																			//$NON-NLS-1$
 
 	public static final Dimension			CHARACTER_TAB_TABLE_SIZE	= new Dimension(375, 75);
 	public static final Dimension			EQUIPMENT_TAB_TABLE_SIZE	= new Dimension(750, 150);
@@ -112,7 +112,7 @@ public class CharacterSheet implements ActionListener {
 	public static final int					CELL_SMALL_MAX_WIDTH		= 45;
 	public static final int					CELL_LARGE_MAX_WIDTH		= 75;
 
-	private static final int				YEAR_AL						= 615;																																																		// YEAR_AD			= YEAR_AL - 268;
+	private static final int				YEAR_AL						= 615;																																																				// YEAR_AD			= YEAR_AL - 268;
 
 	private static final Icon				ICON						= null;
 
@@ -149,9 +149,9 @@ public class CharacterSheet implements ActionListener {
 	public int								mCurrentWorldMonth			= java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
 	public int								mCurrentWorldDate			= java.util.Calendar.getInstance().get(java.util.Calendar.DATE);
 	public int								mCurrentCampaignYear		= YEAR_AL;
-	public int								mCurrentCampaignMonth		= 4;																																																		// 0=January... 15=Winter
+	public int								mCurrentCampaignMonth		= 4;																																																				// 0=January... 15=Winter
 	public int								mCurrentCampaignDate		= 14;
-	private String							mWorldDate					= new String(new SimpleDateFormat("MMM dd, yyyy").format(Calendar.getInstance().getTime()));																												//$NON-NLS-1$
+	private String							mWorldDate					= new String(new SimpleDateFormat("MMM dd, yyyy").format(Calendar.getInstance().getTime()));																														//$NON-NLS-1$
 	private String							mCampaignDate				= new String(CampaignDateChooser.MONTHS_SHORT[mCurrentCampaignMonth] + " " + String.format("%02d", Integer.valueOf(mCurrentCampaignDate)) + ", " + String.format("%04d", Integer.valueOf(mCurrentCampaignYear)));	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$);
 
 	// Character Tab
@@ -664,6 +664,7 @@ public class CharacterSheet implements ActionListener {
 
 			updateForEncubrance();
 			mCombatInformationDisplay.loadDisplay();
+			mHeaderDisplay.updateClassPopup();
 		}
 	}
 

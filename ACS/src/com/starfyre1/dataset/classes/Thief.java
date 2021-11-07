@@ -12,7 +12,7 @@ public class Thief extends BaseClass {
 
 	/*
 		The Thief
-
+	
 			The Thief is quite similar to the Fighters in that they also don't have any spells
 			to aid them in the RPG Systems, although you will find in this system there are
 			at least 2 other classes tied to the Thief that do have spells and a lot of Magic.
@@ -24,7 +24,7 @@ public class Thief extends BaseClass {
 			loyal and will report non-guild thieves or any thieves shorting the guild of
 			their dues, With some exceptions.  The Thieves Guild also runs the Assassins
 			Guild. Thieves advantages are as follows:
-
+	
 			1)	They may wear any armor, but much of the Bulkier armor types hinder
 	  			their abilities.
 			2)	They may see 1' X level in total darkness.
@@ -36,22 +36,22 @@ public class Thief extends BaseClass {
 			6)	They add +10% to their Defense when choosing to "Dodge".
 			7)	They add +2% per level to their save vs. Surprise.
 			8)	They add +5% to their Perception at character creation.
-
+	
 		Thieving Abilities:
 	 		These are the Base percentages for beginning Thieves:
-
+	
 			Conceal  Stealth  	Hear	Lock pick	Pick pocket	Climb	Find trap
 			20%	20%	30%	20%		20%		70%	20%
 			Remove Trap
 			20%
-
+	
 		Dexterity Modifiers:
-
+	
 			1)	Conceal, Stealth, Pick Locks, Pick Pocket, Climb and Remove trap are all
 	  				modified with the following tables:
-
-
-
+	
+	
+	
 			DX= 		Modifier on Abilities		DX Modifiers due to Armor
 			3-7 		-20% to all abilities 		No Armor	+2*
 			8-9 		-10% 						H. Cloth	+1*
@@ -64,7 +64,7 @@ public class Thief extends BaseClass {
 			21			+25% 						Scale 		-4
 			22-23		+30% 						Banded 		-6
 			24-25 		+35% 						Plate 		-8
-
+	
 			2)  	Find trap is Modified as follows:		* =Max. of "24" DX.  If "DX" is less than "3", then NO Thieving
 			WS + IN 	Modifier on Abilities		abilities.
 			6-12 		-20%
@@ -77,9 +77,9 @@ public class Thief extends BaseClass {
 			30-32		+15%
 			33-35		+20%
 			36-above 	+25%
-
+	
 		Here are the Definitions of Thieving Abilities:
-
+	
 			Conceal:  	To hide behind curtains, around corners, in nooks and crannies,
 					behind pillars or statues, Etc.  This ability does NOT grant
 					invisibility to the concealed thief.  If a creature is aware of the
@@ -87,7 +87,7 @@ public class Thief extends BaseClass {
 					for success, (Suspicious parties must have a reason for suspecting
 					thieves and may not simply turn this ability "on" why they want
 					it).
-
+	
 			Stealth:  	This ability allows the Thief to move with total silence at a rate One
 					class slower than they regularly move (due to their encumbrance).
 					This means if the thief was human and regularly moved "12", they
@@ -96,36 +96,36 @@ public class Thief extends BaseClass {
 					ability "Hear" to find non-thief chances to hear something that
 					occurs Quietly).  Successfully rolling the percentage means the
 					thief moved with absolute silence.
-
+	
 			Hear:  		The percentage chance to hear something is obviously going to be
 					heavily modified by the ref.  Discretion as to the loudness of the
 					noise (I.E. a Woman screaming 60' away (or even "out of range at
 					70') is tough to miss hearing).  Here are the chances....
-	
+
 			Listener is:				Chance to Hear 		Range
 			Human, Non-thief with a save		20%			60'
 			Vs. Surprise of less than 75%
-
-
+	
+	
 			Human, Non-thief with a save		30%			60'
 			Vs. Surprise of more than 75%
-
+	
 			Elven, Half-Elven and Dwarrow		30% 			120'
-
+	
 			Other--(some monsters will have		20%			60'
 			high hearing abilities)
-
+	
 			Thief					Varies with Level	60' *
 									•	Add 5’ per 10% above 100% to hear.
-
+	
 									Halve all chances when listening to a door.
-
+	
 			Pick Lock:  	Just like it sounds.  This ability requires special lock picking
 					tools (available on the buying lists (only thieves may purchase
 					them)). Locks vary in toughness to pick.  If a roll fails to pick the
 					lock, another attempt may be made in 2D10 minutes (but only if
 					the thief continues to try for the entire time).
-
+	
 			Pick Pocket:	This ability includes purse cutting and jewelry snatching.
 					Failing to roll the percentage (modified by level)  by more than
 					20% means the victim noticed the attempt.  Failure to roll by less
@@ -134,7 +134,7 @@ public class Thief extends BaseClass {
 					but the victim will be totally aware the item was stolen (and by
 					whom).  Subtract 5% for each point of In or Ws the "Mark" has
 					above "14".
-
+	
 			Climb:  		"No, you're NOT Spiderman!"  Although, in dungeons with huge
 					carved blocks set in the walls (with lots of handy grooves to put
 					fingers in) Might only subtract 10% to 20% (Ref.'s Discretion).  A
@@ -148,23 +148,23 @@ public class Thief extends BaseClass {
 					their steps.  The thief must roll his Climb for every 10’.
 					(The Ref. should encourage the use of grappling hooks and Iron
 					Spikes).
-
+	
 			Find Traps:	Roll 1D100 and if the thief rolls his percentage to Find Traps,
 					then he has found the triggering device.  If he successfully rolls it
 					Again, then he may add 20% to any attempt to Remove the Trap
 					(on that specific trap).  Failure to roll the Find trap percentage
 					has a 30% chance (Ref.'s Discretion) of triggering the trap
-
+	
 			Remove Traps:  Only small sized traps are removable, although the Ref. might
 					consider methods the thief could use to decommission larger traps
 					(like finding the lever the creatures that use the passageway pull
 					to prevent the pit from opening).
-
-
-
-
+	
+	
+	
+	
 		Advancing in Levels of Experience as a Thief:
-
+	
 				Other than the usual bonuses for going up a level of experience (I.E. more hits
 				and stamina, higher hit bonuses, etc.)  the Thief also gains +25% to his thieving
 				abilities (Total).  He may divide this bonus between all of his abilities as he sees
@@ -172,16 +172,17 @@ public class Thief extends BaseClass {
 				+25% at each new Level of Experience. (optional:  Give this +25% bonus to level
 				one thieves in order to allow the player to develop the thief's own distinct
 				characteristics.
-
+	
 				Note: 	A "96-00" always indicates Failure to perform any thieving ability
 					except Climbing (which is failed on a "00" (See Climb)).
-
+	
 	 */
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private boolean	mInnateSkills[]			= { false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, false, false };
-	private String	mInnateDisplayList[]	= { "None" };																																//$NON-NLS-1$
+	private boolean[]	mInnateSkills		= { false, false, false, false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, false, false };
+	private String[]	mInnateDisplayList	= { "None" };																																//$NON-NLS-1$
+	private int[]		mMinimumStats		= { 9, 10, 12, 0, 12, 0, 0, 0, 0 };
 
 	/*****************************************************************************
 	 * Constructors
@@ -195,37 +196,37 @@ public class Thief extends BaseClass {
 
 		/*
 				Advancing Levels:
-		
+
 					All classes modify their characters in the following ways when they advance a
 					level of experience:
-		
+
 					1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-		
+
 					2)	Add +5% per level, including (1st) to their Belief Rating.
-		
+
 					3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 						providing the characters actually use this skill at least once per level.
-		
+
 					4)	Add +3 Determination points per level past (1st).
-		
+
 					5)	Add +2% to Perception every level past (1st).
-		
+
 				Thieves:
-		
+
 					1)	Add +4% per level past (1st) to be divide between their Hit and Bow
 						Bonuses.  At least +1% per level MUST go into their Hit Bonus, the other
 						+3% may be divide as they wish.
-		
+
 					2)	Add +3% per level to Missile Bonus.
-		
+
 					3)	Add +4 Stamina per level past (1st) until 10th level.  After 10th level add
 						+2 Stamina per level.
-		
+
 					4)	Add +1 Hit Point per level until 10th level, after 10th add +1 Hit Point for
 						every (3) levels gained.
-		
+
 					5)	Add +2% to their Save Vs. Surprise.
-		
+
 					6)	Thieves Defense rises the same as their Hit Bonus, and their Free Attack
 						Rises +1% per level past (1st).
 		*/
@@ -234,6 +235,12 @@ public class Thief extends BaseClass {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public int[] getMinimumStats() {
+		return mMinimumStats;
+	}
+
 	@Override
 	public String[] getInnateDisplayList() {
 		return mInnateDisplayList;

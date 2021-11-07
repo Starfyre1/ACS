@@ -3,9 +3,8 @@
 package com.starfyre1.dataModel;
 
 import com.starfyre1.dataset.common.BaseClass;
-import com.starfyre1.interfaces.ClassMinimumAbilities;
 
-public class ClassesRecord implements ClassMinimumAbilities {
+public class ClassesRecord {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -14,24 +13,21 @@ public class ClassesRecord implements ClassMinimumAbilities {
 	 * Member Variables
 	 ****************************************************************************/
 	private BaseClass	mBaseClass;
-	private String		mGroup;			// null, priest, Mage
+	private String		mGroup;		// null, priest, Mage
 	private String		mName;
-	private int			mArmor;			// 0 = none, 1 = light, 2 = medium, 3 = heavy
-	private int[]		mMinimumStats;	// null means no minimum stats
+	private int			mArmor;		// 0 = none, 1 = light, 2 = medium, 3 = heavy
 
 	/*****************************************************************************
 	 * Constructors
 	 *
 	 * @param name
 	 * @param armor
-	 * @param stats
 	 ****************************************************************************/
-	public ClassesRecord(BaseClass baseClass, String group, String name, int armor, int[] stats) {
+	public ClassesRecord(BaseClass baseClass, String group, String name, int armor) {
 		mBaseClass = baseClass;
 		mGroup = group;
 		mName = name;
 		mArmor = armor;
-		mMinimumStats = stats;
 	}
 
 	/*****************************************************************************
@@ -60,11 +56,6 @@ public class ClassesRecord implements ClassMinimumAbilities {
 	/** @return The armor. */
 	public int getArmor() {
 		return mArmor;
-	}
-
-	@Override
-	public int[] getStatBonuses() {
-		return mMinimumStats;
 	}
 
 	/*****************************************************************************

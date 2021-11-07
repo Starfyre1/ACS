@@ -91,9 +91,10 @@ public class Sithrian extends ElvesBase {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private boolean	mInnateSkills[]			= { true, false, true, true, true, false, false, false, false, false, true, true, true, false, false, false, false, false, true, false };
+	private boolean[]	mInnateSkills		= { true, false, true, true, true, false, false, false, false, false, true, true, true, false, false, false, false, false, true, false };
 	// DW Verify - Should tracking be herbal lore?
-	private String	mInnateDisplayList[]	= { "Spell Casting", "Herbal Lore", "Stealth", "Conceal", "Hear", "Tracking", "Detect Morals I", "Speak with Animals", "Star Sight", "Detect Magic", "Resist Magical Sleep 40%" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+	private String[]	mInnateDisplayList	= { "Spell Casting", "Herbal Lore", "Stealth", "Conceal", "Hear", "Tracking", "Detect Morals I", "Speak with Animals", "Star Sight", "Detect Magic", "Resist Magical Sleep 40%" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+	private int[]		mMinimumStats		= { 10, 12, 12, 13, 14, 13, 7, 10, 11 };
 
 	/*****************************************************************************
 	 * Constructors
@@ -147,6 +148,11 @@ public class Sithrian extends ElvesBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public int[] getMinimumStats() {
+		return mMinimumStats;
+	}
 
 	@Override
 	public String[] getInnateDisplayList() {
