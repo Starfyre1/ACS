@@ -14,7 +14,8 @@ public class HalfElf extends BaseClass {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private boolean mInnateSkills[] = { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+	private boolean	mInnateSkills[]			= { false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+	private String	mInnateDisplayList[]	= { "None" };																																		//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -27,6 +28,12 @@ public class HalfElf extends BaseClass {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public String[] getInnateDisplayList() {
+		return mInnateDisplayList;
+	}
+
 	// Skills
 	@Override
 	public boolean[] getInnateSkills() {

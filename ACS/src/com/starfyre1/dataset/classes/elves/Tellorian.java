@@ -80,7 +80,8 @@ public class Tellorian extends ElvesBase {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private boolean mInnateSkills[] = { true, false, false, true, true, false, false, false, true, false, true, true, true, false, false, false, false, false, true, false };
+	private boolean	mInnateSkills[]			= { true, false, false, true, true, false, false, false, true, false, true, true, true, false, false, false, false, false, true, false };
+	private String	mInnateDisplayList[]	= { "Spell Casting", "Appraisal", "Stealth", "Conceal", "Hear", "Detect Morals I", "Star Sight", "Detect Magic", "Resist Magical Sleep 50%" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
 
 	/*****************************************************************************
 	 * Constructors
@@ -134,6 +135,12 @@ public class Tellorian extends ElvesBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public String[] getInnateDisplayList() {
+		return mInnateDisplayList;
+	}
+
 	// Skills
 	@Override
 	public boolean[] getInnateSkills() {

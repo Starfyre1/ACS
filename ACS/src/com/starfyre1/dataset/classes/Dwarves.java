@@ -86,7 +86,8 @@ public class Dwarves extends BaseClass {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private boolean mInnateSkills[] = { false, false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false };
+	private boolean	mInnateSkills[]			= { false, false, false, false, false, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false };
+	private String	mInnateDisplayList[]	= { "Detect Metal", "Depth Sense", "Detect Traps", "Detect Secret Doors", "Appraisal", "Night Sight", "Direction Sense" };					//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 
 	/*****************************************************************************
 	 * Constructors
@@ -137,6 +138,12 @@ public class Dwarves extends BaseClass {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public String[] getInnateDisplayList() {
+		return mInnateDisplayList;
+	}
+
 	// Skills
 	@Override
 	public boolean[] getInnateSkills() {

@@ -108,7 +108,8 @@ public class Tsiri extends ElvesBase {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private boolean mInnateSkills[] = { true, false, false, true, false, false, true, false, false, false, true, true, true, false, false, true, true, true, false, false };
+	private boolean	mInnateSkills[]			= { true, false, false, true, false, false, true, false, false, false, true, true, true, false, false, true, true, true, false, false };
+	private String	mInnateDisplayList[]	= { "Spell Casting", "Detect Secret Doors", "Stealth", "Conceal", "Hear", "Climb", "Find Traps", "Remove Traps", "Detect Morals I", "Speak with Animals (or) Monsters", "Night Sight", "Detect Magic", "Resist Magical Sleep 60%" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$
 
 	/*****************************************************************************
 	 * Constructors
@@ -162,6 +163,12 @@ public class Tsiri extends ElvesBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public String[] getInnateDisplayList() {
+		return mInnateDisplayList;
+	}
+
 	// Skills
 	@Override
 	public boolean[] getInnateSkills() {

@@ -14,6 +14,7 @@ public abstract class PriestsBase extends SpellUser {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private String mInnateDisplayList[] = { "None" }; //$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -26,6 +27,12 @@ public abstract class PriestsBase extends SpellUser {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public String[] getInnateDisplayList() {
+		return mInnateDisplayList;
+	}
+
 	// Skills
 	@Override
 	public int getBandaging() {

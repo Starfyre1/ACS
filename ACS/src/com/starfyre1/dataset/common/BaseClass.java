@@ -22,6 +22,8 @@ public abstract class BaseClass {
 	 * Setter's and Getter's
 	 ****************************************************************************/
 
+	public abstract String[] getInnateDisplayList();
+
 	// Skills
 	public abstract boolean[] getInnateSkills();
 

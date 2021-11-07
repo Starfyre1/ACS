@@ -66,7 +66,8 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 				mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
 				//				mTable.setFillsViewportHeight(true);
 			}
-		} else {// if (getOwner() instanceof MarketPlace) {
+		} else {
+			// if (getOwner() instanceof MarketPlace) {
 			// This is the full equipment list in the Market Place
 			//			new EquipmentList(null);
 			Vector<String> header = new Vector<String>(11);
