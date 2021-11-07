@@ -2,10 +2,10 @@
 
 package com.starfyre1.dataModel;
 
-import com.starfyre1.GUI.CampaignDate;
+import com.starfyre1.GUI.CampaignDateChooser;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.JournalDisplay;
-import com.starfyre1.GUI.WorldDate;
+import com.starfyre1.GUI.WorldDateChooser;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.startup.ACS;
 
@@ -248,7 +248,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	}
 
 	private int getWorldMonth() {
-		return WorldDate.getMonthIndex(mWorldDate.substring(0, 3));
+		return WorldDateChooser.getMonthIndex(mWorldDate.substring(0, 3));
 	}
 
 	private int getWorldDay() {
@@ -260,7 +260,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	}
 
 	private int getCampaignMonth() {
-		return CampaignDate.getMonthIndex(mCampaignDate.substring(0, 3));
+		return CampaignDateChooser.getMonthIndex(mCampaignDate.substring(0, 3));
 	}
 
 	private int getCampaignDay() {
@@ -297,7 +297,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			CampaignDate cal = new CampaignDate(((CharacterSheet) mParent.getOwner()).getFrame());
+			CampaignDateChooser cal = new CampaignDateChooser(((CharacterSheet) mParent.getOwner()).getFrame());
 			mCampaignDate = cal.getSelectedDate();
 			mCampaignButton.setText(mCampaignDate);
 			mParent.updatePreviewPanel();
@@ -313,7 +313,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			WorldDate cal = new WorldDate(((CharacterSheet) mParent.getOwner()).getFrame());
+			WorldDateChooser cal = new WorldDateChooser(((CharacterSheet) mParent.getOwner()).getFrame());
 			mWorldDate = cal.getSelectedDate();
 			mWorldButton.setText(mWorldDate);
 			mParent.updatePreviewPanel();

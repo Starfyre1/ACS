@@ -152,7 +152,7 @@ public class CharacterSheet implements ActionListener {
 	public int								mCurrentCampaignMonth		= 4;																																																		// 0=January... 15=Winter
 	public int								mCurrentCampaignDate		= 14;
 	private String							mWorldDate					= new String(new SimpleDateFormat("MMM dd, yyyy").format(Calendar.getInstance().getTime()));																												//$NON-NLS-1$
-	private String							mCampaignDate				= new String(CampaignDate.MONTHS_SHORT[mCurrentCampaignMonth] + " " + String.format("%02d", Integer.valueOf(mCurrentCampaignDate)) + ", " + String.format("%04d", Integer.valueOf(mCurrentCampaignYear)));	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$);
+	private String							mCampaignDate				= new String(CampaignDateChooser.MONTHS_SHORT[mCurrentCampaignMonth] + " " + String.format("%02d", Integer.valueOf(mCurrentCampaignDate)) + ", " + String.format("%04d", Integer.valueOf(mCurrentCampaignYear)));	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$);
 
 	// Character Tab
 	private AttributesDisplay				mAttributesDisplay;

@@ -8,7 +8,7 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
-public class CampaignDate extends DateBase {
+public class CampaignDateChooser extends DateChooser {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -27,9 +27,9 @@ public class CampaignDate extends DateBase {
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link CampaignDate}.
+	 * Creates a new {@link CampaignDateChooser}.
 	 */
-	public CampaignDate(JFrame parent) {
+	public CampaignDateChooser(JFrame parent) {
 		super(parent, TITLE, ACS.getInstance().getCharacterSheet().getCurrentCampaignYear(), ACS.getInstance().getCharacterSheet().getCurrentCampaignMonth(), ACS.getInstance().getCharacterSheet().getCurrentCampaignDate());
 	}
 

@@ -8,7 +8,7 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
-public class WorldDate extends DateBase {
+public class WorldDateChooser extends DateChooser {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -24,9 +24,9 @@ public class WorldDate extends DateBase {
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link WorldDate}.
+	 * Creates a new {@link WorldDateChooser}.
 	 */
-	public WorldDate(JFrame parent) {
+	public WorldDateChooser(JFrame parent) {
 		super(parent, TITLE, ACS.getInstance().getCharacterSheet().getCurrentWorldYear(), ACS.getInstance().getCharacterSheet().getCurrentWorldMonth(), ACS.getInstance().getCharacterSheet().getCurrentWorldDate());
 	}
 

@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public abstract class DateBase extends JDialog {
+public abstract class DateChooser extends JDialog {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -41,9 +41,9 @@ public abstract class DateBase extends JDialog {
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link DateBase}.
+	 * Creates a new {@link DateChooser}.
 	 */
-	public DateBase(JFrame parent, String title, int year, int month, int date) {
+	public DateChooser(JFrame parent, String title, int year, int month, int date) {
 		super(parent, true);
 		mYear = year;
 		mMonth = month;
