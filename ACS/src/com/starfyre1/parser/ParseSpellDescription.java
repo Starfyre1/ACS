@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.parcer;
+package com.starfyre1.parser;
 
 import com.starfyre1.ToolKit.TKStringHelpers;
 
@@ -23,21 +23,24 @@ public class ParseSpellDescription {
 		//		File in = new File("C:\\Users/User/Desktop/spells/Mages.txt");
 		//		File out = new File("C:\\Users/User/Desktop/spells/MagesProcessed.txt");
 
-		File in = new File("C:\\Users/User/Desktop/spells/SpellDescriptions.txt"); //$NON-NLS-1$
-		File out = new File("C:\\Users/User/Desktop/spells/SpellDescriptionsProcessed.txt"); //$NON-NLS-1$
+		File in = new File("C:\\Users/User/Desktop/Athri - BMG/spells/SpellDescriptions.txt"); //$NON-NLS-1$
+		File out = new File("C:\\Users/User/Desktop/Athri - BMG/spells/SpellDescriptionsProcessed.txt"); //$NON-NLS-1$
 
 		try {
 			BufferedReader brIn = new BufferedReader(new FileReader(in));
 			BufferedWriter brOut = new BufferedWriter(new FileWriter(out));
 
 			String name = TKStringHelpers.EMPTY_STRING;
-			StringBuffer description = new StringBuffer();
+			String description = TKStringHelpers.EMPTY_STRING;
 			String[] detailName = new String[4];
 			String[] details = new String[4];
 			int index = 0;
+			boolean hasDetail = false;
+			boolean hasStarted = false;
 
 			for (String line; (line = brIn.readLine()) != null;) {
 				line = line.trim();
+				line = line.replace("\"", "\\\""); //$NON-NLS-1$ //$NON-NLS-2$
 
 				String[] splitLine = line.split("]\\s*|\\s*=\\s*"); //	\\s+| //$NON-NLS-1$
 				System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -46,30 +49,46 @@ public class ParseSpellDescription {
 					// do nothing
 				} else if (splitLine.length == 2) {
 					if (splitLine[0].startsWith("[")) { //$NON-NLS-1$
-						//brOut.write();
-						// DW _do this first
-
+						if (hasStarted) {
+							if (hasDetail) {
+								brOut.write("\")));\n"); //$NON-NLS-1$
+							} else {
+								brOut.write("\"));\n"); //$NON-NLS-1$
+							}
+						}
+						hasStarted = true;
+						hasDetail = false;
 						detailName = new String[4];
 						details = new String[4];
 						index = 0;
 
 						name = splitLine[0].substring(1);
-						description = new StringBuffer(splitLine[1]);
+						description = splitLine[1];
+						brOut.write("mSpellDescriptions.add(new SpellDescriptionRecord(\"" + name + "\", \"" + description); //$NON-NLS-1$ //$NON-NLS-2$
 					} else {
+						hasDetail = true;
+						if (index > 0) {
+							brOut.write("\")"); //$NON-NLS-1$
+						} else {
+							brOut.write("\""); //$NON-NLS-1$
+						}
 						detailName[index] = splitLine[0];
 						details[index] = splitLine[1];
+						brOut.write(", new Pair(\"" + detailName[index] + "\", \"" + details[index]); // + "\""); //$NON-NLS-1$ //$NON-NLS-2$
 						index++;
 					}
 				} else if (splitLine.length == 1) {
-					description.append(splitLine[0]);
+					description = TKStringHelpers.SPACE + splitLine[0];
+					brOut.write(description.toString());
 				} else {
 					String powerLevel = splitLine[1].trim();
 					int power = getPowerLevel(powerLevel);
-					System.out.println(power);
+					System.out.println("Power: " + power); //$NON-NLS-1$
 				}
-				brOut.write("new SpellDescriptionRecord(\"" + name + "\", " + description + ", "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				//				brOut.write("new SpellDescriptionRecord(\"" + name + "\", " + description + ", "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				//				brOut.write(");\n\n"); //$NON-NLS-1$
 			}
-			brOut.write("\n\n"); //$NON-NLS-1$
+			brOut.write("\")));\n\n"); //$NON-NLS-1$
 			brOut.close();
 			brIn.close();
 		} catch (

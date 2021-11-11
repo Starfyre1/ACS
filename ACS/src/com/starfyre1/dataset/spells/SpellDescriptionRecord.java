@@ -26,7 +26,7 @@ public class SpellDescriptionRecord {
 		mEffects = new ArrayList<>(Arrays.asList(effects));
 	}
 
-	class Pair {
+	static class Pair {
 		String	mPairName;
 		String	mPairDescription;
 

@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.parcer;
+package com.starfyre1.parser;
 
 import com.starfyre1.ToolKit.TKStringHelpers;
 
