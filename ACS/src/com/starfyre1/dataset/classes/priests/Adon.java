@@ -21,37 +21,37 @@ public class Adon extends PriestsBase {
 			in their own ways.  Some factions are intolerant of other's like Narese the
 			Goddess of Pain, or very tolerant like the Priest's of Narius the God of
 			Knowledge.  Here are the Gods and their Priest's Spells.
-	
+
 		Thantos
 		Second Requisite – Strength
-
+	
 			Thantos is the Father of the Gods, as Mistress Night is their Mother.
 			He lives on the plane Stratos, presiding over the other Gods of Law and Order.
 			Thantos is the Lord of Courage and Chivalry.  He stands Second only to
 			Mistress Night in power among the Gods of Athri.
-
+	
 			Followers of Thantos believe in the clean killing of all things Evil, such
 			as Trolls, Goblins, Vampires or Priest's of any of the Evil Gods -Rysh, Graun,
 			Narese to name a Few.  In combat a Priest of Thantos will not yield to any Evil
 			foe as long as he/she still breaths.  Yielding to save another life, is a possibility,
 			but not very likely, when playing a Priest of Thantos, don't forget their Chivalry or the
 			Laws by which they live, Nothing is beyond the Law.
-
+	
 			A Priest of Thantos begins play with a Morals rating of no lower than "0".
 			They must gain +2 per level to gain their new levels spells.  The focus for this
 			priest is the symbol of Thantos (really imaginative, I know) a Circle of Silver
 			with a Sword upraised in the center on a medallion.
-
+	
 			Power Zero:						Power One:
 			1)Bless Blade I (-10)			1)Alertness I (-20)F
 			2)Call to Courage (-3)			2)Bless Journey (-3)
 			3)False Fire (-10)				3)Detect Enemies (-15)
 			4)Flaming Circle (-6)F			4)Endurance (-15)
 			5)Protection I (-5)F			5)Fearless Steed (-30)
-			6)Protection / Fire (-0)		6)Healing (-30)F
+			6)Protection : Fire (-0)		6)Healing (-30)F
 			7)Protection / Missiles (-0)	7)Increase Fire (-10)
 			8)Sheath (-1)					8)Protection II (-15)F
-			9)Shield I (-15)				9)Protection / Demons (-15)F
+			9)Shield I (-15)				9)Protection : Demons (-15)F
 			10)Turn Demons (-3)F			10)Speed I (-10)
 											11)Stamina I (-15)
 			Power Two:						12)Strength (-120)F
@@ -85,11 +85,11 @@ public class Adon extends PriestsBase {
 			5)Shield IV (-45)				2)Holy Sword (-Lots)
 											3)Protection / Magic (-20)F
 			Power Eight:					4)Rune / Slay Lycanthropes (-lots)
-			1)Call to Law (-15)				5)Rune / Slay Undead (-lots)
+			1)Call to Law (-15)				5)Rune : Slay Undead (-lots)
 			2)Gate (-30)F					6)Wrath of Exonerous (-6)F
 			3)Gift of the Gods (-60)F
 			4)Shield V (-60)
-
+	
 	*/
 
 	/*****************************************************************************
@@ -127,8 +127,8 @@ public class Adon extends PriestsBase {
 						new SpellRecord("False Fire", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Flaming Circle", 0, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection I", 1, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection / Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection / Missiles", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Missiles", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sheath", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Shield I", 1, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Turn Demons", 0, 3, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
@@ -143,7 +143,7 @@ public class Adon extends PriestsBase {
 						new SpellRecord("Healing", 0, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Increase Fire", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection II", 2, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection / Demons", 0, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Demons", 0, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Speed I", 1, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stamina I", 1, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Strength", 0, 120, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -165,7 +165,7 @@ public class Adon extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Agility", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Bless Blade II", 2, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Dome of fire", 0, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Dome of Fire", 0, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Exorcism", 0, 120, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Fear", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Firestorm I", 1, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -211,10 +211,11 @@ public class Adon extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Call from Beyond", 0, 240, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Holy Sword", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection / Magic", 0, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Rune / Slay Lycanthropes", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Rune / Slay Undead", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Wrath of Exonerous", 0, 6, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Protection : Magic", 0, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Rune : Slay Lycanthropes", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Rune : Slay Undead", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Wrath of Adon", 0, 6, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		// DW Verify does "Wrath of Adon" replace "Wrath of Exonerous" and "Wrath of Thanatos" Adon Power 7
 
 		// Power Eight:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -232,36 +233,36 @@ public class Adon extends PriestsBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-		
+
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-		
+
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-		
+
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-		
+
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-		
+
 			4)	Add +3 Determination points per level past (1st).
-		
+
 			5)	Add +2% to Perception every level past (1st).
-		
+
 		Mages / Priests:
-		
+
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-		
+
 			2)	Add +2% to their Missile Bonus.
-		
+
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-		
+
 			4)	Add +1 Hit Point per level till the 10th level.
-		
+
 			5)	Add +1% per level to their Save Vs. Surprise.
-		
+
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

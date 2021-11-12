@@ -17,14 +17,14 @@ public class Necromancer extends MagesBase {
 	/*
 		The Necromancer
 		Second Requisite = Wisdom
-
+	
 			Necromancers work with and command the forces of life and death, let's face
 			it, mostly Death.  The Necromancer uses their magic to give dead things the
 			parody of life, and are always seeking ways of cheating Death.  The most
 			powerful of the Necromancers are rumored to be Immortal, and UN killable.
 			Most Necromancers are considered Priests of Graun, however there are some
 			who do not worship this Deity.  Their Focus is usually something Unusual,
-
+	
 			Power Zero:							Power One:
 			1)Animation (-120)					1)Area of Gloom (-30)
 			2)Area of Fear (-2)F				2)Control Undead (-3)
@@ -36,7 +36,7 @@ public class Necromancer extends MagesBase {
 			8)Darts (-4)						8)Protection I (-5)F
 												9)Rune of Combat I (-260)
 			Power Two:							10)Sleep I (-3)F
-			1)Blindness (-5)F					11)Speak W/Dead (-90)
+			1)Blindness (-5)F					11)Speak with  Dead (-90)
 			2)Charm I (-3)F
 			3)Charm Animals (-3)F 				Power Three:
 			4)Close (-1)						1)Acid Sphere (-7)F
@@ -46,7 +46,7 @@ public class Necromancer extends MagesBase {
 			8)Muteness (-5)F					5)Rule Undead (-5)
 			9)Open (-3)							6)Rune of Combat II (-lots)
 			10)Protection II (-10)				7)Summon Wraith II (-180)
-			11)Protection / Fear (-0)			8)Touch of Death (-4)F
+			11)Protection : Fear (-0)			8)Touch of Death (-4)F
 			12)Seance (-600)					9)Withering (-1)F
 			13)Summon Wraith I (-120)
 			14)The Black Mass (-lots)			Power Five:
@@ -70,7 +70,7 @@ public class Necromancer extends MagesBase {
 												Power Eight:
 												1)Gift of the Gods (-900)F
 												2)Protection VIII (-60)
-
+	
 	*/
 
 	/*****************************************************************************
@@ -114,7 +114,7 @@ public class Necromancer extends MagesBase {
 						new SpellRecord("Protection I", 1, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Rune of Combat I", 1, 260, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sleep I", 1, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Speak W/Dead", 0, 90, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Speak with  Dead", 0, 90, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -128,7 +128,7 @@ public class Necromancer extends MagesBase {
 						new SpellRecord("Muteness", 0, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Open", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection II", 2, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection / Fear", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Fear", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Seance", 0, 600, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Wraith I", 1, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("The Black Mass", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -198,36 +198,36 @@ public class Necromancer extends MagesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-		
+
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-		
+
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-		
+
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-		
+
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-		
+
 			4)	Add +3 Determination points per level past (1st).
-		
+
 			5)	Add +2% to Perception every level past (1st).
-		
+
 		Mages / Priests:
-		
+
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-		
+
 			2)	Add +2% to their Missile Bonus.
-		
+
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-		
+
 			4)	Add +1 Hit Point per level till the 10th level.
-		
+
 			5)	Add +1% per level to their Save Vs. Surprise.
-		
+
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

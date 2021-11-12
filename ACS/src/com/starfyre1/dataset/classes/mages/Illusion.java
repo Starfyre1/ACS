@@ -17,36 +17,36 @@ public class Illusion extends MagesBase {
 	/*
 		Illusion
 		Second Requisite = Dexterity
-
+	
 			Illusionist summon material from other planes too mold into their
 			Illusions.  The following are the forces that the Illusionist must master
 			too create His or Her Illusions:
-
+	
 			1) Image- 	This force is strictly visual and is Very delicate.  Any object can
 						pass through it without resistance, however if it is actually struck
 						and takes damage the spell will fail.
-
+	
 			2) Sound-	This force is strictly audible, it will appear to originate from
 						wherever the caster desires, within the spell range. (Unless
 						Performance is cast.)
 			3) Taste-	Simulates taste, otherwise like sound.
-
+	
 			4) Odor-	Simulates the sense of smell, otherwise like sound.
-
+	
 			5) Pain-(Pleasure)This simulates the sense of Pain, and is capable of doing real damage,
 						if it is believed.  (an explanation of Belief Vs. Illusion follows)
-	
+
 		Belief Vs. Illusion:
 			A)	Belief in a illusion is assumed to be Automatic unless specified
 				bellow.
-
+	
 			B)	On any round, a character may choose to stand and Disbelieve an
 				Illusion (or what they think is an illusion).  The character then rolls
 				2D6 adding these to his Asp, this is when they will Disbelieve the
 				illusion (if it is an illusion and he makes his Belief roll).  Any damage
 				taken after the character has successfully rolled their Disbelief is
 				ignored, if it was an illusion that is.....
-
+	
 			C)	When a character attempts to Disbelieve an illusion, the mage casting
 				the spell rolls 1D100.  He adds 5% X his level, and then adds +5% for
 				each point in the illusion spent on aspects other than Pain/Pleasure.
@@ -55,7 +55,7 @@ public class Illusion extends MagesBase {
 				Greater than the character's Belief Rating, then they Believe the
 				illusion this round and any damage taken by the character will be
 				real.
-
+	
 			D)	Pain is Not automatically believed.  In order to cause pain and damage
 				to living things, the mage must roll 1D100 (following the steps in "C")
 				as though the character had decided to Disbelieve, however , if the
@@ -66,7 +66,7 @@ public class Illusion extends MagesBase {
 				going through "C" above.  If a Performance spell has not been cast with
 				the Pain spell, then the mage must Concentrate to cause pain.  "See
 				Performance for more details".
-
+	
 		Creating Illusions:
 			Illusions spells are a Unique Magic, because of the Multiple spells that can be
 			cast in the same round.  The (*) spells in the following lists may be cast with
@@ -75,7 +75,7 @@ public class Illusion extends MagesBase {
 			Stamina point, even if he casts more than one spell at a time.  To figure out the
 			casting speed on multiple spells in a single round, take the longest delay, and
 			-1 for each additional spell cast.  If a "Image" spell fails, all other aspects fail.
-
+	
 			Power Zero:						Power One:
 			1)Detect Illusion (-1)			1)Area of Fear (-3)
 			2)Dispel Illusion I (-3)		2)Area of Fog (-4)*
@@ -85,7 +85,7 @@ public class Illusion extends MagesBase {
 			6)See Invisibility (-5)			6)Dispel Illusion II (-4)
 			7)Simple Sounds (-2)*			7)Hypnotic Image (-3)
 			8)Slight Odors (-2)*			8)Image II (-4)*
-			9)Slight Tastes (-2)*			9)Multiple Images (-2)*
+			9)Slight Tastes (-2)*			9)Multiple Image (-2)*
 			10)Substance I (-4)*			10)Pain II (-4)*
 											11)Performance (-2)*
 			Power Two:						12)Strong Odors (-3)*
@@ -114,7 +114,7 @@ public class Illusion extends MagesBase {
 			4)Pain VII (-9)*				1)Pain IX (-11)*
 			5)Polymorph II (-10)			2)Permanent Illusion (-60)*
 			6)Substance VII (-10)*			3)Substance IX (-12)*
-
+	
 	*/
 
 	/*****************************************************************************
@@ -160,7 +160,7 @@ public class Illusion extends MagesBase {
 						new SpellRecord("Dispel Illusion II", 2, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Hypnotic Image", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Image II", 2, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Multiple Images", 0, 2, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Multiple Image", 0, 2, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Pain II", 2, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Performance", 0, 2, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Strong Odors", 0, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -233,36 +233,36 @@ public class Illusion extends MagesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-		
+
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-		
+
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-		
+
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-		
+
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-		
+
 			4)	Add +3 Determination points per level past (1st).
-		
+
 			5)	Add +2% to Perception every level past (1st).
-		
+
 		Mages / Priests:
-		
+
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-		
+
 			2)	Add +2% to their Missile Bonus.
-		
+
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-		
+
 			4)	Add +1 Hit Point per level till the 10th level.
-		
+
 			5)	Add +1% per level to their Save Vs. Surprise.
-		
+
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

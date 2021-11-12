@@ -43,8 +43,8 @@ public class Ryelle extends PriestsBase {
 			2)Curse (-1)						2)Darkness (-1)
 			3)False Fire (-6)					3)Familiar (-600)
 			4)Flaming Circle (-0)				4)Firebolt (-3)
-			5)Invisible Aid (-1)				5)Protection / Fire (-0)
-			6)Protection / Demons (-15)			6)Heal Self (-10)F
+			5)Invisible Aid (-1)				5)Protection : Fire (-0)
+			6)Protection : Demons (-15)			6)Heal Self (-10)F
 			7)Rune of Combat I (-lots)			7)Summon Fire (-0)
 			8)Summon Flame (-5)					8)Summon Smoke (-5)
 			9)Summon Imps (-60)F				9)The Black Mass (-lots)
@@ -55,7 +55,7 @@ public class Ryelle extends PriestsBase {
 			2)Darkwall (-5)						1)Control Evil (-5)F
 			3)Demonic Spy (-60)					2)Curse of the Werewolf (-5)
 			4)Fearful Gloom (-10)				3)Day of Gloom (-90)
-			5)Protection / Lycanthropes (-5)	4)Demonic Portal (-15)F
+			5)Protection : Lycanthrope (-5)	4)Demonic Portal (-15)F
 			6)Invoke Spirit (-120)				5)Entity of Evil (-300)
 			7)Rune of Combat II (-lots)			6)Firestorm I (-6)F
 			8)Protection III (-9)				7)Gaze of Command (-2)
@@ -112,7 +112,7 @@ public class Ryelle extends PriestsBase {
 						new SpellRecord("False Fire", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Flaming Circle", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Invisible Aid", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection / Demons", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Demons", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Rune of Combat I", 1, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Flame", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Imps", 0, 60, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -124,7 +124,7 @@ public class Ryelle extends PriestsBase {
 						new SpellRecord("Darkness", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Familiar", 0, 600, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Firebolt", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection / Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Heal Self", 0, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Smoke", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -138,7 +138,7 @@ public class Ryelle extends PriestsBase {
 						new SpellRecord("Darkwall", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Demonic Spy", 0, 60, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Fearful Gloom", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection / Lycanthropes", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Lycanthrope", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Invoke Spirit", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Rune of Combat II", 2, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection III", 3, 9, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
@@ -193,10 +193,12 @@ public class Ryelle extends PriestsBase {
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Demon Guard", 0, 1, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Gateway to Gorth", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Gateway to Sylkree", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("UnHoly Sword", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection VIII", 8, 27, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Demon V", 5, 1200, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		// DW Verify Is it Gorth or Sylkree for the gateway Ryelle power 7
+		// DW Verify UnHoly Sword doesn't exist Ryelle Power 7
 
 	}
 

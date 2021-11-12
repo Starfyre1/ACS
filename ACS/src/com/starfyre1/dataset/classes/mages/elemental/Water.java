@@ -18,16 +18,16 @@ public class Water extends MagesBase {
 	/*
 	The Elements
 	Second Requisite = Willpower
-
+	
 		There are Four distinct areas in the Elemental Magic, Earth, Air, Fire and
 		Water.  Each will have a small explanation of the area and a spell list as
 		follows:
-
+	
 		Water Elementalists control the force of Water, in all it's forms, Mists, Fogs
 		and Ice to mention a few.  They are capable of Creating Whirlpools, that can
 		sink small ships. They can summon Fogs and Fire bolts of freezing Cold at their
 		enemies.  Their focus Can be anything the Ref. or player chooses.
-
+	
 		Power Zero:					Power One:
 		1)Clear Water (-8)			1)Area of Fog (-10)
 		2)Control Cloud (-1)		2)Calm Waters (-20)F
@@ -51,8 +51,8 @@ public class Water extends MagesBase {
 		2)Lower Water )-15)
 		3)Water Walk (-5)			Power Seven:
 									1)Cold Spell VI (-9)F
-		Power Six:					2)Spell of Water Breathing (-35)
-		1)Cold Spell V (-8)F		3)Transport Via Water (-6)
+		Power Six:					2)Shell of Water Breathing (-35)
+		1)Cold Spell V (-8)F		3)Transport via Water (-6)
 		2)Summon Storm (-30)		4)Pressure (-25)
 		3)Water Wave (-7)
 	*/
@@ -108,7 +108,10 @@ public class Water extends MagesBase {
 						new SpellRecord("Cold Spell II", 2, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Control Water Beasts", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Hail Storm", 0, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Water Beasts", 0, 3, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Summon Water Monster I", 0, 3, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		//				new SpellRecord("Summon Water Beasts", 0, 3, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+
+		//DW verify Water Power 3 "Summon Water Beasts" : description is Summon Water Beast I, Summon Water Beast II, Summon Water Beast III (which)
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -132,8 +135,8 @@ public class Water extends MagesBase {
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Cold Spell VI", 6, 9, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Spell of Water Breathing", 0, 35, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Transport Via Water", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Shell of Water Breathing", 0, 35, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Transport via Water", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Pressure", 0, 25, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 	}
@@ -145,36 +148,36 @@ public class Water extends MagesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Mages / Priests:
-
+		
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-
+		
 			4)	Add +1 Hit Point per level till the 10th level.
-
+		
 			5)	Add +1% per level to their Save Vs. Surprise.
-
+		
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

@@ -36,7 +36,7 @@ public class Earth extends MagesBase {
 			3)Detect Gems (-20)F		3)Levitation (-15)
 			4)Detect Metal (-20)F		4)Slow (-4)F
 			5)Darts (-3)				5)Summon Sand (-8)
-			6)Speak W/Stone (-15)		6)Vault (-3)
+			6)Speak with Stones (-15)		6)Vault (-3)
 			7)Earth Womb (-5)			7)X-Ray Eyes (-30)F
 			8)Stone Staff (-5)			8)Stone Meld (-6)
 	
@@ -58,7 +58,8 @@ public class Earth extends MagesBase {
 			Power Six:					Power Seven :
 			1)Animate Rock (-5)			1)Sink (-1)F
 			2)Negate Gravity (-8)		2)Escape (-3)
-			3)Part Rock III (-10)
+			3)Part Rock II (-10)
+			// DW verify Part Rock III should be Part Rock II (Earth : power 6)
 	*/
 
 	/*****************************************************************************
@@ -86,7 +87,7 @@ public class Earth extends MagesBase {
 						new SpellRecord("Detect Gems", 0, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Detect Metal", 0, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Darts", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Speak W/Stone", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Speak with  Stones", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Earth Womb", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stone Staff", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
@@ -138,7 +139,7 @@ public class Earth extends MagesBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Animate Rock", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Negate Gravity", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Part Rock III", 3, 10, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Part Rock II", 3, 10, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Seven :
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //

@@ -61,12 +61,12 @@ public class Control extends MagesBase {
 			2)Charm Monsters (-5)		1)Call to Chaos (-15)F
 			3)Control Foes (-360)F		2)Call to Law (-15)F
 			4)Invulnerability (-10)H	3)Deathword I (-0)
-			5)Mass Hypnosis I (-5)		4)Sleep Eternal (-10)
+			5)Mass Hypnotism I (-5)		4)Sleep Eternal (-10)
 			6)Mind Wipe (-5)			5)Stamina IV (-30)HF
 			7)Stamina III (-25)HF
 										Power Seven:
 			Power Five:					1)Deathword II (-0)
-			1)Charm Plant (-10)			2)Mass Hypnosis II (-8)
+			1)Charm Plant (-10)			2)Mass Hypnotism II (-8)
 			2)Geas (-6)					3)Wake (-1)
 			3)Rally (-10
 
@@ -156,13 +156,13 @@ public class Control extends MagesBase {
 						new SpellRecord("Charm Monsters", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Control Foes", 0, 360, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Invulnerability", 0, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Mass Hypnosis I", 1, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Mass Hypnotism I", 1, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Mind Wipe", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stamina III", 3, 25, 5, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Charm Plant", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Charm Plants", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Geas", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Rally", 0, 10, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
@@ -177,7 +177,7 @@ public class Control extends MagesBase {
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Deathword II", 2, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Mass Hypnosis II", 2, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Mass Hypnotism II", 2, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Wake", 0, 1, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 	}

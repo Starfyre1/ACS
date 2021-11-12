@@ -41,7 +41,7 @@ public class Fire extends MagesBase {
 		9)Summon Smoke (-8)			1)Fire Shield (-0)
 									2)Fireball II (-5)F
 		Power Two:					3)Firestorm I (-6)F
-		1)Dancing fire (-5)			4)Wall of Fire I (-6)
+		1)Dancing Fire (-5)			4)Wall of Fire I (-6)
 		2)Fire Rune (-lots)
 		3)Fireball I (-4)F			Power Five:
 		4)Touch of Fire (-5)		1)Delay Fireball (-2)
@@ -81,7 +81,7 @@ public class Fire extends MagesBase {
 						new SpellRecord("Control Element", 0, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Detect Heat", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Firebolt", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Fire Dart", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Fire Darts", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection : Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Flame", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Heat", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -98,7 +98,7 @@ public class Fire extends MagesBase {
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Dancing fire", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Dancing Fire", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Fire Rune", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Fireball I", 1, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Touch of Fire", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$

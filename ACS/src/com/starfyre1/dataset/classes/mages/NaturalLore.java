@@ -41,7 +41,7 @@ public class NaturalLore extends MagesBase {
 			7)Knowledge (-1)				7)Protection : Animals (-4)
 			8)Light (-3)					8)Scattered Showers (-30)
 			9)Locate Living (-10)			9)Silence (-6)
-			10)Mage Wind (-1)				10)Speak W/ Animals (-1)
+			10)Mage Wind (-1)				10)Speak with  Animals (-1)
 			11)Darts (-2)					11)Star Sight (-12)
 			12)Produce Water (-8)			12)Stop Poison (-6)
 			13)Summon Flame (-1)F			13)Summon Fog (-4)
@@ -60,7 +60,7 @@ public class NaturalLore extends MagesBase {
 			8)Protection : Fire (-0)		8)Protection : Lightning (-0)
 			9)Salve of Healing (-1 Day)		9)Rune of Protection : Animals (-60)
 			10)Vengeance (-2)F				10)Summon Animals I (-10)F
-			11)Protection : Darkness (-5)	11)Summon Fire (-3)F
+			11)Protection : Dark (-5)		11)Summon Fire (-3)F
 			12)Earth Womb (-5)				12)Water Breathing (-10)
 	
 			Power Four:						Power Five:
@@ -77,7 +77,7 @@ public class NaturalLore extends MagesBase {
 			11)Wall of Ice (-4)F			11)Wall of Lightning II (-30)
 			12)Wall of Stone (-15)F
 											Power Seven:
-			Power Six:						1)Call To Law (-8)
+			Power Six:						1)Call to Law (-8)
 			1)Alter Terrain (-60)F			2)Resurrection (-30)F
 			2)Animate Rock (-20)			3)The Mottled Hand (-4)
 			3)Command Insects (-10)
@@ -140,7 +140,7 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord("Protection : Animals", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Scattered Showers", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Silence", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Speak W/ Animals", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Speak with  Animals", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Star Sight", 0, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stop Poison", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Fog", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -153,14 +153,14 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord("Area of Fog", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Charm Animals", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Concealment", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Cure Illness : Humanoid", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Cure Illness", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("ESP", 0, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Mind Link", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Night Sight", 0, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection : Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Salve of Healing", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Vengeance", 0, 2, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Darkness", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Dark", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Earth Womb", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Three:
@@ -192,6 +192,7 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord("Wall of Lightning I", 1, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Wall of Ice", 0, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Wall of Stone", 0, 15, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		// DW Verify Wall of Ligntning I & II don't exist and Wall of Fire is missing here (Natural Lore Power 4 & 5)
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -217,7 +218,7 @@ public class NaturalLore extends MagesBase {
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Call To Law", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Call to Law", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Resurrection", 0, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("The Mottled Hand", 0, 4, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 

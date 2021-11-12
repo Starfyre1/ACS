@@ -30,7 +30,7 @@ public class ArcaneLore extends MagesBase {
 			4)Enchant Locks (-10)			4)Detect Traps (-9)
 			5)Forecast (-6)					5)ESP (-5)
 			6)Invisible Aid (-1)			6)Familiar (-600)
-			7)knowledge (-60)				7)Force I (-3)F
+			7)Knowledge (-60)				7)Force I (-3)F
 			8)Light (-2)					8)Invisibility I (-10)F
 			9)Dart (-3)						9)Locate Life (10)
 			10)Protection I (-1)F			10)Locate Object (-10)
@@ -49,7 +49,7 @@ public class ArcaneLore extends MagesBase {
 			7)Rune of Combat II (-lots)		4)Protection : Undead (6)
 			8)Staff III (-3)F				5)Teleport I (-3)F
 			9)Summons II (-1)				6)Wall of Force (-3)F
-			10)Telepathy (-10)				7)Stonemeld ( -15 )
+			10)Telepathy (-10)				7)Stone Meld ( -15 )
 
 			Power Four:						Power Five:
 			1)Astral Aid (-120)				1)Disintegrate (-10)F
@@ -100,9 +100,9 @@ public class ArcaneLore extends MagesBase {
 						new SpellRecord("Enchant Locks", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Forecast", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Invisible Aid", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("knowledge", 0, 60, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Knowledge", 0, 60, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Light", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Dart", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Darts", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection I", 1, 1, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Rune of Combat I", 1, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Staff I", 1, 1, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -150,7 +150,7 @@ public class ArcaneLore extends MagesBase {
 						new SpellRecord("Protection : Undead", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Teleport I", 1, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Wall of Force", 0, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Stonemeld", 0, -1, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Stone Meld", 0, -1, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //

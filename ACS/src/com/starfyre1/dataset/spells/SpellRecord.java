@@ -2,6 +2,8 @@
 
 package com.starfyre1.dataset.spells;
 
+import com.starfyre1.startup.ACS;
+
 public class SpellRecord {
 	/*****************************************************************************
 	 * Constants
@@ -31,7 +33,7 @@ public class SpellRecord {
 		mPower = power;
 		mCastingTime = castingTime;
 		mExtras = (byte) extras;
-		mDescription = description;
+		mDescription = ACS.getSpellDescriptions().getDescription(mName);
 
 	}
 

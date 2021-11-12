@@ -7,6 +7,7 @@ import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.MetalList;
 import com.starfyre1.dataset.PriestList;
+import com.starfyre1.dataset.spells.SpellDescriptionList;
 
 import java.awt.Font;
 
@@ -17,31 +18,32 @@ public class ACS {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final int		DEBUG_LEVEL		= 0;
+	public static final int				DEBUG_LEVEL		= 0;
 
-	public static final String	TITLE			= "ACS (Athri Character Sheet)";										//$NON-NLS-1$
+	public static final String			TITLE			= "ACS (Athri Character Sheet)";										//$NON-NLS-1$
 
-	private static int			MAJOR			= 0;																	// Incompatible changes
-	private static int			MINOR			= 0;																	// Compatible changes
-	private static int			PATCH			= 0;																	// Bug fixes
+	private static int					MAJOR			= 0;																	// Incompatible changes
+	private static int					MINOR			= 0;																	// Compatible changes
+	private static int					PATCH			= 0;																	// Bug fixes
 
-	private static String		RELEASE_DATE	= "August 01, 2021";													//$NON-NLS-1$
-	private static String		RELEASE_TIME	= "00:00:00.0 UTC/GMT";													//$NON-NLS-1$
-	public static String		COPYRIGHT		= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
+	private static String				RELEASE_DATE	= "August 01, 2021";													//$NON-NLS-1$
+	private static String				RELEASE_TIME	= "00:00:00.0 UTC/GMT";													//$NON-NLS-1$
+	public static String				COPYRIGHT		= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
 
-	public static final Font	MONOSPACED_FONT	= new Font(Font.MONOSPACED, Font.BOLD, 12);
+	public static final Font			MONOSPACED_FONT	= new Font(Font.MONOSPACED, Font.BOLD, 12);
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	static ACS					mInstance;
+	static ACS							mInstance;
 
-	private static ClassList	mClasses;
-	private static MageList		mMages;
-	private static PriestList	mPriests;
-	private static MetalList	mMetal;
+	private static ClassList			mClasses;
+	private static MageList				mMages;
+	private static PriestList			mPriests;
+	private static MetalList			mMetal;
+	private static SpellDescriptionList	mSpellDescriptions;
 
-	private CharacterSheet		mCharacterSheet;
+	private CharacterSheet				mCharacterSheet;
 
 	/*****************************************************************************
 	 * Constructors
@@ -69,6 +71,8 @@ public class ACS {
 	 * Methods
 	 ****************************************************************************/
 	private static void createTables() {
+		mSpellDescriptions = new SpellDescriptionList();
+		mSpellDescriptions.generateList();
 		mClasses = new ClassList();
 		mClasses.generateList();
 		mMages = new MageList();
@@ -106,6 +110,11 @@ public class ACS {
 	/** @return The mMetal. */
 	public static MetalList getmMetal() {
 		return mMetal;
+	}
+
+	/** @return The mSpellDescriptions. */
+	public static SpellDescriptionList getSpellDescriptions() {
+		return mSpellDescriptions;
 	}
 
 	/** @return The UPDATE value. */

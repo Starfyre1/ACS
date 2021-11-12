@@ -46,8 +46,8 @@ public class MistressNight extends PriestsBase {
 			2)Darts (-4)					2)Shadow Climb (-10)
 			3)Night Sight (-3)				3)Heal Self(-20)
 			4)Rune of Combat I (-lots)		4)Absorb I (-15)f
-			5)Alertness 1 (-30)F			5)Locate Living (-15)
-			6)Stamina 1 (-15)F				6)Hide Location (-20)
+			5)Alertness I (-30)F			5)Locate Living (-15)
+			6)Stamina I (-15)F				6)Hide Location (-20)
 			7)Hiding (-15)					7)Strength (-150)
 			8)Vault (-1)F					8)Rune of Combat II (-lots)
 
@@ -56,7 +56,7 @@ public class MistressNight extends PriestsBase {
 			2)Cold Spell I (-5)F			2)Cold Spell II (6)F
 			3)Familiar (-lots)				3)Transform (-35)F
 			4)Telepathy (-5)F				4)Absorb II (-20)F
-			5)Mage Wind (15)				5)Altershape (-5)
+			5)Mage Wind (15)				5)Alter Shape (-5)
 			6)Stamina II (-20)F				6)Stamina III (-25)F
 			7)Haste (-7)H					7)Star Ritual (-lots)
 			8)Rune of Combat III (-lots)	8)Mana Pool (-lots)
@@ -111,8 +111,8 @@ public class MistressNight extends PriestsBase {
 						new SpellRecord("Darts", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Night Sight", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Rune of Combat I", 1, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Alertness 1", 0, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Stamina 1", 0, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Alertness I", 0, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Stamina I", 0, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Hiding", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Vault", 0, 1, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
@@ -145,7 +145,7 @@ public class MistressNight extends PriestsBase {
 						new SpellRecord("Cold Spell II", 2, -6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Transform", 0, 35, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Absorb II", 2, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Altershape", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Alter Shape", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stamina III", 3, 25, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Star Ritual", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Mana Pool", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -159,6 +159,7 @@ public class MistressNight extends PriestsBase {
 						new SpellRecord("Rune of Combat IV", 5, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Mind Wipe", 0, 7, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Absorb Magic", 0, 6, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		// DW Verify : Absorb Magic MistressNight Power 4... no description
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -179,6 +180,7 @@ public class MistressNight extends PriestsBase {
 						new SpellRecord("The Mottled Hand", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Call to Chaos", 0, 9, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Zen-Carla", 0, -1, 5, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		// DW Verify : Zen-Carla MistressNight Power 7... no description
 
 		// Power Eight:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //

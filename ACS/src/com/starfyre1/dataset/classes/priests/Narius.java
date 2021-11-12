@@ -41,17 +41,17 @@ public class Narius extends PriestsBase {
 			2)Write (-10)				2)Silence (-20)
 			3)Breakfall (-0)			3)Create Magic Item I(-lots)
 			4)Protection I (-5)			4)Protection II (-10)
-			5)Protection/Fire (-0)		5)Vault (-2)
-			6)Heal self (-20)			6)Stone Darts (-5)
+			5)Protection : Fire (-0)		5)Vault (-2)
+			6)Heal Self (-20)			6)Stone Darts (-5)
 			7)Stamina I (-15)			7)Stamina II (-20)
 			8)Forecast (-10)			8)Shield I (-15)
 			9)Enchant Locks (-30)		9)Familiar (-600)
 			10)Light (-1)				10)Open (-6)
 			11)Staff I (-1)F			11)Summons II (-1)
-			12)Summons I (-1)			12)Nightsight (-30)
-			13)Protection/Cold (-2)		13)Word of Warning I (-35)
-			14)Protection/Fear (-0)		14)Sleep I (-3)F
-			15)Antidote (-lots)			15)See Invisible (-6)
+			12)Summons I (-1)			12)Night Sight (-30)
+			13)Protection : Cold (-2)		13)Word of Warning I (-35)
+			14)Protection : Fear (-0)		14)Sleep I (-3)F
+			15)Antidote (-lots)			15)See Invisibility (-6)
 			16)Invisibility I (-10)F
 	
 			Power Two					Power Three
@@ -60,13 +60,13 @@ public class Narius extends PriestsBase {
 			3)Protection III (-25)		3)Shield III (-25)
 			4)Shield II (-20)			4)Sleep II (-6)F
 			5)Mind Link (-5)F			5)Strength (-120)F
-			6)Protection/Fire/Item (-0)	6)Farsee (-10)F
-			7)Protection/Lightning(-0)	7)Group Link (-15)
+			6)Protection : Fire/Item (-0)	6)Farsee (-10)F
+			7)Protection : Lightning(-0)	7)Group Link (-15)
 			8)Turn Curse (-1)			8)Invisibility II (-15)F
-			9)Healing (-120)			9)Clairadiance (-10)
+			9)Healing (-120)			9)Clairaudience (-10)
 			10)Remove Curse (-30)		10)Teleport I (-3)F
 			11)Staff II (-2)F			11)Word of Warning III (-45)
-			12)Protection/Undead (-5)
+			12)Protection : Undead (-5)
 			13)Word of Warning II (-40)
 
 			Power Four					Power Five
@@ -81,9 +81,9 @@ public class Narius extends PriestsBase {
 			9)Word of Warning IV (-50)
 	
 			Power Six					Power Seven
-			1)Geas (-3)					1)Rune/ Slay Undead (-lots)
+			1)Geas (-3)					1)Rune : Slay Undead (-lots)
 			2)Symbol I (-90)			2)Symbol II (-180)
-			3)Staff IV (-4)F			3)Rune/ Slay Lycanthrope (-lots)
+			3)Staff IV (-4)F			3)Rune : Slay Lycanthropes (-lots)
 			4)Commune (-30)				4)The Mottled Hand (-4)
 	
 			Power Eight
@@ -118,16 +118,16 @@ public class Narius extends PriestsBase {
 						new SpellRecord("Write", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Breakfall", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection I", 1, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Heal self", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Heal Self", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stamina I", 1, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Forecast", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Enchant Locks", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Light", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Staff I", 1, 1, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summons I", 1, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Cold", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Fear", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Cold", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Fear", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Antidote", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Invisibility I", 1, 10, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
@@ -144,10 +144,10 @@ public class Narius extends PriestsBase {
 						new SpellRecord("Familiar", 0, 600, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Open", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summons II", 2, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Nightsight", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Night Sight", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Word of Warning I", 1, 35, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sleep I", 1, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("See Invisible", 0, 6, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("See Invisibility", 0, 6, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Two
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -156,13 +156,13 @@ public class Narius extends PriestsBase {
 						new SpellRecord("Protection III", 3, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Shield II", 2, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Mind Link", 0, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Fire/Item", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Lightning", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Fire : Item", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Lightning", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Turn Curse", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Healing", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Remove Curse", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Staff II", 2, 2, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Undead", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Undead", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Word of Warning II", 2, 40, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Three
@@ -175,7 +175,7 @@ public class Narius extends PriestsBase {
 						new SpellRecord("Farsee", 0, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Group Link", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Invisibility II", 2, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Clairadiance", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Clairaudience", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Teleport I", 1, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Word of Warning III", 3, 45, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
@@ -211,9 +211,9 @@ public class Narius extends PriestsBase {
 
 		// Power Seven
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Rune/ Slay Undead", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Rune : Slay Undead", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Symbol II", 2, 180, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Rune/ Slay Lycanthrope", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Rune : Slay Lycanthropes", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("The Mottled Hand", 0, 4, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Eight

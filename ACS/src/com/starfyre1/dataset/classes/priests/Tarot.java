@@ -34,13 +34,13 @@ public class Tarot extends PriestsBase {
 	
 			Power Zero:					Power One:
 			1)Curse (-1)                1)Gamble (-1)
-			2)Heal self (-20)           2)IDarts (-1)
+			2)Heal Self (-20)           2)IDarts (-1)
 			3)Protection I (-5)         3)Protection II (-10)
 			4)Sleight of Hand (-2)      4)Hiding (-15)
-			5)Protection/Fire (-0)      5)Protection/Lightning (-2)
-			6)Protection/Cold (-0)      6)Invisibility I (-25)
+			5)Protection : Fire (-0)      5)Protection : Lightning (-2)
+			6)Protection : Cold (-0)      6)Invisibility I (-25)
 			7)Vault (-2)                7)Stamina I (-15)F
-			8)Protection/Charm (-5)     8)Speed I (-10)F
+			8)Protection : Charm (-5)     8)Speed I (-10)F
 
 			Power Two: 					Power Three:
 			1)Healing (-120)            1)Agility (-5)
@@ -48,13 +48,13 @@ public class Tarot extends PriestsBase {
 			3)Silence (-6)              3)Invisibility II (-30)F
 			4)Know Direction (-1)       4)Charm I (-5)F
 			5)Stamina II (-20)F         5)Cats Eye (-10)
-			6)Speed II (-15)F           6)Protection/Darkness (-5)
+			6)Speed II (-15)F           6)Protection : Dark (-5)
 
 			Power Four: 				Power Five:
-			1)Luck (-5)F                1)Blend w/Shadows (-5)F
+			1)Luck (-5)F                1)Blend with Shadows (-5)F
 			2)Bad Luck (-5)F            2)Charm II (-5)F
 			3)Stamina III (-25)F        3)Speed III (-20)F
-			4)Hide Location (-15)       4)Protection/Undead (-0)
+			4)Hide Location (-15)       4)Protection : Undead (-0)
 			5)Protection V (-25)        5)Protection VI (-30)
 
 			Power Six:					Power Seven:
@@ -83,21 +83,21 @@ public class Tarot extends PriestsBase {
 		// Power Zero:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Curse", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Heal self", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Heal Self", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection I", 1, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sleight of Hand", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Cold", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Cold", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Vault", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Charm", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Protection : Charm", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Gamble", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("IDarts", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Darts", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection II", 2, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Hiding", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Lightning", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Lightning", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Invisibility I", 1, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stamina I", 1, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Speed I", 1, 10, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
@@ -118,7 +118,8 @@ public class Tarot extends PriestsBase {
 						new SpellRecord("Invisibility II", 2, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Charm I", 1, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Cats Eye", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Darkness", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Protection : Dark", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		// DW Verify "Cats Eye" doesn't exist Tarot Power 3
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -127,13 +128,15 @@ public class Tarot extends PriestsBase {
 						new SpellRecord("Stamina III", 3, 25, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Hide Location", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection V", 5, 25, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		// DW Verify "Luck" doesn't exist Tarot Power 4
+		// DW Verify "Bad Luck" doesn't exist Tarot Power 4
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Blend w/Shadows", 0, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Blend with Shadows", 0, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Charm II", 2, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Speed III", 3, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Undead", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Undead", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection VI", 6, 30, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Six:

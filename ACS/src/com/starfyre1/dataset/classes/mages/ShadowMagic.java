@@ -47,14 +47,14 @@ public class ShadowMagic extends MagesBase {
 			6)Familiar (-600)				3)Muteness (-3)F
 			7)Hide Location (-15)			4)Rune of Combat II (-lots)
 			8)Open Locks II (-15)			5)Shadow Eye I (-10)
-			9)Protection / Traps (-5)		6)Grab (-1)
+			9)Protection : Traps (-5)		6)Snatch (-1)
 			10)Shadow Hold (-5)				7)Stop Poison (-15)
 			11)Silence (-10)				8)Whispers I (-30)
 			12)Sleep I (-5)F
 			13)Trail of Trickery (-15)		Power Five:
 											1)Hidden Path (-5)
 			Power Four:						2)Rune of Combat III (-lots)
-			1)Blend W/Shadows (-5)			3)Shadow Animation (-60)
+			1)Blend with  Shadows (-5)			3)Shadow Animation (-60)
 			2)Day of Fog (-120)F			4)Shadow Warning (-120)
 			3)Phantasm (-15)				5)Summon Shadows (-10)F
 			4)Sleep II (-5)F
@@ -125,7 +125,7 @@ public class ShadowMagic extends MagesBase {
 						new SpellRecord("Familiar", 0, 600, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Hide Location", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Open Locks II", 2, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection / Traps", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Traps", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Shadow Hold", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Silence", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sleep I", 1, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -138,13 +138,13 @@ public class ShadowMagic extends MagesBase {
 						new SpellRecord("Muteness", 0, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Rune of Combat II", 2, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Shadow Eye I", 1, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Grab", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Snatch", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stop Poison", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Whispers I", 1, 30, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Blend W/Shadows", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Blend with Shadows", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Day of Fog", 0, 120, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Phantasm", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sleep II", 2, 5, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$

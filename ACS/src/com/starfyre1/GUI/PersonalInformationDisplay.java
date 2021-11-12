@@ -175,7 +175,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Focus
 
 	//DW will need to implement this
 	/*	Here's how Carry works:
-		1)	Characters may carry up to your encumbrance w/out penalty to they’re movement, speeds or combat bonus'.
+		1)	Characters may carry up to your encumbrance with out penalty to they’re movement, speeds or combat bonus'.
 		2)	Characters can carry up to 2X their encumbrance with these penalties:
 			a)	Movement is cut by 25%.
 			b)	All combat speeds, ASP, MSP, BSP & CSP are at -1.

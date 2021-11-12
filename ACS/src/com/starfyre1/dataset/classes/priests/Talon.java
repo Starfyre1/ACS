@@ -39,28 +39,28 @@ public class Talon extends PriestsBase {
 			Power Zero: 					Power One:
 			1)Protection I (-5)F            1)Protection II (-10)F
 			2)Heal Self (-30)               2)Talons I (-1)F
-			3)Starsight (-12)               3)Tracking (-8)
-			4)Summon Animals I (-10)F       4)Protection/Fire (-3)
-			5)Alertness I (-30)F            5)Protection/Cold (-4)
-			6)Speak w/ Animals (-1)         6)Healing (-60)F
+			3)Star Sight (-12)               3)Tracking (-8)
+			4)Summon Animals I (-10)F       4)Protection : Fire (-3)
+			5)Alertness I (-30)F            5)Protection : Cold (-4)
+			6)Speak with  Animals (-1)         6)Healing (-60)F
 	
 			Power Two: 						Power Three:
 			1)Protection III (-3)F          1)Protection IV (-4)F
-			2)Nightsight (-30)              2)Altershape (-3)
+			2)Night Sight (-30)              2)Alter Shape (-3)
 			3)Talons II (-2)F               3)Talons III (-3)F
 			4)Silence (-6)                  4)Summon Animals II (-9)F
-			5)Protection/Lightning (-0) 	5)Protection/Undead (-6)
+			5)Protection : Lightning (-0) 	5)Protection : Undead (-6)
 			6)Alertness II (-60)F           6)Speed II (-20)
 			7)Speed I (-15)                 7)Alertness III (-75)F
 			8)Strength (-120)F              8)Cure Illness (-120)
 			9)Heal Animals (-100)           9)Gaze of Fear (-2)
 	
 			Power Four:  					Power Five:
-			1)Command Insects (-10)         1)Blend w/Shadows (-5)
+			1)Command Insects (-10)         1)Blend with Shadows (-5)
 			2)Protection V (-4)F            2)Commune (-30)
 			3)Speed III (-25)               3)Deathword I (-0)
 			4)Talons IV (-4)F               4)Fly (-1)
-			5)Protection/Lycanthrope 		5)Summon Storm (-30)
+			5)Protection : Lycanthrope 		5)Summon Storm (-30)
 	
 			Power Six:
 			1)The Hunt (-300)
@@ -94,43 +94,45 @@ public class Talon extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Protection I", 1, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Heal Self", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Starsight", 0, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Star Sight", 0, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Animals I", 1, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Alertness I", 1, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Speak w/ Animals", 0, 1, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Speak with  Animals", 0, 1, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Protection II", 2, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Talons I", 1, 1, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Tracking", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Fire", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Cold", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Fire", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Cold", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Healing", 0, 60, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Protection III", 3, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Nightsight", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Night Sight", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Talons II", 2, 2, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Silence", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Lightning", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Lightning", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Alertness II", 2, 60, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Speed I", 1, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Lycanthrope", 0, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Heal Animals", 0, 100, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Protection : Lycanthrope", 0, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Healing : Animals", 0, 100, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Protection IV", 5, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Altershape", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Alter Shape", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Talons III", 3, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Animals II", 2, 9, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection/Undead", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection : Undead", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Speed II", 2, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Alertness III", 3, 75, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Cure Illness", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Gaze of Fear", 0, 2, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		// DW Verify "Alertness III" doesn't exist Sarn Power 3 & Tarn Power 3
+		// DW Verify "Gaze of Fear" doesn't exist
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -142,7 +144,7 @@ public class Talon extends PriestsBase {
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Blend w/Shadows", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Blend with Shadows", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Commune", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Deathword I", 1, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Fly", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -153,6 +155,7 @@ public class Talon extends PriestsBase {
 						new SpellRecord("The Hunt", 0, 300, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Deathword II", 2, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Return", 0, 30, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+		// DW Verify "The Hunt" doesn't exist
 
 	}
 
