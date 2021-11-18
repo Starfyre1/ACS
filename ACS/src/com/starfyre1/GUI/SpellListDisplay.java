@@ -63,6 +63,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	 * Member Variables
 	 ****************************************************************************/
 	private TKPopupMenu			mAreaPopup;
+	private JTable				mTable;
 
 	/*****************************************************************************
 	 * Constructors
@@ -122,7 +123,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		records.addAll(priests.getRecordsList());
 
 		ArrayList<JMenu> menus = new ArrayList<>();
-		//		popupMenu.addSeparator();
 		for (int i = 0; i < groups.size(); i++) {
 			JMenu menu = new JMenu(groups.get(i));
 			menus.add(menu);
@@ -146,7 +146,10 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 				popupMenu.add(menuItem, 0);
 			}
 		}
-		popupMenu.add(new JMenuItem(SELECT_MAGIC_AREA), 0);
+
+		JMenuItem menuItem = new JMenuItem(SELECT_MAGIC_AREA);
+		menuItem.addActionListener(this);
+		popupMenu.add(menuItem, 0);
 
 		return popupMenu;
 	}
@@ -159,21 +162,18 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 			String text = ((JMenuItem) source).getText();
 
 			if (ACS.getInstance().getClasses().getClassesNamesList().contains(text)) {
-				//	record.setClass(text);
 				((CharacterSheet) getOwner()).updateRecords();
 			}
+			mTable.setEnabled(!SELECT_MAGIC_AREA.equals(text));
 		}
 	}
 
 	@Override
 	protected Component createDisplay() {
 
-		JTable table = new JTable(64, 9);
+		mTable = new JTable(64, 9);
 
-		//		table.setPreferredScrollableViewportSize(new Dimension(750, 150));
-		//		table.setFillsViewportHeight(true);
-
-		JTableHeader tableHeader = table.getTableHeader();
+		JTableHeader tableHeader = mTable.getTableHeader();
 		TableColumnModel tcm = tableHeader.getColumnModel();
 
 		TableColumn tc = tcm.getColumn(0);
@@ -208,7 +208,9 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		tc = tcm.getColumn(8);
 		tc.setHeaderValue(NOTES_LABEL);
 
-		JScrollPane scrollPane = new JScrollPane(table);
+		mTable.setEnabled(false);
+
+		JScrollPane scrollPane = new JScrollPane(mTable);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -274,6 +276,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		value = value.replace("~", " "); //$NON-NLS-1$ //$NON-NLS-2$
 		if (key.equals(MAGICAL_AREA_KEY)) {
 			mAreaPopup.selectPopupMenuItem(value);
+			mTable.setEnabled(!SELECT_MAGIC_AREA.equals(value));
 		}
 	}
 }
