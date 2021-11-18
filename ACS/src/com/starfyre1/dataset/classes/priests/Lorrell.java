@@ -227,6 +227,7 @@ public class Lorrell extends PriestsBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
 	@Override
 	public int getBandaging() {
 		return 10;

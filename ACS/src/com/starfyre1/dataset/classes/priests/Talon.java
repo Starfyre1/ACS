@@ -204,6 +204,7 @@ public class Talon extends PriestsBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
 	@Override
 	public int getHerbalLore() {
 		return 15;

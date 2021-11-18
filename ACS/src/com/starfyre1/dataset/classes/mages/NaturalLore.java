@@ -269,6 +269,7 @@ public class NaturalLore extends MagesBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
 	public static NaturalLore getInstance() {
 		if (sInstance == null) {
 			sInstance = new NaturalLore();

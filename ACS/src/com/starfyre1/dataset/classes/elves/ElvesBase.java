@@ -26,6 +26,7 @@ public abstract class ElvesBase extends BaseClass {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
 	@Override
 	public int getBandaging() {
 		return 10;

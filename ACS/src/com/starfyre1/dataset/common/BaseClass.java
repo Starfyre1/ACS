@@ -2,7 +2,7 @@
 
 package com.starfyre1.dataset.common;
 
-public abstract class BaseClass {
+public abstract class BaseClass extends Object {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -22,7 +22,6 @@ public abstract class BaseClass {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-
 	public abstract int[] getMinimumStats();
 
 	public abstract String[] getInnateDisplayList();
