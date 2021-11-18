@@ -31,7 +31,7 @@ public class SpellDescriptionRecord {
 		//		System.out.println(mIndex + " " + mName);
 	}
 
-	static class Pair {
+	public static class Pair {
 		String	mPairName;
 		String	mPairDescription;
 

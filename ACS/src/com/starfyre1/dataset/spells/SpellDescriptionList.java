@@ -671,7 +671,7 @@ public class SpellDescriptionList {
 		return mSpellDescriptions.get(index.intValue()).getDescription();
 	}
 
-	public SpellDescriptionRecord getRecord(String name) {
+	public static SpellDescriptionRecord getRecord(String name) {
 		int value = mDescriptionMap.get(name).intValue();
 		return mSpellDescriptions.get(value);
 	}
