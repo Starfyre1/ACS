@@ -433,7 +433,7 @@ public class CharacterSheet implements ActionListener {
 			mCreateButton.setEnabled(enable);
 		} else {
 			// DW this is just a hack... needs to be cleaned up
-			levelChanged();
+			updateRecords();
 		}
 	}
 
@@ -498,8 +498,8 @@ public class CharacterSheet implements ActionListener {
 
 			mAttributesRecord.finalizeCreation(false);
 			mPersonalInformationRecord.generateCarry();
-			mCombatInformationRecord.levelChanged();
-			mSkillsRecord.levelChanged();
+			mCombatInformationRecord.updateRecord();
+			mSkillsRecord.updateRecord();
 			mSavingThrowsRecord = new SavingThrowsRecord(this, true);
 
 			updateForEncubrance();
@@ -598,7 +598,7 @@ public class CharacterSheet implements ActionListener {
 			mMoneyRecord.clearRecords();
 		}
 		if (mSavingThrowsRecord != null) {
-			mSavingThrowsRecord.levelChanged();
+			mSavingThrowsRecord.updateRecord();
 		}
 		if (mSkillsRecord != null) {
 			mSkillsRecord.clearRecords();
@@ -650,11 +650,11 @@ public class CharacterSheet implements ActionListener {
 		prefs.saveValues();
 	}
 
-	public void levelChanged() {
+	public void updateRecords() {
 		if (mSavingThrowsRecord != null) {
-			mSavingThrowsRecord.levelChanged();
-			mCombatInformationRecord.levelChanged();
-			mSkillsRecord.levelChanged();
+			mSavingThrowsRecord.updateRecord();
+			mCombatInformationRecord.updateRecord();
+			mSkillsRecord.updateRecord();
 
 			// DW this is probably loading the display twice on character load.
 			mSavingThrowsDisplay.loadDisplay();

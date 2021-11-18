@@ -47,7 +47,7 @@ public class SavingThrowsRecord implements LevelListener {
 	 * Methods
 	 ****************************************************************************/
 	@Override
-	public void levelChanged() {
+	public void updateRecord() {
 		updateValues();
 	}
 

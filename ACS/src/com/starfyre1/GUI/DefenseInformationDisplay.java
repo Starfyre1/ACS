@@ -135,7 +135,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	 ****************************************************************************/
 
 	@Override
-	public void levelChanged() {
+	public void updateRecord() {
 		updateValues();
 	}
 

@@ -71,7 +71,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	 * Methods
 	 ****************************************************************************/
 	@Override
-	public void levelChanged() {
+	public void updateRecord() {
 		updateValues();
 	}
 

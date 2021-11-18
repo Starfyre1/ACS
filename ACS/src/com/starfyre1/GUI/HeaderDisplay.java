@@ -272,7 +272,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 				mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
 				mCurrentExperienceField.setToolTipText(manager.getTooltip(HistoryManager.EXPERIENCE_KEY));
 				mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
-				((CharacterSheet) getOwner()).levelChanged();
+				((CharacterSheet) getOwner()).updateRecords();
 				manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(new Date(System.currentTimeMillis()), record.getLevel()));
 				mLevelField.setToolTipText(manager.getTooltip(HistoryManager.LEVEL_KEY));
 			}
@@ -293,10 +293,10 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 
 			if (ACS.getInstance().getClasses().getClassesNamesList().contains(text)) {
 				record.setClass(text);
-				((CharacterSheet) getOwner()).levelChanged();
+				((CharacterSheet) getOwner()).updateRecords();
 			} else {
 				mClassPopup.selectPopupMenuItem(SELECT_CLASS);
-				((CharacterSheet) getOwner()).levelChanged();
+				((CharacterSheet) getOwner()).updateRecords();
 			}
 		}
 	}

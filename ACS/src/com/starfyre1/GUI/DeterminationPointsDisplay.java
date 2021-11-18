@@ -55,7 +55,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	 ****************************************************************************/
 
 	@Override
-	public void levelChanged() {
+	public void updateRecord() {
 		updateValues();
 	}
 

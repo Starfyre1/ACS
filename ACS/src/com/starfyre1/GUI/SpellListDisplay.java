@@ -146,7 +146,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 				popupMenu.add(menuItem, 0);
 			}
 		}
-		//		popupMenu.add(new JMenuItem(SELECT_MAGIC_AREA), 0);
+		popupMenu.add(new JMenuItem(SELECT_MAGIC_AREA), 0);
 
 		return popupMenu;
 	}
@@ -160,7 +160,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 
 			if (ACS.getInstance().getClasses().getClassesNamesList().contains(text)) {
 				//	record.setClass(text);
-				((CharacterSheet) getOwner()).levelChanged();
+				((CharacterSheet) getOwner()).updateRecords();
 			}
 		}
 	}
