@@ -26,6 +26,14 @@ public abstract class SpellUser extends BaseClass {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
+
+	public int getSpellLevels() {
+		return mSpells.size();
+	}
+
 	public ArrayList<SpellRecord> getSpellList(int level) {
 		return mSpells.get(level);
 	}
@@ -44,10 +52,6 @@ public abstract class SpellUser extends BaseClass {
 	public String getSecondRequisite() {
 		return mSecondRequisite;
 	}
-
-	/*****************************************************************************
-	 * Setter's and Getter's
-	 ****************************************************************************/
 
 	@Override
 	public boolean[] getInnateSkills() {

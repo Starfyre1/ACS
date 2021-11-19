@@ -47,7 +47,7 @@ public class SpellCard extends JDialog {
 	 * Constructors
 	 ****************************************************************************/
 	public SpellCard(JFrame parent, String name) {
-		super(parent, SPELL_CARD, false);
+		super(parent, SPELL_CARD, true);
 		mRecord = SpellDescriptionList.getRecord(name);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -56,7 +56,7 @@ public class SpellCard extends JDialog {
 		spellDescription.setEditable(false);
 		spellDescription.setFocusable(false);
 		spellDescription.setOpaque(false);
-		spellDescription.setText(mRecord.getDescription());
+		spellDescription.setText(mRecord != null ? mRecord.getDescription() : "Spell description not available"); //$NON-NLS-1$
 		spellDescription.setLineWrap(true);
 		spellDescription.setWrapStyleWord(true);
 
@@ -67,18 +67,19 @@ public class SpellCard extends JDialog {
 		messagePanel.add(spellDescription);
 		messagePanel.add(Box.createVerticalStrut(10));
 
-		ArrayList<Pair> effects = mRecord.getEffects();
-		for (Pair pair : effects) {
-			String pairName = pair.getPairName();
-			String pairDescription = pair.getPairDescription();
-			JPanel panel = new JPanel(new GridLayout(0, 2));
-			JLabel label1 = new JLabel(pairName + ":    ", SwingConstants.RIGHT); //$NON-NLS-1$
-			JLabel label2 = new JLabel(pairDescription);
-			panel.add(label1);
-			panel.add(label2);
-			messagePanel.add(panel);
+		if (mRecord != null) {
+			ArrayList<Pair> effects = mRecord.getEffects();
+			for (Pair pair : effects) {
+				String pairName = pair.getPairName();
+				String pairDescription = pair.getPairDescription();
+				JPanel panel = new JPanel(new GridLayout(0, 2));
+				JLabel label1 = new JLabel(pairName + ":    ", SwingConstants.RIGHT); //$NON-NLS-1$
+				JLabel label2 = new JLabel(pairDescription);
+				panel.add(label1);
+				panel.add(label2);
+				messagePanel.add(panel);
+			}
 		}
-
 		messagePanel.add(Box.createVerticalStrut(500));
 
 		JPanel buttonPanel = new JPanel();

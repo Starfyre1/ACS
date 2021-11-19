@@ -14,9 +14,13 @@ import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -24,6 +28,8 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -42,28 +48,34 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	SPELL_LIST_TITLE			= "Athri Spell List";			//$NON-NLS-1$
+	private static final String		SPELL_LIST_TITLE			= "Athri Spell List";												//$NON-NLS-1$
 
-	public static final String	FILE_SECTTION_START_KEY		= "SPELL_LIST_SECTTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY		= "SPELL_LIST_SECTTION_END";	//$NON-NLS-1$
-	public static final String	MAGICAL_AREA_KEY			= "MAGICAL_AREA_KEY";			//$NON-NLS-1$
+	public static final String		FILE_SECTTION_START_KEY		= "SPELL_LIST_SECTTION_START";										//$NON-NLS-1$
+	public static final String		FILE_SECTTION_END_KEY		= "SPELL_LIST_SECTTION_END";										//$NON-NLS-1$
+	public static final String		MAGICAL_AREA_KEY			= "MAGICAL_AREA_KEY";												//$NON-NLS-1$
 
-	private static final String	MAGIC_AREA_LABEL			= "Magic Area";					//$NON-NLS-1$
-	private static final String	EXPERIENCE_IN_AREA_LABEL	= "Experience in Area";			//$NON-NLS-1$
-	private static final String	LEVEL_IN_AREA_LABEL			= "Level in Area";				//$NON-NLS-1$
+	private static final String		MAGIC_AREA_LABEL			= "Magic Area";														//$NON-NLS-1$
+	private static final String		EXPERIENCE_IN_AREA_LABEL	= "Experience in Area";												//$NON-NLS-1$
+	private static final String		LEVEL_IN_AREA_LABEL			= "Level in Area";													//$NON-NLS-1$
+	private static final String		LEARN_SPELL					= "Learn Spell";													//$NON-NLS-1$
 
-	private static final String	SELECT_MAGIC_AREA			= "Select Magic Area";			//$NON-NLS-1$
+	private static final String		SELECT_MAGIC_AREA			= "Select Magic Area";												//$NON-NLS-1$
 
-	private static final String	POWER_LABEL					= "Power";						//$NON-NLS-1$
-	private static final String	SPELL_LABEL					= "Spell";						//$NON-NLS-1$
-	private static final String	CASTING_SPEED_LABEL			= "Csp";						//$NON-NLS-1$
-	private static final String	NOTES_LABEL					= "Notes";						//$NON-NLS-1$
+	private static final String		POWER_LABEL					= "Power";															//$NON-NLS-1$
+	private static final String		SPELL_LABEL					= "Spell";															//$NON-NLS-1$
+	private static final String		CASTING_SPEED_LABEL			= "Csp";															//$NON-NLS-1$
+	private static final String		NOTES_LABEL					= "Notes";															//$NON-NLS-1$
+
+	private static final ImageIcon	icon						= new ImageIcon("../ACS/src/com/starfyre1/Images/ImagePlus.png");	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private TKPopupMenu			mAreaPopup;
-	private JTable				mTable;
+	private TKPopupMenu				mAreaPopup;
+	private JTable					mTable;
+	private JButton					mNewSpellButton				= new JButton(icon);
+
+	private Color					mOldColor					= null;
 
 	/*****************************************************************************
 	 * Constructors
@@ -94,12 +106,49 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		JLabel levelLabel = new JLabel(LEVEL_IN_AREA_LABEL, SwingConstants.RIGHT);
 		JTextField levelField = new JTextField(CharacterSheet.FIELD_SIZE_LARGE);
 
+		JLabel newSpell = new JLabel(LEARN_SPELL, SwingConstants.RIGHT);
+		mNewSpellButton.setOpaque(true);
+		mNewSpellButton.setPreferredSize(new Dimension(25, 25));
+		//		mNewSpellButton.setBorder(new Border(Color.BLACK, 1));
+		mNewSpellButton.setFocusable(false);
+		mNewSpellButton.setEnabled(!SELECT_MAGIC_AREA.equals(getMagicArea()));
+		mNewSpellButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent evt) {
+				if (mNewSpellButton.isEnabled()) {
+					mOldColor = mNewSpellButton.getBackground();
+					mNewSpellButton.setBackground(Color.GRAY);
+				}
+			}
+
+			@Override
+			public void mouseExited(MouseEvent evt) {
+				if (mNewSpellButton.isEnabled()) {
+					if (mOldColor != null) {
+						mNewSpellButton.setBackground(mOldColor);
+					}
+				}
+			}
+		});
+		mNewSpellButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String magicArea = getMagicArea();
+				if (!SELECT_MAGIC_AREA.equals(magicArea)) {
+					new SpellSelector(((CharacterSheet) getOwner()).getFrame(), magicArea);
+				}
+			}
+		});
+
 		wrapper.add(areaLabel);
 		wrapper.add(mAreaPopup);
 		wrapper.add(experienceLabel);
 		wrapper.add(experienceField);
 		wrapper.add(levelLabel);
 		wrapper.add(levelField);
+		wrapper.add(newSpell);
+		wrapper.add(mNewSpellButton);
 
 		headerWrapper.add(new TKPageTitleLabel(SPELL_LIST_TITLE));
 		headerWrapper.add(wrapper);
@@ -164,7 +213,9 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 			if (ACS.getInstance().getClasses().getClassesNamesList().contains(text)) {
 				((CharacterSheet) getOwner()).updateRecords();
 			}
-			mTable.setEnabled(!SELECT_MAGIC_AREA.equals(text));
+			boolean enable = !SELECT_MAGIC_AREA.equals(text);
+			mTable.setEnabled(enable);
+			mNewSpellButton.setEnabled(enable);
 		}
 	}
 

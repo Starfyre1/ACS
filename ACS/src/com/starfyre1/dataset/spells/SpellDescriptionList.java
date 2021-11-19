@@ -647,19 +647,19 @@ public class SpellDescriptionList {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+	static final String[]		ignoreString	= { "The Hunt", "Gaze of Fear", "Alertness III", "Climb", "Images", "UnHoly Sword",																							// //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+					"Summon Water Monster IV", "Word of Pain", "Continual Light", "Circle of Pain", "Sacrifice",																											// //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+					"Howl of Fear", "Curse", "Knowledge", "Control Element", "Absorb Magic", "Zen-Carla",																													// //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+					"Wall of Lightning I", "Wall of Lightning II", "Slow Poison", "Luck", "Bad Luck", "Cats Eye",																											// //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+					"Detect Evil", "Protection : Evil", "Warmth", "Stone Darts", "Fire Darts" };																															// //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+	static ArrayList<String>	ignore			= new ArrayList<String>(Arrays.asList(ignoreString));
 
 	/**
 	 * @param name
 	 * @return Description
 	 */
 	public String getDescription(String name) {
-		String[] ignoreString = { "The Hunt", "Gaze of Fear", "Alertness III", "Climb", "Images", "UnHoly Sword", // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-						"Summon Water Monster IV", "Word of Pain", "Continual Light", "Circle of Pain", "Sacrifice", // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-						"Howl of Fear", "Curse", "Knowledge", "Control Element", "Absorb Magic", "Zen-Carla", // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-						"Wall of Lightning I", "Wall of Lightning II", "Slow Poison", "Luck", "Bad Luck", "Cats Eye", // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-						"Detect Evil", "Protection : Evil", "Warmth", "Stone Darts", "Fire Darts" };// //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-
-		ArrayList<String> ignore = new ArrayList<String>(Arrays.asList(ignoreString));
 		Integer index = mDescriptionMap.get(name);
 		if (index == null) {
 			if (!ignore.contains(name)) {
@@ -672,6 +672,9 @@ public class SpellDescriptionList {
 	}
 
 	public static SpellDescriptionRecord getRecord(String name) {
+		if (ignore.contains(name)) {
+			return null;
+		}
 		int value = mDescriptionMap.get(name).intValue();
 		return mSpellDescriptions.get(value);
 	}
