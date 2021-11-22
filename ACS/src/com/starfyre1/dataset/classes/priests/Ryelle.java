@@ -152,7 +152,7 @@ public class Ryelle extends PriestsBase {
 						new SpellRecord("Entity of Evil", 0, 300, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Firestorm I", 1, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Gaze of Command", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 5, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Demon I", 1, 120, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Wall of Fire I", 1, 10, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
@@ -187,8 +187,8 @@ public class Ryelle extends PriestsBase {
 						new SpellRecord("Firestorm II", 2, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Legions of the Damned", 0, 300, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection VII", 7, 21, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Rune of Combat IV", 5, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Demon IV", 5, 900, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Rune of Combat IV", 4, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Summon Demon IV", 4, 900, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //

@@ -173,7 +173,7 @@ public class Illusion extends MagesBase {
 						new SpellRecord("Dispel Illusion III", 3, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Familiar", 0, 600, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Image III", 3, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Image IV", 5, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Image IV", 4, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Invisibility I", 1, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Pain III", 3, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Pleasure", 0, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -183,10 +183,10 @@ public class Illusion extends MagesBase {
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Anarchy I", 1, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Dispel Illusion IV", 5, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Dispel Illusion IV", 4, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Image V", 5, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Substance IV", 5, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Pain IV", 5, 7, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Substance IV", 4, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Pain IV", 4, 7, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //

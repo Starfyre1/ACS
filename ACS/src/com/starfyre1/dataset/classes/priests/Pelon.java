@@ -151,7 +151,7 @@ public class Pelon extends PriestsBase {
 						new SpellRecord("Blinding Light", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Illusions", 0, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Night Sight", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 5, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Spears of Light I", 1, 3, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Five:

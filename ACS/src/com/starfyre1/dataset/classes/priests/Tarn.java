@@ -163,8 +163,8 @@ public class Tarn extends PriestsBase {
 
 		// Power Three
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Protection IV", 5, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Shield IV", 5, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Shield IV", 4, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Spell Shield", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Bless Blade II", 2, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection : Evil", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$

@@ -172,7 +172,7 @@ public class Control extends MagesBase {
 						new SpellRecord("Call to Law", 0, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Deathword I", 1, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sleep Eternal", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Stamina IV", 5, 30, 5, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Stamina IV", 4, 30, 5, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //

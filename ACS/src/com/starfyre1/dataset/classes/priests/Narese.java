@@ -141,7 +141,7 @@ public class Narese extends PriestsBase {
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Sleep II", 2, 8, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 5, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Fly", 0, 25, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Ritual Torture", 0, -400, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Circle of Pain", 0, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$

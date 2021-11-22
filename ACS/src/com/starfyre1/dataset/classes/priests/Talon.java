@@ -122,7 +122,7 @@ public class Talon extends PriestsBase {
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Protection IV", 5, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Alter Shape", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Talons III", 3, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Animals II", 2, 9, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -139,7 +139,7 @@ public class Talon extends PriestsBase {
 						new SpellRecord("Command Insects", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection V", 5, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Speed III", 3, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Talons IV", 5, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Talons IV", 4, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Slow", 0, 6, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Five:

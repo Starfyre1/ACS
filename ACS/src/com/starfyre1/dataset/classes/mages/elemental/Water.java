@@ -121,7 +121,7 @@ public class Water extends MagesBase {
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Cold Spell IV", 5, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Cold Spell IV", 4, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Day of Fog", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Part Water", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Start Rain", 0, 30, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$

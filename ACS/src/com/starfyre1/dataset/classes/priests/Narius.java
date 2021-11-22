@@ -168,7 +168,7 @@ public class Narius extends PriestsBase {
 		// Power Three
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Create Magic Item II", 2, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 5, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Shield III", 3, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sleep II", 2, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Strength", 0, 120, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -189,7 +189,7 @@ public class Narius extends PriestsBase {
 						new SpellRecord("Exorcism", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Teleport II", 2, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Escape", 0, 1, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Word of Warning IV", 5, 50, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Word of Warning IV", 4, 50, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Five
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -206,7 +206,7 @@ public class Narius extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Geas", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Symbol I", 1, 90, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Staff IV", 5, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Staff IV", 4, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Commune", 0, 30, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Seven

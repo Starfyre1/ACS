@@ -114,7 +114,7 @@ public class Tarot extends PriestsBase {
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Agility", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 5, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Invisibility II", 2, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Charm I", 1, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Cats Eye", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$

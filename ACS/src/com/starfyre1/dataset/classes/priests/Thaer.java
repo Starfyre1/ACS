@@ -133,14 +133,14 @@ public class Thaer extends PriestsBase {
 						new SpellRecord("Emotion Control", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Pheromones", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Shield III", 3, 35, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 5, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Strength", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stamina II", 2, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection : Lightning", 0, 0, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Four
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Protection IV", 5, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Bless Journey", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Regeneration", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection : Lightning", 0, 0, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$

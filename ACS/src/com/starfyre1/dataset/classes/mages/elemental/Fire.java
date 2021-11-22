@@ -121,7 +121,7 @@ public class Fire extends MagesBase {
 						new SpellRecord("Delay Fireball", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Disintegrate", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Eternal Flame", 0, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Fireball IV", 5, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Fireball IV", 4, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Increase Temperature", 0, 30, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Six:

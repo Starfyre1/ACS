@@ -169,7 +169,7 @@ public class Adon extends PriestsBase {
 						new SpellRecord("Exorcism", 0, 120, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Fear", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Firestorm I", 1, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 5, 35, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 35, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Rally", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Speed III", 3, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stamina III", 3, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
@@ -184,8 +184,8 @@ public class Adon extends PriestsBase {
 						new SpellRecord("Regeneration", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Resurrection", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Shield III", 3, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Speed IV", 5, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Stamina IV", 5, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Speed IV", 4, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Stamina IV", 4, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Vengeance", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Five:
@@ -205,7 +205,7 @@ public class Adon extends PriestsBase {
 						new SpellRecord("Holy Quest", 0, 300, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Opening the Way", 0, 60, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection VII", 7, 65, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Shield IV", 5, 45, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord("Shield IV", 4, 45, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //

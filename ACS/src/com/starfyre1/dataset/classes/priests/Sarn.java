@@ -132,7 +132,7 @@ public class Sarn extends PriestsBase {
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Protection IV", 5, 12, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 12, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Familiar", 0, 300, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Agility", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Stop Poison", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$

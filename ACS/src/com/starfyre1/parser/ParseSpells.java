@@ -20,11 +20,11 @@ public class ParseSpells {
 	 */
 	public static void main(String[] args) {
 
-		//		File in = new File("C:\\Users/User/Desktop/spells/Mages.txt");
-		//		File out = new File("C:\\Users/User/Desktop/spells/MagesProcessed.txt");
+		File in = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/Mages.txt");
+		File out = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/MagesProcessed.txt");
 
-		File in = new File("C:\\Users/User/Desktop/spells/Priest.txt"); //$NON-NLS-1$
-		File out = new File("C:\\Users/User/Desktop/spells/PriestProcessed.txt"); //$NON-NLS-1$
+		//		File in = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/Priest.txt"); //$NON-NLS-1$
+		//		File out = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/PriestProcessed.txt"); //$NON-NLS-1$
 
 		try {
 			BufferedReader brIn = new BufferedReader(new FileReader(in));
@@ -123,10 +123,10 @@ public class ParseSpells {
 			power = 7;
 		} else if (powerLevel.endsWith("VI")) { //$NON-NLS-1$
 			power = 6;
-		} else if (powerLevel.endsWith("V")) { //$NON-NLS-1$
-			power = 5;
 		} else if (powerLevel.endsWith("IV")) { //$NON-NLS-1$
 			power = 4;
+		} else if (powerLevel.endsWith("V")) { //$NON-NLS-1$
+			power = 5;
 		} else if (powerLevel.endsWith("III")) { //$NON-NLS-1$
 			power = 3;
 		} else if (powerLevel.endsWith("II")) { //$NON-NLS-1$

@@ -159,7 +159,7 @@ public class Chauntil extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Summon Water Monster III", 3, 60, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Pressure", 0, 25, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Cold Spell IV", 5, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Cold Spell IV", 4, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Control Weather", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Storm", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Aide", 0, 30, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$

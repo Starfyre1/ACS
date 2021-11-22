@@ -39,6 +39,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -72,7 +73,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	 * Member Variables
 	 ****************************************************************************/
 	private TKPopupMenu				mAreaPopup;
-	private JTable					mTable;
+	private JTable					mTable1;
+	private JTable					mTable2;
 	private JButton					mNewSpellButton				= new JButton(icon);
 
 	private Color					mOldColor					= null;
@@ -214,7 +216,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 				((CharacterSheet) getOwner()).updateRecords();
 			}
 			boolean enable = !SELECT_MAGIC_AREA.equals(text);
-			mTable.setEnabled(enable);
 			mNewSpellButton.setEnabled(enable);
 		}
 	}
@@ -222,46 +223,57 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	@Override
 	protected Component createDisplay() {
 
-		mTable = new JTable(64, 9);
+		mTable1 = new JTable(64, 4);
+		mTable1.setBorder(new LineBorder(Color.BLACK));
 
-		JTableHeader tableHeader = mTable.getTableHeader();
-		TableColumnModel tcm = tableHeader.getColumnModel();
+		JTableHeader tableHeader1 = mTable1.getTableHeader();
+		TableColumnModel tcm1 = tableHeader1.getColumnModel();
 
-		TableColumn tc = tcm.getColumn(0);
-		tc.setHeaderValue(POWER_LABEL);
-		tc.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
+		TableColumn tc1 = tcm1.getColumn(0);
+		tc1.setHeaderValue(POWER_LABEL);
+		tc1.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
 
-		tc = tcm.getColumn(1);
-		tc.setHeaderValue(SPELL_LABEL);
+		tc1 = tcm1.getColumn(1);
+		tc1.setHeaderValue(SPELL_LABEL);
 
-		tc = tcm.getColumn(2);
-		tc.setHeaderValue(CASTING_SPEED_LABEL);
-		tc.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
+		tc1 = tcm1.getColumn(2);
+		tc1.setHeaderValue(CASTING_SPEED_LABEL);
+		tc1.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
 
-		tc = tcm.getColumn(3);
-		tc.setHeaderValue(NOTES_LABEL);
+		tc1 = tcm1.getColumn(3);
+		tc1.setHeaderValue(NOTES_LABEL);
 
-		tc = tcm.getColumn(4);
-		tc.setHeaderValue(null);
-		tc.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
+		mTable2 = new JTable(64, 4);
+		mTable2.setBorder(new LineBorder(Color.BLACK));
 
-		tc = tcm.getColumn(5);
-		tc.setHeaderValue(POWER_LABEL);
-		tc.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
+		JTableHeader tableHeader2 = mTable2.getTableHeader();
+		TableColumnModel tcm2 = tableHeader2.getColumnModel();
 
-		tc = tcm.getColumn(6);
-		tc.setHeaderValue(SPELL_LABEL);
+		TableColumn tc2 = tcm2.getColumn(0);
+		tc2.setHeaderValue(POWER_LABEL);
+		tc2.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
 
-		tc = tcm.getColumn(7);
-		tc.setHeaderValue(CASTING_SPEED_LABEL);
-		tc.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
+		tc2 = tcm2.getColumn(1);
+		tc2.setHeaderValue(SPELL_LABEL);
 
-		tc = tcm.getColumn(8);
-		tc.setHeaderValue(NOTES_LABEL);
+		tc2 = tcm2.getColumn(2);
+		tc2.setHeaderValue(CASTING_SPEED_LABEL);
+		tc2.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
 
-		mTable.setEnabled(false);
+		tc2 = tcm2.getColumn(3);
+		tc2.setHeaderValue(NOTES_LABEL);
 
-		JScrollPane scrollPane = new JScrollPane(mTable);
+		mTable1.setEnabled(false);
+		mTable1.setPreferredSize(new Dimension(520, 200));
+		mTable2.setEnabled(false);
+		mTable2.setPreferredSize(new Dimension(520, 200));
+
+		JPanel wrapper = new JPanel(new BorderLayout());
+
+		wrapper.add(mTable1, BorderLayout.LINE_START);
+		wrapper.add(mTable2, BorderLayout.LINE_END);
+
+		JScrollPane scrollPane = new JScrollPane(wrapper);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -327,7 +339,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		value = value.replace("~", " "); //$NON-NLS-1$ //$NON-NLS-2$
 		if (key.equals(MAGICAL_AREA_KEY)) {
 			mAreaPopup.selectPopupMenuItem(value);
-			mTable.setEnabled(!SELECT_MAGIC_AREA.equals(value));
+			mNewSpellButton.setEnabled(!SELECT_MAGIC_AREA.equals(getMagicArea()));
 		}
 	}
 }

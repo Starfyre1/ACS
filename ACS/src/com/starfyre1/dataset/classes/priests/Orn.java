@@ -117,7 +117,7 @@ public class Orn extends PriestsBase {
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Summon Water Monster II", 2, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 5, 14, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Protection IV", 4, 14, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sphere of Air II", 2, 100, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Ice Storm I", 1, 6, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
@@ -131,7 +131,7 @@ public class Orn extends PriestsBase {
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Summon Water Monster IV", 5, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Summon Water Monster IV", 4, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Tidal Wave", 0, 300, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Protection VI", 6, 18, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Ice Storm II", 2, 9, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$

@@ -126,7 +126,7 @@ public class Air extends MagesBase {
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Increase Winds", 0, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Lightning IV", 5, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Lightning IV", 4, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Sphere of Air II", 2, 100, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Wall of Brilliance", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Glittershield", 0, 1, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
@@ -134,7 +134,7 @@ public class Air extends MagesBase {
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord("Lightning V", 5, 8, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Remove Air IV", 5, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Remove Air IV", 4, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Twister", 0, 30, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
 
 		// Power Seven:

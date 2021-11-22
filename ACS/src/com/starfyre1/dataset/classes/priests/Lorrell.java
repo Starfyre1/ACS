@@ -149,7 +149,7 @@ public class Lorrell extends PriestsBase {
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Shield IV", 5, 40, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
+						new SpellRecord("Shield IV", 4, 40, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Control Winds", 0, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Circle of Life", 0, 500, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
 						new SpellRecord("Summon Animals II", 2, 9, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
