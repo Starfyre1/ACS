@@ -6,10 +6,13 @@ package com.starfyre1.GUI;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.ToolKit.TKTable;
+import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.ClassesRecord;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.PriestList;
+import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
 
@@ -35,16 +38,18 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-public class SpellListDisplay extends TKTitledDisplay implements ActionListener, Savable {
+public class SpellListDisplay extends TKTitledDisplay implements ActionListener, TableModelListener, Savable {
 
 	/*****************************************************************************
 	 * Constants
@@ -66,6 +71,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	private static final String		SPELL_LABEL					= "Spell";															//$NON-NLS-1$
 	private static final String		CASTING_SPEED_LABEL			= "Csp";															//$NON-NLS-1$
 	private static final String		NOTES_LABEL					= "Notes";															//$NON-NLS-1$
+	private static final String[]	COLUMN_HEADER_NAMES			= { POWER_LABEL, SPELL_LABEL, CASTING_SPEED_LABEL, NOTES_LABEL };
+	private static final String[]	COLUMN_HEADER_TOOLTIPS		= { POWER_LABEL, SPELL_LABEL, CASTING_SPEED_LABEL, NOTES_LABEL };
 
 	private static final ImageIcon	icon						= new ImageIcon("../ACS/src/com/starfyre1/Images/ImagePlus.png");	//$NON-NLS-1$
 
@@ -73,9 +80,11 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	 * Member Variables
 	 ****************************************************************************/
 	private TKPopupMenu				mAreaPopup;
-	private JTable					mTable1;
-	private JTable					mTable2;
+	//	private JPanel					mFilterPanel;
+	private TKTable					mTable1;
+	private TKTable					mTable2;
 	private JButton					mNewSpellButton				= new JButton(icon);
+	private ArrayList<SpellRecord>	mKnownSpells				= new ArrayList<>(128);
 
 	private Color					mOldColor					= null;
 
@@ -138,7 +147,19 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 			public void actionPerformed(ActionEvent e) {
 				String magicArea = getMagicArea();
 				if (!SELECT_MAGIC_AREA.equals(magicArea)) {
-					new SpellSelector(((CharacterSheet) getOwner()).getFrame(), magicArea);
+					SpellSelector selector = new SpellSelector((CharacterSheet) getOwner(), magicArea);
+					SpellRecord record = selector.getSpellToLearn();
+					if (record != null) {
+						mKnownSpells.add(record);
+						// DW do I want the spells going left/right or down the left table and then down the right table?
+						if (mKnownSpells.size() % 2 == 0) {
+							TKTableModel model = (TKTableModel) mTable2.getModel();
+							model.addRow(record.getRecord());
+						} else {
+							TKTableModel model = (TKTableModel) mTable1.getModel();
+							model.addRow(record.getRecord());
+						}
+					}
 				}
 			}
 		});
@@ -220,13 +241,12 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		}
 	}
 
-	@Override
-	protected Component createDisplay() {
+	private TKTable getTable() {
 
-		mTable1 = new JTable(64, 4);
-		mTable1.setBorder(new LineBorder(Color.BLACK));
+		TKTable table = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 0));
+		table.setBorder(new LineBorder(Color.BLACK));
 
-		JTableHeader tableHeader1 = mTable1.getTableHeader();
+		JTableHeader tableHeader1 = table.getTableHeader();
 		TableColumnModel tcm1 = tableHeader1.getColumnModel();
 
 		TableColumn tc1 = tcm1.getColumn(0);
@@ -243,37 +263,35 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		tc1 = tcm1.getColumn(3);
 		tc1.setHeaderValue(NOTES_LABEL);
 
-		mTable2 = new JTable(64, 4);
-		mTable2.setBorder(new LineBorder(Color.BLACK));
+		table.setEnabled(false);
+		table.setPreferredSize(new Dimension(520, 200));
+		table.setFillsViewportHeight(true);
+		table.getModel().addTableModelListener(this);
 
-		JTableHeader tableHeader2 = mTable2.getTableHeader();
-		TableColumnModel tcm2 = tableHeader2.getColumnModel();
+		return table;
+	}
 
-		TableColumn tc2 = tcm2.getColumn(0);
-		tc2.setHeaderValue(POWER_LABEL);
-		tc2.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
+	@Override
+	protected Component createDisplay() {
+		mTable1 = getTable();
 
-		tc2 = tcm2.getColumn(1);
-		tc2.setHeaderValue(SPELL_LABEL);
+		JScrollPane sp1 = new JScrollPane(mTable1);
+		sp1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sp1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-		tc2 = tcm2.getColumn(2);
-		tc2.setHeaderValue(CASTING_SPEED_LABEL);
-		tc2.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
+		mTable2 = getTable();
 
-		tc2 = tcm2.getColumn(3);
-		tc2.setHeaderValue(NOTES_LABEL);
-
-		mTable1.setEnabled(false);
-		mTable1.setPreferredSize(new Dimension(520, 200));
-		mTable2.setEnabled(false);
-		mTable2.setPreferredSize(new Dimension(520, 200));
+		JScrollPane sp2 = new JScrollPane(mTable2);
+		sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sp2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 		JPanel wrapper = new JPanel(new BorderLayout());
 
-		wrapper.add(mTable1, BorderLayout.LINE_START);
-		wrapper.add(mTable2, BorderLayout.LINE_END);
+		wrapper.add(sp1, BorderLayout.LINE_START);
+		wrapper.add(sp2, BorderLayout.LINE_END);
 
 		JScrollPane scrollPane = new JScrollPane(wrapper);
+		scrollPane.setBorder(new EmptyBorder(getInsets()));
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -285,11 +303,20 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		// DW Read from file
 	}
 
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		// DW Do something... update tables...
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
 	public String getMagicArea() {
 		return mAreaPopup.getSelectedItem();
+	}
+
+	public boolean isSpellKnown(SpellRecord record) {
+		return mKnownSpells.contains(record);
 	}
 
 	/*****************************************************************************

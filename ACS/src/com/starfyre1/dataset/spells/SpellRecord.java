@@ -2,9 +2,10 @@
 
 package com.starfyre1.dataset.spells;
 
+import com.starfyre1.ToolKit.TKTableRecord;
 import com.starfyre1.startup.ACS;
 
-public class SpellRecord {
+public class SpellRecord extends TKTableRecord {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -67,6 +68,34 @@ public class SpellRecord {
 	/** @return The description. */
 	public String getDescription() {
 		return mDescription;
+	}
+
+	@Override
+	public Object[] getRecord() {
+		return new Object[] { Integer.valueOf(mPower), mName, Integer.valueOf(mCastingTime), "" }; //$NON-NLS-1$
+	}
+
+	@Override
+	public Object getRecord(int column) {
+		Object output = switch (column) {
+			case 0:
+				yield mPower > 0 ? Integer.valueOf(mPower) : " "; //$NON-NLS-1$
+			case 1:
+				yield mName;
+			case 2:
+				yield mCastingTime > 0 ? Integer.valueOf(mCastingTime) : " "; //$NON-NLS-1$
+			case 3:
+				// DW implement detailed descriptions for extras
+				yield " "; //$NON-NLS-1$
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + column); //$NON-NLS-1$
+		};
+		return output;
+	}
+
+	@Override
+	public void setRecord(int column, Object value) {
+		// DW may not need this
 	}
 
 	/*****************************************************************************

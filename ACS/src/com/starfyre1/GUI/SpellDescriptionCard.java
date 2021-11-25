@@ -10,7 +10,9 @@ import com.starfyre1.dataset.spells.SpellDescriptionRecord.Pair;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -29,12 +31,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 
-public class SpellCard extends JDialog {
+public class SpellDescriptionCard extends JDialog {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		SPELL_CARD	= "Spell Card";	//$NON-NLS-1$
+	private static final String		SPELL_CARD	= "Spell Description Card";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -46,7 +48,7 @@ public class SpellCard extends JDialog {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public SpellCard(JFrame parent, String name) {
+	public SpellDescriptionCard(JFrame parent, String name) {
 		super(parent, SPELL_CARD, true);
 		mRecord = SpellDescriptionList.getRecord(name);
 
@@ -65,20 +67,37 @@ public class SpellCard extends JDialog {
 		messagePanel.setLayout(bl);
 
 		messagePanel.add(spellDescription);
-		messagePanel.add(Box.createVerticalStrut(10));
 
 		if (mRecord != null) {
 			ArrayList<Pair> effects = mRecord.getEffects();
+			JPanel panel = new JPanel(new GridBagLayout());
+			panel.setAlignmentY(TOP_ALIGNMENT);
+			GridBagConstraints c = new GridBagConstraints();
+			int row = 0;
 			for (Pair pair : effects) {
-				String pairName = pair.getPairName();
-				String pairDescription = pair.getPairDescription();
-				JPanel panel = new JPanel(new GridLayout(0, 2));
-				JLabel label1 = new JLabel(pairName + ":    ", SwingConstants.RIGHT); //$NON-NLS-1$
-				JLabel label2 = new JLabel(pairDescription);
-				panel.add(label1);
-				panel.add(label2);
-				messagePanel.add(panel);
+				JLabel label1 = new JLabel(pair.getPairName() + ":    ", SwingConstants.RIGHT); //$NON-NLS-1$
+
+				c.gridx = 0;
+				c.gridy = row;
+				c.insets = new Insets(10, 0, 0, 0);
+				c.anchor = GridBagConstraints.WEST;
+				c.fill = GridBagConstraints.HORIZONTAL;
+				c.weightx = 0.5;
+				panel.add(label1, c);
+
+				JTextArea label2 = new JTextArea(pair.getPairDescription());
+				label2.setEditable(false);
+				label2.setWrapStyleWord(true);
+				label2.setLineWrap(true);
+				label2.setBackground(label1.getBackground());
+
+				c.gridx = 1;
+				c.gridy = row++;
+				c.fill = GridBagConstraints.HORIZONTAL;
+				c.weightx = 0.5;
+				panel.add(label2, c);
 			}
+			messagePanel.add(panel);
 		}
 		messagePanel.add(Box.createVerticalStrut(500));
 
@@ -89,9 +108,9 @@ public class SpellCard extends JDialog {
 		wrapper.setPreferredSize(new Dimension(400, 500));
 		wrapper.setBorder(new CompoundBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), new EtchedBorder(EtchedBorder.RAISED)), new EtchedBorder(EtchedBorder.LOWERED)));
 
-		wrapper.add(new TKPageTitleLabel(name), BorderLayout.NORTH);
+		wrapper.add(new TKPageTitleLabel(name), BorderLayout.PAGE_START);
 		wrapper.add(messagePanel, BorderLayout.CENTER);
-		wrapper.add(buttonPanel, BorderLayout.SOUTH);
+		wrapper.add(buttonPanel, BorderLayout.PAGE_END);
 
 		add(wrapper);
 

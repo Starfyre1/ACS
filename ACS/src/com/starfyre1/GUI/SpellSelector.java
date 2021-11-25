@@ -50,6 +50,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private CharacterSheet		mSheet;
 	private String				mSpellAreaName;
 	private int					mSpellLevel			= 0;
 	private SpellRecord			mSpellToLearn		= null;
@@ -57,6 +58,8 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	private Color				mOldColor			= null;
 	private Color				mOldSelectedColor	= null;
 	private JLabel				mOldLabel			= null;
+	private JButton				mDescriptionButton	= null;
+	private JButton				mLearnButton		= null;
 
 	private JPanel				mSpellListPanel		= new JPanel();
 
@@ -66,8 +69,9 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	/**
 	 * DW add Description
 	 */
-	public SpellSelector(JFrame owner, String spellAreaName) {
-		super(owner, SPELL_SELECTOR, true);
+	public SpellSelector(CharacterSheet owner, String spellAreaName) {
+		super(owner.getFrame(), SPELL_SELECTOR, true);
+		mSheet = owner;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		mSpellAreaName = spellAreaName;
@@ -75,8 +79,12 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		updatePanel(mSpellLevel);
 
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(getButton(DESCRIPTION));
-		buttonPanel.add(getButton(LEARN));
+		mDescriptionButton = getButton(DESCRIPTION);
+		mLearnButton = getButton(LEARN);
+		updateButtons(false);
+
+		buttonPanel.add(mDescriptionButton);
+		buttonPanel.add(mLearnButton);
 		buttonPanel.add(getButton(CLOSE));
 
 		JPanel header = new JPanel();
@@ -104,7 +112,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		add(wrapper);
 
 		pack();
-		setLocationRelativeTo(owner);
+		setLocationRelativeTo(getOwner());
 		setVisible(true);
 	}
 
@@ -130,17 +138,23 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		mSpellListPanel.add(panel);
 
 		for (SpellRecord record : spells) {
-			String name = record.getName();
-			int castingSpeed = record.getCastingTime();
-			int power = record.getPower();
-			label1 = new JLabel(name, SwingConstants.RIGHT);
+
+			label1 = new JLabel(record.getName(), SwingConstants.RIGHT);
 			label1.setOpaque(true);
 			label1.addMouseListener(this);
-			label2 = new JLabel("" + castingSpeed, SwingConstants.CENTER); //$NON-NLS-1$
-			label3 = new JLabel("" + power, SwingConstants.CENTER); //$NON-NLS-1$
+			label2 = new JLabel("" + record.getCastingTime(), SwingConstants.CENTER); //$NON-NLS-1$
+			label3 = new JLabel("" + record.getPower(), SwingConstants.CENTER); //$NON-NLS-1$
+
+			if (mSheet.getSpellListDisplay().isSpellKnown(record)) {
+				label1.setForeground(Color.LIGHT_GRAY);
+				label2.setForeground(Color.LIGHT_GRAY);
+				label3.setForeground(Color.LIGHT_GRAY);
+			}
+
 			panel.add(label1);
 			panel.add(label2);
 			panel.add(label3);
+
 			mSpellListPanel.add(panel);
 		}
 	}
@@ -148,10 +162,10 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	private JMenu generateSpellLevelPopup() {
 		SpellUser caster = (SpellUser) ClassList.getCharacterClass(mSpellAreaName);
 
-		JMenu powerPopupMenu = TKPopupMenu.createMenu("0");
+		JMenu powerPopupMenu = TKPopupMenu.createMenu("0"); //$NON-NLS-1$
 		int level = caster.getSpellLevels();
 		for (int i = 0; i < level; i++) {
-			JMenuItem menuItem = new JMenuItem("" + i);
+			JMenuItem menuItem = new JMenuItem("" + i); //$NON-NLS-1$
 			menuItem.setEnabled(true);
 			menuItem.addActionListener(this);
 			powerPopupMenu.add(menuItem);
@@ -166,6 +180,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		if (source instanceof JMenuItem) {
 			mSpellLevel = TKStringHelpers.getIntValue(((JMenuItem) source).getText(), 0);
 			updatePanel(mSpellLevel);
+			updateButtons(false);
 
 		}
 
@@ -182,10 +197,23 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 			mOldLabel.setBackground(mOldSelectedColor);
 		}
 
-		mOldLabel = (JLabel) e.getSource();
-		mOldSelectedColor = mOldLabel.getBackground();
+		if (!mSheet.getSpellListDisplay().isSpellKnown(getSpellRecord(((JLabel) e.getSource()).getText()))) {
+			mOldLabel = (JLabel) e.getSource();
+			mOldSelectedColor = mOldLabel.getBackground();
 
-		mOldLabel.setBackground(SELECTED_COLOR);
+			mOldLabel.setBackground(SELECTED_COLOR);
+
+			updateButtons(true);
+		} else {
+			updateButtons(false);
+		}
+	}
+
+	private void updateButtons(boolean enable) {
+
+		mDescriptionButton.setEnabled(enable);
+		mLearnButton.setEnabled(enable);
+
 	}
 
 	@Override
@@ -238,27 +266,29 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 					if (CLOSE.equals(buttonName)) {
 						dispose();
 					} else if (LEARN.equals(buttonName)) {
-						SpellUser caster = (SpellUser) ClassList.getCharacterClass(mSpellAreaName);
-						ArrayList<SpellRecord> spells = caster.getSpellList(mSpellLevel);
-						for (SpellRecord record : spells) {
-							if (record.getName().equals(mOldLabel.getText())) {
-								mSpellToLearn = record;
-							}
-						}
-						System.out.println(mSpellToLearn.getName());
+						mSpellToLearn = getSpellRecord(mOldLabel.getText());
 						dispose();
 					} else if (DESCRIPTION.equals(buttonName)) {
-						if (mOldLabel != null) {
-							new SpellCard((JFrame) getOwner(), mOldLabel.getText());
-						}
+						new SpellDescriptionCard((JFrame) getOwner(), mOldLabel.getText());
 					}
 
 				}
 			}
+
 		});
 		return button;
 	}
 
+	private SpellRecord getSpellRecord(String spellName) {
+		SpellUser caster = (SpellUser) ClassList.getCharacterClass(mSpellAreaName);
+		ArrayList<SpellRecord> spells = caster.getSpellList(mSpellLevel);
+		for (SpellRecord record : spells) {
+			if (record.getName().equals(spellName)) {
+				return record;
+			}
+		}
+		return null;
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
