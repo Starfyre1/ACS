@@ -1,44 +1,52 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.character;
 
+import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.ToolKit.TKTable;
+import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.ToolKit.TKTitledDisplay;
+import com.starfyre1.dataModel.HeaderRecord;
+import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
 
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
 
-public class TitlesLandsPropertiesDisplay extends TKTitledDisplay {
+public class InnateAbilitiesDisplay extends TKTitledDisplay {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	TITLES_LANDS_PROPERTIES_TITLE	= "Titles, Lands, and Properties";	//$NON-NLS-1$
+	static final String				INNATE_ABILITIES_TITLE	= "Innate Abilities";							//$NON-NLS-1$
+
+	private static final String[]	COLUMN_HEADER_NAMES		= { "Not Displayed", "Name" };					//$NON-NLS-1$ //$NON-NLS-2$
+	private static final String[]	COLUMN_HEADER_TOOLTIPS	= { "Not Displayed", "Innate Abilities Name" };	//$NON-NLS-1$ //$NON-NLS-2$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private JTextArea			mArea;
+	private TKTable					mTable;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public TitlesLandsPropertiesDisplay(CharacterSheet owner) {
-		super(owner, TITLES_LANDS_PROPERTIES_TITLE);
+	public InnateAbilitiesDisplay(CharacterSheet owner) {
+		super(owner, INNATE_ABILITIES_TITLE);
 
 	}
 
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+
 	@Override
 	protected Component createDisplay() {
-		mArea = new JTextArea();
+		mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 0));
+		mTable.setPreferredScrollableViewportSize(CharacterSheet.CHARACTER_TAB_TABLE_SIZE);
+		mTable.removeColumn(mTable.getColumnModel().getColumn(0));
 
-		JScrollPane scrollPane = new JScrollPane(mArea);
-		mArea.setBackground(UIManager.getColor("Panel.background")); //$NON-NLS-1$
+		JScrollPane scrollPane = new JScrollPane(mTable);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -46,8 +54,23 @@ public class TitlesLandsPropertiesDisplay extends TKTitledDisplay {
 	}
 
 	@Override
-	protected void loadDisplay() {
-		// DW Read from file
+	public void loadDisplay() {
+
+		HeaderRecord header = ((CharacterSheet) getOwner()).getHeaderRecord();
+		if (header != null) {
+			BaseClass classInfo = header.getCharacterClass();
+			if (classInfo != null) {
+				Object[] master = classInfo.getInnateDisplayList();
+				TKTableModel model = (TKTableModel) mTable.getModel();
+				model.setRowCount(0);
+				for (Object element : master) {
+					Object[] temp = new Object[2];
+					temp[1] = element;
+					model.addRow(temp);
+				}
+			}
+		}
+
 	}
 
 	/*****************************************************************************

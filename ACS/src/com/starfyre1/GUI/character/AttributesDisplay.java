@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.character;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
@@ -231,7 +232,7 @@ public class AttributesDisplay extends TKTitledDisplay implements FocusListener 
 	 * Serialization
 	 ****************************************************************************/
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 		AttributesRecord stats = ((CharacterSheet) getOwner()).getAttributesRecord();
 
 		mStrField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(0));

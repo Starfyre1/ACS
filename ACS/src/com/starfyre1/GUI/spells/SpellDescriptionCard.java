@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.spells;
 
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.dataset.spells.SpellDescriptionList;

@@ -1,7 +1,12 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.equipment;
 
+import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.MarketPlace;
+import com.starfyre1.GUI.metal.MetalCellEditor;
+import com.starfyre1.GUI.metal.MetalCellRenderer;
+import com.starfyre1.GUI.metal.MetalTableModel;
 import com.starfyre1.ToolKit.TKRowFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;
@@ -134,7 +139,7 @@ public class WeaponDisplay extends TKTitledDisplay implements TableModelListener
 	}
 
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		WeaponList weapons;
 		if (owner != null) {

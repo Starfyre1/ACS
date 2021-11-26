@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.character;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.ToolKit.TKTitledDisplay;
@@ -58,7 +59,7 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 	}
 
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		ArrayList<WeaponRecord> weapons = owner.getEquippedWeaponRecords();
 		if (weapons != null) {

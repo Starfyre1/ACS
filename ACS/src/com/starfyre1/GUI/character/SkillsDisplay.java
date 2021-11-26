@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.character;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
@@ -302,7 +303,7 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 	}
 
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 
 		SkillsRecord record = ((CharacterSheet) getOwner()).getSkillsRecord();
 

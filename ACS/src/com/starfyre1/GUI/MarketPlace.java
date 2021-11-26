@@ -2,6 +2,11 @@
 
 package com.starfyre1.GUI;
 
+import com.starfyre1.GUI.equipment.AnimalsDisplay;
+import com.starfyre1.GUI.equipment.ArmorDisplay;
+import com.starfyre1.GUI.equipment.EquipmentDisplay;
+import com.starfyre1.GUI.equipment.MagicItemsDisplay;
+import com.starfyre1.GUI.equipment.WeaponDisplay;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.dataModel.MoneyRecord;
 import com.starfyre1.dataModel.storage.PreferenceStore;
@@ -248,7 +253,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 		return page;
 	}
 
-	void updateButtons(float cost) {
+	public void updateButtons(float cost) {
 		mCancelButton.setEnabled(true);
 		//		mSellButton.setEnabled(!areDefaultsSet());
 		mBuyButton.setEnabled(canAfford(cost));
@@ -318,7 +323,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 		mCost.setText(cost);
 	}
 
-	String getDisplayableCost(float amount, boolean isCost) {
+	public String getDisplayableCost(float amount, boolean isCost) {
 		int copper = Math.round(amount % 1 * 10);
 		int gold = (int) (amount / 10);
 		int silver = (int) (amount % 10);

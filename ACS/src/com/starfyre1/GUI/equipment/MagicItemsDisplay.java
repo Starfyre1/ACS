@@ -1,14 +1,16 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.equipment;
 
+import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.MarketPlace;
 import com.starfyre1.ToolKit.TKRowFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.ToolKit.TKTitledDisplay;
-import com.starfyre1.dataModel.AnimalRecord;
-import com.starfyre1.dataset.AnimalList;
+import com.starfyre1.dataModel.MagicItemRecord;
+import com.starfyre1.dataset.MagicItemList;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -22,16 +24,17 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-public class AnimalsDisplay extends TKTitledDisplay implements TableModelListener {
+public class MagicItemsDisplay extends TKTitledDisplay implements TableModelListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		ANIMALS_TITLE			= "Animals";																									//$NON-NLS-1$
+	private static final String		MAGIC_ITEMS_TITLE		= "Magic Items";										//$NON-NLS-1$
 
-	private static final String[]	COLUMN_HEADER_NAMES		= { "Count", "Animal", "Carry", "Move", "Travel", "Hits", "Hit Bonus", "Damage", "Armor", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
-	private static final String[]	COLUMN_HEADER_TOOLTIPS	= { "Count", "Animal", "Carry", "Move", "Travel", "Hits", "Hit Bonus", "Damage", "Armor", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+	private static final String[]	COLUMN_HEADER_NAMES		= { "Count", "Equipped", "Name", "Charges", "Cost" };	// , "modify" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
-	private static final String		FILTER					= "Filter";																										//$NON-NLS-1$
+	private static final String[]	COLUMN_HEADER_TOOLTIPS	= { "Count", "Equipped", "Name", "Charges", "Cost" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+	private static final String		FILTER					= "Filter";												//$NON-NLS-1$
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
@@ -42,8 +45,8 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public AnimalsDisplay(Object owner) {
-		super(owner, ANIMALS_TITLE);
+	public MagicItemsDisplay(Object owner) {
+		super(owner, MAGIC_ITEMS_TITLE);
 	}
 
 	/*****************************************************************************
@@ -53,9 +56,9 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 	@Override
 	protected Component createDisplay() {
 		if (getOwner() instanceof CharacterSheet) {
-			AnimalList list = ((CharacterSheet) getOwner()).getAnimalList();
+			MagicItemList list = ((CharacterSheet) getOwner()).getMagicItemList();
 			if (list != null) {
-				ArrayList<AnimalRecord> records = list.getRecords();
+				ArrayList<MagicItemRecord> records = list.getRecords();
 				if (!records.isEmpty()) {
 					mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, records.size()));
 					mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
@@ -67,17 +70,16 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 				//				mTable.setFillsViewportHeight(true);
 			}
 		} else {
-			// if (getOwner() instanceof MarketPlace) {
 			// This is the full equipment list in the Market Place
 			//			new EquipmentList(null);
-			Vector<String> header = new Vector<String>(11);
+			Vector<String> header = new Vector<String>(5);
 			header.copyInto(COLUMN_HEADER_NAMES);
 
-			Object[] master = AnimalList.getAnimalMasterList();
-			Object[][] data = new Object[master.length][11];
+			Object[] master = MagicItemList.getMagicItemsMasterList();
+			Object[][] data = new Object[master.length][5];
 
 			for (int i = 0; i < master.length; i++) {
-				AnimalRecord record = (AnimalRecord) master[i];
+				MagicItemRecord record = (MagicItemRecord) master[i];
 				if (record == null) {
 					continue;
 				}
@@ -105,13 +107,13 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 	}
 
 	@Override
-	protected void loadDisplay() {
-		AnimalList animals = ((CharacterSheet) getOwner()).getAnimalList();
-		if (animals != null) {
-			ArrayList<AnimalRecord> records = animals.getRecords();
+	public void loadDisplay() {
+		MagicItemList magicItems = ((CharacterSheet) getOwner()).getMagicItemList();
+		if (magicItems != null) {
+			ArrayList<MagicItemRecord> records = magicItems.getRecords();
 			TKTableModel model = (TKTableModel) mTable.getModel();
 			model.setRowCount(0);
-			for (AnimalRecord record : records) {
+			for (MagicItemRecord record : records) {
 				model.addRow(record.getRecord());
 			}
 		}
@@ -124,13 +126,13 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 		return mFilterPanel;
 	}
 
-	public ArrayList<AnimalRecord> getPurchasedRows() {
+	public ArrayList<MagicItemRecord> getPurchasedRows() {
 		TKTableModel model = (TKTableModel) mTable.getModel();
 		@SuppressWarnings("rawtypes")
 		Vector<Vector> data = model.getDataVector();
 		int rows = model.getRowCount();
 		mCost = 0;
-		ArrayList<AnimalRecord> records = new ArrayList<>(rows);
+		ArrayList<MagicItemRecord> records = new ArrayList<>(rows);
 		for (int i = 0; i < rows; i++) {
 			Vector<Object> row = data.get(i);
 			if (row != null) {
@@ -146,8 +148,9 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 					count = ((Integer) element).intValue();
 				}
 				if (count > 0) {
-					AnimalRecord record = AnimalList.getMasterAnimalRecord(i).clone();
+					MagicItemRecord record = MagicItemList.getMagicItemMasterList(i).clone();
 					record.setCount(count);
+					record.setEquipped(((Boolean) row.get(1)).booleanValue());
 					records.add(record);
 				}
 			}
@@ -172,13 +175,13 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 			for (int i = 0; i < rows; i++) {
 				Vector<Object> row = data.get(i);
 				if (row != null) {
-					Object element = row.get(row.size() - 2);
+					Object element = row.get(row.size() - 1);
 					if (element == null) {
 						continue;
 					}
 					float cost;
 					if (element instanceof String) {
-						cost = TKStringHelpers.getFloatValue((String) element, 0f);
+						cost = TKStringHelpers.getFloatValue(((String) element).trim(), 0f);
 					} else {
 						cost = ((Float) element).floatValue();
 					}
@@ -189,7 +192,7 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 					}
 					int count;
 					if (element instanceof String) {
-						count = TKStringHelpers.getIntValue((String) element, 0);
+						count = TKStringHelpers.getIntValue(((String) element).trim(), 0);
 					} else {
 						count = ((Integer) element).intValue();
 					}
@@ -204,5 +207,4 @@ public class AnimalsDisplay extends TKTitledDisplay implements TableModelListene
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
-
 }

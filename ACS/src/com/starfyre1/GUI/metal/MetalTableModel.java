@@ -1,15 +1,11 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.metal;
 
+import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.dataModel.MetalRecord;
 
-import java.awt.Component;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-
-public class MetalCellRenderer extends DefaultTableCellRenderer {
+public class MetalTableModel extends TKTableModel {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -21,29 +17,36 @@ public class MetalCellRenderer extends DefaultTableCellRenderer {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
+	public MetalTableModel(String[] columnHeaderNames, String[] columnHeaderTooltips, int size) {
+		super(columnHeaderNames, columnHeaderTooltips, size);
+	}
+
+	public MetalTableModel(Object[][] data, String[] columnHeaderNames, String[] columnHeaderTooltips) {
+		super(data, columnHeaderNames, columnHeaderTooltips);
+	}
 
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		if (value instanceof MetalRecord) {
-			MetalRecord record = (MetalRecord) value;
-			setText(record.getName());
-		}
-
-		if (isSelected) {
-			setBackground(table.getSelectionBackground());
-		} else {
-			setBackground(table.getBackground());
-		}
-
-		return this;
-	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	/*
+	 * Don't need to implement this method unless your table's
+	 * editable.
+	 */
+	@Override
+	public boolean isCellEditable(int row, int col) {
+		//Note that the data/cell address is constant,
+		//no matter where the cell appears onscreen.
+		if (col == 3) {
+			if (getColumnClass(col) == MetalRecord.class) {
+				return true;
+			}
+		}
+		return super.isCellEditable(row, col);
+	}
 
 	/*****************************************************************************
 	 * Serialization

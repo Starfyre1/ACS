@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.character;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
@@ -44,7 +45,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	DeterminationPointsDisplay(CharacterSheet owner) {
+	public DeterminationPointsDisplay(CharacterSheet owner) {
 		super(owner, DETERMINATION_POINTS_TITLE);
 
 		updateValues();
@@ -186,7 +187,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	}
 
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 		updateValues();
 		// DW load used points from file
 

@@ -1,8 +1,9 @@
 
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.spells;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;

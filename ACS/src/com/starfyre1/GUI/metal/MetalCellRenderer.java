@@ -1,52 +1,44 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.metal;
 
-import com.starfyre1.ToolKit.TKTitledDisplay;
+import com.starfyre1.dataModel.MetalRecord;
 
 import java.awt.Component;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.UIManager;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
-public class NotesCommentsDisplay extends TKTitledDisplay {
+public class MetalCellRenderer extends DefaultTableCellRenderer {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	NOTES_COMMENTS_TITLE	= "Notes and Comments";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private JTextArea			mArea;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public NotesCommentsDisplay(CharacterSheet owner) {
-		super(owner, NOTES_COMMENTS_TITLE);
-	}
 
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-
 	@Override
-	protected Component createDisplay() {
-		mArea = new JTextArea();
-		mArea.setBackground(UIManager.getColor("Panel.background")); //$NON-NLS-1$
-		JScrollPane scrollPane = new JScrollPane(mArea);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		if (value instanceof MetalRecord) {
+			MetalRecord record = (MetalRecord) value;
+			setText(record.getName());
+		}
 
-		return scrollPane;
-	}
+		if (isSelected) {
+			setBackground(table.getSelectionBackground());
+		} else {
+			setBackground(table.getBackground());
+		}
 
-	@Override
-	protected void loadDisplay() {
-		// DW Load from disk
+		return this;
 	}
 
 	/*****************************************************************************
@@ -56,5 +48,4 @@ public class NotesCommentsDisplay extends TKTitledDisplay {
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
-
 }

@@ -1,14 +1,16 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.equipment;
 
+import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.MarketPlace;
 import com.starfyre1.ToolKit.TKRowFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.ToolKit.TKTitledDisplay;
-import com.starfyre1.dataModel.MagicItemRecord;
-import com.starfyre1.dataset.MagicItemList;
+import com.starfyre1.dataModel.EquipmentRecord;
+import com.starfyre1.dataset.EquipmentList;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -22,17 +24,17 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-public class MagicItemsDisplay extends TKTitledDisplay implements TableModelListener {
+public class EquipmentDisplay extends TKTitledDisplay implements TableModelListener {
+
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		MAGIC_ITEMS_TITLE		= "Magic Items";										//$NON-NLS-1$
+	private static final String		EQUIPMENT_TITLE			= "Equipment";														//$NON-NLS-1$
 
-	private static final String[]	COLUMN_HEADER_NAMES		= { "Count", "Equipped", "Name", "Charges", "Cost" };	// , "modify" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+	private static final String[]	COLUMN_HEADER_NAMES		= { "Count", "Equipped", "Name", "Encumbrance", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+	private static final String[]	COLUMN_HEADER_TOOLTIPS	= { "Count", "Equipped", "Name", "Encumbrance", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
-	private static final String[]	COLUMN_HEADER_TOOLTIPS	= { "Count", "Equipped", "Name", "Charges", "Cost" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-
-	private static final String		FILTER					= "Filter";												//$NON-NLS-1$
+	private static final String		FILTER					= "Filter";															//$NON-NLS-1$
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
@@ -43,8 +45,9 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public MagicItemsDisplay(Object owner) {
-		super(owner, MAGIC_ITEMS_TITLE);
+
+	public EquipmentDisplay(Object owner) {
+		super(owner, EQUIPMENT_TITLE);
 	}
 
 	/*****************************************************************************
@@ -54,9 +57,9 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 	@Override
 	protected Component createDisplay() {
 		if (getOwner() instanceof CharacterSheet) {
-			MagicItemList list = ((CharacterSheet) getOwner()).getMagicItemList();
+			EquipmentList list = ((CharacterSheet) getOwner()).getEquipmentList();
 			if (list != null) {
-				ArrayList<MagicItemRecord> records = list.getRecords();
+				ArrayList<EquipmentRecord> records = list.getRecords();
 				if (!records.isEmpty()) {
 					mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, records.size()));
 					mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
@@ -70,14 +73,11 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 		} else {
 			// This is the full equipment list in the Market Place
 			//			new EquipmentList(null);
-			Vector<String> header = new Vector<String>(5);
-			header.copyInto(COLUMN_HEADER_NAMES);
-
-			Object[] master = MagicItemList.getMagicItemsMasterList();
-			Object[][] data = new Object[master.length][5];
+			Object[] master = EquipmentList.getEquipmentMasterList();
+			Object[][] data = new Object[master.length][6];
 
 			for (int i = 0; i < master.length; i++) {
-				MagicItemRecord record = (MagicItemRecord) master[i];
+				EquipmentRecord record = (EquipmentRecord) master[i];
 				if (record == null) {
 					continue;
 				}
@@ -92,7 +92,6 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 			JTextField filterField = TKRowFilter.createRowFilter(mTable);
 			mFilterPanel.add(new JLabel(FILTER));
 			mFilterPanel.add(filterField);
-
 			//			mTable.setFillsViewportHeight(true);
 		}
 		mTable.getModel().addTableModelListener(this);
@@ -105,13 +104,13 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 	}
 
 	@Override
-	protected void loadDisplay() {
-		MagicItemList magicItems = ((CharacterSheet) getOwner()).getMagicItemList();
-		if (magicItems != null) {
-			ArrayList<MagicItemRecord> records = magicItems.getRecords();
+	public void loadDisplay() {
+		EquipmentList list = ((CharacterSheet) getOwner()).getEquipmentList();
+		if (list != null) {
+			ArrayList<EquipmentRecord> records = list.getRecords();
 			TKTableModel model = (TKTableModel) mTable.getModel();
 			model.setRowCount(0);
-			for (MagicItemRecord record : records) {
+			for (EquipmentRecord record : records) {
 				model.addRow(record.getRecord());
 			}
 		}
@@ -124,13 +123,13 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 		return mFilterPanel;
 	}
 
-	public ArrayList<MagicItemRecord> getPurchasedRows() {
+	public ArrayList<EquipmentRecord> getPurchasedRows() {
 		TKTableModel model = (TKTableModel) mTable.getModel();
 		@SuppressWarnings("rawtypes")
 		Vector<Vector> data = model.getDataVector();
 		int rows = model.getRowCount();
 		mCost = 0;
-		ArrayList<MagicItemRecord> records = new ArrayList<>(rows);
+		ArrayList<EquipmentRecord> records = new ArrayList<>(rows);
 		for (int i = 0; i < rows; i++) {
 			Vector<Object> row = data.get(i);
 			if (row != null) {
@@ -146,7 +145,7 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 					count = ((Integer) element).intValue();
 				}
 				if (count > 0) {
-					MagicItemRecord record = MagicItemList.getMagicItemMasterList(i).clone();
+					EquipmentRecord record = EquipmentList.getMasterEquipmentRecord(i).clone();
 					record.setCount(count);
 					record.setEquipped(((Boolean) row.get(1)).booleanValue());
 					records.add(record);
@@ -173,13 +172,13 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 			for (int i = 0; i < rows; i++) {
 				Vector<Object> row = data.get(i);
 				if (row != null) {
-					Object element = row.get(row.size() - 1);
+					Object element = row.get(row.size() - 2);
 					if (element == null) {
 						continue;
 					}
 					float cost;
 					if (element instanceof String) {
-						cost = TKStringHelpers.getFloatValue(((String) element).trim(), 0f);
+						cost = TKStringHelpers.getFloatValue((String) element, 0f);
 					} else {
 						cost = ((Float) element).floatValue();
 					}
@@ -190,7 +189,7 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 					}
 					int count;
 					if (element instanceof String) {
-						count = TKStringHelpers.getIntValue(((String) element).trim(), 0);
+						count = TKStringHelpers.getIntValue((String) element, 0);
 					} else {
 						count = ((Integer) element).intValue();
 					}
@@ -205,4 +204,5 @@ public class MagicItemsDisplay extends TKTitledDisplay implements TableModelList
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
+
 }

@@ -1,54 +1,61 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.equipment;
 
-import com.starfyre1.ToolKit.TKTableModel;
-import com.starfyre1.dataModel.MetalRecord;
+import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.ToolKit.TKTitledDisplay;
 
-public class MetalTableModel extends TKTableModel {
+import java.awt.Component;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+
+public class NotesCommentsDisplay extends TKTitledDisplay {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
+	private static final String	NOTES_COMMENTS_TITLE	= "Notes and Comments";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private JTextArea			mArea;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public MetalTableModel(String[] columnHeaderNames, String[] columnHeaderTooltips, int size) {
-		super(columnHeaderNames, columnHeaderTooltips, size);
-	}
-
-	public MetalTableModel(Object[][] data, String[] columnHeaderNames, String[] columnHeaderTooltips) {
-		super(data, columnHeaderNames, columnHeaderTooltips);
+	public NotesCommentsDisplay(CharacterSheet owner) {
+		super(owner, NOTES_COMMENTS_TITLE);
 	}
 
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
 
+	@Override
+	protected Component createDisplay() {
+		mArea = new JTextArea();
+		mArea.setBackground(UIManager.getColor("Panel.background")); //$NON-NLS-1$
+		JScrollPane scrollPane = new JScrollPane(mArea);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+		return scrollPane;
+	}
+
+	@Override
+	public void loadDisplay() {
+		// DW Load from disk
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	/*
-	 * Don't need to implement this method unless your table's
-	 * editable.
-	 */
-	@Override
-	public boolean isCellEditable(int row, int col) {
-		//Note that the data/cell address is constant,
-		//no matter where the cell appears onscreen.
-		if (col == 3) {
-			if (getColumnClass(col) == MetalRecord.class) {
-				return true;
-			}
-		}
-		return super.isCellEditable(row, col);
-	}
 
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
+
 }

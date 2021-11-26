@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.journal;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Color;

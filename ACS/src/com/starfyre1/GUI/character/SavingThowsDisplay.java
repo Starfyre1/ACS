@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.character;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.SavingThrowsRecord;
@@ -226,7 +227,7 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 	 * Serialization
 	 ****************************************************************************/
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 		SavingThrowsRecord record = ((CharacterSheet) getOwner()).getSavingThrowsRecord();
 
 		if (record != null) {

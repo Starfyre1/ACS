@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.character;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
@@ -114,7 +115,7 @@ public class MoneyDisplay extends TKTitledDisplay implements FocusListener {
 	}
 
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 		MoneyRecord record = ((CharacterSheet) getOwner()).getMoneyRecord();
 		mGoldField.setText(TKStringHelpers.EMPTY_STRING + record.getGold());
 		mSilverField.setText(TKStringHelpers.EMPTY_STRING + record.getSilver());

@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.character;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
@@ -50,7 +51,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Focus
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	PersonalInformationDisplay(CharacterSheet owner) {
+	public PersonalInformationDisplay(CharacterSheet owner) {
 		super(owner, PERSONAL_INFORMATION_TITLE);
 	}
 
@@ -200,7 +201,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Focus
 	 * Serialization
 	 ****************************************************************************/
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 		PersonalInformationRecord record = ((CharacterSheet) getOwner()).getPersonalInformationRecord();
 
 		mHeightField.setText(record.getHeight());

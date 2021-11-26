@@ -2,10 +2,10 @@
 
 package com.starfyre1.dataModel;
 
-import com.starfyre1.GUI.CampaignDateChooser;
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.JournalDisplay;
-import com.starfyre1.GUI.WorldDateChooser;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
+import com.starfyre1.GUI.journal.JournalDisplay;
+import com.starfyre1.GUI.journal.WorldDateChooser;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.startup.ACS;
 

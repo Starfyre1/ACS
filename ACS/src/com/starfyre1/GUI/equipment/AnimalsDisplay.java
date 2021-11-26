@@ -1,14 +1,16 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.equipment;
 
+import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.MarketPlace;
 import com.starfyre1.ToolKit.TKRowFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.ToolKit.TKTitledDisplay;
-import com.starfyre1.dataModel.EquipmentRecord;
-import com.starfyre1.dataset.EquipmentList;
+import com.starfyre1.dataModel.AnimalRecord;
+import com.starfyre1.dataset.AnimalList;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -22,17 +24,16 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-public class EquipmentDisplay extends TKTitledDisplay implements TableModelListener {
-
+public class AnimalsDisplay extends TKTitledDisplay implements TableModelListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		EQUIPMENT_TITLE			= "Equipment";														//$NON-NLS-1$
+	private static final String		ANIMALS_TITLE			= "Animals";																									//$NON-NLS-1$
 
-	private static final String[]	COLUMN_HEADER_NAMES		= { "Count", "Equipped", "Name", "Encumbrance", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-	private static final String[]	COLUMN_HEADER_TOOLTIPS	= { "Count", "Equipped", "Name", "Encumbrance", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+	private static final String[]	COLUMN_HEADER_NAMES		= { "Count", "Animal", "Carry", "Move", "Travel", "Hits", "Hit Bonus", "Damage", "Armor", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+	private static final String[]	COLUMN_HEADER_TOOLTIPS	= { "Count", "Animal", "Carry", "Move", "Travel", "Hits", "Hit Bonus", "Damage", "Armor", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
 
-	private static final String		FILTER					= "Filter";															//$NON-NLS-1$
+	private static final String		FILTER					= "Filter";																										//$NON-NLS-1$
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
@@ -43,9 +44,8 @@ public class EquipmentDisplay extends TKTitledDisplay implements TableModelListe
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-
-	public EquipmentDisplay(Object owner) {
-		super(owner, EQUIPMENT_TITLE);
+	public AnimalsDisplay(Object owner) {
+		super(owner, ANIMALS_TITLE);
 	}
 
 	/*****************************************************************************
@@ -55,9 +55,9 @@ public class EquipmentDisplay extends TKTitledDisplay implements TableModelListe
 	@Override
 	protected Component createDisplay() {
 		if (getOwner() instanceof CharacterSheet) {
-			EquipmentList list = ((CharacterSheet) getOwner()).getEquipmentList();
+			AnimalList list = ((CharacterSheet) getOwner()).getAnimalList();
 			if (list != null) {
-				ArrayList<EquipmentRecord> records = list.getRecords();
+				ArrayList<AnimalRecord> records = list.getRecords();
 				if (!records.isEmpty()) {
 					mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, records.size()));
 					mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
@@ -69,13 +69,17 @@ public class EquipmentDisplay extends TKTitledDisplay implements TableModelListe
 				//				mTable.setFillsViewportHeight(true);
 			}
 		} else {
+			// if (getOwner() instanceof MarketPlace) {
 			// This is the full equipment list in the Market Place
 			//			new EquipmentList(null);
-			Object[] master = EquipmentList.getEquipmentMasterList();
-			Object[][] data = new Object[master.length][6];
+			Vector<String> header = new Vector<String>(11);
+			header.copyInto(COLUMN_HEADER_NAMES);
+
+			Object[] master = AnimalList.getAnimalMasterList();
+			Object[][] data = new Object[master.length][11];
 
 			for (int i = 0; i < master.length; i++) {
-				EquipmentRecord record = (EquipmentRecord) master[i];
+				AnimalRecord record = (AnimalRecord) master[i];
 				if (record == null) {
 					continue;
 				}
@@ -90,6 +94,7 @@ public class EquipmentDisplay extends TKTitledDisplay implements TableModelListe
 			JTextField filterField = TKRowFilter.createRowFilter(mTable);
 			mFilterPanel.add(new JLabel(FILTER));
 			mFilterPanel.add(filterField);
+
 			//			mTable.setFillsViewportHeight(true);
 		}
 		mTable.getModel().addTableModelListener(this);
@@ -102,13 +107,13 @@ public class EquipmentDisplay extends TKTitledDisplay implements TableModelListe
 	}
 
 	@Override
-	protected void loadDisplay() {
-		EquipmentList list = ((CharacterSheet) getOwner()).getEquipmentList();
-		if (list != null) {
-			ArrayList<EquipmentRecord> records = list.getRecords();
+	public void loadDisplay() {
+		AnimalList animals = ((CharacterSheet) getOwner()).getAnimalList();
+		if (animals != null) {
+			ArrayList<AnimalRecord> records = animals.getRecords();
 			TKTableModel model = (TKTableModel) mTable.getModel();
 			model.setRowCount(0);
-			for (EquipmentRecord record : records) {
+			for (AnimalRecord record : records) {
 				model.addRow(record.getRecord());
 			}
 		}
@@ -121,13 +126,13 @@ public class EquipmentDisplay extends TKTitledDisplay implements TableModelListe
 		return mFilterPanel;
 	}
 
-	public ArrayList<EquipmentRecord> getPurchasedRows() {
+	public ArrayList<AnimalRecord> getPurchasedRows() {
 		TKTableModel model = (TKTableModel) mTable.getModel();
 		@SuppressWarnings("rawtypes")
 		Vector<Vector> data = model.getDataVector();
 		int rows = model.getRowCount();
 		mCost = 0;
-		ArrayList<EquipmentRecord> records = new ArrayList<>(rows);
+		ArrayList<AnimalRecord> records = new ArrayList<>(rows);
 		for (int i = 0; i < rows; i++) {
 			Vector<Object> row = data.get(i);
 			if (row != null) {
@@ -143,9 +148,8 @@ public class EquipmentDisplay extends TKTitledDisplay implements TableModelListe
 					count = ((Integer) element).intValue();
 				}
 				if (count > 0) {
-					EquipmentRecord record = EquipmentList.getMasterEquipmentRecord(i).clone();
+					AnimalRecord record = AnimalList.getMasterAnimalRecord(i).clone();
 					record.setCount(count);
-					record.setEquipped(((Boolean) row.get(1)).booleanValue());
 					records.add(record);
 				}
 			}

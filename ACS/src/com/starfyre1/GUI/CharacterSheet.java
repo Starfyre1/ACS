@@ -2,6 +2,26 @@
 
 package com.starfyre1.GUI;
 
+import com.starfyre1.GUI.character.AttackTotalsDisplay;
+import com.starfyre1.GUI.character.AttributesDisplay;
+import com.starfyre1.GUI.character.CombatInformationDisplay;
+import com.starfyre1.GUI.character.DefenseInformationDisplay;
+import com.starfyre1.GUI.character.DeterminationPointsDisplay;
+import com.starfyre1.GUI.character.InnateAbilitiesDisplay;
+import com.starfyre1.GUI.character.MoneyDisplay;
+import com.starfyre1.GUI.character.PersonalInformationDisplay;
+import com.starfyre1.GUI.character.SavingThowsDisplay;
+import com.starfyre1.GUI.character.SkillsDisplay;
+import com.starfyre1.GUI.equipment.AnimalsDisplay;
+import com.starfyre1.GUI.equipment.ArmorDisplay;
+import com.starfyre1.GUI.equipment.EquipmentDisplay;
+import com.starfyre1.GUI.equipment.MagicItemsDisplay;
+import com.starfyre1.GUI.equipment.NotesCommentsDisplay;
+import com.starfyre1.GUI.equipment.TitlesLandsPropertiesDisplay;
+import com.starfyre1.GUI.equipment.WeaponDisplay;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
+import com.starfyre1.GUI.journal.JournalDisplay;
+import com.starfyre1.GUI.spells.SpellListDisplay;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.dataModel.AnimalRecord;
 import com.starfyre1.dataModel.ArmorRecord;
@@ -76,10 +96,10 @@ public class CharacterSheet implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String				CHARACTER_SHEET_TITLE		= "Character Sheet";																																																//$NON-NLS-1$
-	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment Sheet";																																																//$NON-NLS-1$
-	private static final String				SPELL_SHEET_TITLE			= "Spell Sheet";																																																	//$NON-NLS-1$
-	private static final String				JOURNAL_SHEET_TITLE			= "Journal Sheet";																																																	//$NON-NLS-1$
+	private static final String				CHARACTER_SHEET_TITLE		= "Character";																																																		//$NON-NLS-1$
+	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment";																																																		//$NON-NLS-1$
+	private static final String				SPELL_SHEET_TITLE			= "Spells";																																																			//$NON-NLS-1$
+	private static final String				JOURNAL_SHEET_TITLE			= "Journal";																																																		//$NON-NLS-1$
 
 	// DW add something useful for the tooltips or remove them
 	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";																																																//$NON-NLS-1$

@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.journal;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

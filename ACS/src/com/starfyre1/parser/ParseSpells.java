@@ -20,11 +20,11 @@ public class ParseSpells {
 	 */
 	public static void main(String[] args) {
 
-		File in = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/Mages.txt");
-		File out = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/MagesProcessed.txt");
+		//		File in = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/Mages.txt");
+		//		File out = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/MagesProcessed.txt");
 
-		//		File in = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/Priest.txt"); //$NON-NLS-1$
-		//		File out = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/PriestProcessed.txt"); //$NON-NLS-1$
+		File in = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/Priest.txt"); //$NON-NLS-1$
+		File out = new File("C:\\Users\\User\\Desktop\\Athri - BMG\\spells\\Finished/PriestProcessed.txt"); //$NON-NLS-1$
 
 		try {
 			BufferedReader brIn = new BufferedReader(new FileReader(in));

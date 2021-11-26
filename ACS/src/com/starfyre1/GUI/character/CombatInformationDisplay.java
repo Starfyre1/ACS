@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.character;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
@@ -71,7 +72,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements FocusLi
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	CombatInformationDisplay(CharacterSheet owner) {
+	public CombatInformationDisplay(CharacterSheet owner) {
 		super(owner, COMBAT_INFORMATION_TITLE);
 	}
 
@@ -210,7 +211,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements FocusLi
 	}
 
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 		CombatInformationRecord record = ((CharacterSheet) getOwner()).getCombatInformationRecord();
 
 		mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
