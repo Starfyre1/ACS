@@ -146,7 +146,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 			label2 = new JLabel("" + record.getCastingTime(), SwingConstants.CENTER); //$NON-NLS-1$
 			label3 = new JLabel("" + record.getPower(), SwingConstants.CENTER); //$NON-NLS-1$
 
-			if (mSheet.getSpellListDisplay().isSpellKnown(record)) {
+			if (mSheet.getSpellListDisplay().getCurrentList().isSpellKnown(record)) {
 				label1.setForeground(Color.LIGHT_GRAY);
 				label2.setForeground(Color.LIGHT_GRAY);
 				label3.setForeground(Color.LIGHT_GRAY);
@@ -198,7 +198,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 			mOldLabel.setBackground(mOldSelectedColor);
 		}
 
-		if (!mSheet.getSpellListDisplay().isSpellKnown(getSpellRecord(((JLabel) e.getSource()).getText()))) {
+		if (!mSheet.getSpellListDisplay().getCurrentList().isSpellKnown(getSpellRecord(((JLabel) e.getSource()).getText()))) {
 			mOldLabel = (JLabel) e.getSource();
 			mOldSelectedColor = mOldLabel.getBackground();
 
