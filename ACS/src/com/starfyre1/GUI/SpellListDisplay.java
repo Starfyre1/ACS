@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -54,7 +53,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		SPELL_LIST_TITLE			= "Athri Spell List";												//$NON-NLS-1$
+	private static final String		SPELL_LIST_TITLE			= "Spell List";														//$NON-NLS-1$
 
 	public static final String		FILE_SECTTION_START_KEY		= "SPELL_LIST_SECTTION_START";										//$NON-NLS-1$
 	public static final String		FILE_SECTTION_END_KEY		= "SPELL_LIST_SECTTION_END";										//$NON-NLS-1$
@@ -104,7 +103,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 
 	private Component createHeader() {
 		JPanel headerWrapper = new JPanel();
-		headerWrapper.setLayout(new BoxLayout(headerWrapper, BoxLayout.Y_AXIS));
+		//		headerWrapper.setLayout(new BoxLayout(headerWrapper, BoxLayout.Y_AXIS));
+		headerWrapper.setLayout(new BorderLayout());
 
 		JPanel wrapper = new JPanel();
 
@@ -120,7 +120,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		JLabel newSpell = new JLabel(LEARN_SPELL, SwingConstants.RIGHT);
 		mNewSpellButton.setOpaque(true);
 		mNewSpellButton.setPreferredSize(new Dimension(25, 25));
-		//		mNewSpellButton.setBorder(new Border(Color.BLACK, 1));
 		mNewSpellButton.setFocusable(false);
 		mNewSpellButton.setEnabled(!SELECT_MAGIC_AREA.equals(getMagicArea()));
 		mNewSpellButton.addMouseListener(new MouseAdapter() {
@@ -173,7 +172,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		wrapper.add(newSpell);
 		wrapper.add(mNewSpellButton);
 
-		headerWrapper.add(new TKPageTitleLabel(SPELL_LIST_TITLE));
+		headerWrapper.add(new TKPageTitleLabel(SPELL_LIST_TITLE), BorderLayout.PAGE_START);
 		headerWrapper.add(wrapper);
 
 		return headerWrapper;
