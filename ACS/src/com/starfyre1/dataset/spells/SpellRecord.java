@@ -13,6 +13,7 @@ public class SpellRecord extends TKTableRecord {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private int		mLevel;
 	private String	mName;
 	private int		mPower;
 
@@ -29,7 +30,8 @@ public class SpellRecord extends TKTableRecord {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public SpellRecord(String name, int power, int castingTime, int extras, String description) {
+	public SpellRecord(int level, String name, int power, int castingTime, int extras) {
+		mLevel = level;
 		mName = name;
 		mPower = power;
 		mCastingTime = castingTime;
@@ -45,6 +47,11 @@ public class SpellRecord extends TKTableRecord {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	/** @return The level. */
+	public int getLevel() {
+		return mLevel;
+	}
+
 	/** @return The name. */
 	public String getName() {
 		return mName;

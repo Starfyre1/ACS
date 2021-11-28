@@ -2,7 +2,6 @@
 
 package com.starfyre1.dataset.classes.mages;
 
-import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataset.spells.SpellRecord;
 
@@ -17,20 +16,20 @@ public class NaturalLore extends MagesBase {
 	/*
 		Natural Lore
 		Second Requisite = Wisdom
-	
+
 			This area of Magic is a combination between Mages & Priests.  The Natural
 			Lorist's are basically Druid's, they worship Wynd, Lorrell or Talon.  Most
 			worship Wynd, they very Essence of Nature, neither Male or
 			Female Wynd has no true form.  The Natural Lorist has very strict guidelines,
 			First and Foremost, They Kill only for food or to preserve their own life.
-	
+
 			When researching spells treat the Natural Lorist as a Elf, they spend
 			Experience points instead of Silver, but they must spend their research
 			time in the wilderness meditating.   The Natural Lorist's personal focus can
 			very from Mage to Mage, however it is usually a Staff.
 			No matter what item is their focus it will have symbols of the natural elements
 			on it, such as Holly, Oak, or Mistletoe.  Their Spells are as Follows:
-	
+
 			Power Zero:						Power One:
 			1)Clear Water (-2)				1)Calm Waters (-10)F
 			2)Detect Morals I (-10)F		2)Charm I (-6)F
@@ -48,7 +47,7 @@ public class NaturalLore extends MagesBase {
 			14)Tracking (-8)				14)Web Stream (-3)F
 			15)Translate (-1)				15)Healing (Animal) (-40)F
 			16)Locate Life (Animal) (-15)	16)Cure Illness (Animals) (-20)
-	
+
 			Power Two:						Power Three:
 			1)Area of Fog (-10)				1)Alter Shape (-3)
 			2)Charm Animals (-4)			2)Anoint (-60)
@@ -62,7 +61,7 @@ public class NaturalLore extends MagesBase {
 			10)Vengeance (-2)F				10)Summon Animals I (-10)F
 			11)Protection : Dark (-5)		11)Summon Fire (-3)F
 			12)Earth Womb (-5)				12)Water Breathing (-10)
-	
+
 			Power Four:						Power Five:
 			1)Control Element (-20)F		1)Commune (-30)
 			2)Control Winds (-12)			2)Control Weather (-30)
@@ -83,7 +82,7 @@ public class NaturalLore extends MagesBase {
 			3)Command Insects (-10)
 			4)Lightning Storm II (-6)F
 			5)Symbol I (-60)
-	
+
 	*/
 
 	/*****************************************************************************
@@ -112,115 +111,115 @@ public class NaturalLore extends MagesBase {
 
 		// Power Zero:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Clear Water", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Detect Morals I", 1, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Detect Traps", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Forecast", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Heal Self", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Know Direction", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Knowledge", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Light", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Locate Living", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Mage Wind", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Darts", 0, 2, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Produce Water", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Flame", 0, 1, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Tracking", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Translate", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Locate Life : Animals", 0, 15, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(0, "Clear Water", 0, 2, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Detect Morals I", 1, 10, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Detect Traps", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Forecast", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Heal Self", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Know Direction", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Knowledge", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Light", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Locate Living", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Mage Wind", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Darts", 0, 2, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Produce Water", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Summon Flame", 0, 1, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Tracking", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Translate", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Locate Life : Animals", 0, 15, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Calm Waters", 0, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Charm I", 1, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Familiar", 0, 600, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Growth : Plant", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Healing", 0, 60, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Increase Fire", 0, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Animals", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Scattered Showers", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Silence", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Speak with  Animals", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Star Sight", 0, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Stop Poison", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Fog", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Web Stream", 0, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Healing : Animals", 0, 40, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Cure Illness : Animals", 0, 20, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(1, "Calm Waters", 0, 10, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Charm I", 1, 6, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Familiar", 0, 600, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Growth : Plant", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Healing", 0, 60, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Increase Fire", 0, 4, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Protection : Animals", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Scattered Showers", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Silence", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Speak with  Animals", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Star Sight", 0, 12, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Stop Poison", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Summon Fog", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Web Stream", 0, 3, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Healing : Animals", 0, 40, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Cure Illness : Animals", 0, 20, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Area of Fog", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Charm Animals", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Concealment", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Cure Illness", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("ESP", 0, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Mind Link", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Night Sight", 0, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Salve of Healing", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Vengeance", 0, 2, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Dark", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Earth Womb", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(2, "Area of Fog", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Charm Animals", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Concealment", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Cure Illness", 0, 20, 0), //$NON-NLS-1$
+						new SpellRecord(2, "ESP", 0, 6, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Mind Link", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Night Sight", 0, 12, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Salve of Healing", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Vengeance", 0, 2, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Protection : Dark", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Earth Womb", 0, 5, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Alter Shape", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Anoint", 0, 60, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Charm Plants", 0, 7, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Create Food", 0, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Dancing Fire", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Detect Morals II", 2, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Passage", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Lightning", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Rune of Protection : Animals", 0, 60, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Animals I", 1, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Fire", 0, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Water Breathing", 0, 10, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(3, "Alter Shape", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Anoint", 0, 60, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Charm Plants", 0, 7, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Create Food", 0, 12, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Dancing Fire", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Detect Morals II", 2, 15, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Passage", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Protection : Lightning", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Rune of Protection : Animals", 0, 60, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Summon Animals I", 1, 10, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Summon Fire", 0, 3, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Water Breathing", 0, 10, 0)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Control Element", 0, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Control Winds", 0, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Deflection", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Lightning Storm I", 1, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Growth", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Liquefy Earth", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Paralyzation Touch", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Lycanthrope", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Animals II", 2, 9, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Wall of Lightning I", 1, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Wall of Ice", 0, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Wall of Stone", 0, 15, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(4, "Control Element", 0, 20, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Control Winds", 0, 12, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Deflection", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Lightning Storm I", 1, 6, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Growth", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Liquefy Earth", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Paralyzation Touch", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Protection : Lycanthrope", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Summon Animals II", 2, 9, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Wall of Lightning I", 1, 4, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Wall of Ice", 0, 4, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Wall of Stone", 0, 15, 1)))); //$NON-NLS-1$
 		// DW Verify Wall of Ligntning I & II don't exist and Wall of Fire is missing here (Natural Lore Power 4 & 5)
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Commune", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Control Weather", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Escape", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Fly", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Lower Water", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Mind Wipe", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Part Rock I", 1, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Part Water", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Smoke Servant", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Storm", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Wall of Lightning II", 2, 30, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(5, "Commune", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Control Weather", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Escape", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Fly", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Lower Water", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Mind Wipe", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Part Rock I", 1, 30, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Part Water", 0, 20, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Smoke Servant", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Summon Storm", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Wall of Lightning II", 2, 30, 0)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Alter Terrain", 0, 60, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Animate Rock", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Command Insects", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Lightning Storm II", 2, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Symbol I", 1, 60, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(6, "Alter Terrain", 0, 60, 1), //$NON-NLS-1$
+						new SpellRecord(6, "Animate Rock", 0, 20, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Command Insects", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Lightning Storm II", 2, 6, 1), //$NON-NLS-1$
+						new SpellRecord(6, "Symbol I", 1, 60, 0)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Call to Law", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Resurrection", 0, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("The Mottled Hand", 0, 4, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(7, "Call to Law", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Resurrection", 0, 30, 1), //$NON-NLS-1$
+						new SpellRecord(7, "The Mottled Hand", 0, 4, 0)))); //$NON-NLS-1$
 
 	}
 
@@ -231,36 +230,36 @@ public class NaturalLore extends MagesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Mages / Priests:
-
+		
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-
+		
 			4)	Add +1 Hit Point per level till the 10th level.
-
+		
 			5)	Add +1% per level to their Save Vs. Surprise.
-
+		
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

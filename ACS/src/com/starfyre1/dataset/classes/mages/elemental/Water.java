@@ -2,7 +2,6 @@
 
 package com.starfyre1.dataset.classes.mages.elemental;
 
-import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataset.classes.mages.MagesBase;
 import com.starfyre1.dataset.spells.SpellRecord;
@@ -18,16 +17,16 @@ public class Water extends MagesBase {
 	/*
 	The Elements
 	Second Requisite = Willpower
-	
+
 		There are Four distinct areas in the Elemental Magic, Earth, Air, Fire and
 		Water.  Each will have a small explanation of the area and a spell list as
 		follows:
-	
+
 		Water Elementalists control the force of Water, in all it's forms, Mists, Fogs
 		and Ice to mention a few.  They are capable of Creating Whirlpools, that can
 		sink small ships. They can summon Fogs and Fire bolts of freezing Cold at their
 		enemies.  Their focus Can be anything the Ref. or player chooses.
-	
+
 		Power Zero:					Power One:
 		1)Clear Water (-8)			1)Area of Fog (-10)
 		2)Control Cloud (-1)		2)Calm Waters (-20)F
@@ -75,69 +74,69 @@ public class Water extends MagesBase {
 
 		// Power Zero:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Clear Water", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Control Cloud", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Control Element", 0, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Freeze Water", 0, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Darts", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Melt Ice", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Produce Water", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Cold", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Fog", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Shower", 0, 8, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(0, "Clear Water", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Control Cloud", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Control Element", 0, 20, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Freeze Water", 0, 5, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Darts", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Melt Ice", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Produce Water", 0, 20, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Protection : Cold", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Summon Fog", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Summon Shower", 0, 8, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Area of Fog", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Calm Waters", 0, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Freedom", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Kill Normal Fires", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Scattered Showers", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Water Bolt", 0, 3, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(1, "Area of Fog", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Calm Waters", 0, 20, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Freedom", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Kill Normal Fires", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Scattered Showers", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Water Bolt", 0, 3, 1)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Cold Spell I", 1, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Sea Safety", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Wall of Ice", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Water Breathing", 0, 25, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(2, "Cold Spell I", 1, 4, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Sea Safety", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Wall of Ice", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Water Breathing", 0, 25, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Cold Spell II", 2, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Control Water Beasts", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Hail Storm", 0, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Water Monster I", 0, 3, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
-		//				new SpellRecord("Summon Water Beasts", 0, 3, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(3, "Cold Spell II", 2, 5, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Control Water Beasts", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Hail Storm", 0, 6, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Summon Water Monster I", 0, 3, 0)))); //$NON-NLS-1$
+		//				new SpellRecord(3, "Summon Water Beasts", 0, 3, 0)))); //$NON-NLS-1$
 
 		//DW verify Water Power 3 "Summon Water Beasts" : description is Summon Water Beast I, Summon Water Beast II, Summon Water Beast III (which)
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Cold Spell III", 3, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Lower Water", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Water Walk", 0, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(4, "Cold Spell III", 3, 6, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Lower Water", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Water Walk", 0, 5, 0)))); //$NON-NLS-1$
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Cold Spell IV", 4, 7, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Day of Fog", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Part Water", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Start Rain", 0, 30, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(5, "Cold Spell IV", 4, 7, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Day of Fog", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Part Water", 0, 20, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Start Rain", 0, 30, 1)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Cold Spell V", 5, 8, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Storm", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Water Wave", 0, 7, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(6, "Cold Spell V", 5, 8, 1), //$NON-NLS-1$
+						new SpellRecord(6, "Summon Storm", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Water Wave", 0, 7, 0)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Cold Spell VI", 6, 9, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Shell of Water Breathing", 0, 35, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Transport via Water", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Pressure", 0, 25, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(7, "Cold Spell VI", 6, 9, 1), //$NON-NLS-1$
+						new SpellRecord(7, "Shell of Water Breathing", 0, 35, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Transport via Water", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Pressure", 0, 25, 0)))); //$NON-NLS-1$
 
 	}
 
@@ -148,36 +147,36 @@ public class Water extends MagesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-		
+
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-		
+
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-		
+
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-		
+
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-		
+
 			4)	Add +3 Determination points per level past (1st).
-		
+
 			5)	Add +2% to Perception every level past (1st).
-		
+
 		Mages / Priests:
-		
+
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-		
+
 			2)	Add +2% to their Missile Bonus.
-		
+
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-		
+
 			4)	Add +1 Hit Point per level till the 10th level.
-		
+
 			5)	Add +1% per level to their Save Vs. Surprise.
-		
+
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

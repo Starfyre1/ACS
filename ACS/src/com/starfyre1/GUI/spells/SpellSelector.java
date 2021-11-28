@@ -41,7 +41,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	 * Constants
 	 ****************************************************************************/
 	private static final String	SPELL_SELECTOR		= "Spell Selector";											//$NON-NLS-1$
-	private static final String	POWER				= "Power ";													//$NON-NLS-1$
+	private static final String	LEVEL				= "Level ";													//$NON-NLS-1$
 
 	private static final String	DESCRIPTION			= "Description";											//$NON-NLS-1$
 	private static final String	LEARN				= "Learn";													//$NON-NLS-1$
@@ -95,7 +95,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		header.add(new TKPageTitleLabel(mSpellAreaName));
 
 		JPanel popupPanel = new JPanel();
-		JLabel popupLabel = new JLabel(POWER);
+		JLabel popupLabel = new JLabel(LEVEL);
 
 		popupPanel.add(popupLabel);
 		popupPanel.add(new TKPopupMenu(generateSpellLevelPopup()));

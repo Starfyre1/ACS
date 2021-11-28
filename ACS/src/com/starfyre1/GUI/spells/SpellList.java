@@ -4,6 +4,7 @@
 package com.starfyre1.GUI.spells;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.dataset.spells.SpellRecord;
@@ -35,15 +36,17 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String		FILE_SECTTION_START_KEY	= "SPELL_LIST_SECTTION_START";										//$NON-NLS-1$
-	public static final String		FILE_SECTTION_END_KEY	= "SPELL_LIST_SECTTION_END";										//$NON-NLS-1$
+	public static final String		FILE_SECTTION_START_KEY	= "SPELL_LIST_START";												//$NON-NLS-1$
+	public static final String		FILE_SECTTION_END_KEY	= "SPELL_LIST_END";													//$NON-NLS-1$
+	public static final String		SPELL_KEY				= "SPELL_KEY";														//$NON-NLS-1$
+	public static final String		LEVEL_KEY				= "LEVEL_KEY";														//$NON-NLS-1$
 
-	private static final String		POWER_LABEL				= "Power";															//$NON-NLS-1$
+	private static final String		LEVEL_LABEL				= "Level";															//$NON-NLS-1$
 	private static final String		SPELL_LABEL				= "Spell";															//$NON-NLS-1$
 	private static final String		CASTING_SPEED_LABEL		= "Csp";															//$NON-NLS-1$
 	private static final String		NOTES_LABEL				= "Notes";															//$NON-NLS-1$
-	private static final String[]	COLUMN_HEADER_NAMES		= { POWER_LABEL, SPELL_LABEL, CASTING_SPEED_LABEL, NOTES_LABEL };
-	private static final String[]	COLUMN_HEADER_TOOLTIPS	= { POWER_LABEL, SPELL_LABEL, CASTING_SPEED_LABEL, NOTES_LABEL };
+	private static final String[]	COLUMN_HEADER_NAMES		= { LEVEL_LABEL, SPELL_LABEL, CASTING_SPEED_LABEL, NOTES_LABEL };
+	private static final String[]	COLUMN_HEADER_TOOLTIPS	= { LEVEL_LABEL, SPELL_LABEL, CASTING_SPEED_LABEL, NOTES_LABEL };
 
 	/*****************************************************************************
 	 * Member Variables
@@ -77,7 +80,7 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 		TableColumnModel tcm1 = tableHeader1.getColumnModel();
 
 		TableColumn tc1 = tcm1.getColumn(0);
-		tc1.setHeaderValue(POWER_LABEL);
+		tc1.setHeaderValue(LEVEL_LABEL);
 		tc1.setMaxWidth(CharacterSheet.CELL_SMALL_MAX_WIDTH);
 
 		tc1 = tcm1.getColumn(1);
@@ -159,6 +162,7 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
+	private int mLevel; // this is used for serialization only
 
 	@Override
 	public StringTokenizer readValues(BufferedReader br) {
@@ -193,18 +197,21 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
-		//		br.write(MAGICAL_AREA_KEY + TKStringHelpers.SPACE + getMagicArea().replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+		for (SpellRecord record : mKnownSpells) {
+			br.write(LEVEL_KEY + TKStringHelpers.SPACE + record.getLevel() + System.lineSeparator());
+			br.write(SPELL_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
+		}
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
-		value = value.replace("~", " "); //$NON-NLS-1$ //$NON-NLS-2$
-		//		if (key.equals(MAGICAL_AREA_KEY)) {
-		//			mAreaPopup.selectPopupMenuItem(value);
-		//			mNewSpellButton.setEnabled(!SELECT_MAGIC_AREA.equals(getMagicArea()));
-		//		}
+		if (key.equals(LEVEL_KEY)) {
+			mLevel = TKStringHelpers.getIntValue(value, 0);
+		} else if (key.equals(SPELL_KEY)) {
+			//			addToKnownSpells(getSpell(mLevel, value));
+		}
 	}
 
 }

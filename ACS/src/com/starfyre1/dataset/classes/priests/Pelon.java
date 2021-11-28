@@ -2,7 +2,6 @@
 
 package com.starfyre1.dataset.classes.priests;
 
-import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataset.spells.SpellRecord;
 
@@ -96,77 +95,77 @@ public class Pelon extends PriestsBase {
 
 		// Power Zero:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Golden Touch", 0, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Judgment", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Light", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection I", 1, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Dark", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Turn Undead", 0, 3, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
-
-		// Power Two:
-		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Blessing of Light", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Familiar", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Glowing Mists", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Healing Glow", 0, 10, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Light Flash", 0, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection III", 3, 9, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Remove Curse", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Turn Demons", 0, 6, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
-
-		// Power Four:
-		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Commune", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Gift of Sight", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Healing Rays", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Pass Darkness", 0, 6, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection V", 5, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection Aura", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Vitality", 0, 30, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
-
-		// Power Six:
-		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Aura of Sautarius", 0, 360, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Gift of Sautarius", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Hold Sun", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Holy Sword", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection VII", 7, 21, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Raise Army", 0, -1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Rune : Slay Undead", 0, -1, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(0, "Golden Touch", 0, 3, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Judgment", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Light", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Protection I", 1, 3, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Protection : Dark", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Turn Undead", 0, 3, 1)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Blinding Eyes", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Healing", 0, 15, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Perpetual Light", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection II", 2, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Undead", 0, 3, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("See Invisibility", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Shield of Light", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Star Sight", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Turn Curse", 0, 0, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(1, "Blinding Eyes", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Healing", 0, 15, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Perpetual Light", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Protection II", 2, 6, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Protection : Undead", 0, 3, 1), //$NON-NLS-1$
+						new SpellRecord(1, "See Invisibility", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Shield of Light", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Star Sight", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Turn Curse", 0, 0, 0)))); //$NON-NLS-1$
+
+		// Power Two:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(2, "Blessing of Light", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Familiar", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Glowing Mists", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Healing Glow", 0, 10, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Light Flash", 0, 3, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Protection III", 3, 9, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Remove Curse", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Turn Demons", 0, 6, 1)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Blinding Light", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Illusions", 0, 30, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Night Sight", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 4, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Spears of Light I", 1, 3, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(3, "Blinding Light", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Illusions", 0, 30, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Night Sight", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Protection IV", 4, 12, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Spears of Light I", 1, 3, 1)))); //$NON-NLS-1$
+
+		// Power Four:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(4, "Commune", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Gift of Sight", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Healing Rays", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Pass Darkness", 0, 6, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Protection V", 5, 15, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Protection Aura", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Vitality", 0, 30, 1)))); //$NON-NLS-1$
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Call from Shadows", 0, 600, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection VI", 6, 18, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Spears of Light II", 2, 4, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Temple of Light", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Wall of Brilliance", 0, 10, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(5, "Call from Shadows", 0, 600, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Protection VI", 6, 18, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Spears of Light II", 2, 4, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Temple of Light", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Wall of Brilliance", 0, 10, 0)))); //$NON-NLS-1$
+
+		// Power Six:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(6, "Aura of Sautarius", 0, 360, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Gift of Sautarius", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Hold Sun", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Holy Sword", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Protection VII", 7, 21, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Raise Army", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Rune : Slay Undead", 0, -1, 0)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Call Daylight", 0, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Call to Law", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Transformation", 0, -1, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(7, "Call Daylight", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Call to Law", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Transformation", 0, -1, 0)))); //$NON-NLS-1$
 
 	}
 

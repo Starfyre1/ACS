@@ -2,7 +2,6 @@
 
 package com.starfyre1.dataset.classes.priests;
 
-import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataset.spells.SpellRecord;
 
@@ -86,63 +85,63 @@ public class Orn extends PriestsBase {
 
 		// Power Zero:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Heal Self", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Water Breathing", 0, 20, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Curse", 0, 1, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection I", 1, 5, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Control Element", 0, 25, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Fog", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Melt Ice", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Freeze Water", 0, 7, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(0, "Heal Self", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Water Breathing", 0, 20, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Curse", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Protection I", 1, 5, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Control Element", 0, 25, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Summon Fog", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Melt Ice", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Freeze Water", 0, 7, 1)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Darts", 0, 5, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Freedom", 0, 4, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection II", 2, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Locate Living", 0, 15, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Area of Gloom", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Shower", 0, 8, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection : Fire", 0, 0, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Sphere of Air I", 1, 5, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(1, "Darts", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Freedom", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Protection II", 2, 10, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Locate Living", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Area of Gloom", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Summon Shower", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Sphere of Air I", 1, 5, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Summon Water Monster I", 1, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection III", 3, 12, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Control Water Beasts", 0, 3, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Calm Wind", 0, 15, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(2, "Summon Water Monster I", 1, 3, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Protection III", 3, 12, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Control Water Beasts", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Calm Wind", 0, 15, 0)))); //$NON-NLS-1$
 		// DW Verify Summon/Control Water Monster or Water Beast
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Summon Water Monster II", 2, 6, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection IV", 4, 14, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Sphere of Air II", 2, 100, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Ice Storm I", 1, 6, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(3, "Summon Water Monster II", 2, 6, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Protection IV", 4, 14, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Sphere of Air II", 2, 100, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Ice Storm I", 1, 6, 1)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Summon Water Monster III", 3, 9, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Summon Storm", 0, 30, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Control Currents", 0, 50, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection V", 5, 16, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Damnation", 0, 120, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(4, "Summon Water Monster III", 3, 9, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Summon Storm", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Control Currents", 0, 50, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Protection V", 5, 16, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Damnation", 0, 120, 0)))); //$NON-NLS-1$
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Summon Water Monster IV", 4, 12, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Tidal Wave", 0, 300, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection VI", 6, 18, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Ice Storm II", 2, 9, 1, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(5, "Summon Water Monster IV", 4, 12, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Tidal Wave", 0, 300, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Protection VI", 6, 18, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Ice Storm II", 2, 9, 1)))); //$NON-NLS-1$
 		// DW Verify Summon Water Monster(Beast) IV doesn't exist Orn Power 5
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord("Summon Kraken", 0, 120, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Pressure", 0, 10, 0, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Protection VII", 7, 20, 1, TKStringHelpers.EMPTY_STRING), //$NON-NLS-1$
-						new SpellRecord("Control Weather", 0, 350, 0, TKStringHelpers.EMPTY_STRING)))); //$NON-NLS-1$
+						new SpellRecord(6, "Summon Kraken", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Pressure", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Protection VII", 7, 20, 1), //$NON-NLS-1$
+						new SpellRecord(6, "Control Weather", 0, 350, 0)))); //$NON-NLS-1$
 
 	}
 

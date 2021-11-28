@@ -51,7 +51,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 
 	public static final String		FILE_SECTTION_START_KEY		= "SPELL_LIST_SECTTION_START";										//$NON-NLS-1$
 	public static final String		FILE_SECTTION_END_KEY		= "SPELL_LIST_SECTTION_END";										//$NON-NLS-1$
-	public static final String		MAGICAL_AREA_KEY			= "MAGICAL_AREA_KEY";												//$NON-NLS-1$
+	public static final String		SELECTED_MAGICAL_AREA_KEY	= "SELECTED_MAGICAL_AREA_KEY";										//$NON-NLS-1$
 
 	private static final String		MAGIC_AREA_LABEL			= "Magic Area";														//$NON-NLS-1$
 	private static final String		EXPERIENCE_IN_AREA_LABEL	= "Experience in Area";												//$NON-NLS-1$
@@ -137,7 +137,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 					SpellSelector selector = new SpellSelector((CharacterSheet) getOwner(), magicArea);
 					SpellRecord record = selector.getSpellToLearn();
 					if (record != null) {
-
 						mCurrentList.addToKnownSpells(record);
 					}
 				}
@@ -243,14 +242,9 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		JMenuItem menuItem = (JMenuItem) e.getSource();
 		String text = menuItem.getText();
 		Component comp[] = mCards.getComponents();
-		// DW need to replace empty cards (SpellList) with new one. only keep cards that have spells in them. No spells then reuse
 		for (Component element : comp) {
 			if (element.getName().equals(text)) {
-				if (!SELECT_MAGIC_AREA.equals(text)) {
-					mCurrentList = (SpellList) element;
-				} else {
-					mCurrentList = null;
-				}
+				mCurrentList = SELECT_MAGIC_AREA.equals(text) ? null : (SpellList) element;
 				found = true;
 				break;
 			}
@@ -259,7 +253,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 			SpellList list = new SpellList(text);
 			mCards.add(text, list);
 			mCurrentList = list;
-			//			menuItem.setForeground(Color.BLUE);
 		}
 		((CardLayout) mCards.getLayout()).show(mCards, text);
 	}
@@ -329,7 +322,15 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
-		br.write(MAGICAL_AREA_KEY + TKStringHelpers.SPACE + getMagicArea().replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+		br.write(SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + getMagicArea().replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+
+		Component comp[] = mCards.getComponents();
+		for (Component element : comp) {
+			if (element instanceof SpellList) {
+				((SpellList) element).saveValues(br);
+			}
+		}
+
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 
@@ -337,7 +338,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
 		value = value.replace("~", " "); //$NON-NLS-1$ //$NON-NLS-2$
-		if (key.equals(MAGICAL_AREA_KEY)) {
+		if (key.equals(SELECTED_MAGICAL_AREA_KEY)) {
 			mAreaPopup.selectPopupMenuItem(value);
 			mNewSpellButton.setEnabled(!SELECT_MAGIC_AREA.equals(getMagicArea()));
 		}
