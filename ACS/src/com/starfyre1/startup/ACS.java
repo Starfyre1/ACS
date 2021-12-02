@@ -23,11 +23,11 @@ public class ACS {
 	public static final String			TITLE			= "ACS (Athri Character Sheet)";										//$NON-NLS-1$
 
 	private static int					MAJOR			= 0;																	// Incompatible changes
-	private static int					MINOR			= 0;																	// Compatible changes
+	private static int					MINOR			= 1;																	// Compatible changes
 	private static int					PATCH			= 0;																	// Bug fixes
 
-	private static String				RELEASE_DATE	= "August 01, 2021";													//$NON-NLS-1$
-	private static String				RELEASE_TIME	= "00:00:00.0 UTC/GMT";													//$NON-NLS-1$
+	private static String				RELEASE_DATE	= "December 02, 2021";													//$NON-NLS-1$
+	private static String				RELEASE_TIME	= "11:31 UTC/GMT";														//$NON-NLS-1$
 	public static String				COPYRIGHT		= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
 
 	public static final Font			MONOSPACED_FONT	= new Font(Font.MONOSPACED, Font.BOLD, 12);
