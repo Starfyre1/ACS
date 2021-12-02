@@ -48,6 +48,15 @@ public abstract class SpellUser extends BaseClass {
 		return list;
 	}
 
+	public SpellRecord getSpellRecord(int level, String name) {
+		for (SpellRecord record : getSpellList(level)) {
+			if (record.getName().equals(name)) {
+				return record;
+			}
+		}
+		return null;
+	}
+
 	/** @return The secondRequisite. */
 	public String getSecondRequisite() {
 		return mSecondRequisite;

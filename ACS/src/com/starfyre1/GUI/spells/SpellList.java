@@ -7,8 +7,11 @@ import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
+import com.starfyre1.dataset.ClassList;
+import com.starfyre1.dataset.common.SpellUser;
 import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -162,7 +165,8 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
-	private int mLevel; // this is used for serialization only
+	private int		mLevel;		// this is used for serialization only
+	private String	mAreaName;	// this is used for serialization only
 
 	@Override
 	public StringTokenizer readValues(BufferedReader br) {
@@ -179,6 +183,9 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 						break;
 					}
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value += " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}
@@ -210,7 +217,11 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 		if (key.equals(LEVEL_KEY)) {
 			mLevel = TKStringHelpers.getIntValue(value, 0);
 		} else if (key.equals(SPELL_KEY)) {
-			//			addToKnownSpells(getSpell(mLevel, value));
+			mAreaName = ACS.getInstance().getCharacterSheet().getSpellListDisplay().getMagicArea();
+			SpellUser spellUser = (SpellUser) ClassList.getCharacterClass(mAreaName);
+			SpellRecord spell = spellUser.getSpellRecord(mLevel, value);
+
+			addToKnownSpells(spell);
 		}
 	}
 

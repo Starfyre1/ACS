@@ -229,7 +229,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 
 		if (source instanceof JMenuItem) {
 			String text = ((JMenuItem) source).getText();
-			swapPanels(e);
+			swapPanels(text);
 			if (ACS.getInstance().getClasses().getClassesNamesList().contains(text)) {
 				((CharacterSheet) getOwner()).updateRecords();
 			}
@@ -237,10 +237,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		}
 	}
 
-	public void swapPanels(ActionEvent e) {
+	public void swapPanels(String text) {
 		boolean found = false;
-		JMenuItem menuItem = (JMenuItem) e.getSource();
-		String text = menuItem.getText();
 		Component comp[] = mCards.getComponents();
 		for (Component element : comp) {
 			if (element.getName().equals(text)) {
@@ -299,10 +297,15 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 					String key = tokenizer.nextToken();
 					if (key.equals(FILE_SECTTION_END_KEY)) {
 						return tokenizer;
+					} else if (key.equals(SpellList.FILE_SECTTION_START_KEY)) {
+						swapPanels(mAreaPopup.getSelectedItem());
+						tokenizer = mCurrentList.readValues(br);
+						continue;
 					} else if (!tokenizer.hasMoreTokens()) {
 						// key has no value
 						break;
 					}
+
 					String value = tokenizer.nextToken();
 					setKeyValuePair(key, value);
 				}
