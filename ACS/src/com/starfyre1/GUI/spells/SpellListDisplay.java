@@ -210,15 +210,19 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	public void itemStateChanged(ItemEvent e) {
 
 		if (mCurrentList != null) {
-			JMenuItem item = mAreaPopup.findPopupMenuItem(((ComboMenu) e.getItem()).getText());
-			if (item != null) {
-				if (mCurrentList.isKnownSpellsEmpty()) {
-					item.setForeground(Color.BLACK);
-					mCards.remove(mCurrentList);
-					mCurrentList = null;
-				} else {
-					item.setForeground(Color.BLUE);
-				}
+			updateSpellList(((ComboMenu) e.getItem()).getText());
+		}
+	}
+
+	private void updateSpellList(String name) {
+		JMenuItem item = mAreaPopup.findPopupMenuItem(name);
+		if (item != null) {
+			if (mCurrentList.isKnownSpellsEmpty()) {
+				item.setForeground(Color.BLACK);
+				mCards.remove(mCurrentList);
+				mCurrentList = null;
+			} else {
+				item.setForeground(Color.BLUE);
 			}
 		}
 	}
@@ -300,6 +304,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 					} else if (key.equals(SpellList.FILE_SECTTION_START_KEY)) {
 						swapPanels(mAreaPopup.getSelectedItem());
 						tokenizer = mCurrentList.readValues(br);
+						updateSpellList(mCurrentList.getName());
 						continue;
 					} else if (!tokenizer.hasMoreTokens()) {
 						// key has no value
@@ -325,11 +330,11 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
-		br.write(SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + getMagicArea().replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 
 		Component comp[] = mCards.getComponents();
 		for (Component element : comp) {
 			if (element instanceof SpellList) {
+				br.write(SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + ((SpellList) element).getName().replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 				((SpellList) element).saveValues(br);
 			}
 		}
@@ -343,6 +348,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		value = value.replace("~", " "); //$NON-NLS-1$ //$NON-NLS-2$
 		if (key.equals(SELECTED_MAGICAL_AREA_KEY)) {
 			mAreaPopup.selectPopupMenuItem(value);
+			swapPanels(mAreaPopup.getSelectedItem());
 			mNewSpellButton.setEnabled(!SELECT_MAGIC_AREA.equals(getMagicArea()));
 		}
 	}
