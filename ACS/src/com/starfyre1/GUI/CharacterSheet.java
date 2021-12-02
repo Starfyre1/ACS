@@ -13,12 +13,14 @@ import com.starfyre1.GUI.character.PersonalInformationDisplay;
 import com.starfyre1.GUI.character.SavingThowsDisplay;
 import com.starfyre1.GUI.character.SkillsDisplay;
 import com.starfyre1.GUI.equipment.AnimalsDisplay;
-import com.starfyre1.GUI.equipment.ArmorDisplay;
 import com.starfyre1.GUI.equipment.EquipmentDisplay;
 import com.starfyre1.GUI.equipment.MagicItemsDisplay;
 import com.starfyre1.GUI.equipment.NotesCommentsDisplay;
 import com.starfyre1.GUI.equipment.TitlesLandsPropertiesDisplay;
-import com.starfyre1.GUI.equipment.WeaponDisplay;
+import com.starfyre1.GUI.equipment.armor.ArmorEquippedDisplay;
+import com.starfyre1.GUI.equipment.armor.ArmorOwnedDisplay;
+import com.starfyre1.GUI.equipment.weapon.WeaponEquippedDisplay;
+import com.starfyre1.GUI.equipment.weapon.WeaponOwnedDisplay;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.GUI.spells.SpellListDisplay;
@@ -186,10 +188,10 @@ public class CharacterSheet implements ActionListener {
 	private MoneyDisplay					mMoneyDisplay;
 	private InnateAbilitiesDisplay			mInnateAbilitiesDisplay;
 
-	private ArmorDisplay					mArmorInformationDisplay;
+	private ArmorEquippedDisplay			mArmorEquippedDisplay;
 	private DefenseInformationDisplay		mDefenseInformationDisplay;
 
-	private WeaponDisplay					mWeaponInformationDisplay;
+	private WeaponEquippedDisplay			mWeaponEquippedDisplay;
 	private AttackTotalsDisplay				mAttackTotalsDisplay;
 
 	// Equipment Tab
@@ -199,8 +201,8 @@ public class CharacterSheet implements ActionListener {
 	private TitlesLandsPropertiesDisplay	mTitlesLandsPropertiesDisplay;
 	private NotesCommentsDisplay			mNotesCommentsDisplay;
 	private MagicItemsDisplay				mMagicItemsDisplay;
-	private ArmorDisplay					mArmorDisplay;
-	private WeaponDisplay					mWeaponDisplay;
+	private ArmorOwnedDisplay				mArmorOwnedDisplay;
+	private WeaponOwnedDisplay				mWeaponOwnedDisplay;
 
 	// Spell Tab
 	private SpellListDisplay				mSpellTab;
@@ -286,9 +288,9 @@ public class CharacterSheet implements ActionListener {
 		mMoneyDisplay = new MoneyDisplay(this);
 		mPersonalInformationDisplay = new PersonalInformationDisplay(this);
 		mDefenseInformationDisplay = new DefenseInformationDisplay(this);
-		mArmorInformationDisplay = new ArmorDisplay(null);
+		mArmorEquippedDisplay = new ArmorEquippedDisplay(null);
 		mInnateAbilitiesDisplay = new InnateAbilitiesDisplay(this);
-		mWeaponInformationDisplay = new WeaponDisplay(null);
+		mWeaponEquippedDisplay = new WeaponEquippedDisplay(null);
 		mAttackTotalsDisplay = new AttackTotalsDisplay(this);
 
 		JPanel wrapper1 = new JPanel();
@@ -318,14 +320,14 @@ public class CharacterSheet implements ActionListener {
 		BoxLayout blw4 = new BoxLayout(wrapper4, BoxLayout.X_AXIS);
 		wrapper4.setLayout(blw4);
 
-		wrapper4.add(mArmorInformationDisplay);
+		wrapper4.add(mArmorEquippedDisplay);
 		wrapper4.add(mInnateAbilitiesDisplay);
 
 		JPanel wrapper5 = new JPanel();
 		BoxLayout blw5 = new BoxLayout(wrapper5, BoxLayout.X_AXIS);
 		wrapper5.setLayout(blw5);
 
-		wrapper5.add(mWeaponInformationDisplay);
+		wrapper5.add(mWeaponEquippedDisplay);
 		wrapper5.add(mAttackTotalsDisplay);
 
 		page.add(wrapper1);
@@ -355,8 +357,8 @@ public class CharacterSheet implements ActionListener {
 		mTitlesLandsPropertiesDisplay = new TitlesLandsPropertiesDisplay(this);
 		mNotesCommentsDisplay = new NotesCommentsDisplay(this);
 		mMagicItemsDisplay = new MagicItemsDisplay(this);
-		mWeaponDisplay = new WeaponDisplay(this);
-		mArmorDisplay = new ArmorDisplay(this);
+		mWeaponOwnedDisplay = new WeaponOwnedDisplay(this);
+		mArmorOwnedDisplay = new ArmorOwnedDisplay(this);
 
 		JPanel wrapper = new JPanel();
 		BoxLayout blw = new BoxLayout(wrapper, BoxLayout.X_AXIS);
@@ -374,8 +376,8 @@ public class CharacterSheet implements ActionListener {
 		sizer.add(mMagicItemsDisplay);
 
 		page.add(mEquipmentDisplay);
-		page.add(mWeaponDisplay);
-		page.add(mArmorDisplay);
+		page.add(mWeaponOwnedDisplay);
+		page.add(mArmorOwnedDisplay);
 		page.add(sizer);
 
 		JScrollPane scrollPane = new JScrollPane(page);
@@ -549,12 +551,12 @@ public class CharacterSheet implements ActionListener {
 		mTitlesLandsPropertiesDisplay.loadDisplay();
 		mNotesCommentsDisplay.loadDisplay();
 		mMagicItemsDisplay.loadDisplay();
-		mArmorDisplay.loadDisplay();
-		mWeaponDisplay.loadDisplay();
+		mArmorOwnedDisplay.loadDisplay();
+		mWeaponOwnedDisplay.loadDisplay();
 
 		// Secondary Character Tab
-		mArmorInformationDisplay.loadDisplay();
-		mWeaponInformationDisplay.loadDisplay();
+		mArmorEquippedDisplay.loadDisplay();
+		mWeaponEquippedDisplay.loadDisplay();
 		mDefenseInformationDisplay.loadDisplay();
 		mAttackTotalsDisplay.loadDisplay();
 		mDefenseInformationDisplay.loadDisplay();
@@ -714,7 +716,7 @@ public class CharacterSheet implements ActionListener {
 	public void addAllArmor(ArrayList<ArmorRecord> purchasedItems) {
 		float cost = mArmorList.addAllArmor(purchasedItems, true);
 		mMoneyRecord.spend(cost);
-		mArmorDisplay.loadDisplay();
+		mArmorOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
 	}
 
@@ -734,7 +736,7 @@ public class CharacterSheet implements ActionListener {
 	public void addAllWeapons(ArrayList<WeaponRecord> purchasedItems) {
 		float cost = mWeaponList.addAllWeapons(purchasedItems, true);
 		mMoneyRecord.spend(cost);
-		mWeaponDisplay.loadDisplay();
+		mWeaponOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
 	}
 
@@ -911,27 +913,31 @@ public class CharacterSheet implements ActionListener {
 	}
 
 	public ArrayList<ArmorRecord> getEquippedArmorRecords() {
-		return mArmorInformationDisplay.getEquippedArmor();
+		return mArmorEquippedDisplay.getEquippedArmor();
 	}
 
 	public void equipArmor(ArmorRecord equipment, int index) {
-		mArmorInformationDisplay.equipArmor(equipment, index);
+		mArmorEquippedDisplay.equipArmor(equipment, index);
+		mDefenseInformationDisplay.loadDisplay();
+		mPersonalInformationDisplay.loadDisplay();
 	}
 
 	public void unEquipArmor(ArmorRecord equipment) {
-		mArmorInformationDisplay.unEquipArmor(equipment);
+		mArmorEquippedDisplay.unEquipArmor(equipment);
+		mDefenseInformationDisplay.loadDisplay();
+		mPersonalInformationDisplay.loadDisplay();
 	}
 
 	public ArrayList<WeaponRecord> getEquippedWeaponRecords() {
-		return mWeaponInformationDisplay.getEquippedWeapons();
+		return mWeaponEquippedDisplay.getEquippedWeapons();
 	}
 
 	public void equipWeapon(WeaponRecord equipment, int index) {
-		mWeaponInformationDisplay.equipWeapon(equipment, index);
+		mWeaponEquippedDisplay.equipWeapon(equipment, index);
 	}
 
 	public void unEquipWeapon(WeaponRecord equipment) {
-		mWeaponInformationDisplay.unEquipWeapon(equipment);
+		mWeaponEquippedDisplay.unEquipWeapon(equipment);
 	}
 
 	public ClassList getClasses() {

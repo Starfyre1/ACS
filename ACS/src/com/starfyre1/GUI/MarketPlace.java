@@ -3,10 +3,11 @@
 package com.starfyre1.GUI;
 
 import com.starfyre1.GUI.equipment.AnimalsDisplay;
-import com.starfyre1.GUI.equipment.ArmorDisplay;
 import com.starfyre1.GUI.equipment.EquipmentDisplay;
 import com.starfyre1.GUI.equipment.MagicItemsDisplay;
-import com.starfyre1.GUI.equipment.WeaponDisplay;
+import com.starfyre1.GUI.equipment.armor.ArmorMarketPlaceDisplay;
+import com.starfyre1.GUI.equipment.weapon.WeaponDisplay;
+import com.starfyre1.GUI.equipment.weapon.WeaponMarketPlaceDisplay;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.dataModel.MoneyRecord;
 import com.starfyre1.dataModel.storage.PreferenceStore;
@@ -53,28 +54,28 @@ public class MarketPlace extends JDialog implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	MARKET_PLACE			= "Market Place";		//$NON-NLS-1$
+	private static final String			MARKET_PLACE			= "Market Place";		//$NON-NLS-1$
 
-	private static final String	EQUIPMENT_TAB_TITLE		= "Equipment Shop";		//$NON-NLS-1$
-	private static final String	ARMOR_TAB_TITLE			= "Armor Shop";			//$NON-NLS-1$
-	private static final String	WEAPONS_TAB_TITLE		= "Weapons Shop";		//$NON-NLS-1$
-	private static final String	ANIMALS_TAB_TITLE		= "Animals Shop";		//$NON-NLS-1$
-	private static final String	MAGIC_ITEMS_TAB_TITLE	= "Magic Items Shop";	//$NON-NLS-1$
+	private static final String			EQUIPMENT_TAB_TITLE		= "Equipment Shop";		//$NON-NLS-1$
+	private static final String			ARMOR_TAB_TITLE			= "Armor Shop";			//$NON-NLS-1$
+	private static final String			WEAPONS_TAB_TITLE		= "Weapons Shop";		//$NON-NLS-1$
+	private static final String			ANIMALS_TAB_TITLE		= "Animals Shop";		//$NON-NLS-1$
+	private static final String			MAGIC_ITEMS_TAB_TITLE	= "Magic Items Shop";	//$NON-NLS-1$
 
 	// DW add something useful for the tooltips or remove them
-	private static final String	EQUIPMENT_TAB_TOOLTIP	= "Equipment Shop";		//$NON-NLS-1$
-	private static final String	ARMOR_TAB_TOOLTIP		= "Armor Shop";			//$NON-NLS-1$
-	private static final String	WEAPONS_TAB_TOOLTIP		= "Weapons Shop";		//$NON-NLS-1$
-	private static final String	ANIMALS_TAB_TOOLTIP		= "Animals Shop";		//$NON-NLS-1$
-	private static final String	MAGIC_ITEMS_TAB_TOOLTIP	= "Magic Items Shop";	//$NON-NLS-1$
+	private static final String			EQUIPMENT_TAB_TOOLTIP	= "Equipment Shop";		//$NON-NLS-1$
+	private static final String			ARMOR_TAB_TOOLTIP		= "Armor Shop";			//$NON-NLS-1$
+	private static final String			WEAPONS_TAB_TOOLTIP		= "Weapons Shop";		//$NON-NLS-1$
+	private static final String			ANIMALS_TAB_TOOLTIP		= "Animals Shop";		//$NON-NLS-1$
+	private static final String			MAGIC_ITEMS_TAB_TOOLTIP	= "Magic Items Shop";	//$NON-NLS-1$
 
-	private static final String	AVAILABLE				= "Available: ";		//$NON-NLS-1$
-	private static final String	COST					= "Cost: ";				//$NON-NLS-1$
-	private static final String	mGoldTitle				= " Gold: ";			//$NON-NLS-1$
-	private static final String	mSilverTitle			= " Silver: ";			//$NON-NLS-1$
-	private static final String	mCopperTitle			= " Copper: ";			//$NON-NLS-1$
+	private static final String			AVAILABLE				= "Available: ";		//$NON-NLS-1$
+	private static final String			COST					= "Cost: ";				//$NON-NLS-1$
+	private static final String			mGoldTitle				= " Gold: ";			//$NON-NLS-1$
+	private static final String			mSilverTitle			= " Silver: ";			//$NON-NLS-1$
+	private static final String			mCopperTitle			= " Copper: ";			//$NON-NLS-1$
 
-	private static final Icon	ICON					= null;
+	private static final Icon			ICON					= null;
 
 	//	private static EquipmentList	mEquipment;
 	//	private static ArmorList		mArmor;
@@ -85,26 +86,26 @@ public class MarketPlace extends JDialog implements ActionListener {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private static MarketPlace	mInstance;
+	private static MarketPlace			mInstance;
 
-	private JFrame				mFrame;
+	private JFrame						mFrame;
 
-	private JTabbedPane			mTabbedPane;
-	private EquipmentDisplay	mEquipmentShop;
-	private ArmorDisplay		mArmorShop;
-	private WeaponDisplay		mWeaponShop;
-	private AnimalsDisplay		mAnimalShop;
-	private MagicItemsDisplay	mMagicItemsShop;
+	private JTabbedPane					mTabbedPane;
+	private EquipmentDisplay			mEquipmentShop;
+	private ArmorMarketPlaceDisplay		mArmorShop;
+	private WeaponMarketPlaceDisplay	mWeaponShop;
+	private AnimalsDisplay				mAnimalShop;
+	private MagicItemsDisplay			mMagicItemsShop;
 
-	JButton						mBuyButton;
-	JButton						mCancelButton;
-	JButton						mSellButton;
+	JButton								mBuyButton;
+	JButton								mCancelButton;
+	JButton								mSellButton;
 
-	JLabel						mCost;
-	JLabel						mAvailable;
-	JLabel						mGold;
-	JLabel						mSilver;
-	JLabel						mCopper;
+	JLabel								mCost;
+	JLabel								mAvailable;
+	JLabel								mGold;
+	JLabel								mSilver;
+	JLabel								mCopper;
 
 	/*****************************************************************************
 	 * Constructors
@@ -212,7 +213,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 	private JComponent makeArmorTab() {
 		JPanel page = new JPanel(new BorderLayout());
 
-		mArmorShop = new ArmorDisplay(this);
+		mArmorShop = new ArmorMarketPlaceDisplay(this);
 
 		page.add(mArmorShop.getFilterPanel(), BorderLayout.NORTH);
 		page.add(mArmorShop, BorderLayout.CENTER);
@@ -223,7 +224,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 	private JComponent makeWeaponsTab() {
 		JPanel page = new JPanel(new BorderLayout());
 
-		mWeaponShop = new WeaponDisplay(this);
+		mWeaponShop = new WeaponMarketPlaceDisplay(this);
 
 		page.add(mWeaponShop.getFilterPanel(), BorderLayout.NORTH);
 		page.add(mWeaponShop, BorderLayout.CENTER);
@@ -281,12 +282,12 @@ public class MarketPlace extends JDialog implements ActionListener {
 			ACS.getInstance().getCharacterSheet().addAllEquipment(((EquipmentDisplay) comp).getPurchasedRows());
 		} else if (comp instanceof AnimalsDisplay) {
 			ACS.getInstance().getCharacterSheet().addAllAnimals(((AnimalsDisplay) comp).getPurchasedRows());
-		} else if (comp instanceof ArmorDisplay) {
-			ACS.getInstance().getCharacterSheet().addAllArmor(((ArmorDisplay) comp).getPurchasedRows());
+		} else if (comp instanceof ArmorMarketPlaceDisplay) {
+			ACS.getInstance().getCharacterSheet().addAllArmor(((ArmorMarketPlaceDisplay) comp).getPurchasedRows());
 		} else if (comp instanceof MagicItemsDisplay) {
 			ACS.getInstance().getCharacterSheet().addAllMagicItems(((MagicItemsDisplay) comp).getPurchasedRows());
 		} else if (comp instanceof WeaponDisplay) {
-			ACS.getInstance().getCharacterSheet().addAllWeapons(((WeaponDisplay) comp).getPurchasedRows());
+			ACS.getInstance().getCharacterSheet().addAllWeapons(((WeaponMarketPlaceDisplay) comp).getPurchasedRows());
 		} else {
 			return;
 		}
