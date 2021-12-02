@@ -914,8 +914,24 @@ public class CharacterSheet implements ActionListener {
 		return mArmorInformationDisplay.getEquippedArmor();
 	}
 
+	public void equipArmor(ArmorRecord equipment, int index) {
+		mArmorInformationDisplay.equipArmor(equipment, index);
+	}
+
+	public void unEquipArmor(ArmorRecord equipment) {
+		mArmorInformationDisplay.unEquipArmor(equipment);
+	}
+
 	public ArrayList<WeaponRecord> getEquippedWeaponRecords() {
 		return mWeaponInformationDisplay.getEquippedWeapons();
+	}
+
+	public void equipWeapon(WeaponRecord equipment, int index) {
+		mWeaponInformationDisplay.equipWeapon(equipment, index);
+	}
+
+	public void unEquipWeapon(WeaponRecord equipment) {
+		mWeaponInformationDisplay.unEquipWeapon(equipment);
 	}
 
 	public ClassList getClasses() {

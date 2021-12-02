@@ -211,10 +211,34 @@ public class WeaponDisplay extends TKTitledDisplay implements TableModelListener
 		return records;
 	}
 
+	private WeaponRecord getRecord(TableModelEvent e) {
+		int firstChangedRow = e.getFirstRow();
+		TKTableModel model = (TKTableModel) mTable.getModel();
+		@SuppressWarnings("rawtypes")
+		Vector<Vector> data = model.getDataVector();
+		if (!data.isEmpty() && model.getRowCount() > firstChangedRow) {
+			Vector<Object> row = data.get(firstChangedRow);
+			if (row != null) {
+				WeaponRecord record = new WeaponRecord(row);
+				return record;
+			}
+		}
+		return null;
+	}
+
 	@Override
 	public void tableChanged(TableModelEvent e) {
 		int row = e.getFirstRow();
-		WeaponRecord record = WeaponList.getMasterWeaponRecord(row);
+		WeaponRecord record = getRecord(e);
+		if (e.getColumn() == 1) {
+			boolean equipped = ((Boolean) mTable.getValueAt(row, e.getColumn())).booleanValue();
+			// DW add/remove from Armor table on character sheet
+			if (equipped) {
+				ACS.getInstance().getCharacterSheet().equipWeapon(record, row);
+			} else {
+				ACS.getInstance().getCharacterSheet().unEquipWeapon(record);
+			}
+		}
 		if (e.getColumn() == 3) {
 			TableModel model = mTable.getModel();
 			MetalRecord metal = (MetalRecord) model.getValueAt(row, e.getColumn());
@@ -269,6 +293,43 @@ public class WeaponDisplay extends TKTitledDisplay implements TableModelListener
 			}
 			market.setDisplayableCost(market.getDisplayableCost(mCost, true));
 			market.updateButtons(mCost);
+		}
+	}
+
+	public void equipWeapon(WeaponRecord equipment, int index) {
+		if (mEquippedWeapons == null) {
+			System.err.println("Wrong WeaponDisplay, Use WeaponDisplay from the Character Sheet");
+			return;
+		}
+		if (!mEquippedWeapons.contains(equipment)) {
+			mEquippedWeapons.add(equipment);
+			TKTableModel model = (TKTableModel) mTable.getModel();
+			int rowCount = model.getRowCount();
+			index = rowCount < index ? rowCount : index;
+			model.insertRow(index, equipment.getRecord());
+		}
+	}
+
+	public void unEquipWeapon(WeaponRecord equipment) {
+		if (mEquippedWeapons == null) {
+			System.err.println("Wrong WeaponDisplay, Use WeaponDisplay from the Character Sheet");
+			return;
+		}
+		mEquippedWeapons.remove(equipment);
+
+		TKTableModel model = (TKTableModel) mTable.getModel();
+		Vector<Vector> data = model.getDataVector();
+		int rows = model.getRowCount();
+		mCost = 0;
+		for (int i = 0; i < rows; i++) {
+			Vector<Object> row = data.get(i);
+			if (row != null) {
+				WeaponRecord record = new WeaponRecord(row);
+				if (record.equals(equipment)) {
+					model.removeRow(i);
+					break;
+				}
+			}
 		}
 	}
 

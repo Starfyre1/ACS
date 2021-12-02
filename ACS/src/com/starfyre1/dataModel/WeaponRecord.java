@@ -69,13 +69,36 @@ public class WeaponRecord extends TKTableRecord {
 
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		WeaponRecord record = (WeaponRecord) obj;
+		if (mName == record.mName && //
+						mMetal == record.mMetal && //
+						mType == record.mType && //
+						mHanded == record.mHanded && //
+						mStrength == record.mStrength && //
+						mDexterity == record.mDexterity && //
+						mEncumbrance == record.mEncumbrance && //
+						mWeaponLength == record.mWeaponLength && //
+						mAttackSpeed == record.mAttackSpeed && //
+						mWeaponBreak == record.mWeaponBreak && //
+						mHitBonus == record.mHitBonus && //
+						mDamageOneHanded == record.mDamageOneHanded && //
+						mDamageTwoHanded == record.mDamageTwoHanded && //
+						mCost == record.mCost) {
+			return true;
+		}
+
+		return false;
+	}
+
 	// DW find out why some are Strings and some are Integers or Boolean?
 	// see where we update the values because of the selected metal
 	public WeaponRecord(Vector<Object> obj) {
-		mCount = TKStringHelpers.getIntValue((String) obj.get(0), 0);
+		mCount = obj.get(0) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(0), 0) : ((Integer) obj.get(0)).intValue();
 		mEquipped = ((Boolean) obj.get(1)).booleanValue();
 		mName = (String) obj.get(2);
-		mMetal = MetalList.getMetalID(((MetalRecord) obj.get(3)).getName());
+		mMetal = MetalList.getMetalID(obj.get(3) instanceof String ? (String) obj.get(3) : ((MetalRecord) obj.get(3)).getName());
 		mType = TKStringHelpers.getIntValue((String) obj.get(4), 0);
 		String temp = (String) obj.get(5);
 		mHanded = temp.equals(mHandedLabel[0]) ? 0 : temp.equals(mHandedLabel[1]) ? 1 : temp.equals(mHandedLabel[2]) ? 2 : 3;

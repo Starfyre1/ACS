@@ -53,10 +53,10 @@ public class ArmorRecord extends TKTableRecord {
 	}
 
 	public ArmorRecord(Vector<Object> obj) {
-		mCount = TKStringHelpers.getIntValue((String) obj.get(0), 0);
+		mCount = obj.get(0) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(0), 0) : ((Integer) obj.get(0)).intValue();
 		mEquipped = ((Boolean) obj.get(1)).booleanValue();
 		mName = (String) obj.get(2);
-		mMetal = MetalList.getMetalID(((MetalRecord) obj.get(3)).getName());
+		mMetal = MetalList.getMetalID(obj.get(3) instanceof String ? (String) obj.get(3) : ((MetalRecord) obj.get(3)).getName());
 		mProtectionType = TKStringHelpers.getIntArray((String) obj.get(4), new int[0]);
 		mProtectionAmount = ((Integer) obj.get(5)).intValue();
 		mEncumbrance = ((Float) obj.get(6)).floatValue();
@@ -86,6 +86,27 @@ public class ArmorRecord extends TKTableRecord {
 		return new ArmorRecord(mCount, mEquipped, mName, mMetal, mProtectionType, mProtectionAmount, //
 						mEncumbrance, mAbsorption, mBonus, mMissileAbsorption, mStrengthRequirement, //
 						mParry, mBreak, mCost);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		ArmorRecord record = (ArmorRecord) obj;
+		if (mName == record.mName && //
+						mMetal == record.mMetal && //
+						//						mProtectionType == record.mProtectionType && //
+						mProtectionAmount == record.mProtectionAmount && //
+						mEncumbrance == record.mEncumbrance && //
+						mAbsorption == record.mAbsorption && //
+						mBonus == record.mBonus && //
+						mMissileAbsorption == record.mMissileAbsorption && //
+						mStrengthRequirement == record.mStrengthRequirement && //
+						mParry == record.mParry && //
+						mBreak == record.mBreak && //
+						mCost == record.mCost) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/*****************************************************************************
