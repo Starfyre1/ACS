@@ -71,25 +71,55 @@ public class WeaponRecord extends TKTableRecord {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+
 		WeaponRecord record = (WeaponRecord) obj;
-		if (mName == record.mName && //
+		if (mName.equals(record.mName) && //
 						mMetal == record.mMetal && //
 						mType == record.mType && //
 						mHanded == record.mHanded && //
 						mStrength == record.mStrength && //
 						mDexterity == record.mDexterity && //
-						mEncumbrance == record.mEncumbrance && //
+						// mEncumbrance == record.mEncumbrance && //
 						mWeaponLength == record.mWeaponLength && //
 						mAttackSpeed == record.mAttackSpeed && //
 						mWeaponBreak == record.mWeaponBreak && //
 						mHitBonus == record.mHitBonus && //
 						mDamageOneHanded == record.mDamageOneHanded && //
-						mDamageTwoHanded == record.mDamageTwoHanded && //
-						mCost == record.mCost) {
+						mDamageTwoHanded == record.mDamageTwoHanded) { // && //
+			// mCost == record.mCost) {
 			return true;
 		}
 
 		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (mName == null ? 0 : mName.hashCode());
+		result = prime * result + (mMetal ^ mMetal >>> 32);
+		result = prime * result + (mType ^ mType >>> 32);
+		result = prime * result + (mHanded ^ mHanded >>> 32);
+		result = prime * result + (mStrength ^ mStrength >>> 32);
+		result = prime * result + (mDexterity ^ mDexterity >>> 32);
+		result = prime * result + (mWeaponLength ^ mWeaponLength >>> 32);
+		result = prime * result + (mAttackSpeed ^ mAttackSpeed >>> 32);
+		result = prime * result + (mWeaponBreak ^ mWeaponBreak >>> 32);
+		result = prime * result + (mHitBonus ^ mHitBonus >>> 32);
+		result = prime * result + (mDamageOneHanded ^ mDamageOneHanded >>> 32);
+		result = prime * result + (mDamageTwoHanded ^ mDamageTwoHanded >>> 32);
+
+		return result;
 	}
 
 	// DW find out why some are Strings and some are Integers or Boolean?

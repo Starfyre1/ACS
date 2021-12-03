@@ -30,9 +30,9 @@ public class AnimalRecord extends TKTableRecord {
 	public AnimalRecord() {
 	}
 
-	public AnimalRecord(int count, String type, int carry, int move, int travel, String hits, int hitBonus, int kickDamage, int armor, float cost, String notes) {
+	public AnimalRecord(int count, String name, int carry, int move, int travel, String hits, int hitBonus, int kickDamage, int armor, float cost, String notes) {
 		mCount = count;
-		mName = type;
+		mName = name;
 		mCarry = carry;
 		mMove = move;
 		mTravel = travel;
@@ -58,6 +58,51 @@ public class AnimalRecord extends TKTableRecord {
 	public AnimalRecord clone() {
 		return new AnimalRecord(mCount, mName, mCarry, mMove, mTravel, mHits, //
 						mHitBonus, mKickDamage, mArmor, mCost, mNotes);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+
+		AnimalRecord record = (AnimalRecord) obj;
+		if (mName.equals(record.mName) && //
+						mCarry == record.mCarry && //
+						mMove == record.mMove && //
+						mTravel == record.mTravel && //
+						mHits.equals(record.mHits) && //
+						mHitBonus == record.mHitBonus && //
+						mKickDamage == record.mKickDamage && //
+						mArmor == record.mArmor && //
+						// mCost == record.mCost && //
+						mNotes.equals(record.mNotes)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (mName == null ? 0 : mName.hashCode());
+		result = prime * result + (mCarry ^ mCarry >>> 32);
+		result = prime * result + (mMove ^ mMove >>> 32);
+		result = prime * result + (mTravel ^ mTravel >>> 32);
+		result = prime * result + (mHits == null ? 0 : mHits.hashCode());
+		result = prime * result + (mHitBonus ^ mHitBonus >>> 32);
+		result = prime * result + (mKickDamage ^ mKickDamage >>> 32);
+		result = prime * result + (mArmor ^ mArmor >>> 32);
+		result = prime * result + (mNotes == null ? 0 : mNotes.hashCode());
+
+		return result;
 	}
 
 	/*****************************************************************************

@@ -101,9 +101,11 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 	public void swapTables() {
 
 		TKTableModel ownedModel = (TKTableModel) ACS.getInstance().getCharacterSheet().getArmorOwnedTable().getModel();
+		ownedModel.addTableModelListener(this);
 
 		if (((MarketPlace) getOwner()).isCharacterBuying()) {
 			mTable.setModel(mMarketModel);
+			ownedModel.removeTableModelListener(this);
 		} else {
 			mTable.setModel(ownedModel);
 		}

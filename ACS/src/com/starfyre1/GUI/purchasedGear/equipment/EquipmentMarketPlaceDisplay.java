@@ -92,9 +92,11 @@ public class EquipmentMarketPlaceDisplay extends EquipmentDisplay implements Tab
 	public void swapTables() {
 
 		TKTableModel ownedModel = (TKTableModel) ACS.getInstance().getCharacterSheet().getEquipmentOwnedTable().getModel();
+		ownedModel.addTableModelListener(this);
 
 		if (((MarketPlace) getOwner()).isCharacterBuying()) {
 			mTable.setModel(mMarketModel);
+			ownedModel.removeTableModelListener(this);
 		} else {
 			mTable.setModel(ownedModel);
 		}

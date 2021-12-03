@@ -90,23 +90,50 @@ public class ArmorRecord extends TKTableRecord {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+
 		ArmorRecord record = (ArmorRecord) obj;
-		if (mName == record.mName && //
+		if (mName.equals(record.mName) && //
 						mMetal == record.mMetal && //
-						//						mProtectionType == record.mProtectionType && //
+						// mProtectionType == record.mProtectionType && //
 						mProtectionAmount == record.mProtectionAmount && //
-						mEncumbrance == record.mEncumbrance && //
+						// mEncumbrance == record.mEncumbrance && //
 						mAbsorption == record.mAbsorption && //
 						mBonus == record.mBonus && //
 						mMissileAbsorption == record.mMissileAbsorption && //
 						mStrengthRequirement == record.mStrengthRequirement && //
 						mParry == record.mParry && //
-						mBreak == record.mBreak && //
-						mCost == record.mCost) {
+						mBreak == record.mBreak) {
+			//mCost == record.mCost) {
 			return true;
 		}
 
 		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (mName == null ? 0 : mName.hashCode());
+		result = prime * result + (mMetal ^ mMetal >>> 32);
+		result = prime * result + (mProtectionAmount ^ mProtectionAmount >>> 32);
+		result = prime * result + (mAbsorption ^ mAbsorption >>> 32);
+		result = prime * result + (mBonus ^ mBonus >>> 32);
+		result = prime * result + (mMissileAbsorption ^ mMissileAbsorption >>> 32);
+		result = prime * result + (mStrengthRequirement ^ mStrengthRequirement >>> 32);
+		result = prime * result + (mParry ^ mParry >>> 32);
+		result = prime * result + (mBreak ^ mBreak >>> 32);
+
+		return result;
 	}
 
 	/*****************************************************************************

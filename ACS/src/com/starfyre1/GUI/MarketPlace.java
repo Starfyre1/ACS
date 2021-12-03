@@ -321,6 +321,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 		mAnimalShop.swapTables();
 		mEquipmentShop.swapTables();
 		mMagicItemsShop.swapTables();
+		updateButtons(false);
 		// DW Load Market Place with players equipment, button to include equipped items
 		// DW Remove items and add money
 	}

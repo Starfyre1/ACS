@@ -46,6 +46,38 @@ public class EquipmentRecord extends TKTableRecord {
 		return new EquipmentRecord(mCount, mEquipped, mName, mEncumbrance, mCost, mNotes);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+
+		EquipmentRecord record = (EquipmentRecord) obj;
+		if (mName.equals(record.mName) && //
+		// mEncumbrance == record.mEncumbrance && //
+		// mCost == record.mCost && //
+						mNotes.equals(record.mNotes)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (mName == null ? 0 : mName.hashCode());
+		result = prime * result + (mNotes == null ? 0 : mNotes.hashCode());
+
+		return result;
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

@@ -100,9 +100,11 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 	public void swapTables() {
 
 		TKTableModel ownedModel = (TKTableModel) ACS.getInstance().getCharacterSheet().getWeaponOwnedTable().getModel();
+		ownedModel.addTableModelListener(this);
 
 		if (((MarketPlace) getOwner()).isCharacterBuying()) {
 			mTable.setModel(mMarketModel);
+			ownedModel.removeTableModelListener(this);
 		} else {
 			mTable.setModel(ownedModel);
 		}

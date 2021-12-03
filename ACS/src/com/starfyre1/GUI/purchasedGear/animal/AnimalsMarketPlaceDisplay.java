@@ -93,9 +93,11 @@ public class AnimalsMarketPlaceDisplay extends AnimalsDisplay implements TableMo
 	public void swapTables() {
 
 		TKTableModel ownedModel = (TKTableModel) ACS.getInstance().getCharacterSheet().getAnimalsOwnedTable().getModel();
+		ownedModel.addTableModelListener(this);
 
 		if (((MarketPlace) getOwner()).isCharacterBuying()) {
 			mTable.setModel(mMarketModel);
+			ownedModel.removeTableModelListener(this);
 		} else {
 			mTable.setModel(ownedModel);
 		}

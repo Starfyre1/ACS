@@ -22,10 +22,10 @@ public class MagicItemRecord extends TKTableRecord {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public MagicItemRecord(int count, boolean equipped, String item, int charges, float cost) {
+	public MagicItemRecord(int count, boolean equipped, String name, int charges, float cost) {
 		mCount = count;
 		mEquipped = equipped;
-		mName = item;
+		mName = name;
 		mCharges = charges;
 		mCost = cost;
 	}
@@ -41,6 +41,38 @@ public class MagicItemRecord extends TKTableRecord {
 	@Override
 	public MagicItemRecord clone() {
 		return new MagicItemRecord(mCount, mEquipped, mName, mCharges, mCost);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+
+		MagicItemRecord record = (MagicItemRecord) obj;
+		if (mName.equals(record.mName) && //
+						mCharges == record.mCharges) {// && //
+			//						mCost == record.mCost) {
+			return true;
+		}
+		return false;
+	}
+
+	// DW fix - the charges will be changing... will need a better hash
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (mName == null ? 0 : mName.hashCode());
+		result = prime * result + (mCharges ^ mCharges >>> 32);
+
+		return result;
 	}
 
 	/*****************************************************************************

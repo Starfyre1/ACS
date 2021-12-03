@@ -93,9 +93,11 @@ public class MagicItemsMarketPlaceDisplay extends MagicItemsDisplay implements T
 	public void swapTables() {
 
 		TKTableModel ownedModel = (TKTableModel) ACS.getInstance().getCharacterSheet().getMagicItemsOwnedTable().getModel();
+		ownedModel.addTableModelListener(this);
 
 		if (((MarketPlace) getOwner()).isCharacterBuying()) {
 			mTable.setModel(mMarketModel);
+			ownedModel.removeTableModelListener(this);
 		} else {
 			mTable.setModel(ownedModel);
 		}
