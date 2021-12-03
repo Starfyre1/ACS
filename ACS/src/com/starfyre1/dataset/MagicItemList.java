@@ -48,7 +48,7 @@ public class MagicItemList implements Savable {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	public float addAllMagicItems(ArrayList<MagicItemRecord> items, boolean calculateCost) {
+	public float addMagicItems(ArrayList<MagicItemRecord> items, boolean calculateCost) {
 		float cost = 0f;
 		for (MagicItemRecord record : items) {
 			boolean completed = false;
@@ -61,6 +61,34 @@ public class MagicItemList implements Savable {
 			}
 			if (!completed) {
 				mRecords.add(record);
+			}
+			if (calculateCost) {
+				cost += record.getCost() * record.getCount();
+			}
+		}
+		return cost;
+	}
+
+	/**
+	 * @param soldItems
+	 * @param calculateCost
+	 * @return cost
+	 */
+	public float removeMagicItems(ArrayList<MagicItemRecord> soldItems, boolean calculateCost) {
+		float cost = 0f;
+		for (MagicItemRecord record : soldItems) {
+			boolean completed = false;
+			for (MagicItemRecord owned : mRecords) {
+				// DW Think about stacking and unstacking like items
+				if (owned.getName().equals(record.getName())) {
+					owned.setCount(owned.getCount() - record.getCount());
+					if (owned.getCount() > 0) {
+						completed = true;
+					}
+				}
+			}
+			if (!completed) {
+				mRecords.remove(record);
 			}
 			if (calculateCost) {
 				cost += record.getCost() * record.getCount();

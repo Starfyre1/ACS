@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI.equipment.armor;
+package com.starfyre1.GUI.purchasedGear.armor;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.MarketPlace;
@@ -15,6 +15,7 @@ import com.starfyre1.dataModel.ArmorRecord;
 import com.starfyre1.dataModel.MetalRecord;
 import com.starfyre1.dataset.ArmorList;
 import com.starfyre1.dataset.MetalList;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 	 ****************************************************************************/
 	private JPanel				mFilterPanel;
 	private TKTable				mTable;
+	private TKTableModel		mMarketModel;
 	private float				mCost;
 
 	/*****************************************************************************
@@ -47,6 +49,8 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 
 	public ArmorMarketPlaceDisplay(Object owner) {
 		super(owner);
+
+		mMarketModel = (TKTableModel) mTable.getModel();
 	}
 
 	/*****************************************************************************
@@ -94,6 +98,20 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 		// not used
 	}
 
+	public void swapTables() {
+
+		TKTableModel ownedModel = (TKTableModel) ACS.getInstance().getCharacterSheet().getArmorOwnedTable().getModel();
+
+		if (((MarketPlace) getOwner()).isCharacterBuying()) {
+			mTable.setModel(mMarketModel);
+		} else {
+			mTable.setModel(ownedModel);
+		}
+		mTable.invalidate();
+		mTable.revalidate();
+		mTable.repaint();
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -101,7 +119,7 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 		return mFilterPanel;
 	}
 
-	public ArrayList<ArmorRecord> getPurchasedRows() {
+	public ArrayList<ArmorRecord> getSelectedRows() {
 		TKTableModel model = (TKTableModel) mTable.getModel();
 		@SuppressWarnings("rawtypes")
 		Vector<Vector> data = model.getDataVector();
@@ -201,7 +219,7 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 				}
 			}
 			market.setDisplayableCost(market.getDisplayableCost(mCost, true));
-			market.updateButtons(mCost);
+			market.updateButtons(market.canAfford(mCost));
 		}
 	}
 

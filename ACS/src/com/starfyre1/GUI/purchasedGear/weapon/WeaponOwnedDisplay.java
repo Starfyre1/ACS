@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI.equipment.weapon;
+package com.starfyre1.GUI.purchasedGear.weapon;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKTable;
@@ -119,6 +119,11 @@ public class WeaponOwnedDisplay extends WeaponDisplay implements TableModelListe
 				ACS.getInstance().getCharacterSheet().unEquipWeapon(record);
 			}
 		}
+	}
+
+	/** @return The table. */
+	public TKTable getTable() {
+		return mTable;
 	}
 
 	/*****************************************************************************

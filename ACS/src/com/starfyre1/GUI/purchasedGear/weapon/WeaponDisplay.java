@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI.equipment.weapon;
+package com.starfyre1.GUI.purchasedGear.weapon;
 
 import com.starfyre1.ToolKit.TKTitledDisplay;
 

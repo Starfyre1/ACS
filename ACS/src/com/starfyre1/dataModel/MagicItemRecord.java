@@ -56,7 +56,7 @@ public class MagicItemRecord extends TKTableRecord {
 	public Object getRecord(int id) {
 		Object output = switch (id) {
 			case 0:
-				yield Float.valueOf(mCount);
+				yield Integer.valueOf(mCount);
 			case 1:
 				yield Boolean.valueOf(mEquipped);
 			case 2:

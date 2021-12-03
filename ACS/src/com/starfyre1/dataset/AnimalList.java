@@ -82,7 +82,7 @@ public class AnimalList implements Savable {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	public float addAllAnimals(ArrayList<AnimalRecord> items, boolean calculateCost) {
+	public float addAnimals(ArrayList<AnimalRecord> items, boolean calculateCost) {
 		float cost = 0f;
 		for (AnimalRecord record : items) {
 			boolean complete = false;
@@ -95,6 +95,34 @@ public class AnimalList implements Savable {
 			}
 			if (!complete) {
 				mRecords.add(record);
+			}
+			if (calculateCost) {
+				cost += record.getCost() * record.getCount();
+			}
+		}
+		return cost;
+	}
+
+	/**
+	 * @param soldItems
+	 * @param calculateCost
+	 * @return cost
+	 */
+	public float removeAnimals(ArrayList<AnimalRecord> soldItems, boolean calculateCost) {
+		float cost = 0f;
+		for (AnimalRecord record : soldItems) {
+			boolean completed = false;
+			for (AnimalRecord owned : mRecords) {
+				// DW Think about stacking and unstacking like items
+				if (owned.getName().equals(record.getName())) {
+					owned.setCount(owned.getCount() - record.getCount());
+					if (owned.getCount() > 0) {
+						completed = true;
+					}
+				}
+			}
+			if (!completed) {
+				mRecords.remove(record);
 			}
 			if (calculateCost) {
 				cost += record.getCost() * record.getCount();

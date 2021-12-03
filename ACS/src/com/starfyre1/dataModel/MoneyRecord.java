@@ -77,16 +77,21 @@ public class MoneyRecord implements Savable {
 	 */
 	public void spend(float cost) {
 		// DW update this to not convert money
-		//		int copper = (int) ((cost - (int) cost) * 10);
-		//		int gold = (int) (cost / 10);
-		//		int silver = (int) (cost - gold * 10);
-		//		System.out.println("Gold: " + gold + " Silver: " + silver + " Copper: " + copper);
-
 		float balance = getAvailableMoney() - cost;
 		mGold = (int) balance / 10;
 		mSilver = (int) balance - mGold * 10;
 		mCopper = (int) ((balance - (int) balance) * 10);
-		//		System.out.println("Gold: " + mGold + " Silver: " + mSilver + " Copper: " + mCopper);
+	}
+
+	/**
+	 * @param amountReceived
+	 */
+	public void receive(float amountReceived) {
+		int gold = (int) amountReceived / 10;
+		mGold += gold;
+		mSilver += (int) amountReceived - gold * 10;
+		mCopper += (int) ((amountReceived - (int) amountReceived) * 10);
+
 	}
 
 	/*****************************************************************************

@@ -12,19 +12,20 @@ import com.starfyre1.GUI.character.MoneyDisplay;
 import com.starfyre1.GUI.character.PersonalInformationDisplay;
 import com.starfyre1.GUI.character.SavingThowsDisplay;
 import com.starfyre1.GUI.character.SkillsDisplay;
-import com.starfyre1.GUI.equipment.AnimalsDisplay;
-import com.starfyre1.GUI.equipment.EquipmentDisplay;
-import com.starfyre1.GUI.equipment.MagicItemsDisplay;
-import com.starfyre1.GUI.equipment.NotesCommentsDisplay;
-import com.starfyre1.GUI.equipment.TitlesLandsPropertiesDisplay;
-import com.starfyre1.GUI.equipment.armor.ArmorEquippedDisplay;
-import com.starfyre1.GUI.equipment.armor.ArmorOwnedDisplay;
-import com.starfyre1.GUI.equipment.weapon.WeaponEquippedDisplay;
-import com.starfyre1.GUI.equipment.weapon.WeaponOwnedDisplay;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.journal.JournalDisplay;
+import com.starfyre1.GUI.purchasedGear.animal.AnimalsOwnedDisplay;
+import com.starfyre1.GUI.purchasedGear.armor.ArmorEquippedDisplay;
+import com.starfyre1.GUI.purchasedGear.armor.ArmorOwnedDisplay;
+import com.starfyre1.GUI.purchasedGear.equipment.EquipmentOwnedDisplay;
+import com.starfyre1.GUI.purchasedGear.magicItems.MagicItemsOwnedDisplay;
+import com.starfyre1.GUI.purchasedGear.misc.NotesCommentsDisplay;
+import com.starfyre1.GUI.purchasedGear.misc.TitlesLandsPropertiesDisplay;
+import com.starfyre1.GUI.purchasedGear.weapon.WeaponEquippedDisplay;
+import com.starfyre1.GUI.purchasedGear.weapon.WeaponOwnedDisplay;
 import com.starfyre1.GUI.spells.SpellListDisplay;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.dataModel.AnimalRecord;
 import com.starfyre1.dataModel.ArmorRecord;
 import com.starfyre1.dataModel.AttributesRecord;
@@ -195,12 +196,12 @@ public class CharacterSheet implements ActionListener {
 	private AttackTotalsDisplay				mAttackTotalsDisplay;
 
 	// Equipment Tab
-	private EquipmentDisplay				mEquipmentDisplay;
+	private EquipmentOwnedDisplay			mEquipmentOwnedDisplay;
 
-	private AnimalsDisplay					mAnimalsDisplay;
+	private AnimalsOwnedDisplay				mAnimalsOwnedDisplay;
 	private TitlesLandsPropertiesDisplay	mTitlesLandsPropertiesDisplay;
 	private NotesCommentsDisplay			mNotesCommentsDisplay;
-	private MagicItemsDisplay				mMagicItemsDisplay;
+	private MagicItemsOwnedDisplay			mMagicItemsOwnedDisplay;
 	private ArmorOwnedDisplay				mArmorOwnedDisplay;
 	private WeaponOwnedDisplay				mWeaponOwnedDisplay;
 
@@ -352,11 +353,11 @@ public class CharacterSheet implements ActionListener {
 		BoxLayout boxLayout = new BoxLayout(page, BoxLayout.Y_AXIS);
 		page.setLayout(boxLayout);
 
-		mEquipmentDisplay = new EquipmentDisplay(this);
-		mAnimalsDisplay = new AnimalsDisplay(this);
+		mEquipmentOwnedDisplay = new EquipmentOwnedDisplay(this);
+		mAnimalsOwnedDisplay = new AnimalsOwnedDisplay(this);
 		mTitlesLandsPropertiesDisplay = new TitlesLandsPropertiesDisplay(this);
 		mNotesCommentsDisplay = new NotesCommentsDisplay(this);
-		mMagicItemsDisplay = new MagicItemsDisplay(this);
+		mMagicItemsOwnedDisplay = new MagicItemsOwnedDisplay(this);
 		mWeaponOwnedDisplay = new WeaponOwnedDisplay(this);
 		mArmorOwnedDisplay = new ArmorOwnedDisplay(this);
 
@@ -371,11 +372,11 @@ public class CharacterSheet implements ActionListener {
 		BoxLayout bl = new BoxLayout(sizer, BoxLayout.Y_AXIS);
 		sizer.setLayout(bl);
 
-		sizer.add(mAnimalsDisplay);
+		sizer.add(mAnimalsOwnedDisplay);
 		sizer.add(wrapper);
-		sizer.add(mMagicItemsDisplay);
+		sizer.add(mMagicItemsOwnedDisplay);
 
-		page.add(mEquipmentDisplay);
+		page.add(mEquipmentOwnedDisplay);
 		page.add(mWeaponOwnedDisplay);
 		page.add(mArmorOwnedDisplay);
 		page.add(sizer);
@@ -546,11 +547,11 @@ public class CharacterSheet implements ActionListener {
 		mInnateAbilitiesDisplay.loadDisplay();
 
 		// Equipment Tab
-		mEquipmentDisplay.loadDisplay();
-		mAnimalsDisplay.loadDisplay();
+		mEquipmentOwnedDisplay.loadDisplay();
+		mAnimalsOwnedDisplay.loadDisplay();
 		mTitlesLandsPropertiesDisplay.loadDisplay();
 		mNotesCommentsDisplay.loadDisplay();
-		mMagicItemsDisplay.loadDisplay();
+		mMagicItemsOwnedDisplay.loadDisplay();
 		mArmorOwnedDisplay.loadDisplay();
 		mWeaponOwnedDisplay.loadDisplay();
 
@@ -693,28 +694,28 @@ public class CharacterSheet implements ActionListener {
 	/**
 	 * @param purchasedItems
 	 */
-	public void addAllEquipment(ArrayList<EquipmentRecord> purchasedItems) {
-		float cost = mEquipmentList.addAllEquipment(purchasedItems, true);
+	public void addEquipment(ArrayList<EquipmentRecord> purchasedItems) {
+		float cost = mEquipmentList.addEquipment(purchasedItems, true);
 		mMoneyRecord.spend(cost);
-		mEquipmentDisplay.loadDisplay();
+		mEquipmentOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
 	}
 
 	/**
 	 * @param purchasedItems
 	 */
-	public void addAllAnimals(ArrayList<AnimalRecord> purchasedItems) {
-		float cost = mAnimalList.addAllAnimals(purchasedItems, true);
+	public void addAnimals(ArrayList<AnimalRecord> purchasedItems) {
+		float cost = mAnimalList.addAnimals(purchasedItems, true);
 		mMoneyRecord.spend(cost);
-		mAnimalsDisplay.loadDisplay();
+		mAnimalsOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
 	}
 
 	/**
 	 * @param purchasedItems
 	 */
-	public void addAllArmor(ArrayList<ArmorRecord> purchasedItems) {
-		float cost = mArmorList.addAllArmor(purchasedItems, true);
+	public void addArmor(ArrayList<ArmorRecord> purchasedItems) {
+		float cost = mArmorList.addArmor(purchasedItems, true);
 		mMoneyRecord.spend(cost);
 		mArmorOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -723,19 +724,69 @@ public class CharacterSheet implements ActionListener {
 	/**
 	 * @param purchasedItems
 	 */
-	public void addAllMagicItems(ArrayList<MagicItemRecord> purchasedItems) {
-		float cost = mMagicItemList.addAllMagicItems(purchasedItems, true);
+	public void addMagicItems(ArrayList<MagicItemRecord> purchasedItems) {
+		float cost = mMagicItemList.addMagicItems(purchasedItems, true);
 		mMoneyRecord.spend(cost);
-		mMagicItemsDisplay.loadDisplay();
+		mMagicItemsOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
 	}
 
 	/**
 	 * @param purchasedItems
 	 */
-	public void addAllWeapons(ArrayList<WeaponRecord> purchasedItems) {
-		float cost = mWeaponList.addAllWeapons(purchasedItems, true);
+	public void addWeapons(ArrayList<WeaponRecord> purchasedItems) {
+		float cost = mWeaponList.addWeapons(purchasedItems, true);
 		mMoneyRecord.spend(cost);
+		mWeaponOwnedDisplay.loadDisplay();
+		mMoneyDisplay.loadDisplay();
+	}
+
+	/**
+	 * @param soldItems
+	 */
+	public void removeEquipment(ArrayList<EquipmentRecord> soldItems) {
+		float cost = mEquipmentList.removeEquipment(soldItems, true);
+		mMoneyRecord.receive(cost);
+		mEquipmentOwnedDisplay.loadDisplay();
+		mMoneyDisplay.loadDisplay();
+	}
+
+	/**
+	 * @param soldItems
+	 */
+	public void removeAnimals(ArrayList<AnimalRecord> soldItems) {
+		float cost = mAnimalList.removeAnimals(soldItems, true);
+		mMoneyRecord.receive(cost);
+		mAnimalsOwnedDisplay.loadDisplay();
+		mMoneyDisplay.loadDisplay();
+	}
+
+	/**
+	 * @param soldItems
+	 */
+	public void removeArmor(ArrayList<ArmorRecord> soldItems) {
+		float cost = mArmorList.removeArmor(soldItems, true);
+		mMoneyRecord.receive(cost);
+		mArmorOwnedDisplay.loadDisplay();
+		mMoneyDisplay.loadDisplay();
+	}
+
+	/**
+	 * @param soldItems
+	 */
+	public void removeMagicItems(ArrayList<MagicItemRecord> soldItems) {
+		float cost = mMagicItemList.removeMagicItems(soldItems, true);
+		mMoneyRecord.receive(cost);
+		mMagicItemsOwnedDisplay.loadDisplay();
+		mMoneyDisplay.loadDisplay();
+	}
+
+	/**
+	 * @param soldItems
+	 */
+	public void removeWeapons(ArrayList<WeaponRecord> soldItems) {
+		float cost = mWeaponList.removeWeapons(soldItems, true);
+		mMoneyRecord.receive(cost);
 		mWeaponOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
 	}
@@ -1036,6 +1087,37 @@ public class CharacterSheet implements ActionListener {
 		mCampaignDate = campaignDate;
 	}
 
+	public boolean hasItemsToSell() {
+		try {
+			if (mEquipmentList.getRecords().isEmpty() && mArmorList.getRecords().isEmpty() && mWeaponList.getRecords().isEmpty() && mAnimalList.getRecords().isEmpty() && mMagicItemList.getRecords().isEmpty()) {
+				return false;
+			}
+		} catch (NullPointerException npe) {
+			return false;
+		}
+		return true;
+	}
+
+	public TKTable getArmorOwnedTable() {
+		return mArmorOwnedDisplay.getTable();
+	}
+
+	public TKTable getWeaponOwnedTable() {
+		return mWeaponOwnedDisplay.getTable();
+	}
+
+	public TKTable getAnimalsOwnedTable() {
+		return mAnimalsOwnedDisplay.getTable();
+	}
+
+	public TKTable getEquipmentOwnedTable() {
+		return mEquipmentOwnedDisplay.getTable();
+	}
+
+	public TKTable getMagicItemsOwnedTable() {
+		return mMagicItemsOwnedDisplay.getTable();
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
@@ -1179,5 +1261,4 @@ public class CharacterSheet implements ActionListener {
 			}
 		}
 	}
-
 }

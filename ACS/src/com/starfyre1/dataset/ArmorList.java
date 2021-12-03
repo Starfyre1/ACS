@@ -66,12 +66,25 @@ public class ArmorList implements Savable {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	public float addAllArmor(ArrayList<ArmorRecord> items, boolean calculateCost) {
+	public float addArmor(ArrayList<ArmorRecord> items, boolean calculateCost) {
 		float cost = 0f;
 		// DW Think about stacking and unstacking like items
 		for (ArmorRecord record : items) {
 			// this needs to be added one line each for equipping
 			mRecords.add(record);
+			if (calculateCost) {
+				cost += record.getCost() * record.getCount();
+			}
+		}
+		return cost;
+	}
+
+	public float removeArmor(ArrayList<ArmorRecord> items, boolean calculateCost) {
+		float cost = 0f;
+		// DW Think about stacking and unstacking like items
+		for (ArmorRecord record : items) {
+			// this needs to be added one line each for equipping
+			mRecords.remove(record);
 			if (calculateCost) {
 				cost += record.getCost() * record.getCount();
 			}

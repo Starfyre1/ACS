@@ -50,9 +50,9 @@ public class EquipmentList implements Savable {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	public float addAllEquipment(ArrayList<EquipmentRecord> items, boolean calculateCost) {
+	public float addEquipment(ArrayList<EquipmentRecord> boughtItems, boolean calculateCost) {
 		float cost = 0f;
-		for (EquipmentRecord record : items) {
+		for (EquipmentRecord record : boughtItems) {
 			boolean completed = false;
 			for (EquipmentRecord owned : mRecords) {
 				// DW Think about stacking and unstacking like items
@@ -63,6 +63,34 @@ public class EquipmentList implements Savable {
 			}
 			if (!completed) {
 				mRecords.add(record);
+			}
+			if (calculateCost) {
+				cost += record.getCost() * record.getCount();
+			}
+		}
+		return cost;
+	}
+
+	/**
+	 * @param soldItems
+	 * @param calculateCost
+	 * @return cost
+	 */
+	public float removeEquipment(ArrayList<EquipmentRecord> soldItems, boolean calculateCost) {
+		float cost = 0f;
+		for (EquipmentRecord record : soldItems) {
+			boolean completed = false;
+			for (EquipmentRecord owned : mRecords) {
+				// DW Think about stacking and unstacking like items
+				if (owned.getName().equals(record.getName())) {
+					owned.setCount(owned.getCount() - record.getCount());
+					if (owned.getCount() > 0) {
+						completed = true;
+					}
+				}
+			}
+			if (!completed) {
+				mRecords.remove(record);
 			}
 			if (calculateCost) {
 				cost += record.getCost() * record.getCount();
@@ -195,5 +223,4 @@ public class EquipmentList implements Savable {
 			System.err.println("Unknown key read from file: " + getClass() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
-
 }

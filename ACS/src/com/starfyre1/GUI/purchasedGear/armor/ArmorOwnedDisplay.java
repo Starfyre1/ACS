@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI.equipment.armor;
+package com.starfyre1.GUI.purchasedGear.armor;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKTable;
@@ -89,6 +89,21 @@ public class ArmorOwnedDisplay extends ArmorDisplay implements TableModelListene
 		}
 	}
 
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		int row = e.getFirstRow();
+		ArmorRecord record = getRecord(e);
+		if (e.getColumn() == 1) {
+			boolean equipped = ((Boolean) mTable.getValueAt(row, e.getColumn())).booleanValue();
+			// DW add/remove from Armor table on character sheet
+			if (equipped) {
+				ACS.getInstance().getCharacterSheet().equipArmor(record, row);
+			} else {
+				ACS.getInstance().getCharacterSheet().unEquipArmor(record);
+			}
+		}
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -107,19 +122,9 @@ public class ArmorOwnedDisplay extends ArmorDisplay implements TableModelListene
 		return null;
 	}
 
-	@Override
-	public void tableChanged(TableModelEvent e) {
-		int row = e.getFirstRow();
-		ArmorRecord record = getRecord(e);
-		if (e.getColumn() == 1) {
-			boolean equipped = ((Boolean) mTable.getValueAt(row, e.getColumn())).booleanValue();
-			// DW add/remove from Armor table on character sheet
-			if (equipped) {
-				ACS.getInstance().getCharacterSheet().equipArmor(record, row);
-			} else {
-				ACS.getInstance().getCharacterSheet().unEquipArmor(record);
-			}
-		}
+	/** @return The table. */
+	public TKTable getTable() {
+		return mTable;
 	}
 
 	/*****************************************************************************
