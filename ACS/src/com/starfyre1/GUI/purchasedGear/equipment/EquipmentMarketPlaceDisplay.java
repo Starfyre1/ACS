@@ -21,10 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-public class EquipmentMarketPlaceDisplay extends EquipmentDisplay implements TableModelListener {
+public class EquipmentMarketPlaceDisplay extends EquipmentDisplay implements TableModelListener, ListSelectionListener {
 
 	/*****************************************************************************
 	 * Constants
@@ -90,19 +92,28 @@ public class EquipmentMarketPlaceDisplay extends EquipmentDisplay implements Tab
 	}
 
 	public void swapTables() {
-
 		TKTableModel ownedModel = (TKTableModel) ACS.getInstance().getCharacterSheet().getEquipmentOwnedTable().getModel();
 		ownedModel.addTableModelListener(this);
+		mTable.getSelectionModel().addListSelectionListener(this);
 
 		if (((MarketPlace) getOwner()).isCharacterBuying()) {
 			mTable.setModel(mMarketModel);
 			ownedModel.removeTableModelListener(this);
+			mTable.getSelectionModel().removeListSelectionListener(this);
 		} else {
 			mTable.setModel(ownedModel);
 		}
 		mTable.invalidate();
 		mTable.revalidate();
 		mTable.repaint();
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		mTable.getSelectedRow();
+
+		MarketPlace market = MarketPlace.getInstance();
+		market.updateButtons(mTable.getSelectedRow() > -1);
 	}
 
 	/*****************************************************************************
@@ -112,33 +123,42 @@ public class EquipmentMarketPlaceDisplay extends EquipmentDisplay implements Tab
 		return mFilterPanel;
 	}
 
-	public ArrayList<EquipmentRecord> getSelectedRows() {
+	public ArrayList<EquipmentRecord> getSelectedRows(boolean buying) {
 		TKTableModel model = (TKTableModel) mTable.getModel();
 		@SuppressWarnings("rawtypes")
 		Vector<Vector> data = model.getDataVector();
 		int rows = model.getRowCount();
 		mCost = 0;
 		ArrayList<EquipmentRecord> records = new ArrayList<>(rows);
-		for (int i = 0; i < rows; i++) {
-			Vector<Object> row = data.get(i);
-			if (row != null) {
-				// get rows that have a count > 0...
-				Object element = row.get(0);
-				if (element == null) {
-					continue;
+		if (buying) {
+			for (int i = 0; i < rows; i++) {
+				Vector<Object> row = data.get(i);
+				if (row != null) {
+					// get rows that have a count > 0...
+					Object element = row.get(0);
+					if (element == null) {
+						continue;
+					}
+					int count;
+					if (element instanceof String) {
+						count = TKStringHelpers.getIntValue((String) element, 0);
+					} else {
+						count = ((Integer) element).intValue();
+					}
+					if (count > 0) {
+						EquipmentRecord record = EquipmentList.getMasterEquipmentRecord(i).clone();
+						record.setCount(count);
+						record.setEquipped(((Boolean) row.get(1)).booleanValue());
+						records.add(record);
+					}
 				}
-				int count;
-				if (element instanceof String) {
-					count = TKStringHelpers.getIntValue((String) element, 0);
-				} else {
-					count = ((Integer) element).intValue();
-				}
-				if (count > 0) {
-					EquipmentRecord record = EquipmentList.getMasterEquipmentRecord(i).clone();
-					record.setCount(count);
-					record.setEquipped(((Boolean) row.get(1)).booleanValue());
-					records.add(record);
-				}
+			}
+		} else {
+			int selectedRows[] = mTable.getSelectedRows();
+			for (int selectedRow : selectedRows) {
+				Vector<Object> row = data.get(selectedRow);
+				EquipmentRecord record = new EquipmentRecord(row);
+				records.add(record);
 			}
 		}
 

@@ -2,7 +2,10 @@
 
 package com.starfyre1.dataModel;
 
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTableRecord;
+
+import java.util.Vector;
 
 public class EquipmentRecord extends TKTableRecord {
 	/*****************************************************************************
@@ -30,6 +33,16 @@ public class EquipmentRecord extends TKTableRecord {
 		mEncumbrance = encumbrance;
 		mCost = cost;
 		mNotes = notes;
+
+	}
+
+	public EquipmentRecord(Vector<Object> obj) {
+		mCount = obj.get(0) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(0), 0) : ((Integer) obj.get(0)).intValue();
+		mEquipped = ((Boolean) obj.get(1)).booleanValue();
+		mName = (String) obj.get(2);
+		mEncumbrance = ((Float) obj.get(3)).floatValue();
+		mCost = ((Float) obj.get(4)).floatValue();
+		mNotes = (String) obj.get(5);
 
 	}
 

@@ -76,6 +76,8 @@ public class MarketPlace extends JDialog implements ActionListener {
 	private static final String				SELL					= "Sell";				//$NON-NLS-1$
 	private static final String				CANCEL					= "Cancel";				//$NON-NLS-1$
 	private static final String				BUY						= "Buy";				//$NON-NLS-1$
+	private static final String				SELL_MERCHANT			= "Sell Merchant";		//$NON-NLS-1$
+	private static final String				BUY_MERCHANT			= "Buy Merchant";		//$NON-NLS-1$
 
 	private static final Icon				ICON					= null;
 
@@ -176,7 +178,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 
 		mBuyButton = TKComponentHelpers.createButton(BUY, this, false);
 		mCancelButton = TKComponentHelpers.createButton(CANCEL, this);
-		mSellButton = TKComponentHelpers.createButton(SELL, this, false);
+		mSellButton = TKComponentHelpers.createButton(SELL_MERCHANT, this, false);
 
 		buttonPanel.add(mSellButton);
 		buttonPanel.add(Box.createHorizontalGlue());
@@ -270,17 +272,16 @@ public class MarketPlace extends JDialog implements ActionListener {
 			} else {
 				sellSelectedItems();
 			}
-			// DW reduce player money
 			dispose();
 		} else if (source.equals(mSellButton)) {
-			if (mSellButton.getText().equals(SELL)) {
+			if (mSellButton.getText().equals(SELL_MERCHANT)) {
 				mIsCharacterBuying = false;
-				mSellButton.setText(BUY);
+				mSellButton.setText(BUY_MERCHANT);
 				mBuyButton.setText(SELL);
 				swapTables();
 			} else {
 				mIsCharacterBuying = true;
-				mSellButton.setText(SELL);
+				mSellButton.setText(SELL_MERCHANT);
 				mBuyButton.setText(BUY);
 				swapTables();
 			}
@@ -293,15 +294,15 @@ public class MarketPlace extends JDialog implements ActionListener {
 	private void sellSelectedItems() {
 		Component comp = ((JPanel) mTabbedPane.getSelectedComponent()).getComponent(1);
 		if (comp instanceof EquipmentMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().removeEquipment(((EquipmentMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().removeEquipment(((EquipmentMarketPlaceDisplay) comp).getSelectedRows(false));
 		} else if (comp instanceof AnimalsMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().removeAnimals(((AnimalsMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().removeAnimals(((AnimalsMarketPlaceDisplay) comp).getSelectedRows(false));
 		} else if (comp instanceof ArmorMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().removeArmor(((ArmorMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().removeArmor(((ArmorMarketPlaceDisplay) comp).getSelectedRows(false));
 		} else if (comp instanceof MagicItemsMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().removeMagicItems(((MagicItemsMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().removeMagicItems(((MagicItemsMarketPlaceDisplay) comp).getSelectedRows(false));
 		} else if (comp instanceof WeaponMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().removeWeapons(((WeaponMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().removeWeapons(((WeaponMarketPlaceDisplay) comp).getSelectedRows(false));
 		} else {
 			return;
 		}
@@ -329,15 +330,15 @@ public class MarketPlace extends JDialog implements ActionListener {
 	private void getBoughtItems() {
 		Component comp = ((JPanel) mTabbedPane.getSelectedComponent()).getComponent(1);
 		if (comp instanceof EquipmentMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().addEquipment(((EquipmentMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().addEquipment(((EquipmentMarketPlaceDisplay) comp).getSelectedRows(true));
 		} else if (comp instanceof AnimalsMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().addAnimals(((AnimalsMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().addAnimals(((AnimalsMarketPlaceDisplay) comp).getSelectedRows(true));
 		} else if (comp instanceof ArmorMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().addArmor(((ArmorMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().addArmor(((ArmorMarketPlaceDisplay) comp).getSelectedRows(true));
 		} else if (comp instanceof MagicItemsMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().addMagicItems(((MagicItemsMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().addMagicItems(((MagicItemsMarketPlaceDisplay) comp).getSelectedRows(true));
 		} else if (comp instanceof WeaponMarketPlaceDisplay) {
-			ACS.getInstance().getCharacterSheet().addWeapons(((WeaponMarketPlaceDisplay) comp).getSelectedRows());
+			ACS.getInstance().getCharacterSheet().addWeapons(((WeaponMarketPlaceDisplay) comp).getSelectedRows(true));
 		} else {
 			return;
 		}

@@ -2,7 +2,10 @@
 
 package com.starfyre1.dataModel;
 
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTableRecord;
+
+import java.util.Vector;
 
 public class AnimalRecord extends TKTableRecord {
 	/*****************************************************************************
@@ -27,9 +30,6 @@ public class AnimalRecord extends TKTableRecord {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public AnimalRecord() {
-	}
-
 	public AnimalRecord(int count, String name, int carry, int move, int travel, String hits, int hitBonus, int kickDamage, int armor, float cost, String notes) {
 		mCount = count;
 		mName = name;
@@ -42,6 +42,21 @@ public class AnimalRecord extends TKTableRecord {
 		mArmor = armor;
 		mCost = cost;
 		mNotes = notes;
+	}
+
+	public AnimalRecord(Vector<Object> obj) {
+		mCount = obj.get(0) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(0), 0) : ((Integer) obj.get(0)).intValue();
+		mName = (String) obj.get(1);
+		mCarry = obj.get(2) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(2), 0) : ((Integer) obj.get(2)).intValue();
+		mMove = obj.get(3) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(3), 0) : ((Integer) obj.get(3)).intValue();
+		mTravel = obj.get(4) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(4), 0) : ((Integer) obj.get(4)).intValue();
+		mHits = (String) obj.get(5);
+		mHitBonus = obj.get(6) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(6), 0) : ((Integer) obj.get(6)).intValue();
+		mKickDamage = obj.get(7) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(7), 0) : ((Integer) obj.get(7)).intValue();
+		mArmor = obj.get(8) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(8), 0) : ((Integer) obj.get(8)).intValue();
+		mCost = ((Float) obj.get(9)).floatValue();
+		mNotes = (String) obj.get(10);
+
 	}
 
 	/*****************************************************************************
