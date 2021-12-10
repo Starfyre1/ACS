@@ -25,6 +25,7 @@ import java.util.StringTokenizer;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -68,6 +69,35 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	 ****************************************************************************/
 	public JournalDisplay(CharacterSheet owner) {
 		super(owner, JOURNAL_TITLE);
+
+		gameDayStartQuestion();
+	}
+
+	private void gameDayStartQuestion() {
+		// yes = 0; no = 1
+		int n = JOptionPane.showConfirmDialog(null, "Are we playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+		if (n == 0) {
+			mEntries.add(JournalRecord.getJournalRecord(this, JournalRecord.GAME_DAY_START));
+			updatePreviewPanel();
+		}
+	}
+
+	public void gameDayEndQuestion() {
+		// yes = 0; no = 1
+		int n = JOptionPane.showConfirmDialog(((CharacterSheet) getOwner()).getFrame(), "Are we done playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+		if (n == 0) {
+			mEntries.add(JournalRecord.getJournalRecord(this, JournalRecord.GAME_DAY_END));
+			updatePreviewPanel();
+		}
+	}
+
+	public void characterLevelUp(int level) {
+		JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.LEVEL_UP);
+		record.append("\n     You have become level " + level); //$NON-NLS-1$
+		record.setHeaderText();
+
+		mEntries.add(record);
+		updatePreviewPanel();
 	}
 
 	/*****************************************************************************
@@ -107,11 +137,11 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(mNewEntryButton)) {
-			createNewJournalRecord();
+			createJournalRecord();
 		}
 	}
 
-	private void createNewJournalRecord() {
+	private void createJournalRecord() {
 		JournalRecord record = new JournalRecord(this);
 		record.displayJournalRecord(false);
 

@@ -36,8 +36,15 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	CREATE		= "Create";	//$NON-NLS-1$
-	private static final String	CANCEL		= "Cancel";	//$NON-NLS-1$
+	private static final String	CREATE							= "Create";							//$NON-NLS-1$
+	private static final String	CANCEL							= "Cancel";							//$NON-NLS-1$
+
+	public static final String	GAME_DAY_START					= "GAME DAY START";					//$NON-NLS-1$
+	public static final String	GAME_DAY_END					= "GAME DAY END";					//$NON-NLS-1$
+	public static final String	LEVEL_UP						= "LEVEL UP!";						//$NON-NLS-1$
+	public static final String	DETERMINATION_START				= "DETERMINATION START";			//$NON-NLS-1$
+	public static final String	DETERMINATION_COMPLETE_SUCCESS	= "DETERMINATION COMPLETE SUCCESS";	//$NON-NLS-1$
+	public static final String	DETERMINATION_COMPLETE_FAILED	= "DETERMINATION COMPLETE FAILED";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -49,8 +56,8 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	private String				mCampaignDate;
 	private JLabel				mHeaderLabel1;
 	private JLabel				mHeaderLabel2;
-	private Color				mOldColor	= null;
-	private boolean				mSaveRecord	= true;
+	private Color				mOldColor						= null;
+	private boolean				mSaveRecord						= true;
 
 	/*****************************************************************************
 	 * Constructors
@@ -68,9 +75,9 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		mHeaderLabel1 = new JLabel();
 		mHeaderLabel2 = new JLabel();
 
-		CharacterSheet sheet = (CharacterSheet) parent.getOwner();
-		mWorldDate = sheet.getWorldDate();
-		mCampaignDate = sheet.getCampaignDate();
+		ACS acs = ACS.getInstance();
+		mWorldDate = acs.getWorldDate();
+		mCampaignDate = acs.getCampaignDate();
 	}
 
 	public JournalRecord(JournalDisplay parent, String campaignDate, String journalText, String worldDate) {
@@ -100,7 +107,31 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	private void setHeaderText() {
+	public static JournalRecord getJournalRecord(JournalDisplay parent, String which) {
+		ACS acs = ACS.getInstance();
+		String campaignDate = acs.getCampaignDate();
+		String worldDate = acs.getWorldDate();
+		JournalRecord record = switch (which) {
+			case GAME_DAY_START:
+				yield new JournalRecord(parent, campaignDate, GAME_DAY_START, worldDate);
+			case GAME_DAY_END:
+				yield new JournalRecord(parent, campaignDate, GAME_DAY_END, worldDate);
+			case LEVEL_UP:
+				yield new JournalRecord(parent, campaignDate, LEVEL_UP, worldDate);
+			case DETERMINATION_START:
+				yield new JournalRecord(parent, campaignDate, DETERMINATION_START, worldDate);
+			case DETERMINATION_COMPLETE_SUCCESS:
+				yield new JournalRecord(parent, campaignDate, DETERMINATION_COMPLETE_SUCCESS, worldDate);
+			case DETERMINATION_COMPLETE_FAILED:
+				yield new JournalRecord(parent, campaignDate, DETERMINATION_COMPLETE_FAILED, worldDate);
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + which); //$NON-NLS-1$
+		};
+
+		return record;
+	}
+
+	public void setHeaderText() {
 		String line1 = new String();
 		String line2 = new String();
 		try {

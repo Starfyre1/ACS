@@ -266,6 +266,11 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 				HistoryManager manager = HistoryManager.getInstance();
 
 				int currentExperience = TKStringHelpers.getIntValue(mCurrentExperienceField.getText(), record.getOldExperience());
+				int nextExperience = TKStringHelpers.getIntValue(mNextLevelField.getText(), 0);
+				boolean levelUp = false;
+				if (currentExperience > nextExperience) {
+					levelUp = true;
+				}
 				manager.addRecord(HistoryManager.EXPERIENCE_KEY, new HistoryRecord(new Date(System.currentTimeMillis()), currentExperience));
 				record.setCurrentExperience(currentExperience);
 
@@ -275,6 +280,9 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 				((CharacterSheet) getOwner()).updateRecords();
 				manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(new Date(System.currentTimeMillis()), record.getLevel()));
 				mLevelField.setToolTipText(manager.getTooltip(HistoryManager.LEVEL_KEY));
+				if (levelUp) {
+					ACS.getInstance().getCharacterSheet().getJournalTab().characterLevelUp(record.getLevel());
+				}
 			}
 		}
 	}
