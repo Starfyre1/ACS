@@ -30,14 +30,16 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	USE_1_COMMON_DICE				= "Use 1 Common Dice";											//$NON-NLS-1$
-	private static final String	REROLL_DICE_BELOW_THIS_NUMBER	= "Reroll Dice below this number";								//$NON-NLS-1$
-	private static final String	NUMBER_OF_DICE_TO_USE			= "Number of Dice to use";										//$NON-NLS-1$
+	private static final String	USE_1_COMMON_DICE				= "Use 1 common dice";											//$NON-NLS-1$
+	private static final String	AUTO_LOAD						= "Auto load last character";									//$NON-NLS-1$
+	private static final String	REROLL_DICE_BELOW_THIS_NUMBER	= "Reroll dice below this number";								//$NON-NLS-1$
+	private static final String	NUMBER_OF_DICE_TO_USE			= "Number of dice to use";										//$NON-NLS-1$
 	private static final String	COMMON_DIE_TOOLTIP				=																//
 					"<html>In Athri we eliminate the possibilities of getting a high strength, <br>"							//$NON-NLS-1$
 									+ "but a very low constitution.  We pair them, making them share <br>"						//$NON-NLS-1$
 									+ "a \"common die\".  That way if you get a \"18\" strength, the lowest <br>"				//$NON-NLS-1$
 									+ "constitution you can have is \"8\"</html>";												//$NON-NLS-1$
+	private static final String	AUTO_LOAD_TOOLTIP				= "<html>Reload last character used on startup";				//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -49,6 +51,8 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	private TKPopupMenu			mNumDicePopup;
 	private TKPopupMenu			mReRollLowestPopup;
 	private JCheckBox			mUseCommonDiceCheckBox;
+
+	private JCheckBox			mAutoLoadCheckBox;
 
 	/*****************************************************************************
 	 * Constructors
@@ -83,12 +87,17 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		mUseCommonDiceCheckBox.setToolTipText(COMMON_DIE_TOOLTIP);
 		mUseCommonDiceCheckBox.addActionListener(this);
 
-		JPanel messagePanel = new JPanel(new GridLayout(3, 2, 5, 0));
+		mAutoLoadCheckBox = new JCheckBox(AUTO_LOAD, prefs.isAutoLoad());
+		mAutoLoadCheckBox.setToolTipText(AUTO_LOAD_TOOLTIP + "<br>" + prefs.getCurrentLastCharacter() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$
+		mAutoLoadCheckBox.addActionListener(this);
+
+		JPanel messagePanel = new JPanel(new GridLayout(4, 2, 5, 0));
 		messagePanel.add(numDiceLabel);
 		messagePanel.add(mNumDicePopup);
 		messagePanel.add(reRollLowestLabel);
 		messagePanel.add(mReRollLowestPopup);
 		messagePanel.add(mUseCommonDiceCheckBox);
+		messagePanel.add(mAutoLoadCheckBox);
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
@@ -167,6 +176,7 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		mNumDicePopup.selectPopupMenuItem(TKStringHelpers.EMPTY_STRING + prefs.getNumDice());
 		mReRollLowestPopup.selectPopupMenuItem(TKStringHelpers.EMPTY_STRING + prefs.getRerollLowest());
 		mUseCommonDiceCheckBox.setSelected(prefs.useCommonDie());
+		mAutoLoadCheckBox.setSelected(prefs.isAutoLoad());
 	}
 
 	private void updateButtons() {
@@ -178,7 +188,8 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	private boolean areValuesSaved() {
 		if (getNumDice() == PreferenceStore.getInstance().getSavedNumDice() && //
 						getReRollLowest() == PreferenceStore.getInstance().getSavedRerollLowest() && //
-						useCommonDice() == PreferenceStore.getInstance().isSavedUseCommonDie()) {
+						useCommonDice() == PreferenceStore.getInstance().isSavedUseCommonDie() && //
+						isAutoLoad() == PreferenceStore.getInstance().isSavedAutoLoad()) {
 			return true;
 		}
 		return false;
@@ -191,7 +202,8 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	private boolean areDefaultsSet() {
 		if (getNumDice() == PreferenceStore.getDefaultNumDice() && //
 						getReRollLowest() == PreferenceStore.getDefaultRerollLowest() && //
-						useCommonDice() == PreferenceStore.isDefaultUseCommonDie()) {
+						useCommonDice() == PreferenceStore.isDefaultUseCommonDie() && //
+						isAutoLoad() == PreferenceStore.isDefaultAutoLoad()) {
 			return true;
 		}
 		return false;
@@ -251,6 +263,14 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	/** @param useCommonDice The value to set for useCommonDice. */
 	public void setUseCommonDice(boolean useCommonDice) {
 		mUseCommonDiceCheckBox.setSelected(useCommonDice);
+	}
+
+	public boolean isAutoLoad() {
+		return mAutoLoadCheckBox.isSelected();
+	}
+
+	public void setAutoLoad(boolean autoLoad) {
+		mAutoLoadCheckBox.setSelected(autoLoad);
 	}
 
 	/*****************************************************************************

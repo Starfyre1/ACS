@@ -34,10 +34,13 @@ public class PreferenceStore {
 	 ****************************************************************************/
 	private static final String		WINDOW_BOUNDS_KEY		= "WINDOW_BOUNDS_KEY";					//$NON-NLS-1$
 	private static final String		FILE_LOCATION_KEY		= "FILE_LOCATION_KEY";					//$NON-NLS-1$
+	private static final String		LAST_CHARACTER_KEY		= "LAST_CHARACTER_KEY";					//$NON-NLS-1$
 
 	private static final String		NUM_DICE_KEY			= "NUMBER_OF_DICE_KEY";					// 4 Dice drop lowest; use 3 dice; Manual entry; //$NON-NLS-1$
 	private static final String		REROLL_LOWEST_KEY		= "REROLL_LOWEST_KEY";					// Reroll 1's & 2's //$NON-NLS-1$
 	private static final String		USE_COMMON_DIE_KEY		= "USE_COMMON_DIE_KEY";					// use 1 common die //$NON-NLS-1$
+
+	private static final String		AUTO_LOAD_KEY			= "AUTO_LOAD_KEY";						// Auto load last character played  //$NON-NLS-1$
 
 	private static final Rectangle	DEFAULT_WINDOW_BOUNDS	= new Rectangle(50, 50, 1070, 1577);
 	//DW change this to installation directory
@@ -47,6 +50,8 @@ public class PreferenceStore {
 	private static final int		DEFAULT_REROLL_LOWEST	= 2;									// Reroll 1's & 2's
 	private static final boolean	DEFAULT_USE_COMMON_DIE	= true;									// use 1 common die
 
+	private static final boolean	DEFAULT_AUTO_LOAD		= true;
+
 	/*****************************************************************************
 	 * MEMBER VARIABLES
 	 ****************************************************************************/
@@ -54,6 +59,7 @@ public class PreferenceStore {
 
 	Rectangle						mWindowBounds;
 	String							mFileLocation;
+	String							mLastCharacter;
 
 	/*
 	 * 0 = player entered
@@ -80,10 +86,12 @@ public class PreferenceStore {
 	 * Willpower has no common stat
 	 */
 	private boolean					mUseCommonDie;
+	private boolean					mAutoLoad;
 
 	private int						mSavedNumDice;
 	private int						mSavedRerollLowest;
 	private boolean					mSavedUseCommonDie;
+	private boolean					mSavedAutoLoad;
 
 	/*****************************************************************************
 	 * CONSTRUCTORS
@@ -105,16 +113,20 @@ public class PreferenceStore {
 		mSavedNumDice = mNumDice;
 		mSavedRerollLowest = mRerollLowest;
 		mSavedUseCommonDie = mUseCommonDie;
+		mSavedAutoLoad = mAutoLoad;
 
 	}
 
 	public void setDefaults() {
 		mWindowBounds = DEFAULT_WINDOW_BOUNDS;
 		mFileLocation = DEFAULT_FILE_LOCATION;
+		mLastCharacter = null;
 
 		mNumDice = DEFAULT_NUM_DICE;
 		mRerollLowest = DEFAULT_REROLL_LOWEST;
 		mUseCommonDie = DEFAULT_USE_COMMON_DIE;
+
+		mAutoLoad = DEFAULT_AUTO_LOAD;
 	}
 
 	/**
@@ -123,7 +135,8 @@ public class PreferenceStore {
 	public boolean isDefaults() {
 		if (mNumDice == DEFAULT_NUM_DICE && //
 						mRerollLowest == DEFAULT_REROLL_LOWEST && //
-						mUseCommonDie == DEFAULT_USE_COMMON_DIE) {
+						mUseCommonDie == DEFAULT_USE_COMMON_DIE && //
+						mAutoLoad == DEFAULT_AUTO_LOAD) {
 			return true;
 		}
 		return false;
@@ -135,10 +148,13 @@ public class PreferenceStore {
 	public void updateValuesInPreferenceStore(PreferencesDisplay preferencesDisplay) {
 		mWindowBounds = DEFAULT_WINDOW_BOUNDS;
 		mFileLocation = DEFAULT_FILE_LOCATION;
+		mLastCharacter = null;
 
 		mNumDice = preferencesDisplay.getNumDice();
 		mRerollLowest = preferencesDisplay.getReRollLowest();
 		mUseCommonDie = preferencesDisplay.useCommonDice();
+
+		mAutoLoad = preferencesDisplay.isAutoLoad();
 	}
 
 	/*****************************************************************************
@@ -185,6 +201,36 @@ public class PreferenceStore {
 		mUseCommonDie = useCommonDie;
 	}
 
+	/** @return The autoLoad. */
+	public boolean isAutoLoad() {
+		return mAutoLoad;
+	}
+
+	/** @param autoLoad The value to set for autoLoad. */
+	public void setAutoLoad(boolean autoLoad) {
+		mAutoLoad = autoLoad;
+	}
+
+	/** @return The savedAutoLoad. */
+	public boolean isSavedAutoLoad() {
+		return mSavedAutoLoad;
+	}
+
+	/** @param savedAutoLoad The value to set for savedAutoLoad. */
+	public void setSavedAutoLoad(boolean savedAutoLoad) {
+		mSavedAutoLoad = savedAutoLoad;
+	}
+
+	/** @return The autoLoadKey. */
+	public static String getAutoLoadKey() {
+		return AUTO_LOAD_KEY;
+	}
+
+	/** @return The defaultAutoLoad. */
+	public static boolean isDefaultAutoLoad() {
+		return DEFAULT_AUTO_LOAD;
+	}
+
 	/** @param bounds The value to set for windowSize. */
 	public void setWindowBounds(Rectangle bounds) {
 		mWindowBounds = bounds;
@@ -201,6 +247,14 @@ public class PreferenceStore {
 
 	public void setCurrentFileLocation(File file) {
 		mFileLocation = file.getAbsolutePath();
+	}
+
+	public String getCurrentLastCharacter() {
+		return mLastCharacter;
+	}
+
+	public void setCurrentLastCharacter(String lastCharacter) {
+		mLastCharacter = lastCharacter;
 	}
 
 	/** @return The savedNumDice. */
@@ -302,6 +356,7 @@ public class PreferenceStore {
 			br.write(USE_COMMON_DIE_KEY + TKStringHelpers.TAB + mUseCommonDie + System.lineSeparator());
 			br.write(WINDOW_BOUNDS_KEY + TKStringHelpers.TAB + mWindowBounds.x + "," + mWindowBounds.y + "," + mWindowBounds.width + "," + mWindowBounds.height + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			br.write(FILE_LOCATION_KEY + TKStringHelpers.TAB + mFileLocation + System.lineSeparator());
+			br.write(LAST_CHARACTER_KEY + TKStringHelpers.TAB + mLastCharacter + System.lineSeparator());
 
 		} catch (FileNotFoundException exception) {
 			exception.printStackTrace();
@@ -331,6 +386,8 @@ public class PreferenceStore {
 			mWindowBounds = TKStringHelpers.getRectangleValue(value, PreferenceStore.DEFAULT_WINDOW_BOUNDS);
 		} else if (key.equals(FILE_LOCATION_KEY)) {
 			mFileLocation = value;
+		} else if (key.equals(LAST_CHARACTER_KEY)) {
+			mLastCharacter = value;
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$

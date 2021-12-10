@@ -3,6 +3,8 @@
 package com.starfyre1.startup;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
+import com.starfyre1.dataModel.storage.PreferenceStore;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.MetalList;
@@ -10,6 +12,9 @@ import com.starfyre1.dataset.PriestList;
 import com.starfyre1.dataset.spells.SpellDescriptionList;
 
 import java.awt.Font;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.SwingUtilities;
 
@@ -18,19 +23,21 @@ public class ACS {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final int				DEBUG_LEVEL		= 0;
+	public static final int				DEBUG_LEVEL				= 0;
 
-	public static final String			TITLE			= "ACS (Athri Character Sheet)";										//$NON-NLS-1$
+	public static final String			TITLE					= "ACS (Athri Character Sheet)";																																													//$NON-NLS-1$
 
-	private static int					MAJOR			= 0;																	// Incompatible changes
-	private static int					MINOR			= 1;																	// Compatible changes
-	private static int					PATCH			= 0;																	// Bug fixes
+	private static int					MAJOR					= 0;																																																				// Incompatible changes
+	private static int					MINOR					= 1;																																																				// Compatible changes
+	private static int					PATCH					= 2;																																																				// Bug fixes
 
-	private static String				RELEASE_DATE	= "December 02, 2021";													//$NON-NLS-1$
-	private static String				RELEASE_TIME	= "11:31 UTC/GMT";														//$NON-NLS-1$
-	public static String				COPYRIGHT		= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
+	private static String				RELEASE_DATE			= "December 06, 2021";																																																//$NON-NLS-1$
+	private static String				RELEASE_TIME			= "8:42 UTC/GMT";																																																	//$NON-NLS-1$
+	public static String				COPYRIGHT				= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";																																				//$NON-NLS-1$
 
-	public static final Font			MONOSPACED_FONT	= new Font(Font.MONOSPACED, Font.BOLD, 12);
+	public static final Font			MONOSPACED_FONT			= new Font(Font.MONOSPACED, Font.BOLD, 12);
+
+	private static final int			YEAR_AL					= 615;																																																				// YEAR_AD			= YEAR_AL - 268;
 
 	/*****************************************************************************
 	 * Member Variables
@@ -42,6 +49,15 @@ public class ACS {
 	private static PriestList			mPriests;
 	private static MetalList			mMetal;
 	private static SpellDescriptionList	mSpellDescriptions;
+
+	public int							mCurrentWorldYear		= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+	public int							mCurrentWorldMonth		= java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+	public int							mCurrentWorldDate		= java.util.Calendar.getInstance().get(java.util.Calendar.DATE);
+	public int							mCurrentCampaignYear	= YEAR_AL;
+	public int							mCurrentCampaignMonth	= 4;																																																				// 0=January... 15=Winter
+	public int							mCurrentCampaignDate	= 14;
+	private String						mWorldDate				= new String(new SimpleDateFormat("MMM dd, yyyy").format(Calendar.getInstance().getTime()));																														//$NON-NLS-1$
+	private String						mCampaignDate			= new String(CampaignDateChooser.MONTHS_SHORT[mCurrentCampaignMonth] + " " + String.format("%02d", Integer.valueOf(mCurrentCampaignDate)) + ", " + String.format("%04d", Integer.valueOf(mCurrentCampaignYear)));	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$);
 
 	private CharacterSheet				mCharacterSheet;
 
@@ -63,6 +79,12 @@ public class ACS {
 			@Override
 			public void run() {
 				mCharacterSheet = new CharacterSheet();
+				if (PreferenceStore.getInstance().isAutoLoad()) {
+					String lastCharacter = PreferenceStore.getInstance().getCurrentLastCharacter();
+					if (lastCharacter != null) {
+						mCharacterSheet.loadAndUpdate(new File(lastCharacter));
+					}
+				}
 			}
 		});
 	}
@@ -130,6 +152,86 @@ public class ACS {
 	/** @return The version. */
 	public static String getBuildDate() {
 		return "Built on:\t" + RELEASE_DATE + " at " + RELEASE_TIME; //$NON-NLS-1$ //$NON-NLS-2$
+	}
+
+	/** @return The currentWorldYear. */
+	public int getCurrentWorldYear() {
+		return mCurrentWorldYear;
+	}
+
+	/** @param currentWorldYear The value to set for currentWorldYear. */
+	public void setCurrentWorldYear(int currentWorldYear) {
+		mCurrentWorldYear = currentWorldYear;
+	}
+
+	/** @return The currentWorldMonth. */
+	public int getCurrentWorldMonth() {
+		return mCurrentWorldMonth;
+	}
+
+	/** @param currentWorldMonth The value to set for currentWorldMonth. */
+	public void setCurrentWorldMonth(int currentWorldMonth) {
+		mCurrentWorldMonth = currentWorldMonth;
+	}
+
+	/** @return The currentWorldDate. */
+	public int getCurrentWorldDate() {
+		return mCurrentWorldDate;
+	}
+
+	/** @param currentWorldDate The value to set for currentWorldDate. */
+	public void setCurrentWorldDate(int currentWorldDate) {
+		mCurrentWorldDate = currentWorldDate;
+	}
+
+	/** @return The currentCampaignYear. */
+	public int getCurrentCampaignYear() {
+		return mCurrentCampaignYear;
+	}
+
+	/** @param currentCampaignYear The value to set for currentCampaignYear. */
+	public void setCurrentCampaignYear(int currentCampaignYear) {
+		mCurrentCampaignYear = currentCampaignYear;
+	}
+
+	/** @return The currentCampaignMonth. */
+	public int getCurrentCampaignMonth() {
+		return mCurrentCampaignMonth;
+	}
+
+	/** @param currentCampaignMonth The value to set for currentCampaignMonth. */
+	public void setCurrentCampaignMonth(int currentCampaignMonth) {
+		mCurrentCampaignMonth = currentCampaignMonth;
+	}
+
+	/** @return The currentCampaignDate. */
+	public int getCurrentCampaignDate() {
+		return mCurrentCampaignDate;
+	}
+
+	/** @param currentCampaignDate The value to set for currentCampaignDate. */
+	public void setCurrentCampaignDate(int currentCampaignDate) {
+		mCurrentCampaignDate = currentCampaignDate;
+	}
+
+	/** @return The worldDate. */
+	public String getWorldDate() {
+		return mWorldDate;
+	}
+
+	/** @param worldDate The value to set for worldDate. */
+	public void setWorldDate(String worldDate) {
+		mWorldDate = worldDate;
+	}
+
+	/** @return The campaignDate. */
+	public String getCampaignDate() {
+		return mCampaignDate;
+	}
+
+	/** @param campaignDate The value to set for campaignDate. */
+	public void setCampaignDate(String campaignDate) {
+		mCampaignDate = campaignDate;
 	}
 
 	/*****************************************************************************

@@ -2,7 +2,6 @@
 
 package com.starfyre1.GUI.journal;
 
-import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Color;
@@ -31,7 +30,7 @@ public class CampaignDateChooser extends DateChooser {
 	 * Creates a new {@link CampaignDateChooser}.
 	 */
 	public CampaignDateChooser(JFrame parent) {
-		super(parent, TITLE, ACS.getInstance().getCharacterSheet().getCurrentCampaignYear(), ACS.getInstance().getCharacterSheet().getCurrentCampaignMonth(), ACS.getInstance().getCharacterSheet().getCurrentCampaignDate());
+		super(parent, TITLE, ACS.getInstance().getCurrentCampaignYear(), ACS.getInstance().getCurrentCampaignMonth(), ACS.getInstance().getCurrentCampaignDate());
 	}
 
 	/*****************************************************************************
@@ -44,11 +43,11 @@ public class CampaignDateChooser extends DateChooser {
 		}
 		int dayOfWeek = getDayOfWeek(mYear, mMonth, mDate);
 		int daysInMonth = DATES[mMonth];
-		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
+		ACS acs = ACS.getInstance();
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			//			System.out.println(i + " " + (6 + dayOfWeek) + " " + day + " " + daysInMonth);
 			mButton[i].setText("" + day); //$NON-NLS-1$
-			if (day == characterSheet.getCurrentCampaignDate() && mMonth == characterSheet.getCurrentCampaignMonth() && mYear == characterSheet.getCurrentCampaignYear()) {
+			if (day == acs.getCurrentCampaignDate() && mMonth == acs.getCurrentCampaignMonth() && mYear == acs.getCurrentCampaignYear()) {
 				mButton[i].setForeground(Color.RED);
 			} else {
 				mButton[i].setForeground(Color.BLACK);

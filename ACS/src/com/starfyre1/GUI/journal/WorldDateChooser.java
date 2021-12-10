@@ -2,7 +2,6 @@
 
 package com.starfyre1.GUI.journal;
 
-import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Color;
@@ -28,7 +27,7 @@ public class WorldDateChooser extends DateChooser {
 	 * Creates a new {@link WorldDateChooser}.
 	 */
 	public WorldDateChooser(JFrame parent) {
-		super(parent, TITLE, ACS.getInstance().getCharacterSheet().getCurrentWorldYear(), ACS.getInstance().getCharacterSheet().getCurrentWorldMonth(), ACS.getInstance().getCharacterSheet().getCurrentWorldDate());
+		super(parent, TITLE, ACS.getInstance().getCurrentWorldYear(), ACS.getInstance().getCurrentWorldMonth(), ACS.getInstance().getCurrentWorldDate());
 	}
 
 	/*****************************************************************************
@@ -44,10 +43,10 @@ public class WorldDateChooser extends DateChooser {
 		cal.set(mYear, mMonth, 1);
 		int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
 		int daysInMonth = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
+		ACS acs = ACS.getInstance();
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			mButton[i].setText("" + day); //$NON-NLS-1$
-			if (day == characterSheet.getCurrentWorldDate() && mMonth == characterSheet.getCurrentWorldMonth() && mYear == characterSheet.getCurrentWorldYear()) {
+			if (day == acs.getCurrentWorldDate() && mMonth == acs.getCurrentWorldMonth() && mYear == acs.getCurrentWorldYear()) {
 				mButton[i].setForeground(Color.RED);
 			} else {
 				mButton[i].setForeground(Color.BLACK);
