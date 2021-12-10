@@ -12,7 +12,6 @@ import com.starfyre1.GUI.character.MoneyDisplay;
 import com.starfyre1.GUI.character.PersonalInformationDisplay;
 import com.starfyre1.GUI.character.SavingThowsDisplay;
 import com.starfyre1.GUI.character.SkillsDisplay;
-import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.GUI.purchasedGear.animal.AnimalsOwnedDisplay;
 import com.starfyre1.GUI.purchasedGear.armor.ArmorEquippedDisplay;
@@ -58,6 +57,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -67,10 +68,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.StringTokenizer;
 
 import javax.swing.Box;
@@ -83,6 +82,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -99,31 +99,32 @@ public class CharacterSheet implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String				CHARACTER_SHEET_TITLE		= "Character";																																																		//$NON-NLS-1$
-	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment";																																																		//$NON-NLS-1$
-	private static final String				SPELL_SHEET_TITLE			= "Spells";																																																			//$NON-NLS-1$
-	private static final String				JOURNAL_SHEET_TITLE			= "Journal";																																																		//$NON-NLS-1$
+	private static final String				CHARACTER_SHEET_TITLE		= "Character";				//$NON-NLS-1$
+	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment";				//$NON-NLS-1$
+	private static final String				SPELL_SHEET_TITLE			= "Spells";					//$NON-NLS-1$
+	private static final String				JOURNAL_SHEET_TITLE			= "Journal";				//$NON-NLS-1$
 
 	// DW add something useful for the tooltips or remove them
-	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";																																																//$NON-NLS-1$
-	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";																																																//$NON-NLS-1$
-	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";																																																	//$NON-NLS-1$
-	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";																																																	//$NON-NLS-1$
+	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";		//$NON-NLS-1$
+	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";		//$NON-NLS-1$
+	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";			//$NON-NLS-1$
+	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";			//$NON-NLS-1$
 
-	private static final String				ABOUT						= "About";																																																			//$NON-NLS-1$
-	private static final String				HELP						= "Help";																																																			//$NON-NLS-1$
-	private static final String				PREFERENCES					= "Preferences";																																																	//$NON-NLS-1$
-	private static final String				OPTIONS						= "Options";																																																		//$NON-NLS-1$
-	private static final String				MARKET_PLACE				= "Market Place";																																																	//$NON-NLS-1$
-	private static final String				EXIT						= "Exit";																																																			//$NON-NLS-1$
-	private static final String				SAVE_AS						= "Save As...";																																																		//$NON-NLS-1$
-	private static final String				SAVE						= "Save";																																																			//$NON-NLS-1$
-	private static final String				CLOSE						= "Close";																																																			//$NON-NLS-1$
-	private static final String				OPEN						= "Open...";																																																		//$NON-NLS-1$
-	private static final String				NEW							= "New";																																																			//$NON-NLS-1$
-	private static final String				FILE						= "File";																																																			//$NON-NLS-1$
-	private static final String				CREATE						= "Create";																																																			//$NON-NLS-1$
-	private static final String				CANCEL						= "Cancel";																																																			//$NON-NLS-1$
+	private static final String				ABOUT						= "About";					//$NON-NLS-1$
+	private static final String				HELP						= "Help";					//$NON-NLS-1$
+	private static final String				PREFERENCES					= "Preferences";			//$NON-NLS-1$
+	private static final String				OPTIONS						= "Options";				//$NON-NLS-1$
+	private static final String				MARKET_PLACE				= "Market Place";			//$NON-NLS-1$
+	private static final String				EXIT						= "Exit";					//$NON-NLS-1$
+	private static final String				SAVE_AS						= "Save As...";				//$NON-NLS-1$
+	private static final String				SAVE						= "Save";					//$NON-NLS-1$
+	private static final String				DONT_SAVE					= "Don't Save";				//$NON-NLS-1$
+	private static final String				CLOSE						= "Close";					//$NON-NLS-1$
+	private static final String				OPEN						= "Open...";				//$NON-NLS-1$
+	private static final String				NEW							= "New";					//$NON-NLS-1$
+	private static final String				FILE						= "File";					//$NON-NLS-1$
+	private static final String				CREATE						= "Create";					//$NON-NLS-1$
+	private static final String				CANCEL						= "Cancel";					//$NON-NLS-1$
 
 	public static final Dimension			CHARACTER_TAB_TABLE_SIZE	= new Dimension(375, 75);
 	public static final Dimension			EQUIPMENT_TAB_TABLE_SIZE	= new Dimension(750, 150);
@@ -134,8 +135,6 @@ public class CharacterSheet implements ActionListener {
 	public static final int					FIELD_SIZE_LARGE			= 14;
 	public static final int					CELL_SMALL_MAX_WIDTH		= 45;
 	public static final int					CELL_LARGE_MAX_WIDTH		= 75;
-
-	private static final int				YEAR_AL						= 615;																																																				// YEAR_AD			= YEAR_AL - 268;
 
 	private static final Icon				ICON						= null;
 
@@ -151,6 +150,13 @@ public class CharacterSheet implements ActionListener {
 	private JButton							mCancelButton;
 
 	private String							mCharacterFile;
+	private boolean							mIsCharacterLoaded			= false;
+
+	private JMenuItem						mCloseMenuItem;
+	private JMenuItem						mSaveMenuItem;
+	private JMenuItem						mSaveAsMenuItem;
+
+	private JMenuItem						mMarketPlaceMenuItem;
 
 	// Data Files
 	private AttributesRecord				mAttributesRecord;
@@ -168,14 +174,6 @@ public class CharacterSheet implements ActionListener {
 
 	// Header
 	private HeaderDisplay					mHeaderDisplay;
-	public int								mCurrentWorldYear			= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-	public int								mCurrentWorldMonth			= java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
-	public int								mCurrentWorldDate			= java.util.Calendar.getInstance().get(java.util.Calendar.DATE);
-	public int								mCurrentCampaignYear		= YEAR_AL;
-	public int								mCurrentCampaignMonth		= 4;																																																				// 0=January... 15=Winter
-	public int								mCurrentCampaignDate		= 14;
-	private String							mWorldDate					= new String(new SimpleDateFormat("MMM dd, yyyy").format(Calendar.getInstance().getTime()));																														//$NON-NLS-1$
-	private String							mCampaignDate				= new String(CampaignDateChooser.MONTHS_SHORT[mCurrentCampaignMonth] + " " + String.format("%02d", Integer.valueOf(mCurrentCampaignDate)) + ", " + String.format("%04d", Integer.valueOf(mCurrentCampaignYear)));	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$);
 
 	// Character Tab
 	private AttributesDisplay				mAttributesDisplay;
@@ -208,7 +206,7 @@ public class CharacterSheet implements ActionListener {
 	// Spell Tab
 	private SpellListDisplay				mSpellTab;
 
-	// Spell Tab
+	// Journal Tab
 	private JournalDisplay					mJournalTab;
 
 	/*****************************************************************************
@@ -236,7 +234,7 @@ public class CharacterSheet implements ActionListener {
 		mFrame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				prepForExit();
+				saveOption(true);
 			}
 		});
 
@@ -388,22 +386,92 @@ public class CharacterSheet implements ActionListener {
 		return scrollPane;
 	}
 
+	private void enableFileMenuItems() {
+		mCloseMenuItem.setEnabled(mIsCharacterLoaded);
+		mSaveMenuItem.setEnabled(mIsCharacterLoaded);
+		mSaveAsMenuItem.setEnabled(mIsCharacterLoaded);
+	}
+
+	private void enableOptionsMenuItems() {
+		mMarketPlaceMenuItem.setEnabled(mIsCharacterLoaded);
+	}
+
 	private void createMainMenu() {
 		JMenuBar bar = new JMenuBar();
 
 		JMenu fileMenu = new JMenu(FILE);
 		fileMenu.add(TKComponentHelpers.createMenuItem(NEW, this));
 		fileMenu.add(TKComponentHelpers.createMenuItem(OPEN, this));
-		fileMenu.add(TKComponentHelpers.createMenuItem(CLOSE, this));
+		mCloseMenuItem = TKComponentHelpers.createMenuItem(CLOSE, this);
+		fileMenu.add(mCloseMenuItem);
 		fileMenu.addSeparator();
-		fileMenu.add(TKComponentHelpers.createMenuItem(SAVE, this));
-		fileMenu.add(TKComponentHelpers.createMenuItem(SAVE_AS, this));
+		mSaveMenuItem = TKComponentHelpers.createMenuItem(SAVE, this);
+		fileMenu.add(mSaveMenuItem);
+		mSaveAsMenuItem = TKComponentHelpers.createMenuItem(SAVE_AS, this);
+		fileMenu.add(mSaveAsMenuItem);
 		fileMenu.addSeparator();
 		fileMenu.add(TKComponentHelpers.createMenuItem(EXIT, this));
+		// DW find better way to do this... maybe intercept processMouse Event ?
+		fileMenu.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// Do nothing
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// Do nothing
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// Do nothing
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				enableFileMenuItems();
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// Do nothing
+			}
+		});
 
 		JMenu optionsMenu = new JMenu(OPTIONS);
 		optionsMenu.add(TKComponentHelpers.createMenuItem(PREFERENCES, this));
-		optionsMenu.add(TKComponentHelpers.createMenuItem(MARKET_PLACE, this));
+		mMarketPlaceMenuItem = TKComponentHelpers.createMenuItem(MARKET_PLACE, this);
+		optionsMenu.add(mMarketPlaceMenuItem);
+		// DW find better way to do this... maybe intercept processMouse Event ?
+		optionsMenu.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// Do nothing
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// Do nothing
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// Do nothing
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				enableOptionsMenuItems();
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// Do nothing
+			}
+		});
 
 		JMenu helpMenu = new JMenu(HELP);
 		helpMenu.add(TKComponentHelpers.createMenuItem(HELP, this));
@@ -490,9 +558,11 @@ public class CharacterSheet implements ActionListener {
 		loadDisplay();
 
 		mIsLoadingData = false;
+		mIsCharacterLoaded = true;
+
 	}
 
-	private void loadAndUpdate() {
+	public void loadAndUpdate(File file) {
 		mIsLoadingData = true;
 
 		mAttributesRecord = new AttributesRecord(false);
@@ -513,25 +583,32 @@ public class CharacterSheet implements ActionListener {
 		String description = "supported files: " + Arrays.toString(exts).replace('[', '(').replace(']', ')'); //$NON-NLS-1$
 		fc.setFileFilter(new FileNameExtensionFilter(description, exts));
 		fc.setCurrentDirectory(new File(PreferenceStore.getInstance().getCurrentFileLocation()));
-		if (fc.showOpenDialog(mFrame) == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
-			mCharacterFile = file.getAbsolutePath();
-			openFile(file);
-
-			mAttributesRecord.finalizeCreation(false);
-			mPersonalInformationRecord.generateCarry();
-			mCombatInformationRecord.updateRecord();
-			mSkillsRecord.updateRecord();
-			mSavingThrowsRecord = new SavingThrowsRecord(this, true);
-
-			updateForEncubrance();
-
-			loadDisplay();
-
+		if (file == null) {
+			if (fc.showOpenDialog(mFrame) == JFileChooser.APPROVE_OPTION) {
+				file = fc.getSelectedFile();
+			} else {
+				mIsLoadingData = false;
+				return;
+			}
 		}
+		PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
+		mCharacterFile = file.getAbsolutePath();
+		PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
+		openFile(file);
+
+		mAttributesRecord.finalizeCreation(false);
+		mPersonalInformationRecord.generateCarry();
+		mCombatInformationRecord.updateRecord();
+		mSkillsRecord.updateRecord();
+		mSavingThrowsRecord = new SavingThrowsRecord(this, true);
+
+		updateForEncubrance();
+
+		loadDisplay();
 
 		mIsLoadingData = false;
+		mIsCharacterLoaded = true;
+
 	}
 
 	void loadDisplay() {
@@ -568,11 +645,13 @@ public class CharacterSheet implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if (cmd.equals(NEW)) {
+			saveOption(false);
 			clearRecords();
 			createAndUpdate();
 		} else if (cmd.equals(OPEN)) {
+			saveOption(false);
 			clearRecords();
-			loadAndUpdate();
+			loadAndUpdate(null);
 		} else if (cmd.equals(CLOSE)) {
 			saveOption(false);
 			clearRecords();
@@ -642,26 +721,46 @@ public class CharacterSheet implements ActionListener {
 			mMagicItemList.clearRecords();
 		}
 		mDefenseInformationDisplay.clearRecords();
-		if (mAttributesRecord != null) {
-			loadDisplay();
-		}
+		loadDisplay();
+		mIsCharacterLoaded = false;
 	}
 
 	private void saveOption(boolean exit) {
-		int results = JOptionPane.showConfirmDialog(mFrame, "Do you want to save?", "Save Character?", JOptionPane.YES_NO_CANCEL_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
-		if (results == JOptionPane.YES_OPTION) {
-			if (mCharacterFile == null) {
+		if (mIsCharacterLoaded) {
+			if (exit) {
+				mJournalTab.gameDayEndQuestion();
+			}
+
+			Object[] options = { SAVE, SAVE_AS, DONT_SAVE };
+			int results = JOptionPane.showOptionDialog(mFrame, //
+							"Do you want to save?", "Save Character?", // //$NON-NLS-1$ //$NON-NLS-2$
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, //
+							null, options, options[2]);
+			if (results == JOptionPane.YES_OPTION) {
+				if (mCharacterFile == null) {
+					saveAs();
+				} else {
+					saveFile(new File(mCharacterFile));
+				}
+				if (exit) {
+					prepForExit();
+					System.exit(0);
+				}
+			} else if (results == JOptionPane.NO_OPTION) {
 				saveAs();
-			} else {
-				saveFile(new File(mCharacterFile));
+				if (exit) {
+					prepForExit();
+					System.exit(0);
+				}
+			} else if (results == JOptionPane.CANCEL_OPTION) {
+				if (exit) {
+					prepForExit();
+					System.exit(0);
+				}
 			}
-			prepForExit();
+		} else {
 			if (exit) {
-				System.exit(0);
-			}
-		} else if (results == JOptionPane.NO_OPTION) {
-			prepForExit();
-			if (exit) {
+				prepForExit();
 				System.exit(0);
 			}
 		}
@@ -1007,86 +1106,6 @@ public class CharacterSheet implements ActionListener {
 		return mFrame;
 	}
 
-	/** @return The currentWorldYear. */
-	public int getCurrentWorldYear() {
-		return mCurrentWorldYear;
-	}
-
-	/** @param currentWorldYear The value to set for currentWorldYear. */
-	public void setCurrentWorldYear(int currentWorldYear) {
-		mCurrentWorldYear = currentWorldYear;
-	}
-
-	/** @return The currentWorldMonth. */
-	public int getCurrentWorldMonth() {
-		return mCurrentWorldMonth;
-	}
-
-	/** @param currentWorldMonth The value to set for currentWorldMonth. */
-	public void setCurrentWorldMonth(int currentWorldMonth) {
-		mCurrentWorldMonth = currentWorldMonth;
-	}
-
-	/** @return The currentWorldDate. */
-	public int getCurrentWorldDate() {
-		return mCurrentWorldDate;
-	}
-
-	/** @param currentWorldDate The value to set for currentWorldDate. */
-	public void setCurrentWorldDate(int currentWorldDate) {
-		mCurrentWorldDate = currentWorldDate;
-	}
-
-	/** @return The currentCampaignYear. */
-	public int getCurrentCampaignYear() {
-		return mCurrentCampaignYear;
-	}
-
-	/** @param currentCampaignYear The value to set for currentCampaignYear. */
-	public void setCurrentCampaignYear(int currentCampaignYear) {
-		mCurrentCampaignYear = currentCampaignYear;
-	}
-
-	/** @return The currentCampaignMonth. */
-	public int getCurrentCampaignMonth() {
-		return mCurrentCampaignMonth;
-	}
-
-	/** @param currentCampaignMonth The value to set for currentCampaignMonth. */
-	public void setCurrentCampaignMonth(int currentCampaignMonth) {
-		mCurrentCampaignMonth = currentCampaignMonth;
-	}
-
-	/** @return The currentCampaignDate. */
-	public int getCurrentCampaignDate() {
-		return mCurrentCampaignDate;
-	}
-
-	/** @param currentCampaignDate The value to set for currentCampaignDate. */
-	public void setCurrentCampaignDate(int currentCampaignDate) {
-		mCurrentCampaignDate = currentCampaignDate;
-	}
-
-	/** @return The worldDate. */
-	public String getWorldDate() {
-		return mWorldDate;
-	}
-
-	/** @param worldDate The value to set for worldDate. */
-	public void setWorldDate(String worldDate) {
-		mWorldDate = worldDate;
-	}
-
-	/** @return The campaignDate. */
-	public String getCampaignDate() {
-		return mCampaignDate;
-	}
-
-	/** @param campaignDate The value to set for campaignDate. */
-	public void setCampaignDate(String campaignDate) {
-		mCampaignDate = campaignDate;
-	}
-
 	public boolean hasItemsToSell() {
 		try {
 			if (mEquipmentList.getRecords().isEmpty() && mArmorList.getRecords().isEmpty() && mWeaponList.getRecords().isEmpty() && mAnimalList.getRecords().isEmpty() && mMagicItemList.getRecords().isEmpty()) {
@@ -1116,6 +1135,11 @@ public class CharacterSheet implements ActionListener {
 
 	public TKTable getMagicItemsOwnedTable() {
 		return mMagicItemsOwnedDisplay.getTable();
+	}
+
+	/** @return The journalTab. */
+	public JournalDisplay getJournalTab() {
+		return mJournalTab;
 	}
 
 	/*****************************************************************************
