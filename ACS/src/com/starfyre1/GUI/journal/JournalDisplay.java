@@ -69,14 +69,14 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	 ****************************************************************************/
 	public JournalDisplay(CharacterSheet owner) {
 		super(owner, JOURNAL_TITLE);
-
-		gameDayStartQuestion();
 	}
 
-	private void gameDayStartQuestion() {
+	public void gameDayStartQuestion() {
 		// yes = 0; no = 1
-		int n = JOptionPane.showConfirmDialog(null, "Are we playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+		CharacterSheet sheet = (CharacterSheet) getOwner();
+		int n = JOptionPane.showConfirmDialog(sheet != null ? sheet.getFrame() : null, "Are we playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 		if (n == 0) {
+			((CharacterSheet) getOwner()).setGameDayStarted(true);
 			mEntries.add(JournalRecord.getJournalRecord(this, JournalRecord.GAME_DAY_START));
 			updatePreviewPanel();
 		}
@@ -84,10 +84,12 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 
 	public void gameDayEndQuestion() {
 		// yes = 0; no = 1
-		int n = JOptionPane.showConfirmDialog(((CharacterSheet) getOwner()).getFrame(), "Are we done playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
-		if (n == 0) {
-			mEntries.add(JournalRecord.getJournalRecord(this, JournalRecord.GAME_DAY_END));
-			updatePreviewPanel();
+		if (((CharacterSheet) getOwner()).hasGameDayStarted()) {
+			int n = JOptionPane.showConfirmDialog(((CharacterSheet) getOwner()).getFrame(), "Are we done playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
+			if (n == 0) {
+				mEntries.add(JournalRecord.getJournalRecord(this, JournalRecord.GAME_DAY_END));
+				updatePreviewPanel();
+			}
 		}
 	}
 

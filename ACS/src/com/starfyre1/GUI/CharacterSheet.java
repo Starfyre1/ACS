@@ -151,6 +151,7 @@ public class CharacterSheet implements ActionListener {
 
 	private String							mCharacterFile;
 	private boolean							mIsCharacterLoaded			= false;
+	private boolean							mIsGameDayStarted			= false;
 
 	private JMenuItem						mCloseMenuItem;
 	private JMenuItem						mSaveMenuItem;
@@ -556,7 +557,7 @@ public class CharacterSheet implements ActionListener {
 		mMagicItemList = new MagicItemList();
 
 		loadDisplay();
-
+		mJournalTab.gameDayStartQuestion();
 		mIsLoadingData = false;
 		mIsCharacterLoaded = true;
 
@@ -605,6 +606,7 @@ public class CharacterSheet implements ActionListener {
 		updateForEncubrance();
 
 		loadDisplay();
+		mJournalTab.gameDayStartQuestion();
 
 		mIsLoadingData = false;
 		mIsCharacterLoaded = true;
@@ -1142,6 +1144,17 @@ public class CharacterSheet implements ActionListener {
 		return mJournalTab;
 	}
 
+	/**
+	 * @param started
+	 */
+	public void setGameDayStarted(boolean started) {
+		mIsGameDayStarted = started;
+	}
+
+	public boolean hasGameDayStarted() {
+		return mIsGameDayStarted;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
@@ -1285,4 +1298,5 @@ public class CharacterSheet implements ActionListener {
 			}
 		}
 	}
+
 }
