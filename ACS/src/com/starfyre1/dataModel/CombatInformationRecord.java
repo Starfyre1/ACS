@@ -585,6 +585,24 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mHitLevelBonus = 0;
 		mBowLevelBonus = 0;
 		mCastingSpeedLevelBonus = 0;
+		mHitBonus = 0;
+		mHitLevelBonus = 0;
+		mAttackSpeed = 0;
+		mMissileBonus = 0;
+		mMissileSpeed = 0;
+		mBowBonus = 0;
+		mBowLevelBonus = 0;
+		mBowSpeed = 0;
+		mDamageBonus = 0;
+		mCastingSpeed = 0;
+		mCastingSpeedLevelBonus = 0;
+		mDefense = 0;
+		mMana = 0;
+		mFreeAttack = 0;
+		mFocus = 0;
+		mMovement = 0;
+		mUnallocated = 0;
+		mMorals = 0;
 	}
 
 	public void updateDefenseRecord() {
