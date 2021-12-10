@@ -2,8 +2,6 @@
 
 package com.starfyre1.dataModel;
 
-import java.util.Date;
-
 public class HistoryRecord {
 	/*****************************************************************************
 	 * Constants
@@ -12,14 +10,16 @@ public class HistoryRecord {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private Date	mDate;
+	private String	mWorldDate;
+	private String	mCampaignDate;
 	private int		mNewValue;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public HistoryRecord(Date date, int newValue) {
-		mDate = date;
+	public HistoryRecord(String wDate, String cDate, int newValue) {
+		mWorldDate = wDate;
+		mCampaignDate = cDate;
 		mNewValue = newValue;
 	}
 
@@ -31,13 +31,13 @@ public class HistoryRecord {
 	 * Setter's and Getter's
 	 ****************************************************************************/
 	/** @return The date. */
-	public Date getDate() {
-		return mDate;
+	public String getWorldDate() {
+		return mWorldDate;
 	}
 
 	/** @return The date. */
-	public long getRawDate() {
-		return mDate.getTime();
+	public String getCampaignDate() {
+		return mCampaignDate;
 	}
 
 	/** @return The newValue. */

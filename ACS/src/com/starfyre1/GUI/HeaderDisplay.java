@@ -22,7 +22,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -271,14 +270,14 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 				if (currentExperience > nextExperience) {
 					levelUp = true;
 				}
-				manager.addRecord(HistoryManager.EXPERIENCE_KEY, new HistoryRecord(new Date(System.currentTimeMillis()), currentExperience));
+				manager.addRecord(HistoryManager.EXPERIENCE_KEY, new HistoryRecord(ACS.getInstance().getWorldDate(), ACS.getInstance().getCampaignDate(), currentExperience));
 				record.setCurrentExperience(currentExperience);
 
 				mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
 				mCurrentExperienceField.setToolTipText(manager.getTooltip(HistoryManager.EXPERIENCE_KEY));
 				mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
 				((CharacterSheet) getOwner()).updateRecords();
-				manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(new Date(System.currentTimeMillis()), record.getLevel()));
+				manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(ACS.getInstance().getWorldDate(), ACS.getInstance().getCampaignDate(), record.getLevel()));
 				mLevelField.setToolTipText(manager.getTooltip(HistoryManager.LEVEL_KEY));
 				if (levelUp) {
 					ACS.getInstance().getCharacterSheet().getJournalTab().characterLevelUp(record.getLevel());

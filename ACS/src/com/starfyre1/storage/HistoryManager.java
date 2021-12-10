@@ -9,9 +9,7 @@ import com.starfyre1.interfaces.Savable;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -62,12 +60,9 @@ public class HistoryManager implements Savable {
 	public String getTooltip(String key) {
 		StringBuilder sb = new StringBuilder();
 		List<HistoryRecord> list = mTable.get(key);
-		DateFormat date = DateFormat.getDateInstance();
+		sb.append("<html>"); //$NON-NLS-1$
 		for (HistoryRecord record : list) {
-			if (sb.isEmpty()) {
-				sb.append("<html>"); //$NON-NLS-1$
-			}
-			sb.append(date.format(record.getDate()) + ": " + record.getNewValue() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$
+			sb.append(record.getWorldDate() + ": " + record.getCampaignDate() + ": " + record.getNewValue() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 		sb.append("</html>"); //$NON-NLS-1$
 		return sb.toString();
@@ -98,17 +93,15 @@ public class HistoryManager implements Savable {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						break;
-						//						String value = ""; //$NON-NLS-1$
-						//						Date date = new Date(TKStringHelpers.getLongValue(date, 0));
-						//						int history = TKStringHelpers.getIntValue(value, 0);
-						//						HistoryRecord record = new HistoryRecord(date, history);
-						//						setKeyValuePair(key, record);
+					} else {
+						String temp = new String(""); //$NON-NLS-1$
+						while (tokenizer.hasMoreTokens()) {
+							temp += tokenizer.nextToken(TKStringHelpers.TAB) + TKStringHelpers.TAB;
+						}
+						String sections[] = temp.split(TKStringHelpers.TAB);
+						HistoryRecord record = new HistoryRecord(sections[0], sections[1], TKStringHelpers.getIntValue(sections[2], 0));
+						setKeyValuePair(key, record);
 					}
-					long date = TKStringHelpers.getLongValue(tokenizer.nextToken(), 0);
-					int history = TKStringHelpers.getIntValue(tokenizer.nextToken(), 0);
-
-					HistoryRecord record = new HistoryRecord(new Date(date), history);
-					setKeyValuePair(key, record);
 				}
 			}
 		} catch (IOException ioe) {
@@ -132,7 +125,7 @@ public class HistoryManager implements Savable {
 			String test = enu.nextElement();
 			List<HistoryRecord> list = mTable.get(test);
 			for (HistoryRecord record : list) {
-				br.write(test + TKStringHelpers.SPACE + record.getRawDate() + TKStringHelpers.SPACE + record.getNewValue() + System.lineSeparator());
+				br.write(test + TKStringHelpers.TAB + record.getWorldDate() + TKStringHelpers.TAB + record.getCampaignDate() + TKStringHelpers.TAB + record.getNewValue() + System.lineSeparator());
 			}
 		}
 

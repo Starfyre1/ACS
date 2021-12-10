@@ -95,7 +95,6 @@ public class ArmorOwnedDisplay extends ArmorDisplay implements TableModelListene
 		ArmorRecord record = getRecord(e);
 		if (e.getColumn() == 1) {
 			boolean equipped = ((Boolean) mTable.getValueAt(row, e.getColumn())).booleanValue();
-			// DW add/remove from Armor table on character sheet
 			if (equipped) {
 				ACS.getInstance().getCharacterSheet().equipArmor(record, row);
 			} else {
