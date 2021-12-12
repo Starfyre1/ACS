@@ -20,16 +20,16 @@ public class SavingThrowsRecord implements LevelListener {
 	 ****************************************************************************/
 	private CharacterSheet	mCharacterSheet;
 
-	private int				mAgility	= 0;
-	private int				mBleeding	= 0;
-	private int				mMagic		= 0;
-	private int				mPoison		= 0;
-	private int				mShock		= 0;
-	private int				mStress		= 0;
-	private int				mUnconcious	= 0;
-	private int				mSuprise	= 0;
-	private int				mBelief		= 0;
-	private int				mPerception	= 0;
+	private int				mAgility		= 0;
+	private int				mBleeding		= 0;
+	private int				mMagic			= 0;
+	private int				mPoison			= 0;
+	private int				mShock			= 0;
+	private int				mStress			= 0;
+	private int				mUnconscious	= 0;
+	private int				mSurprise		= 0;
+	private int				mBelief			= 0;
+	private int				mPerception		= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -78,15 +78,15 @@ public class SavingThrowsRecord implements LevelListener {
 			dwarvenBonus = stats.getModifiedStat(AttributesRecord.WP);
 		}
 
-		mAgility = stats.getModifiedStat(AttributesRecord.WP) * 3 + 10 + levelBonus;
+		mAgility = stats.getModifiedStat(AttributesRecord.DEX) * 3 + 10 + levelBonus;
 		mBleeding = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + levelBonus + classBonus + dwarvenBonus;
 		mMagic = stats.getModifiedStat(AttributesRecord.INT) * 2 + stats.getModifiedStat(AttributesRecord.WIS) + levelBonus + dwarvenBonus;
 		mPoison = stats.getModifiedStat(AttributesRecord.CON) * 3 + 10 + levelBonus + dwarvenBonus;
 		mShock = stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + 30 + levelBonus + classBonus + dwarvenBonus;
 		mStress = stats.getModifiedStat(AttributesRecord.WP) * 3 + levelBonus + dwarvenBonus;
-		mUnconcious = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) + stats.getModifiedStat(AttributesRecord.WP) * 2 + levelBonus + dwarvenBonus;
+		mUnconscious = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) + stats.getModifiedStat(AttributesRecord.WP) * 2 + levelBonus + dwarvenBonus;
 
-		mSuprise = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.WP) + stats.getModifiedStat(AttributesRecord.WP) + 35 + level * levelSupriseBonus + classBonus;
+		mSurprise = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.DEX) + stats.getModifiedStat(AttributesRecord.WP) + 35 + level * levelSupriseBonus + classBonus;
 		mPerception = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.WIS) + 15 + (level - 1) * 2 + classPerceptionBonus + dwarvenBonus;
 		mBelief = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.WIS) + 35 + level * 5 + dwarvenBonus;
 	}
@@ -154,24 +154,24 @@ public class SavingThrowsRecord implements LevelListener {
 		mStress = stress;
 	}
 
-	/** @return The unconcious. */
-	public int getUnconcious() {
-		return mUnconcious;
+	/** @return The unconscious. */
+	public int getUnconscious() {
+		return mUnconscious;
 	}
 
-	/** @param unconcious The value to set for unconcious. */
-	public void setUnconcious(int unconcious) {
-		mUnconcious = unconcious;
+	/** @param unconscious The value to set for unconscious. */
+	public void setUnconcious(int unconscious) {
+		mUnconscious = unconscious;
 	}
 
-	/** @return The suprise. */
-	public int getSuprise() {
-		return mSuprise;
+	/** @return The surprise. */
+	public int getSurprise() {
+		return mSurprise;
 	}
 
-	/** @param suprise The value to set for suprise. */
-	public void setSuprise(int suprise) {
-		mSuprise = suprise;
+	/** @param surprise The value to set for surprise. */
+	public void setSurprise(int surprise) {
+		mSurprise = surprise;
 	}
 
 	/** @return The belief. */

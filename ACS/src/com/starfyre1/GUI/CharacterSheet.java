@@ -983,7 +983,7 @@ public class CharacterSheet implements ActionListener {
 			cir.setMissileBonus((int) (cir.getMissileBonus() * .75));
 			cir.setBowSpeed(cir.getBowSpeed() - 5);
 			cir.setBowBonus((int) (cir.getBowBonus() * .75));
-			str.setSuprise(str.getSuprise() - 20);
+			str.setSurprise(str.getSurprise() - 20);
 		} else if (value == 2) {
 			cir.setMovement((int) (cir.getMovement() * .50));
 			cir.setAttackSpeed(cir.getAttackSpeed() - 3);
@@ -992,7 +992,7 @@ public class CharacterSheet implements ActionListener {
 			cir.setMissileBonus((int) (cir.getMissileBonus() * .85));
 			cir.setBowSpeed(cir.getBowSpeed() - 3);
 			cir.setBowBonus((int) (cir.getBowBonus() * .85));
-			str.setSuprise(str.getSuprise() - 10);
+			str.setSurprise(str.getSurprise() - 10);
 		} else if (value == 1) {
 			cir.setMovement((int) (cir.getMovement() * .75));
 			cir.setAttackSpeed(cir.getAttackSpeed() - 1);

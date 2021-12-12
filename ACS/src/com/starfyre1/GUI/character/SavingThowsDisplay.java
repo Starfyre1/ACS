@@ -237,8 +237,8 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 			mPoisonField.setText(TKStringHelpers.EMPTY_STRING + record.getPoison());
 			mShockField.setText(TKStringHelpers.EMPTY_STRING + record.getShock());
 			mStressField.setText(TKStringHelpers.EMPTY_STRING + record.getStress());
-			mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconcious());
-			mSupriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSuprise());
+			mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconscious());
+			mSupriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSurprise());
 			mPerceptionField.setText(TKStringHelpers.EMPTY_STRING + record.getPerception());
 			mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
 		}
