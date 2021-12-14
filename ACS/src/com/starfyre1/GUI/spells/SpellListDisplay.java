@@ -33,7 +33,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -47,31 +46,29 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		SPELL_LIST_TITLE			= "Spell List";														//$NON-NLS-1$
+	private static final String	SPELL_LIST_TITLE			= "Spell List";									//$NON-NLS-1$
 
-	public static final String		FILE_SECTTION_START_KEY		= "SPELL_LIST_SECTTION_START";										//$NON-NLS-1$
-	public static final String		FILE_SECTTION_END_KEY		= "SPELL_LIST_SECTTION_END";										//$NON-NLS-1$
-	public static final String		SELECTED_MAGICAL_AREA_KEY	= "SELECTED_MAGICAL_AREA_KEY";										//$NON-NLS-1$
+	public static final String	FILE_SECTTION_START_KEY		= "SPELL_LIST_SECTTION_START";					//$NON-NLS-1$
+	public static final String	FILE_SECTTION_END_KEY		= "SPELL_LIST_SECTTION_END";					//$NON-NLS-1$
+	public static final String	SELECTED_MAGICAL_AREA_KEY	= "SELECTED_MAGICAL_AREA_KEY";					//$NON-NLS-1$
 
-	private static final String		MAGIC_AREA_LABEL			= "Magic Area";														//$NON-NLS-1$
-	private static final String		EXPERIENCE_IN_AREA_LABEL	= "Experience in Area";												//$NON-NLS-1$
-	private static final String		LEVEL_IN_AREA_LABEL			= "Level in Area";													//$NON-NLS-1$
-	private static final String		LEARN_SPELL					= "Learn Spell";													//$NON-NLS-1$
+	private static final String	MAGIC_AREA_LABEL			= "Magic Area";									//$NON-NLS-1$
+	private static final String	EXPERIENCE_IN_AREA_LABEL	= "Experience in Area";							//$NON-NLS-1$
+	private static final String	LEVEL_IN_AREA_LABEL			= "Level in Area";								//$NON-NLS-1$
+	private static final String	LEARN_SPELL					= "Learn Spell";								//$NON-NLS-1$
 
-	private static final String		SELECT_MAGIC_AREA			= "Select Magic Area";												//$NON-NLS-1$
-
-	private static final ImageIcon	icon						= new ImageIcon("../ACS/src/com/starfyre1/Images/ImagePlus.png");	//$NON-NLS-1$
+	private static final String	SELECT_MAGIC_AREA			= "Select Magic Area";							//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private TKPopupMenu				mAreaPopup;
+	private TKPopupMenu			mAreaPopup;
 	//	private JPanel					mFilterPanel;
-	private JButton					mNewSpellButton				= new JButton(icon);
-	private Color					mOldColor					= null;
+	private JButton				mNewSpellButton				= new JButton(CharacterSheet.IMAGE_PLUS_ICON);
+	private Color				mOldColor					= null;
 
-	private JPanel					mCards;
-	private SpellList				mCurrentList;
+	private JPanel				mCards;
+	private SpellList			mCurrentList;
 
 	/*****************************************************************************
 	 * Constructors

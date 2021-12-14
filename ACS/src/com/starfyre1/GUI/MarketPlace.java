@@ -20,7 +20,6 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -78,8 +77,6 @@ public class MarketPlace extends JDialog implements ActionListener {
 	private static final String				BUY						= "Buy";				//$NON-NLS-1$
 	private static final String				SELL_MERCHANT			= "Sell Merchant";		//$NON-NLS-1$
 	private static final String				BUY_MERCHANT			= "Buy Merchant";		//$NON-NLS-1$
-
-	private static final Icon				ICON					= null;
 
 	//	private static EquipmentList	mEquipment;
 	//	private static ArmorList		mArmor;
@@ -144,11 +141,11 @@ public class MarketPlace extends JDialog implements ActionListener {
 		JComponent animalsTab = makeAnimalsTab();
 		JComponent magicItemsTab = makeMagicItemsTab();
 
-		mTabbedPane.addTab(EQUIPMENT_TAB_TITLE, ICON, equipmentTab, EQUIPMENT_TAB_TOOLTIP);
-		mTabbedPane.addTab(ARMOR_TAB_TITLE, ICON, armorTab, ARMOR_TAB_TOOLTIP);
-		mTabbedPane.addTab(WEAPONS_TAB_TITLE, ICON, weaponsTab, WEAPONS_TAB_TOOLTIP);
-		mTabbedPane.addTab(ANIMALS_TAB_TITLE, ICON, animalsTab, ANIMALS_TAB_TOOLTIP);
-		mTabbedPane.addTab(MAGIC_ITEMS_TAB_TITLE, ICON, magicItemsTab, MAGIC_ITEMS_TAB_TOOLTIP);
+		mTabbedPane.addTab(EQUIPMENT_TAB_TITLE, CharacterSheet.MERCHANT_ICON, equipmentTab, EQUIPMENT_TAB_TOOLTIP);
+		mTabbedPane.addTab(ARMOR_TAB_TITLE, CharacterSheet.MERCHANT_ICON, armorTab, ARMOR_TAB_TOOLTIP);
+		mTabbedPane.addTab(WEAPONS_TAB_TITLE, CharacterSheet.MERCHANT_ICON, weaponsTab, WEAPONS_TAB_TOOLTIP);
+		mTabbedPane.addTab(ANIMALS_TAB_TITLE, CharacterSheet.MERCHANT_ICON, animalsTab, ANIMALS_TAB_TOOLTIP);
+		mTabbedPane.addTab(MAGIC_ITEMS_TAB_TITLE, CharacterSheet.MERCHANT_ICON, magicItemsTab, MAGIC_ITEMS_TAB_TOOLTIP);
 
 		mTabbedPane.setMnemonicAt(0, KeyEvent.VK_E);
 		mTabbedPane.setMnemonicAt(1, KeyEvent.VK_R);

@@ -247,7 +247,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 
 	private JButton getDateButton(String date, ActionListener listener) {
 		JButton dateButton = new JButton(date);
-		dateButton.setFont(ACS.MONOSPACED_FONT);
+		dateButton.setFont(CharacterSheet.MONOSPACED_FONT);
 		dateButton.setBorderPainted(false);
 		dateButton.setFocusPainted(false);
 		dateButton.addActionListener(listener);

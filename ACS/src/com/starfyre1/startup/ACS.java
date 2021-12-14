@@ -11,7 +11,6 @@ import com.starfyre1.dataset.MetalList;
 import com.starfyre1.dataset.PriestList;
 import com.starfyre1.dataset.spells.SpellDescriptionList;
 
-import java.awt.Font;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,8 +33,6 @@ public class ACS {
 	private static String				RELEASE_DATE			= "December 06, 2021";																																																//$NON-NLS-1$
 	private static String				RELEASE_TIME			= "8:42 UTC/GMT";																																																	//$NON-NLS-1$
 	public static String				COPYRIGHT				= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";																																				//$NON-NLS-1$
-
-	public static final Font			MONOSPACED_FONT			= new Font(Font.MONOSPACED, Font.BOLD, 12);
 
 	private static final int			YEAR_AL					= 615;																																																				// YEAR_AD			= YEAR_AL - 268;
 
@@ -82,7 +79,10 @@ public class ACS {
 				if (PreferenceStore.getInstance().isAutoLoad()) {
 					String lastCharacter = PreferenceStore.getInstance().getCurrentLastCharacter();
 					if (lastCharacter != null) {
-						mCharacterSheet.loadAndUpdate(new File(lastCharacter));
+						File character = new File(lastCharacter);
+						if (character.exists()) {
+							mCharacterSheet.loadAndUpdate(character);
+						}
 					}
 				}
 			}

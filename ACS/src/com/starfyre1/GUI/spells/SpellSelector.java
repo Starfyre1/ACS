@@ -30,24 +30,21 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.plaf.ColorUIResource;
 
 public class SpellSelector extends JDialog implements ActionListener, MouseListener {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	SPELL_SELECTOR		= "Spell Selector";											//$NON-NLS-1$
-	private static final String	LEVEL				= "Level ";													//$NON-NLS-1$
+	private static final String	SPELL_SELECTOR		= "Spell Selector";	//$NON-NLS-1$
+	private static final String	LEVEL				= "Level ";			//$NON-NLS-1$
 
-	private static final String	DESCRIPTION			= "Description";											//$NON-NLS-1$
-	private static final String	LEARN				= "Learn";													//$NON-NLS-1$
-	private static final String	CLOSE				= "Close";													//$NON-NLS-1$
+	private static final String	DESCRIPTION			= "Description";	//$NON-NLS-1$
+	private static final String	LEARN				= "Learn";			//$NON-NLS-1$
+	private static final String	CLOSE				= "Close";			//$NON-NLS-1$
 
-	private static final Color	SELECTED_COLOR		= new ColorUIResource(UIManager.getColor("Button.focus"));	//$NON-NLS-1$
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
@@ -202,7 +199,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 			mOldLabel = (JLabel) e.getSource();
 			mOldSelectedColor = mOldLabel.getBackground();
 
-			mOldLabel.setBackground(SELECTED_COLOR);
+			mOldLabel.setBackground(CharacterSheet.SELECTED_COLOR);
 
 			updateButtons(true);
 		} else {

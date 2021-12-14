@@ -51,8 +51,10 @@ import com.starfyre1.startup.SystemInfo;
 import com.starfyre1.storage.HistoryManager;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,6 +77,7 @@ import java.util.StringTokenizer;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -88,43 +91,45 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.ColorUIResource;
 
 public class CharacterSheet implements ActionListener {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String				CHARACTER_SHEET_TITLE		= "Character";				//$NON-NLS-1$
-	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment";				//$NON-NLS-1$
-	private static final String				SPELL_SHEET_TITLE			= "Spells";					//$NON-NLS-1$
-	private static final String				JOURNAL_SHEET_TITLE			= "Journal";				//$NON-NLS-1$
+	private static final String				CHARACTER_SHEET_TITLE		= "Character";														//$NON-NLS-1$
+	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment";														//$NON-NLS-1$
+	private static final String				SPELL_SHEET_TITLE			= "Spells";															//$NON-NLS-1$
+	private static final String				JOURNAL_SHEET_TITLE			= "Journal";														//$NON-NLS-1$
 
 	// DW add something useful for the tooltips or remove them
-	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";		//$NON-NLS-1$
-	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";		//$NON-NLS-1$
-	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";			//$NON-NLS-1$
-	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";			//$NON-NLS-1$
+	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";												//$NON-NLS-1$
+	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";												//$NON-NLS-1$
+	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";													//$NON-NLS-1$
+	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";													//$NON-NLS-1$
 
-	private static final String				ABOUT						= "About";					//$NON-NLS-1$
-	private static final String				HELP						= "Help";					//$NON-NLS-1$
-	private static final String				PREFERENCES					= "Preferences";			//$NON-NLS-1$
-	private static final String				OPTIONS						= "Options";				//$NON-NLS-1$
-	private static final String				MARKET_PLACE				= "Market Place";			//$NON-NLS-1$
-	private static final String				EXIT						= "Exit";					//$NON-NLS-1$
-	private static final String				SAVE_AS						= "Save As...";				//$NON-NLS-1$
-	private static final String				SAVE						= "Save";					//$NON-NLS-1$
-	private static final String				DONT_SAVE					= "Don't Save";				//$NON-NLS-1$
-	private static final String				CLOSE						= "Close";					//$NON-NLS-1$
-	private static final String				OPEN						= "Open...";				//$NON-NLS-1$
-	private static final String				NEW							= "New";					//$NON-NLS-1$
-	private static final String				FILE						= "File";					//$NON-NLS-1$
-	private static final String				CREATE						= "Create";					//$NON-NLS-1$
-	private static final String				CANCEL						= "Cancel";					//$NON-NLS-1$
+	private static final String				ABOUT						= "About";															//$NON-NLS-1$
+	private static final String				HELP						= "Help";															//$NON-NLS-1$
+	private static final String				PREFERENCES					= "Preferences";													//$NON-NLS-1$
+	private static final String				OPTIONS						= "Options";														//$NON-NLS-1$
+	private static final String				MARKET_PLACE				= "Market Place";													//$NON-NLS-1$
+	private static final String				EXIT						= "Exit";															//$NON-NLS-1$
+	private static final String				SAVE_AS						= "Save As...";														//$NON-NLS-1$
+	private static final String				SAVE						= "Save";															//$NON-NLS-1$
+	private static final String				DONT_SAVE					= "Don't Save";														//$NON-NLS-1$
+	private static final String				CLOSE						= "Close";															//$NON-NLS-1$
+	private static final String				OPEN						= "Open...";														//$NON-NLS-1$
+	private static final String				NEW							= "New";															//$NON-NLS-1$
+	private static final String				FILE						= "File";															//$NON-NLS-1$
+	private static final String				CREATE						= "Create";															//$NON-NLS-1$
+	private static final String				CANCEL						= "Cancel";															//$NON-NLS-1$
 
 	public static final Dimension			CHARACTER_TAB_TABLE_SIZE	= new Dimension(375, 75);
 	public static final Dimension			EQUIPMENT_TAB_TABLE_SIZE	= new Dimension(750, 150);
@@ -136,7 +141,13 @@ public class CharacterSheet implements ActionListener {
 	public static final int					CELL_SMALL_MAX_WIDTH		= 45;
 	public static final int					CELL_LARGE_MAX_WIDTH		= 75;
 
-	private static final Icon				ICON						= null;
+	public static Color						SELECTED_COLOR				= new ColorUIResource(UIManager.getColor("Button.focus"));			//$NON-NLS-1$
+	public static Color						LABEL_BACKGROUND			= new ColorUIResource(UIManager.getColor("Label.background"));		//$NON-NLS-1$
+	public static Font						MONOSPACED_FONT				= new Font(Font.MONOSPACED, Font.BOLD, 12);
+	private static Icon						CHARACTER_ICON				= null;
+	public static Icon						DETERMINATION_ICON			= null;
+	public static Icon						MERCHANT_ICON				= null;
+	public static ImageIcon					IMAGE_PLUS_ICON				= new ImageIcon("../ACS/src/com/starfyre1/Images/ImagePlus.png");	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -250,10 +261,10 @@ public class CharacterSheet implements ActionListener {
 		mSpellTab = new SpellListDisplay(this);
 		mJournalTab = new JournalDisplay(this);
 
-		tabbedPane.addTab(CHARACTER_SHEET_TITLE, ICON, characterTab, CHARACTER_SHEET_TOOLTIP);
-		tabbedPane.addTab(EQUIPMENT_SHEET_TITLE, ICON, equipmentTab, EQUIPMENT_SHEET_TOOLTIP);
-		tabbedPane.addTab(SPELL_SHEET_TITLE, ICON, mSpellTab, SPELL_SHEET_TOOLTIP);
-		tabbedPane.addTab(JOURNAL_SHEET_TITLE, ICON, mJournalTab, JOURNAL_SHEET_TOOLTIP);
+		tabbedPane.addTab(CHARACTER_SHEET_TITLE, CHARACTER_ICON, characterTab, CHARACTER_SHEET_TOOLTIP);
+		tabbedPane.addTab(EQUIPMENT_SHEET_TITLE, CHARACTER_ICON, equipmentTab, EQUIPMENT_SHEET_TOOLTIP);
+		tabbedPane.addTab(SPELL_SHEET_TITLE, CHARACTER_ICON, mSpellTab, SPELL_SHEET_TOOLTIP);
+		tabbedPane.addTab(JOURNAL_SHEET_TITLE, CHARACTER_ICON, mJournalTab, JOURNAL_SHEET_TOOLTIP);
 
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_C);
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_E);
@@ -768,7 +779,18 @@ public class CharacterSheet implements ActionListener {
 		}
 	}
 
+	private void cleanUp() {
+		SELECTED_COLOR = null;
+		LABEL_BACKGROUND = null;
+		MONOSPACED_FONT = null;
+		CHARACTER_ICON = null;
+		DETERMINATION_ICON = null;
+		MERCHANT_ICON = null;
+		IMAGE_PLUS_ICON = null;
+	}
+
 	private void prepForExit() {
+		cleanUp();
 		PreferenceStore prefs = PreferenceStore.getInstance();
 		prefs.setWindowBounds(mFrame.getBounds());
 		prefs.saveValues();
