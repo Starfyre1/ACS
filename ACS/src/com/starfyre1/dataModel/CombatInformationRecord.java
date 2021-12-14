@@ -166,7 +166,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	private void generateBowBonus() {
 		int classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getBowBonus();
 
-		int bs = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.BS);
+		int bs = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.BOW);
 
 		int BowBonus = 0;
 		if (bs < 8) {
@@ -209,7 +209,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 
 	private void generateBowSpeed() {
 		AttributesRecord stats = mCharacterSheet.getAttributesRecord();
-		int value = stats.getModifiedStat(AttributesRecord.BS);
+		int value = stats.getModifiedStat(AttributesRecord.BOW);
 
 		mBowSpeed = speed(value);
 	}
@@ -257,7 +257,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 					yield record.getModifiedStat(AttributesRecord.DEX); // 3
 				}
 				case AttributesRecord.BOW_SKILL: {
-					yield record.getModifiedStat(AttributesRecord.BS); // 0
+					yield record.getModifiedStat(AttributesRecord.BOW); // 0
 				}
 				case ClassList.CONTROL:
 				case ClassList.SAUTRIAN:

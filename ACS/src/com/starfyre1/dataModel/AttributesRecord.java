@@ -44,7 +44,7 @@ public class AttributesRecord implements Savable {
 	public static final int		INT						= 2;
 	public static final int		WIS						= 3;
 	public static final int		DEX						= 4;
-	public static final int		BS						= 5;
+	public static final int		BOW						= 5;
 	public static final int		CHA						= 6;
 	public static final int		PA						= 7;
 	public static final int		WP						= 8;

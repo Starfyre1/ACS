@@ -88,29 +88,29 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 	private static final Dimension	PREFERRED_SIZE					= new Dimension(600, 1000);
 
-	private static final String		PHYSICAL						= "A stat cannot be raised more than (3) points, or above (18).\r\n"																	// //$NON-NLS-1$
+	private static final String		PHYSICAL_DESCRIPTION			= "A stat cannot be raised more than (3) points, or above (18).\r\n"																	// //$NON-NLS-1$
 					+ "\r\n"																																												// //$NON-NLS-1$
 					+ "There is a 10% chance per week that the stat will drop down to the original number if not maintained.  This chance is cumulative.";													//$NON-NLS-1$
 
-	private static final String		LANGUAGES						= "To learn the language fluently, the character must learn the language again, and again successfully roll below their Wisdom stat";	// //$NON-NLS-1$
+	private static final String		LANGUAGE_DESCRIPTION			= "To learn the language fluently, the character must learn the language again, and again successfully roll below their Wisdom stat";	// //$NON-NLS-1$
 
-	private static final String		MAGIC_SPELL						= "A power 3 spell would cost 96 D.P.'s ((3+1) Squared, times 6).\r\n"																	// //$NON-NLS-1$
+	private static final String		MAGIC_SPELL_DESCRIPTION			= "A power 3 spell would cost 96 D.P.'s ((3+1) Squared, times 6).\r\n"																	// //$NON-NLS-1$
 					+ "\r\n"																																												// //$NON-NLS-1$
 					+ "For most Mages there is also a monitory investment.\r\n"																																// //$NON-NLS-1$
 					+ "\r\n"																																												// //$NON-NLS-1$
 					+ "The success rate is outlined in the Research Section of the Magic System.";																											//$NON-NLS-1$
 
-	private static final String		WEAPON_PROFICIENCY				= "The character must first find a teacher with a higher Hit Bonus than the their own.\r\n"												// //$NON-NLS-1$
+	private static final String		WEAPON_PROFICIENCY_DESCRIPTION	= "The character must first find a teacher with a higher Hit Bonus than the their own.\r\n"												// //$NON-NLS-1$
 					+ "\r\n"																																												// //$NON-NLS-1$
 					+ "The character gains 1/4 the difference between the teachers Hit Bonus and their own.\r\n"																							// //$NON-NLS-1$
 					+ "\r\n"																																												// //$NON-NLS-1$
 					+ "The bonus will apply only when the character is using that particular weapon.";																										//$NON-NLS-1$
 
-	private static final String		SKILLS							= "The character must find a teacher with the skill they want at the Highest Skill level they can find.\r\n"							// //$NON-NLS-1$
+	private static final String		SKILLS_DESCRIPTION				= "The character must find a teacher with the skill they want at the Highest Skill level they can find.\r\n"							// //$NON-NLS-1$
 					+ "\r\n"																																												// //$NON-NLS-1$
 					+ "To further increase the skill it will require further training and D.P. assignment";																									//$NON-NLS-1$
 
-	private static final String		TEACHERS						= "The payment of Teachers will be up to the Game Masters running that particular campaign.\r\n"										// //$NON-NLS-1$
+	private static final String		TEACHERS_DESCRIPTION			= "The payment of Teachers will be up to the Game Masters running that particular campaign.\r\n"										// //$NON-NLS-1$
 					+ "\r\n"																																												// //$NON-NLS-1$
 					+ "Remember that these people will not be very cheap, they are usually very special people whose time is very precious.\r\n"															// //$NON-NLS-1$
 					+ "\r\n"																																												// //$NON-NLS-1$
@@ -124,6 +124,12 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	private JTextField				mPointsPerWeekField;
 	private JButton					mSpendPoints;
 	private JTabbedPane				mTabbedPane;
+
+	JCheckBox						mStrCheckBox;
+	JCheckBox						mConCheckBox;
+	JCheckBox						mWisCheckBox;
+	JCheckBox						mDexCheckBox;
+	JCheckBox						mBowCheckBox;
 
 	/*****************************************************************************
 	 * Constructors
@@ -197,6 +203,56 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		dialog.setVisible(true);
 	}
 
+	private JComponent createPage(JPanel lowerPanel, String description, String title1, String title2, String cost1, String cost2) {
+		JPanel page = new JPanel(new BorderLayout());
+
+		JPanel topWrapper = new JPanel(new BorderLayout());
+
+		JPanel top = new JPanel(new BorderLayout());
+		top.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		JPanel titleWrapper = new JPanel();
+		BoxLayout bl3 = new BoxLayout(titleWrapper, BoxLayout.Y_AXIS);
+		titleWrapper.setLayout(bl3);
+		JLabel titleLabel1 = new JLabel(title1);
+		JLabel titleLabel2 = new JLabel(title2);
+		titleWrapper.add(titleLabel1);
+		titleWrapper.add(titleLabel2);
+
+		JPanel costWrapper = new JPanel();
+		BoxLayout bl2 = new BoxLayout(costWrapper, BoxLayout.Y_AXIS);
+		costWrapper.setLayout(bl2);
+
+		JLabel costLabel1 = new JLabel(cost1);
+		JLabel costLabel2 = new JLabel(cost2);
+		costWrapper.add(costLabel1);
+		costWrapper.add(costLabel2);
+
+		top.add(titleWrapper, BorderLayout.WEST);
+		top.add(costWrapper, BorderLayout.EAST);
+
+		JTextArea descriptionTextArea = new JTextArea();
+		CompoundBorder cb = new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 15, 5, 15), new LineBorder(Color.BLACK)), new EmptyBorder(5, 5, 5, 5));
+		descriptionTextArea.setBorder(cb);
+		descriptionTextArea.getInsets(new Insets(5, 5, 5, 5));
+		descriptionTextArea.setBackground(CharacterSheet.LABEL_BACKGROUND);
+		descriptionTextArea.setEditable(false);
+		descriptionTextArea.setLineWrap(true);
+		descriptionTextArea.setWrapStyleWord(true);
+		descriptionTextArea.setText(description);
+
+		topWrapper.add(top, BorderLayout.NORTH);
+		topWrapper.add(descriptionTextArea, BorderLayout.CENTER);
+
+		page.add(topWrapper, BorderLayout.NORTH);
+		if (lowerPanel != null) {
+			page.add(lowerPanel, BorderLayout.CENTER);
+		}
+
+		return page;
+
+	}
+
 	private JComponent makeTeacherTab() {
 		TKTitledDisplay display = new TKTitledDisplay(this, TEACHER_TAB_TITLE) {
 
@@ -207,30 +263,11 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 			@Override
 			protected Component createDisplay() {
-				return teachersPage();
+				return createPage(null, TEACHERS_DESCRIPTION, "", "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			}
 		};
 
 		return display;
-	}
-
-	private JComponent teachersPage() {
-		JPanel page = new JPanel(new BorderLayout());
-
-		JTextArea description = new JTextArea();
-		CompoundBorder cb = new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 15, 5, 15), new LineBorder(Color.BLACK)), new EmptyBorder(5, 5, 5, 5));
-		description.setBorder(cb);
-		description.getInsets(new Insets(5, 5, 5, 5));
-		description.setBackground(CharacterSheet.LABEL_BACKGROUND);
-		description.setEditable(false);
-		description.setLineWrap(true);
-		description.setWrapStyleWord(true);
-		description.setText(TEACHERS);
-
-		page.add(description, BorderLayout.NORTH);
-
-		return page;
-
 	}
 
 	private JComponent makeSkillTab() {
@@ -243,63 +280,11 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 			@Override
 			protected Component createDisplay() {
-				return skillsPage();
+				return createPage(null, SKILLS_DESCRIPTION, SKILL_TITLE, SKILL_TITLE2, SKILL_COST, SKILL_COST2);
 			}
 		};
 
 		return display;
-	}
-
-	private JComponent skillsPage() {
-		JPanel page = new JPanel(new BorderLayout());
-
-		JPanel topWrapper = new JPanel(new BorderLayout());
-
-		JPanel top = new JPanel(new BorderLayout());
-		top.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		JPanel titleWrapper = new JPanel();
-		BoxLayout bl3 = new BoxLayout(titleWrapper, BoxLayout.Y_AXIS);
-		titleWrapper.setLayout(bl3);
-		JLabel title = new JLabel(SKILL_TITLE);
-		JLabel title2 = new JLabel(SKILL_TITLE2);
-		titleWrapper.add(title);
-		titleWrapper.add(title2);
-
-		JPanel costWrapper = new JPanel();
-		BoxLayout bl2 = new BoxLayout(costWrapper, BoxLayout.Y_AXIS);
-		costWrapper.setLayout(bl2);
-		JLabel cost = new JLabel(SKILL_COST);
-		JLabel cost2 = new JLabel(SKILL_COST2);
-		costWrapper.add(cost);
-		costWrapper.add(cost2);
-
-		top.add(titleWrapper, BorderLayout.WEST);
-		top.add(costWrapper, BorderLayout.EAST);
-
-		JTextArea description = new JTextArea();
-		CompoundBorder cb = new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 15, 5, 15), new LineBorder(Color.BLACK)), new EmptyBorder(5, 5, 5, 5));
-		description.setBorder(cb);
-		description.getInsets(new Insets(5, 5, 5, 5));
-		description.setBackground(CharacterSheet.LABEL_BACKGROUND);
-		description.setEditable(false);
-		description.setLineWrap(true);
-		description.setWrapStyleWord(true);
-		description.setText(SKILLS);
-
-		JPanel center = new JPanel();
-		BoxLayout bl = new BoxLayout(center, BoxLayout.Y_AXIS);
-		center.setLayout(bl);
-		center.setBorder(new EmptyBorder(5, 15, 5, 5));
-
-		topWrapper.add(top, BorderLayout.NORTH);
-		topWrapper.add(description, BorderLayout.CENTER);
-
-		page.add(topWrapper, BorderLayout.NORTH);
-		page.add(center, BorderLayout.CENTER);
-
-		return page;
-
 	}
 
 	private JComponent makeWeaponProficiencyTab() {
@@ -312,64 +297,11 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 			@Override
 			protected Component createDisplay() {
-				return weaponProficiencyPage();
+				return createPage(null, WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TITLE, WEAPON_PROFICIENCY_TITLE2, WEAPON_PROFICIENCY_COST, WEAPON_PROFICIENCY_COST2);
 			}
 		};
 
 		return display;
-	}
-
-	private JComponent weaponProficiencyPage() {
-		JPanel page = new JPanel(new BorderLayout());
-
-		JPanel topWrapper = new JPanel(new BorderLayout());
-
-		JPanel top = new JPanel(new BorderLayout());
-		top.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		JPanel titleWrapper = new JPanel();
-		BoxLayout bl3 = new BoxLayout(titleWrapper, BoxLayout.Y_AXIS);
-		titleWrapper.setLayout(bl3);
-		JLabel title = new JLabel(WEAPON_PROFICIENCY_TITLE);
-		JLabel title2 = new JLabel(WEAPON_PROFICIENCY_TITLE2);
-		titleWrapper.add(title);
-		titleWrapper.add(title2);
-
-		JPanel costWrapper = new JPanel();
-		BoxLayout bl2 = new BoxLayout(costWrapper, BoxLayout.Y_AXIS);
-		costWrapper.setLayout(bl2);
-
-		JLabel cost = new JLabel(WEAPON_PROFICIENCY_COST);
-		JLabel cost2 = new JLabel(WEAPON_PROFICIENCY_COST2);
-		costWrapper.add(cost);
-		costWrapper.add(cost2);
-
-		top.add(titleWrapper, BorderLayout.WEST);
-		top.add(costWrapper, BorderLayout.EAST);
-
-		JTextArea description = new JTextArea();
-		CompoundBorder cb = new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 15, 5, 15), new LineBorder(Color.BLACK)), new EmptyBorder(5, 5, 5, 5));
-		description.setBorder(cb);
-		description.getInsets(new Insets(5, 5, 5, 5));
-		description.setBackground(CharacterSheet.LABEL_BACKGROUND);
-		description.setEditable(false);
-		description.setLineWrap(true);
-		description.setWrapStyleWord(true);
-		description.setText(WEAPON_PROFICIENCY);
-
-		JPanel center = new JPanel();
-		BoxLayout bl = new BoxLayout(center, BoxLayout.Y_AXIS);
-		center.setLayout(bl);
-		center.setBorder(new EmptyBorder(5, 15, 5, 5));
-
-		topWrapper.add(top, BorderLayout.NORTH);
-		topWrapper.add(description, BorderLayout.CENTER);
-
-		page.add(topWrapper, BorderLayout.NORTH);
-		page.add(center, BorderLayout.CENTER);
-
-		return page;
-
 	}
 
 	private JComponent makeMagicSpellTab() {
@@ -382,64 +314,11 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 			@Override
 			protected Component createDisplay() {
-				return magicSpellsPage();
+				return createPage(null, MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TITLE, MAGIC_SPELL_TITLE2, MAGIC_SPELL_COST, MAGIC_SPELL_COST2);
 			}
 		};
 
 		return display;
-	}
-
-	private JComponent magicSpellsPage() {
-		JPanel page = new JPanel(new BorderLayout());
-
-		JPanel topWrapper = new JPanel(new BorderLayout());
-
-		JPanel top = new JPanel(new BorderLayout());
-		top.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		JPanel titleWrapper = new JPanel();
-		BoxLayout bl3 = new BoxLayout(titleWrapper, BoxLayout.Y_AXIS);
-		titleWrapper.setLayout(bl3);
-		JLabel title = new JLabel(MAGIC_SPELL_TITLE);
-		JLabel title2 = new JLabel(MAGIC_SPELL_TITLE2);
-		titleWrapper.add(title);
-		titleWrapper.add(title2);
-
-		JPanel costWrapper = new JPanel();
-		BoxLayout bl2 = new BoxLayout(costWrapper, BoxLayout.Y_AXIS);
-		costWrapper.setLayout(bl2);
-
-		JLabel cost = new JLabel(MAGIC_SPELL_COST);
-		JLabel cost2 = new JLabel(MAGIC_SPELL_COST2);
-		costWrapper.add(cost);
-		costWrapper.add(cost2);
-
-		top.add(titleWrapper, BorderLayout.WEST);
-		top.add(costWrapper, BorderLayout.EAST);
-
-		JTextArea description = new JTextArea();
-		CompoundBorder cb = new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 15, 5, 15), new LineBorder(Color.BLACK)), new EmptyBorder(5, 5, 5, 5));
-		description.setBorder(cb);
-		description.getInsets(new Insets(5, 5, 5, 5));
-		description.setBackground(CharacterSheet.LABEL_BACKGROUND);
-		description.setEditable(false);
-		description.setLineWrap(true);
-		description.setWrapStyleWord(true);
-		description.setText(MAGIC_SPELL);
-
-		JPanel center = new JPanel();
-		BoxLayout bl = new BoxLayout(center, BoxLayout.Y_AXIS);
-		center.setLayout(bl);
-		center.setBorder(new EmptyBorder(5, 15, 5, 5));
-
-		topWrapper.add(top, BorderLayout.NORTH);
-		topWrapper.add(description, BorderLayout.CENTER);
-
-		page.add(topWrapper, BorderLayout.NORTH);
-		page.add(center, BorderLayout.CENTER);
-
-		return page;
-
 	}
 
 	private JComponent makeLanguageTab() {
@@ -452,64 +331,11 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 			@Override
 			protected Component createDisplay() {
-				return languagesPage();
+				return createPage(null, LANGUAGE_DESCRIPTION, LANGUAGE_TITLE, LANGUAGE_TITLE2, LANGUAGE_COST, LANGUAGE_COST2);
 			}
 		};
 
 		return display;
-	}
-
-	private JComponent languagesPage() {
-		JPanel page = new JPanel(new BorderLayout());
-
-		JPanel topWrapper = new JPanel(new BorderLayout());
-
-		JPanel top = new JPanel(new BorderLayout());
-		top.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		JPanel titleWrapper = new JPanel();
-		BoxLayout bl3 = new BoxLayout(titleWrapper, BoxLayout.Y_AXIS);
-		titleWrapper.setLayout(bl3);
-		JLabel title = new JLabel(LANGUAGE_TITLE);
-		JLabel title2 = new JLabel(LANGUAGE_TITLE2);
-		titleWrapper.add(title);
-		titleWrapper.add(title2);
-
-		JPanel costWrapper = new JPanel();
-		BoxLayout bl2 = new BoxLayout(costWrapper, BoxLayout.Y_AXIS);
-		costWrapper.setLayout(bl2);
-
-		JLabel cost = new JLabel(LANGUAGE_COST);
-		JLabel cost2 = new JLabel(LANGUAGE_COST2);
-		costWrapper.add(cost);
-		costWrapper.add(cost2);
-
-		top.add(titleWrapper, BorderLayout.WEST);
-		top.add(costWrapper, BorderLayout.EAST);
-
-		JTextArea description = new JTextArea();
-		CompoundBorder cb = new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 15, 5, 15), new LineBorder(Color.BLACK)), new EmptyBorder(5, 5, 5, 5));
-		description.setBorder(cb);
-		description.getInsets(new Insets(5, 5, 5, 5));
-		description.setBackground(CharacterSheet.LABEL_BACKGROUND);
-		description.setEditable(false);
-		description.setLineWrap(true);
-		description.setWrapStyleWord(true);
-		description.setText(LANGUAGES);
-
-		JPanel center = new JPanel();
-		BoxLayout bl = new BoxLayout(center, BoxLayout.Y_AXIS);
-		center.setLayout(bl);
-		center.setBorder(new EmptyBorder(5, 15, 5, 5));
-
-		topWrapper.add(top, BorderLayout.NORTH);
-		topWrapper.add(description, BorderLayout.CENTER);
-
-		page.add(topWrapper, BorderLayout.NORTH);
-		page.add(center, BorderLayout.CENTER);
-
-		return page;
-
 	}
 
 	private JComponent makePhysicalTab() {
@@ -522,76 +348,45 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 			@Override
 			protected Component createDisplay() {
-				return physicalPage();
+				return createPage(createLowerPhysicalPanel(), PHYSICAL_DESCRIPTION, PHYSICAL_TITLE, PHYSICAL_TITLE2, PHYSICAL_COST, PHYSICAL_COST2);
 			}
 		};
 
 		return display;
 	}
 
-	private Component physicalPage() {
-		JPanel page = new JPanel(new BorderLayout());
-
-		JPanel topWrapper = new JPanel(new BorderLayout());
-
-		JPanel top = new JPanel(new BorderLayout());
-		top.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		JPanel titleWrapper = new JPanel();
-		BoxLayout bl3 = new BoxLayout(titleWrapper, BoxLayout.Y_AXIS);
-		titleWrapper.setLayout(bl3);
-		JLabel title = new JLabel(PHYSICAL_TITLE);
-		JLabel title2 = new JLabel(PHYSICAL_TITLE2);
-		titleWrapper.add(title);
-		titleWrapper.add(title2);
-
-		JPanel costWrapper = new JPanel();
-		BoxLayout bl2 = new BoxLayout(costWrapper, BoxLayout.Y_AXIS);
-		costWrapper.setLayout(bl2);
-
-		JLabel cost = new JLabel(PHYSICAL_COST);
-		JLabel cost2 = new JLabel(PHYSICAL_COST2);
-		costWrapper.add(cost);
-		costWrapper.add(cost2);
-
-		top.add(titleWrapper, BorderLayout.WEST);
-		top.add(costWrapper, BorderLayout.EAST);
-
-		JTextArea description = new JTextArea();
-		CompoundBorder cb = new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 15, 5, 15), new LineBorder(Color.BLACK)), new EmptyBorder(5, 5, 5, 5));
-		description.setBorder(cb);
-		description.getInsets(new Insets(5, 5, 5, 5));
-		description.setBackground(CharacterSheet.LABEL_BACKGROUND);
-		description.setEditable(false);
-		description.setLineWrap(true);
-		description.setWrapStyleWord(true);
-		description.setText(PHYSICAL);
-
+	private JPanel createLowerPhysicalPanel() {
 		JPanel center = new JPanel();
 		BoxLayout bl = new BoxLayout(center, BoxLayout.Y_AXIS);
 		center.setLayout(bl);
 		center.setBorder(new EmptyBorder(5, 15, 5, 5));
 
-		JCheckBox str = TKComponentHelpers.createCheckBox(AttributesRecord.STRENGTH, false, this);
-		JCheckBox con = TKComponentHelpers.createCheckBox(AttributesRecord.CONSTITUTION, false, this);
-		JCheckBox wis = TKComponentHelpers.createCheckBox(AttributesRecord.WISDOM, false, this);
-		JCheckBox dex = TKComponentHelpers.createCheckBox(AttributesRecord.DEXTERITY, false, this);
-		JCheckBox bow = TKComponentHelpers.createCheckBox(AttributesRecord.BOW_SKILL, false, this);
+		mStrCheckBox = TKComponentHelpers.createCheckBox(AttributesRecord.STRENGTH, false, this);
+		mConCheckBox = TKComponentHelpers.createCheckBox(AttributesRecord.CONSTITUTION, false, this);
+		mWisCheckBox = TKComponentHelpers.createCheckBox(AttributesRecord.WISDOM, false, this);
+		mDexCheckBox = TKComponentHelpers.createCheckBox(AttributesRecord.DEXTERITY, false, this);
+		mBowCheckBox = TKComponentHelpers.createCheckBox(AttributesRecord.BOW_SKILL, false, this);
 
-		center.add(str);
-		center.add(con);
-		center.add(wis);
-		center.add(dex);
-		center.add(bow);
+		center.add(mStrCheckBox);
+		center.add(mConCheckBox);
+		center.add(mWisCheckBox);
+		center.add(mDexCheckBox);
+		center.add(mBowCheckBox);
 
-		topWrapper.add(top, BorderLayout.NORTH);
-		topWrapper.add(description, BorderLayout.CENTER);
+		updateButtonState();
 
-		page.add(topWrapper, BorderLayout.NORTH);
-		page.add(center, BorderLayout.CENTER);
+		return center;
 
-		return page;
+	}
 
+	private void updateButtonState() {
+		AttributesRecord attribs = ((CharacterSheet) getOwner()).getAttributesRecord();
+		// DW Also need to make sure we can't increase it more than 3 times... will need to check against DeterminationPointsRecord when created
+		mStrCheckBox.setEnabled(attribs.getModifiedStat(AttributesRecord.STR) < 18);
+		mConCheckBox.setEnabled(attribs.getModifiedStat(AttributesRecord.CON) < 18);
+		mWisCheckBox.setEnabled(attribs.getModifiedStat(AttributesRecord.WIS) < 18);
+		mDexCheckBox.setEnabled(attribs.getModifiedStat(AttributesRecord.DEX) < 18);
+		mBowCheckBox.setEnabled(attribs.getModifiedStat(AttributesRecord.BOW) < 18);
 	}
 
 	private void updateValues() {
