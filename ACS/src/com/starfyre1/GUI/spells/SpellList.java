@@ -126,6 +126,8 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 		scrollPane.setBorder(new EmptyBorder(getInsets()));
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
+		scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
 
 		return scrollPane;
 	}

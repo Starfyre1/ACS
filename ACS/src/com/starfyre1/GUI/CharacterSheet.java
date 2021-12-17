@@ -6,12 +6,12 @@ import com.starfyre1.GUI.character.AttackTotalsDisplay;
 import com.starfyre1.GUI.character.AttributesDisplay;
 import com.starfyre1.GUI.character.CombatInformationDisplay;
 import com.starfyre1.GUI.character.DefenseInformationDisplay;
-import com.starfyre1.GUI.character.DeterminationPointsDisplay;
 import com.starfyre1.GUI.character.InnateAbilitiesDisplay;
 import com.starfyre1.GUI.character.MoneyDisplay;
 import com.starfyre1.GUI.character.PersonalInformationDisplay;
 import com.starfyre1.GUI.character.SavingThowsDisplay;
 import com.starfyre1.GUI.character.SkillsDisplay;
+import com.starfyre1.GUI.determination.DeterminationPointsDisplay;
 import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.GUI.purchasedGear.animal.AnimalsOwnedDisplay;
 import com.starfyre1.GUI.purchasedGear.armor.ArmorEquippedDisplay;
@@ -350,6 +350,8 @@ public class CharacterSheet implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(page);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
+		scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
 
 		return scrollPane;
 	}
@@ -394,6 +396,8 @@ public class CharacterSheet implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(page);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
+		scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
 
 		return scrollPane;
 	}

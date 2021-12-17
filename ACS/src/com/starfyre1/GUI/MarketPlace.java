@@ -249,13 +249,19 @@ public class MarketPlace extends JDialog implements ActionListener {
 	}
 
 	public void updateButtons(boolean canAfford) {
-		mCancelButton.setEnabled(true);
 		mSellButton.setEnabled(hasItemsToSell());
 		mBuyButton.setEnabled(canAfford);
 	}
 
 	private boolean hasItemsToSell() {
-		return ACS.getInstance().getCharacterSheet().hasItemsToSell();
+		ACS acs = ACS.getInstance();
+		if (acs != null) {
+			CharacterSheet sheet = acs.getCharacterSheet();
+			if (sheet != null) {
+				return sheet.hasItemsToSell();
+			}
+		}
+		return false;
 	}
 
 	@Override
