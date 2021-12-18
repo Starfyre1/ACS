@@ -113,7 +113,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		mTabbedPane.addTab(SkillTab.SKILL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, skillTab, SkillTab.SKILL_TAB_TOOLTIP);
 		mTabbedPane.addTab(TeacherTab.TEACHER_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, teacherTab, TeacherTab.TEACHER_TAB_TOOLTIP);
 
-		mTabbedPane.setMnemonicAt(0, KeyEvent.VK_P);
+		mTabbedPane.setMnemonicAt(0, KeyEvent.VK_A);
 		mTabbedPane.setMnemonicAt(1, KeyEvent.VK_L);
 		mTabbedPane.setMnemonicAt(2, KeyEvent.VK_M);
 		mTabbedPane.setMnemonicAt(3, KeyEvent.VK_W);

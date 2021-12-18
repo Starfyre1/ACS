@@ -14,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -89,6 +90,16 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 
 		return page;
 
+	}
+
+	protected JPanel getPanel(int compLayout, AbstractBorder border) {
+		JPanel panel = new JPanel();
+		BoxLayout bl = new BoxLayout(panel, compLayout);
+		panel.setLayout(bl);
+		panel.setBorder(border);
+		panel.setAlignmentY(TOP_ALIGNMENT);
+
+		return panel;
 	}
 
 	/*****************************************************************************

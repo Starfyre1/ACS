@@ -11,6 +11,7 @@ import com.starfyre1.dataset.MetalList;
 import com.starfyre1.dataset.PriestList;
 import com.starfyre1.dataset.spells.SpellDescriptionList;
 
+import java.awt.Component;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -232,6 +233,13 @@ public class ACS {
 	/** @param campaignDate The value to set for campaignDate. */
 	public void setCampaignDate(String campaignDate) {
 		mCampaignDate = campaignDate;
+	}
+
+	public static void printSizes(Component comp) {
+		System.out.println("Size: " + comp.getSize());
+		System.out.println("Pref: " + comp.getPreferredSize());
+		System.out.println("Mini: " + comp.getMinimumSize());
+		System.out.println("Maxi: " + comp.getMaximumSize());
 	}
 
 	/*****************************************************************************

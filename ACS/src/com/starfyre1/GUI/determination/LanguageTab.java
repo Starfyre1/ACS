@@ -29,7 +29,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 	static final String			LANGUAGE_TAB_TITLE		= "Languages";																															//$NON-NLS-1$
 	static final String			LANGUAGE_TAB_TOOLTIP	= "Languages";																															//$NON-NLS-1$
 	private static final String	LANGUAGE_COST			= "Cost: 40 (immersive) or 80 (Tutor)";																									//$NON-NLS-1$
-	private static final String	LANGUAGE_COST2			= "Maintain: For fluent is 1 DP / week";																								//$NON-NLS-1$
+	private static final String	LANGUAGE_COST2			= "Maintain: 1 DP / week for Fluent";																									//$NON-NLS-1$
 	private static final String	LANGUAGE_TITLE			= "To learn a new language:";																											//$NON-NLS-1$
 	private static final String	LANGUAGE_TITLE2			= "Success: 1D20 - 1/4 level < Wisdom";																									//$NON-NLS-1$
 
@@ -87,136 +87,68 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 	}
 
 	private JPanel createCenterPanel() {
-		JPanel wrapper = new JPanel();
-		BoxLayout blw = new BoxLayout(wrapper, BoxLayout.X_AXIS);
-		wrapper.setLayout(blw);
-		wrapper.setBorder(new EmptyBorder(5, 15, 5, 5));
-		wrapper.setAlignmentY(TOP_ALIGNMENT);
-
-		JPanel first = new JPanel();
-		BoxLayout bll = new BoxLayout(first, BoxLayout.Y_AXIS);
-		first.setLayout(bll);
-		first.setAlignmentY(TOP_ALIGNMENT);
-
-		first.add(new JLabel(LANGUAGE_TAB_TITLE + ":", SwingConstants.CENTER));
-		JTextField[] langField = new JTextField[ROWS];
-		for (int i = 0; i < ROWS; i++) {
-			langField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
-			first.add(langField[i]);
-		}
-		Dimension panel = first.getMinimumSize();
-		first.setMaximumSize(new Dimension(panel.width + 10, panel.height));
-
-		JPanel second = new JPanel();
-		BoxLayout blc = new BoxLayout(second, BoxLayout.Y_AXIS);
-		second.setLayout(blc);
-		second.setBorder(new EmptyBorder(0, 15, 0, 5));
-		second.setAlignmentY(TOP_ALIGNMENT);
-
-		second.add(new JLabel("# use:", SwingConstants.CENTER));
-		JTextField[] pointsField = new JTextField[ROWS];
-		for (int i = 0; i < ROWS; i++) {
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
-			second.add(pointsField[i]);
-		}
-
-		JPanel third = new JPanel();
-		BoxLayout blr = new BoxLayout(third, BoxLayout.Y_AXIS);
-		third.setLayout(blr);
-		third.setBorder(new EmptyBorder(0, 5, 0, 5));
-		third.setAlignmentY(TOP_ALIGNMENT);
-
-		Dimension size = new Dimension(pointsField[0].getPreferredSize());
 		int currentlySpent = 0;
-		JLabel strLabel = new JLabel(currentlySpent + " / " + COST);
-		strLabel.setMinimumSize(size);
-		strLabel.setPreferredSize(size);
-		JLabel conLabel = new JLabel(currentlySpent + " / " + COST);
-		conLabel.setMinimumSize(size);
-		conLabel.setPreferredSize(size);
-		JLabel wisLabel = new JLabel(currentlySpent + " / " + COST);
-		wisLabel.setMinimumSize(size);
-		wisLabel.setPreferredSize(size);
-		JLabel dexLabel = new JLabel(currentlySpent + " / " + COST);
-		dexLabel.setMinimumSize(size);
-		dexLabel.setPreferredSize(size);
-		JLabel bowLabel = new JLabel(currentlySpent + " / " + COST);
-		bowLabel.setMinimumSize(size);
-		bowLabel.setPreferredSize(size);
-		third.add(new JLabel("Used:", SwingConstants.CENTER));
-		third.add(strLabel);
-		third.add(conLabel);
-		third.add(wisLabel);
-		third.add(dexLabel);
-		third.add(bowLabel);
-		third.add(Box.createVerticalGlue());
-
-		JPanel fourth = new JPanel();
-		BoxLayout blf = new BoxLayout(fourth, BoxLayout.Y_AXIS);
-		fourth.setLayout(blf);
-		fourth.setBorder(new EmptyBorder(0, 5, 0, 5));
-		fourth.setAlignmentY(TOP_ALIGNMENT);
-
 		int currentMaintenance = 0;
-		JLabel strMaintenanceLabel = new JLabel("" + currentMaintenance);
-		strMaintenanceLabel.setMinimumSize(size);
-		strMaintenanceLabel.setPreferredSize(size);
-		JLabel conMaintenanceLabel = new JLabel("" + currentMaintenance);
-		conMaintenanceLabel.setMinimumSize(size);
-		conMaintenanceLabel.setPreferredSize(size);
-		JLabel wisMaintenanceLabel = new JLabel("" + currentMaintenance);
-		wisMaintenanceLabel.setMinimumSize(size);
-		wisMaintenanceLabel.setPreferredSize(size);
-		JLabel dexMaintenanceLabel = new JLabel("" + currentMaintenance);
-		dexMaintenanceLabel.setMinimumSize(size);
-		dexMaintenanceLabel.setPreferredSize(size);
-		JLabel bowMaintenanceLabel = new JLabel("" + currentMaintenance);
-		bowMaintenanceLabel.setMinimumSize(size);
-		bowMaintenanceLabel.setPreferredSize(size);
-		fourth.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
-		fourth.add(strMaintenanceLabel);
-		fourth.add(conMaintenanceLabel);
-		fourth.add(wisMaintenanceLabel);
-		fourth.add(dexMaintenanceLabel);
-		fourth.add(bowMaintenanceLabel);
-		fourth.add(Box.createVerticalGlue());
-
-		JPanel fifth = new JPanel();
-		BoxLayout bl = new BoxLayout(fifth, BoxLayout.Y_AXIS);
-		fifth.setLayout(bl);
-		fifth.setAlignmentY(TOP_ALIGNMENT);
-		fifth.setBorder(new EmptyBorder(0, 15, 0, 0));
-
 		int completed = 0;
 		int attempted = 0;
-		JLabel strCompleteLabel = new JLabel(completed + " / " + attempted);
-		strCompleteLabel.setMinimumSize(size);
-		strCompleteLabel.setPreferredSize(size);
-		JLabel conCompleteLabel = new JLabel(completed + " / " + attempted);
-		conCompleteLabel.setMinimumSize(size);
-		conCompleteLabel.setPreferredSize(size);
-		JLabel wisCompleteLabel = new JLabel(completed + " / " + attempted);
-		wisCompleteLabel.setMinimumSize(size);
-		wisCompleteLabel.setPreferredSize(size);
-		JLabel dexCompleteLabel = new JLabel(completed + " / " + attempted);
-		dexCompleteLabel.setMinimumSize(size);
-		dexCompleteLabel.setPreferredSize(size);
-		JLabel bowCompleteLabel = new JLabel(completed + " / " + attempted);
-		bowCompleteLabel.setMinimumSize(size);
-		bowCompleteLabel.setPreferredSize(size);
-		fifth.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
-		fifth.add(strCompleteLabel);
-		fifth.add(conCompleteLabel);
-		fifth.add(wisCompleteLabel);
-		fifth.add(dexCompleteLabel);
-		fifth.add(bowCompleteLabel);
-		fifth.add(Box.createVerticalGlue());
+		Dimension size = new Dimension();
 
-		wrapper.add(first);
-		wrapper.add(second);
-		wrapper.add(third);
-		wrapper.add(fourth);
-		wrapper.add(fifth);
+		JTextField[] langField = new JTextField[ROWS];
+		JTextField[] pointsField = new JTextField[ROWS];
+		JLabel[] usedLabel = new JLabel[ROWS];
+		JLabel[] maintLabel = new JLabel[ROWS];
+		JLabel[] successfulLabel = new JLabel[ROWS];
+
+		JPanel wrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
+		JPanel langPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel dpPerWeekPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		JPanel dpSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel maintPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel successfulPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+
+		langPanel.add(new JLabel(LANGUAGE_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
+		JLabel header = new JLabel("# use:", SwingConstants.CENTER); //$NON-NLS-1$
+		dpPerWeekPanel.add(header);
+		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
+		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
+		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
+
+		for (int i = 0; i < ROWS; i++) {
+			langField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE * 2, 20);
+			langPanel.add(langField[i]);
+
+			if (i == 0) {
+				size = new Dimension(header.getPreferredSize().width, langField[0].getPreferredSize().height);
+			}
+
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+			dpPerWeekPanel.add(pointsField[i]);
+
+			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
+			usedLabel[i].setMinimumSize(size);
+			usedLabel[i].setPreferredSize(size);
+			dpSpentPanel.add(usedLabel[i]);
+
+			maintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
+			maintLabel[i].setMinimumSize(size);
+			maintLabel[i].setPreferredSize(size);
+			maintPanel.add(maintLabel[i]);
+
+			successfulLabel[i] = new JLabel(completed + " / " + attempted);
+			successfulLabel[i].setMinimumSize(size);
+			successfulLabel[i].setPreferredSize(size);
+			successfulPanel.add(successfulLabel[i]);
+
+		}
+		dpSpentPanel.add(Box.createVerticalGlue());
+		maintPanel.add(Box.createVerticalGlue());
+		successfulPanel.add(Box.createVerticalGlue());
+
+		wrapper.add(langPanel);
+		wrapper.add(dpPerWeekPanel);
+		wrapper.add(dpSpentPanel);
+		wrapper.add(maintPanel);
+		wrapper.add(successfulPanel);
 
 		return wrapper;
 	}

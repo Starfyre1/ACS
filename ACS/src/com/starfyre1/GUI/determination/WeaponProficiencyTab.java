@@ -5,19 +5,22 @@ package com.starfyre1.GUI.determination;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-public class WeaponProficiencyTab extends DeterminationTab implements ActionListener {
+public class WeaponProficiencyTab extends DeterminationTab implements ActionListener, FocusListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -35,6 +38,7 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	private static final String	WEAPON_PROFICIENCY_TITLE2		= "Success: 1D20 < Dexerity";																				//$NON-NLS-1$
 
 	private static final int	ROWS							= 5;
+	private static final int	COST							= 40;
 
 	/*****************************************************************************
 	 * Member Variables
@@ -56,8 +60,22 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	 * Methods
 	 ****************************************************************************/
 	@Override
+	public void focusGained(FocusEvent e) {
+		// Does Nothing
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		// DW Handle Value changed
+	}
+
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
+	}
+
+	private void updateDialogButtons() {
+		//		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
 	}
 
 	@Override
@@ -67,34 +85,84 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(null, WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TITLE, WEAPON_PROFICIENCY_TITLE2, WEAPON_PROFICIENCY_COST, WEAPON_PROFICIENCY_COST2);
+		return createPage(createCenterPanel(), WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TITLE, WEAPON_PROFICIENCY_TITLE2, WEAPON_PROFICIENCY_COST, WEAPON_PROFICIENCY_COST2);
 	}
 
-	private JPanel createWeaponsPanel() {
-		JPanel panel = new JPanel(new BorderLayout(5, 5));
+	private JPanel createCenterPanel() {
+		int completed = 0;
+		int attempted = 0;
+		int currentTeacher = 0;
+		int currentMaintenance = 0;
+		int currentlySpent = 0;
+		Dimension size = new Dimension();
 
-		JPanel wrapper = new JPanel();
-		BoxLayout bl = new BoxLayout(wrapper, BoxLayout.Y_AXIS);
-		wrapper.setLayout(bl);
+		JTextField[] langField = new JTextField[ROWS];
+		JLabel[] teacherLabel = new JLabel[ROWS];
+		JTextField[] pointsField = new JTextField[ROWS];
+		JLabel[] usedLabel = new JLabel[ROWS];
+		JLabel[] bonusLabel = new JLabel[ROWS];
+		JLabel[] successfulLabel = new JLabel[ROWS];
 
-		JTextField[] field = new JTextField[ROWS];
-		JTextField[] bonus = new JTextField[ROWS];
+		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
+		JPanel weaponPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel teacherPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel dpPerWeekPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		JPanel dpSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel bonusAmountPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel successfulPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+
+		weaponPanel.add(new JLabel(WEAPON_PROFICIENCY_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
+		JLabel header = new JLabel("Teacher", SwingConstants.CENTER); //$NON-NLS-1$
+		teacherPanel.add(header);
+		dpPerWeekPanel.add(new JLabel("# use:", SwingConstants.CENTER));
+		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER));
+		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER));
+		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			JPanel inner = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
-			field[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
-			bonus[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20);
-			inner.add(field[i]);
-			inner.add(new JLabel("+")); //$NON-NLS-1$
-			inner.add(bonus[i]);
+			langField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE * 2, 20);
+			weaponPanel.add(langField[i]);
 
-			wrapper.add(inner);
+			if (i == 0) {
+				size = new Dimension(header.getPreferredSize().width, langField[0].getPreferredSize().height);
+			}
+
+			teacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
+			teacherLabel[i].setMinimumSize(size);
+			teacherLabel[i].setPreferredSize(size);
+			teacherPanel.add(teacherLabel[i]);
+
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+			dpPerWeekPanel.add(pointsField[i]);
+
+			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
+			usedLabel[i].setMinimumSize(size);
+			usedLabel[i].setPreferredSize(size);
+			dpSpentPanel.add(usedLabel[i]);
+
+			bonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));
+			bonusLabel[i].setMinimumSize(size);
+			bonusLabel[i].setPreferredSize(size);
+			bonusAmountPanel.add(bonusLabel[i]);
+
+			successfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
+			successfulLabel[i].setMinimumSize(size);
+			successfulLabel[i].setPreferredSize(size);
+			successfulPanel.add(successfulLabel[i]);
 		}
+		teacherPanel.add(Box.createVerticalGlue());
+		dpSpentPanel.add(Box.createVerticalGlue());
+		bonusAmountPanel.add(Box.createVerticalGlue());
+		successfulPanel.add(Box.createVerticalGlue());
 
-		panel.add(new JLabel(WEAPON_PROFICIENCY_TAB_TITLE, SwingConstants.CENTER), BorderLayout.PAGE_START);
-		panel.add(wrapper, BorderLayout.CENTER);
+		outerWrapper.add(weaponPanel);
+		outerWrapper.add(teacherPanel);
+		outerWrapper.add(bonusAmountPanel);
+		outerWrapper.add(dpPerWeekPanel);
+		outerWrapper.add(dpSpentPanel);
+		outerWrapper.add(successfulPanel);
 
-		return panel;
+		return outerWrapper;
 	}
 
 	/*****************************************************************************
