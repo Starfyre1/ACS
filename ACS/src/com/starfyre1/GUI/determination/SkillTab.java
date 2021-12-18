@@ -123,7 +123,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			skillsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE * 2, 20);
+			skillsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, 20);
 			skillsPanel.add(skillsField[i]);
 			if (i == 0) {
 				size = new Dimension(header.getPreferredSize().width, skillsField[0].getPreferredSize().height);

@@ -107,16 +107,16 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			teacherNameField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE * 2, 20);
+			teacherNameField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, 20);
 			teacherPanel.add(teacherNameField[i]);
 			if (i == 0) {
 				size = new Dimension(header.getPreferredSize().width, teacherNameField[0].getPreferredSize().height);
 			}
 
-			expertiseField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM * 2, 20);
+			expertiseField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
 			expertisePanel.add(expertiseField[i]);
 
-			costLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM * 2, 20);
+			costLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
 			costPanel.add(costLabel[i]);
 
 			bonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));

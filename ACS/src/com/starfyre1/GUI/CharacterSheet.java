@@ -138,7 +138,7 @@ public class CharacterSheet implements ActionListener {
 	public static final int					FIELD_SIZE_SMALL			= 2;
 	public static final int					FIELD_SIZE_MEDIUM			= 5;
 	public static final int					FIELD_SIZE_LARGE			= 14;
-	public static final int					FIELD_SIZE_EXLARGE			= 25;
+	public static final int					FIELD_SIZE_EXLARGE			= 50;
 	public static final int					CELL_SMALL_MAX_WIDTH		= 45;
 	public static final int					CELL_LARGE_MAX_WIDTH		= 75;
 
