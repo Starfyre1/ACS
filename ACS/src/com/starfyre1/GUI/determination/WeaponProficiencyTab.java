@@ -4,6 +4,8 @@ package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -31,11 +33,12 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 					+ "The bonus will apply only when the character is using that particular weapon.";																		//$NON-NLS-1$
 
 	static final String			WEAPON_PROFICIENCY_TAB_TITLE	= "Weapon Proficiencies";																					//$NON-NLS-1$
-	static final String			WEAPON_PROFICIENCY_TAB_TOOLTIP	= "Weapon";																									//$NON-NLS-1$
-	private static final String	WEAPON_PROFICIENCY_COST			= "Cost: 40";																								//$NON-NLS-1$
-	private static final String	WEAPON_PROFICIENCY_COST2		= "";																										//$NON-NLS-1$
-	private static final String	WEAPON_PROFICIENCY_TITLE		= "To learn a new weapon proficiency:";																		//$NON-NLS-1$
-	private static final String	WEAPON_PROFICIENCY_TITLE2		= "Success: 1D20 < Dexerity";																				//$NON-NLS-1$
+	static final String			WEAPON_PROFICIENCY_TAB_TOOLTIP	= "To learn or improve a weapon proficiency:";																//$NON-NLS-1$
+	private static final String	COST_TEXT						= "Cost: 40";																								//$NON-NLS-1$
+	private static final String	MAINTAINENCE_TEXT				= "";																										//$NON-NLS-1$
+	private static final String	WEAPON_PROFICIENCY_TEXT			= WEAPON_PROFICIENCY_TAB_TOOLTIP;
+	private static final String	SUCCESS_TOOLTIP					= "1D20 < (Dexerity)";																						//$NON-NLS-1$
+	private static final String	SUCCESS_TEXT1					= "Success: 1D20 < ";																						//$NON-NLS-1$
 
 	private static final int	ROWS							= 5;
 	private static final int	COST							= 40;
@@ -85,7 +88,12 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TITLE, WEAPON_PROFICIENCY_TITLE2, WEAPON_PROFICIENCY_COST, WEAPON_PROFICIENCY_COST2);
+		return createPage(createCenterPanel(), WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+	}
+
+	private String getSuccessText() {
+		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
+		return SUCCESS_TEXT1 + success;
 	}
 
 	private JPanel createCenterPanel() {
@@ -114,9 +122,9 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		weaponPanel.add(new JLabel(WEAPON_PROFICIENCY_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
 		JLabel header = new JLabel("Teacher", SwingConstants.CENTER); //$NON-NLS-1$
 		teacherPanel.add(header);
-		dpPerWeekPanel.add(new JLabel("# use:", SwingConstants.CENTER));
-		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER));
-		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER));
+		dpPerWeekPanel.add(new JLabel("# use:", SwingConstants.CENTER)); //$NON-NLS-1$
+		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
+		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER)); //$NON-NLS-1$
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {

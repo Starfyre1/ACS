@@ -4,6 +4,8 @@ package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -27,11 +29,13 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 	private static final String	LANGUAGE_DESCRIPTION	= "To learn the language fluently, the character must learn the language again, and again successfully roll below their Wisdom stat";	// //$NON-NLS-1$
 
 	static final String			LANGUAGE_TAB_TITLE		= "Languages";																															//$NON-NLS-1$
-	static final String			LANGUAGE_TAB_TOOLTIP	= "Languages";																															//$NON-NLS-1$
-	private static final String	LANGUAGE_COST			= "Cost: 40 (immersive) or 80 (Tutor)";																									//$NON-NLS-1$
-	private static final String	LANGUAGE_COST2			= "Maintain: 1 DP / week for Fluent";																									//$NON-NLS-1$
-	private static final String	LANGUAGE_TITLE			= "To learn a new language:";																											//$NON-NLS-1$
-	private static final String	LANGUAGE_TITLE2			= "Success: 1D20 - 1/4 level < Wisdom";																									//$NON-NLS-1$
+	static final String			LANGUAGE_TAB_TOOLTIP	= "To learn a new language or become fluent in a known one:";																			//$NON-NLS-1$
+	private static final String	COST_TEXT				= "Cost: 40 (immersive) or 80 (Tutor)";																									//$NON-NLS-1$
+	private static final String	MAINTAINENCE_TEXT		= "Maintain: 1 DP / week for Fluent";																									//$NON-NLS-1$
+	private static final String	LANGUAGE_TEXT			= LANGUAGE_TAB_TOOLTIP;
+	private static final String	SUCCESS_TOOLTIP			= "1D20 - (1/4 level) < (Wisdom)";																										//$NON-NLS-1$
+	private static final String	SUCCESS_TEXT1			= "Success: 1D20 - ";																													//$NON-NLS-1$
+	private static final String	SUCCESS_TEXT2			= " < ";																																//$NON-NLS-1$
 
 	private static final int	ROWS					= 5;
 	private static final int	COST					= 40;
@@ -83,7 +87,13 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), LANGUAGE_DESCRIPTION, LANGUAGE_TITLE, LANGUAGE_TITLE2, LANGUAGE_COST, LANGUAGE_COST2);
+		return createPage(createCenterPanel(), LANGUAGE_DESCRIPTION, LANGUAGE_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+	}
+
+	private String getSuccessText() {
+		int level = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() / 4;
+		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
+		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
 	}
 
 	private JPanel createCenterPanel() {

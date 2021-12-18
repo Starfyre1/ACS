@@ -46,7 +46,7 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	public JComponent createPage(JPanel lowerPanel, String description, String title1, String title2, String cost1, String cost2) {
+	public JComponent createPage(JPanel lowerPanel, String description, String text, String successText, String successTooltip, String cost, String maint) {
 		JPanel page = new JPanel(new BorderLayout());
 
 		JPanel top = new JPanel(new BorderLayout());
@@ -55,8 +55,9 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 		JPanel titleWrapper = new JPanel();
 		BoxLayout bl3 = new BoxLayout(titleWrapper, BoxLayout.Y_AXIS);
 		titleWrapper.setLayout(bl3);
-		JLabel titleLabel1 = new JLabel(title1);
-		JLabel titleLabel2 = new JLabel(title2);
+		JLabel titleLabel1 = new JLabel(text);
+		JLabel titleLabel2 = new JLabel(successText);
+		titleLabel2.setToolTipText(successTooltip);
 		titleWrapper.add(titleLabel1);
 		titleWrapper.add(titleLabel2);
 
@@ -64,8 +65,8 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 		BoxLayout bl2 = new BoxLayout(costWrapper, BoxLayout.Y_AXIS);
 		costWrapper.setLayout(bl2);
 
-		JLabel costLabel1 = new JLabel(cost1);
-		JLabel costLabel2 = new JLabel(cost2);
+		JLabel costLabel1 = new JLabel(cost);
+		JLabel costLabel2 = new JLabel(maint);
 		costWrapper.add(costLabel1);
 		costWrapper.add(costLabel2);
 

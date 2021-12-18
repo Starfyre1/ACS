@@ -31,11 +31,12 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 					+ "The success rate is outlined in the Research Section of the Magic System.";												//$NON-NLS-1$
 
 	static final String			MAGIC_SPELL_TAB_TITLE	= "Magic Spells";																		//$NON-NLS-1$
-	static final String			MAGIC_SPELL_TAB_TOOLTIP	= "Magic";																				//$NON-NLS-1$
-	private static final String	MAGIC_SPELL_COST		= "Cost: 6 X (spell power + 1/squared)";												//$NON-NLS-1$
-	private static final String	MAGIC_SPELL_COST2		= "";																					//$NON-NLS-1$
-	private static final String	MAGIC_SPELL_TITLE		= "To research a new magical spell:";													//$NON-NLS-1$
-	private static final String	MAGIC_SPELL_TITLE2		= "Success: TBD";																		//$NON-NLS-1$
+	static final String			MAGIC_SPELL_TAB_TOOLTIP	= "To research a new magical spell:";													//$NON-NLS-1$
+	private static final String	COST_TEXT				= "Cost: 6 X (spell power + 1/squared)";												//$NON-NLS-1$
+	private static final String	MAINTAINENCE_TEXT		= "";																					//$NON-NLS-1$
+	private static final String	MAGIC_SPELL_TEXT		= MAGIC_SPELL_TAB_TOOLTIP;
+	private static final String	SUCCESS_TOOLTIP			= "TBD";																				//$NON-NLS-1$
+	private static final String	SUCCESS_TEXT			= "Success: TBD";																		//$NON-NLS-1$
 
 	private static final int	ROWS					= 5;
 	private static final int	COST					= 0;
@@ -85,7 +86,7 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TITLE, MAGIC_SPELL_TITLE2, MAGIC_SPELL_COST, MAGIC_SPELL_COST2);
+		return createPage(createCenterPanel(), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TEXT, SUCCESS_TEXT, SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
 	}
 
 	private JPanel createCenterPanel() {

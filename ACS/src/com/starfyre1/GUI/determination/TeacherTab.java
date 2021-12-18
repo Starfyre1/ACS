@@ -31,7 +31,7 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 					+ "But these are up to you, if a character starts selling there own time to pupils for weapons training, don't let it worry you unless it starts to get in the way of your campaign.";	//$NON-NLS-1$
 
 	static final String			TEACHER_TAB_TITLE		= "Teachers";																																		//$NON-NLS-1$
-	static final String			TEACHER_TAB_TOOLTIP		= "Teachers";																																		//$NON-NLS-1$
+	static final String			TEACHER_TAB_TOOLTIP		= "A record of teachers used, for what, and how much";																								//$NON-NLS-1$
 	static final String			TEACHER_TITLE			= "Teacher's Name";																																	//$NON-NLS-1$
 
 	private static final int	ROWS					= 5;
@@ -82,7 +82,7 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), TEACHERS_DESCRIPTION, "", "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		return createPage(createCenterPanel(), TEACHERS_DESCRIPTION, "", "", "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	}
 
 	private JPanel createCenterPanel() {

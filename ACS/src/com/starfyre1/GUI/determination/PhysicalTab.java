@@ -32,11 +32,13 @@ public class PhysicalTab extends DeterminationTab implements ActionListener, Foc
 					+ "There is a 10% chance per week that the stat will drop down to the original number if not maintained.  This chance is cumulative.";																	//$NON-NLS-1$
 
 	static final String				PHYSICAL_TAB_TITLE		= "Attributes";																																					//$NON-NLS-1$
-	static final String				PHYSICAL_TAB_TOOLTIP	= "Attributes";																																					//$NON-NLS-1$
-	private static final String		PHYSICAL_COST			= "Cost: 50";																																					//$NON-NLS-1$
-	private static final String		PHYSICAL_COST2			= "Maintain: 1 DP / week";																																		//$NON-NLS-1$
-	private static final String		PHYSICAL_TITLE			= "To raise your physical statistics:";																															//$NON-NLS-1$
-	private static final String		PHYSICAL_TITLE2			= "Success: 1D20 + 1/2 level > stat";																															//$NON-NLS-1$
+	static final String				PHYSICAL_TAB_TOOLTIP	= "To raise your physical attributes:";																															//$NON-NLS-1$
+	private static final String		COST_TEXT				= "Cost: 50";																																					//$NON-NLS-1$
+	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week";																																		//$NON-NLS-1$
+	private static final String		PHYSICAL_TEXT			= PHYSICAL_TAB_TOOLTIP;
+	private static final String		SUCCESS_TOOLTIP			= "1D20 + 1/2 level > stat";																																	//$NON-NLS-1$
+	private static final String		SUCCESS_TEXT1			= "Success: 1D20 + ";																																			//$NON-NLS-1$
+	private static final String		SUCCESS_TEXT2			= " > ";																																						//$NON-NLS-1$
 
 	private static final String[]	ATTRIBUTE_NAMES			= new String[] { AttributesRecord.STRENGTH, AttributesRecord.CONSTITUTION, AttributesRecord.WISDOM, AttributesRecord.DEXTERITY, AttributesRecord.BOW_SKILL };
 	private static final int[]		ATTRIBUTE_NUMBERS		= new int[] { AttributesRecord.STR, AttributesRecord.CON, AttributesRecord.WIS, AttributesRecord.DEX, AttributesRecord.BOW };
@@ -121,7 +123,13 @@ public class PhysicalTab extends DeterminationTab implements ActionListener, Foc
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), PHYSICAL_DESCRIPTION, PHYSICAL_TITLE, PHYSICAL_TITLE2, PHYSICAL_COST, PHYSICAL_COST2);
+		return createPage(createCenterPanel(), PHYSICAL_DESCRIPTION, PHYSICAL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+	}
+
+	private String getSuccessText() {
+		int level = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() / 2;
+		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(ATTRIBUTE_NUMBERS[0]);
+		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
 	}
 
 	private JPanel createCenterPanel() {

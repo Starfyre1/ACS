@@ -4,6 +4,8 @@ package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -29,11 +31,12 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 					+ "To further increase the skill it will require further training and D.P. assignment";																			//$NON-NLS-1$
 
 	static final String			SKILL_TAB_TITLE		= "Skills";																														//$NON-NLS-1$
-	static final String			SKILL_TAB_TOOLTIP	= "Skills";																														//$NON-NLS-1$
-	private static final String	SKILL_COST			= "Cost: 40-60";																												//$NON-NLS-1$
-	private static final String	SKILL_COST2			= "Maintain: 1 DP / week";																										//$NON-NLS-1$
-	private static final String	SKILL_TITLE			= "To learn a skill:";																											//$NON-NLS-1$
-	private static final String	SKILL_TITLE2		= "Success: 1D20 < Intelligence";																								//$NON-NLS-1$
+	static final String			SKILL_TAB_TOOLTIP	= "To learn or improve a skill:";																								//$NON-NLS-1$
+	private static final String	COST_TEXT			= "Cost: 40-60";																												//$NON-NLS-1$
+	private static final String	MAINTAINENCE_TEXT	= "Maintain: 1 DP / week";																										//$NON-NLS-1$
+	private static final String	SKILL_TEXT			= SKILL_TAB_TOOLTIP;
+	private static final String	SUCCESS_TOOLTIP		= "1D20 < (Intelligence)";																										//$NON-NLS-1$
+	private static final String	SUCCESS_TEXT1		= "Success: 1D20 < ";																											//$NON-NLS-1$
 
 	private static final int	ROWS				= 5;
 	private static final int	COST				= 40;
@@ -84,7 +87,12 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), SKILLS_DESCRIPTION, SKILL_TITLE, SKILL_TITLE2, SKILL_COST, SKILL_COST2);
+		return createPage(createCenterPanel(), SKILLS_DESCRIPTION, SKILL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+	}
+
+	private String getSuccessText() {
+		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.INT);
+		return SUCCESS_TEXT1 + success;
 	}
 
 	private JPanel createCenterPanel() {
