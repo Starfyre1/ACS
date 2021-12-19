@@ -7,6 +7,7 @@ import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
 import com.starfyre1.interfaces.LevelListener;
 
 import java.awt.BorderLayout;
@@ -16,6 +17,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -26,7 +28,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class DeterminationPointsDisplay extends TKTitledDisplay implements LevelListener, ActionListener {
@@ -36,7 +37,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	 ****************************************************************************/
 	private static final String		DETERMINATION_POINTS_TITLE	= "Determination Points";		//$NON-NLS-1$
 
-	private static final String		POINTS_WEEK_LABEL			= "Remaining Points / Week";	//$NON-NLS-1$
+	private static final String		POINTS_WEEK_LABEL			= "Remaining Points this Week";	//$NON-NLS-1$
 
 	private static final String		GIVE_UP						= "Give Up";					//$NON-NLS-1$
 	private static final String		CLOSE						= "Close";						//$NON-NLS-1$
@@ -52,8 +53,8 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private JTextField				mPointsPerWeekField;
-	private JButton					mSpendPoints;
+	private JLabel					mPointsPerWeekLabel;
+	private JButton					mAssignPoints;
 	private JTabbedPane				mTabbedPane;
 
 	private JDialog					mDialog;
@@ -83,11 +84,34 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if (source.equals(mSpendPoints)) {
+		if (source.equals(mAssignPoints)) {
 			assignPoints();
 		} else if (source instanceof JButton) {
 			if (source.equals(mCloseButton)) {
 				mDialog.dispose();
+			} else if (source.equals(mLearnButton)) {
+				System.out.println("learn");
+				Component comp = mTabbedPane.getSelectedComponent();
+				if (comp instanceof AttributesTab) {
+					AttributesTab tab = (AttributesTab) comp;
+					ArrayList<AttributeDeterminationRecord> list = tab.getAttributesToLearn();
+					for (AttributeDeterminationRecord record : list) {
+						System.out.println(record.toString());
+					}
+				} else if (comp instanceof LanguageTab) {
+					LanguageTab tab = (LanguageTab) comp;
+				} else if (comp instanceof MagicSpellTab) {
+					MagicSpellTab tab = (MagicSpellTab) comp;
+				} else if (comp instanceof WeaponProficiencyTab) {
+					WeaponProficiencyTab tab = (WeaponProficiencyTab) comp;
+				} else if (comp instanceof SkillTab) {
+					SkillTab tab = (SkillTab) comp;
+				} else if (comp instanceof TeacherTab) {
+					TeacherTab tab = (TeacherTab) comp;
+				}
+				// DW Create Record
+			} else if (source.equals(mGiveUpButton)) {
+				// DW Added game date to record
 			}
 		}
 	}
@@ -151,7 +175,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	}
 
 	private void updateValues() {
-		mPointsPerWeekField.setText(TKStringHelpers.EMPTY_STRING + (getDeterminationPoints() - getDeterminationPointsSpent()));
+		mPointsPerWeekLabel.setText(TKStringHelpers.EMPTY_STRING + (getDeterminationPoints() - getDeterminationPointsSpent()));
 	}
 
 	private int getDeterminationPointsSpent() {
@@ -180,13 +204,12 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 		JPanel topWrapper = new JPanel();
 
-		JLabel pointsPerWeekLabel = new JLabel(POINTS_WEEK_LABEL);
-		mPointsPerWeekField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20);
-		mSpendPoints = TKComponentHelpers.createButton(ASSIGN_POINTS, this);
+		mPointsPerWeekLabel = new JLabel();
+		mAssignPoints = TKComponentHelpers.createButton(ASSIGN_POINTS, this);
 
-		topWrapper.add(pointsPerWeekLabel);
-		topWrapper.add(mPointsPerWeekField);
-		topWrapper.add(mSpendPoints);
+		topWrapper.add(mPointsPerWeekLabel);
+		topWrapper.add(new JLabel(POINTS_WEEK_LABEL));
+		topWrapper.add(mAssignPoints);
 
 		JPanel mainWrapper = new JPanel(new GridLayout(1, 3, 5, 0));
 		mainWrapper.setBorder(new EmptyBorder(0, 0, 5, 0));

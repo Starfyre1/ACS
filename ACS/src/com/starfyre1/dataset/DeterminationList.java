@@ -2,7 +2,12 @@
 
 package com.starfyre1.dataset;
 
-import com.starfyre1.dataModel.determination.DeterminationRecord;
+import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
+import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
+import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
+import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
+import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
+import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.interfaces.Savable;
 
 import java.io.BufferedReader;
@@ -15,13 +20,18 @@ public class DeterminationList implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String						FILE_SECTTION_START_KEY	= "DETERMINATION_SECTTION_START";	//$NON-NLS-1$
-	public static final String						FILE_SECTTION_END_KEY	= "DETERMINATION_SECTTION_END";		//$NON-NLS-1$
+	public static final String										FILE_SECTTION_START_KEY	= "DETERMINATION_SECTTION_START";	//$NON-NLS-1$
+	public static final String										FILE_SECTTION_END_KEY	= "DETERMINATION_SECTTION_END";		//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private static ArrayList<DeterminationRecord>	mRecords				= new ArrayList<>(15);
+	private static ArrayList<AttributeDeterminationRecord>			mAttribRecords			= new ArrayList<>(16);
+	private static ArrayList<LanguageDeterminationRecord>			mLanguageRecords		= new ArrayList<>(16);
+	private static ArrayList<MagicSpellDeterminationRecord>			mMagicSpellRecords		= new ArrayList<>(64);
+	private static ArrayList<SkillDeterminationRecord>				mSkillRecords			= new ArrayList<>(16);
+	private static ArrayList<WeaponProficiencyDeterminationRecord>	mWeaponRecords			= new ArrayList<>(16);
+	private static ArrayList<TeacherDeterminationRecord>			mTeachersRecords		= new ArrayList<>(16);
 
 	/*****************************************************************************
 	 * Constructors
@@ -30,6 +40,29 @@ public class DeterminationList implements Savable {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+	public void addAttribRecord(AttributeDeterminationRecord record) {
+		mAttribRecords.add(record);
+	}
+
+	public void addLanguageRecord(LanguageDeterminationRecord record) {
+		mLanguageRecords.add(record);
+	}
+
+	public void addMagicSpellRecord(MagicSpellDeterminationRecord record) {
+		mMagicSpellRecords.add(record);
+	}
+
+	public void addSkillRecord(SkillDeterminationRecord record) {
+		mSkillRecords.add(record);
+	}
+
+	public void addWeaponRecord(WeaponProficiencyDeterminationRecord record) {
+		mWeaponRecords.add(record);
+	}
+
+	public void addTeacherRecord(TeacherDeterminationRecord record) {
+		mTeachersRecords.add(record);
+	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
@@ -75,37 +108,14 @@ public class DeterminationList implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
-		for (DeterminationRecord record : mRecords) {
-			//
-			//			int[] type = record.getProtectionType();
-			//			StringBuffer typeString = new StringBuffer("{ "); //$NON-NLS-1$
-			//			for (int i = 0; i < type.length; i++) {
-			//				typeString.append(type[i]);
-			//				if (i < type.length - 1) {
-			//					typeString.append(", "); //$NON-NLS-1$
-			//				}
-			//			}
-			//			typeString.append(" }"); //$NON-NLS-1$
-			//
-			//			br.write(COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
-			//			br.write(COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
-		}
+		// DW to do
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 
 	// DW need to add magic info to Armor
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
-		//		String value = (String) obj;
-		//		if (COUNT_KEY.equals(key)) {
-		//			mCount = TKStringHelpers.getIntValue(value, 0);
-		//		} else if (COST_KEY.equals(key)) {
-		//			mCost = TKStringHelpers.getFloatValue(value, 0);
-		//			mRecords.add(new DeterminationRecord(mCount,  mCost));
-		//		} else {
-		//			//DW9:: log this
-		//			System.err.println("Unknown key read from file: " + getClass() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
-		//		}
+		// DW to do
 	}
 
 }

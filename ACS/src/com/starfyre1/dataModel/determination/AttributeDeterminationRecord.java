@@ -2,6 +2,7 @@
 
 package com.starfyre1.dataModel.determination;
 
+import com.starfyre1.GUI.determination.AttributesTab;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
@@ -38,7 +39,7 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	boolean						mMaintainence					= false;
 	boolean						mSuccessful						= false;
 
-	private int					currentNumberOfImprovements[]	= new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	private int					currentNumberOfImprovements[]	= new int[] { 0, 0, 0, 0, 0 };
 
 	/*****************************************************************************
 	 * Constructors
@@ -46,12 +47,29 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	/**
 	 * Creates a new {@link AttributeDeterminationRecord}.
 	 */
-	public AttributeDeterminationRecord() {
+	public AttributeDeterminationRecord(int which, int dpPerWeek, int cost) {
+		mAttribute = which;
+		mDPPerWeek = dpPerWeek;
+		mDPCost = cost;
 	}
 
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+
+	@Override
+	public String toString() {
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append(AttributesTab.ATTRIBUTE_NAMES[mAttribute]);
+		sb.append("\nDP Per Week: " + mDPPerWeek);
+		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost);
+		sb.append("\nMaintainence cost: " + (mMaintainence ? 1 : 0));
+		sb.append("\nSuccessful: " + mSuccessful);
+
+		return sb.toString();
+	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's

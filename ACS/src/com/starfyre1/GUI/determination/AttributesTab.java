@@ -4,7 +4,9 @@ package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
@@ -13,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -40,7 +43,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 	private static final String		SUCCESS_TEXT1			= "Success: 1D20 + ";																																			//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT2			= " > ";																																						//$NON-NLS-1$
 
-	private static final String[]	ATTRIBUTE_NAMES			= new String[] { AttributesRecord.STRENGTH, AttributesRecord.CONSTITUTION, AttributesRecord.WISDOM, AttributesRecord.DEXTERITY, AttributesRecord.BOW_SKILL };
+	public static final String[]	ATTRIBUTE_NAMES			= new String[] { AttributesRecord.STRENGTH, AttributesRecord.CONSTITUTION, AttributesRecord.WISDOM, AttributesRecord.DEXTERITY, AttributesRecord.BOW_SKILL };
 	private static final int[]		ATTRIBUTE_NUMBERS		= new int[] { AttributesRecord.STR, AttributesRecord.CON, AttributesRecord.WIS, AttributesRecord.DEX, AttributesRecord.BOW };
 
 	private static final int		ROWS					= 5;
@@ -50,6 +53,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 	 * Member Variables
 	 ****************************************************************************/
 	JCheckBox[]						mAttrCheckBox;																																											//= new JCheckBox[5];
+	JTextField[]					mPointsField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -74,40 +78,34 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		// DW Handle Value changed
+		JTextField field = (JTextField) e.getSource();
+		field.setText(field.getText().trim());
+		updateDialogButtons();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JCheckBox) {
-			updateDialogButtons();
-		} else {
-
-			//			AttributesRecord attribs = ACS.getInstance().getCharacterSheet().getAttributesRecord();
-			System.out.println(((JCheckBox) source).getText());
+			JCheckBox checkBox = (JCheckBox) source;
 			if (source.equals(mAttrCheckBox[0])) {
-				//				if (mStrCheckBox.isSelected()) {
-				//					int points = ((DeterminationPointsDisplay) getOwner()).getDeterminationPoints();
-				//					String valueSpent = JOptionPane.showInputDialog(this, "You currently have " + points + " available...", "How many D.P's to spend on Strength?", JOptionPane.QUESTION_MESSAGE);
-				//					// null for cancel and "" for ok with no value
-				//					System.out.println(":" + valueSpent + ":");
-				//				}
-				//			} else if (source.equals(mAttrCheckBox[1])) {
-				//
-				//			} else if (source.equals(mAttrCheckBox[2])) {
-				//
-				//			} else if (source.equals(mAttrCheckBox[3])) {
-				//
-				//			} else if (source.equals(mAttrCheckBox[4])) {
-
+				mPointsField[0].setEnabled(checkBox.isSelected());
+			} else if (source.equals(mAttrCheckBox[1])) {
+				mPointsField[1].setEnabled(checkBox.isSelected());
+			} else if (source.equals(mAttrCheckBox[2])) {
+				mPointsField[2].setEnabled(checkBox.isSelected());
+			} else if (source.equals(mAttrCheckBox[3])) {
+				mPointsField[3].setEnabled(checkBox.isSelected());
+			} else if (source.equals(mAttrCheckBox[4])) {
+				mPointsField[4].setEnabled(checkBox.isSelected());
 			}
+			updateDialogButtons();
 		}
 	}
 
 	private boolean isAnyBoxChecked() {
 		for (int i = 0; i < ROWS; i++) {
-			if (mAttrCheckBox[i].isSelected()) {
+			if (mAttrCheckBox[i].isSelected() && !mPointsField[i].getText().isBlank()) {
 				return true;
 			}
 		}
@@ -139,10 +137,9 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		int currentMaintenance = 0;
 		int completed = 0;
 		int attempted = 0;
-		Dimension size = new Dimension();
 
 		mAttrCheckBox = new JCheckBox[5];
-		JTextField[] pointsField = new JTextField[ROWS];
+		mPointsField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] maintLabel = new JLabel[ROWS];
 		JLabel[] successfulLabel = new JLabel[ROWS];
@@ -154,9 +151,10 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		JPanel maintPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 		JPanel successPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		JLabel header = new JLabel("Attributes:", SwingConstants.CENTER);
+		JLabel header = new JLabel("Attributes:", SwingConstants.CENTER); //$NON-NLS-1$
 		attrPanel.add(header);
-		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER));
+		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
+		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
 		successPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
@@ -165,16 +163,13 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 			mAttrCheckBox[i] = TKComponentHelpers.createCheckBox(ATTRIBUTE_NAMES[i], false, this);
 			attrPanel.add(mAttrCheckBox[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20, this);
-			dpPerWeekPanel.add(pointsField[i]);
+			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
+			mPointsField[i].setEnabled(false);
+			dpPerWeekPanel.add(mPointsField[i]);
 
-			if (i == 0) {
-				size = new Dimension(header.getPreferredSize().width, pointsField[0].getPreferredSize().height);
-			}
-			mAttrCheckBox[i].setMaximumSize(new Dimension(mAttrCheckBox[i].getMinimumSize().width, size.height));
-			mAttrCheckBox[i].setSize(size);
-			mAttrCheckBox[i].setMinimumSize(size);
-			mAttrCheckBox[i].setPreferredSize(size);
+			Dimension checkBoxSize = new Dimension(mAttrCheckBox[i].getMinimumSize().width, TEXT_FIELD_HEIGHT);
+			mAttrCheckBox[i].setMaximumSize(new Dimension(checkBoxSize));
+			mAttrCheckBox[i].setPreferredSize(checkBoxSize);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			usedLabel[i].setMinimumSize(size);
@@ -215,6 +210,19 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		for (int i = 0; i < ROWS; i++) {
 			mAttrCheckBox[i].setEnabled(attribs.getModifiedStat(ATTRIBUTE_NUMBERS[i]) < 18);
 		}
+	}
+
+	/**
+	 * @return
+	 */
+	public ArrayList<AttributeDeterminationRecord> getAttributesToLearn() {
+		ArrayList<AttributeDeterminationRecord> list = new ArrayList<>();
+		for (int i = 0; i < ROWS; i++) {
+			if (mAttrCheckBox[i].isSelected() && !mPointsField[i].getText().isBlank()) {
+				list.add(new AttributeDeterminationRecord(i, TKStringHelpers.getIntValue(mPointsField[i].getText(), 0), COST));
+			}
+		}
+		return list;
 	}
 
 	/*****************************************************************************

@@ -6,6 +6,7 @@ import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.GUI.journal.WorldDateChooser;
+import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.startup.ACS;
 
@@ -218,9 +219,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 
 	private JPanel createButtonPanel(JDialog dialog) {
 		JPanel panel = new JPanel();
-		JButton cancelButton = new JButton(CANCEL);
-		mSaveRecord = true;
-		cancelButton.addActionListener(new ActionListener() {
+		JButton cancelButton = TKComponentHelpers.createButton(CANCEL, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -229,8 +228,10 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 			}
 
 		});
-		JButton createButton = new JButton(CREATE);
-		createButton.addActionListener(new ActionListener() {
+		mSaveRecord = true;
+
+		// DW need to add a listener on the JTextArea to disable the createButton when there is no text
+		JButton createButton = TKComponentHelpers.createButton(CREATE, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
