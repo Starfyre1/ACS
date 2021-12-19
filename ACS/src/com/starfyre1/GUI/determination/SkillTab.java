@@ -102,7 +102,6 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 		int currentMaintenance = 0;
 		int completed = 0;
 		int attempted = 0;
-		Dimension size = new Dimension();
 
 		JTextField[] skillsField = new JTextField[ROWS];
 		JLabel[] teacherLabel = new JLabel[ROWS];
@@ -124,6 +123,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 		skillsPanel.add(new JLabel(SKILL_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
 		JLabel header = new JLabel("Teacher", SwingConstants.CENTER); //$NON-NLS-1$
 		teacherPanel.add(header);
+		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
 		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER)); //$NON-NLS-1$
@@ -131,11 +131,8 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			skillsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, 20);
+			skillsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
 			skillsPanel.add(skillsField[i]);
-			if (i == 0) {
-				size = new Dimension(header.getPreferredSize().width, skillsField[0].getPreferredSize().height);
-			}
 
 			teacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
 			teacherLabel[i].setMinimumSize(size);
@@ -147,7 +144,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 			bonusLabel[i].setPreferredSize(size);
 			bonusAmountPanel.add(bonusLabel[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
 			dpPerWeekPanel.add(pointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$

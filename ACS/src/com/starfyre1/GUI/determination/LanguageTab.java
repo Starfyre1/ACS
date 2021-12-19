@@ -101,7 +101,6 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 		int currentMaintenance = 0;
 		int completed = 0;
 		int attempted = 0;
-		Dimension size = new Dimension();
 
 		JTextField[] langField = new JTextField[ROWS];
 		JTextField[] pointsField = new JTextField[ROWS];
@@ -119,19 +118,16 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 		langPanel.add(new JLabel(LANGUAGE_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
 		JLabel header = new JLabel("DP/Week", SwingConstants.CENTER); //$NON-NLS-1$
 		dpPerWeekPanel.add(header);
+		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			langField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, 20);
+			langField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
 			langPanel.add(langField[i]);
 
-			if (i == 0) {
-				size = new Dimension(header.getPreferredSize().width, langField[0].getPreferredSize().height);
-			}
-
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
 			dpPerWeekPanel.add(pointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
@@ -144,7 +140,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 			maintLabel[i].setPreferredSize(size);
 			maintPanel.add(maintLabel[i]);
 
-			successfulLabel[i] = new JLabel(completed + " / " + attempted);
+			successfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
 			successfulLabel[i].setMinimumSize(size);
 			successfulLabel[i].setPreferredSize(size);
 			successfulPanel.add(successfulLabel[i]);

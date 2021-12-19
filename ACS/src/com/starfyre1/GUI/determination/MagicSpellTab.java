@@ -93,7 +93,6 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 		int currentlySpent = 0;
 		int completed = 0;
 		int attempted = 0;
-		Dimension size = new Dimension();
 
 		JTextField[] spellLabel = new JTextField[ROWS];
 		JTextField[] schoolLabel = new JTextField[ROWS];
@@ -111,28 +110,25 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 		JPanel successfulPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
 		spellPanel.add(new JLabel("Spell:", SwingConstants.CENTER)); //$NON-NLS-1$
-		schoolPanel.add(new JLabel("School:", SwingConstants.CENTER)); //$NON-NLS-1$
-		JLabel header = new JLabel("DP/Week", SwingConstants.CENTER); //$NON-NLS-1$
+		JLabel header = new JLabel("School:", SwingConstants.CENTER); //$NON-NLS-1$
+		schoolPanel.add(header);
+		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
 		costPanel.add(new JLabel("Cost:", SwingConstants.CENTER)); //$NON-NLS-1$
-		dpPerWeekPanel.add(header);
+		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER));
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			spellLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, 20);
+			spellLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
 			spellPanel.add(spellLabel[i]);
 
-			if (i == 0) {
-				size = new Dimension(header.getPreferredSize().width, spellLabel[0].getPreferredSize().height);
-			}
-
-			schoolLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, 20);
+			schoolLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
 			schoolPanel.add(schoolLabel[i]);
 
-			costLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
+			costLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
 			costPanel.add(costLabel[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
 			dpPerWeekPanel.add(pointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$

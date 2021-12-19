@@ -102,7 +102,6 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		int currentTeacher = 0;
 		int currentMaintenance = 0;
 		int currentlySpent = 0;
-		Dimension size = new Dimension();
 
 		JTextField[] langField = new JTextField[ROWS];
 		JLabel[] teacherLabel = new JLabel[ROWS];
@@ -122,25 +121,22 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		weaponPanel.add(new JLabel(WEAPON_PROFICIENCY_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
 		JLabel header = new JLabel("Teacher", SwingConstants.CENTER); //$NON-NLS-1$
 		teacherPanel.add(header);
+		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
 		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER)); //$NON-NLS-1$
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			langField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, 20);
+			langField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
 			weaponPanel.add(langField[i]);
-
-			if (i == 0) {
-				size = new Dimension(header.getPreferredSize().width, langField[0].getPreferredSize().height);
-			}
 
 			teacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
 			teacherLabel[i].setMinimumSize(size);
 			teacherLabel[i].setPreferredSize(size);
 			teacherPanel.add(teacherLabel[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
 			dpPerWeekPanel.add(pointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$

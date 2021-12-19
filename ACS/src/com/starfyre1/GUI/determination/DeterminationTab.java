@@ -34,6 +34,7 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
+	protected static final int TEXT_FIELD_HEIGHT = 20;
 
 	/*****************************************************************************
 	 * Member Variables
