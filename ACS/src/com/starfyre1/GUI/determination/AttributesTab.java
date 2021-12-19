@@ -81,9 +81,11 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JCheckBox) {
+			updateDialogButtons();
+		} else {
+
 			//			AttributesRecord attribs = ACS.getInstance().getCharacterSheet().getAttributesRecord();
 			System.out.println(((JCheckBox) source).getText());
-			updateDialogButtons();
 			if (source.equals(mAttrCheckBox[0])) {
 				//				if (mStrCheckBox.isSelected()) {
 				//					int points = ((DeterminationPointsDisplay) getOwner()).getDeterminationPoints();
@@ -152,8 +154,9 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		JPanel maintPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 		JPanel successPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		attrPanel.add(new JLabel("Attributes:", SwingConstants.CENTER)); //$NON-NLS-1$
-		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
+		JLabel header = new JLabel("Attributes:", SwingConstants.CENTER);
+		attrPanel.add(header);
+		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER));
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
 		successPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
@@ -162,12 +165,16 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 			mAttrCheckBox[i] = TKComponentHelpers.createCheckBox(ATTRIBUTE_NAMES[i], false, this);
 			attrPanel.add(mAttrCheckBox[i]);
 
-			if (i == 0) {
-				size = new Dimension(mAttrCheckBox[0].getPreferredSize());
-			}
-
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, size.height, this);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20, this);
 			dpPerWeekPanel.add(pointsField[i]);
+
+			if (i == 0) {
+				size = new Dimension(header.getPreferredSize().width, pointsField[0].getPreferredSize().height);
+			}
+			mAttrCheckBox[i].setMaximumSize(new Dimension(mAttrCheckBox[i].getMinimumSize().width, size.height));
+			mAttrCheckBox[i].setSize(size);
+			mAttrCheckBox[i].setMinimumSize(size);
+			mAttrCheckBox[i].setPreferredSize(size);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			usedLabel[i].setMinimumSize(size);
