@@ -112,7 +112,7 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 
 		spellPanel.add(new JLabel("Spell:", SwingConstants.CENTER)); //$NON-NLS-1$
 		schoolPanel.add(new JLabel("School:", SwingConstants.CENTER)); //$NON-NLS-1$
-		JLabel header = new JLabel("# use:", SwingConstants.CENTER); //$NON-NLS-1$
+		JLabel header = new JLabel("DP/Week", SwingConstants.CENTER); //$NON-NLS-1$
 		costPanel.add(new JLabel("Cost:", SwingConstants.CENTER)); //$NON-NLS-1$
 		dpPerWeekPanel.add(header);
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
@@ -132,7 +132,7 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 			costLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
 			costPanel.add(costLabel[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
 			dpPerWeekPanel.add(pointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$

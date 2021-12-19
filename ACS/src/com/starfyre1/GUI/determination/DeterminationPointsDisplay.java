@@ -99,14 +99,14 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 		mTabbedPane = new JTabbedPane();
 
-		JComponent physicalTab = new PhysicalTab(this);
+		JComponent physicalTab = new AttributesTab(this);
 		JComponent languageTab = new LanguageTab(this);
 		JComponent magicSpellTab = new MagicSpellTab(this);
 		JComponent weaponProficiencyTab = new WeaponProficiencyTab(this);
 		JComponent skillTab = new SkillTab(this);
 		JComponent teacherTab = new TeacherTab(this);
 
-		mTabbedPane.addTab(PhysicalTab.PHYSICAL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, physicalTab, PhysicalTab.PHYSICAL_TAB_TOOLTIP);
+		mTabbedPane.addTab(AttributesTab.PHYSICAL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, physicalTab, AttributesTab.PHYSICAL_TAB_TOOLTIP);
 		mTabbedPane.addTab(LanguageTab.LANGUAGE_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, languageTab, LanguageTab.LANGUAGE_TAB_TOOLTIP);
 		mTabbedPane.addTab(MagicSpellTab.MAGIC_SPELL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, magicSpellTab, MagicSpellTab.MAGIC_SPELL_TAB_TOOLTIP);
 		mTabbedPane.addTab(WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, weaponProficiencyTab, WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TOOLTIP);

@@ -94,6 +94,19 @@ public class MoneyRecord implements Savable {
 
 	}
 
+	/**
+	 *
+	 */
+	public void clearRecords() {
+		mGold = 0;
+		mSilver = 0;
+		mCopper = 0;
+		mGemsArea = TKStringHelpers.EMPTY_STRING;
+		mJewelryArea = TKStringHelpers.EMPTY_STRING;
+		mOtherArea = TKStringHelpers.EMPTY_STRING;
+		updateOldRecords();
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -262,18 +275,4 @@ public class MoneyRecord implements Savable {
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
 		}
 	}
-
-	/**
-	 *
-	 */
-	public void clearRecords() {
-		mGold = 0;
-		mSilver = 0;
-		mCopper = 0;
-		mGemsArea = TKStringHelpers.EMPTY_STRING;
-		mJewelryArea = TKStringHelpers.EMPTY_STRING;
-		mOtherArea = TKStringHelpers.EMPTY_STRING;
-		updateOldRecords();
-	}
-
 }

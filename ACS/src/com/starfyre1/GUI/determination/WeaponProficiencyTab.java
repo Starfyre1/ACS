@@ -122,7 +122,7 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		weaponPanel.add(new JLabel(WEAPON_PROFICIENCY_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
 		JLabel header = new JLabel("Teacher", SwingConstants.CENTER); //$NON-NLS-1$
 		teacherPanel.add(header);
-		dpPerWeekPanel.add(new JLabel("# use:", SwingConstants.CENTER)); //$NON-NLS-1$
+		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER)); //$NON-NLS-1$
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
@@ -140,7 +140,7 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 			teacherLabel[i].setPreferredSize(size);
 			teacherPanel.add(teacherLabel[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
 			dpPerWeekPanel.add(pointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$

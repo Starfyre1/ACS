@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class PhysicalTab extends DeterminationTab implements ActionListener, FocusListener {
+public class AttributesTab extends DeterminationTab implements ActionListener, FocusListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -56,11 +56,11 @@ public class PhysicalTab extends DeterminationTab implements ActionListener, Foc
 	 ****************************************************************************/
 
 	/**
-	 * Creates a new {@link PhysicalTab}.
+	 * Creates a new {@link AttributesTab}.
 	 *
 	 * @param owner
 	 */
-	public PhysicalTab(Object owner) {
+	public AttributesTab(Object owner) {
 		super(owner, PHYSICAL_TAB_TITLE);
 	}
 
@@ -145,60 +145,60 @@ public class PhysicalTab extends DeterminationTab implements ActionListener, Foc
 		JLabel[] maintLabel = new JLabel[ROWS];
 		JLabel[] successfulLabel = new JLabel[ROWS];
 
-		JPanel wrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
-		JPanel first = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel second = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel third = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel fourth = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		JPanel fifth = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		JPanel wrapperPanel = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
+		JPanel attrPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel dpPerWeekPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel dpSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel maintPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		JPanel successPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		first.add(new JLabel("Attributes:", SwingConstants.CENTER)); //$NON-NLS-1$
-		second.add(new JLabel("# use:", SwingConstants.CENTER)); //$NON-NLS-1$
-		third.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
-		fourth.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
-		fifth.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
+		attrPanel.add(new JLabel("Attributes:", SwingConstants.CENTER)); //$NON-NLS-1$
+		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
+		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
+		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
+		successPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
 			mAttrCheckBox[i] = TKComponentHelpers.createCheckBox(ATTRIBUTE_NAMES[i], false, this);
-			first.add(mAttrCheckBox[i]);
+			attrPanel.add(mAttrCheckBox[i]);
 
 			if (i == 0) {
 				size = new Dimension(mAttrCheckBox[0].getPreferredSize());
 			}
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, size.height, this);
-			second.add(pointsField[i]);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, size.height, this);
+			dpPerWeekPanel.add(pointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			usedLabel[i].setMinimumSize(size);
 			usedLabel[i].setPreferredSize(size);
-			third.add(usedLabel[i]);
+			dpSpentPanel.add(usedLabel[i]);
 
 			maintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
 			maintLabel[i].setMinimumSize(size);
 			maintLabel[i].setPreferredSize(size);
-			fourth.add(maintLabel[i]);
+			maintPanel.add(maintLabel[i]);
 
 			successfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
 			successfulLabel[i].setMinimumSize(size);
 			successfulLabel[i].setPreferredSize(size);
-			fifth.add(successfulLabel[i]);
+			successPanel.add(successfulLabel[i]);
 
 		}
 
-		third.add(Box.createVerticalGlue());
-		fourth.add(Box.createVerticalGlue());
-		fifth.add(Box.createVerticalGlue());
+		dpSpentPanel.add(Box.createVerticalGlue());
+		maintPanel.add(Box.createVerticalGlue());
+		successPanel.add(Box.createVerticalGlue());
 
-		wrapper.add(first);
-		wrapper.add(second);
-		wrapper.add(third);
-		wrapper.add(fourth);
-		wrapper.add(fifth);
+		wrapperPanel.add(attrPanel);
+		wrapperPanel.add(dpPerWeekPanel);
+		wrapperPanel.add(dpSpentPanel);
+		wrapperPanel.add(maintPanel);
+		wrapperPanel.add(successPanel);
 
 		updateCheckboxEnabledState();
 
-		return wrapper;
+		return wrapperPanel;
 	}
 
 	private void updateCheckboxEnabledState() {

@@ -117,7 +117,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 		JPanel successfulPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
 		langPanel.add(new JLabel(LANGUAGE_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
-		JLabel header = new JLabel("# use:", SwingConstants.CENTER); //$NON-NLS-1$
+		JLabel header = new JLabel("DP/Week", SwingConstants.CENTER); //$NON-NLS-1$
 		dpPerWeekPanel.add(header);
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
@@ -131,7 +131,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 				size = new Dimension(header.getPreferredSize().width, langField[0].getPreferredSize().height);
 			}
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
 			dpPerWeekPanel.add(pointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$

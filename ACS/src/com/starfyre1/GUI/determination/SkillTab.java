@@ -124,7 +124,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 		skillsPanel.add(new JLabel(SKILL_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
 		JLabel header = new JLabel("Teacher", SwingConstants.CENTER); //$NON-NLS-1$
 		teacherPanel.add(header);
-		dpPerWeekPanel.add(new JLabel("# use:", SwingConstants.CENTER)); //$NON-NLS-1$
+		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER)); //$NON-NLS-1$
 		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
@@ -147,7 +147,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 			bonusLabel[i].setPreferredSize(size);
 			bonusAmountPanel.add(bonusLabel[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20);
 			dpPerWeekPanel.add(pointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
