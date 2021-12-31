@@ -327,7 +327,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			CampaignDateChooser cal = new CampaignDateChooser(((CharacterSheet) mParent.getOwner()).getFrame(), CampaignDateChooser.parseCampaignDate(CampaignDateChooser.getCampaignDate()));
+			CampaignDateChooser cal = new CampaignDateChooser(((CharacterSheet) mParent.getOwner()).getFrame(), CampaignDateChooser.parseCampaignDate(mCampaignDate));
 			String date = cal.getSelectedDate();
 			if (!date.isEmpty()) {
 				mCampaignDate = date;

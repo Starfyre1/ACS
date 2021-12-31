@@ -52,7 +52,6 @@ public class CampaignDateChooser extends DateChooser {
 		}
 		int dayOfWeek = getDayOfWeek(mYear, mMonth, mDate);
 		int daysInMonth = DATES[mMonth];
-		//		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			//			System.out.println(i + " " + (6 + dayOfWeek) + " " + day + " " + daysInMonth);
 			mButton[i].setText("" + day); //$NON-NLS-1$
