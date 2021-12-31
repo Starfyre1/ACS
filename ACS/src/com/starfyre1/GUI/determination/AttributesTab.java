@@ -212,9 +212,6 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		}
 	}
 
-	/**
-	 * @return
-	 */
 	public ArrayList<AttributeDeterminationRecord> getAttributesToLearn() {
 		ArrayList<AttributeDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {

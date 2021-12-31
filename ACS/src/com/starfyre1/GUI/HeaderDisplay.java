@@ -2,6 +2,8 @@
 
 package com.starfyre1.GUI;
 
+import com.starfyre1.GUI.journal.CampaignDateChooser;
+import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
@@ -9,6 +11,7 @@ import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.ClassesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.HistoryRecord;
+import com.starfyre1.dataModel.JournalRecord;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.PriestList;
@@ -24,6 +27,7 @@ import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -57,6 +61,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 	private JTextField			mLevelField;
 	private JTextField			mCurrentExperienceField;
 	private JTextField			mNextLevelField;
+	private JButton				mCampaignButton;
 
 	/*****************************************************************************
 	 * Constructors
@@ -104,6 +109,10 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		mNextLevelField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		mNextLevelField.setEditable(false);
 
+		JTextField worldDateField = new JTextField(JournalDisplay.WORLD_DATE_lABEL + ACS.getInstance().getWorldDate());
+		worldDateField.setEditable(false);
+		worldDateField.setFocusable(false);
+
 		wrapper.add(characterNameLabel);
 		wrapper.add(mCharacterNameField);
 		wrapper.add(playerNameLabel);
@@ -113,12 +122,28 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 
 		JPanel wrapper2 = new JPanel();
 
+		wrapper2.add(new JLabel(JournalDisplay.CAMPAIGN_DATE_LABEL, SwingConstants.LEADING));
+		mCampaignButton = JournalRecord.getDateButton("", new ActionListener() { //$NON-NLS-1$
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				CampaignDateChooser cal = new CampaignDateChooser(((CharacterSheet) getOwner()).getFrame());
+				String date = cal.getSelectedDate();
+				if (!date.isEmpty()) {
+					ACS.getInstance().getCharacterSheet().getHeaderRecord().setCampaignDate(date);
+					mCampaignButton.setText(date);
+				}
+			}
+		});
+
+		wrapper2.add(mCampaignButton);
 		wrapper2.add(classLabel);
 		wrapper2.add(mClassPopup);
 		wrapper2.add(currentExperienceLabel);
 		wrapper2.add(mCurrentExperienceField);
 		wrapper2.add(nextLevelLabel);
 		wrapper2.add(mNextLevelField);
+		wrapper2.add(worldDateField);
 
 		outerWrapper.add(wrapper);
 		outerWrapper.add(wrapper2);
@@ -239,6 +264,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
 		mCurrentExperienceField.setText(TKStringHelpers.EMPTY_STRING + record.getCurrentExperience());
 		mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
+		mCampaignButton.setText(record.getCampaignDate());
 
 	}
 
@@ -270,14 +296,14 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 				if (currentExperience > nextExperience) {
 					levelUp = true;
 				}
-				manager.addRecord(HistoryManager.EXPERIENCE_KEY, new HistoryRecord(ACS.getInstance().getWorldDate(), ACS.getInstance().getCampaignDate(), currentExperience));
+				manager.addRecord(HistoryManager.EXPERIENCE_KEY, new HistoryRecord(ACS.getInstance().getWorldDate(), ACS.getInstance().getCharacterSheet().getHeaderRecord().getCampaignDate(), currentExperience));
 				record.setCurrentExperience(currentExperience);
 
 				mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
 				mCurrentExperienceField.setToolTipText(manager.getTooltip(HistoryManager.EXPERIENCE_KEY));
 				mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
 				((CharacterSheet) getOwner()).updateRecords();
-				manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(ACS.getInstance().getWorldDate(), ACS.getInstance().getCampaignDate(), record.getLevel()));
+				manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(ACS.getInstance().getWorldDate(), ACS.getInstance().getCharacterSheet().getHeaderRecord().getCampaignDate(), record.getLevel()));
 				mLevelField.setToolTipText(manager.getTooltip(HistoryManager.LEVEL_KEY));
 				if (levelUp) {
 					ACS.getInstance().getCharacterSheet().getJournalTab().characterLevelUp(record.getLevel());
@@ -323,6 +349,16 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 	 */
 	public void setCurrentExperienceToolTip(String tooltip) {
 		mCurrentExperienceField.setToolTipText(tooltip);
+	}
+
+	/** @return The campaignDate. */
+	public String getCampaignDate() {
+		return mCampaignButton.getText();
+	}
+
+	/** @param campaignDate The value to set for campaignDate. */
+	public void setCampaignButton(String campaignDate) {
+		mCampaignButton.setText(campaignDate);
 	}
 
 	/*****************************************************************************

@@ -3,7 +3,8 @@
 package com.starfyre1.startup;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.journal.CampaignDateChooser;
+import com.starfyre1.GUI.journal.WorldDateChooser;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.storage.PreferenceStore;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
@@ -23,24 +24,22 @@ public class ACS {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final int				DEBUG_LEVEL				= 0;
+	public static final int				DEBUG_LEVEL			= 0;
 
-	public static final String			TITLE					= "ACS (Athri Character Sheet)";																																													//$NON-NLS-1$
+	public static final String			TITLE				= "ACS (Athri Character Sheet)";																//$NON-NLS-1$
 
-	private static int					MAJOR					= 0;																																																				// Incompatible changes
-	private static int					MINOR					= 1;																																																				// Compatible changes
-	private static int					PATCH					= 2;																																																				// Bug fixes
+	private static int					MAJOR				= 0;																							// Incompatible changes
+	private static int					MINOR				= 1;																							// Compatible changes
+	private static int					PATCH				= 2;																							// Bug fixes
 
-	private static String				RELEASE_DATE			= "December 06, 2021";																																																//$NON-NLS-1$
-	private static String				RELEASE_TIME			= "8:42 UTC/GMT";																																																	//$NON-NLS-1$
-	public static String				COPYRIGHT				= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";																																				//$NON-NLS-1$
-
-	private static final int			YEAR_AL					= 615;																																																				// YEAR_AD			= YEAR_AL - 268;
+	private static String				RELEASE_DATE		= "December 06, 2021";																			//$NON-NLS-1$
+	private static String				RELEASE_TIME		= "8:42 UTC/GMT";																				//$NON-NLS-1$
+	public static String				COPYRIGHT			= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";							//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	static ACS							mInstance;
+	private static ACS					mInstance;
 
 	private static ClassList			mClasses;
 	private static MageList				mMages;
@@ -48,14 +47,10 @@ public class ACS {
 	private static MetalList			mMetal;
 	private static SpellDescriptionList	mSpellDescriptions;
 
-	public int							mCurrentWorldYear		= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
-	public int							mCurrentWorldMonth		= java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
-	public int							mCurrentWorldDate		= java.util.Calendar.getInstance().get(java.util.Calendar.DATE);
-	public int							mCurrentCampaignYear	= YEAR_AL;
-	public int							mCurrentCampaignMonth	= 4;																																																				// 0=January... 15=Winter
-	public int							mCurrentCampaignDate	= 14;
-	private String						mWorldDate				= new String(new SimpleDateFormat("MMM dd, yyyy").format(Calendar.getInstance().getTime()));																														//$NON-NLS-1$
-	private String						mCampaignDate			= new String(CampaignDateChooser.MONTHS_SHORT[mCurrentCampaignMonth] + " " + String.format("%02d", Integer.valueOf(mCurrentCampaignDate)) + ", " + String.format("%04d", Integer.valueOf(mCurrentCampaignYear)));	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$);
+	private int							mCurrentWorldYear	= java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+	private int							mCurrentWorldMonth	= java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+	private int							mCurrentWorldDay	= java.util.Calendar.getInstance().get(java.util.Calendar.DATE);
+	private String						mWorldDate			= new String(new SimpleDateFormat("MMM dd, yyyy").format(Calendar.getInstance().getTime()));	//$NON-NLS-1$
 
 	private CharacterSheet				mCharacterSheet;
 
@@ -176,43 +171,25 @@ public class ACS {
 	}
 
 	/** @return The currentWorldDate. */
-	public int getCurrentWorldDate() {
-		return mCurrentWorldDate;
+	public int getCurrentWorldDay() {
+		return mCurrentWorldDay;
 	}
 
-	/** @param currentWorldDate The value to set for currentWorldDate. */
-	public void setCurrentWorldDate(int currentWorldDate) {
-		mCurrentWorldDate = currentWorldDate;
+	/** @param currentWorldDay The value to set for currentWorldDay. */
+	public void setCurrentWorldDay(int currentWorldDay) {
+		mCurrentWorldDay = currentWorldDay;
 	}
 
-	/** @return The currentCampaignYear. */
-	public int getCurrentCampaignYear() {
-		return mCurrentCampaignYear;
+	public static int parseWorldYear(String worldDate) {
+		return TKStringHelpers.getIntValue(worldDate.substring(8), 0);
 	}
 
-	/** @param currentCampaignYear The value to set for currentCampaignYear. */
-	public void setCurrentCampaignYear(int currentCampaignYear) {
-		mCurrentCampaignYear = currentCampaignYear;
+	public static int parseWorldMonth(String worldDate) {
+		return WorldDateChooser.getMonthIndex(worldDate.substring(0, 3));
 	}
 
-	/** @return The currentCampaignMonth. */
-	public int getCurrentCampaignMonth() {
-		return mCurrentCampaignMonth;
-	}
-
-	/** @param currentCampaignMonth The value to set for currentCampaignMonth. */
-	public void setCurrentCampaignMonth(int currentCampaignMonth) {
-		mCurrentCampaignMonth = currentCampaignMonth;
-	}
-
-	/** @return The currentCampaignDate. */
-	public int getCurrentCampaignDate() {
-		return mCurrentCampaignDate;
-	}
-
-	/** @param currentCampaignDate The value to set for currentCampaignDate. */
-	public void setCurrentCampaignDate(int currentCampaignDate) {
-		mCurrentCampaignDate = currentCampaignDate;
+	public static int parseWorldDay(String worldDate) {
+		return TKStringHelpers.getIntValue(worldDate.substring(4, 6), 0);
 	}
 
 	/** @return The worldDate. */
@@ -223,23 +200,16 @@ public class ACS {
 	/** @param worldDate The value to set for worldDate. */
 	public void setWorldDate(String worldDate) {
 		mWorldDate = worldDate;
-	}
-
-	/** @return The campaignDate. */
-	public String getCampaignDate() {
-		return mCampaignDate;
-	}
-
-	/** @param campaignDate The value to set for campaignDate. */
-	public void setCampaignDate(String campaignDate) {
-		mCampaignDate = campaignDate;
+		setCurrentWorldDay(parseWorldDay(mWorldDate));
+		setCurrentWorldMonth(parseWorldMonth(mWorldDate));
+		setCurrentWorldYear(parseWorldYear(mWorldDate));
 	}
 
 	public static void printSizes(Component comp) {
-		System.out.println("Size: " + comp.getSize());
-		System.out.println("Pref: " + comp.getPreferredSize());
-		System.out.println("Mini: " + comp.getMinimumSize());
-		System.out.println("Maxi: " + comp.getMaximumSize());
+		System.out.println("Size: " + comp.getSize()); //$NON-NLS-1$
+		System.out.println("Pref: " + comp.getPreferredSize()); //$NON-NLS-1$
+		System.out.println("Mini: " + comp.getMinimumSize()); //$NON-NLS-1$
+		System.out.println("Maxi: " + comp.getMaximumSize()); //$NON-NLS-1$
 	}
 
 	/*****************************************************************************

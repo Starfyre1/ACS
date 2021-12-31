@@ -2,6 +2,7 @@
 
 package com.starfyre1.GUI.journal;
 
+import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Color;
@@ -13,7 +14,7 @@ public class CampaignDateChooser extends DateChooser {
 	 * Constants
 	 ****************************************************************************/
 
-	private static final String	TITLE			= "Campain Date";																																						//$NON-NLS-1$
+	private static final String	TITLE			= "Select Campain Date";																																				//$NON-NLS-1$
 
 	public static final String	MONTHS_SHORT[]	= { "Jan", "Feb", "Mar", "Spr", "Apr", "May", "Jun", "Sum", "Jul", "Aug", "Sep", "Fal", "Oct", "Nov", "Dec", "Win" };													//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
 	private static final String	MONTHS[]		= { "January", "February", "March", "Spring", "April", "May", "June", "Summer", "July", "August", "September", "Fall", "October", "November", "December", "Winter" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
@@ -30,7 +31,7 @@ public class CampaignDateChooser extends DateChooser {
 	 * Creates a new {@link CampaignDateChooser}.
 	 */
 	public CampaignDateChooser(JFrame parent) {
-		super(parent, TITLE, ACS.getInstance().getCurrentCampaignYear(), ACS.getInstance().getCurrentCampaignMonth(), ACS.getInstance().getCurrentCampaignDate());
+		super(parent, TITLE, ACS.getInstance().getCharacterSheet().getHeaderRecord().getCurrentCampaignYear(), ACS.getInstance().getCharacterSheet().getHeaderRecord().getCurrentCampaignMonth(), ACS.getInstance().getCharacterSheet().getHeaderRecord().getCurrentCampaignDay());
 	}
 
 	/*****************************************************************************
@@ -43,11 +44,11 @@ public class CampaignDateChooser extends DateChooser {
 		}
 		int dayOfWeek = getDayOfWeek(mYear, mMonth, mDate);
 		int daysInMonth = DATES[mMonth];
-		ACS acs = ACS.getInstance();
+		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			//			System.out.println(i + " " + (6 + dayOfWeek) + " " + day + " " + daysInMonth);
 			mButton[i].setText("" + day); //$NON-NLS-1$
-			if (day == acs.getCurrentCampaignDate() && mMonth == acs.getCurrentCampaignMonth() && mYear == acs.getCurrentCampaignYear()) {
+			if (day == record.getCurrentCampaignDay() && mMonth == record.getCurrentCampaignMonth() && mYear == record.getCurrentCampaignYear()) {
 				mButton[i].setForeground(Color.RED);
 			} else {
 				mButton[i].setForeground(Color.BLACK);
@@ -76,7 +77,7 @@ public class CampaignDateChooser extends DateChooser {
 	public static int getMonthIndex(String shortText) {
 		for (int i = 0; i < MONTHS_SHORT.length; i++) {
 			if (MONTHS_SHORT[i].equals(shortText)) {
-				return i + 1;
+				return i;
 			}
 		}
 		return 0;

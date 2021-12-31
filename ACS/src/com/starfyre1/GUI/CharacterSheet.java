@@ -243,7 +243,6 @@ public class CharacterSheet implements ActionListener {
 	private void create() {
 		mFrame = new JFrame(ACS.TITLE);
 		mFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		//		mFrame.setResizable(false);
 		mFrame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

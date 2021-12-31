@@ -27,7 +27,7 @@ public class WorldDateChooser extends DateChooser {
 	 * Creates a new {@link WorldDateChooser}.
 	 */
 	public WorldDateChooser(JFrame parent) {
-		super(parent, TITLE, ACS.getInstance().getCurrentWorldYear(), ACS.getInstance().getCurrentWorldMonth(), ACS.getInstance().getCurrentWorldDate());
+		super(parent, TITLE, ACS.getInstance().getCurrentWorldYear(), ACS.getInstance().getCurrentWorldMonth(), ACS.getInstance().getCurrentWorldDay());
 	}
 
 	/*****************************************************************************
@@ -46,7 +46,7 @@ public class WorldDateChooser extends DateChooser {
 		ACS acs = ACS.getInstance();
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			mButton[i].setText("" + day); //$NON-NLS-1$
-			if (day == acs.getCurrentWorldDate() && mMonth == acs.getCurrentWorldMonth() && mYear == acs.getCurrentWorldYear()) {
+			if (day == acs.getCurrentWorldDay() && mMonth == acs.getCurrentWorldMonth() && mYear == acs.getCurrentWorldYear()) {
 				mButton[i].setForeground(Color.RED);
 			} else {
 				mButton[i].setForeground(Color.BLACK);

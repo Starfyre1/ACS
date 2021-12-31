@@ -48,8 +48,8 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	private static final String			NEW_ENTRY				= "New Entry";					//$NON-NLS-1$
 
 	public static final Dimension		JOURNAL_ENTRY_SIZE		= new Dimension(360, 480);
-	private static final String			CAMPAIGN_DATE_LABEL		= "Campaign Date";				//$NON-NLS-1$
-	private static final String			WORLD_DATE_lABEL		= "World Date";					//$NON-NLS-1$
+	public static final String			CAMPAIGN_DATE_LABEL		= " Campaign Date: ";			//$NON-NLS-1$
+	public static final String			WORLD_DATE_lABEL		= " World Date: ";				//$NON-NLS-1$
 
 	//DW make non-editable, add journal entry button, add journal entries with border.
 
@@ -76,6 +76,12 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		CharacterSheet sheet = (CharacterSheet) getOwner();
 		int n = JOptionPane.showConfirmDialog(sheet != null ? sheet.getFrame() : null, "Are we playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 		if (n == 0) {
+			CampaignDateChooser campaignDate = new CampaignDateChooser(((CharacterSheet) getOwner()).getFrame());
+			String date = campaignDate.getSelectedDate();
+			if (!date.isEmpty()) {
+				mCampaignDate = date;
+				((CharacterSheet) getOwner()).getHeaderRecord().setCampaignDate(date);
+			}
 			((CharacterSheet) getOwner()).setGameDayStarted(true);
 			mEntries.add(JournalRecord.getJournalRecord(this, JournalRecord.GAME_DAY_START));
 			updatePreviewPanel();

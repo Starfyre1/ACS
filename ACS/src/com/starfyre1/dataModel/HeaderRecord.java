@@ -2,6 +2,7 @@
 
 package com.starfyre1.dataModel;
 
+import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.common.BaseClass;
@@ -16,23 +17,34 @@ public class HeaderRecord implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY	= "HEADER_SECTTION_START";		//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY	= "HEADER_SECTTION_END";		//$NON-NLS-1$
+	public static final String	FILE_SECTTION_START_KEY		= "HEADER_SECTTION_START";																																															//$NON-NLS-1$
+	public static final String	FILE_SECTTION_END_KEY		= "HEADER_SECTTION_END";																																															//$NON-NLS-1$
 
-	private static final String	PLAYER_NAME_KEY			= "PLAYER_NAME_KEY";			//$NON-NLS-1$
-	private static final String	CHARACTER_NAME_KEY		= "CHARACTER_NAME_KEY";			//$NON-NLS-1$
-	private static final String	CLASS_KEY				= "CLASS_KEY";					//$NON-NLS-1$
-	private static final String	CURRENT_EXPERIENCE_KEY	= "CURRENT_EXPERIENCE_KEY";		//$NON-NLS-1$
+	private static final String	PLAYER_NAME_KEY				= "PLAYER_NAME_KEY";																																																//$NON-NLS-1$
+	private static final String	CHARACTER_NAME_KEY			= "CHARACTER_NAME_KEY";																																																//$NON-NLS-1$
+	private static final String	CLASS_KEY					= "CLASS_KEY";																																																		//$NON-NLS-1$
+	private static final String	CURRENT_EXPERIENCE_KEY		= "CURRENT_EXPERIENCE_KEY";																																															//$NON-NLS-1$
+	private static final String	CURRENT_CAMPAIGN_DATE_KEY	= "CURRENT_CAMPAIGN_DATE_KEY";																																														//$NON-NLS-1$
+
+	private static final int	YEAR_AL						= 615;																																																				// YEAR_AD			= YEAR_AL - 268;
+	private static final int	DEFAULT_CAMPAIGN_YEAR		= YEAR_AL;
+	private static final int	DEFAULT_CAMPAIGN_MONTH		= 4;																																																				// 0=January... 15=Winter
+	private static final int	DEFAULT_CAMPAIGN_DAY		= 14;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private String				mPlayerName				= TKStringHelpers.EMPTY_STRING;
-	private String				mCharacterName			= TKStringHelpers.EMPTY_STRING;
-	private String				mClass					= TKStringHelpers.EMPTY_STRING;
-	private int					mExperience				= 0;
+	private String				mPlayerName					= TKStringHelpers.EMPTY_STRING;
+	private String				mCharacterName				= TKStringHelpers.EMPTY_STRING;
+	private String				mClass						= TKStringHelpers.EMPTY_STRING;
+	private int					mExperience					= 0;
 
-	private int					mOldExperience			= 0;
+	private int					mCurrentCampaignYear		= DEFAULT_CAMPAIGN_YEAR;
+	private int					mCurrentCampaignMonth		= DEFAULT_CAMPAIGN_MONTH;																																															// 0=January... 15=Winter
+	private int					mCurrentCampaignDay			= DEFAULT_CAMPAIGN_DAY;
+	private String				mCampaignDate				= new String(CampaignDateChooser.MONTHS_SHORT[mCurrentCampaignMonth] + " " + String.format("%02d", Integer.valueOf(mCurrentCampaignDay)) + ", " + String.format("%04d", Integer.valueOf(mCurrentCampaignYear)));	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$);
+
+	private int					mOldExperience				= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -52,6 +64,18 @@ public class HeaderRecord implements Savable {
 	private void updateOldRecords() {
 		mOldExperience = mExperience;
 
+	}
+
+	public static int parseCampaignYear(String campaignDate) {
+		return TKStringHelpers.getIntValue(campaignDate.substring(8), 0);
+	}
+
+	public static int parseCampaignMonth(String campaignDate) {
+		return CampaignDateChooser.getMonthIndex(campaignDate.substring(0, 3));
+	}
+
+	public static int parseCampaignDay(String campaignDate) {
+		return TKStringHelpers.getIntValue(campaignDate.substring(4, 6), 0);
 	}
 
 	/*****************************************************************************
@@ -150,6 +174,49 @@ public class HeaderRecord implements Savable {
 		}
 	}
 
+	/** @return The campaignDate. */
+	public String getCampaignDate() {
+		return mCampaignDate;
+	}
+
+	/** @param campaignDate The value to set for campaignDate. */
+	public void setCampaignDate(String campaignDate) {
+		mCampaignDate = campaignDate;
+		setCurrentCampaignDay(parseCampaignDay(mCampaignDate));
+		setCurrentCampaignMonth(parseCampaignMonth(mCampaignDate));
+		setCurrentCampaignYear(parseCampaignYear(mCampaignDate));
+	}
+
+	/** @return The currentCampaignYear. */
+	public int getCurrentCampaignYear() {
+		return mCurrentCampaignYear;
+	}
+
+	/** @param currentCampaignYear The value to set for currentCampaignYear. */
+	public void setCurrentCampaignYear(int currentCampaignYear) {
+		mCurrentCampaignYear = currentCampaignYear;
+	}
+
+	/** @return The currentCampaignMonth. */
+	public int getCurrentCampaignMonth() {
+		return mCurrentCampaignMonth;
+	}
+
+	/** @param currentCampaignMonth The value to set for currentCampaignMonth. */
+	public void setCurrentCampaignMonth(int currentCampaignMonth) {
+		mCurrentCampaignMonth = currentCampaignMonth;
+	}
+
+	/** @return The currentCampaignDate. */
+	public int getCurrentCampaignDay() {
+		return mCurrentCampaignDay;
+	}
+
+	/** @param currentCampaignDay The value to set for currentCampaignDay. */
+	public void setCurrentCampaignDay(int currentCampaignDay) {
+		mCurrentCampaignDay = currentCampaignDay;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
@@ -168,6 +235,9 @@ public class HeaderRecord implements Savable {
 						break;
 					}
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value += " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}
@@ -190,6 +260,7 @@ public class HeaderRecord implements Savable {
 		br.write(CHARACTER_NAME_KEY + TKStringHelpers.SPACE + mCharacterName.replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 		br.write(CLASS_KEY + TKStringHelpers.SPACE + mClass.replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 		br.write(CURRENT_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperience + System.lineSeparator());
+		br.write(CURRENT_CAMPAIGN_DATE_KEY + TKStringHelpers.SPACE + mCampaignDate + System.lineSeparator());
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}
@@ -206,6 +277,9 @@ public class HeaderRecord implements Savable {
 			mClass = value;
 		} else if (key.equals(CURRENT_EXPERIENCE_KEY)) {
 			mExperience = TKStringHelpers.getIntValue(value, 0);
+		} else if (key.equals(CURRENT_CAMPAIGN_DATE_KEY)) {
+			//			ACS.getInstance().setCampaignDate(value);
+			setCampaignDate(value);
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$

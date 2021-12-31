@@ -57,7 +57,6 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	private String				mCampaignDate;
 	private JLabel				mHeaderLabel1;
 	private JLabel				mHeaderLabel2;
-	private Color				mOldColor						= null;
 	private boolean				mSaveRecord						= true;
 
 	/*****************************************************************************
@@ -78,7 +77,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 
 		ACS acs = ACS.getInstance();
 		mWorldDate = acs.getWorldDate();
-		mCampaignDate = acs.getCampaignDate();
+		mCampaignDate = ACS.getInstance().getCharacterSheet().getHeaderRecord().getCampaignDate();
 	}
 
 	public JournalRecord(JournalDisplay parent, String campaignDate, String journalText, String worldDate) {
@@ -110,7 +109,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	 ****************************************************************************/
 	public static JournalRecord getJournalRecord(JournalDisplay parent, String which) {
 		ACS acs = ACS.getInstance();
-		String campaignDate = acs.getCampaignDate();
+		String campaignDate = ACS.getInstance().getCharacterSheet().getHeaderRecord().getCampaignDate();
 		String worldDate = acs.getWorldDate();
 		JournalRecord record = switch (which) {
 			case GAME_DAY_START:
@@ -246,7 +245,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		return panel;
 	}
 
-	private JButton getDateButton(String date, ActionListener listener) {
+	public static JButton getDateButton(String date, ActionListener listener) {
 		JButton dateButton = new JButton(date);
 		dateButton.setFont(CharacterSheet.MONOSPACED_FONT);
 		dateButton.setBorderPainted(false);
@@ -254,16 +253,18 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		dateButton.addActionListener(listener);
 
 		dateButton.addMouseListener(new MouseAdapter() {
+			Color oldColor = null;
+
 			@Override
 			public void mouseEntered(MouseEvent evt) {
-				mOldColor = dateButton.getBackground();
+				oldColor = dateButton.getBackground();
 				dateButton.setBackground(Color.GRAY);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent evt) {
-				if (mOldColor != null) {
-					dateButton.setBackground(mOldColor);
+				if (oldColor != null) {
+					dateButton.setBackground(oldColor);
 				}
 			}
 		});
@@ -330,9 +331,12 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			CampaignDateChooser cal = new CampaignDateChooser(((CharacterSheet) mParent.getOwner()).getFrame());
-			mCampaignDate = cal.getSelectedDate();
-			mCampaignButton.setText(mCampaignDate);
-			mParent.updatePreviewPanel();
+			String date = cal.getSelectedDate();
+			if (!date.isEmpty()) {
+				mCampaignDate = date;
+				mCampaignButton.setText(mCampaignDate);
+				mParent.updatePreviewPanel();
+			}
 		}
 	}
 
@@ -346,9 +350,12 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		@Override
 		public void actionPerformed(ActionEvent ae) {
 			WorldDateChooser cal = new WorldDateChooser(((CharacterSheet) mParent.getOwner()).getFrame());
-			mWorldDate = cal.getSelectedDate();
-			mWorldButton.setText(mWorldDate);
-			mParent.updatePreviewPanel();
+			String date = cal.getSelectedDate();
+			if (!date.isEmpty()) {
+				mWorldDate = cal.getSelectedDate();
+				mWorldButton.setText(mWorldDate);
+				mParent.updatePreviewPanel();
+			}
 		}
 	}
 
