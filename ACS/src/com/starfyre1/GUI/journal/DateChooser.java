@@ -43,11 +43,11 @@ public abstract class DateChooser extends JDialog {
 	/**
 	 * Creates a new {@link DateChooser}.
 	 */
-	public DateChooser(JFrame parent, String title, int year, int month, int date) {
+	public DateChooser(JFrame parent, String title, int[] date) {
 		super(parent, true);
-		mYear = year;
-		mMonth = month;
-		mDate = date;
+		mMonth = date[0];
+		mDate = date[1];
+		mYear = date[2];
 
 		setTitle(title);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

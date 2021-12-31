@@ -8,7 +8,6 @@ import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.GUI.journal.WorldDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKStringHelpers;
-import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -75,9 +74,8 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		mHeaderLabel1 = new JLabel();
 		mHeaderLabel2 = new JLabel();
 
-		ACS acs = ACS.getInstance();
-		mWorldDate = acs.getWorldDate();
-		mCampaignDate = ACS.getInstance().getCharacterSheet().getHeaderRecord().getCampaignDate();
+		mWorldDate = WorldDateChooser.getWorldDate();
+		mCampaignDate = CampaignDateChooser.getCampaignDate();
 	}
 
 	public JournalRecord(JournalDisplay parent, String campaignDate, String journalText, String worldDate) {
@@ -108,9 +106,8 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	 * Setter's and Getter's
 	 ****************************************************************************/
 	public static JournalRecord getJournalRecord(JournalDisplay parent, String which) {
-		ACS acs = ACS.getInstance();
-		String campaignDate = ACS.getInstance().getCharacterSheet().getHeaderRecord().getCampaignDate();
-		String worldDate = acs.getWorldDate();
+		String campaignDate = CampaignDateChooser.getCampaignDate();
+		String worldDate = WorldDateChooser.getWorldDate();
 		JournalRecord record = switch (which) {
 			case GAME_DAY_START:
 				yield new JournalRecord(parent, campaignDate, GAME_DAY_START, worldDate);
@@ -330,7 +327,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			CampaignDateChooser cal = new CampaignDateChooser(((CharacterSheet) mParent.getOwner()).getFrame());
+			CampaignDateChooser cal = new CampaignDateChooser(((CharacterSheet) mParent.getOwner()).getFrame(), CampaignDateChooser.parseCampaignDate(CampaignDateChooser.getCampaignDate()));
 			String date = cal.getSelectedDate();
 			if (!date.isEmpty()) {
 				mCampaignDate = date;
@@ -349,10 +346,10 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			WorldDateChooser cal = new WorldDateChooser(((CharacterSheet) mParent.getOwner()).getFrame());
+			WorldDateChooser cal = new WorldDateChooser(((CharacterSheet) mParent.getOwner()).getFrame(), WorldDateChooser.parseWorldDate(mWorldDate));
 			String date = cal.getSelectedDate();
 			if (!date.isEmpty()) {
-				mWorldDate = cal.getSelectedDate();
+				mWorldDate = date;
 				mWorldButton.setText(mWorldDate);
 				mParent.updatePreviewPanel();
 			}

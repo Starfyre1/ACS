@@ -76,11 +76,11 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		CharacterSheet sheet = (CharacterSheet) getOwner();
 		int n = JOptionPane.showConfirmDialog(sheet != null ? sheet.getFrame() : null, "Are we playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 		if (n == 0) {
-			CampaignDateChooser campaignDate = new CampaignDateChooser(((CharacterSheet) getOwner()).getFrame());
+			CampaignDateChooser campaignDate = new CampaignDateChooser(((CharacterSheet) getOwner()).getFrame(), CampaignDateChooser.parseCampaignDate(CampaignDateChooser.getCampaignDate()));
 			String date = campaignDate.getSelectedDate();
 			if (!date.isEmpty()) {
 				mCampaignDate = date;
-				((CharacterSheet) getOwner()).getHeaderRecord().setCampaignDate(date);
+				CampaignDateChooser.setCampaignDate(date);
 			}
 			((CharacterSheet) getOwner()).setGameDayStarted(true);
 			mEntries.add(JournalRecord.getJournalRecord(this, JournalRecord.GAME_DAY_START));
