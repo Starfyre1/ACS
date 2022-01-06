@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -144,6 +145,8 @@ public class EquipmentList implements Savable {
 					mEquipmentMasterList[count++] = record;
 				}
 
+			} catch (NoSuchElementException nsee) {
+				// End of file, nothing to do except exit
 			} catch (IOException exception) {
 				exception.printStackTrace();
 			}

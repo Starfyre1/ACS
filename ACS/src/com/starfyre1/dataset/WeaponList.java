@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -121,8 +122,8 @@ public class WeaponList implements Savable {
 			mWeaponMasterList = new WeaponRecord[56];
 
 			try {
-				InputStream is = ACS.class.getModule().getResourceAsStream("resources/Weapon.txt");
-				Scanner scanner = new Scanner(is, "UTF-8");
+				InputStream is = ACS.class.getModule().getResourceAsStream("resources/Weapon.txt"); //$NON-NLS-1$
+				Scanner scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 				int count = 0;
 				for (String line; (line = scanner.nextLine()) != null;) {
 					line = line.trim();
@@ -155,6 +156,8 @@ public class WeaponList implements Savable {
 					mWeaponMasterList[count++] = record;
 				}
 
+			} catch (NoSuchElementException nsee) {
+				// End of file, nothing to do except exit
 			} catch (IOException exception) {
 				exception.printStackTrace();
 			}
