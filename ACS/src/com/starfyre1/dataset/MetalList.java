@@ -65,7 +65,7 @@ public class MetalList {
 				mMetalMasterList[count++] = record;
 			}
 		} catch (NoSuchElementException nsee) {
-			// nothing to do except exit
+			// End of file, nothing to do except exit
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
