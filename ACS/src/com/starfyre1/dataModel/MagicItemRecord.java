@@ -20,7 +20,6 @@ public class MagicItemRecord extends TKTableRecord {
 	private String	mName;
 	private int		mCharges;
 	private float	mCost;
-	//	private ImageIcon	mIcon	= new ImageIcon("D:\\Programming\\workspace-Athri_Character_Sheet\\ACS\\src\\com\\starfyre1\\Images\\ImagePlus.png");	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors

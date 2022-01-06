@@ -3,7 +3,9 @@
 package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -11,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -24,15 +27,12 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	TEACHERS_DESCRIPTION	= "The payment of Teachers will be up to the Game Masters running that particular campaign.\r\n"													// //$NON-NLS-1$
-					+ "\r\n"																																												// //$NON-NLS-1$
-					+ "Remember that these people will not be very cheap, they are usually very special people whose time is very precious.\r\n"															// //$NON-NLS-1$
-					+ "\r\n"																																												// //$NON-NLS-1$
-					+ "But these are up to you, if a character starts selling there own time to pupils for weapons training, don't let it worry you unless it starts to get in the way of your campaign.";	//$NON-NLS-1$
+	private static final String	TEACHERS_DESCRIPTION	= "The payment will be up to the Game Masters running that particular campaign.\r\n"					// //$NON-NLS-1$
+					+ "These people will not be very cheap, they are usually very special people whose time is very precious.";									// //$NON-NLS-1$
 
-	static final String			TEACHER_TAB_TITLE		= "Teachers";																																		//$NON-NLS-1$
-	static final String			TEACHER_TAB_TOOLTIP		= "A record of teachers used, for what, and how much";																								//$NON-NLS-1$
-	static final String			TEACHER_TITLE			= "Teacher's Name";																																	//$NON-NLS-1$
+	static final String			TEACHER_TAB_TITLE		= "Teachers";																							//$NON-NLS-1$
+	static final String			TEACHER_TAB_TOOLTIP		= "A record of teachers used, for what, and how much";													//$NON-NLS-1$
+	static final String			TEACHER_TITLE			= "Teacher's Name";																						//$NON-NLS-1$
 
 	private static final int	ROWS					= 5;
 
@@ -131,6 +131,17 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 		return outerWrapper;
 	}
 
+	public ArrayList<TeacherDeterminationRecord> getRecordsToLearn() {
+		ArrayList<TeacherDeterminationRecord> list = new ArrayList<>();
+		// DW _finish
+		for (int i = 0; i < ROWS; i++) {
+			//			if (mAttrCheckBox[i].isSelected() && !mPointsField[i].getText().isBlank()) {
+			String campaignDate = CampaignDateChooser.getCampaignDate();
+			//				list.add(new TeacherDeterminationRecord(i, TKStringHelpers.getIntValue(mPointsField[i].getText(), 0), COST, campaignDate));
+			//			}
+		}
+		return list;
+	}
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

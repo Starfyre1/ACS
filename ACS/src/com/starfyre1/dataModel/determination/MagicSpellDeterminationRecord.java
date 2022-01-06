@@ -33,6 +33,8 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	int							mDPTotalSpent			= 0;
 	int							mDPCost					= 0;
 	boolean						mSuccessful				= false;
+	String						mStartDate				= "";											//$NON-NLS-1$
+	String						mCompletionDate			= "";											//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -40,7 +42,13 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/**
 	 * Creates a new {@link MagicSpellDeterminationRecord}.
 	 */
-	public MagicSpellDeterminationRecord() {
+	public MagicSpellDeterminationRecord(String spell, String school, int dpPerWeek, int cost, String startDate) {
+		mSpell = spell;
+		mSchool = school;
+		mDPPerWeek = dpPerWeek;
+		mDPCost = cost;
+		mStartDate = startDate;
+
 	}
 
 	/*****************************************************************************

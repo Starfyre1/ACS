@@ -3,8 +3,12 @@
 package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.dataModel.HeaderRecord;
+import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
@@ -13,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -44,6 +49,8 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	JTextField[]				mLangField;
+	JTextField[]				mPointsField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -91,7 +98,11 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 	}
 
 	private String getSuccessText() {
-		int level = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() / 4;
+		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		if (record == null) {
+			return "?"; //$NON-NLS-1$
+		}
+		int level = record.getLevel() / 4;
 		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
 		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
 	}
@@ -102,8 +113,8 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 		int completed = 0;
 		int attempted = 0;
 
-		JTextField[] langField = new JTextField[ROWS];
-		JTextField[] pointsField = new JTextField[ROWS];
+		mLangField = new JTextField[ROWS];
+		mPointsField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] maintLabel = new JLabel[ROWS];
 		JLabel[] successfulLabel = new JLabel[ROWS];
@@ -124,11 +135,12 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			langField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
-			langPanel.add(langField[i]);
+			mLangField[i] = new JTextField();
+			mLangField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
+			langPanel.add(mLangField[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
-			dpPerWeekPanel.add(pointsField[i]);
+			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
+			dpPerWeekPanel.add(mPointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			usedLabel[i].setMinimumSize(size);
@@ -157,6 +169,17 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 		wrapper.add(successfulPanel);
 
 		return wrapper;
+	}
+
+	public ArrayList<LanguageDeterminationRecord> getRecordsToLearn() {
+		ArrayList<LanguageDeterminationRecord> list = new ArrayList<>();
+		for (int i = 0; i < ROWS; i++) {
+			if (!mLangField[i].getText().isBlank() && !mPointsField[i].getText().isBlank()) {
+				String campaignDate = CampaignDateChooser.getCampaignDate();
+				list.add(new LanguageDeterminationRecord(mLangField[i].getText().trim(), TKStringHelpers.getIntValue(mPointsField[i].getText().trim(), 0), COST, campaignDate));
+			}
+		}
+		return list;
 	}
 
 	/*****************************************************************************

@@ -33,6 +33,8 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	int							mDPCost					= 0;
 	boolean						mMaintainence			= false;
 	boolean						mSuccessful				= false;
+	String						mStartDate				= "";										//$NON-NLS-1$
+	String						mCompletionDate			= "";										//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -40,8 +42,11 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	/**
 	 * Creates a new {@link LanguageDeterminationRecord}.
 	 */
-	public LanguageDeterminationRecord() {
-
+	public LanguageDeterminationRecord(String language, int dpPerWeek, int cost, String startDate) {
+		mLanguage = language;
+		mDPPerWeek = dpPerWeek;
+		mDPCost = cost;
+		mStartDate = startDate;
 	}
 
 	/*****************************************************************************

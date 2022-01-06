@@ -3,8 +3,11 @@
 package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
@@ -13,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -27,7 +31,6 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 	 * Constants
 	 ****************************************************************************/
 	private static final String	SKILLS_DESCRIPTION	= "The character must find a teacher with the skill they want at the Highest Skill level they can find.\r\n"					// //$NON-NLS-1$
-					+ "\r\n"																																						// //$NON-NLS-1$
 					+ "To further increase the skill it will require further training and D.P. assignment";																			//$NON-NLS-1$
 
 	static final String			SKILL_TAB_TITLE		= "Skills";																														//$NON-NLS-1$
@@ -44,6 +47,9 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	JTextField[]				mSkillsField;
+	JLabel[]					mTeacherLabel;
+	JTextField[]				mPointsField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -91,7 +97,11 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 	}
 
 	private String getSuccessText() {
-		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.INT);
+		AttributesRecord record = ACS.getInstance().getCharacterSheet().getAttributesRecord();
+		if (record == null) {
+			return "?"; //$NON-NLS-1$
+		}
+		int success = record.getModifiedStat(AttributesRecord.INT);
 		return SUCCESS_TEXT1 + success;
 	}
 
@@ -103,9 +113,9 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 		int completed = 0;
 		int attempted = 0;
 
-		JTextField[] skillsField = new JTextField[ROWS];
-		JLabel[] teacherLabel = new JLabel[ROWS];
-		JTextField[] pointsField = new JTextField[ROWS];
+		mSkillsField = new JTextField[ROWS];
+		mTeacherLabel = new JLabel[ROWS];
+		mPointsField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] bonusLabel = new JLabel[ROWS];
 		JLabel[] maintLabel = new JLabel[ROWS];
@@ -131,21 +141,22 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			skillsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
-			skillsPanel.add(skillsField[i]);
+			mSkillsField[i] = new JTextField();
+			mSkillsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
+			skillsPanel.add(mSkillsField[i]);
 
-			teacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
-			teacherLabel[i].setMinimumSize(size);
-			teacherLabel[i].setPreferredSize(size);
-			teacherPanel.add(teacherLabel[i]);
+			mTeacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
+			mTeacherLabel[i].setMinimumSize(size);
+			mTeacherLabel[i].setPreferredSize(size);
+			teacherPanel.add(mTeacherLabel[i]);
 
 			bonusLabel[i] = new JLabel(String.valueOf(currentBonus));
 			bonusLabel[i].setMinimumSize(size);
 			bonusLabel[i].setPreferredSize(size);
 			bonusAmountPanel.add(bonusLabel[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
-			dpPerWeekPanel.add(pointsField[i]);
+			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
+			dpPerWeekPanel.add(mPointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			usedLabel[i].setMinimumSize(size);
@@ -180,6 +191,16 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 		return outerWrapper;
 	}
 
+	public ArrayList<SkillDeterminationRecord> getRecordsToLearn() {
+		ArrayList<SkillDeterminationRecord> list = new ArrayList<>();
+		for (int i = 0; i < ROWS; i++) {
+			if (!mSkillsField[i].getText().isBlank() && !mTeacherLabel[i].getText().isBlank() && !mPointsField[i].getText().isBlank()) {
+				String campaignDate = CampaignDateChooser.getCampaignDate();
+				list.add(new SkillDeterminationRecord(mSkillsField[i].getText().trim(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mPointsField[i].getText().trim(), 0), COST, campaignDate));
+			}
+		}
+		return list;
+	}
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

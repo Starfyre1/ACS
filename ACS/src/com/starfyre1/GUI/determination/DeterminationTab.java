@@ -28,17 +28,18 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 	 * @param title
 	 */
 	public DeterminationTab(Object owner, String title) {
-		super(owner, title);
+		super(owner, ""); //$NON-NLS-1$
 	}
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	protected static final int TEXT_FIELD_HEIGHT = 20;
+	protected static final int	TEXT_FIELD_HEIGHT	= 20;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private JLabel				mSuccessLabel;
 
 	/*****************************************************************************
 	 * Constructors
@@ -57,10 +58,10 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 		BoxLayout bl3 = new BoxLayout(titleWrapper, BoxLayout.Y_AXIS);
 		titleWrapper.setLayout(bl3);
 		JLabel titleLabel1 = new JLabel(text);
-		JLabel titleLabel2 = new JLabel(successText);
-		titleLabel2.setToolTipText(successTooltip);
+		mSuccessLabel = new JLabel(successText);
+		mSuccessLabel.setToolTipText(successTooltip);
 		titleWrapper.add(titleLabel1);
-		titleWrapper.add(titleLabel2);
+		titleWrapper.add(mSuccessLabel);
 
 		JPanel costWrapper = new JPanel();
 		BoxLayout bl2 = new BoxLayout(costWrapper, BoxLayout.Y_AXIS);
@@ -94,6 +95,9 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 
 	}
 
+	@Override
+	protected abstract void loadDisplay();
+
 	protected JPanel getPanel(int compLayout, AbstractBorder border) {
 		JPanel panel = new JPanel();
 		BoxLayout bl = new BoxLayout(panel, compLayout);
@@ -102,6 +106,11 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 		panel.setAlignmentY(TOP_ALIGNMENT);
 
 		return panel;
+	}
+
+	protected void setSuccessText(String text) {
+		mSuccessLabel.setText(text);
+		mSuccessLabel.revalidate();
 	}
 
 	/*****************************************************************************

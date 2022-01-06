@@ -8,6 +8,12 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
+import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
+import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
+import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
+import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
+import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
+import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.interfaces.LevelListener;
 
 import java.awt.BorderLayout;
@@ -23,8 +29,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -40,7 +44,6 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	private static final String		POINTS_WEEK_LABEL			= "Remaining Points this Week";	//$NON-NLS-1$
 
 	private static final String		GIVE_UP						= "Give Up";					//$NON-NLS-1$
-	private static final String		CLOSE						= "Close";						//$NON-NLS-1$
 	private static final String		LEARN						= "Learn";						//$NON-NLS-1$
 
 	//	private static final String		LANGUAGES_LABEL					= "Languages";																															//$NON-NLS-1$
@@ -48,19 +51,15 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 	private static final String		ASSIGN_POINTS				= "Assign Points";				//$NON-NLS-1$
 
-	private static final Dimension	PREFERRED_SIZE				= new Dimension(600, 600);
+	private static final Dimension	PREFERRED_SIZE				= new Dimension(600, 300);
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	private JLabel					mPointsPerWeekLabel;
-	private JButton					mAssignPoints;
 	private JTabbedPane				mTabbedPane;
 
-	private JDialog					mDialog;
-
 	private JButton					mLearnButton;
-	private JButton					mCloseButton;
 	private JButton					mGiveUpButton;
 
 	/*****************************************************************************
@@ -84,30 +83,46 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if (source.equals(mAssignPoints)) {
-			assignPoints();
-		} else if (source instanceof JButton) {
-			if (source.equals(mCloseButton)) {
-				mDialog.dispose();
-			} else if (source.equals(mLearnButton)) {
-				System.out.println("learn");
+		if (source instanceof JButton) {
+			if (source.equals(mLearnButton)) {
 				Component comp = mTabbedPane.getSelectedComponent();
+				DeterminationList determinationList = ((CharacterSheet) getOwner()).getDeterminationList();
 				if (comp instanceof AttributesTab) {
 					AttributesTab tab = (AttributesTab) comp;
-					ArrayList<AttributeDeterminationRecord> list = tab.getAttributesToLearn();
+					ArrayList<AttributeDeterminationRecord> list = tab.getRecordsToLearn();
 					for (AttributeDeterminationRecord record : list) {
-						System.out.println(record.toString());
+						determinationList.addAttribRecord(record);
 					}
 				} else if (comp instanceof LanguageTab) {
 					LanguageTab tab = (LanguageTab) comp;
+					ArrayList<LanguageDeterminationRecord> list = tab.getRecordsToLearn();
+					for (LanguageDeterminationRecord record : list) {
+						determinationList.addLanguageRecord(record);
+					}
 				} else if (comp instanceof MagicSpellTab) {
 					MagicSpellTab tab = (MagicSpellTab) comp;
+					ArrayList<MagicSpellDeterminationRecord> list = tab.getRecordsToLearn();
+					for (MagicSpellDeterminationRecord record : list) {
+						determinationList.addMagicSpellRecord(record);
+					}
 				} else if (comp instanceof WeaponProficiencyTab) {
 					WeaponProficiencyTab tab = (WeaponProficiencyTab) comp;
+					ArrayList<WeaponProficiencyDeterminationRecord> list = tab.getRecordsToLearn();
+					for (WeaponProficiencyDeterminationRecord record : list) {
+						determinationList.addWeaponRecord(record);
+					}
 				} else if (comp instanceof SkillTab) {
 					SkillTab tab = (SkillTab) comp;
+					ArrayList<SkillDeterminationRecord> list = tab.getRecordsToLearn();
+					for (SkillDeterminationRecord record : list) {
+						determinationList.addSkillRecord(record);
+					}
 				} else if (comp instanceof TeacherTab) {
 					TeacherTab tab = (TeacherTab) comp;
+					ArrayList<TeacherDeterminationRecord> list = tab.getRecordsToLearn();
+					for (TeacherDeterminationRecord record : list) {
+						determinationList.addTeacherRecord(record);
+					}
 				}
 				// DW Create Record
 			} else if (source.equals(mGiveUpButton)) {
@@ -116,11 +131,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		}
 	}
 
-	private void assignPoints() {
-		JFrame frame = ((CharacterSheet) getOwner()).getFrame();
-		mDialog = new JDialog(frame, true);
-		mDialog.setPreferredSize(PREFERRED_SIZE);
-
+	private JPanel getDeterminationDisplay() {
 		mTabbedPane = new JTabbedPane();
 
 		JComponent physicalTab = new AttributesTab(this);
@@ -149,24 +160,19 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 
 		mLearnButton = TKComponentHelpers.createButton(LEARN, this, false);
-		mCloseButton = TKComponentHelpers.createButton(CLOSE, this);
 		mGiveUpButton = TKComponentHelpers.createButton(GIVE_UP, this, false);
 
 		buttonPanel.add(mGiveUpButton);
 		buttonPanel.add(Box.createHorizontalGlue());
 		buttonPanel.add(mLearnButton);
-		buttonPanel.add(Box.createHorizontalStrut(5));
-		buttonPanel.add(mCloseButton);
 
 		JPanel wrapper = new JPanel(new BorderLayout());
 		wrapper.add(mTabbedPane, BorderLayout.CENTER);
 		wrapper.add(buttonPanel, BorderLayout.SOUTH);
 
-		mDialog.add(wrapper);
+		wrapper.setPreferredSize(PREFERRED_SIZE);
 
-		mDialog.pack();
-		mDialog.setLocationRelativeTo(frame);
-		mDialog.setVisible(true);
+		return wrapper;
 	}
 
 	void updateButtons(boolean hasSelection, boolean hasPointsInvested) {
@@ -176,6 +182,15 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 	private void updateValues() {
 		mPointsPerWeekLabel.setText(TKStringHelpers.EMPTY_STRING + (getDeterminationPoints() - getDeterminationPointsSpent()));
+
+		int count = mTabbedPane.getTabCount();
+
+		for (int i = 0; i < count; i++) {
+			Component comp = mTabbedPane.getComponent(i);
+			if (comp != null) {
+				((DeterminationTab) comp).loadDisplay();
+			}
+		}
 	}
 
 	private int getDeterminationPointsSpent() {
@@ -205,14 +220,13 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		JPanel topWrapper = new JPanel();
 
 		mPointsPerWeekLabel = new JLabel();
-		mAssignPoints = TKComponentHelpers.createButton(ASSIGN_POINTS, this);
 
 		topWrapper.add(mPointsPerWeekLabel);
 		topWrapper.add(new JLabel(POINTS_WEEK_LABEL));
-		topWrapper.add(mAssignPoints);
 
 		JPanel mainWrapper = new JPanel(new GridLayout(1, 3, 5, 0));
 		mainWrapper.setBorder(new EmptyBorder(0, 0, 5, 0));
+		mainWrapper.add(getDeterminationDisplay());
 
 		outerWrapper.add(topWrapper);
 		outerWrapper.add(mainWrapper);

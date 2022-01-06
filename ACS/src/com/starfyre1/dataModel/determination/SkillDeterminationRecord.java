@@ -25,6 +25,8 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 	private static final String	DP_COST_KEY				= "DP_COST_KEY";						//$NON-NLS-1$
 	private static final String	MAINTAINENCE_KEY		= "MAINTAINENCE_KEY";					//$NON-NLS-1$
 	private static final String	SUCCESSFUL_KEY			= "SUCCESSFUL_KEY";						//$NON-NLS-1$
+	private static final String	START_DATE_KEY			= "START_DATE_KEY";						//$NON-NLS-1$
+	private static final String	COMPLETION_DATE_KEY		= "COMPLETION_DATE_KEY";				//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -37,6 +39,8 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 	int							mDPCost					= 0;
 	boolean						mMaintainence			= false;
 	boolean						mSuccessful				= false;
+	String						mStartDate				= "";									//$NON-NLS-1$
+	String						mCompletionDate			= "";									//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -44,7 +48,12 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 	/**
 	 * Creates a new {@link SkillDeterminationRecord}.
 	 */
-	public SkillDeterminationRecord() {
+	public SkillDeterminationRecord(String skill, int teacher, int dpPerWeek, int cost, String startDate) {
+		mSkill = skill;
+		mTeacher = teacher;
+		mDPPerWeek = dpPerWeek;
+		mDPCost = cost;
+		mStartDate = startDate;
 	}
 
 	/*****************************************************************************

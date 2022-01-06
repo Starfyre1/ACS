@@ -41,6 +41,7 @@ import com.starfyre1.dataModel.storage.PreferenceStore;
 import com.starfyre1.dataset.AnimalList;
 import com.starfyre1.dataset.ArmorList;
 import com.starfyre1.dataset.ClassList;
+import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.dataset.EquipmentList;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.MagicItemList;
@@ -77,7 +78,6 @@ import java.util.StringTokenizer;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -104,32 +104,32 @@ public class CharacterSheet implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String				CHARACTER_SHEET_TITLE		= "Character";														//$NON-NLS-1$
-	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment";														//$NON-NLS-1$
-	private static final String				SPELL_SHEET_TITLE			= "Spells";															//$NON-NLS-1$
-	private static final String				JOURNAL_SHEET_TITLE			= "Journal";														//$NON-NLS-1$
+	private static final String				CHARACTER_SHEET_TITLE		= "Character";													//$NON-NLS-1$
+	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment";													//$NON-NLS-1$
+	private static final String				SPELL_SHEET_TITLE			= "Spells";														//$NON-NLS-1$
+	private static final String				JOURNAL_SHEET_TITLE			= "Journal";													//$NON-NLS-1$
 
 	// DW add something useful for the tooltips or remove them
-	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";												//$NON-NLS-1$
-	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";												//$NON-NLS-1$
-	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";													//$NON-NLS-1$
-	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";													//$NON-NLS-1$
+	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";											//$NON-NLS-1$
+	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";											//$NON-NLS-1$
+	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";												//$NON-NLS-1$
+	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";												//$NON-NLS-1$
 
-	private static final String				ABOUT						= "About";															//$NON-NLS-1$
-	private static final String				HELP						= "Help";															//$NON-NLS-1$
-	private static final String				PREFERENCES					= "Preferences";													//$NON-NLS-1$
-	private static final String				OPTIONS						= "Options";														//$NON-NLS-1$
-	private static final String				MARKET_PLACE				= "Market Place";													//$NON-NLS-1$
-	private static final String				EXIT						= "Exit";															//$NON-NLS-1$
-	private static final String				SAVE_AS						= "Save As...";														//$NON-NLS-1$
-	private static final String				SAVE						= "Save";															//$NON-NLS-1$
-	private static final String				DONT_SAVE					= "Don't Save";														//$NON-NLS-1$
-	private static final String				CLOSE						= "Close";															//$NON-NLS-1$
-	private static final String				OPEN						= "Open...";														//$NON-NLS-1$
-	private static final String				NEW							= "New";															//$NON-NLS-1$
-	private static final String				FILE						= "File";															//$NON-NLS-1$
-	private static final String				CREATE						= "Create";															//$NON-NLS-1$
-	private static final String				CANCEL						= "Cancel";															//$NON-NLS-1$
+	private static final String				ABOUT						= "About";														//$NON-NLS-1$
+	private static final String				HELP						= "Help";														//$NON-NLS-1$
+	private static final String				PREFERENCES					= "Preferences";												//$NON-NLS-1$
+	private static final String				OPTIONS						= "Options";													//$NON-NLS-1$
+	private static final String				MARKET_PLACE				= "Market Place";												//$NON-NLS-1$
+	private static final String				EXIT						= "Exit";														//$NON-NLS-1$
+	private static final String				SAVE_AS						= "Save As...";													//$NON-NLS-1$
+	private static final String				SAVE						= "Save";														//$NON-NLS-1$
+	private static final String				DONT_SAVE					= "Don't Save";													//$NON-NLS-1$
+	private static final String				CLOSE						= "Close";														//$NON-NLS-1$
+	private static final String				OPEN						= "Open...";													//$NON-NLS-1$
+	private static final String				NEW							= "New";														//$NON-NLS-1$
+	private static final String				FILE						= "File";														//$NON-NLS-1$
+	private static final String				CREATE						= "Create";														//$NON-NLS-1$
+	private static final String				CANCEL						= "Cancel";														//$NON-NLS-1$
 
 	public static final Dimension			CHARACTER_TAB_TABLE_SIZE	= new Dimension(375, 75);
 	public static final Dimension			EQUIPMENT_TAB_TABLE_SIZE	= new Dimension(750, 150);
@@ -142,13 +142,12 @@ public class CharacterSheet implements ActionListener {
 	public static final int					CELL_SMALL_MAX_WIDTH		= 45;
 	public static final int					CELL_LARGE_MAX_WIDTH		= 75;
 
-	public static Color						SELECTED_COLOR				= new ColorUIResource(UIManager.getColor("Button.focus"));			//$NON-NLS-1$
-	public static Color						LABEL_BACKGROUND			= new ColorUIResource(UIManager.getColor("Label.background"));		//$NON-NLS-1$
+	public static Color						SELECTED_COLOR				= new ColorUIResource(UIManager.getColor("Button.focus"));		//$NON-NLS-1$
+	public static Color						LABEL_BACKGROUND			= new ColorUIResource(UIManager.getColor("Label.background"));	//$NON-NLS-1$
 	public static Font						MONOSPACED_FONT				= new Font(Font.MONOSPACED, Font.BOLD, 12);
 	private static Icon						CHARACTER_ICON				= null;
 	public static Icon						DETERMINATION_ICON			= null;
 	public static Icon						MERCHANT_ICON				= null;
-	public static ImageIcon					IMAGE_PLUS_ICON				= new ImageIcon("../ACS/src/com/starfyre1/Images/ImagePlus.png");	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -184,6 +183,7 @@ public class CharacterSheet implements ActionListener {
 	private WeaponList						mWeaponList;
 	private AnimalList						mAnimalList;
 	private MagicItemList					mMagicItemList;
+	private DeterminationList				mDeterminationList;
 
 	// Header
 	private HeaderDisplay					mHeaderDisplay;
@@ -230,7 +230,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public CharacterSheet() {
 
-		mIsCreatingGUI = true;
+		ACS.getInstance().setCharacterSheet(this);
 		create();
 		mHeaderRecord = new HeaderRecord();
 		mIsCreatingGUI = false;
@@ -279,6 +279,10 @@ public class CharacterSheet implements ActionListener {
 		pane.add(wrapper, BorderLayout.CENTER);
 
 		mFrame.pack();
+
+		PreferenceStore prefs = PreferenceStore.getInstance();
+		mFrame.setBounds(prefs.getWindowBounds());
+
 		mFrame.setVisible(true);
 	}
 
@@ -295,10 +299,10 @@ public class CharacterSheet implements ActionListener {
 		mSavingThrowsDisplay = new SavingThowsDisplay(this);
 		mCombatInformationDisplay = new CombatInformationDisplay(this);
 		mSkillsDisplay = new SkillsDisplay(this);
-		mDeterminationPointsDisplay = new DeterminationPointsDisplay(this);
+		mDefenseInformationDisplay = new DefenseInformationDisplay(this);
 		mMoneyDisplay = new MoneyDisplay(this);
 		mPersonalInformationDisplay = new PersonalInformationDisplay(this);
-		mDefenseInformationDisplay = new DefenseInformationDisplay(this);
+		mDeterminationPointsDisplay = new DeterminationPointsDisplay(this);
 		mArmorEquippedDisplay = new ArmorEquippedDisplay(null);
 		mInnateAbilitiesDisplay = new InnateAbilitiesDisplay(this);
 		mWeaponEquippedDisplay = new WeaponEquippedDisplay(null);
@@ -317,7 +321,7 @@ public class CharacterSheet implements ActionListener {
 		wrapper2.setLayout(blw2);
 
 		wrapper2.add(mSkillsDisplay);
-		wrapper2.add(mDeterminationPointsDisplay);
+		wrapper2.add(mDefenseInformationDisplay);
 
 		JPanel wrapper3 = new JPanel();
 		BoxLayout blw3 = new BoxLayout(wrapper3, BoxLayout.X_AXIS);
@@ -325,7 +329,7 @@ public class CharacterSheet implements ActionListener {
 
 		wrapper3.add(mMoneyDisplay);
 		wrapper3.add(mPersonalInformationDisplay);
-		wrapper3.add(mDefenseInformationDisplay);
+		wrapper3.add(mDeterminationPointsDisplay);
 
 		JPanel wrapper4 = new JPanel();
 		BoxLayout blw4 = new BoxLayout(wrapper4, BoxLayout.X_AXIS);
@@ -570,6 +574,7 @@ public class CharacterSheet implements ActionListener {
 		mWeaponList = new WeaponList();
 		mAnimalList = new AnimalList();
 		mMagicItemList = new MagicItemList();
+		mDeterminationList = new DeterminationList();
 
 		loadDisplay();
 		mJournalTab.gameDayStartQuestion();
@@ -587,11 +592,12 @@ public class CharacterSheet implements ActionListener {
 		mPersonalInformationRecord = new PersonalInformationRecord(this, false);
 		mCombatInformationRecord = new CombatInformationRecord(this, false);
 		mSkillsRecord = new SkillsRecord(this, false);
-		mMagicItemList = new MagicItemList();
 		mEquipmentList = new EquipmentList();
 		mArmorList = new ArmorList();
 		mWeaponList = new WeaponList();
 		mAnimalList = new AnimalList();
+		mMagicItemList = new MagicItemList();
+		mDeterminationList = new DeterminationList();
 
 		final JFileChooser fc = new JFileChooser();
 		fc.setAcceptAllFileFilterUsed(true);
@@ -737,6 +743,9 @@ public class CharacterSheet implements ActionListener {
 		if (mMagicItemList != null) {
 			mMagicItemList.clearRecords();
 		}
+		if (mDeterminationList != null) {
+			mDeterminationList.clearRecords();
+		}
 		mDefenseInformationDisplay.clearRecords();
 		loadDisplay();
 		mIsCharacterLoaded = false;
@@ -790,7 +799,7 @@ public class CharacterSheet implements ActionListener {
 		CHARACTER_ICON = null;
 		DETERMINATION_ICON = null;
 		MERCHANT_ICON = null;
-		IMAGE_PLUS_ICON = null;
+		ACS.IMAGE_PLUS_ICON = null;
 	}
 
 	private void prepForExit() {
@@ -1054,6 +1063,10 @@ public class CharacterSheet implements ActionListener {
 		return mMagicItemList;
 	}
 
+	public DeterminationList getDeterminationList() {
+		return mDeterminationList;
+	}
+
 	/** @return The attributesRecord. */
 	public AttributesRecord getAttributesRecord() {
 		return mAttributesRecord;
@@ -1246,6 +1259,10 @@ public class CharacterSheet implements ActionListener {
 							tokenizer = mAnimalList.readValues(br);
 							break;
 						}
+						case DeterminationList.FILE_SECTTION_START_KEY: {
+							tokenizer = mDeterminationList.readValues(br);
+							break;
+						}
 						case JournalDisplay.FILE_SECTTION_START_KEY: {
 							tokenizer = mJournalTab.readValues(br);
 							break;
@@ -1309,6 +1326,7 @@ public class CharacterSheet implements ActionListener {
 			mEquipmentList.saveValues(br);
 			mMagicItemList.saveValues(br);
 			mAnimalList.saveValues(br);
+			mDeterminationList.saveValues(br);
 			mJournalTab.saveValues(br);
 			HistoryManager.getInstance().saveValues(br);
 			JOptionPane.showMessageDialog(mFrame, "File Saved: " + file.getName()); //$NON-NLS-1$

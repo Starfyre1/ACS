@@ -3,7 +3,10 @@
 package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -11,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -25,10 +29,7 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 	 * Constants
 	 ****************************************************************************/
 	private static final String	MAGIC_SPELL_DESCRIPTION	= "A power 3 spell would cost 96 D.P.'s ((3+1) Squared, times 6).\r\n"					// //$NON-NLS-1$
-					+ "\r\n"																													// //$NON-NLS-1$
-					+ "For most Mages there is also a monitory investment.\r\n"																	// //$NON-NLS-1$
-					+ "\r\n"																													// //$NON-NLS-1$
-					+ "The success rate is outlined in the Research Section of the Magic System.";												//$NON-NLS-1$
+					+ "For most Mages there is also a monitory investment.";																	//$NON-NLS-1$
 
 	static final String			MAGIC_SPELL_TAB_TITLE	= "Magic Spells";																		//$NON-NLS-1$
 	static final String			MAGIC_SPELL_TAB_TOOLTIP	= "To research a new magical spell:";													//$NON-NLS-1$
@@ -44,6 +45,10 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	JTextField[]				mSpellLabel;
+	JTextField[]				mSchoolLabel;
+	JTextField[]				mCostLabel;
+	JTextField[]				mPointsField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -94,10 +99,10 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 		int completed = 0;
 		int attempted = 0;
 
-		JTextField[] spellLabel = new JTextField[ROWS];
-		JTextField[] schoolLabel = new JTextField[ROWS];
-		JTextField[] costLabel = new JTextField[ROWS];
-		JTextField[] pointsField = new JTextField[ROWS];
+		mSpellLabel = new JTextField[ROWS];
+		mSchoolLabel = new JTextField[ROWS];
+		mCostLabel = new JTextField[ROWS];
+		mPointsField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] successfulLabel = new JLabel[ROWS];
 
@@ -119,17 +124,17 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			spellLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
-			spellPanel.add(spellLabel[i]);
+			mSpellLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
+			spellPanel.add(mSpellLabel[i]);
 
-			schoolLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
-			schoolPanel.add(schoolLabel[i]);
+			mSchoolLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
+			schoolPanel.add(mSchoolLabel[i]);
 
-			costLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
-			costPanel.add(costLabel[i]);
+			mCostLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
+			costPanel.add(mCostLabel[i]);
 
-			pointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
-			dpPerWeekPanel.add(pointsField[i]);
+			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
+			dpPerWeekPanel.add(mPointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			usedLabel[i].setMinimumSize(size);
@@ -153,6 +158,17 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, F
 		outerWrapper.add(successfulPanel);
 
 		return outerWrapper;
+	}
+
+	public ArrayList<MagicSpellDeterminationRecord> getRecordsToLearn() {
+		ArrayList<MagicSpellDeterminationRecord> list = new ArrayList<>();
+		for (int i = 0; i < ROWS; i++) {
+			if (!mSpellLabel[i].getText().isBlank() && !mSchoolLabel[i].getText().isBlank() && !mPointsField[i].getText().isBlank()) {
+				String campaignDate = CampaignDateChooser.getCampaignDate();
+				list.add(new MagicSpellDeterminationRecord(mSpellLabel[i].getText().trim(), mSchoolLabel[i].getText().trim(), TKStringHelpers.getIntValue(mCostLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mPointsField[i].getText().trim(), 0), campaignDate));
+			}
+		}
+		return list;
 	}
 	/*****************************************************************************
 	 * Setter's and Getter's

@@ -11,6 +11,7 @@ import com.starfyre1.dataModel.MoneyRecord;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -108,8 +109,7 @@ public class MoneyDisplay extends TKTitledDisplay implements FocusListener {
 		outerWrapper.add(wrapper);
 		outerWrapper.add(wrapper2);
 
-		wrapper.setMinimumSize(wrapper.getPreferredSize());
-
+		outerWrapper.setPreferredSize(new Dimension(300, 100));
 		return outerWrapper;
 
 	}

@@ -25,6 +25,8 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	private static final String	DP_COST_KEY						= "DP_COST_KEY";								//$NON-NLS-1$
 	private static final String	MAINTAINENCE_KEY				= "MAINTAINENCE_KEY";							//$NON-NLS-1$
 	private static final String	SUCCESSFUL_KEY					= "SUCCESSFUL_KEY";								//$NON-NLS-1$
+	private static final String	START_DATE_KEY					= "START_DATE_KEY";								//$NON-NLS-1$
+	private static final String	COMPLETION_DATE_KEY				= "COMPLETION_DATE_KEY";						//$NON-NLS-1$
 
 	private static final int	MAX_STAT_VALUE					= 18;
 	private static final int	MAX_NUMBER_OF_IMPROVEMENTS		= 3;
@@ -38,6 +40,8 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	int							mDPCost							= 0;
 	boolean						mMaintainence					= false;
 	boolean						mSuccessful						= false;
+	String						mStartDate						= "";											//$NON-NLS-1$
+	String						mCompletionDate					= "";											//$NON-NLS-1$
 
 	private int					currentNumberOfImprovements[]	= new int[] { 0, 0, 0, 0, 0 };
 
@@ -47,10 +51,11 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	/**
 	 * Creates a new {@link AttributeDeterminationRecord}.
 	 */
-	public AttributeDeterminationRecord(int which, int dpPerWeek, int cost) {
+	public AttributeDeterminationRecord(int which, int dpPerWeek, int cost, String startDate) {
 		mAttribute = which;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
+		mStartDate = startDate;
 	}
 
 	/*****************************************************************************
@@ -63,10 +68,12 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 		StringBuffer sb = new StringBuffer();
 
 		sb.append(AttributesTab.ATTRIBUTE_NAMES[mAttribute]);
-		sb.append("\nDP Per Week: " + mDPPerWeek);
-		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost);
-		sb.append("\nMaintainence cost: " + (mMaintainence ? 1 : 0));
-		sb.append("\nSuccessful: " + mSuccessful);
+		sb.append("\nDP Per Week: " + mDPPerWeek); //$NON-NLS-1$
+		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\nMaintainence cost: " + (mMaintainence ? 1 : 0)); //$NON-NLS-1$
+		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
+		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
+		sb.append("\nCompletion Date: " + (mCompletionDate.isBlank() ? "Not Complete" : mCompletionDate)); //$NON-NLS-1$ //$NON-NLS-2$
 
 		return sb.toString();
 	}
@@ -96,6 +103,9 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 						break;
 					}
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value += " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}
@@ -114,12 +124,16 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+
 		br.write(ATTRIBUTE_KEY + TKStringHelpers.SPACE + mAttribute + System.lineSeparator());
 		br.write(DP_PER_WEEK_KEY + TKStringHelpers.SPACE + mDPPerWeek + System.lineSeparator());
 		br.write(DP_TOTAL_SPENT_KEY + TKStringHelpers.SPACE + mDPTotalSpent + System.lineSeparator());
 		br.write(DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
 		br.write(MAINTAINENCE_KEY + TKStringHelpers.SPACE + mMaintainence + System.lineSeparator());
 		br.write(SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
+		br.write(START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
+		br.write(COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
+
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 
@@ -138,6 +152,10 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 			mMaintainence = TKStringHelpers.getBoolValue(value, false);
 		} else if (SUCCESSFUL_KEY.equals(key)) {
 			mSuccessful = TKStringHelpers.getBoolValue(value, false);
+		} else if (START_DATE_KEY.equals(key)) {
+			mStartDate = value;
+		} else if (COMPLETION_DATE_KEY.equals(key)) {
+			mCompletionDate = value;
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$

@@ -64,6 +64,15 @@ public class DeterminationList implements Savable {
 		mTeachersRecords.add(record);
 	}
 
+	public void clearRecords() {
+		mAttribRecords = new ArrayList<>(16);
+		mLanguageRecords = new ArrayList<>(16);
+		mMagicSpellRecords = new ArrayList<>(64);
+		mSkillRecords = new ArrayList<>(16);
+		mWeaponRecords = new ArrayList<>(16);
+		mTeachersRecords = new ArrayList<>(16);
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -108,7 +117,26 @@ public class DeterminationList implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
-		// DW to do
+
+		for (AttributeDeterminationRecord record : mAttribRecords) {
+			record.saveValues(br);
+		}
+		for (LanguageDeterminationRecord record : mLanguageRecords) {
+			record.saveValues(br);
+		}
+		for (MagicSpellDeterminationRecord record : mMagicSpellRecords) {
+			record.saveValues(br);
+		}
+		for (SkillDeterminationRecord record : mSkillRecords) {
+			record.saveValues(br);
+		}
+		for (WeaponProficiencyDeterminationRecord record : mWeaponRecords) {
+			record.saveValues(br);
+		}
+		for (TeacherDeterminationRecord record : mTeachersRecords) {
+			record.saveValues(br);
+		}
+
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 

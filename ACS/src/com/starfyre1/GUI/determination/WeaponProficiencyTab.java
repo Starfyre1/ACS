@@ -3,8 +3,10 @@
 package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
@@ -13,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -26,19 +29,16 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	WEAPON_PROFICIENCY_DESCRIPTION	= "The character must first find a teacher with a higher Hit Bonus than the their own.\r\n"					// //$NON-NLS-1$
-					+ "\r\n"																																				// //$NON-NLS-1$
-					+ "The character gains 1/4 the difference between the teachers Hit Bonus and their own.\r\n"															// //$NON-NLS-1$
-					+ "\r\n"																																				// //$NON-NLS-1$
-					+ "The bonus will apply only when the character is using that particular weapon.";																		//$NON-NLS-1$
+	private static final String	WEAPON_PROFICIENCY_DESCRIPTION	= "The character must first find a teacher with a higher Hit Bonus.\r\n"					// //$NON-NLS-1$
+					+ "The character gains 1/4 the difference between the teachers Hit Bonus and their own.";												//$NON-NLS-1$
 
-	static final String			WEAPON_PROFICIENCY_TAB_TITLE	= "Weapon Proficiencies";																					//$NON-NLS-1$
-	static final String			WEAPON_PROFICIENCY_TAB_TOOLTIP	= "To learn or improve a weapon proficiency:";																//$NON-NLS-1$
-	private static final String	COST_TEXT						= "Cost: 40";																								//$NON-NLS-1$
-	private static final String	MAINTAINENCE_TEXT				= "";																										//$NON-NLS-1$
+	static final String			WEAPON_PROFICIENCY_TAB_TITLE	= "Weapon Proficiencies";																	//$NON-NLS-1$
+	static final String			WEAPON_PROFICIENCY_TAB_TOOLTIP	= "To learn or improve a weapon proficiency:";												//$NON-NLS-1$
+	private static final String	COST_TEXT						= "Cost: 40";																				//$NON-NLS-1$
+	private static final String	MAINTAINENCE_TEXT				= "";																						//$NON-NLS-1$
 	private static final String	WEAPON_PROFICIENCY_TEXT			= WEAPON_PROFICIENCY_TAB_TOOLTIP;
-	private static final String	SUCCESS_TOOLTIP					= "1D20 < (Dexerity)";																						//$NON-NLS-1$
-	private static final String	SUCCESS_TEXT1					= "Success: 1D20 < ";																						//$NON-NLS-1$
+	private static final String	SUCCESS_TOOLTIP					= "1D20 < (Dexerity)";																		//$NON-NLS-1$
+	private static final String	SUCCESS_TEXT1					= "Success: 1D20 < ";																		//$NON-NLS-1$
 
 	private static final int	ROWS							= 5;
 	private static final int	COST							= 40;
@@ -92,7 +92,11 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	}
 
 	private String getSuccessText() {
-		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
+		AttributesRecord record = ACS.getInstance().getCharacterSheet().getAttributesRecord();
+		if (record == null) {
+			return "?"; //$NON-NLS-1$
+		}
+		int success = record.getModifiedStat(AttributesRecord.DEX);
 		return SUCCESS_TEXT1 + success;
 	}
 
@@ -169,6 +173,17 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		return outerWrapper;
 	}
 
+	public ArrayList<WeaponProficiencyDeterminationRecord> getRecordsToLearn() {
+		ArrayList<WeaponProficiencyDeterminationRecord> list = new ArrayList<>();
+		// DW _finish
+		for (int i = 0; i < ROWS; i++) {
+			//			if (mAttrCheckBox[i].isSelected() && !mPointsField[i].getText().isBlank()) {
+			String campaignDate = CampaignDateChooser.getCampaignDate();
+			//				list.add(new WeaponProficiencyDeterminationRecord(i, TKStringHelpers.getIntValue(mPointsField[i].getText(), 0), COST, campaignDate));
+			//			}
+		}
+		return list;
+	}
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

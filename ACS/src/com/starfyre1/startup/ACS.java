@@ -13,6 +13,7 @@ import com.starfyre1.dataset.spells.SpellDescriptionList;
 import java.awt.Component;
 import java.io.File;
 
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
 public class ACS {
@@ -31,6 +32,8 @@ public class ACS {
 	private static String				RELEASE_DATE	= "December 06, 2021";													//$NON-NLS-1$
 	private static String				RELEASE_TIME	= "8:42 UTC/GMT";														//$NON-NLS-1$
 	public static String				COPYRIGHT		= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
+
+	public static ImageIcon				IMAGE_PLUS_ICON;
 
 	/*****************************************************************************
 	 * Member Variables
@@ -62,7 +65,8 @@ public class ACS {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				mCharacterSheet = new CharacterSheet();
+				IMAGE_PLUS_ICON = new ImageIcon(getClass().getClassLoader().getResource("resources/ImagePlus.png"));
+				new CharacterSheet();
 				if (PreferenceStore.getInstance().isAutoLoad()) {
 					String lastCharacter = PreferenceStore.getInstance().getCurrentLastCharacter();
 					if (lastCharacter != null) {
@@ -146,6 +150,13 @@ public class ACS {
 		System.out.println("Pref: " + comp.getPreferredSize()); //$NON-NLS-1$
 		System.out.println("Mini: " + comp.getMinimumSize()); //$NON-NLS-1$
 		System.out.println("Maxi: " + comp.getMaximumSize()); //$NON-NLS-1$
+	}
+
+	/**
+	 * @param characterSheet
+	 */
+	public void setCharacterSheet(CharacterSheet characterSheet) {
+		mCharacterSheet = characterSheet;
 	}
 
 	/*****************************************************************************

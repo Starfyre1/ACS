@@ -3,9 +3,11 @@
 package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
 import com.starfyre1.startup.ACS;
 
@@ -31,8 +33,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 	 * Constants
 	 ****************************************************************************/
 	private static final String		PHYSICAL_DESCRIPTION	= "A stat cannot be raised more than (3) points, or above (18).\r\n"																							// //$NON-NLS-1$
-					+ "\r\n"																																																// //$NON-NLS-1$
-					+ "There is a 10% chance per week that the stat will drop down to the original number if not maintained.  This chance is cumulative.";																	//$NON-NLS-1$
+					+ "10% / week cumulative that the stat will drop to the original number, if not maintained.";																											//$NON-NLS-1$
 
 	static final String				PHYSICAL_TAB_TITLE		= "Attributes";																																					//$NON-NLS-1$
 	static final String				PHYSICAL_TAB_TOOLTIP	= "To raise your physical attributes:";																															//$NON-NLS-1$
@@ -52,7 +53,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	JCheckBox[]						mAttrCheckBox;																																											//= new JCheckBox[5];
+	JCheckBox[]						mAttrCheckBox;
 	JTextField[]					mPointsField;
 
 	/*****************************************************************************
@@ -90,14 +91,19 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 			JCheckBox checkBox = (JCheckBox) source;
 			if (source.equals(mAttrCheckBox[0])) {
 				mPointsField[0].setEnabled(checkBox.isSelected());
+				mPointsField[0].setEditable(checkBox.isSelected());
 			} else if (source.equals(mAttrCheckBox[1])) {
 				mPointsField[1].setEnabled(checkBox.isSelected());
+				mPointsField[1].setEditable(checkBox.isSelected());
 			} else if (source.equals(mAttrCheckBox[2])) {
 				mPointsField[2].setEnabled(checkBox.isSelected());
+				mPointsField[2].setEditable(checkBox.isSelected());
 			} else if (source.equals(mAttrCheckBox[3])) {
 				mPointsField[3].setEnabled(checkBox.isSelected());
+				mPointsField[3].setEditable(checkBox.isSelected());
 			} else if (source.equals(mAttrCheckBox[4])) {
 				mPointsField[4].setEnabled(checkBox.isSelected());
+				mPointsField[4].setEditable(checkBox.isSelected());
 			}
 			updateDialogButtons();
 		}
@@ -105,7 +111,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 
 	private boolean isAnyBoxChecked() {
 		for (int i = 0; i < ROWS; i++) {
-			if (mAttrCheckBox[i].isSelected() && !mPointsField[i].getText().isBlank()) {
+			if (mAttrCheckBox[i].isSelected() && mAttrCheckBox[i].isEnabled() && !mPointsField[i].getText().isBlank()) {
 				return true;
 			}
 		}
@@ -118,7 +124,9 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 
 	@Override
 	protected void loadDisplay() {
-		//DW to do
+		updateCheckboxEnabledState();
+		setSuccessText(getSuccessText());
+		updateDialogButtons();
 	}
 
 	@Override
@@ -127,7 +135,12 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 	}
 
 	private String getSuccessText() {
-		int level = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() / 2;
+		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		if (record == null) {
+			return "?"; //$NON-NLS-1$
+		}
+		int level = record.getLevel() / 2;
+		// DW ATTRIBUTE_NUMBERS[0] needs to be [currently selected stat]
 		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(ATTRIBUTE_NUMBERS[0]);
 		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
 	}
@@ -165,6 +178,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 
 			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
 			mPointsField[i].setEnabled(false);
+			mPointsField[i].setEditable(false);
 			dpPerWeekPanel.add(mPointsField[i]);
 
 			Dimension checkBoxSize = new Dimension(mAttrCheckBox[i].getMinimumSize().width, TEXT_FIELD_HEIGHT);
@@ -208,15 +222,17 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		// DW Also need to make sure we can't increase it more than 3 times... will need to check against DeterminationPointsRecord when created
 
 		for (int i = 0; i < ROWS; i++) {
-			mAttrCheckBox[i].setEnabled(attribs.getModifiedStat(ATTRIBUTE_NUMBERS[i]) < 18);
+			mAttrCheckBox[i].setEnabled(attribs == null ? false : attribs.getModifiedStat(ATTRIBUTE_NUMBERS[i]) < 18);
+			mPointsField[i].setEnabled(mAttrCheckBox[i].isEnabled());
 		}
 	}
 
-	public ArrayList<AttributeDeterminationRecord> getAttributesToLearn() {
+	public ArrayList<AttributeDeterminationRecord> getRecordsToLearn() {
 		ArrayList<AttributeDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
 			if (mAttrCheckBox[i].isSelected() && !mPointsField[i].getText().isBlank()) {
-				list.add(new AttributeDeterminationRecord(i, TKStringHelpers.getIntValue(mPointsField[i].getText(), 0), COST));
+				String campaignDate = CampaignDateChooser.getCampaignDate();
+				list.add(new AttributeDeterminationRecord(i, TKStringHelpers.getIntValue(mPointsField[i].getText().trim(), 0), COST, campaignDate));
 			}
 		}
 		return list;
