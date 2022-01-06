@@ -5,13 +5,14 @@ package com.starfyre1.dataset;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.WeaponRecord;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.startup.ACS;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class WeaponList implements Savable {
@@ -119,11 +120,11 @@ public class WeaponList implements Savable {
 		if (mWeaponMasterList == null) {
 			mWeaponMasterList = new WeaponRecord[56];
 
-			File in = new File("./src/com/starfyre1/dataset/rawData/Weapon.txt"); //$NON-NLS-1$
 			try {
-				BufferedReader brIn = new BufferedReader(new FileReader(in));
+				InputStream is = ACS.class.getModule().getResourceAsStream("resources/Weapon.txt");
+				Scanner scanner = new Scanner(is, "UTF-8");
 				int count = 0;
-				for (String line; (line = brIn.readLine()) != null;) {
+				for (String line; (line = scanner.nextLine()) != null;) {
 					line = line.trim();
 
 					if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$

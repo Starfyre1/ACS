@@ -4,13 +4,14 @@ package com.starfyre1.dataset;
 
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.MetalRecord;
+import com.starfyre1.startup.ACS;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class MetalList {
 	/*****************************************************************************
@@ -34,11 +35,11 @@ public class MetalList {
 	private static void createMetalMasterList() {
 		mMetalMasterList = new MetalRecord[10];
 
-		File in = new File("./src/com/starfyre1/dataset/rawData/Metal.txt"); //$NON-NLS-1$
 		try {
-			BufferedReader brIn = new BufferedReader(new FileReader(in));
+			InputStream is = ACS.class.getModule().getResourceAsStream("resources/Metal.txt");
+			Scanner scanner = new Scanner(is, "UTF-8");
 			int count = 0;
-			for (String line; (line = brIn.readLine()) != null;) {
+			for (String line; (line = scanner.nextLine()) != null;) {
 				line = line.trim();
 
 				if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
@@ -63,9 +64,10 @@ public class MetalList {
 								splitLine[10].trim());
 				mMetalMasterList[count++] = record;
 			}
-
-		} catch (IOException exception) {
-			exception.printStackTrace();
+		} catch (NoSuchElementException nsee) {
+			// nothing to do except exit
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
 		}
 	}
 
