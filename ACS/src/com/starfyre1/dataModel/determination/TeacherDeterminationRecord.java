@@ -29,6 +29,8 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	String						mExpertise				= TKStringHelpers.EMPTY_STRING;
 	float						mCost					= 0;
 	int							mBonus					= 0;
+	String						mStartDate				= "";										//$NON-NLS-1$
+	String						mCompletionDate			= "";										//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -36,7 +38,12 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	/**
 	 * Creates a new {@link TeacherDeterminationRecord}.
 	 */
-	public TeacherDeterminationRecord() {
+	public TeacherDeterminationRecord(String teacher, String expertise, float cost, int bonus, String startDate) {
+		mTeacher = teacher;
+		mExpertise = expertise;
+		mCost = cost;
+		mBonus = bonus;
+		mStartDate = startDate;
 	}
 
 	/*****************************************************************************
@@ -85,10 +92,12 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+
 		br.write(TEACHER_KEY + TKStringHelpers.SPACE + mTeacher + System.lineSeparator());
 		br.write(EXPERTISE_KEY + TKStringHelpers.SPACE + mExpertise + System.lineSeparator());
 		br.write(COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());
 		br.write(BONUS_KEY + TKStringHelpers.SPACE + mBonus + System.lineSeparator());
+
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 

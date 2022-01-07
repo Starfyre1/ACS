@@ -24,6 +24,8 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	private static final String	DP_TOTAL_SPENT_KEY		= "DP_TOTAL_SPENT_KEY";									//$NON-NLS-1$
 	private static final String	DP_COST_KEY				= "DP_COST_KEY";										//$NON-NLS-1$
 	private static final String	SUCCESSFUL_KEY			= "SUCCESSFUL_KEY";										//$NON-NLS-1$
+	private static final String	START_DATE_KEY			= "START_DATE_KEY";										//$NON-NLS-1$
+	private static final String	COMPLETION_DATE_KEY		= "COMPLETION_DATE_KEY";								//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -35,6 +37,8 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	int							mDPTotalSpent			= 0;
 	int							mDPCost					= 0;
 	boolean						mSuccessful				= false;
+	String						mStartDate				= "";													//$NON-NLS-1$
+	String						mCompletionDate			= "";													//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -42,7 +46,12 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	/**
 	 * Creates a new {@link WeaponProficiencyDeterminationRecord}.
 	 */
-	public WeaponProficiencyDeterminationRecord() {
+	public WeaponProficiencyDeterminationRecord(String weapon, int teacher, int dpPerWeek, int cost, String startDate) {
+		mWeapon = weapon;
+		mTeacher = teacher;
+		mDPPerWeek = dpPerWeek;
+		mDPCost = cost;
+		mStartDate = startDate;
 	}
 
 	/*****************************************************************************
@@ -89,6 +98,7 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+
 		br.write(WEAPON_KEY + TKStringHelpers.SPACE + mWeapon + System.lineSeparator());
 		br.write(TEACHER_KEY + TKStringHelpers.SPACE + mTeacher + System.lineSeparator());
 		br.write(BONUS_KEY + TKStringHelpers.SPACE + mBonus + System.lineSeparator());
@@ -96,6 +106,9 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 		br.write(DP_TOTAL_SPENT_KEY + TKStringHelpers.SPACE + mDPTotalSpent + System.lineSeparator());
 		br.write(DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
 		br.write(SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
+		br.write(START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
+		br.write(COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
+
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 
@@ -116,6 +129,10 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 			mDPCost = TKStringHelpers.getIntValue(value, 0);
 		} else if (SUCCESSFUL_KEY.equals(key)) {
 			mSuccessful = TKStringHelpers.getBoolValue(value, false);
+		} else if (START_DATE_KEY.equals(key)) {
+			mStartDate = value;
+		} else if (COMPLETION_DATE_KEY.equals(key)) {
+			mCompletionDate = value;
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$

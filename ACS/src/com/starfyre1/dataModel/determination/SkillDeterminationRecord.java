@@ -100,6 +100,7 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+
 		br.write(SKILL_KEY + TKStringHelpers.SPACE + mSkill + System.lineSeparator());
 		br.write(TEACHER_KEY + TKStringHelpers.SPACE + mTeacher + System.lineSeparator());
 		br.write(BONUS_KEY + TKStringHelpers.SPACE + mBonus + System.lineSeparator());
@@ -108,6 +109,9 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 		br.write(DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
 		br.write(MAINTAINENCE_KEY + TKStringHelpers.SPACE + mMaintainence + System.lineSeparator());
 		br.write(SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
+		br.write(START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
+		br.write(COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
+
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 
@@ -130,6 +134,10 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 			mMaintainence = TKStringHelpers.getBoolValue(value, false);
 		} else if (SUCCESSFUL_KEY.equals(key)) {
 			mSuccessful = TKStringHelpers.getBoolValue(value, false);
+		} else if (START_DATE_KEY.equals(key)) {
+			mStartDate = value;
+		} else if (COMPLETION_DATE_KEY.equals(key)) {
+			mCompletionDate = value;
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$

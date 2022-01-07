@@ -5,14 +5,13 @@ package com.starfyre1.GUI.determination;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -23,7 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class TeacherTab extends DeterminationTab implements ActionListener, FocusListener {
+public class TeacherTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -39,6 +38,10 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	JTextField[]				mTeacherNameField;
+	JTextField[]				mExpertiseField;
+	JTextField[]				mCostLabel;
+	JLabel[]					mBonusLabel;
 
 	/*****************************************************************************
 	 * Constructors
@@ -57,21 +60,12 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 	 * Methods
 	 ****************************************************************************/
 	@Override
-	public void focusGained(FocusEvent e) {
-		// Does Nothing
-	}
-
-	@Override
-	public void focusLost(FocusEvent e) {
-		// DW Handle Value changed
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 	}
 
-	private void updateDialogButtons() {
+	@Override
+	protected void updateDialogButtons() {
 		//		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
 	}
 
@@ -88,10 +82,10 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 	private JPanel createCenterPanel() {
 		int currentMaintenance = 0;
 
-		JTextField[] teacherNameField = new JTextField[ROWS];
-		JTextField[] expertiseField = new JTextField[ROWS];
-		JTextField[] costLabel = new JTextField[ROWS];
-		JLabel[] bonusLabel = new JLabel[ROWS];
+		mTeacherNameField = new JTextField[ROWS];
+		mExpertiseField = new JTextField[ROWS];
+		mCostLabel = new JTextField[ROWS];
+		mBonusLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel teacherPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -107,19 +101,19 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			teacherNameField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
-			teacherPanel.add(teacherNameField[i]);
+			mTeacherNameField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT, this);
+			teacherPanel.add(mTeacherNameField[i]);
 
-			expertiseField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
-			expertisePanel.add(expertiseField[i]);
+			mExpertiseField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
+			expertisePanel.add(mExpertiseField[i]);
 
-			costLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
-			costPanel.add(costLabel[i]);
+			mCostLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
+			costPanel.add(mCostLabel[i]);
 
-			bonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));
-			bonusLabel[i].setMinimumSize(size);
-			bonusLabel[i].setPreferredSize(size);
-			bonusAmountPanel.add(bonusLabel[i]);
+			mBonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));
+			mBonusLabel[i].setMinimumSize(size);
+			mBonusLabel[i].setPreferredSize(size);
+			bonusAmountPanel.add(mBonusLabel[i]);
 		}
 		bonusAmountPanel.add(Box.createVerticalGlue());
 
@@ -131,20 +125,20 @@ public class TeacherTab extends DeterminationTab implements ActionListener, Focu
 		return outerWrapper;
 	}
 
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
 	public ArrayList<TeacherDeterminationRecord> getRecordsToLearn() {
 		ArrayList<TeacherDeterminationRecord> list = new ArrayList<>();
 		// DW _finish
 		for (int i = 0; i < ROWS; i++) {
-			//			if (mAttrCheckBox[i].isSelected() && !mPointsField[i].getText().isBlank()) {
-			String campaignDate = CampaignDateChooser.getCampaignDate();
-			//				list.add(new TeacherDeterminationRecord(i, TKStringHelpers.getIntValue(mPointsField[i].getText(), 0), COST, campaignDate));
-			//			}
+			if (!(mTeacherNameField[i].getText().isBlank() || mExpertiseField[i].getText().isBlank() || mCostLabel[i].getText().isBlank() || mBonusLabel[i].getText().isBlank())) {
+				String campaignDate = CampaignDateChooser.getCampaignDate();
+				list.add(new TeacherDeterminationRecord(mTeacherNameField[i].getText().trim(), mExpertiseField[i].getText().trim(), TKStringHelpers.getFloatValue(mCostLabel[i].getText(), 0f), TKStringHelpers.getIntValue(mBonusLabel[i].getText(), 0), campaignDate));
+			}
 		}
 		return list;
 	}
-	/*****************************************************************************
-	 * Setter's and Getter's
-	 ****************************************************************************/
 
 	/*****************************************************************************
 	 * Serialization

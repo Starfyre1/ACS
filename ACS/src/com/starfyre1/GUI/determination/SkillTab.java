@@ -14,8 +14,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -26,7 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class SkillTab extends DeterminationTab implements ActionListener, FocusListener {
+public class SkillTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -68,41 +66,24 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 	 * Methods
 	 ****************************************************************************/
 	@Override
-	public void focusGained(FocusEvent e) {
-		// Does Nothing
-	}
-
-	@Override
-	public void focusLost(FocusEvent e) {
-		// DW Handle Value changed
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 	}
 
-	private void updateDialogButtons() {
-		//		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
+	@Override
+	protected void updateDialogButtons() {
+		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnySkillChoosen(), false);
 	}
 
 	@Override
 	protected void loadDisplay() {
-		//DW to do
+		setSuccessText(getSuccessText());
+		updateDialogButtons();
 	}
 
 	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), SKILLS_DESCRIPTION, SKILL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
-	}
-
-	private String getSuccessText() {
-		AttributesRecord record = ACS.getInstance().getCharacterSheet().getAttributesRecord();
-		if (record == null) {
-			return "?"; //$NON-NLS-1$
-		}
-		int success = record.getModifiedStat(AttributesRecord.INT);
-		return SUCCESS_TEXT1 + success;
 	}
 
 	private JPanel createCenterPanel() {
@@ -142,7 +123,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 
 		for (int i = 0; i < ROWS; i++) {
 			mSkillsField[i] = new JTextField();
-			mSkillsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
+			mSkillsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT, this);
 			skillsPanel.add(mSkillsField[i]);
 
 			mTeacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
@@ -155,7 +136,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 			bonusLabel[i].setPreferredSize(size);
 			bonusAmountPanel.add(bonusLabel[i]);
 
-			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
+			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
 			dpPerWeekPanel.add(mPointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
@@ -191,19 +172,37 @@ public class SkillTab extends DeterminationTab implements ActionListener, FocusL
 		return outerWrapper;
 	}
 
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
+	private boolean isAnySkillChoosen() {
+		for (int i = 0; i < ROWS; i++) {
+			if (!(mSkillsField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mPointsField[i].getText().isBlank())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public ArrayList<SkillDeterminationRecord> getRecordsToLearn() {
 		ArrayList<SkillDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (!mSkillsField[i].getText().isBlank() && !mTeacherLabel[i].getText().isBlank() && !mPointsField[i].getText().isBlank()) {
+			if (!(mSkillsField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mPointsField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
 				list.add(new SkillDeterminationRecord(mSkillsField[i].getText().trim(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mPointsField[i].getText().trim(), 0), COST, campaignDate));
 			}
 		}
 		return list;
 	}
-	/*****************************************************************************
-	 * Setter's and Getter's
-	 ****************************************************************************/
+
+	private String getSuccessText() {
+		AttributesRecord record = ACS.getInstance().getCharacterSheet().getAttributesRecord();
+		if (record == null) {
+			return "?"; //$NON-NLS-1$
+		}
+		int success = record.getModifiedStat(AttributesRecord.INT);
+		return SUCCESS_TEXT1 + success;
+	}
 
 	/*****************************************************************************
 	 * Serialization

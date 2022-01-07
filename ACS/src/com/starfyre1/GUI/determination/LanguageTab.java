@@ -15,8 +15,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -27,20 +25,20 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class LanguageTab extends DeterminationTab implements ActionListener, FocusListener {
+public class LanguageTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	LANGUAGE_DESCRIPTION	= "To learn the language fluently, the character must learn the language again, and again successfully roll below their Wisdom stat";	// //$NON-NLS-1$
+	private static final String	LANGUAGE_DESCRIPTION	= "To learn the language fluently, the character must successfully learn the language twice";	// //$NON-NLS-1$
 
-	static final String			LANGUAGE_TAB_TITLE		= "Languages";																															//$NON-NLS-1$
-	static final String			LANGUAGE_TAB_TOOLTIP	= "To learn a new language or become fluent in a known one:";																			//$NON-NLS-1$
-	private static final String	COST_TEXT				= "Cost: 40 (immersive) or 80 (Tutor)";																									//$NON-NLS-1$
-	private static final String	MAINTAINENCE_TEXT		= "Maintain: 1 DP / week for Fluent";																									//$NON-NLS-1$
+	static final String			LANGUAGE_TAB_TITLE		= "Languages";																					//$NON-NLS-1$
+	static final String			LANGUAGE_TAB_TOOLTIP	= "To learn a new language or become fluent in a known one:";									//$NON-NLS-1$
+	private static final String	COST_TEXT				= "Cost: 40 (immersive) or 80 (Tutor)";															//$NON-NLS-1$
+	private static final String	MAINTAINENCE_TEXT		= "Maintain: 1 DP / week for Fluent";															//$NON-NLS-1$
 	private static final String	LANGUAGE_TEXT			= LANGUAGE_TAB_TOOLTIP;
-	private static final String	SUCCESS_TOOLTIP			= "1D20 - (1/4 level) < (Wisdom)";																										//$NON-NLS-1$
-	private static final String	SUCCESS_TEXT1			= "Success: 1D20 - ";																													//$NON-NLS-1$
-	private static final String	SUCCESS_TEXT2			= " < ";																																//$NON-NLS-1$
+	private static final String	SUCCESS_TOOLTIP			= "1D20 - (1/4 level) < (Wisdom)";																//$NON-NLS-1$
+	private static final String	SUCCESS_TEXT1			= "Success: 1D20 - ";																			//$NON-NLS-1$
+	private static final String	SUCCESS_TEXT2			= " < ";																						//$NON-NLS-1$
 
 	private static final int	ROWS					= 5;
 	private static final int	COST					= 40;
@@ -69,42 +67,24 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 	 * Methods
 	 ****************************************************************************/
 	@Override
-	public void focusGained(FocusEvent e) {
-		// Does Nothing
-	}
-
-	@Override
-	public void focusLost(FocusEvent e) {
-		// DW Handle Value changed
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 	}
 
-	private void updateDialogButtons() {
-		//		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
+	@Override
+	protected void updateDialogButtons() {
+		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyLanguageChosen(), false);
 	}
 
 	@Override
 	protected void loadDisplay() {
-		//DW to do
+		setSuccessText(getSuccessText());
+		updateDialogButtons();
 	}
 
 	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), LANGUAGE_DESCRIPTION, LANGUAGE_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
-	}
-
-	private String getSuccessText() {
-		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
-		if (record == null) {
-			return "?"; //$NON-NLS-1$
-		}
-		int level = record.getLevel() / 4;
-		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
-		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
 	}
 
 	private JPanel createCenterPanel() {
@@ -135,11 +115,10 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			mLangField[i] = new JTextField();
-			mLangField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT);
+			mLangField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT, this);
 			langPanel.add(mLangField[i]);
 
-			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT);
+			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
 			dpPerWeekPanel.add(mPointsField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
@@ -171,10 +150,22 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 		return wrapper;
 	}
 
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
+	private boolean isAnyLanguageChosen() {
+		for (int i = 0; i < ROWS; i++) {
+			if (!(mLangField[i].getText().isEmpty() || mPointsField[i].getText().isBlank())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public ArrayList<LanguageDeterminationRecord> getRecordsToLearn() {
 		ArrayList<LanguageDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (!mLangField[i].getText().isBlank() && !mPointsField[i].getText().isBlank()) {
+			if (!(mLangField[i].getText().isBlank() || mPointsField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
 				list.add(new LanguageDeterminationRecord(mLangField[i].getText().trim(), TKStringHelpers.getIntValue(mPointsField[i].getText().trim(), 0), COST, campaignDate));
 			}
@@ -182,9 +173,15 @@ public class LanguageTab extends DeterminationTab implements ActionListener, Foc
 		return list;
 	}
 
-	/*****************************************************************************
-	 * Setter's and Getter's
-	 ****************************************************************************/
+	private String getSuccessText() {
+		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		if (record == null) {
+			return "?"; //$NON-NLS-1$
+		}
+		int level = record.getLevel() / 4;
+		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
+		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
+	}
 
 	/*****************************************************************************
 	 * Serialization

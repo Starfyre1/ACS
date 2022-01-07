@@ -15,8 +15,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -28,7 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class AttributesTab extends DeterminationTab implements ActionListener, FocusListener {
+public class AttributesTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -73,18 +71,6 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 	 * Methods
 	 ****************************************************************************/
 	@Override
-	public void focusGained(FocusEvent e) {
-		// Does Nothing
-	}
-
-	@Override
-	public void focusLost(FocusEvent e) {
-		JTextField field = (JTextField) e.getSource();
-		field.setText(field.getText().trim());
-		updateDialogButtons();
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JCheckBox) {
@@ -109,16 +95,8 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		}
 	}
 
-	private boolean isAnyBoxChecked() {
-		for (int i = 0; i < ROWS; i++) {
-			if (mAttrCheckBox[i].isSelected() && mAttrCheckBox[i].isEnabled() && !mPointsField[i].getText().isBlank()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private void updateDialogButtons() {
+	@Override
+	protected void updateDialogButtons() {
 		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
 	}
 
@@ -134,24 +112,13 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		return createPage(createCenterPanel(), PHYSICAL_DESCRIPTION, PHYSICAL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
 	}
 
-	private String getSuccessText() {
-		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
-		if (record == null) {
-			return "?"; //$NON-NLS-1$
-		}
-		int level = record.getLevel() / 2;
-		// DW ATTRIBUTE_NUMBERS[0] needs to be [currently selected stat]
-		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(ATTRIBUTE_NUMBERS[0]);
-		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
-	}
-
 	private JPanel createCenterPanel() {
 		int currentlySpent = 0;
 		int currentMaintenance = 0;
 		int completed = 0;
 		int attempted = 0;
 
-		mAttrCheckBox = new JCheckBox[5];
+		mAttrCheckBox = new JCheckBox[ROWS];
 		mPointsField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] maintLabel = new JLabel[ROWS];
@@ -227,6 +194,18 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		}
 	}
 
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
+	private boolean isAnyBoxChecked() {
+		for (int i = 0; i < ROWS; i++) {
+			if (mAttrCheckBox[i].isSelected() && mAttrCheckBox[i].isEnabled() && !mPointsField[i].getText().isBlank()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public ArrayList<AttributeDeterminationRecord> getRecordsToLearn() {
 		ArrayList<AttributeDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
@@ -238,9 +217,16 @@ public class AttributesTab extends DeterminationTab implements ActionListener, F
 		return list;
 	}
 
-	/*****************************************************************************
-	 * Setter's and Getter's
-	 ****************************************************************************/
+	private String getSuccessText() {
+		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		if (record == null) {
+			return "?"; //$NON-NLS-1$
+		}
+		int level = record.getLevel() / 2;
+		// DW ATTRIBUTE_NUMBERS[0] needs to be [currently selected stat]
+		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(ATTRIBUTE_NUMBERS[0]);
+		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
+	}
 
 	/*****************************************************************************
 	 * Serialization

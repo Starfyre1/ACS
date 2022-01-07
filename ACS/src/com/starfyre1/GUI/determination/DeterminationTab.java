@@ -8,18 +8,21 @@ import com.starfyre1.ToolKit.TKTitledDisplay;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Insets;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-public abstract class DeterminationTab extends TKTitledDisplay {
+public abstract class DeterminationTab extends TKTitledDisplay implements FocusListener {
 
 	/**
 	 * Creates a new {@link DeterminationTab}.
@@ -112,6 +115,23 @@ public abstract class DeterminationTab extends TKTitledDisplay {
 		mSuccessLabel.setText(text);
 		mSuccessLabel.revalidate();
 	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		// Does Nothing
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		JTextField field = (JTextField) e.getSource();
+		field.setText(field.getText().trim());
+		updateDialogButtons();
+	}
+
+	/**
+	 *
+	 */
+	protected abstract void updateDialogButtons();
 
 	/*****************************************************************************
 	 * Setter's and Getter's

@@ -21,17 +21,19 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	private static final String	SCHOOL_KEY				= "SCHOOL_KEY";									//$NON-NLS-1$
 	private static final String	DP_PER_WEEK_KEY			= "DP_PER_WEEK_KEY";							//$NON-NLS-1$
 	private static final String	DP_TOTAL_SPENT_KEY		= "DP_TOTAL_SPENT_KEY";							//$NON-NLS-1$
-	private static final String	DP_COST_KEY				= "DP_COST_KEY";								//$NON-NLS-1$
+	private static final String	COST_KEY				= "COST_KEY";									//$NON-NLS-1$
 	private static final String	SUCCESSFUL_KEY			= "SUCCESSFUL_KEY";								//$NON-NLS-1$
+	private static final String	START_DATE_KEY			= "START_DATE_KEY";								//$NON-NLS-1$
+	private static final String	COMPLETION_DATE_KEY		= "COMPLETION_DATE_KEY";						//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	String						mSpell					= TKStringHelpers.EMPTY_STRING;
 	String						mSchool					= TKStringHelpers.EMPTY_STRING;
+	float						mCost					= 0;
 	int							mDPPerWeek				= 0;
 	int							mDPTotalSpent			= 0;
-	int							mDPCost					= 0;
 	boolean						mSuccessful				= false;
 	String						mStartDate				= "";											//$NON-NLS-1$
 	String						mCompletionDate			= "";											//$NON-NLS-1$
@@ -42,11 +44,11 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/**
 	 * Creates a new {@link MagicSpellDeterminationRecord}.
 	 */
-	public MagicSpellDeterminationRecord(String spell, String school, int dpPerWeek, int cost, String startDate) {
+	public MagicSpellDeterminationRecord(String spell, String school, float cost, int dpPerWeek, String startDate) {
 		mSpell = spell;
 		mSchool = school;
+		mCost = cost;
 		mDPPerWeek = dpPerWeek;
-		mDPCost = cost;
 		mStartDate = startDate;
 
 	}
@@ -95,30 +97,38 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
-		br.write(SPELL_KEY + TKStringHelpers.SPACE + mSpell + System.lineSeparator());
+
 		br.write(SCHOOL_KEY + TKStringHelpers.SPACE + mSchool + System.lineSeparator());
+		br.write(SPELL_KEY + TKStringHelpers.SPACE + mSpell + System.lineSeparator());
+		br.write(COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());
 		br.write(DP_PER_WEEK_KEY + TKStringHelpers.SPACE + mDPPerWeek + System.lineSeparator());
 		br.write(DP_TOTAL_SPENT_KEY + TKStringHelpers.SPACE + mDPTotalSpent + System.lineSeparator());
-		br.write(DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
 		br.write(SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
+		br.write(START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
+		br.write(COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
+
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
-		if (SPELL_KEY.equals(key)) {
-			mSpell = value;
-		} else if (SCHOOL_KEY.equals(key)) {
+		if (SCHOOL_KEY.equals(key)) {
 			mSchool = value;
+		} else if (SPELL_KEY.equals(key)) {
+			mSpell = value;
+		} else if (COST_KEY.equals(key)) {
+			mCost = TKStringHelpers.getIntValue(value, 0);
 		} else if (DP_PER_WEEK_KEY.equals(key)) {
 			mDPPerWeek = TKStringHelpers.getIntValue(value, 0);
 		} else if (DP_TOTAL_SPENT_KEY.equals(key)) {
 			mDPTotalSpent = TKStringHelpers.getIntValue(value, 0);
-		} else if (DP_COST_KEY.equals(key)) {
-			mDPCost = TKStringHelpers.getIntValue(value, 0);
 		} else if (SUCCESSFUL_KEY.equals(key)) {
 			mSuccessful = TKStringHelpers.getBoolValue(value, false);
+		} else if (START_DATE_KEY.equals(key)) {
+			mStartDate = value;
+		} else if (COMPLETION_DATE_KEY.equals(key)) {
+			mCompletionDate = value;
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
