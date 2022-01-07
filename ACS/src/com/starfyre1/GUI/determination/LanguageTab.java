@@ -72,17 +72,6 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	}
 
 	@Override
-	protected void updateDialogButtons() {
-		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyLanguageChosen(), false);
-	}
-
-	@Override
-	protected void loadDisplay() {
-		setSuccessText(getSuccessText());
-		updateDialogButtons();
-	}
-
-	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), LANGUAGE_DESCRIPTION, LANGUAGE_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
 	}
@@ -153,7 +142,8 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	private boolean isAnyLanguageChosen() {
+	@Override
+	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
 			if (!(mLangField[i].getText().isEmpty() || mPointsField[i].getText().isBlank())) {
 				return true;
@@ -173,7 +163,8 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 		return list;
 	}
 
-	private String getSuccessText() {
+	@Override
+	protected String getSuccessText() {
 		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
 		if (record == null) {
 			return "?"; //$NON-NLS-1$

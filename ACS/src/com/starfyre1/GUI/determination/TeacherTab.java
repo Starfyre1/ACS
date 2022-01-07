@@ -140,6 +140,16 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 		return list;
 	}
 
+	@Override
+	protected boolean hasValidEntriesToLearn() {
+		return false;
+	}
+
+	@Override
+	protected String getSuccessText() {
+		return null;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

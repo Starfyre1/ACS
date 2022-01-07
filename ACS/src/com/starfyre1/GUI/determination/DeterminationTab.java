@@ -99,7 +99,12 @@ public abstract class DeterminationTab extends TKTitledDisplay implements FocusL
 	}
 
 	@Override
-	protected abstract void loadDisplay();
+	protected void loadDisplay() {
+		setSuccessText(getSuccessText());
+		updateDialogButtons();
+	}
+
+	protected abstract String getSuccessText();
 
 	protected JPanel getPanel(int compLayout, AbstractBorder border) {
 		JPanel panel = new JPanel();
@@ -128,10 +133,11 @@ public abstract class DeterminationTab extends TKTitledDisplay implements FocusL
 		updateDialogButtons();
 	}
 
-	/**
-	 *
-	 */
-	protected abstract void updateDialogButtons();
+	protected void updateDialogButtons() {
+		((DeterminationPointsDisplay) getOwner()).updateButtons(hasValidEntriesToLearn(), false);
+	}
+
+	protected abstract boolean hasValidEntriesToLearn();
 
 	/*****************************************************************************
 	 * Setter's and Getter's

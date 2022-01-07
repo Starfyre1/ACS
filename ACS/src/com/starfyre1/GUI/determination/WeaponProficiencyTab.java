@@ -70,17 +70,6 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	}
 
 	@Override
-	protected void updateDialogButtons() {
-		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyProficiencyChoosen(), false);
-	}
-
-	@Override
-	protected void loadDisplay() {
-		setSuccessText(getSuccessText());
-		updateDialogButtons();
-	}
-
-	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
 	}
@@ -161,7 +150,8 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	private boolean isAnyProficiencyChoosen() {
+	@Override
+	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
 			if (!(mWeaponField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mPointsField[i].getText().isBlank())) {
 				return true;
@@ -182,7 +172,8 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		return list;
 	}
 
-	private String getSuccessText() {
+	@Override
+	protected String getSuccessText() {
 		AttributesRecord record = ACS.getInstance().getCharacterSheet().getAttributesRecord();
 		if (record == null) {
 			return "?"; //$NON-NLS-1$

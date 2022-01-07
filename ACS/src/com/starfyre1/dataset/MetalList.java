@@ -36,8 +36,8 @@ public class MetalList {
 		mMetalMasterList = new MetalRecord[10];
 
 		try {
-			InputStream is = ACS.class.getModule().getResourceAsStream("resources/Metal.txt");
-			Scanner scanner = new Scanner(is, "UTF-8");
+			InputStream is = ACS.class.getModule().getResourceAsStream("resources/Metal.txt"); //$NON-NLS-1$
+			Scanner scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 			int count = 0;
 			for (String line; (line = scanner.nextLine()) != null;) {
 				line = line.trim();

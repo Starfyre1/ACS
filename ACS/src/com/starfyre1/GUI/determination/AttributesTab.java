@@ -96,15 +96,9 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 	}
 
 	@Override
-	protected void updateDialogButtons() {
-		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
-	}
-
-	@Override
 	protected void loadDisplay() {
 		updateCheckboxEnabledState();
-		setSuccessText(getSuccessText());
-		updateDialogButtons();
+		super.loadDisplay();
 	}
 
 	@Override
@@ -197,7 +191,8 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	private boolean isAnyBoxChecked() {
+	@Override
+	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
 			if (mAttrCheckBox[i].isSelected() && mAttrCheckBox[i].isEnabled() && !mPointsField[i].getText().isBlank()) {
 				return true;
@@ -217,7 +212,8 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 		return list;
 	}
 
-	private String getSuccessText() {
+	@Override
+	protected String getSuccessText() {
 		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
 		if (record == null) {
 			return "?"; //$NON-NLS-1$

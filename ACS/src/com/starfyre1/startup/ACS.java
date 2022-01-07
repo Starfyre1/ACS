@@ -65,7 +65,7 @@ public class ACS {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				IMAGE_PLUS_ICON = new ImageIcon(getClass().getClassLoader().getResource("resources/ImagePlus.png"));
+				IMAGE_PLUS_ICON = new ImageIcon(getClass().getClassLoader().getResource("resources/ImagePlus.png")); //$NON-NLS-1$
 				new CharacterSheet();
 				if (PreferenceStore.getInstance().isAutoLoad()) {
 					String lastCharacter = PreferenceStore.getInstance().getCurrentLastCharacter();
