@@ -11,16 +11,16 @@ import com.starfyre1.dataModel.AttributesRecord;
 
 import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class AttributesDisplay extends TKTitledDisplay implements FocusListener {
+public class AttributesDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -172,13 +172,18 @@ public class AttributesDisplay extends TKTitledDisplay implements FocusListener 
 	}
 
 	@Override
-	public void focusGained(FocusEvent e) {
-		// do nothing
+	public void insertUpdate(DocumentEvent e) {
+		changedUpdate(e);
 	}
 
 	@Override
-	public void focusLost(FocusEvent e) {
-		Object source = e.getSource();
+	public void removeUpdate(DocumentEvent e) {
+		changedUpdate(e);
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 
 		AttributesRecord record = ((CharacterSheet) getOwner()).getAttributesRecord();
 		if (record == null) {

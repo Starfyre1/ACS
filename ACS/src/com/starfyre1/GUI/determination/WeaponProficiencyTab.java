@@ -5,6 +5,7 @@ package com.starfyre1.GUI.determination;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
@@ -28,8 +29,7 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	WEAPON_PROFICIENCY_DESCRIPTION	= "The character must first find a teacher with a higher Hit Bonus.\r\n"					// //$NON-NLS-1$
-					+ "The character gains 1/4 the difference between the teachers Hit Bonus and their own.";												//$NON-NLS-1$
+	private static final String	WEAPON_PROFICIENCY_DESCRIPTION	= "The character gains 1/4 the difference between the teachers Hit Bonus and their own.";	//$NON-NLS-1$
 
 	static final String			WEAPON_PROFICIENCY_TAB_TITLE	= "Weapon Proficiencies";																	//$NON-NLS-1$
 	static final String			WEAPON_PROFICIENCY_TAB_TOOLTIP	= "To learn or improve a weapon proficiency:";												//$NON-NLS-1$
@@ -45,9 +45,9 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	JTextField[]				mWeaponField;
-	JLabel[]					mTeacherLabel;
-	JTextField[]				mPointsField;
+	private JTextField[]		mWeaponField;
+	private JLabel[]			mTeacherLabel;
+	private JTextField[]		mDPPerWeekField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -81,9 +81,11 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		int currentMaintenance = 0;
 		int currentlySpent = 0;
 
+		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
+
 		mWeaponField = new JTextField[ROWS];
 		mTeacherLabel = new JLabel[ROWS];
-		mPointsField = new JTextField[ROWS];
+		mDPPerWeekField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] bonusLabel = new JLabel[ROWS];
 		JLabel[] successfulLabel = new JLabel[ROWS];
@@ -114,24 +116,25 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 			mTeacherLabel[i].setPreferredSize(size);
 			teacherPanel.add(mTeacherLabel[i]);
 
-			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
-			dpPerWeekPanel.add(mPointsField[i]);
+			bonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));
+			bonusLabel[i].setMinimumSize(size);
+			bonusLabel[i].setPreferredSize(size);
+			bonusAmountPanel.add(bonusLabel[i]);
+
+			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+			dpPerWeekPanel.add(mDPPerWeekField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			usedLabel[i].setMinimumSize(size);
 			usedLabel[i].setPreferredSize(size);
 			dpSpentPanel.add(usedLabel[i]);
 
-			bonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));
-			bonusLabel[i].setMinimumSize(size);
-			bonusLabel[i].setPreferredSize(size);
-			bonusAmountPanel.add(bonusLabel[i]);
-
 			successfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
 			successfulLabel[i].setMinimumSize(size);
 			successfulLabel[i].setPreferredSize(size);
 			successfulPanel.add(successfulLabel[i]);
 		}
+
 		teacherPanel.add(Box.createVerticalGlue());
 		dpSpentPanel.add(Box.createVerticalGlue());
 		bonusAmountPanel.add(Box.createVerticalGlue());
@@ -153,7 +156,7 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mWeaponField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mPointsField[i].getText().isBlank())) {
+			if (!(mWeaponField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				return true;
 			}
 		}
@@ -164,9 +167,9 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		ArrayList<WeaponProficiencyDeterminationRecord> list = new ArrayList<>();
 		// DW _finish
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mWeaponField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mPointsField[i].getText().isBlank())) {
+			if (!(mWeaponField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new WeaponProficiencyDeterminationRecord(mWeaponField[i].getText().trim(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mPointsField[i].getText(), 0), COST, campaignDate));
+				list.add(new WeaponProficiencyDeterminationRecord(mWeaponField[i].getText().trim(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText(), 0), COST, campaignDate));
 			}
 		}
 		return list;

@@ -46,12 +46,9 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	private static final String		GIVE_UP						= "Give Up";					//$NON-NLS-1$
 	private static final String		LEARN						= "Learn";						//$NON-NLS-1$
 
-	//	private static final String		LANGUAGES_LABEL					= "Languages";																															//$NON-NLS-1$
-	//	private static final String		WEAPONS_LABEL					= "Weapons";																															//$NON-NLS-1$
-
 	private static final String		ASSIGN_POINTS				= "Assign Points";				//$NON-NLS-1$
 
-	private static final Dimension	PREFERRED_SIZE				= new Dimension(600, 300);
+	private static final Dimension	PREFERRED_SIZE				= new Dimension(600, 285);
 
 	/*****************************************************************************
 	 * Member Variables

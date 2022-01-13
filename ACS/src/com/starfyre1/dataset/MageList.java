@@ -30,7 +30,7 @@ public class MageList extends ClassList {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	protected ArrayList<ClassesRecord> mMagesList = new ArrayList<>();
+	private ArrayList<ClassesRecord> mMagesList = new ArrayList<>();
 
 	/*****************************************************************************
 	 * Constructors

@@ -11,8 +11,6 @@ import com.starfyre1.dataModel.SkillsRecord;
 
 import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -20,8 +18,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
+public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -302,53 +302,63 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 		return outer;
 	}
 
+	public boolean start = false;
+
 	@Override
 	public void loadDisplay() {
 
-		SkillsRecord record = ((CharacterSheet) getOwner()).getSkillsRecord();
+		if (!start) {
+			start = true;
+			SkillsRecord record = ((CharacterSheet) getOwner()).getSkillsRecord();
 
-		mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
-		mBandagingField.setText(TKStringHelpers.EMPTY_STRING + record.getBandaging());
-		mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDepthSense());
-		mDetectMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMagic());
-		mDetectMetalsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMetals());
-		mDetectMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMorals());
-		mDetectSecretDoorsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectSecretDoors());
-		mDetectTrapsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectTraps());
-		mHerbalLoreField.setText(TKStringHelpers.EMPTY_STRING + record.getHerbalLore());
-		mHuntingField.setText(TKStringHelpers.EMPTY_STRING + record.getHunting());
-		mPerceptionField.setText(TKStringHelpers.EMPTY_STRING + record.getPerception());
-		mTrackingField.setText(TKStringHelpers.EMPTY_STRING + record.getTracking());
+			mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
+			mBandagingField.setText(TKStringHelpers.EMPTY_STRING + record.getBandaging());
+			mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDepthSense());
+			mDetectMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMagic());
+			mDetectMetalsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMetals());
+			mDetectMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMorals());
+			mDetectSecretDoorsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectSecretDoors());
+			mDetectTrapsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectTraps());
+			mHerbalLoreField.setText(TKStringHelpers.EMPTY_STRING + record.getHerbalLore());
+			mHuntingField.setText(TKStringHelpers.EMPTY_STRING + record.getHunting());
+			mPerceptionField.setText(TKStringHelpers.EMPTY_STRING + record.getPerception());
+			mTrackingField.setText(TKStringHelpers.EMPTY_STRING + record.getTracking());
 
-		mClimbField.setText(TKStringHelpers.EMPTY_STRING + (record.getClimb() + record.getClimbLevelBonus()));
-		mConcealField.setText(TKStringHelpers.EMPTY_STRING + (record.getConceal() + record.getConcealLevelBonus()));
-		mFindTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getFindTrap() + record.getFindTrapLevelBonus()));
-		mHearField.setText(TKStringHelpers.EMPTY_STRING + (record.getHear() + record.getHearLevelBonus()));
-		mLockPickField.setText(TKStringHelpers.EMPTY_STRING + (record.getLockPick() + record.getLockPickLevelBonus()));
-		mPickPocketField.setText(TKStringHelpers.EMPTY_STRING + (record.getPickPocket() + record.getPickPocketLevelBonus()));
-		mRemoveTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getRemoveTrap() + record.getRemoveTrapLevelBonus()));
-		mStealthField.setText(TKStringHelpers.EMPTY_STRING + (record.getStealth() + record.getStealthLevelBonus()));
+			mClimbField.setText(TKStringHelpers.EMPTY_STRING + (record.getClimb() + record.getClimbLevelBonus()));
+			mConcealField.setText(TKStringHelpers.EMPTY_STRING + (record.getConceal() + record.getConcealLevelBonus()));
+			mFindTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getFindTrap() + record.getFindTrapLevelBonus()));
+			mHearField.setText(TKStringHelpers.EMPTY_STRING + (record.getHear() + record.getHearLevelBonus()));
+			mLockPickField.setText(TKStringHelpers.EMPTY_STRING + (record.getLockPick() + record.getLockPickLevelBonus()));
+			mPickPocketField.setText(TKStringHelpers.EMPTY_STRING + (record.getPickPocket() + record.getPickPocketLevelBonus()));
+			mRemoveTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getRemoveTrap() + record.getRemoveTrapLevelBonus()));
+			mStealthField.setText(TKStringHelpers.EMPTY_STRING + (record.getStealth() + record.getStealthLevelBonus()));
 
-		mClimbLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getClimbLevelBonus());
-		mConcealLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getConcealLevelBonus());
-		mFindTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getFindTrapLevelBonus());
-		mHearLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHearLevelBonus());
-		mLockPickLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getLockPickLevelBonus());
-		mPickPocketLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getPickPocketLevelBonus());
-		mRemoveTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getRemoveTrapLevelBonus());
-		mStealthLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getStealthLevelBonus());
+			mClimbLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getClimbLevelBonus());
+			mConcealLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getConcealLevelBonus());
+			mFindTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getFindTrapLevelBonus());
+			mHearLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHearLevelBonus());
+			mLockPickLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getLockPickLevelBonus());
+			mPickPocketLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getPickPocketLevelBonus());
+			mRemoveTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getRemoveTrapLevelBonus());
+			mStealthLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getStealthLevelBonus());
 
-		mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocatedSkills());
+			mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocatedSkills());
+		}
 	}
 
 	@Override
-	public void focusGained(FocusEvent e) {
-		// do nothing
+	public void insertUpdate(DocumentEvent e) {
+		changedUpdate(e);
 	}
 
 	@Override
-	public void focusLost(FocusEvent e) {
-		Object source = e.getSource();
+	public void removeUpdate(DocumentEvent e) {
+		changedUpdate(e);
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 
 		SkillsRecord record = ((CharacterSheet) getOwner()).getSkillsRecord();
 		if (record == null) {
@@ -375,7 +385,9 @@ public class SkillsDisplay extends TKTitledDisplay implements FocusListener {
 			}
 		}
 		record.generateUnallocatedSkills();
-		loadDisplay();
+		if (!((CharacterSheet) getOwner()).isLoadingData()) {
+			loadDisplay();
+		}
 	}
 
 	/*****************************************************************************

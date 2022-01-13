@@ -11,15 +11,15 @@ import com.starfyre1.dataModel.PersonalInformationRecord;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class PersonalInformationDisplay extends TKTitledDisplay implements FocusListener {
+public class PersonalInformationDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -148,13 +148,18 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Focus
 	}
 
 	@Override
-	public void focusGained(FocusEvent e) {
-		// do nothing
+	public void insertUpdate(DocumentEvent e) {
+		changedUpdate(e);
 	}
 
 	@Override
-	public void focusLost(FocusEvent e) {
-		Object source = e.getSource();
+	public void removeUpdate(DocumentEvent e) {
+		changedUpdate(e);
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 
 		PersonalInformationRecord record = ((CharacterSheet) getOwner()).getPersonalInformationRecord();
 		if (record == null) {

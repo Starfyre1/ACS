@@ -4,14 +4,12 @@
 package com.starfyre1.GUI.spells;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.component.MagicAreaPopup;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKPopupMenu.ComboMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
-import com.starfyre1.dataModel.ClassesRecord;
-import com.starfyre1.dataset.MageList;
-import com.starfyre1.dataset.PriestList;
 import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
@@ -30,12 +28,10 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -57,15 +53,12 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	private static final String	LEVEL_IN_AREA_LABEL			= "Level in Area";					//$NON-NLS-1$
 	private static final String	LEARN_SPELL					= "Learn Spell";					//$NON-NLS-1$
 
-	private static final String	SELECT_MAGIC_AREA			= "Select Magic Area";				//$NON-NLS-1$
-
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	private TKPopupMenu			mAreaPopup;
 	//	private JPanel					mFilterPanel;
 	private JButton				mNewSpellButton				= new JButton(ACS.IMAGE_PLUS_ICON);
-	private Color				mOldColor					= null;
 
 	private JPanel				mCards;
 	private SpellList			mCurrentList;
@@ -93,7 +86,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		JPanel wrapper = new JPanel();
 
 		JLabel areaLabel = new JLabel(MAGIC_AREA_LABEL, SwingConstants.RIGHT);
-		mAreaPopup = new TKPopupMenu(generateMagicAreaPopup());
+		mAreaPopup = new TKPopupMenu(MagicAreaPopup.generateMagicAreaPopup(this, this));
 
 		JLabel experienceLabel = new JLabel(EXPERIENCE_IN_AREA_LABEL, SwingConstants.RIGHT);
 		JTextField experienceField = new JTextField(CharacterSheet.FIELD_SIZE_LARGE);
@@ -105,8 +98,10 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		mNewSpellButton.setOpaque(true);
 		mNewSpellButton.setPreferredSize(new Dimension(25, 25));
 		mNewSpellButton.setFocusable(false);
-		mNewSpellButton.setEnabled(!SELECT_MAGIC_AREA.equals(getMagicArea()));
+		mNewSpellButton.setEnabled(!MagicAreaPopup.SELECT_MAGIC_AREA.equals(getMagicArea()));
 		mNewSpellButton.addMouseListener(new MouseAdapter() {
+			private Color mOldColor = null;
+
 			@Override
 			public void mouseEntered(MouseEvent evt) {
 				if (mNewSpellButton.isEnabled()) {
@@ -129,7 +124,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String magicArea = getMagicArea();
-				if (!SELECT_MAGIC_AREA.equals(magicArea)) {
+				if (!MagicAreaPopup.SELECT_MAGIC_AREA.equals(magicArea)) {
 					SpellSelector selector = new SpellSelector((CharacterSheet) getOwner(), magicArea);
 					SpellRecord record = selector.getSpellToLearn();
 					if (record != null) {
@@ -152,54 +147,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		headerWrapper.add(wrapper);
 
 		return headerWrapper;
-	}
-
-	private JMenu generateMagicAreaPopup() {
-		JMenu popupMenu = TKPopupMenu.createMenu(SELECT_MAGIC_AREA);
-
-		MageList mages = ACS.getInstance().getMages();
-		PriestList priests = ACS.getInstance().getPriests();
-
-		ArrayList<String> groups = mages.getMagesGroupsList();
-		groups.addAll(priests.getPriestsGroupsList());
-
-		ArrayList<String> names = mages.getMagesNamesList();
-		names.addAll(priests.getPriestsNamesList());
-
-		ArrayList<ClassesRecord> records = mages.getRecordsList();
-		records.addAll(priests.getRecordsList());
-
-		ArrayList<JMenu> menus = new ArrayList<>();
-		for (int i = 0; i < groups.size(); i++) {
-			JMenu menu = new JMenu(groups.get(i));
-			menus.add(menu);
-			popupMenu.add(menu);
-		}
-
-		for (JMenu element : menus) {
-			for (int i = 0; i < names.size(); i++) {
-				if (element.getText().equals(records.get(i).getGroup())) {
-					JMenuItem menuItem = new JMenuItem(names.get(i));
-					menuItem.addActionListener(this);
-					element.add(menuItem);
-				}
-			}
-		}
-
-		for (int i = 0; i < names.size(); i++) {
-			if (records.get(i).getGroup() == null) {
-				JMenuItem menuItem = new JMenuItem(names.get(i));
-				menuItem.addActionListener(this);
-				popupMenu.add(menuItem, 0);
-			}
-		}
-
-		JMenuItem menuItem = new JMenuItem(SELECT_MAGIC_AREA);
-		menuItem.addActionListener(this);
-		popupMenu.add(menuItem, 0);
-		popupMenu.addItemListener(this);
-
-		return popupMenu;
 	}
 
 	@Override
@@ -230,10 +177,10 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		if (source instanceof JMenuItem) {
 			String text = ((JMenuItem) source).getText();
 			swapPanels(text);
-			if (ACS.getInstance().getClasses().getClassesNamesList().contains(text)) {
+			if (ACS.getClasses().getClassesNamesList().contains(text)) {
 				((CharacterSheet) getOwner()).updateRecords();
 			}
-			mNewSpellButton.setEnabled(!SELECT_MAGIC_AREA.equals(text));
+			mNewSpellButton.setEnabled(!MagicAreaPopup.SELECT_MAGIC_AREA.equals(text));
 		}
 	}
 
@@ -242,7 +189,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		Component comp[] = mCards.getComponents();
 		for (Component element : comp) {
 			if (element.getName().equals(text)) {
-				mCurrentList = SELECT_MAGIC_AREA.equals(text) ? null : (SpellList) element;
+				mCurrentList = MagicAreaPopup.SELECT_MAGIC_AREA.equals(text) ? null : (SpellList) element;
 				found = true;
 				break;
 			}
@@ -260,8 +207,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		mCards = new JPanel(new CardLayout());
 
 		JPanel panel = new JPanel();
-		panel.setName(SELECT_MAGIC_AREA);
-		mCards.add(SELECT_MAGIC_AREA, panel);
+		panel.setName(MagicAreaPopup.SELECT_MAGIC_AREA);
+		mCards.add(MagicAreaPopup.SELECT_MAGIC_AREA, panel);
 
 		return mCards;
 	}
@@ -345,7 +292,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		if (key.equals(SELECTED_MAGICAL_AREA_KEY)) {
 			mAreaPopup.selectPopupMenuItem(value);
 			swapPanels(mAreaPopup.getSelectedItem());
-			mNewSpellButton.setEnabled(!SELECT_MAGIC_AREA.equals(getMagicArea()));
+			mNewSpellButton.setEnabled(!MagicAreaPopup.SELECT_MAGIC_AREA.equals(getMagicArea()));
 		}
 	}
 

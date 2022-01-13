@@ -5,6 +5,7 @@ package com.starfyre1.GUI.determination;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
@@ -47,8 +48,8 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	JTextField[]				mLangField;
-	JTextField[]				mPointsField;
+	private JTextField[]		mLangField;
+	private JTextField[]		mDPPerWeekField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -82,8 +83,10 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 		int completed = 0;
 		int attempted = 0;
 
+		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
+
 		mLangField = new JTextField[ROWS];
-		mPointsField = new JTextField[ROWS];
+		mDPPerWeekField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] maintLabel = new JLabel[ROWS];
 		JLabel[] successfulLabel = new JLabel[ROWS];
@@ -107,8 +110,8 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 			mLangField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT, this);
 			langPanel.add(mLangField[i]);
 
-			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
-			dpPerWeekPanel.add(mPointsField[i]);
+			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+			dpPerWeekPanel.add(mDPPerWeekField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			usedLabel[i].setMinimumSize(size);
@@ -145,7 +148,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mLangField[i].getText().isEmpty() || mPointsField[i].getText().isBlank())) {
+			if (!(mLangField[i].getText().isEmpty() || mDPPerWeekField[i].getText().isBlank())) {
 				return true;
 			}
 		}
@@ -155,9 +158,9 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	public ArrayList<LanguageDeterminationRecord> getRecordsToLearn() {
 		ArrayList<LanguageDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mLangField[i].getText().isBlank() || mPointsField[i].getText().isBlank())) {
+			if (!(mLangField[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new LanguageDeterminationRecord(mLangField[i].getText().trim(), TKStringHelpers.getIntValue(mPointsField[i].getText().trim(), 0), COST, campaignDate));
+				list.add(new LanguageDeterminationRecord(mLangField[i].getText().trim(), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
 			}
 		}
 		return list;

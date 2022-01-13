@@ -156,9 +156,9 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 
 		JMenu popupMenu = TKPopupMenu.createMenu(SELECT_CLASS);
 
-		ClassList classes = ACS.getInstance().getClasses();
-		MageList mages = ACS.getInstance().getMages();
-		PriestList priests = ACS.getInstance().getPriests();
+		ClassList classes = ACS.getClasses();
+		MageList mages = ACS.getMages();
+		PriestList priests = ACS.getPriests();
 
 		ArrayList<String> groups = classes.getClassGroupsList();
 		groups.addAll(mages.getMagesGroupsList());
@@ -325,7 +325,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		if (source instanceof JMenuItem) {
 			String text = ((JMenuItem) source).getText();
 
-			if (ACS.getInstance().getClasses().getClassesNamesList().contains(text)) {
+			if (ACS.getClasses().getClassesNamesList().contains(text)) {
 				record.setClass(text);
 				((CharacterSheet) getOwner()).updateRecords();
 			} else {

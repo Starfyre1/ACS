@@ -106,17 +106,17 @@ public class ACS {
 	}
 
 	/** @return The classes. */
-	public ClassList getClasses() {
+	public static ClassList getClasses() {
 		return mClasses;
 	}
 
 	/** @return The mages. */
-	public MageList getMages() {
+	public static MageList getMages() {
 		return mMages;
 	}
 
 	/** @return The priests. */
-	public PriestList getPriests() {
+	public static PriestList getPriests() {
 		return mPriests;
 	}
 

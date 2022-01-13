@@ -11,16 +11,16 @@ import com.starfyre1.dataModel.CombatInformationRecord;
 
 import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class CombatInformationDisplay extends TKTitledDisplay implements FocusListener {
+public class CombatInformationDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -210,46 +210,56 @@ public class CombatInformationDisplay extends TKTitledDisplay implements FocusLi
 		return wrapper;
 	}
 
+	public boolean start = false;
+
 	@Override
 	public void loadDisplay() {
-		CombatInformationRecord record = ((CharacterSheet) getOwner()).getCombatInformationRecord();
 
-		mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
-		mHitLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHitLevelBonus());
-		mAttackSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getAttackSpeed());
+		if (!start) {
+			start = true;
+			CombatInformationRecord record = ((CharacterSheet) getOwner()).getCombatInformationRecord();
 
-		mMissileBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileBonus());
-		mCastingSpeedLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getCastingLevelBonus());
-		mMissileSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileSpeed());
+			mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
+			mHitLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHitLevelBonus());
+			mAttackSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getAttackSpeed());
 
-		mBowBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getBowBonus() + record.getBowLevelBonus()));
-		mBowLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getBowLevelBonus());
-		mBowSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getBowSpeed());
+			mMissileBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileBonus());
+			mCastingSpeedLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getCastingLevelBonus());
+			mMissileSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileSpeed());
 
-		mDamageBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getDamageBonus());
+			mBowBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getBowBonus() + record.getBowLevelBonus()));
+			mBowLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getBowLevelBonus());
+			mBowSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getBowSpeed());
 
-		mCastingSpeedField.setText(TKStringHelpers.EMPTY_STRING + (record.getCastingSpeed() + record.getCastingLevelBonus() / 4));
-		mManaField.setText(TKStringHelpers.EMPTY_STRING + record.getMana());
-		mFocusField.setText(TKStringHelpers.EMPTY_STRING + record.getFocus());
+			mDamageBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getDamageBonus());
 
-		mDefenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDefense());
-		mFreeField.setText(TKStringHelpers.EMPTY_STRING + record.getFree());
+			mCastingSpeedField.setText(TKStringHelpers.EMPTY_STRING + (record.getCastingSpeed() + record.getCastingLevelBonus() / 4));
+			mManaField.setText(TKStringHelpers.EMPTY_STRING + record.getMana());
+			mFocusField.setText(TKStringHelpers.EMPTY_STRING + record.getFocus());
 
-		mMovementField.setText(TKStringHelpers.EMPTY_STRING + record.getMovement());
-		mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocated());
+			mDefenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDefense());
+			mFreeField.setText(TKStringHelpers.EMPTY_STRING + record.getFree());
 
-		mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
+			mMovementField.setText(TKStringHelpers.EMPTY_STRING + record.getMovement());
+			mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocated());
 
+			mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
+		}
 	}
 
 	@Override
-	public void focusGained(FocusEvent e) {
-		// do nothing
+	public void insertUpdate(DocumentEvent e) {
+		changedUpdate(e);
 	}
 
 	@Override
-	public void focusLost(FocusEvent e) {
-		Object source = e.getSource();
+	public void removeUpdate(DocumentEvent e) {
+		changedUpdate(e);
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 
 		CombatInformationRecord record = ((CharacterSheet) getOwner()).getCombatInformationRecord();
 		if (record == null) {
@@ -267,7 +277,9 @@ public class CombatInformationDisplay extends TKTitledDisplay implements FocusLi
 			}
 		}
 		record.generateUnallocated();
-		loadDisplay();
+		if (!((CharacterSheet) getOwner()).isLoadingData()) {
+			loadDisplay();
+		}
 	}
 
 	/*****************************************************************************

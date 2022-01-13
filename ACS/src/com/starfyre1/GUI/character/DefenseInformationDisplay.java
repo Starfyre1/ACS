@@ -24,8 +24,6 @@ import com.starfyre1.interfaces.Savable;
 
 import java.awt.Component;
 import java.awt.GridLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -39,19 +37,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class DefenseInformationDisplay extends TKTitledDisplay implements Savable, LevelListener, FocusListener {
+public class DefenseInformationDisplay extends TKTitledDisplay implements Savable, LevelListener, DocumentListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
 	/*
 		There are many ways to figure your characters Base Armor Rating,
 		the two that have worked best for me in my games are as follows:
-	
+
 		1)	Start your character at a base of 50%, then add the Protection
 			Percentage from the armor you are wearing, this will give you
 			your Armor Rating.
-	
+
 		2)	Start your character with (2 X Dex) + 30% = Base Armor Rating,
 			then add the Protection Percentage from the armor you are
 			wearing, this will give you your Armor Rating.  This rule heavily
@@ -61,7 +61,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			1/2 their allotted carry capacity, at the time of combat.
 			(Remember this is a Optional rule, this way they can't take
 			Total advantage of a 18 Dexterity, and wear Field Plate!)
-	
+
 	*/
 
 	public static final String	FILE_SECTTION_START_KEY		= "DEFENSE_INFORMATION_SECTTION_START";	//$NON-NLS-1$
@@ -467,13 +467,18 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	}
 
 	@Override
-	public void focusGained(FocusEvent e) {
-		// do nothing
+	public void insertUpdate(DocumentEvent e) {
+		changedUpdate(e);
 	}
 
 	@Override
-	public void focusLost(FocusEvent e) {
-		Object source = e.getSource();
+	public void removeUpdate(DocumentEvent e) {
+		changedUpdate(e);
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 
 		if (source instanceof JTextField) {
 			if (((JTextField) source).equals(mStanimaLeftField)) {

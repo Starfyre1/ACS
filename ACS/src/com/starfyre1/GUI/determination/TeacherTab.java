@@ -5,16 +5,15 @@ package com.starfyre1.GUI.determination;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,22 +25,21 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	TEACHERS_DESCRIPTION	= "The payment will be up to the Game Masters running that particular campaign.\r\n"					// //$NON-NLS-1$
-					+ "These people will not be very cheap, they are usually very special people whose time is very precious.";									// //$NON-NLS-1$
+	private static final String	TEACHERS_DESCRIPTION	= "These people will not be very cheap, they are usually very special people whose time is very precious.";	// //$NON-NLS-1$
 
-	static final String			TEACHER_TAB_TITLE		= "Teachers";																							//$NON-NLS-1$
-	static final String			TEACHER_TAB_TOOLTIP		= "A record of teachers used, for what, and how much";													//$NON-NLS-1$
-	static final String			TEACHER_TITLE			= "Teacher's Name";																						//$NON-NLS-1$
+	static final String			TEACHER_TAB_TITLE		= "Teachers";																								//$NON-NLS-1$
+	static final String			TEACHER_TAB_TOOLTIP		= "A record of teachers used, for what, and how much";														//$NON-NLS-1$
+	static final String			TEACHER_TITLE			= "Teacher's Name";																							//$NON-NLS-1$
 
 	private static final int	ROWS					= 5;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	JTextField[]				mTeacherNameField;
-	JTextField[]				mExpertiseField;
-	JTextField[]				mCostLabel;
-	JLabel[]					mBonusLabel;
+	private JTextField[]		mTeacherNameField;
+	private JTextField[]		mExpertiseField;
+	private JTextField[]		mCostLabel;
+	private JTextField[]		mBonusLabel;
 
 	/*****************************************************************************
 	 * Constructors
@@ -80,12 +78,12 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 	}
 
 	private JPanel createCenterPanel() {
-		int currentMaintenance = 0;
+		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
 		mTeacherNameField = new JTextField[ROWS];
 		mExpertiseField = new JTextField[ROWS];
 		mCostLabel = new JTextField[ROWS];
-		mBonusLabel = new JLabel[ROWS];
+		mBonusLabel = new JTextField[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel teacherPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -94,9 +92,8 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 		JPanel bonusAmountPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 
 		teacherPanel.add(new JLabel(TEACHER_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
-		JLabel header = new JLabel("Expertise:", SwingConstants.CENTER); //$NON-NLS-1$
-		expertisePanel.add(header);
-		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
+		expertisePanel.add(new JLabel("Expertise:", SwingConstants.CENTER)); //$NON-NLS-1$
+
 		costPanel.add(new JLabel("Cost:", SwingConstants.CENTER)); //$NON-NLS-1$
 		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER)); //$NON-NLS-1$
 
@@ -107,15 +104,12 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 			mExpertiseField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
 			expertisePanel.add(mExpertiseField[i]);
 
-			mCostLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
+			mCostLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
 			costPanel.add(mCostLabel[i]);
 
-			mBonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));
-			mBonusLabel[i].setMinimumSize(size);
-			mBonusLabel[i].setPreferredSize(size);
+			mBonusLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT, this, filter);
 			bonusAmountPanel.add(mBonusLabel[i]);
 		}
-		bonusAmountPanel.add(Box.createVerticalGlue());
 
 		outerWrapper.add(teacherPanel);
 		outerWrapper.add(expertisePanel);

@@ -12,8 +12,6 @@ import com.starfyre1.dataModel.MoneyRecord;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -23,8 +21,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class MoneyDisplay extends TKTitledDisplay implements FocusListener {
+public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -127,13 +127,18 @@ public class MoneyDisplay extends TKTitledDisplay implements FocusListener {
 	}
 
 	@Override
-	public void focusGained(FocusEvent e) {
-		// do nothing
+	public void insertUpdate(DocumentEvent e) {
+		changedUpdate(e);
 	}
 
 	@Override
-	public void focusLost(FocusEvent e) {
-		Object source = e.getSource();
+	public void removeUpdate(DocumentEvent e) {
+		changedUpdate(e);
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 
 		MoneyRecord record = ((CharacterSheet) getOwner()).getMoneyRecord();
 		if (record == null) {

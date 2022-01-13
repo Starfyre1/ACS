@@ -1132,15 +1132,15 @@ public class CharacterSheet implements ActionListener {
 	}
 
 	public ClassList getClasses() {
-		return ACS.getInstance().getClasses();
+		return ACS.getClasses();
 	}
 
 	public MageList getMages() {
-		return ACS.getInstance().getMages();
+		return ACS.getMages();
 	}
 
 	public PriestList getPriests() {
-		return ACS.getInstance().getPriests();
+		return ACS.getPriests();
 	}
 
 	public JFrame getFrame() {

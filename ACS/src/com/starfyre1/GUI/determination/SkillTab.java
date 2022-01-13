@@ -5,6 +5,7 @@ package com.starfyre1.GUI.determination;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
@@ -28,16 +29,15 @@ public class SkillTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	SKILLS_DESCRIPTION	= "The character must find a teacher with the skill they want at the Highest Skill level they can find.\r\n"					// //$NON-NLS-1$
-					+ "To further increase the skill it will require further training and D.P. assignment";																			//$NON-NLS-1$
+	private static final String	SKILLS_DESCRIPTION	= "The character gains 1/4 the difference between the teachers Hit Bonus and their own.";	//$NON-NLS-1$
 
-	static final String			SKILL_TAB_TITLE		= "Skills";																														//$NON-NLS-1$
-	static final String			SKILL_TAB_TOOLTIP	= "To learn or improve a skill:";																								//$NON-NLS-1$
-	private static final String	COST_TEXT			= "Cost: 40-60";																												//$NON-NLS-1$
-	private static final String	MAINTAINENCE_TEXT	= "Maintain: 1 DP / week";																										//$NON-NLS-1$
+	static final String			SKILL_TAB_TITLE		= "Skills";																					//$NON-NLS-1$
+	static final String			SKILL_TAB_TOOLTIP	= "To learn or improve a skill:";															//$NON-NLS-1$
+	private static final String	COST_TEXT			= "Cost: 40-60";																			//$NON-NLS-1$
+	private static final String	MAINTAINENCE_TEXT	= "Maintain: 1 DP / week";																	//$NON-NLS-1$
 	private static final String	SKILL_TEXT			= SKILL_TAB_TOOLTIP;
-	private static final String	SUCCESS_TOOLTIP		= "1D20 < (Intelligence)";																										//$NON-NLS-1$
-	private static final String	SUCCESS_TEXT1		= "Success: 1D20 < ";																											//$NON-NLS-1$
+	private static final String	SUCCESS_TOOLTIP		= "1D20 < (Intelligence)";																	//$NON-NLS-1$
+	private static final String	SUCCESS_TEXT1		= "Success: 1D20 < ";																		//$NON-NLS-1$
 
 	private static final int	ROWS				= 5;
 	private static final int	COST				= 40;
@@ -45,9 +45,9 @@ public class SkillTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	JTextField[]				mSkillsField;
-	JLabel[]					mTeacherLabel;
-	JTextField[]				mPointsField;
+	private JTextField[]		mSkillsField;
+	private JLabel[]			mTeacherLabel;
+	private JTextField[]		mDPPerWeekField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -83,9 +83,11 @@ public class SkillTab extends DeterminationTab implements ActionListener {
 		int completed = 0;
 		int attempted = 0;
 
+		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
+
 		mSkillsField = new JTextField[ROWS];
 		mTeacherLabel = new JLabel[ROWS];
-		mPointsField = new JTextField[ROWS];
+		mDPPerWeekField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] bonusLabel = new JLabel[ROWS];
 		JLabel[] maintLabel = new JLabel[ROWS];
@@ -125,8 +127,8 @@ public class SkillTab extends DeterminationTab implements ActionListener {
 			bonusLabel[i].setPreferredSize(size);
 			bonusAmountPanel.add(bonusLabel[i]);
 
-			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
-			dpPerWeekPanel.add(mPointsField[i]);
+			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+			dpPerWeekPanel.add(mDPPerWeekField[i]);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			usedLabel[i].setMinimumSize(size);
@@ -167,7 +169,7 @@ public class SkillTab extends DeterminationTab implements ActionListener {
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mSkillsField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mPointsField[i].getText().isBlank())) {
+			if (!(mSkillsField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				return true;
 			}
 		}
@@ -177,9 +179,9 @@ public class SkillTab extends DeterminationTab implements ActionListener {
 	public ArrayList<SkillDeterminationRecord> getRecordsToLearn() {
 		ArrayList<SkillDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mSkillsField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mPointsField[i].getText().isBlank())) {
+			if (!(mSkillsField[i].getText().isBlank() || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new SkillDeterminationRecord(mSkillsField[i].getText().trim(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mPointsField[i].getText().trim(), 0), COST, campaignDate));
+				list.add(new SkillDeterminationRecord(mSkillsField[i].getText().trim(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
 			}
 		}
 		return list;

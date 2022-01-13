@@ -5,6 +5,7 @@ package com.starfyre1.GUI.determination;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
@@ -30,8 +31,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		PHYSICAL_DESCRIPTION	= "A stat cannot be raised more than (3) points, or above (18).\r\n"																							// //$NON-NLS-1$
-					+ "10% / week cumulative that the stat will drop to the original number, if not maintained.";																											//$NON-NLS-1$
+	private static final String		PHYSICAL_DESCRIPTION	= "A stat cannot be raised more than (3) points, or above (18).";																								//$NON-NLS-1$
 
 	static final String				PHYSICAL_TAB_TITLE		= "Attributes";																																					//$NON-NLS-1$
 	static final String				PHYSICAL_TAB_TOOLTIP	= "To raise your physical attributes:";																															//$NON-NLS-1$
@@ -51,8 +51,8 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	JCheckBox[]						mAttrCheckBox;
-	JTextField[]					mPointsField;
+	private JCheckBox[]				mAttrCheckBox;
+	private JTextField[]			mDPPerWeekField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -76,20 +76,20 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 		if (source instanceof JCheckBox) {
 			JCheckBox checkBox = (JCheckBox) source;
 			if (source.equals(mAttrCheckBox[0])) {
-				mPointsField[0].setEnabled(checkBox.isSelected());
-				mPointsField[0].setEditable(checkBox.isSelected());
+				mDPPerWeekField[0].setEnabled(checkBox.isSelected());
+				mDPPerWeekField[0].setEditable(checkBox.isSelected());
 			} else if (source.equals(mAttrCheckBox[1])) {
-				mPointsField[1].setEnabled(checkBox.isSelected());
-				mPointsField[1].setEditable(checkBox.isSelected());
+				mDPPerWeekField[1].setEnabled(checkBox.isSelected());
+				mDPPerWeekField[1].setEditable(checkBox.isSelected());
 			} else if (source.equals(mAttrCheckBox[2])) {
-				mPointsField[2].setEnabled(checkBox.isSelected());
-				mPointsField[2].setEditable(checkBox.isSelected());
+				mDPPerWeekField[2].setEnabled(checkBox.isSelected());
+				mDPPerWeekField[2].setEditable(checkBox.isSelected());
 			} else if (source.equals(mAttrCheckBox[3])) {
-				mPointsField[3].setEnabled(checkBox.isSelected());
-				mPointsField[3].setEditable(checkBox.isSelected());
+				mDPPerWeekField[3].setEnabled(checkBox.isSelected());
+				mDPPerWeekField[3].setEditable(checkBox.isSelected());
 			} else if (source.equals(mAttrCheckBox[4])) {
-				mPointsField[4].setEnabled(checkBox.isSelected());
-				mPointsField[4].setEditable(checkBox.isSelected());
+				mDPPerWeekField[4].setEnabled(checkBox.isSelected());
+				mDPPerWeekField[4].setEditable(checkBox.isSelected());
 			}
 			updateDialogButtons();
 		}
@@ -112,8 +112,10 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 		int completed = 0;
 		int attempted = 0;
 
+		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
+
 		mAttrCheckBox = new JCheckBox[ROWS];
-		mPointsField = new JTextField[ROWS];
+		mDPPerWeekField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] maintLabel = new JLabel[ROWS];
 		JLabel[] successfulLabel = new JLabel[ROWS];
@@ -137,10 +139,11 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 			mAttrCheckBox[i] = TKComponentHelpers.createCheckBox(ATTRIBUTE_NAMES[i], false, this);
 			attrPanel.add(mAttrCheckBox[i]);
 
-			mPointsField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this);
-			mPointsField[i].setEnabled(false);
-			mPointsField[i].setEditable(false);
-			dpPerWeekPanel.add(mPointsField[i]);
+			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+			mDPPerWeekField[i].getDocument().addDocumentListener(this);
+			mDPPerWeekField[i].setEnabled(false);
+			mDPPerWeekField[i].setEditable(false);
+			dpPerWeekPanel.add(mDPPerWeekField[i]);
 
 			Dimension checkBoxSize = new Dimension(mAttrCheckBox[i].getMinimumSize().width, TEXT_FIELD_HEIGHT);
 			mAttrCheckBox[i].setMaximumSize(new Dimension(checkBoxSize));
@@ -184,7 +187,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 
 		for (int i = 0; i < ROWS; i++) {
 			mAttrCheckBox[i].setEnabled(attribs == null ? false : attribs.getModifiedStat(ATTRIBUTE_NUMBERS[i]) < 18);
-			mPointsField[i].setEnabled(mAttrCheckBox[i].isEnabled());
+			mDPPerWeekField[i].setEnabled(mAttrCheckBox[i].isEnabled());
 		}
 	}
 
@@ -194,7 +197,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (mAttrCheckBox[i].isSelected() && mAttrCheckBox[i].isEnabled() && !mPointsField[i].getText().isBlank()) {
+			if (mAttrCheckBox[i].isSelected() && mAttrCheckBox[i].isEnabled() && !mDPPerWeekField[i].getText().isBlank()) {
 				return true;
 			}
 		}
@@ -204,9 +207,9 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 	public ArrayList<AttributeDeterminationRecord> getRecordsToLearn() {
 		ArrayList<AttributeDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (mAttrCheckBox[i].isSelected() && !mPointsField[i].getText().isBlank()) {
+			if (mAttrCheckBox[i].isSelected() && !mDPPerWeekField[i].getText().isBlank()) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new AttributeDeterminationRecord(i, TKStringHelpers.getIntValue(mPointsField[i].getText().trim(), 0), COST, campaignDate));
+				list.add(new AttributeDeterminationRecord(i, TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
 			}
 		}
 		return list;
