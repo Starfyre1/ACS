@@ -213,15 +213,14 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 		JPanel dpSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel successfulPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		JLabel header = new JLabel("School:", SwingConstants.CENTER); //$NON-NLS-1$
-		schoolPanel.add(header);
-		Dimension size = new Dimension(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT);
+		schoolPanel.add(new JLabel("School:", SwingConstants.CENTER)); //$NON-NLS-1$
 		spellPanel.add(new JLabel("Spell:", SwingConstants.CENTER)); //$NON-NLS-1$
 		costPanel.add(new JLabel("Cost:", SwingConstants.CENTER)); //$NON-NLS-1$
 		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
 		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
+		Dimension size = new Dimension(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT);
 		for (int i = 0; i < ROWS; i++) {
 			mSchoolPopup[i] = new TKPopupMenu(MagicAreaPopup.generateMagicAreaPopup(this, this));
 			Dimension size2 = new Dimension(mSchoolPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
@@ -298,7 +297,7 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 	protected String getSuccessText() {
 		//		AttributesRecord record = ACS.getInstance().getCharacterSheet().getAttributesRecord();
 		//		if (record == null) {
-		return "TBD"; //$NON-NLS-1$
+		return SUCCESS_TEXT;
 		//		}
 		//		int success = record.getModifiedStat(AttributesRecord.INT);
 		//		return SUCCESS_TEXT1 + success;

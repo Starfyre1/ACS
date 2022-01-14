@@ -44,6 +44,7 @@ public class WeaponList implements Savable {
 	 * Member Variables
 	 ****************************************************************************/
 	private static WeaponRecord[]			mWeaponMasterList;
+	private static String[]					mWeaponProficiencyList;
 	private static ArrayList<WeaponRecord>	mRecords				= new ArrayList<>(50);
 
 	private int								mCount;
@@ -120,6 +121,7 @@ public class WeaponList implements Savable {
 	public static Object[] getWeaponMasterList() {
 		if (mWeaponMasterList == null) {
 			mWeaponMasterList = new WeaponRecord[56];
+			mWeaponProficiencyList = new String[56];
 
 			try {
 				InputStream is = ACS.class.getModule().getResourceAsStream("resources/Weapon.txt"); //$NON-NLS-1$
@@ -153,7 +155,12 @@ public class WeaponList implements Savable {
 									TKStringHelpers.getIntValue(splitLine[13], 0), //
 									TKStringHelpers.getIntValue(splitLine[14], 0), //
 									TKStringHelpers.getFloatValue(splitLine[15], 0f));
-					mWeaponMasterList[count++] = record;
+					mWeaponMasterList[count] = record;
+					String name = mWeaponMasterList[count].getName();
+					if (!name.isBlank()) {
+						mWeaponProficiencyList[count] = name;
+					}
+					count++;
 				}
 
 			} catch (NoSuchElementException nsee) {
@@ -164,6 +171,13 @@ public class WeaponList implements Savable {
 
 		}
 		return mWeaponMasterList;
+	}
+
+	public static String[] getProficiencyList() {
+		if (mWeaponMasterList == null) {
+			getWeaponMasterList();
+		}
+		return mWeaponProficiencyList;
 	}
 
 	/*****************************************************************************

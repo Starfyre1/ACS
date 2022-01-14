@@ -179,18 +179,26 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 
 		JMenu popupMenu = TKPopupMenu.createMenu(SELECT_SKILL);
 
+		String[] groups = { "Basic Skills", "Thief Skills" }; //$NON-NLS-1$ //$NON-NLS-2$
+
+		ArrayList<JMenu> menus = new ArrayList<>();
 		popupMenu.addSeparator();
+		for (String group : groups) {
+			JMenu menu = new JMenu(group);
+			menus.add(menu);
+			popupMenu.add(menu);
+		}
+
 		for (String name : basicSkillsNames) {
 			JMenuItem menuItem = new JMenuItem(name);
 			menuItem.addActionListener(this);
-			popupMenu.add(menuItem);
+			menus.get(0).add(menuItem);
 		}
 
-		popupMenu.addSeparator();
 		for (String name : thiefSkillsNames) {
 			JMenuItem menuItem = new JMenuItem(name);
 			menuItem.addActionListener(this);
-			popupMenu.add(menuItem);
+			menus.get(1).add(menuItem);
 		}
 
 		JMenuItem menuItem = new JMenuItem(SELECT_SKILL);
