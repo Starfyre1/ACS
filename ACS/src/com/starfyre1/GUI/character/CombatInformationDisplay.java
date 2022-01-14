@@ -215,8 +215,9 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	@Override
 	public void loadDisplay() {
 
-		if (!start) {
-			start = true;
+		CharacterSheet sheet = (CharacterSheet) getOwner();
+		if (!sheet.isLoadingData()) {
+			sheet.setLoadingData(true);
 			CombatInformationRecord record = ((CharacterSheet) getOwner()).getCombatInformationRecord();
 
 			mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
@@ -245,6 +246,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 			mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
 		}
+		sheet.setLoadingData(false);
 	}
 
 	@Override

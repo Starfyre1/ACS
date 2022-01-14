@@ -19,12 +19,11 @@ public class MagicAreaPopup {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	SELECT_MAGIC_AREA	= "Select Magic Area";	//$NON-NLS-1$
+	public static final String SELECT_MAGIC_AREA = "Select Magic Area"; //$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private static int			mWhich				= -1;
 
 	/*****************************************************************************
 	 * Constructors
@@ -34,15 +33,7 @@ public class MagicAreaPopup {
 	 * Methods
 	 ****************************************************************************/
 	public static JMenu generateMagicAreaPopup(ActionListener aListener, ItemListener iListener) {
-		return generateMagicAreaPopup(aListener, iListener, -1);
-
-	}
-
-	public static JMenu generateMagicAreaPopup(ActionListener aListener, ItemListener iListener, int which) {
-
 		JMenu popupMenu = TKPopupMenu.createMenu(SELECT_MAGIC_AREA);
-
-		mWhich = which;
 
 		MageList mages = ACS.getMages();
 		PriestList priests = ACS.getPriests();
@@ -90,11 +81,6 @@ public class MagicAreaPopup {
 		popupMenu.addItemListener(iListener);
 
 		return popupMenu;
-	}
-
-	/** @return The mWhich. */
-	public static int getWhich() {
-		return mWhich;
 	}
 
 	/*****************************************************************************

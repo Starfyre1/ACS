@@ -223,7 +223,7 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			mSchoolPopup[i] = new TKPopupMenu(MagicAreaPopup.generateMagicAreaPopup(this, this, i));
+			mSchoolPopup[i] = new TKPopupMenu(MagicAreaPopup.generateMagicAreaPopup(this, this));
 			Dimension size2 = new Dimension(mSchoolPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mSchoolPopup[i].setMinimumSize(size2);
 			mSchoolPopup[i].setPreferredSize(size2);

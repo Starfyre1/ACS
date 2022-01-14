@@ -939,6 +939,10 @@ public class CharacterSheet implements ActionListener {
 		return mIsLoadingData;
 	}
 
+	public void setLoadingData(boolean loading) {
+		mIsLoadingData = loading;
+	}
+
 	/**
 	 * @return Percentage, as an int, of carry vs encumbrance;
 	 */
