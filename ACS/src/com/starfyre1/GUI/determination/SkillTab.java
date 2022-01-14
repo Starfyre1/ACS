@@ -121,7 +121,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			mSkillsField[i] = new TKPopupMenu(getSkillsMenu());//MagicAreaPopup.generateMagicAreaPopup(this, this, i));
+			mSkillsField[i] = new TKPopupMenu(getSkillsMenu());
 			Dimension size2 = new Dimension(mSkillsField[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mSkillsField[i].setMinimumSize(size2);
 			mSkillsField[i].setPreferredSize(size2);
