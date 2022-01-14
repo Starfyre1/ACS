@@ -25,68 +25,77 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	SKILLS_TITLE				= "Skills";			//$NON-NLS-1$
+	private static final String		SKILLS_TITLE				= "Skills";																		//$NON-NLS-1$
 
-	private static final String	APPRAISE_LABEL				= "Appraise";		//$NON-NLS-1$
-	private static final String	BANDAGING_LABEL				= "Bandaging";		//$NON-NLS-1$
-	private static final String	DEPTH_SENSE_LABEL			= "Depth Sense";	//$NON-NLS-1$
-	private static final String	DETECT_MAGIC_LABEL			= "Detect Magic";	//$NON-NLS-1$
-	private static final String	DETECT_METALS_LABEL			= "Detect Metals";	//$NON-NLS-1$
-	private static final String	DETECT_MORALS_LABEL			= "Detect Morals";	//$NON-NLS-1$
-	private static final String	DETECT_SECRET_DOORS_LABEL	= "Secret Doors";	//$NON-NLS-1$
-	private static final String	DETECT_TRAPS_LABEL			= "Detect Traps";	//$NON-NLS-1$
-	private static final String	HERBAL_LORE_LABEL			= "Herbal Lore";	//$NON-NLS-1$
-	private static final String	HUNTING_LABEL				= "Hunting";		//$NON-NLS-1$
-	private static final String	PERCEPTION_LABEL			= "Perception";		//$NON-NLS-1$
-	private static final String	TRACKING_LABEL				= "Tracking";		//$NON-NLS-1$
+	private static final String		LEVEL_BONUS_LABEL			= "Level Bonus";																//$NON-NLS-1$
+	private static final String		UNALLOCATED_LABEL			= "Unallocated";																//$NON-NLS-1$
 
-	private static final String	CONCEAL_LABEL				= "Conceal";		//$NON-NLS-1$
-	private static final String	STEALTH_LABEL				= "Stealth";		//$NON-NLS-1$
-	private static final String	HEAR_LABEL					= "Hear";			//$NON-NLS-1$
-	private static final String	LOCK_PICK_LABEL				= "Lock Pick";		//$NON-NLS-1$
-	private static final String	PICK_POCKET_LABEL			= "Pick Pocket";	//$NON-NLS-1$
-	private static final String	CLIMB_LABEL					= "Climb";			//$NON-NLS-1$
-	private static final String	FIND_TRAP_LABEL				= "Find Trap";		//$NON-NLS-1$
-	private static final String	REMOVE_TRAP_LABEL			= "Remove Trap";	//$NON-NLS-1$
-	private static final String	LEVEL_BONUS_LABEL			= "Level Bonus";	//$NON-NLS-1$
+	private static final String		APPRAISE_LABEL				= "Appraise";																	//$NON-NLS-1$
+	private static final String		BANDAGING_LABEL				= "Bandaging";																	//$NON-NLS-1$
+	private static final String		DEPTH_SENSE_LABEL			= "Depth Sense";																//$NON-NLS-1$
+	private static final String		DETECT_MAGIC_LABEL			= "Detect Magic";																//$NON-NLS-1$
+	private static final String		DETECT_METALS_LABEL			= "Detect Metals";																//$NON-NLS-1$
+	private static final String		DETECT_MORALS_LABEL			= "Detect Morals";																//$NON-NLS-1$
+	private static final String		DETECT_SECRET_DOORS_LABEL	= "Secret Doors";																//$NON-NLS-1$
+	private static final String		DETECT_TRAPS_LABEL			= "Detect Traps";																//$NON-NLS-1$
+	private static final String		HERBAL_LORE_LABEL			= "Herbal Lore";																//$NON-NLS-1$
+	private static final String		HUNTING_LABEL				= "Hunting";																	//$NON-NLS-1$
+	private static final String		PERCEPTION_LABEL			= "Perception";																	//$NON-NLS-1$
+	private static final String		TRACKING_LABEL				= "Tracking";																	//$NON-NLS-1$
 
-	private static final String	UNALLOCATED_LABEL			= "Unallocated";	//$NON-NLS-1$
+	private static final String		CONCEAL_LABEL				= "Conceal";																	//$NON-NLS-1$
+	private static final String		STEALTH_LABEL				= "Stealth";																	//$NON-NLS-1$
+	private static final String		HEAR_LABEL					= "Hear";																		//$NON-NLS-1$
+	private static final String		LOCK_PICK_LABEL				= "Lock Pick";																	//$NON-NLS-1$
+	private static final String		PICK_POCKET_LABEL			= "Pick Pocket";																//$NON-NLS-1$
+	private static final String		CLIMB_LABEL					= "Climb";																		//$NON-NLS-1$
+	private static final String		FIND_TRAP_LABEL				= "Find Trap";																	//$NON-NLS-1$
+	private static final String		REMOVE_TRAP_LABEL			= "Remove Trap";																//$NON-NLS-1$
+
+	private static final String[]	BASIC_SKILLS_LABELS			= { APPRAISE_LABEL, BANDAGING_LABEL, DEPTH_SENSE_LABEL, DETECT_MAGIC_LABEL,		//
+					DETECT_METALS_LABEL, DETECT_MORALS_LABEL, DETECT_TRAPS_LABEL, HERBAL_LORE_LABEL, HUNTING_LABEL, PERCEPTION_LABEL,			//
+					DETECT_SECRET_DOORS_LABEL, TRACKING_LABEL };
+
+	private static final String[]	THIEF_SKILLS_LABELS			= { CLIMB_LABEL, CONCEAL_LABEL, FIND_TRAP_LABEL, HEAR_LABEL, LOCK_PICK_LABEL,	//
+					PICK_POCKET_LABEL, REMOVE_TRAP_LABEL, STEALTH_LABEL };
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private JTextField			mAppraiseField;
-	private JTextField			mBandagingField;
-	private JTextField			mDepthSenseField;
-	private JTextField			mDetectMagicField;
-	private JTextField			mDetectMetalsField;
-	private JTextField			mDetectMoralsField;
-	private JTextField			mDetectSecretDoorsField;
-	private JTextField			mDetectTrapsField;
-	private JTextField			mHerbalLoreField;
-	private JTextField			mHuntingField;
-	private JTextField			mPerceptionField;
-	private JTextField			mTrackingField;
+	private JTextField				mAppraiseField;
+	private JTextField				mBandagingField;
+	private JTextField				mDepthSenseField;
+	private JTextField				mDetectMagicField;
+	private JTextField				mDetectMetalsField;
+	private JTextField				mDetectMoralsField;
+	private JTextField				mDetectSecretDoorsField;
+	private JTextField				mDetectTrapsField;
+	private JTextField				mHerbalLoreField;
+	private JTextField				mHuntingField;
+	private JTextField				mPerceptionField;
+	private JTextField				mTrackingField;
 
-	private JTextField			mClimbField;
-	private JTextField			mConcealField;
-	private JTextField			mFindTrapField;
-	private JTextField			mHearField;
-	private JTextField			mLockPickField;
-	private JTextField			mPickPocketField;
-	private JTextField			mRemoveTrapField;
-	private JTextField			mStealthField;
+	private JTextField				mClimbField;
+	private JTextField				mConcealField;
+	private JTextField				mFindTrapField;
+	private JTextField				mHearField;
+	private JTextField				mLockPickField;
+	private JTextField				mPickPocketField;
+	private JTextField				mRemoveTrapField;
+	private JTextField				mStealthField;
 
-	private JTextField			mClimbLevelBonusField;
-	private JTextField			mConcealLevelBonusField;
-	private JTextField			mFindTrapLevelBonusField;
-	private JTextField			mHearLevelBonusField;
-	private JTextField			mLockPickLevelBonusField;
-	private JTextField			mPickPocketLevelBonusField;
-	private JTextField			mRemoveTrapLevelBonusField;
-	private JTextField			mStealthLevelBonusField;
+	private JTextField				mClimbLevelBonusField;
+	private JTextField				mConcealLevelBonusField;
+	private JTextField				mFindTrapLevelBonusField;
+	private JTextField				mHearLevelBonusField;
+	private JTextField				mLockPickLevelBonusField;
+	private JTextField				mPickPocketLevelBonusField;
+	private JTextField				mRemoveTrapLevelBonusField;
+	private JTextField				mStealthLevelBonusField;
 
-	private JTextField			mUnallocatedField;
+	private JTextField				mUnallocatedField;
+
+	public boolean					mLoadDisplayStarted			= false;
 
 	/*****************************************************************************
 	 * Constructors
@@ -302,14 +311,12 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 		return outer;
 	}
 
-	public boolean start = false;
-
 	@Override
 	public void loadDisplay() {
-
-		if (!start) {
-			start = true;
-			SkillsRecord record = ((CharacterSheet) getOwner()).getSkillsRecord();
+		CharacterSheet sheet = (CharacterSheet) getOwner();
+		if (!sheet.isLoadingData()) {
+			sheet.setLoadingData(true);
+			SkillsRecord record = sheet.getSkillsRecord();
 
 			mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
 			mBandagingField.setText(TKStringHelpers.EMPTY_STRING + record.getBandaging());
@@ -344,6 +351,8 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 
 			mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocatedSkills());
 		}
+		sheet.setLoadingData(false);
+
 	}
 
 	@Override
@@ -393,6 +402,13 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public static String[] getBasicSkillsLabels() {
+		return BASIC_SKILLS_LABELS;
+	}
+
+	public static String[] getThiefSkillsLabels() {
+		return THIEF_SKILLS_LABELS;
+	}
 
 	/*****************************************************************************
 	 * Serialization
