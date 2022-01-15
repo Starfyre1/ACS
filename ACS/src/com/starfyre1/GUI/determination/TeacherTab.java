@@ -111,13 +111,9 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel teacherPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		//		teacherPanel.setBorder(new LineBorder(Color.RED));
 		JPanel expertisePanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
-		//		expertisePanel.setBorder(new LineBorder(Color.RED));
 		JPanel bonusAmountPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		//		bonusAmountPanel.setBorder(new LineBorder(Color.RED));
 		JPanel costPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		//		costPanel.setBorder(new LineBorder(Color.RED));
 
 		teacherPanel.add(new JLabel(TEACHERS_NAME));
 		expertisePanel.add(new JLabel(EXPERTISE));
@@ -129,6 +125,7 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 			teacherPanel.add(mTeacherNameField[i]);
 
 			mExpertiseLabel[i] = new TKPopupMenu(getExpertisePopup());
+			mExpertiseLabel[i].setAlignmentX(Component.LEFT_ALIGNMENT);
 			Dimension size = new Dimension(mExpertiseLabel[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mExpertiseLabel[i].setMaximumSize(size);
 			mExpertiseLabel[i].setPreferredSize(size);

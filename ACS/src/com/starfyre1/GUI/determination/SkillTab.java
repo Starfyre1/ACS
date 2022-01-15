@@ -4,7 +4,6 @@ package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.character.SkillsDisplay;
-import com.starfyre1.GUI.component.MagicAreaPopup;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
@@ -122,6 +121,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 
 		for (int i = 0; i < ROWS; i++) {
 			mSkillsField[i] = new TKPopupMenu(getSkillsMenu());
+			mSkillsField[i].setAlignmentX(Component.LEFT_ALIGNMENT);
 			Dimension size2 = new Dimension(mSkillsField[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mSkillsField[i].setMinimumSize(size2);
 			mSkillsField[i].setPreferredSize(size2);
@@ -215,7 +215,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mSkillsField[i].getSelectedItem().equals(MagicAreaPopup.SELECT_MAGIC_AREA) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mSkillsField[i].getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				return true;
 			}
 		}
@@ -225,7 +225,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 	public ArrayList<SkillDeterminationRecord> getRecordsToLearn() {
 		ArrayList<SkillDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mSkillsField[i].getSelectedItem().equals(MagicAreaPopup.SELECT_MAGIC_AREA) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mSkillsField[i].getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
 				list.add(new SkillDeterminationRecord(mSkillsField[i].getSelectedItem(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
 			}

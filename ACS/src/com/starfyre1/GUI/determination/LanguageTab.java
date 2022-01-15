@@ -38,7 +38,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	static final String				LANGUAGE_TAB_TITLE		= "Languages";																						//$NON-NLS-1$
 	static final String				LANGUAGE_TAB_TOOLTIP	= "To learn a new language or become fluent in a known one:";										//$NON-NLS-1$
 
-	private static final String		CHOOSE_LANGUAGE			= "Choose Language";
+	private static final String		CHOOSE_LANGUAGE			= "Choose Language";																				//$NON-NLS-1$
 	private static final String		COST_TEXT				= "Cost: 40 (immersive) or 80 (Tutor)";																//$NON-NLS-1$
 	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week for Fluent";																//$NON-NLS-1$
 	private static final String		LANGUAGE_TEXT			= LANGUAGE_TAB_TOOLTIP;
@@ -128,6 +128,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 
 		for (int i = 0; i < ROWS; i++) {
 			mLangField[i] = new TKPopupMenu(getLanguagePopup());
+			mLangField[i].setAlignmentX(Component.LEFT_ALIGNMENT);
 			Dimension size2 = new Dimension(mLangField[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mLangField[i].setMinimumSize(size2);
 			mLangField[i].setPreferredSize(size2);
