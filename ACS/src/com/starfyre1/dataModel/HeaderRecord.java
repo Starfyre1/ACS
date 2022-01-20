@@ -191,9 +191,9 @@ public class HeaderRecord implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
-		br.write(PLAYER_NAME_KEY + TKStringHelpers.SPACE + mPlayerName.replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
-		br.write(CHARACTER_NAME_KEY + TKStringHelpers.SPACE + mCharacterName.replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
-		br.write(CLASS_KEY + TKStringHelpers.SPACE + mClass.replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+		br.write(PLAYER_NAME_KEY + TKStringHelpers.SPACE + mPlayerName + System.lineSeparator());
+		br.write(CHARACTER_NAME_KEY + TKStringHelpers.SPACE + mCharacterName + System.lineSeparator());
+		br.write(CLASS_KEY + TKStringHelpers.SPACE + mClass + System.lineSeparator());
 		br.write(CURRENT_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperience + System.lineSeparator());
 		br.write(CURRENT_CAMPAIGN_DATE_KEY + TKStringHelpers.SPACE + CampaignDateChooser.getCampaignDate() + System.lineSeparator());
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
@@ -203,7 +203,6 @@ public class HeaderRecord implements Savable {
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
-		value = value.replace("~", " "); //$NON-NLS-1$ //$NON-NLS-2$
 		if (key.equals(PLAYER_NAME_KEY)) {
 			mPlayerName = value;
 		} else if (key.equals(CHARACTER_NAME_KEY)) {
@@ -224,8 +223,6 @@ public class HeaderRecord implements Savable {
 	 *
 	 */
 	public void clearRecords() {
-		mPlayerName = TKStringHelpers.EMPTY_STRING;
-		mCharacterName = TKStringHelpers.EMPTY_STRING;
 		mClass = TKStringHelpers.EMPTY_STRING;
 		mExperience = 0;
 		mOldExperience = 0;

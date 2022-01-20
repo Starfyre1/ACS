@@ -253,8 +253,10 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 						// key has no value
 						break;
 					}
-
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value += " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}
@@ -277,7 +279,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		Component comp[] = mCards.getComponents();
 		for (Component element : comp) {
 			if (element instanceof SpellList) {
-				br.write(SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + ((SpellList) element).getName().replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+				br.write(SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + ((SpellList) element).getName() + System.lineSeparator());
 				((SpellList) element).saveValues(br);
 			}
 		}
@@ -288,7 +290,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
-		value = value.replace("~", " "); //$NON-NLS-1$ //$NON-NLS-2$
 		if (key.equals(SELECTED_MAGICAL_AREA_KEY)) {
 			mAreaPopup.selectPopupMenuItem(value);
 			swapPanels(mAreaPopup.getSelectedItem());

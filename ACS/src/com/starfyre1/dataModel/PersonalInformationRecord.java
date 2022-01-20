@@ -466,6 +466,9 @@ public class PersonalInformationRecord implements Savable {
 						break;
 					}
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value += " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}
@@ -492,7 +495,7 @@ public class PersonalInformationRecord implements Savable {
 		br.write(HAIR_KEY + TKStringHelpers.SPACE + mHair + System.lineSeparator());
 		br.write(EYES_KEY + TKStringHelpers.SPACE + mEyes + System.lineSeparator());
 		br.write(AGE_KEY + TKStringHelpers.SPACE + mAge + System.lineSeparator());
-		br.write(SOCIAL_CLASS_KEY + TKStringHelpers.SPACE + mSocialClass.getSocialClass().replace(" ", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+		br.write(SOCIAL_CLASS_KEY + TKStringHelpers.SPACE + mSocialClass.getSocialClass() + System.lineSeparator());
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}
@@ -513,7 +516,7 @@ public class PersonalInformationRecord implements Savable {
 		} else if (AGE_KEY.equals(key)) {
 			mAge = TKStringHelpers.getIntValue(value, 0);
 		} else if (SOCIAL_CLASS_KEY.equals(key)) {
-			mSocialClass = new SocialClassRecord(value.replace("~", " ")); //$NON-NLS-1$ //$NON-NLS-2$
+			mSocialClass = new SocialClassRecord(value);
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
