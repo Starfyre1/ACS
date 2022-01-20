@@ -266,6 +266,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	@Override
 	public void changedUpdate(DocumentEvent e) {
 		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
+		System.out.println(source);
 
 		CombatInformationRecord record = ((CharacterSheet) getOwner()).getCombatInformationRecord();
 		if (record == null) {
