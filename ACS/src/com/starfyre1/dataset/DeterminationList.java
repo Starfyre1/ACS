@@ -31,7 +31,8 @@ public class DeterminationList implements Savable {
 	private static ArrayList<MagicSpellDeterminationRecord>			mMagicSpellRecords		= new ArrayList<>(64);
 	private static ArrayList<SkillDeterminationRecord>				mSkillRecords			= new ArrayList<>(16);
 	private static ArrayList<WeaponProficiencyDeterminationRecord>	mWeaponRecords			= new ArrayList<>(16);
-	private static ArrayList<TeacherDeterminationRecord>			mTeachersRecords		= new ArrayList<>(16);
+	private static ArrayList<TeacherDeterminationRecord>			mSkillsTeachersRecords	= new ArrayList<>(16);
+	private static ArrayList<TeacherDeterminationRecord>			mWeaponsTeachersRecords	= new ArrayList<>(16);
 
 	/*****************************************************************************
 	 * Constructors
@@ -40,42 +41,90 @@ public class DeterminationList implements Savable {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	public void addAttribRecord(AttributeDeterminationRecord record) {
+	public static void addAttribRecord(AttributeDeterminationRecord record) {
 		mAttribRecords.add(record);
 	}
 
-	public void addLanguageRecord(LanguageDeterminationRecord record) {
+	public static void addLanguageRecord(LanguageDeterminationRecord record) {
 		mLanguageRecords.add(record);
 	}
 
-	public void addMagicSpellRecord(MagicSpellDeterminationRecord record) {
+	public static void addMagicSpellRecord(MagicSpellDeterminationRecord record) {
 		mMagicSpellRecords.add(record);
 	}
 
-	public void addSkillRecord(SkillDeterminationRecord record) {
+	public static void addSkillRecord(SkillDeterminationRecord record) {
 		mSkillRecords.add(record);
 	}
 
-	public void addWeaponRecord(WeaponProficiencyDeterminationRecord record) {
+	public static void addWeaponRecord(WeaponProficiencyDeterminationRecord record) {
 		mWeaponRecords.add(record);
 	}
 
-	public void addTeacherRecord(TeacherDeterminationRecord record) {
-		mTeachersRecords.add(record);
+	public static void addSkillsTeacherRecord(TeacherDeterminationRecord record) {
+		mSkillsTeachersRecords.add(record);
 	}
 
-	public void clearRecords() {
+	public static void addWeaponsTeacherRecord(TeacherDeterminationRecord record) {
+		mWeaponsTeachersRecords.add(record);
+	}
+
+	public static void clearRecords() {
 		mAttribRecords = new ArrayList<>(16);
 		mLanguageRecords = new ArrayList<>(16);
 		mMagicSpellRecords = new ArrayList<>(64);
 		mSkillRecords = new ArrayList<>(16);
 		mWeaponRecords = new ArrayList<>(16);
-		mTeachersRecords = new ArrayList<>(16);
+		mSkillsTeachersRecords = new ArrayList<>(16);
+		mWeaponsTeachersRecords = new ArrayList<>(16);
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	/** @return The mAttribRecords. */
+	public static ArrayList<AttributeDeterminationRecord> getAttribRecords() {
+		return mAttribRecords;
+	}
+
+	/** @return The mLanguageRecords. */
+	public static ArrayList<LanguageDeterminationRecord> getLanguageRecords() {
+		return mLanguageRecords;
+	}
+
+	/** @return The mMagicSpellRecords. */
+	public static ArrayList<MagicSpellDeterminationRecord> getMagicSpellRecords() {
+		return mMagicSpellRecords;
+	}
+
+	/** @return The mSkillRecords. */
+	public static ArrayList<SkillDeterminationRecord> getSkillRecords() {
+		return mSkillRecords;
+	}
+
+	/** @return The mWeaponRecords. */
+	public static ArrayList<WeaponProficiencyDeterminationRecord> getWeaponRecords() {
+		return mWeaponRecords;
+	}
+
+	/** @return The mTeachersRecords. */
+	public static ArrayList<TeacherDeterminationRecord> getSkillsTeachersRecords() {
+		return mSkillsTeachersRecords;
+	}
+
+	/** @return The mTeachersRecords. */
+	public static ArrayList<TeacherDeterminationRecord> getWeaponsTeachersRecords() {
+		return mWeaponsTeachersRecords;
+	}
+
+	/** @return The mTeachersRecords. */
+	public static ArrayList<TeacherDeterminationRecord> getTeachersRecords() {
+		ArrayList<TeacherDeterminationRecord> list = new ArrayList<>();
+		list.addAll(mSkillsTeachersRecords);
+		list.addAll(mWeaponsTeachersRecords);
+		return list;
+	}
 
 	/*****************************************************************************
 	 * Serialization
@@ -133,14 +182,16 @@ public class DeterminationList implements Savable {
 		for (WeaponProficiencyDeterminationRecord record : mWeaponRecords) {
 			record.saveValues(br);
 		}
-		for (TeacherDeterminationRecord record : mTeachersRecords) {
+		for (TeacherDeterminationRecord record : mSkillsTeachersRecords) {
+			record.saveValues(br);
+		}
+		for (TeacherDeterminationRecord record : mWeaponsTeachersRecords) {
 			record.saveValues(br);
 		}
 
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 
-	// DW need to add magic info to Armor
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
 		// DW to do

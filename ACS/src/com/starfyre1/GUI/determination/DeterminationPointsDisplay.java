@@ -88,37 +88,37 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 					AttributesTab tab = (AttributesTab) comp;
 					ArrayList<AttributeDeterminationRecord> list = tab.getRecordsToLearn();
 					for (AttributeDeterminationRecord record : list) {
-						determinationList.addAttribRecord(record);
+						DeterminationList.addAttribRecord(record);
 					}
 				} else if (comp instanceof LanguageTab) {
 					LanguageTab tab = (LanguageTab) comp;
 					ArrayList<LanguageDeterminationRecord> list = tab.getRecordsToLearn();
 					for (LanguageDeterminationRecord record : list) {
-						determinationList.addLanguageRecord(record);
+						DeterminationList.addLanguageRecord(record);
 					}
 				} else if (comp instanceof MagicSpellTab) {
 					MagicSpellTab tab = (MagicSpellTab) comp;
 					ArrayList<MagicSpellDeterminationRecord> list = tab.getRecordsToLearn();
 					for (MagicSpellDeterminationRecord record : list) {
-						determinationList.addMagicSpellRecord(record);
+						DeterminationList.addMagicSpellRecord(record);
 					}
 				} else if (comp instanceof WeaponProficiencyTab) {
 					WeaponProficiencyTab tab = (WeaponProficiencyTab) comp;
 					ArrayList<WeaponProficiencyDeterminationRecord> list = tab.getRecordsToLearn();
 					for (WeaponProficiencyDeterminationRecord record : list) {
-						determinationList.addWeaponRecord(record);
+						DeterminationList.addWeaponRecord(record);
 					}
 				} else if (comp instanceof SkillTab) {
 					SkillTab tab = (SkillTab) comp;
 					ArrayList<SkillDeterminationRecord> list = tab.getRecordsToLearn();
 					for (SkillDeterminationRecord record : list) {
-						determinationList.addSkillRecord(record);
+						DeterminationList.addSkillRecord(record);
 					}
 				} else if (comp instanceof TeacherTab) {
 					TeacherTab tab = (TeacherTab) comp;
 					ArrayList<TeacherDeterminationRecord> list = tab.getRecordsToLearn();
 					for (TeacherDeterminationRecord record : list) {
-						determinationList.addTeacherRecord(record);
+						//						determinationList. (record);
 					}
 				}
 				// DW Create Record
