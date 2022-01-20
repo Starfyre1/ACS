@@ -670,14 +670,17 @@ public class CharacterSheet implements ActionListener {
 		if (cmd.equals(NEW)) {
 			saveOption(false);
 			clearRecords();
+			loadDisplay();
 			createAndUpdate();
 		} else if (cmd.equals(OPEN)) {
 			saveOption(false);
 			clearRecords();
+			loadDisplay();
 			loadAndUpdate(null);
 		} else if (cmd.equals(CLOSE)) {
 			saveOption(false);
 			clearRecords();
+			loadDisplay();
 		} else if (cmd.equals(SAVE)) {
 			if (mCharacterFile == null) {
 				saveAs();
@@ -744,10 +747,9 @@ public class CharacterSheet implements ActionListener {
 			mMagicItemList.clearRecords();
 		}
 		if (mDeterminationList != null) {
-			mDeterminationList.clearRecords();
+			DeterminationList.clearRecords();
 		}
 		mDefenseInformationDisplay.clearRecords();
-		loadDisplay();
 		mIsCharacterLoaded = false;
 	}
 
@@ -947,7 +949,13 @@ public class CharacterSheet implements ActionListener {
 	 * @return Percentage, as an int, of carry vs encumbrance;
 	 */
 	public int getPercentEncumbrance() {
-		int carry = getPersonalInformationRecord().getCarry();
+		PersonalInformationRecord record = getPersonalInformationRecord();
+
+		if (record == null) {
+			return 0;
+		}
+
+		int carry = record.getCarry();
 		if (carry == 0) {
 			return 0;
 		}
@@ -1334,6 +1342,7 @@ public class CharacterSheet implements ActionListener {
 			mJournalTab.saveValues(br);
 			HistoryManager.getInstance().saveValues(br);
 			JOptionPane.showMessageDialog(mFrame, "File Saved: " + file.getName()); //$NON-NLS-1$
+			PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		} finally {

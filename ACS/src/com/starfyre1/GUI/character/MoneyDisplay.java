@@ -117,13 +117,15 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 	@Override
 	public void loadDisplay() {
 		MoneyRecord record = ((CharacterSheet) getOwner()).getMoneyRecord();
-		mGoldField.setText(TKStringHelpers.EMPTY_STRING + record.getGold());
-		mSilverField.setText(TKStringHelpers.EMPTY_STRING + record.getSilver());
-		mCopperField.setText(TKStringHelpers.EMPTY_STRING + record.getCopper());
-		mGemsArea.setText(record.getGemsArea().toString());
-		mJewelryArea.setText(TKStringHelpers.EMPTY_STRING + record.getJewelryArea());
-		mOtherArea.setText(TKStringHelpers.EMPTY_STRING + record.getOtherArea());
 
+		if (record != null) {
+			mGoldField.setText(TKStringHelpers.EMPTY_STRING + record.getGold());
+			mSilverField.setText(TKStringHelpers.EMPTY_STRING + record.getSilver());
+			mCopperField.setText(TKStringHelpers.EMPTY_STRING + record.getCopper());
+			mGemsArea.setText(record.getGemsArea().toString());
+			mJewelryArea.setText(TKStringHelpers.EMPTY_STRING + record.getJewelryArea());
+			mOtherArea.setText(TKStringHelpers.EMPTY_STRING + record.getOtherArea());
+		}
 	}
 
 	@Override

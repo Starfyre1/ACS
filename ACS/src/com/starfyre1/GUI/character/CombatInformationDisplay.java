@@ -8,6 +8,7 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.CombatInformationRecord;
+import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -218,33 +219,36 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		CharacterSheet sheet = (CharacterSheet) getOwner();
 		if (!sheet.isLoadingData()) {
 			sheet.setLoadingData(true);
-			CombatInformationRecord record = ((CharacterSheet) getOwner()).getCombatInformationRecord();
+			CombatInformationRecord record = sheet.getCombatInformationRecord();
+			BaseClass characterClass = sheet.getHeaderRecord().getCharacterClass();
 
-			mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
-			mHitLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHitLevelBonus());
-			mAttackSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getAttackSpeed());
+			if (!(record == null || characterClass == null)) {
+				mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
+				mHitLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHitLevelBonus());
+				mAttackSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getAttackSpeed());
 
-			mMissileBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileBonus());
-			mCastingSpeedLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getCastingLevelBonus());
-			mMissileSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileSpeed());
+				mMissileBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileBonus());
+				mCastingSpeedLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getCastingLevelBonus());
+				mMissileSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileSpeed());
 
-			mBowBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getBowBonus() + record.getBowLevelBonus()));
-			mBowLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getBowLevelBonus());
-			mBowSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getBowSpeed());
+				mBowBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getBowBonus() + record.getBowLevelBonus()));
+				mBowLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getBowLevelBonus());
+				mBowSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getBowSpeed());
 
-			mDamageBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getDamageBonus());
+				mDamageBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getDamageBonus());
 
-			mCastingSpeedField.setText(TKStringHelpers.EMPTY_STRING + (record.getCastingSpeed() + record.getCastingLevelBonus() / 4));
-			mManaField.setText(TKStringHelpers.EMPTY_STRING + record.getMana());
-			mFocusField.setText(TKStringHelpers.EMPTY_STRING + record.getFocus());
+				mCastingSpeedField.setText(TKStringHelpers.EMPTY_STRING + (record.getCastingSpeed() + record.getCastingLevelBonus() / 4));
+				mManaField.setText(TKStringHelpers.EMPTY_STRING + record.getMana());
+				mFocusField.setText(TKStringHelpers.EMPTY_STRING + record.getFocus());
 
-			mDefenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDefense());
-			mFreeField.setText(TKStringHelpers.EMPTY_STRING + record.getFree());
+				mDefenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDefense());
+				mFreeField.setText(TKStringHelpers.EMPTY_STRING + record.getFree());
 
-			mMovementField.setText(TKStringHelpers.EMPTY_STRING + record.getMovement());
-			mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocated());
+				mMovementField.setText(TKStringHelpers.EMPTY_STRING + record.getMovement());
+				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocated());
 
-			mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
+				mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
+			}
 		}
 		sheet.setLoadingData(false);
 	}

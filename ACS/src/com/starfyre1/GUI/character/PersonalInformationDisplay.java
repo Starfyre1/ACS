@@ -209,18 +209,20 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 	public void loadDisplay() {
 		PersonalInformationRecord record = ((CharacterSheet) getOwner()).getPersonalInformationRecord();
 
-		mHeightField.setText(record.getHeight());
-		mWeightField.setText(TKStringHelpers.EMPTY_STRING + record.getWeight());
-		mSexField.setText(record.getSex());
-		mHairField.setText(record.getHair());
-		mEyesField.setText(record.getEyes());
-		mAgeField.setText(TKStringHelpers.EMPTY_STRING + record.getAge());
-		mSocialClassField.setText(record.getSocialClassTitle());
-		String carryTooltip = record.getCarryTooltip();
-		mCarryField.setText(TKStringHelpers.EMPTY_STRING + record.getCarry());
-		mCarryField.setToolTipText(carryTooltip);
-		mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING + record.getEncumbrance());
-		mEncumbranceField.setToolTipText(carryTooltip);
+		if (record != null) {
+			mHeightField.setText(record.getHeight());
+			mWeightField.setText(TKStringHelpers.EMPTY_STRING + record.getWeight());
+			mSexField.setText(record.getSex());
+			mHairField.setText(record.getHair());
+			mEyesField.setText(record.getEyes());
+			mAgeField.setText(TKStringHelpers.EMPTY_STRING + record.getAge());
+			mSocialClassField.setText(record.getSocialClassTitle());
+			String carryTooltip = record.getCarryTooltip();
+			mCarryField.setText(TKStringHelpers.EMPTY_STRING + record.getCarry());
+			mCarryField.setToolTipText(carryTooltip);
+			mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING + record.getEncumbrance());
+			mEncumbranceField.setToolTipText(carryTooltip);
+		}
 	}
 
 }

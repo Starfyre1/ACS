@@ -215,11 +215,12 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	@Override
 	protected String getSuccessText() {
 		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
-		if (record == null) {
+		AttributesRecord attributesRecord = ACS.getInstance().getCharacterSheet().getAttributesRecord();
+		if (record == null || attributesRecord == null) {
 			return "?"; //$NON-NLS-1$
 		}
 		int level = record.getLevel() / 4;
-		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
+		int success = attributesRecord.getModifiedStat(AttributesRecord.WIS);
 		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
 	}
 

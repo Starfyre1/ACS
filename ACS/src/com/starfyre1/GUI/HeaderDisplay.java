@@ -124,7 +124,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		JPanel wrapper2 = new JPanel();
 
 		wrapper2.add(new JLabel(JournalDisplay.CAMPAIGN_DATE_LABEL, SwingConstants.LEADING));
-		mCampaignButton = JournalRecord.getDateButton("", new ActionListener() { //$NON-NLS-1$
+		mCampaignButton = JournalRecord.getDateButton(CampaignDateChooser.getCampaignDate(), new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -292,22 +292,24 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 				HistoryManager manager = HistoryManager.getInstance();
 
 				int currentExperience = TKStringHelpers.getIntValue(mCurrentExperienceField.getText(), record.getOldExperience());
-				int nextExperience = TKStringHelpers.getIntValue(mNextLevelField.getText(), 0);
-				boolean levelUp = false;
-				if (currentExperience > nextExperience) {
-					levelUp = true;
-				}
-				manager.addRecord(HistoryManager.EXPERIENCE_KEY, new HistoryRecord(WorldDateChooser.getWorldDate(), CampaignDateChooser.getCampaignDate(), currentExperience));
-				record.setCurrentExperience(currentExperience);
+				if (currentExperience != record.getOldExperience()) {
+					int nextExperience = TKStringHelpers.getIntValue(mNextLevelField.getText(), 0);
+					boolean levelUp = false;
+					if (currentExperience > nextExperience) {
+						levelUp = true;
+					}
+					manager.addRecord(HistoryManager.EXPERIENCE_KEY, new HistoryRecord(WorldDateChooser.getWorldDate(), CampaignDateChooser.getCampaignDate(), currentExperience));
+					record.setCurrentExperience(currentExperience);
 
-				mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
-				mCurrentExperienceField.setToolTipText(manager.getTooltip(HistoryManager.EXPERIENCE_KEY));
-				mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
-				((CharacterSheet) getOwner()).updateRecords();
-				manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(WorldDateChooser.getWorldDate(), CampaignDateChooser.getCampaignDate(), record.getLevel()));
-				mLevelField.setToolTipText(manager.getTooltip(HistoryManager.LEVEL_KEY));
-				if (levelUp) {
-					ACS.getInstance().getCharacterSheet().getJournalTab().characterLevelUp(record.getLevel());
+					mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
+					mCurrentExperienceField.setToolTipText(manager.getTooltip(HistoryManager.EXPERIENCE_KEY));
+					mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
+					((CharacterSheet) getOwner()).updateRecords();
+					manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(WorldDateChooser.getWorldDate(), CampaignDateChooser.getCampaignDate(), record.getLevel()));
+					mLevelField.setToolTipText(manager.getTooltip(HistoryManager.LEVEL_KEY));
+					if (levelUp) {
+						ACS.getInstance().getCharacterSheet().getJournalTab().characterLevelUp(record.getLevel());
+					}
 				}
 			}
 		}

@@ -218,12 +218,13 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 	@Override
 	protected String getSuccessText() {
 		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
-		if (record == null) {
+		AttributesRecord attributesRecord = ACS.getInstance().getCharacterSheet().getAttributesRecord();
+		if (record == null || attributesRecord == null) {
 			return "?"; //$NON-NLS-1$
 		}
 		int level = record.getLevel() / 2;
 		// DW ATTRIBUTE_NUMBERS[0] needs to be [currently selected stat]
-		int success = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(ATTRIBUTE_NUMBERS[0]);
+		int success = attributesRecord.getModifiedStat(ATTRIBUTE_NUMBERS[0]);
 		return SUCCESS_TEXT1 + level + SUCCESS_TEXT2 + success;
 	}
 
