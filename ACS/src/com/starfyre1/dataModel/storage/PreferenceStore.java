@@ -42,7 +42,7 @@ public class PreferenceStore {
 
 	private static final String		AUTO_LOAD_KEY			= "AUTO_LOAD_KEY";						// Auto load last character played  //$NON-NLS-1$
 
-	private static final Rectangle	DEFAULT_WINDOW_BOUNDS	= new Rectangle(50, 50, 1070, 1577);
+	private static final Rectangle	DEFAULT_WINDOW_BOUNDS	= new Rectangle(150, 50, 1085, 1387);
 	//DW change this to installation directory
 	private static final String		DEFAULT_FILE_LOCATION	= SystemInfo.getApplicationLocalPath();
 
@@ -355,6 +355,7 @@ public class PreferenceStore {
 			br.write(REROLL_LOWEST_KEY + TKStringHelpers.TAB + mRerollLowest + System.lineSeparator());
 			br.write(USE_COMMON_DIE_KEY + TKStringHelpers.TAB + mUseCommonDie + System.lineSeparator());
 			br.write(WINDOW_BOUNDS_KEY + TKStringHelpers.TAB + mWindowBounds.x + "," + mWindowBounds.y + "," + mWindowBounds.width + "," + mWindowBounds.height + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			br.write(AUTO_LOAD_KEY + TKStringHelpers.TAB + mAutoLoad + System.lineSeparator());
 			br.write(FILE_LOCATION_KEY + TKStringHelpers.TAB + mFileLocation + System.lineSeparator());
 			br.write(LAST_CHARACTER_KEY + TKStringHelpers.TAB + mLastCharacter + System.lineSeparator());
 
@@ -384,6 +385,8 @@ public class PreferenceStore {
 			mUseCommonDie = TKStringHelpers.getBoolValue(value, DEFAULT_USE_COMMON_DIE);
 		} else if (key.equals(WINDOW_BOUNDS_KEY)) {
 			mWindowBounds = TKStringHelpers.getRectangleValue(value, PreferenceStore.DEFAULT_WINDOW_BOUNDS);
+		} else if (key.equals(AUTO_LOAD_KEY)) {
+			mAutoLoad = TKStringHelpers.getBoolValue(value, DEFAULT_AUTO_LOAD);
 		} else if (key.equals(FILE_LOCATION_KEY)) {
 			mFileLocation = value;
 		} else if (key.equals(LAST_CHARACTER_KEY)) {
