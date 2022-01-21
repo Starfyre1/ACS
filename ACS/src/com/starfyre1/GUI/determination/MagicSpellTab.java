@@ -230,8 +230,8 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 			schoolPanel.add(mSchoolPopup[i]);
 
 			mSpellLabel[i] = TKComponentHelpers.createLabel(CHOOSE_SCHOOL);
-			mSpellLabel[i].setMinimumSize(size);
-			mSpellLabel[i].setPreferredSize(size);
+			mSpellLabel[i].setMinimumSize(size2);
+			mSpellLabel[i].setPreferredSize(size2);
 			mOldColor[i] = null;
 			spellPanel.add(mSpellLabel[i]);
 
