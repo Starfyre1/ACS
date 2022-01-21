@@ -675,14 +675,12 @@ public class CharacterSheet implements ActionListener {
 			}
 		} else if (cmd.equals(OPEN)) {
 			if (saveOption(false) != -1) {
-				saveOption(false);
 				clearRecords();
 				loadDisplay();
 				loadAndUpdate(null);
 			}
 		} else if (cmd.equals(CLOSE)) {
 			if (saveOption(false) != -1) {
-				saveOption(false);
 				clearRecords();
 				loadDisplay();
 			}
