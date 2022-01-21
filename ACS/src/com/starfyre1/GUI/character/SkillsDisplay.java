@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -397,7 +398,14 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 		}
 		record.generateUnallocatedSkills();
 		if (!((CharacterSheet) getOwner()).isLoadingData()) {
-			loadDisplay();
+			Runnable load = new Runnable() {
+
+				@Override
+				public void run() {
+					loadDisplay();
+				}
+			};
+			SwingUtilities.invokeLater(load);
 		}
 	}
 

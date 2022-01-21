@@ -616,7 +616,7 @@ public class CharacterSheet implements ActionListener {
 		PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
 		mCharacterFile = file.getAbsolutePath();
 		PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
-		mFrame.setTitle(ACS.TITLE + " " + file.getName());
+		mFrame.setTitle(ACS.TITLE + " " + file.getName()); //$NON-NLS-1$
 		openFile(file);
 
 		mAttributesRecord.finalizeCreation(false);
@@ -703,6 +703,7 @@ public class CharacterSheet implements ActionListener {
 			new AboutDialog(mFrame);
 		} else if (cmd.equals(HELP)) {
 			// DW open doc's
+			new HelpDialog(mFrame);
 		} else if (cmd.equals(CANCEL)) {
 			mAttributesEnterDialog.dispose();
 			mAttributesRecord = null;
@@ -1205,6 +1206,13 @@ public class CharacterSheet implements ActionListener {
 	/**
 	 * @param started
 	 */
+	public void setGameDay(String date) {
+		mHeaderDisplay.setCampaignButton(date);
+	}
+
+	/**
+	 * @param started
+	 */
 	public void setGameDayStarted(boolean started) {
 		mIsGameDayStarted = started;
 	}
@@ -1325,7 +1333,7 @@ public class CharacterSheet implements ActionListener {
 			PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
 			mCharacterFile = file.getAbsolutePath();
 			saveFile(file);
-			mFrame.setTitle(ACS.TITLE + " " + file.getName());
+			mFrame.setTitle(ACS.TITLE + " " + file.getName()); //$NON-NLS-1$
 
 		}
 	}
@@ -1352,7 +1360,7 @@ public class CharacterSheet implements ActionListener {
 			HistoryManager.getInstance().saveValues(br);
 			JOptionPane.showMessageDialog(mFrame, "File Saved: " + file.getName()); //$NON-NLS-1$
 			PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
-			mFrame.setTitle(ACS.TITLE + " " + file.getName());
+			mFrame.setTitle(ACS.TITLE + " " + file.getName()); //$NON-NLS-1$
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		} finally {

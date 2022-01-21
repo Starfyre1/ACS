@@ -3,6 +3,7 @@
 package com.starfyre1.startup;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.HelpDialog;
 import com.starfyre1.dataModel.storage.PreferenceStore;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
@@ -73,7 +74,11 @@ public class ACS {
 						File character = new File(lastCharacter);
 						if (character.exists()) {
 							mCharacterSheet.loadAndUpdate(character);
+						} else {
+							new HelpDialog(mCharacterSheet.getFrame());
 						}
+					} else {
+						new HelpDialog(mCharacterSheet.getFrame());
 					}
 				}
 			}
