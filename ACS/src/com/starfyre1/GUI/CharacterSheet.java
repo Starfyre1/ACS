@@ -668,19 +668,24 @@ public class CharacterSheet implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if (cmd.equals(NEW)) {
-			saveOption(false);
-			clearRecords();
-			loadDisplay();
-			createAndUpdate();
+			if (saveOption(false) != -1) {
+				clearRecords();
+				loadDisplay();
+				createAndUpdate();
+			}
 		} else if (cmd.equals(OPEN)) {
-			saveOption(false);
-			clearRecords();
-			loadDisplay();
-			loadAndUpdate(null);
+			if (saveOption(false) != -1) {
+				saveOption(false);
+				clearRecords();
+				loadDisplay();
+				loadAndUpdate(null);
+			}
 		} else if (cmd.equals(CLOSE)) {
-			saveOption(false);
-			clearRecords();
-			loadDisplay();
+			if (saveOption(false) != -1) {
+				saveOption(false);
+				clearRecords();
+				loadDisplay();
+			}
 		} else if (cmd.equals(SAVE)) {
 			if (mCharacterFile == null) {
 				saveAs();
@@ -753,7 +758,7 @@ public class CharacterSheet implements ActionListener {
 		mIsCharacterLoaded = false;
 	}
 
-	private void saveOption(boolean exit) {
+	private int saveOption(boolean exit) {
 		if (mIsCharacterLoaded) {
 			if (exit) {
 				mJournalTab.gameDayEndQuestion();
@@ -785,6 +790,8 @@ public class CharacterSheet implements ActionListener {
 					prepForExit();
 					System.exit(0);
 				}
+			} else if (results == -1) {
+				return results;
 			}
 		} else {
 			if (exit) {
@@ -792,6 +799,7 @@ public class CharacterSheet implements ActionListener {
 				System.exit(0);
 			}
 		}
+		return 0;
 	}
 
 	private void cleanUp() {
