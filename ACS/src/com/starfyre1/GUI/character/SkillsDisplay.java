@@ -8,6 +8,7 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.SkillsRecord;
+import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -220,6 +221,8 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 		mUnallocatedField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mUnallocatedField.setEditable(false);
 
+		enableFields(false);
+
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
@@ -318,8 +321,10 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 		if (!sheet.isLoadingData()) {
 			sheet.setLoadingData(true);
 			SkillsRecord record = sheet.getSkillsRecord();
+			BaseClass characterClass = sheet.getHeaderRecord().getCharacterClass();
 
-			if (record != null) {
+			if (!(record == null || characterClass == null)) {
+				enableFields(true);
 				mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
 				mBandagingField.setText(TKStringHelpers.EMPTY_STRING + record.getBandaging());
 				mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDepthSense());
@@ -352,6 +357,8 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 				mStealthLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getStealthLevelBonus());
 
 				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocatedSkills());
+			} else {
+				enableFields(false);
 			}
 		}
 		sheet.setLoadingData(false);
@@ -412,6 +419,17 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public void enableFields(boolean enabled) {
+		mClimbLevelBonusField.setEditable(enabled);
+		mConcealLevelBonusField.setEditable(enabled);
+		mFindTrapLevelBonusField.setEditable(enabled);
+		mHearLevelBonusField.setEditable(enabled);
+		mLockPickLevelBonusField.setEditable(enabled);
+		mPickPocketLevelBonusField.setEditable(enabled);
+		mRemoveTrapLevelBonusField.setEditable(enabled);
+		mStealthLevelBonusField.setEditable(enabled);
+	}
+
 	public static String[] getBasicSkillsLabels() {
 		return BASIC_SKILLS_LABELS;
 	}

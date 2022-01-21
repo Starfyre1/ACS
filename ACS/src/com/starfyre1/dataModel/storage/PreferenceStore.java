@@ -42,7 +42,7 @@ public class PreferenceStore {
 
 	private static final String		AUTO_LOAD_KEY			= "AUTO_LOAD_KEY";						// Auto load last character played  //$NON-NLS-1$
 
-	private static final Rectangle	DEFAULT_WINDOW_BOUNDS	= new Rectangle(150, 50, 1085, 1387);
+	private static final Rectangle	DEFAULT_WINDOW_BOUNDS	= new Rectangle(150, 50, 1085, 1388);
 	//DW change this to installation directory
 	private static final String		DEFAULT_FILE_LOCATION	= SystemInfo.getApplicationLocalPath();
 

@@ -1204,7 +1204,7 @@ public class CharacterSheet implements ActionListener {
 	}
 
 	/**
-	 * @param started
+	 * @param date
 	 */
 	public void setGameDay(String date) {
 		mHeaderDisplay.setCampaignButton(date);

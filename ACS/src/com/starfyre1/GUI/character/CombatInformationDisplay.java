@@ -149,6 +149,8 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mMoralsField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mMoralsField.setEditable(false);
 
+		enableFields(false);
+
 		wrapper.add(new JLabel());
 		wrapper.add(bonusLabel);
 		wrapper.add(maxLabel);
@@ -224,6 +226,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 			BaseClass characterClass = sheet.getHeaderRecord().getCharacterClass();
 
 			if (!(record == null || characterClass == null)) {
+				enableFields(true);
 				mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
 				mHitLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHitLevelBonus());
 				mAttackSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getAttackSpeed());
@@ -249,6 +252,8 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocated());
 
 				mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
+			} else {
+				enableFields(false);
 			}
 		}
 		sheet.setLoadingData(false);
@@ -278,7 +283,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 				record.setCastingLevelBonus(TKStringHelpers.getIntValue(mCastingSpeedLevelField.getText(), record.getCastingLevelBonus()));
 			} else if (((JTextField) source).equals(mHitLevelBonusField)) {
 				record.setHitLevelBonus(TKStringHelpers.getIntValue(mHitLevelBonusField.getText(), record.getHitLevelBonus()));
-				record.updateDefenseRecord();
+				record.generateDefenseAndFreeAttack();
 			} else if (((JTextField) source).equals(mBowLevelBonusField)) {
 				record.setBowLevelBonus(TKStringHelpers.getIntValue(mBowLevelBonusField.getText(), record.getBowLevelBonus()));
 			}
@@ -299,6 +304,11 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public void enableFields(boolean enabled) {
+		mCastingSpeedLevelField.setEditable(enabled);
+		mHitLevelBonusField.setEditable(enabled);
+		mBowLevelBonusField.setEditable(enabled);
+	}
 
 	/*****************************************************************************
 	 * Serialization

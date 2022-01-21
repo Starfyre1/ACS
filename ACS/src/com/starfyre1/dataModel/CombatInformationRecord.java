@@ -322,7 +322,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mDamageBonus = str < 10 ? str - 10 : str > 14 ? str - 14 : 0;
 	}
 
-	private void generateDefenseAndFreeAttack() {
+	public void generateDefenseAndFreeAttack() {
 		int dex = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
 		int classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getDefenseBonus();
 		int lvl = mCharacterSheet.getHeaderRecord().getLevel();
@@ -603,10 +603,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mMovement = 0;
 		mUnallocated = 0;
 		mMorals = 0;
-	}
-
-	public void updateDefenseRecord() {
-		generateDefenseAndFreeAttack();
 	}
 
 }

@@ -333,6 +333,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 			} else {
 				mClassPopup.selectPopupMenuItem(SELECT_CLASS);
 				((CharacterSheet) getOwner()).updateRecords();
+				((CharacterSheet) getOwner()).getCombatInformationRecord();
 			}
 		}
 	}

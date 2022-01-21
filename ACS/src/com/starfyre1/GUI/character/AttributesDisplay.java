@@ -140,6 +140,8 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 		mWPField.setFocusable(false);
 		mModWPField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
+		enableFields(false);
+
 		wrapper.add(strLabel);
 		wrapper.add(mStrField);
 		wrapper.add(mModStrField);
@@ -218,6 +220,18 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public void enableFields(boolean enabled) {
+		mModStrField.setEditable(enabled);
+		mModConField.setEditable(enabled);
+		mModIntField.setEditable(enabled);
+		mModWisField.setEditable(enabled);
+		mModDexField.setEditable(enabled);
+		mModBSField.setEditable(enabled);
+		mModChaField.setEditable(enabled);
+		mModPAField.setEditable(enabled);
+		mModWPField.setEditable(enabled);
+	}
+
 	private boolean areAllAttributeFieldsSet() {
 		if (mModStrField.getText().isEmpty() || //
 						mModConField.getText().isEmpty() || //
@@ -241,6 +255,9 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 		AttributesRecord stats = ((CharacterSheet) getOwner()).getAttributesRecord();
 
 		if (stats != null) {
+
+			enableFields(true);
+
 			mStrField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(0));
 			mConField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(1));
 			mIntField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(2));
@@ -260,6 +277,8 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 			mModChaField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(6));
 			mModPAField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(7));
 			mModWPField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(8));
+		} else {
+			enableFields(false);
 		}
 	}
 }
