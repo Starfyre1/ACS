@@ -61,8 +61,13 @@ public class HistoryManager implements Savable {
 		StringBuilder sb = new StringBuilder();
 		List<HistoryRecord> list = mTable.get(key);
 		sb.append("<html>"); //$NON-NLS-1$
+		if (LEVEL_KEY.equals(key)) {
+			sb.append("<b> &nbsp World Date: &nbsp &nbsp Game Date: &nbsp Level: </b><br>");
+		} else if (EXPERIENCE_KEY.equals(key)) {
+			sb.append("<b> &nbsp World Date: &nbsp &nbsp Game Date: &nbsp Experience: </b><br>");
+		}
 		for (HistoryRecord record : list) {
-			sb.append(record.getWorldDate() + ": " + record.getCampaignDate() + ": " + record.getNewValue() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			sb.append(record.getWorldDate() + ": &nbsp " + record.getCampaignDate() + ": &nbsp &nbsp " + record.getNewValue() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 		sb.append("</html>"); //$NON-NLS-1$
 		return sb.toString();
