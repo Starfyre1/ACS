@@ -26,6 +26,10 @@ public class WorldDateChooser extends DateChooser {
 	private int					mCurrentWorldDay	= java.util.Calendar.getInstance().get(java.util.Calendar.DATE);
 	private static String		mWorldDate			= new String(new SimpleDateFormat("MMM dd, yyyy").format(Calendar.getInstance().getTime()));	//$NON-NLS-1$
 
+	private static int			mButtonWorldYear;
+	private static int			mButtonWorldMonth;																									// 0=January... 15=Winter
+	private static int			mButtonWorldDay;
+
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
@@ -41,15 +45,15 @@ public class WorldDateChooser extends DateChooser {
 	 ****************************************************************************/
 	@Override
 	public void displayDate() {
+		setButtonDates(mDateValues);
+
 		for (int x = 7; x < mButton.length; x++) {
 			mButton[x].setText(""); //$NON-NLS-1$
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy"); //$NON-NLS-1$
 		Calendar cal = Calendar.getInstance();
 		cal.set(mYear, mMonth, 1);
-		//		int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
 		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-		//		int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			mButton[i].setText(Integer.toString(day));
@@ -57,6 +61,11 @@ public class WorldDateChooser extends DateChooser {
 				mButton[i].setForeground(Color.RED);
 			} else {
 				mButton[i].setForeground(Color.BLACK);
+			}
+			if (day == mButtonWorldDay && mMonth == mButtonWorldMonth && mYear == mButtonWorldYear) {
+				mButton[i].setBackground(Color.YELLOW);
+			} else {
+				mButton[i].setBackground(Color.WHITE);
 			}
 		}
 		mSpacer.setText(sdf.format(cal.getTime()));
@@ -98,6 +107,18 @@ public class WorldDateChooser extends DateChooser {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	private void setButtonDates(int[] date) {
+		if (mCurrentWorldDay == 0) {
+			mCurrentWorldYear = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+			mCurrentWorldMonth = java.util.Calendar.getInstance().get(java.util.Calendar.MONTH);
+			mCurrentWorldDay = java.util.Calendar.getInstance().get(java.util.Calendar.DATE);
+		}
+
+		mButtonWorldMonth = date[0];
+		mButtonWorldDay = date[1];
+		mButtonWorldYear = date[2];
+	}
+
 	/**
 	 * @return The true month number... i.e. 1 for Jan, 12 for Dec
 	 * @param shortText needs to be the 3 letter abbreviation as specified in MONTHS_SHORT
@@ -152,6 +173,11 @@ public class WorldDateChooser extends DateChooser {
 		setCurrentWorldDay(parseWorldDay(mWorldDate));
 		setCurrentWorldMonth(parseWorldMonth(mWorldDate));
 		setCurrentWorldYear(parseWorldYear(mWorldDate));
+	}
+
+	@Override
+	public boolean isWorldCalendar() {
+		return true;
 	}
 
 	/*****************************************************************************

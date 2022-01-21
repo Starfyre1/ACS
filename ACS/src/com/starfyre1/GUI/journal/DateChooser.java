@@ -30,6 +30,7 @@ public abstract class DateChooser extends JDialog {
 	 ****************************************************************************/
 
 	private Color				mOldColor		= null;
+	protected int[]				mDateValues;
 	protected int				mYear;
 	protected int				mMonth;																	// 0=January... 15=Winter
 	protected int				mDate;
@@ -45,6 +46,9 @@ public abstract class DateChooser extends JDialog {
 	 */
 	public DateChooser(JFrame parent, String title, int[] date) {
 		super(parent, true);
+
+		mDateValues = date;
+
 		mMonth = date[0];
 		mDate = date[1];
 		mYear = date[2];
@@ -91,6 +95,8 @@ public abstract class DateChooser extends JDialog {
 
 	public abstract String getSelectedDate();
 
+	public abstract boolean isWorldCalendar();
+
 	private JPanel getButtonPanel() {
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
@@ -120,7 +126,7 @@ public abstract class DateChooser extends JDialog {
 					if (mYear == 1) {
 						return;
 					}
-					mMonth = 15;
+					mMonth = (isWorldCalendar() ? 12 : 16) - 1; // Zero based
 					mYear--;
 				}
 				displayDate();
@@ -146,7 +152,7 @@ public abstract class DateChooser extends JDialog {
 		next.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				if (mMonth < 15) {
+				if (mMonth < (isWorldCalendar() ? 12 : 16) - 1) {
 					mMonth++;
 				} else {
 					mMonth = 0;

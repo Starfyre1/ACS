@@ -32,6 +32,10 @@ public class CampaignDateChooser extends DateChooser {
 	private static int			mCurrentCampaignDay		= DEFAULT_CAMPAIGN_DAY;
 	private static String		mCampaignDate			= new String(CampaignDateChooser.MONTHS_SHORT[mCurrentCampaignMonth] + " " + String.format("%02d", Integer.valueOf(mCurrentCampaignDay)) + ", " + String.format("%04d", Integer.valueOf(mCurrentCampaignYear)));	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$);
 
+	private static int			mButtonCampaignYear;
+	private static int			mButtonCampaignMonth;																																																						// 0=January... 15=Winter
+	private static int			mButtonCampaignDay;
+
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
@@ -40,6 +44,8 @@ public class CampaignDateChooser extends DateChooser {
 	 */
 	public CampaignDateChooser(JFrame parent, int[] date) {
 		super(parent, TITLE, date);
+
+		setButtonDates(date);
 	}
 
 	/*****************************************************************************
@@ -47,10 +53,13 @@ public class CampaignDateChooser extends DateChooser {
 	 ****************************************************************************/
 	@Override
 	public void displayDate() {
+		setButtonDates(mDateValues);
+
 		for (int x = 7; x < mButton.length; x++) {
 			mButton[x].setText(""); //$NON-NLS-1$
+			mButton[x].setBackground(Color.WHITE);
 		}
-		int dayOfWeek = getDayOfWeek(mYear, mMonth, mDate);
+		int dayOfWeek = getDayOfWeek(mYear, mMonth, 1);
 		int daysInMonth = DATES[mMonth];
 		for (int i = 6 + dayOfWeek, day = 1; day <= daysInMonth; i++, day++) {
 			//			System.out.println(i + " " + (6 + dayOfWeek) + " " + day + " " + daysInMonth);
@@ -60,6 +69,12 @@ public class CampaignDateChooser extends DateChooser {
 			} else {
 				mButton[i].setForeground(Color.BLACK);
 			}
+			if (day == mButtonCampaignDay && mMonth == mButtonCampaignMonth && mYear == mButtonCampaignYear) {
+				mButton[i].setBackground(Color.YELLOW);
+			} else {
+				mButton[i].setBackground(Color.WHITE);
+			}
+
 		}
 		mSpacer.setText(MONTHS[mMonth] + " " + String.format("%04d", Integer.valueOf(mYear))); //$NON-NLS-1$ //$NON-NLS-2$
 		mSpacer.setBackground(Color.WHITE);
@@ -97,6 +112,12 @@ public class CampaignDateChooser extends DateChooser {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	private void setButtonDates(int[] date) {
+		mButtonCampaignMonth = date[0];
+		mButtonCampaignDay = date[1];
+		mButtonCampaignYear = date[2];
+	}
+
 	/** @return The campaignDate. */
 	public static String getCampaignDate() {
 		return mCampaignDate;
@@ -165,6 +186,12 @@ public class CampaignDateChooser extends DateChooser {
 		return days == 0 ? 7 : days;
 
 	}
+
+	@Override
+	public boolean isWorldCalendar() {
+		return false;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
