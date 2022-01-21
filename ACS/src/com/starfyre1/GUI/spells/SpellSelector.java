@@ -60,6 +60,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	private JButton				mLearnButton		= null;
 
 	private JPanel				mSpellListPanel		= new JPanel();
+	//	private SpellDescriptionCard2	mSpellDescriptionCard	= null;
 
 	/*****************************************************************************
 	 * Constructors
@@ -133,7 +134,6 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		panel.add(label1);
 		panel.add(label2);
 		panel.add(label3);
-		mSpellListPanel.add(panel);
 
 		for (SpellRecord record : spells) {
 
@@ -155,6 +155,12 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 
 			mSpellListPanel.add(panel);
 		}
+		//		JPanel descPanel = new JPanel();
+		//		descPanel.setPreferredSize(panel.getPreferredSize());
+		//		mSpellDescriptionCard = new SpellDescriptionCard2(null);
+		//		descPanel.add(mSpellDescriptionCard);
+		//		mSpellListPanel.add(descPanel);
+
 	}
 
 	private JMenu generateSpellLevelPopup() {
@@ -200,6 +206,8 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 			mOldSelectedColor = mOldLabel.getBackground();
 
 			mOldLabel.setBackground(CharacterSheet.SELECTED_COLOR);
+
+			//			mSpellDescriptionCard.setDescriptionText(mOldLabel.getText());
 
 			updateButtons(true);
 		} else {

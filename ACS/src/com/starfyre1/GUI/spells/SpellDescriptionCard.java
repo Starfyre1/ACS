@@ -43,8 +43,6 @@ public class SpellDescriptionCard extends JDialog {
 	 ****************************************************************************/
 	private SpellDescriptionRecord	mRecord;
 
-	private Color					mOldColor	= null;
-
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
@@ -124,6 +122,8 @@ public class SpellDescriptionCard extends JDialog {
 		JButton button = new JButton("Close"); //$NON-NLS-1$
 		button.setFocusable(false);
 		button.addMouseListener(new MouseAdapter() {
+			private Color mOldColor = null;
+
 			@Override
 			public void mouseEntered(MouseEvent evt) {
 				mOldColor = button.getBackground();
