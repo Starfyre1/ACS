@@ -616,6 +616,7 @@ public class CharacterSheet implements ActionListener {
 		PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
 		mCharacterFile = file.getAbsolutePath();
 		PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
+		mFrame.setTitle(ACS.TITLE + " " + file.getName());
 		openFile(file);
 
 		mAttributesRecord.finalizeCreation(false);
@@ -1324,6 +1325,8 @@ public class CharacterSheet implements ActionListener {
 			PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
 			mCharacterFile = file.getAbsolutePath();
 			saveFile(file);
+			mFrame.setTitle(ACS.TITLE + " " + file.getName());
+
 		}
 	}
 
@@ -1349,6 +1352,7 @@ public class CharacterSheet implements ActionListener {
 			HistoryManager.getInstance().saveValues(br);
 			JOptionPane.showMessageDialog(mFrame, "File Saved: " + file.getName()); //$NON-NLS-1$
 			PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
+			mFrame.setTitle(ACS.TITLE + " " + file.getName());
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		} finally {
