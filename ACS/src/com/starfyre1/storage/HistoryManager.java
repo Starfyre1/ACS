@@ -19,11 +19,14 @@ public class HistoryManager implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String						FILE_SECTTION_START_KEY	= "HISTORY_SECTTION_START";	//$NON-NLS-1$
-	public static final String						FILE_SECTTION_END_KEY	= "HISTORY_SECTTION_END";	//$NON-NLS-1$
+	public static final String						FILE_SECTTION_START_KEY	= "HISTORY_SECTTION_START";														//$NON-NLS-1$
+	public static final String						FILE_SECTTION_END_KEY	= "HISTORY_SECTTION_END";														//$NON-NLS-1$
 
-	public static final String						EXPERIENCE_KEY			= "EXPERIENCE_KEY";			//$NON-NLS-1$
-	public static final String						LEVEL_KEY				= "LEVEL_KEY";				//$NON-NLS-1$
+	public static final String						EXPERIENCE_KEY			= "EXPERIENCE_KEY";																//$NON-NLS-1$
+	public static final String						LEVEL_KEY				= "LEVEL_KEY";																	//$NON-NLS-1$
+
+	private static final String						EXPERIENCE_HEADER		= "<b> &nbsp World Date: &nbsp &nbsp Game Date: &nbsp Experience: </b><br>";	//$NON-NLS-1$
+	private static final String						LEVEL_HEADER			= "<b> &nbsp World Date: &nbsp &nbsp Game Date: &nbsp Level: </b><br>";			//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -62,9 +65,9 @@ public class HistoryManager implements Savable {
 		List<HistoryRecord> list = mTable.get(key);
 		sb.append("<html>"); //$NON-NLS-1$
 		if (LEVEL_KEY.equals(key)) {
-			sb.append("<b> &nbsp World Date: &nbsp &nbsp Game Date: &nbsp Level: </b><br>");
+			sb.append(LEVEL_HEADER);
 		} else if (EXPERIENCE_KEY.equals(key)) {
-			sb.append("<b> &nbsp World Date: &nbsp &nbsp Game Date: &nbsp Experience: </b><br>");
+			sb.append(EXPERIENCE_HEADER);
 		}
 		for (HistoryRecord record : list) {
 			sb.append(record.getWorldDate() + ": &nbsp " + record.getCampaignDate() + ": &nbsp &nbsp " + record.getNewValue() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
