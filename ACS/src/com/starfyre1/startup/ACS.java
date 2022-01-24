@@ -16,6 +16,7 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 public class ACS {
 
@@ -66,6 +67,11 @@ public class ACS {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				try {
+					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+				} catch (Exception ex) {
+					System.err.println(ex);
+				}
 				IMAGE_PLUS_ICON = new ImageIcon(getClass().getClassLoader().getResource("resources/ImagePlus.png")); //$NON-NLS-1$
 				new CharacterSheet();
 				if (PreferenceStore.getInstance().isAutoLoad()) {
