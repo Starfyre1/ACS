@@ -5,6 +5,7 @@ package com.starfyre1.dataModel;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.ClassList;
+import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
 
@@ -310,10 +311,13 @@ public class CombatInformationRecord implements LevelListener, Savable {
 
 	public void generateUnallocated() {
 		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
-		int classBonus = headerRecord.getCharacterClass().getUnallocated();
-		int lvl = headerRecord.getLevel() - 1;
+		BaseClass characterClass = headerRecord.getCharacterClass();
+		if (characterClass != null) {
+			int classBonus = characterClass.getUnallocated();
+			int lvl = headerRecord.getLevel() - 1;
 
-		mUnallocated = classBonus * lvl - mHitLevelBonus - mBowLevelBonus - mCastingSpeedLevelBonus;
+			mUnallocated = classBonus * lvl - mHitLevelBonus - mBowLevelBonus - mCastingSpeedLevelBonus;
+		}
 	}
 
 	private void generateDamageBonus() {

@@ -143,7 +143,8 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 			label2 = new JLabel("" + record.getCastingTime(), SwingConstants.CENTER); //$NON-NLS-1$
 			label3 = new JLabel("" + record.getPower(), SwingConstants.CENTER); //$NON-NLS-1$
 
-			if (mSheet.getSpellListDisplay().getCurrentList().isSpellKnown(record)) {
+			SpellList currentList = mSheet.getSpellListDisplay().getCurrentList();
+			if (currentList != null && currentList.isSpellKnown(record)) {
 				label1.setForeground(Color.LIGHT_GRAY);
 				label2.setForeground(Color.LIGHT_GRAY);
 				label3.setForeground(Color.LIGHT_GRAY);

@@ -61,8 +61,11 @@ public class HistoryManager implements Savable {
 	}
 
 	public String getTooltip(String key) {
-		StringBuilder sb = new StringBuilder();
 		List<HistoryRecord> list = mTable.get(key);
+		if (list == null) {
+			return ""; //$NON-NLS-1$
+		}
+		StringBuilder sb = new StringBuilder();
 		sb.append("<html>"); //$NON-NLS-1$
 		if (LEVEL_KEY.equals(key)) {
 			sb.append(LEVEL_HEADER);
