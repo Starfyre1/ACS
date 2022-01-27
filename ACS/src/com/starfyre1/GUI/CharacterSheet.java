@@ -616,7 +616,7 @@ public class CharacterSheet implements ActionListener {
 		PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
 		mCharacterFile = file.getAbsolutePath();
 		PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
-		mFrame.setTitle(ACS.TITLE + " " + file.getName()); //$NON-NLS-1$
+		mFrame.setTitle(ACS.TITLE + " " + file); //$NON-NLS-1$
 		openFile(file);
 
 		mAttributesRecord.finalizeCreation(false);
