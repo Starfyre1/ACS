@@ -202,7 +202,8 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 			mOldLabel.setBackground(mOldSelectedColor);
 		}
 
-		if (!mSheet.getSpellListDisplay().getCurrentList().isSpellKnown(getSpellRecord(((JLabel) e.getSource()).getText()))) {
+		SpellList currentList = mSheet.getSpellListDisplay().getCurrentList();
+		if (currentList == null || !currentList.isSpellKnown(getSpellRecord(((JLabel) e.getSource()).getText()))) {
 			mOldLabel = (JLabel) e.getSource();
 			mOldSelectedColor = mOldLabel.getBackground();
 
