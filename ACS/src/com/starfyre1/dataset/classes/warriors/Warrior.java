@@ -240,6 +240,47 @@ public class Warrior extends BaseClass {
 		return 4;
 	}
 
+	// Saving Throws
+	@Override
+	public int getBleeding() {
+		return 10;
+	}
+
+	@Override
+	public int getMagic() {
+		return 0;
+	}
+
+	@Override
+	public int getPoison() {
+		return 0;
+	}
+
+	@Override
+	public int getShock() {
+		return 10;
+	}
+
+	@Override
+	public int getStress() {
+		return 0;
+	}
+
+	@Override
+	public int getUnconscious() {
+		return 0;
+	}
+
+	@Override
+	public int getSurprise() {
+		return 0;
+	}
+
+	@Override
+	public int getBelief() {
+		return 0;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

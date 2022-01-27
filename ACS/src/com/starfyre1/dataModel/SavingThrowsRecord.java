@@ -3,12 +3,10 @@
 package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.dataset.classes.Dwarves;
-import com.starfyre1.dataset.classes.Thief;
-import com.starfyre1.dataset.classes.warriors.Ranger;
-import com.starfyre1.dataset.classes.warriors.Warrior;
+import com.starfyre1.GUI.character.SavingThowsDisplay;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
+import com.starfyre1.startup.ACS;
 
 public class SavingThrowsRecord implements LevelListener {
 	/*****************************************************************************
@@ -29,7 +27,6 @@ public class SavingThrowsRecord implements LevelListener {
 	private int				mUnconscious	= 0;
 	private int				mSurprise		= 0;
 	private int				mBelief			= 0;
-	private int				mPerception		= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -54,41 +51,20 @@ public class SavingThrowsRecord implements LevelListener {
 	private void updateValues() {
 		AttributesRecord stats = mCharacterSheet.getAttributesRecord();
 		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
-
 		BaseClass classInfo = headerRecord.getCharacterClass();
+
 		int level = headerRecord.getLevel();
 		int levelBonus = (level - 1) * 4;
 
-		int classBonus = 0;
-		int dwarvenBonus = 0;
-		int classPerceptionBonus = 0;
-		int levelSupriseBonus = 1;
-
-		if (classInfo instanceof Thief) {
-			classBonus = 10;
-			classPerceptionBonus = 5;
-			levelSupriseBonus = 2;
-		} else if (classInfo instanceof Ranger) {
-			classBonus = 10;
-			classPerceptionBonus = 3;
-		} else if (classInfo instanceof Warrior) {
-			classBonus = 5;
-			levelSupriseBonus = -5;
-		} else if (classInfo instanceof Dwarves) {
-			dwarvenBonus = stats.getModifiedStat(AttributesRecord.WP);
-		}
-
 		mAgility = stats.getModifiedStat(AttributesRecord.DEX) * 3 + 10 + levelBonus;
-		mBleeding = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + levelBonus + classBonus + dwarvenBonus;
-		mMagic = stats.getModifiedStat(AttributesRecord.INT) * 2 + stats.getModifiedStat(AttributesRecord.WIS) + levelBonus + dwarvenBonus;
-		mPoison = stats.getModifiedStat(AttributesRecord.CON) * 3 + 10 + levelBonus + dwarvenBonus;
-		mShock = stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + 30 + levelBonus + classBonus + dwarvenBonus;
-		mStress = stats.getModifiedStat(AttributesRecord.WP) * 3 + levelBonus + dwarvenBonus;
-		mUnconscious = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) + stats.getModifiedStat(AttributesRecord.WP) * 2 + levelBonus + dwarvenBonus;
-
-		mSurprise = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.DEX) + stats.getModifiedStat(AttributesRecord.WP) + 35 + level * levelSupriseBonus + classBonus;
-		mPerception = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.WIS) + 15 + (level - 1) * 2 + classPerceptionBonus + dwarvenBonus;
-		mBelief = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.WIS) + 35 + level * 5 + dwarvenBonus;
+		mBleeding = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + levelBonus + classInfo.getBleeding();
+		mMagic = stats.getModifiedStat(AttributesRecord.INT) * 2 + stats.getModifiedStat(AttributesRecord.WIS) + levelBonus + classInfo.getMagic();
+		mPoison = stats.getModifiedStat(AttributesRecord.CON) * 3 + 10 + levelBonus + classInfo.getPoison();
+		mShock = stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + 30 + levelBonus + classInfo.getShock();
+		mStress = stats.getModifiedStat(AttributesRecord.WP) * 3 + levelBonus + classInfo.getStress();
+		mUnconscious = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) + stats.getModifiedStat(AttributesRecord.WP) * 2 + levelBonus + classInfo.getUnconscious();
+		mSurprise = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.DEX) + stats.getModifiedStat(AttributesRecord.WP) + 35 + level + classInfo.getSurprise();
+		mBelief = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.WIS) + 35 + level * 5 + classInfo.getBelief();
 	}
 
 	/*****************************************************************************
@@ -184,14 +160,162 @@ public class SavingThrowsRecord implements LevelListener {
 		mBelief = belief;
 	}
 
-	/** @return The perception. */
-	public int getPerception() {
-		return mPerception;
+	/** @return The agility. */
+	public String getAgilityToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		int level = mCharacterSheet.getHeaderRecord().getLevel();
+
+		if (ACS.showCalculations()) {
+			sb.append(SavingThowsDisplay.AGILITY_TOOLTIP);
+			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.DEX) + " * 3) + 10 + (" + (level - 1) + " * 4) = " + getAgility() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		}
+		sb.append("(" + attr.getModifiedStat(AttributesRecord.DEX) * 3 + ") + 10 + (" + (level - 1) * 4 + ") = " + getAgility() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+		return sb.toString();
 	}
 
-	/** @param perception The value to set for perception. */
-	public void setPerception(int perception) {
-		mPerception = perception;
+	/** @return The bleeding. */
+	public String getBleedingToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int level = headerRecord.getLevel();
+		int classBonus = headerRecord.getCharacterClass().getBleeding();
+
+		if (ACS.showCalculations()) {
+			sb.append(SavingThowsDisplay.BLEEDING_TOOLTIP);
+			sb.append("<br>" + attr.getModifiedStat(AttributesRecord.STR) + " + (" + attr.getModifiedStat(AttributesRecord.CON) + " * 2) + " + attr.getModifiedStat(AttributesRecord.WP) + " + (" + (level - 1) + " * 4) + " + classBonus + " = " + getBleeding() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+		}
+		sb.append(attr.getModifiedStat(AttributesRecord.STR) + " + (" + attr.getModifiedStat(AttributesRecord.CON) * 2 + ") + " + attr.getModifiedStat(AttributesRecord.WP) + " + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getBleeding() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+
+		return sb.toString();
+	}
+
+	/** @return The magic. */
+	public String getMagicToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int level = headerRecord.getLevel();
+		int classBonus = headerRecord.getCharacterClass().getMagic();
+
+		if (ACS.showCalculations()) {
+			sb.append(SavingThowsDisplay.MAGIC_TOOLTIP);
+			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.INT) + " * 2) + " + attr.getModifiedStat(AttributesRecord.WIS) + " + (" + (level - 1) + " * 4) + " + classBonus + " = " + getMagic() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+		}
+		sb.append("(" + attr.getModifiedStat(AttributesRecord.INT) * 2 + ") + " + attr.getModifiedStat(AttributesRecord.WIS) + " + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getMagic() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+
+		return sb.toString();
+	}
+
+	/** @return The poison. */
+	public String getPoisonToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int level = headerRecord.getLevel();
+		int classBonus = headerRecord.getCharacterClass().getPoison();
+
+		if (ACS.showCalculations()) {
+			sb.append(SavingThowsDisplay.POISON_TOOLTIP);
+			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.CON) + " * 3) + 10 + (" + (level - 1) + " * 4) + " + classBonus + " = " + getPoison() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		}
+		sb.append("(" + attr.getModifiedStat(AttributesRecord.CON) * 3 + ") + 10 + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getPoison() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+		return sb.toString();
+	}
+
+	/** @return The shock. */
+	public String getShockToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int level = headerRecord.getLevel();
+		int classBonus = headerRecord.getCharacterClass().getShock();
+
+		if (ACS.showCalculations()) {
+			sb.append(SavingThowsDisplay.SHOCK_TOOLTIP);
+			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.CON) + " * 2) + " + attr.getModifiedStat(AttributesRecord.WP) + " + 30 + (" + (level - 1) + " * 4) + " + classBonus + " = " + getShock() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+		}
+		sb.append("(" + attr.getModifiedStat(AttributesRecord.CON) * 2 + ") + " + attr.getModifiedStat(AttributesRecord.WP) + " + 30 + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getShock() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+
+		return sb.toString();
+	}
+
+	/** @return The stress. */
+	public String getStressToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int level = headerRecord.getLevel();
+		int classBonus = headerRecord.getCharacterClass().getStress();
+
+		if (ACS.showCalculations()) {
+			sb.append(SavingThowsDisplay.STRESS_TOOLTIP);
+			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.WP) + " * 3) + (" + (level - 1) + " * 4) + " + classBonus + " = " + getStress() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		}
+		sb.append("(" + attr.getModifiedStat(AttributesRecord.WP) * 3 + ") + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getStress() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+		return sb.toString();
+	}
+
+	/** @return The unconscious. */
+	public String getUnconsciousToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int level = headerRecord.getLevel();
+		int classBonus = headerRecord.getCharacterClass().getUnconscious();
+
+		if (ACS.showCalculations()) {
+			sb.append(SavingThowsDisplay.UNCONSCIOUS_TOOLTIP);
+			sb.append("<br>" + attr.getModifiedStat(AttributesRecord.STR) + " + " + attr.getModifiedStat(AttributesRecord.CON) + " + (" + attr.getModifiedStat(AttributesRecord.WP) + " * 2) + (" + (level - 1) + " * 4) + " + classBonus + " = " + getUnconscious() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+		}
+		sb.append(attr.getModifiedStat(AttributesRecord.STR) + " + " + attr.getModifiedStat(AttributesRecord.CON) + " + (" + attr.getModifiedStat(AttributesRecord.WP) * 2 + ") + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getUnconscious() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+
+		return sb.toString();
+	}
+
+	/** @return The surprise. */
+	public String getSurpriseToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int level = headerRecord.getLevel();
+		int classBonus = headerRecord.getCharacterClass().getSurprise();
+
+		if (ACS.showCalculations()) {
+			sb.append(SavingThowsDisplay.SURPRISE_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(attr.getModifiedStat(AttributesRecord.INT) + " + " + attr.getModifiedStat(AttributesRecord.DEX) + " + " + attr.getModifiedStat(AttributesRecord.WP) + " + 35 + " + level + " + " + classBonus + " = " + getSurprise() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+
+		return sb.toString();
+	}
+
+	/** @return The belief. */
+	public String getBeliefToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int level = headerRecord.getLevel();
+		int classBonus = headerRecord.getCharacterClass().getBelief();
+
+		if (ACS.showCalculations()) {
+			sb.append(SavingThowsDisplay.BELIEF_TOOLTIP);
+			sb.append("<br>" + attr.getModifiedStat(AttributesRecord.INT) + " + " + attr.getModifiedStat(AttributesRecord.WIS) + " + 35 + (" + level + " * 5) + " + classBonus + " = " + getBelief() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+		}
+		sb.append(attr.getModifiedStat(AttributesRecord.INT) + " + " + attr.getModifiedStat(AttributesRecord.WIS) + " + 35 + (" + level * 5 + ") + " + classBonus + " = " + getBelief() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+		return sb.toString();
 	}
 
 	/*****************************************************************************

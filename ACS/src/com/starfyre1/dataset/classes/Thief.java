@@ -373,6 +373,48 @@ public class Thief extends BaseClass {
 		return 5;
 	}
 
+	// Saving Throws
+	@Override
+	public int getBleeding() {
+		return 10;
+	}
+
+	@Override
+	public int getMagic() {
+		return 0;
+	}
+
+	@Override
+	public int getPoison() {
+		return 0;
+	}
+
+	@Override
+	public int getShock() {
+		return 10;
+	}
+
+	@Override
+	public int getStress() {
+		return 0;
+	}
+
+	@Override
+	public int getUnconscious() {
+		return 0;
+	}
+
+	@Override
+	public int getSurprise() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		return 1 * lvl;
+	}
+
+	@Override
+	public int getBelief() {
+		return 0;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

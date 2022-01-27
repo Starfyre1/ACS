@@ -79,31 +79,28 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	SAVING_THROWS_TITLE	= "Saving Throws";			//$NON-NLS-1$
+	private static final String	SAVING_THROWS_TITLE	= "Saving Throws";										//$NON-NLS-1$
 
-	private static final String	AGILITY_LABEL		= "Agility";				//$NON-NLS-1$
-	private static final String	BLEEDING_LABEL		= "Bleed";					//$NON-NLS-1$
-	private static final String	MAGIC_LABEL			= "Magic";					//$NON-NLS-1$
-	private static final String	POISON_LABEL		= "Poison";					//$NON-NLS-1$
-	private static final String	SHOCK_LABEL			= "Shock";					//$NON-NLS-1$
-	private static final String	STRESS_LABEL		= "Stress";					//$NON-NLS-1$
-	private static final String	UNCONSCIOUS_LABEL	= "Uncon.";					//$NON-NLS-1$
-	private static final String	SUPRISE_LABEL		= "Suprise";				//$NON-NLS-1$
-	private static final String	BELIEF_LABEL		= "Belief";					//$NON-NLS-1$
-	private static final String	PERCEPTION_LABEL	= "Perception";				//$NON-NLS-1$
+	private static final String	AGILITY_LABEL		= "Agility";											//$NON-NLS-1$
+	private static final String	BLEEDING_LABEL		= "Bleed";												//$NON-NLS-1$
+	private static final String	MAGIC_LABEL			= "Magic";												//$NON-NLS-1$
+	private static final String	POISON_LABEL		= "Poison";												//$NON-NLS-1$
+	private static final String	SHOCK_LABEL			= "Shock";												//$NON-NLS-1$
+	private static final String	STRESS_LABEL		= "Stress";												//$NON-NLS-1$
+	private static final String	UNCONSCIOUS_LABEL	= "Uncon.";												//$NON-NLS-1$
+	private static final String	SURPRISE_LABEL		= "Surprise";											//$NON-NLS-1$
+	private static final String	BELIEF_LABEL		= "Belief";												//$NON-NLS-1$
 
 	// DW add level info to tooltip for real level (+4%/lvl-1)
-	//private static final String	SAVING_THROWS_TOOLTIP	= "Roll Percentile Dice below Saving throw number";	//$NON-NLS-1$
-	private static final String	AGILITY_TOOLTIP		= "(DEX * 3) + 10";			//$NON-NLS-1$
-	private static final String	BLEEDING_TOOLTIP	= "STR + (CON * 2) + WP";	//$NON-NLS-1$
-	private static final String	MAGIC_TOOLTIP		= "(INT * 2) + WIS";		//$NON-NLS-1$
-	private static final String	POISON_TOOLTIP		= "(CON * 3) + 10";			//$NON-NLS-1$
-	private static final String	SHOCK_TOOLTIP		= "(CON * 2) + WP + 30";	//$NON-NLS-1$
-	private static final String	STRESS_TOOLTIP		= "WP * 3";					//$NON-NLS-1$
-	private static final String	UNCONSCIOUS_TOOLTIP	= "STR + CON + (WP * 2)";	//$NON-NLS-1$
-	private static final String	SUPRISE_TOOLTIP		= "INT + DEX + WP + 35";	//$NON-NLS-1$
-	private static final String	BELIEF_TOOLTIP		= "INT + WIS + 35";			//$NON-NLS-1$
-	private static final String	PERCEPTION_TOOLTIP	= "INT + WIS + 15";			//$NON-NLS-1$
+	public static final String	AGILITY_TOOLTIP		= "(DEX * 3) + 10 + (lvl - 1) * 4";						//$NON-NLS-1$
+	public static final String	BLEEDING_TOOLTIP	= "STR + (CON * 2) + WP + (lvl - 1) * 4 + Class Bonus";	//$NON-NLS-1$
+	public static final String	MAGIC_TOOLTIP		= "(INT * 2) + WIS + (lvl - 1) * 4 + Class Bonus";		//$NON-NLS-1$
+	public static final String	POISON_TOOLTIP		= "(CON * 3) + 10 + (lvl - 1) * 4 + Class Bonus";		//$NON-NLS-1$
+	public static final String	SHOCK_TOOLTIP		= "(CON * 2) + WP + 30 + (lvl - 1) * 4 + Class Bonus";	//$NON-NLS-1$
+	public static final String	STRESS_TOOLTIP		= "(WP * 3) + (lvl - 1) * 4 + Class Bonus";				//$NON-NLS-1$
+	public static final String	UNCONSCIOUS_TOOLTIP	= "STR + CON + (WP * 2) + (lvl - 1) * 4 + Class Bonus";	//$NON-NLS-1$
+	public static final String	SURPRISE_TOOLTIP	= "INT + DEX + WP + 35 + Level + Class Bonus";			//$NON-NLS-1$
+	public static final String	BELIEF_TOOLTIP		= "INT + WIS + 35 + (lvl * 5) + Class Bonus";			//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -115,9 +112,8 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 	private JTextField			mShockField;
 	private JTextField			mStressField;
 	private JTextField			mUnconciousField;
-	private JTextField			mSupriseField;
+	private JTextField			mSurpriseField;
 	private JTextField			mBeliefField;
-	private JTextField			mPerceptionField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -132,68 +128,53 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 
 	@Override
 	protected Component createDisplay() {
-		JPanel wrapper = new JPanel(new GridLayout(10, 2, 5, 0));
+		JPanel wrapper = new JPanel(new GridLayout(9, 2, 5, 0));
 		wrapper.setBorder(new EmptyBorder(0, 0, 5, 10));
 
 		JLabel agilityLabel = new JLabel(AGILITY_LABEL, SwingConstants.RIGHT);
 		mAgilityField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		agilityLabel.setToolTipText(AGILITY_TOOLTIP);
-		mAgilityField.setToolTipText(AGILITY_TOOLTIP);
 		mAgilityField.setEditable(false);
 
 		JLabel bleedingLabel = new JLabel(BLEEDING_LABEL, SwingConstants.RIGHT);
 		mBleedingField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		bleedingLabel.setToolTipText(BLEEDING_TOOLTIP);
-		mBleedingField.setToolTipText(BLEEDING_TOOLTIP);
 		mBleedingField.setEditable(false);
 
 		JLabel magicLabel = new JLabel(MAGIC_LABEL, SwingConstants.RIGHT);
 		mMagicField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		magicLabel.setToolTipText(MAGIC_TOOLTIP);
-		mMagicField.setToolTipText(MAGIC_TOOLTIP);
 		mMagicField.setEditable(false);
 
 		JLabel poisonLabel = new JLabel(POISON_LABEL, SwingConstants.RIGHT);
 		mPoisonField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		poisonLabel.setToolTipText(POISON_TOOLTIP);
-		mPoisonField.setToolTipText(POISON_TOOLTIP);
 		mPoisonField.setEditable(false);
 
 		JLabel shockLabel = new JLabel(SHOCK_LABEL, SwingConstants.RIGHT);
 		mShockField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		shockLabel.setToolTipText(SHOCK_TOOLTIP);
-		mShockField.setToolTipText(SHOCK_TOOLTIP);
 		mShockField.setEditable(false);
 
 		JLabel stressLabel = new JLabel(STRESS_LABEL, SwingConstants.RIGHT);
 		mStressField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		stressLabel.setToolTipText(STRESS_TOOLTIP);
-		mStressField.setToolTipText(STRESS_TOOLTIP);
 		mStressField.setEditable(false);
 
 		JLabel unconciousLabel = new JLabel(UNCONSCIOUS_LABEL, SwingConstants.RIGHT);
 		mUnconciousField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		unconciousLabel.setToolTipText(UNCONSCIOUS_TOOLTIP);
-		mUnconciousField.setToolTipText(UNCONSCIOUS_TOOLTIP);
 		mUnconciousField.setEditable(false);
 
-		JLabel supriseLabel = new JLabel(SUPRISE_LABEL, SwingConstants.RIGHT);
-		mSupriseField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
-		supriseLabel.setToolTipText(SUPRISE_TOOLTIP);
-		mSupriseField.setToolTipText(SUPRISE_TOOLTIP);
-		mSupriseField.setEditable(false);
+		JLabel surpriseLabel = new JLabel(SURPRISE_LABEL, SwingConstants.RIGHT);
+		mSurpriseField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
+		surpriseLabel.setToolTipText(SURPRISE_TOOLTIP);
+		mSurpriseField.setEditable(false);
 
 		JLabel beliefLabel = new JLabel(BELIEF_LABEL, SwingConstants.RIGHT);
 		mBeliefField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		beliefLabel.setToolTipText(BELIEF_TOOLTIP);
-		mBeliefField.setToolTipText(BELIEF_TOOLTIP);
 		mBeliefField.setEditable(false);
-
-		JLabel perceptionLabel = new JLabel(PERCEPTION_LABEL, SwingConstants.RIGHT);
-		mPerceptionField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
-		perceptionLabel.setToolTipText(PERCEPTION_TOOLTIP);
-		mPerceptionField.setToolTipText(BELIEF_TOOLTIP);
-		mPerceptionField.setEditable(false);
 
 		wrapper.add(agilityLabel);
 		wrapper.add(mAgilityField);
@@ -209,12 +190,10 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 		wrapper.add(mStressField);
 		wrapper.add(unconciousLabel);
 		wrapper.add(mUnconciousField);
-		wrapper.add(supriseLabel);
-		wrapper.add(mSupriseField);
+		wrapper.add(surpriseLabel);
+		wrapper.add(mSurpriseField);
 		wrapper.add(beliefLabel);
 		wrapper.add(mBeliefField);
-		wrapper.add(perceptionLabel);
-		wrapper.add(mPerceptionField);
 
 		return wrapper;
 	}
@@ -238,9 +217,18 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 			mShockField.setText(TKStringHelpers.EMPTY_STRING + record.getShock());
 			mStressField.setText(TKStringHelpers.EMPTY_STRING + record.getStress());
 			mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconscious());
-			mSupriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSurprise());
-			mPerceptionField.setText(TKStringHelpers.EMPTY_STRING + record.getPerception());
+			mSurpriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSurprise());
 			mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
+
+			mAgilityField.setToolTipText(record.getAgilityToolTip());
+			mBleedingField.setToolTipText(record.getBleedingToolTip());
+			mMagicField.setToolTipText(record.getMagicToolTip());
+			mPoisonField.setToolTipText(record.getPoisonToolTip());
+			mShockField.setToolTipText(record.getShockToolTip());
+			mStressField.setToolTipText(record.getStressToolTip());
+			mUnconciousField.setToolTipText(record.getUnconsciousToolTip());
+			mSurpriseField.setToolTipText(record.getSurpriseToolTip());
+			mBeliefField.setToolTipText(record.getBeliefToolTip());
 		}
 	}
 }

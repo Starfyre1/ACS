@@ -193,6 +193,14 @@ public class ACS {
 		}
 	}
 
+	/**
+	 * @return <code>true</code> if we want to show calculations in the tooltips <code>false</code>
+	 *         if we only want to show the final values in the tooltips
+	 */
+	public static boolean showCalculations() {
+		return true;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

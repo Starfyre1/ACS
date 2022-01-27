@@ -76,6 +76,23 @@ public abstract class BaseClass extends Object {
 
 	public abstract int getUnallocated();
 
+	// Saving Throws
+	public abstract int getBleeding();
+
+	public abstract int getMagic();
+
+	public abstract int getPoison();
+
+	public abstract int getShock();
+
+	public abstract int getStress();
+
+	public abstract int getUnconscious();
+
+	public abstract int getSurprise();
+
+	public abstract int getBelief();
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

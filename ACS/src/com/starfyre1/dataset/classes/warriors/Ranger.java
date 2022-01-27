@@ -48,7 +48,7 @@ public class Ranger extends Warrior {
 					gesture.  When they are able to Acquire spells they Expend
 					Experience points, as do Elves, to research them.
 				4)	Rangers do Not require a personal focus (See Elves).
-				5)	They add +10% to their Bleeding, Shock and Suprise saves.
+				5)	They add +10% to their Bleeding, Shock and Surprise saves.
 				6)	They have "Tracking" as the spell, as a innate ability.
 				7)	They have the skill, "Hunting" which works as the following:
 					Base chance = Wisdom score as a percentage.
@@ -211,14 +211,17 @@ public class Ranger extends Warrior {
 	}
 
 	// Saving Throws
+	@Override
 	public int getBleeding() {
 		return 10;
 	}
 
+	@Override
 	public int getShock() {
 		return 10;
 	}
 
+	@Override
 	public int getSurprise() {
 		return 10;
 	}

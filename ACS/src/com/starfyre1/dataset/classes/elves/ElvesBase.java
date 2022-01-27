@@ -27,6 +27,7 @@ public abstract class ElvesBase extends BaseClass {
 	 * Setter's and Getter's
 	 ****************************************************************************/
 
+	// SKILLS
 	@Override
 	public int getBandaging() {
 		return 10;
@@ -131,6 +132,47 @@ public abstract class ElvesBase extends BaseClass {
 	@Override
 	public int getUnallocated() {
 		return 3;
+	}
+
+	// Saving Throws
+	@Override
+	public int getBleeding() {
+		return 0;
+	}
+
+	@Override
+	public int getMagic() {
+		return 0;
+	}
+
+	@Override
+	public int getPoison() {
+		return 0;
+	}
+
+	@Override
+	public int getShock() {
+		return 0;
+	}
+
+	@Override
+	public int getStress() {
+		return 0;
+	}
+
+	@Override
+	public int getUnconscious() {
+		return 0;
+	}
+
+	@Override
+	public int getSurprise() {
+		return 0;
+	}
+
+	@Override
+	public int getBelief() {
+		return 0;
 	}
 
 	/*****************************************************************************

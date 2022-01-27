@@ -2,6 +2,7 @@
 
 package com.starfyre1.dataset.classes;
 
+import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.startup.ACS;
 
@@ -277,6 +278,47 @@ public class Dwarves extends BaseClass {
 	@Override
 	public int getUnallocated() {
 		return 4;
+	}
+
+	// Saving Throws
+	@Override
+	public int getBleeding() {
+		return ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WP);
+	}
+
+	@Override
+	public int getMagic() {
+		return ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WP);
+	}
+
+	@Override
+	public int getPoison() {
+		return ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WP);
+	}
+
+	@Override
+	public int getShock() {
+		return ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WP);
+	}
+
+	@Override
+	public int getStress() {
+		return ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WP);
+	}
+
+	@Override
+	public int getUnconscious() {
+		return ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WP);
+	}
+
+	@Override
+	public int getBelief() {
+		return ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.WP);
+	}
+
+	@Override
+	public int getSurprise() {
+		return 0;
 	}
 
 	/*****************************************************************************
