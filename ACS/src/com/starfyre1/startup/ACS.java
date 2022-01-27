@@ -116,6 +116,13 @@ public class ACS {
 		return mCharacterSheet;
 	}
 
+	/**
+	 * @param characterSheet
+	 */
+	public void setCharacterSheet(CharacterSheet characterSheet) {
+		mCharacterSheet = characterSheet;
+	}
+
 	/** @return The classes. */
 	public static ClassList getClasses() {
 		return mClasses;
@@ -164,10 +171,26 @@ public class ACS {
 	}
 
 	/**
-	 * @param characterSheet
+	 * @return The level based against the given experience.
 	 */
-	public void setCharacterSheet(CharacterSheet characterSheet) {
-		mCharacterSheet = characterSheet;
+	public static int getLevel(int experience) {
+		if (experience < 1000) {
+			return 1;
+		} else if (experience < 3000) {
+			return 2;
+		} else if (experience < 7000) {
+			return 3;
+		} else if (experience < 15000) {
+			return 4;
+		} else if (experience < 30000) {
+			return 5;
+		} else if (experience < 60000) {
+			return 6;
+		} else if (experience < 120000) {
+			return 7;
+		} else {
+			return 8 + (experience - 100000) / 100000;
+		}
 	}
 
 	/*****************************************************************************

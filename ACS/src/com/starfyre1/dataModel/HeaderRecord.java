@@ -7,6 +7,7 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.startup.ACS;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -93,25 +94,12 @@ public class HeaderRecord implements Savable {
 		return mClass;
 	}
 
-	/** @return The level. */
+	/**
+	 * @return The level based against the characters experience. Used for getting the characters
+	 *         level.
+	 */
 	public int getLevel() {
-		if (mExperience < 1000) {
-			return 1;
-		} else if (mExperience < 3000) {
-			return 2;
-		} else if (mExperience < 7000) {
-			return 3;
-		} else if (mExperience < 15000) {
-			return 4;
-		} else if (mExperience < 30000) {
-			return 5;
-		} else if (mExperience < 60000) {
-			return 6;
-		} else if (mExperience < 120000) {
-			return 7;
-		} else {
-			return 8 + (mExperience - 100000) / 100000;
-		}
+		return ACS.getLevel(mExperience);
 	}
 
 	/** @return The currentExperience. */
@@ -131,7 +119,7 @@ public class HeaderRecord implements Savable {
 	}
 
 	/** @return The nextLevel. */
-	public int getNextLevel() {
+	public int getNextLevelsExperience() {
 		int level = getLevel();
 		if (level < 2) {
 			return 1000;

@@ -264,7 +264,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		}
 		mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
 		mCurrentExperienceField.setText(TKStringHelpers.EMPTY_STRING + record.getCurrentExperience());
-		mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
+		mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevelsExperience());
 		mCampaignButton.setText(CampaignDateChooser.getCampaignDate());
 
 	}
@@ -303,7 +303,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 
 					mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
 					mCurrentExperienceField.setToolTipText(manager.getTooltip(HistoryManager.EXPERIENCE_KEY));
-					mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevel());
+					mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevelsExperience());
 					((CharacterSheet) getOwner()).updateRecords();
 					manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(WorldDateChooser.getWorldDate(), CampaignDateChooser.getCampaignDate(), record.getLevel()));
 					mLevelField.setToolTipText(manager.getTooltip(HistoryManager.LEVEL_KEY));
