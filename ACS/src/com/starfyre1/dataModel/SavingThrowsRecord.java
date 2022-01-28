@@ -62,18 +62,20 @@ public class SavingThrowsRecord implements LevelListener {
 		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
 		BaseClass classInfo = headerRecord.getCharacterClass();
 
-		int level = headerRecord.getLevel();
-		int levelBonus = (level - 1) * 4;
+		if (classInfo != null) {
+			int level = headerRecord.getLevel();
+			int levelBonus = (level - 1) * 4;
 
-		mAgility = stats.getModifiedStat(AttributesRecord.DEX) * 3 + 10 + levelBonus;
-		mBleeding = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + levelBonus + classInfo.getBleeding();
-		mMagic = stats.getModifiedStat(AttributesRecord.INT) * 2 + stats.getModifiedStat(AttributesRecord.WIS) + levelBonus + classInfo.getMagic();
-		mPoison = stats.getModifiedStat(AttributesRecord.CON) * 3 + 10 + levelBonus + classInfo.getPoison();
-		mShock = stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + 30 + levelBonus + classInfo.getShock();
-		mStress = stats.getModifiedStat(AttributesRecord.WP) * 3 + levelBonus + classInfo.getStress();
-		mUnconscious = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) + stats.getModifiedStat(AttributesRecord.WP) * 2 + levelBonus + classInfo.getUnconscious();
-		mSurprise = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.DEX) + stats.getModifiedStat(AttributesRecord.WP) + 35 + level + classInfo.getSurprise();
-		mBelief = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.WIS) + 35 + level * 5 + classInfo.getBelief();
+			mAgility = stats.getModifiedStat(AttributesRecord.DEX) * 3 + 10 + levelBonus;
+			mBleeding = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + levelBonus + classInfo.getBleeding();
+			mMagic = stats.getModifiedStat(AttributesRecord.INT) * 2 + stats.getModifiedStat(AttributesRecord.WIS) + levelBonus + classInfo.getMagic();
+			mPoison = stats.getModifiedStat(AttributesRecord.CON) * 3 + 10 + levelBonus + classInfo.getPoison();
+			mShock = stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + 30 + levelBonus + classInfo.getShock();
+			mStress = stats.getModifiedStat(AttributesRecord.WP) * 3 + levelBonus + classInfo.getStress();
+			mUnconscious = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) + stats.getModifiedStat(AttributesRecord.WP) * 2 + levelBonus + classInfo.getUnconscious();
+			mSurprise = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.DEX) + stats.getModifiedStat(AttributesRecord.WP) + 35 + level + classInfo.getSurprise();
+			mBelief = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.WIS) + 35 + level * 5 + classInfo.getBelief();
+		}
 	}
 
 	/*****************************************************************************

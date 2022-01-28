@@ -6,6 +6,7 @@ import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.SavingThrowsRecord;
+import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -236,21 +237,27 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 
 	@Override
 	public void loadDisplay() {
-		SavingThrowsRecord record = ((CharacterSheet) getOwner()).getSavingThrowsRecord();
+		CharacterSheet sheet = (CharacterSheet) getOwner();
+		if (!sheet.isLoadingData()) {
+			sheet.setLoadingData(true);
+			SavingThrowsRecord record = sheet.getSavingThrowsRecord();
+			BaseClass characterClass = sheet.getHeaderRecord().getCharacterClass();
 
-		if (record != null) {
-			mAgilityField.setText(TKStringHelpers.EMPTY_STRING + record.getAgility());
-			mBleedingField.setText(TKStringHelpers.EMPTY_STRING + record.getBleeding());
-			mMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getMagic());
-			mPoisonField.setText(TKStringHelpers.EMPTY_STRING + record.getPoison());
-			mShockField.setText(TKStringHelpers.EMPTY_STRING + record.getShock());
-			mStressField.setText(TKStringHelpers.EMPTY_STRING + record.getStress());
-			mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconscious());
-			mSurpriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSurprise());
-			mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
+			if (!(record == null || characterClass == null)) {
+				mAgilityField.setText(TKStringHelpers.EMPTY_STRING + record.getAgility());
+				mBleedingField.setText(TKStringHelpers.EMPTY_STRING + record.getBleeding());
+				mMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getMagic());
+				mPoisonField.setText(TKStringHelpers.EMPTY_STRING + record.getPoison());
+				mShockField.setText(TKStringHelpers.EMPTY_STRING + record.getShock());
+				mStressField.setText(TKStringHelpers.EMPTY_STRING + record.getStress());
+				mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconscious());
+				mSurpriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSurprise());
+				mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
 
-			updateToolTips();
+				updateToolTips();
+			}
 		}
+		sheet.setLoadingData(false);
 	}
 
 	public void updateToolTips() {

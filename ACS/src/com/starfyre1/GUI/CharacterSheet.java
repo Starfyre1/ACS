@@ -518,6 +518,7 @@ public class CharacterSheet implements ActionListener {
 
 		AttributesDisplay display = new AttributesDisplay(this);
 		display.setBorder(null);
+		display.enableFields(true);
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
