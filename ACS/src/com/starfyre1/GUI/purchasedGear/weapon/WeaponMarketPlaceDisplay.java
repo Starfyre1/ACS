@@ -195,6 +195,8 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 			TableModel model = mTable.getModel();
 			MetalRecord metal = (MetalRecord) model.getValueAt(row, e.getColumn());
 
+			record = WeaponList.getMasterWeaponRecord(record.getName());
+
 			model.setValueAt(Float.valueOf(record.getEncumbrance() * metal.getEnumbrance()), row, 8); // Encumbrance
 			model.setValueAt(Integer.valueOf(record.getAttackSpeed() + metal.getASP()), row, 10); // Absorption
 			model.setValueAt(Integer.valueOf(metal.getBreak(record.getWeaponBreak())), row, 11); // Break

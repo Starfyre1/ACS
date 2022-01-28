@@ -108,6 +108,19 @@ public class ArmorList implements Savable {
 		return mArmorMasterList[which];
 	}
 
+	public static ArmorRecord getMasterArmorRecord(String name) {
+		if (mArmorMasterList == null) {
+			getArmorMasterList();
+		}
+
+		for (ArmorRecord record : mArmorMasterList) {
+			if (record.getName().equals(name)) {
+				return record;
+			}
+		}
+		return null;
+	}
+
 	/** @return The armorList. */
 	public ArrayList<ArmorRecord> getRecords() {
 		return mRecords;

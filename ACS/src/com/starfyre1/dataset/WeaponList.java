@@ -113,6 +113,19 @@ public class WeaponList implements Savable {
 		return mWeaponMasterList[which];
 	}
 
+	public static WeaponRecord getMasterWeaponRecord(String name) {
+		if (mWeaponMasterList == null) {
+			getWeaponMasterList();
+		}
+
+		for (WeaponRecord record : mWeaponMasterList) {
+			if (record.getName().equals(name)) {
+				return record;
+			}
+		}
+		return null;
+	}
+
 	/** @return The armorList. */
 	public ArrayList<WeaponRecord> getRecords() {
 		return mRecords;
