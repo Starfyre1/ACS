@@ -16,6 +16,7 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 
 public class ACS {
@@ -72,6 +73,8 @@ public class ACS {
 				} catch (Exception ex) {
 					System.err.println(ex);
 				}
+				ToolTipManager.sharedInstance().setEnabled(PreferenceStore.getInstance().isShowToolTips());
+
 				IMAGE_PLUS_ICON = new ImageIcon(getClass().getClassLoader().getResource("resources/ImagePlus.png")); //$NON-NLS-1$
 				new CharacterSheet();
 				if (PreferenceStore.getInstance().isAutoLoad()) {
@@ -194,11 +197,11 @@ public class ACS {
 	}
 
 	/**
-	 * @return <code>true</code> if we want to show calculations in the tooltips <code>false</code>
-	 *         if we only want to show the final values in the tooltips
+	 * @return <code>true</code> if we want to show calculations in the ToolTips <code>false</code>
+	 *         if we only want to show the final values in the ToolTips
 	 */
 	public static boolean showCalculations() {
-		return true;
+		return PreferenceStore.getInstance().isDetailedToolTips();
 	}
 
 	/*****************************************************************************

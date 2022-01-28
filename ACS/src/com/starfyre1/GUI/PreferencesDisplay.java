@@ -6,6 +6,7 @@ import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.storage.PreferenceStore;
+import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -22,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.ToolTipManager;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
@@ -30,16 +32,20 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	USE_1_COMMON_DICE				= "Use 1 common dice";											//$NON-NLS-1$
-	private static final String	AUTO_LOAD						= "Auto load last character";									//$NON-NLS-1$
-	private static final String	REROLL_DICE_BELOW_THIS_NUMBER	= "Reroll dice below this number";								//$NON-NLS-1$
-	private static final String	NUMBER_OF_DICE_TO_USE			= "Number of dice to use";										//$NON-NLS-1$
-	private static final String	COMMON_DIE_TOOLTIP				=																//
-					"<html>In Athri we eliminate the possibilities of getting a high strength, <br>"							//$NON-NLS-1$
-									+ "but a very low constitution.  We pair them, making them share <br>"						//$NON-NLS-1$
-									+ "a \"common die\".  That way if you get a \"18\" strength, the lowest <br>"				//$NON-NLS-1$
-									+ "constitution you can have is \"8\"</html>";												//$NON-NLS-1$
-	private static final String	AUTO_LOAD_TOOLTIP				= "<html>Reload last character used on startup";				//$NON-NLS-1$
+	private static final String	USE_1_COMMON_DICE				= "Use 1 common dice";																			//$NON-NLS-1$
+	private static final String	AUTO_LOAD						= "Auto load last character";																	//$NON-NLS-1$
+	private static final String	SHOW_TOOLTIPS					= "Enabled to show tooltips";																	//$NON-NLS-1$
+	private static final String	DETAILED_TOOLTIPS				= "Enabled to show detailed tooltips";															//$NON-NLS-1$
+	private static final String	REROLL_DICE_BELOW_THIS_NUMBER	= "Reroll dice below this number";																//$NON-NLS-1$
+	private static final String	NUMBER_OF_DICE_TO_USE			= "Number of dice to use";																		//$NON-NLS-1$
+	private static final String	COMMON_DIE_TOOLTIP				=																								//
+					"<html>In Athri we eliminate the possibilities of getting a high strength, <br>"															//$NON-NLS-1$
+									+ "but a very low constitution.  We pair them, making them share <br>"														//$NON-NLS-1$
+									+ "a \"common die\".  That way if you get a \"18\" strength, the lowest <br>"												//$NON-NLS-1$
+									+ "constitution you can have is \"8\"</html>";																				//$NON-NLS-1$
+	private static final String	AUTO_LOAD_TOOLTIP				= "<html>Reload last character used on startup";												//$NON-NLS-1$
+	private static final String	SHOW_TOOLTIPS_TOOLTIP			= "<html>Enable tooltips.</html>";																//$NON-NLS-1$
+	private static final String	DETAILED_TOOLTIPS_TOOLTIP		= "<html>Enable detailed tooltips.<br>(show calculations in saving Throws and Skills) </html>";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -53,6 +59,8 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	private JCheckBox			mUseCommonDiceCheckBox;
 
 	private JCheckBox			mAutoLoadCheckBox;
+	private JCheckBox			mShowToolTipsCheckBox;
+	private JCheckBox			mDetailedToolTipsCheckBox;
 
 	/*****************************************************************************
 	 * Constructors
@@ -91,13 +99,23 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		mAutoLoadCheckBox.setToolTipText(AUTO_LOAD_TOOLTIP + "<br>" + prefs.getCurrentLastCharacter() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$
 		mAutoLoadCheckBox.addActionListener(this);
 
-		JPanel messagePanel = new JPanel(new GridLayout(4, 2, 5, 0));
+		mShowToolTipsCheckBox = new JCheckBox(SHOW_TOOLTIPS, prefs.isShowToolTips());
+		mShowToolTipsCheckBox.setToolTipText(SHOW_TOOLTIPS_TOOLTIP);
+		mShowToolTipsCheckBox.addActionListener(this);
+
+		mDetailedToolTipsCheckBox = new JCheckBox(DETAILED_TOOLTIPS, prefs.isDetailedToolTips());
+		mDetailedToolTipsCheckBox.setToolTipText(DETAILED_TOOLTIPS_TOOLTIP);
+		mDetailedToolTipsCheckBox.addActionListener(this);
+
+		JPanel messagePanel = new JPanel(new GridLayout(5, 2, 5, 0));
 		messagePanel.add(numDiceLabel);
 		messagePanel.add(mNumDicePopup);
 		messagePanel.add(reRollLowestLabel);
 		messagePanel.add(mReRollLowestPopup);
 		messagePanel.add(mUseCommonDiceCheckBox);
 		messagePanel.add(mAutoLoadCheckBox);
+		messagePanel.add(mShowToolTipsCheckBox);
+		messagePanel.add(mDetailedToolTipsCheckBox);
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
@@ -177,6 +195,8 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		mReRollLowestPopup.selectPopupMenuItem(TKStringHelpers.EMPTY_STRING + prefs.getRerollLowest());
 		mUseCommonDiceCheckBox.setSelected(prefs.useCommonDie());
 		mAutoLoadCheckBox.setSelected(prefs.isAutoLoad());
+		mShowToolTipsCheckBox.setSelected(prefs.isShowToolTips());
+		mDetailedToolTipsCheckBox.setSelected(prefs.isDetailedToolTips());
 	}
 
 	private void updateButtons() {
@@ -189,7 +209,9 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		if (getNumDice() == PreferenceStore.getInstance().getSavedNumDice() && //
 						getReRollLowest() == PreferenceStore.getInstance().getSavedRerollLowest() && //
 						useCommonDice() == PreferenceStore.getInstance().isSavedUseCommonDie() && //
-						isAutoLoad() == PreferenceStore.getInstance().isSavedAutoLoad()) {
+						isAutoLoad() == PreferenceStore.getInstance().isSavedAutoLoad() && //
+						isShowToolTips() == PreferenceStore.getInstance().isShowToolTips() && //
+						isDetailedToolTips() == PreferenceStore.getInstance().isDetailedToolTips()) {
 			return true;
 		}
 		return false;
@@ -203,7 +225,9 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		if (getNumDice() == PreferenceStore.getDefaultNumDice() && //
 						getReRollLowest() == PreferenceStore.getDefaultRerollLowest() && //
 						useCommonDice() == PreferenceStore.isDefaultUseCommonDie() && //
-						isAutoLoad() == PreferenceStore.isDefaultAutoLoad()) {
+						isAutoLoad() == PreferenceStore.isDefaultAutoLoad() && //
+						isShowToolTips() == PreferenceStore.isDefaultShowToolTips() && //
+						isDetailedToolTips() == PreferenceStore.isDefaultDetailedToolTips()) {
 			return true;
 		}
 		return false;
@@ -220,6 +244,8 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		} else if (source.equals(mOKButton)) {
 			PreferenceStore.getInstance().updateValuesInPreferenceStore(this);
 			PreferenceStore.getInstance().saveValues();
+			ToolTipManager.sharedInstance().setEnabled(PreferenceStore.getInstance().isShowToolTips());
+			ACS.getInstance().getCharacterSheet().updateToolTips();
 			dispose();
 		} else if (source.equals(mDefaultsButton)) {
 			PreferenceStore.getInstance().setDefaults();
@@ -271,6 +297,22 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 
 	public void setAutoLoad(boolean autoLoad) {
 		mAutoLoadCheckBox.setSelected(autoLoad);
+	}
+
+	public boolean isShowToolTips() {
+		return mShowToolTipsCheckBox.isSelected();
+	}
+
+	public void setShowToolTips(boolean showToolTips) {
+		mShowToolTipsCheckBox.setSelected(showToolTips);
+	}
+
+	public boolean isDetailedToolTips() {
+		return mDetailedToolTipsCheckBox.isSelected();
+	}
+
+	public void setDetailedToolTips(boolean detailedToolTips) {
+		mDetailedToolTipsCheckBox.setSelected(detailedToolTips);
 	}
 
 	/*****************************************************************************

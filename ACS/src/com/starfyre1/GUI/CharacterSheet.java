@@ -1374,4 +1374,12 @@ public class CharacterSheet implements ActionListener {
 		}
 	}
 
+	/**
+	 * This updates SavingThrowDisplay & SkillsDisplay ToolTips only
+	 */
+	public void updateToolTips() {
+		mSavingThrowsDisplay.updateToolTips();
+		mSkillsDisplay.updateToolTips();
+	}
+
 }

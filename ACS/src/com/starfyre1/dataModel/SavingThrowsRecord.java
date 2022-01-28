@@ -3,7 +3,6 @@
 package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.character.SavingThowsDisplay;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.startup.ACS;
@@ -12,21 +11,31 @@ public class SavingThrowsRecord implements LevelListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
+	// DW add level info to tooltip for real level (+4%/lvl-1)
+	public static final String	AGILITY_TOOLTIP		= "(DEX * 3) + 10 + (lvl - 1) * 4";						//$NON-NLS-1$
+	public static final String	BLEEDING_TOOLTIP	= "STR + (CON * 2) + WP + (lvl - 1) * 4 + Class Bonus";	//$NON-NLS-1$
+	public static final String	MAGIC_TOOLTIP		= "(INT * 2) + WIS + (lvl - 1) * 4 + Class Bonus";		//$NON-NLS-1$
+	public static final String	POISON_TOOLTIP		= "(CON * 3) + 10 + (lvl - 1) * 4 + Class Bonus";		//$NON-NLS-1$
+	public static final String	SHOCK_TOOLTIP		= "(CON * 2) + WP + 30 + (lvl - 1) * 4 + Class Bonus";	//$NON-NLS-1$
+	public static final String	STRESS_TOOLTIP		= "(WP * 3) + (lvl - 1) * 4 + Class Bonus";				//$NON-NLS-1$
+	public static final String	UNCONSCIOUS_TOOLTIP	= "STR + CON + (WP * 2) + (lvl - 1) * 4 + Class Bonus";	//$NON-NLS-1$
+	public static final String	SURPRISE_TOOLTIP	= "INT + DEX + WP + 35 + Level + Class Bonus";			//$NON-NLS-1$
+	public static final String	BELIEF_TOOLTIP		= "INT + WIS + 35 + (lvl * 5) + Class Bonus";			//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private CharacterSheet	mCharacterSheet;
+	private CharacterSheet		mCharacterSheet;
 
-	private int				mAgility		= 0;
-	private int				mBleeding		= 0;
-	private int				mMagic			= 0;
-	private int				mPoison			= 0;
-	private int				mShock			= 0;
-	private int				mStress			= 0;
-	private int				mUnconscious	= 0;
-	private int				mSurprise		= 0;
-	private int				mBelief			= 0;
+	private int					mAgility			= 0;
+	private int					mBleeding			= 0;
+	private int					mMagic				= 0;
+	private int					mPoison				= 0;
+	private int					mShock				= 0;
+	private int					mStress				= 0;
+	private int					mUnconscious		= 0;
+	private int					mSurprise			= 0;
+	private int					mBelief				= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -167,7 +176,7 @@ public class SavingThrowsRecord implements LevelListener {
 		int level = mCharacterSheet.getHeaderRecord().getLevel();
 
 		if (ACS.showCalculations()) {
-			sb.append(SavingThowsDisplay.AGILITY_TOOLTIP);
+			sb.append(AGILITY_TOOLTIP);
 			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.DEX) + " * 3) + 10 + (" + (level - 1) + " * 4) = " + getAgility() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		}
 		sb.append("(" + attr.getModifiedStat(AttributesRecord.DEX) * 3 + ") + 10 + (" + (level - 1) * 4 + ") = " + getAgility() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
@@ -185,7 +194,7 @@ public class SavingThrowsRecord implements LevelListener {
 		int classBonus = headerRecord.getCharacterClass().getBleeding();
 
 		if (ACS.showCalculations()) {
-			sb.append(SavingThowsDisplay.BLEEDING_TOOLTIP);
+			sb.append(BLEEDING_TOOLTIP);
 			sb.append("<br>" + attr.getModifiedStat(AttributesRecord.STR) + " + (" + attr.getModifiedStat(AttributesRecord.CON) + " * 2) + " + attr.getModifiedStat(AttributesRecord.WP) + " + (" + (level - 1) + " * 4) + " + classBonus + " = " + getBleeding() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 		}
 		sb.append(attr.getModifiedStat(AttributesRecord.STR) + " + (" + attr.getModifiedStat(AttributesRecord.CON) * 2 + ") + " + attr.getModifiedStat(AttributesRecord.WP) + " + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getBleeding() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
@@ -203,7 +212,7 @@ public class SavingThrowsRecord implements LevelListener {
 		int classBonus = headerRecord.getCharacterClass().getMagic();
 
 		if (ACS.showCalculations()) {
-			sb.append(SavingThowsDisplay.MAGIC_TOOLTIP);
+			sb.append(MAGIC_TOOLTIP);
 			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.INT) + " * 2) + " + attr.getModifiedStat(AttributesRecord.WIS) + " + (" + (level - 1) + " * 4) + " + classBonus + " = " + getMagic() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 		}
 		sb.append("(" + attr.getModifiedStat(AttributesRecord.INT) * 2 + ") + " + attr.getModifiedStat(AttributesRecord.WIS) + " + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getMagic() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
@@ -221,7 +230,7 @@ public class SavingThrowsRecord implements LevelListener {
 		int classBonus = headerRecord.getCharacterClass().getPoison();
 
 		if (ACS.showCalculations()) {
-			sb.append(SavingThowsDisplay.POISON_TOOLTIP);
+			sb.append(POISON_TOOLTIP);
 			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.CON) + " * 3) + 10 + (" + (level - 1) + " * 4) + " + classBonus + " = " + getPoison() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		}
 		sb.append("(" + attr.getModifiedStat(AttributesRecord.CON) * 3 + ") + 10 + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getPoison() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
@@ -239,7 +248,7 @@ public class SavingThrowsRecord implements LevelListener {
 		int classBonus = headerRecord.getCharacterClass().getShock();
 
 		if (ACS.showCalculations()) {
-			sb.append(SavingThowsDisplay.SHOCK_TOOLTIP);
+			sb.append(SHOCK_TOOLTIP);
 			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.CON) + " * 2) + " + attr.getModifiedStat(AttributesRecord.WP) + " + 30 + (" + (level - 1) + " * 4) + " + classBonus + " = " + getShock() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 		}
 		sb.append("(" + attr.getModifiedStat(AttributesRecord.CON) * 2 + ") + " + attr.getModifiedStat(AttributesRecord.WP) + " + 30 + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getShock() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
@@ -257,7 +266,7 @@ public class SavingThrowsRecord implements LevelListener {
 		int classBonus = headerRecord.getCharacterClass().getStress();
 
 		if (ACS.showCalculations()) {
-			sb.append(SavingThowsDisplay.STRESS_TOOLTIP);
+			sb.append(STRESS_TOOLTIP);
 			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.WP) + " * 3) + (" + (level - 1) + " * 4) + " + classBonus + " = " + getStress() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		}
 		sb.append("(" + attr.getModifiedStat(AttributesRecord.WP) * 3 + ") + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getStress() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
@@ -275,7 +284,7 @@ public class SavingThrowsRecord implements LevelListener {
 		int classBonus = headerRecord.getCharacterClass().getUnconscious();
 
 		if (ACS.showCalculations()) {
-			sb.append(SavingThowsDisplay.UNCONSCIOUS_TOOLTIP);
+			sb.append(UNCONSCIOUS_TOOLTIP);
 			sb.append("<br>" + attr.getModifiedStat(AttributesRecord.STR) + " + " + attr.getModifiedStat(AttributesRecord.CON) + " + (" + attr.getModifiedStat(AttributesRecord.WP) + " * 2) + (" + (level - 1) + " * 4) + " + classBonus + " = " + getUnconscious() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 		}
 		sb.append(attr.getModifiedStat(AttributesRecord.STR) + " + " + attr.getModifiedStat(AttributesRecord.CON) + " + (" + attr.getModifiedStat(AttributesRecord.WP) * 2 + ") + (" + (level - 1) * 4 + ") + " + classBonus + " = " + getUnconscious() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
@@ -293,7 +302,7 @@ public class SavingThrowsRecord implements LevelListener {
 		int classBonus = headerRecord.getCharacterClass().getSurprise();
 
 		if (ACS.showCalculations()) {
-			sb.append(SavingThowsDisplay.SURPRISE_TOOLTIP + "<br>"); //$NON-NLS-1$
+			sb.append(SURPRISE_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
 		sb.append(attr.getModifiedStat(AttributesRecord.INT) + " + " + attr.getModifiedStat(AttributesRecord.DEX) + " + " + attr.getModifiedStat(AttributesRecord.WP) + " + 35 + " + level + " + " + classBonus + " = " + getSurprise() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
@@ -310,7 +319,7 @@ public class SavingThrowsRecord implements LevelListener {
 		int classBonus = headerRecord.getCharacterClass().getBelief();
 
 		if (ACS.showCalculations()) {
-			sb.append(SavingThowsDisplay.BELIEF_TOOLTIP);
+			sb.append(BELIEF_TOOLTIP);
 			sb.append("<br>" + attr.getModifiedStat(AttributesRecord.INT) + " + " + attr.getModifiedStat(AttributesRecord.WIS) + " + 35 + (" + level + " * 5) + " + classBonus + " = " + getBelief() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 		}
 		sb.append(attr.getModifiedStat(AttributesRecord.INT) + " + " + attr.getModifiedStat(AttributesRecord.WIS) + " + 35 + (" + level * 5 + ") + " + classBonus + " = " + getBelief() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$

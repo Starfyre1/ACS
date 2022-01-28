@@ -32,30 +32,38 @@ public class PreferenceStore {
 	/*****************************************************************************
 	 * CONSTANTS
 	 ****************************************************************************/
-	private static final String		WINDOW_BOUNDS_KEY		= "WINDOW_BOUNDS_KEY";					//$NON-NLS-1$
-	private static final String		FILE_LOCATION_KEY		= "FILE_LOCATION_KEY";					//$NON-NLS-1$
-	private static final String		LAST_CHARACTER_KEY		= "LAST_CHARACTER_KEY";					//$NON-NLS-1$
+	private static final String		WINDOW_BOUNDS_KEY			= "WINDOW_BOUNDS_KEY";					//$NON-NLS-1$
+	private static final String		FILE_LOCATION_KEY			= "FILE_LOCATION_KEY";					//$NON-NLS-1$
+	private static final String		LAST_CHARACTER_KEY			= "LAST_CHARACTER_KEY";					//$NON-NLS-1$
 
-	private static final String		NUM_DICE_KEY			= "NUMBER_OF_DICE_KEY";					// 4 Dice drop lowest; use 3 dice; Manual entry; //$NON-NLS-1$
-	private static final String		REROLL_LOWEST_KEY		= "REROLL_LOWEST_KEY";					// Reroll 1's & 2's //$NON-NLS-1$
-	private static final String		USE_COMMON_DIE_KEY		= "USE_COMMON_DIE_KEY";					// use 1 common die //$NON-NLS-1$
+	private static final String		NUM_DICE_KEY				= "NUMBER_OF_DICE_KEY";					// 4 Dice drop lowest; use 3 dice; Manual entry; //$NON-NLS-1$
+	private static final String		REROLL_LOWEST_KEY			= "REROLL_LOWEST_KEY";					// Reroll 1's & 2's //$NON-NLS-1$
+	private static final String		USE_COMMON_DIE_KEY			= "USE_COMMON_DIE_KEY";					// use 1 common die //$NON-NLS-1$
 
-	private static final String		AUTO_LOAD_KEY			= "AUTO_LOAD_KEY";						// Auto load last character played  //$NON-NLS-1$
+	private static final String		AUTO_LOAD_KEY				= "AUTO_LOAD_KEY";						// Auto load last character played  //$NON-NLS-1$
 
-	private static final Rectangle	DEFAULT_WINDOW_BOUNDS	= new Rectangle(150, 50, 1085, 1388);
+	private static final String		SHOW_TOOLTIPS_KEY			= "SHOW_TOOLTIPS_KEY";					// Auto load last character played  //$NON-NLS-1$
+
+	private static final String		DETAILED_TOOLTIPS_KEY		= "DETAILED_TOOLTIPS_KEY";				// Auto load last character played  //$NON-NLS-1$
+
+	private static final Rectangle	DEFAULT_WINDOW_BOUNDS		= new Rectangle(150, 50, 1085, 1388);
 	//DW change this to installation directory
-	private static final String		DEFAULT_FILE_LOCATION	= SystemInfo.getApplicationLocalPath();
+	private static final String		DEFAULT_FILE_LOCATION		= SystemInfo.getApplicationLocalPath();
 
-	private static final int		DEFAULT_NUM_DICE		= 4;									// 4 Dice drop lowest; use 3 dice; Manual entry;
-	private static final int		DEFAULT_REROLL_LOWEST	= 2;									// Reroll 1's & 2's
-	private static final boolean	DEFAULT_USE_COMMON_DIE	= true;									// use 1 common die
+	private static final int		DEFAULT_NUM_DICE			= 4;									// 4 Dice drop lowest; use 3 dice; Manual entry;
+	private static final int		DEFAULT_REROLL_LOWEST		= 2;									// Reroll 1's & 2's
+	private static final boolean	DEFAULT_USE_COMMON_DIE		= true;									// use 1 common die
 
-	private static final boolean	DEFAULT_AUTO_LOAD		= true;
+	private static final boolean	DEFAULT_AUTO_LOAD			= true;
+
+	private static final boolean	DEFAULT_SHOW_TOOLTIPS		= true;
+
+	private static final boolean	DEFAULT_DETAILED_TOOLTIPS	= true;
 
 	/*****************************************************************************
 	 * MEMBER VARIABLES
 	 ****************************************************************************/
-	private static PreferenceStore	sInstance				= null;
+	private static PreferenceStore	sInstance					= null;
 
 	Rectangle						mWindowBounds;
 	String							mFileLocation;
@@ -87,11 +95,15 @@ public class PreferenceStore {
 	 */
 	private boolean					mUseCommonDie;
 	private boolean					mAutoLoad;
+	private boolean					mShowToolTips;
+	private boolean					mDetailedToolTips;
 
 	private int						mSavedNumDice;
 	private int						mSavedRerollLowest;
 	private boolean					mSavedUseCommonDie;
 	private boolean					mSavedAutoLoad;
+	private boolean					mSavedShowToolTips;
+	private boolean					mSavedDetailedToolTips;
 
 	/*****************************************************************************
 	 * CONSTRUCTORS
@@ -114,6 +126,8 @@ public class PreferenceStore {
 		mSavedRerollLowest = mRerollLowest;
 		mSavedUseCommonDie = mUseCommonDie;
 		mSavedAutoLoad = mAutoLoad;
+		mSavedShowToolTips = mShowToolTips;
+		mSavedDetailedToolTips = mDetailedToolTips;
 
 	}
 
@@ -127,6 +141,8 @@ public class PreferenceStore {
 		mUseCommonDie = DEFAULT_USE_COMMON_DIE;
 
 		mAutoLoad = DEFAULT_AUTO_LOAD;
+		mShowToolTips = DEFAULT_SHOW_TOOLTIPS;
+		mDetailedToolTips = DEFAULT_DETAILED_TOOLTIPS;
 	}
 
 	/**
@@ -136,7 +152,9 @@ public class PreferenceStore {
 		if (mNumDice == DEFAULT_NUM_DICE && //
 						mRerollLowest == DEFAULT_REROLL_LOWEST && //
 						mUseCommonDie == DEFAULT_USE_COMMON_DIE && //
-						mAutoLoad == DEFAULT_AUTO_LOAD) {
+						mAutoLoad == DEFAULT_AUTO_LOAD && //
+						mShowToolTips == DEFAULT_SHOW_TOOLTIPS && //
+						mDetailedToolTips == DEFAULT_DETAILED_TOOLTIPS) {
 			return true;
 		}
 		return false;
@@ -155,6 +173,8 @@ public class PreferenceStore {
 		mUseCommonDie = preferencesDisplay.useCommonDice();
 
 		mAutoLoad = preferencesDisplay.isAutoLoad();
+		mShowToolTips = preferencesDisplay.isShowToolTips();
+		mDetailedToolTips = preferencesDisplay.isDetailedToolTips();
 	}
 
 	/*****************************************************************************
@@ -229,6 +249,66 @@ public class PreferenceStore {
 	/** @return The defaultAutoLoad. */
 	public static boolean isDefaultAutoLoad() {
 		return DEFAULT_AUTO_LOAD;
+	}
+
+	/** @return The autoLoad. */
+	public boolean isShowToolTips() {
+		return mShowToolTips;
+	}
+
+	/** @param showToolTips The value to set for showToolTips. */
+	public void setShowToolTips(boolean showToolTips) {
+		mShowToolTips = showToolTips;
+	}
+
+	/** @return The savedAutoLoad. */
+	public boolean isSavedShowToolTips() {
+		return mSavedShowToolTips;
+	}
+
+	/** @param savedShowToolTips The value to set for savedShowToolTips. */
+	public void setSavedShowToolTips(boolean savedShowToolTips) {
+		mSavedShowToolTips = savedShowToolTips;
+	}
+
+	/** @return The toolTipKey. */
+	public static String getToolTipKey() {
+		return SHOW_TOOLTIPS_KEY;
+	}
+
+	/** @return The defaultShowToolTips. */
+	public static boolean isDefaultShowToolTips() {
+		return DEFAULT_SHOW_TOOLTIPS;
+	}
+
+	/** @return The detailedToolTips. */
+	public boolean isDetailedToolTips() {
+		return mDetailedToolTips;
+	}
+
+	/** @param detailedToolTips The value to set for detailedToolTips. */
+	public void setDetailedToolTips(boolean detailedToolTips) {
+		mDetailedToolTips = detailedToolTips;
+	}
+
+	/** @return The savedDetailedToolTips. */
+	public boolean isSavedDetailedToolTips() {
+		return mSavedDetailedToolTips;
+	}
+
+	/** @param savedDetailedToolTips The value to set for savedDetailedToolTips. */
+	public void setSavedDetailedToolTips(boolean savedDetailedToolTips) {
+		mSavedDetailedToolTips = savedDetailedToolTips;
+	}
+
+	/** @return The DetailedToolTipsKey. */
+	public static String getDetailedToolTipsKey() {
+		return DETAILED_TOOLTIPS_KEY;
+	}
+
+	/** @return The defaultDetailedToolTips. */
+	public static boolean isDefaultDetailedToolTips() {
+		return DEFAULT_DETAILED_TOOLTIPS;
 	}
 
 	/** @param bounds The value to set for windowSize. */
@@ -356,6 +436,8 @@ public class PreferenceStore {
 			br.write(USE_COMMON_DIE_KEY + TKStringHelpers.TAB + mUseCommonDie + System.lineSeparator());
 			br.write(WINDOW_BOUNDS_KEY + TKStringHelpers.TAB + mWindowBounds.x + "," + mWindowBounds.y + "," + mWindowBounds.width + "," + mWindowBounds.height + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			br.write(AUTO_LOAD_KEY + TKStringHelpers.TAB + mAutoLoad + System.lineSeparator());
+			br.write(SHOW_TOOLTIPS_KEY + TKStringHelpers.TAB + mShowToolTips + System.lineSeparator());
+			br.write(DETAILED_TOOLTIPS_KEY + TKStringHelpers.TAB + mDetailedToolTips + System.lineSeparator());
 			br.write(FILE_LOCATION_KEY + TKStringHelpers.TAB + mFileLocation + System.lineSeparator());
 			br.write(LAST_CHARACTER_KEY + TKStringHelpers.TAB + mLastCharacter + System.lineSeparator());
 
@@ -387,6 +469,10 @@ public class PreferenceStore {
 			mWindowBounds = TKStringHelpers.getRectangleValue(value, PreferenceStore.DEFAULT_WINDOW_BOUNDS);
 		} else if (key.equals(AUTO_LOAD_KEY)) {
 			mAutoLoad = TKStringHelpers.getBoolValue(value, DEFAULT_AUTO_LOAD);
+		} else if (key.equals(SHOW_TOOLTIPS_KEY)) {
+			mShowToolTips = TKStringHelpers.getBoolValue(value, DEFAULT_SHOW_TOOLTIPS);
+		} else if (key.equals(DETAILED_TOOLTIPS_KEY)) {
+			mDetailedToolTips = TKStringHelpers.getBoolValue(value, DEFAULT_DETAILED_TOOLTIPS);
 		} else if (key.equals(FILE_LOCATION_KEY)) {
 			mFileLocation = value;
 		} else if (key.equals(LAST_CHARACTER_KEY)) {

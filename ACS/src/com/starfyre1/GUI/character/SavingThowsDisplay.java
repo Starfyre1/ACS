@@ -79,28 +79,64 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	SAVING_THROWS_TITLE	= "Saving Throws";										//$NON-NLS-1$
+	private static final String	SAVING_THROWS_TITLE	= "Saving Throws";																								//$NON-NLS-1$
 
-	private static final String	AGILITY_LABEL		= "Agility";											//$NON-NLS-1$
-	private static final String	BLEEDING_LABEL		= "Bleed";												//$NON-NLS-1$
-	private static final String	MAGIC_LABEL			= "Magic";												//$NON-NLS-1$
-	private static final String	POISON_LABEL		= "Poison";												//$NON-NLS-1$
-	private static final String	SHOCK_LABEL			= "Shock";												//$NON-NLS-1$
-	private static final String	STRESS_LABEL		= "Stress";												//$NON-NLS-1$
-	private static final String	UNCONSCIOUS_LABEL	= "Uncon.";												//$NON-NLS-1$
-	private static final String	SURPRISE_LABEL		= "Surprise";											//$NON-NLS-1$
-	private static final String	BELIEF_LABEL		= "Belief";												//$NON-NLS-1$
+	private static final String	AGILITY_LABEL		= "Agility";																									//$NON-NLS-1$
+	private static final String	BLEEDING_LABEL		= "Bleed";																										//$NON-NLS-1$
+	private static final String	MAGIC_LABEL			= "Magic";																										//$NON-NLS-1$
+	private static final String	POISON_LABEL		= "Poison";																										//$NON-NLS-1$
+	private static final String	SHOCK_LABEL			= "Shock";																										//$NON-NLS-1$
+	private static final String	STRESS_LABEL		= "Stress";																										//$NON-NLS-1$
+	private static final String	UNCONSCIOUS_LABEL	= "Uncon.";																										//$NON-NLS-1$
+	private static final String	SURPRISE_LABEL		= "Surprise";																									//$NON-NLS-1$
+	private static final String	BELIEF_LABEL		= "Belief";																										//$NON-NLS-1$
 
-	// DW add level info to tooltip for real level (+4%/lvl-1)
-	public static final String	AGILITY_TOOLTIP		= "(DEX * 3) + 10 + (lvl - 1) * 4";						//$NON-NLS-1$
-	public static final String	BLEEDING_TOOLTIP	= "STR + (CON * 2) + WP + (lvl - 1) * 4 + Class Bonus";	//$NON-NLS-1$
-	public static final String	MAGIC_TOOLTIP		= "(INT * 2) + WIS + (lvl - 1) * 4 + Class Bonus";		//$NON-NLS-1$
-	public static final String	POISON_TOOLTIP		= "(CON * 3) + 10 + (lvl - 1) * 4 + Class Bonus";		//$NON-NLS-1$
-	public static final String	SHOCK_TOOLTIP		= "(CON * 2) + WP + 30 + (lvl - 1) * 4 + Class Bonus";	//$NON-NLS-1$
-	public static final String	STRESS_TOOLTIP		= "(WP * 3) + (lvl - 1) * 4 + Class Bonus";				//$NON-NLS-1$
-	public static final String	UNCONSCIOUS_TOOLTIP	= "STR + CON + (WP * 2) + (lvl - 1) * 4 + Class Bonus";	//$NON-NLS-1$
-	public static final String	SURPRISE_TOOLTIP	= "INT + DEX + WP + 35 + Level + Class Bonus";			//$NON-NLS-1$
-	public static final String	BELIEF_TOOLTIP		= "INT + WIS + 35 + (lvl * 5) + Class Bonus";			//$NON-NLS-1$
+	private static final String	AGILITY_TOOLTIP		= "<html>This save is used by the GM. whenever the character is<br>"											//$NON-NLS-1$
+					+ "doing anything that requires a high degree of dexterity<br>"																					//$NON-NLS-1$
+					+ "or coordination, or whenever the GM. feels one is required.</html>";																			//$NON-NLS-1$
+	private static final String	BLEEDING_TOOLTIP	= "<html>Whenever a character has taken more than 3 actual Hit Points of damage, they must <br>"				//$NON-NLS-1$
+					+ "save vs. bleeding that round and all future rounds until the wound can be bandaged.<br><br>"													//$NON-NLS-1$
+					+ "&nbsp 1) 	 If a character is successful in his save, he is considered to be Slightly Bleeding.<br>"										//$NON-NLS-1$
+					+ "&nbsp 2)  	Slightly Bleeding characters lose 1 H.P. per 2 rounds of active movement of any type.<br>"										//$NON-NLS-1$
+					+ "&nbsp 3)  	If a character fails his save, he is considered to be Seriously Bleeding, and<br>"												//$NON-NLS-1$
+					+ "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp loses 1 H.P. per round of active movement.<br>"														//$NON-NLS-1$
+					+ "&nbsp 4)  	Parrying is not considered Active movement, however usingyour Free Attack is.<br>"												//$NON-NLS-1$
+					+ "&nbsp 5)  	Bandaging will stop the bleeding after combat or lessen it during combat.<br><br>"												//$NON-NLS-1$
+					+ "See the section on Bandaging in the Healing and Death section.</html>";																		//$NON-NLS-1$
+	private static final String	MAGIC_TOOLTIP		= "<html>Most of the magical spells used by the mages or priests will<br>"										//$NON-NLS-1$
+					+ "allow a save vs. magic for half or no damage.</html>";																						//$NON-NLS-1$
+	private static final String	POISON_TOOLTIP		= "<html>If a character saves vs. poison, they will only take half damage.</html>";								//$NON-NLS-1$
+	private static final String	SHOCK_TOOLTIP		= "<html>This save is used when major physical trauma happens to <br>"											//$NON-NLS-1$
+					+ "a player character.  Some of the reasons a character would<br>"																				//$NON-NLS-1$
+					+ "have to save vs. shock would be being raised from the dead,<br>"																				//$NON-NLS-1$
+					+ "being turned to stoned, or changing shape (unless they are<br>"																				//$NON-NLS-1$
+					+ "the casting mage).  Most of the time a failed shock roll will<br>"																			//$NON-NLS-1$
+					+ "mean the characters death, or taking 1D100 points of damage<br>"																				//$NON-NLS-1$
+					+ "which in most cases is the same.  A save vs. shock is<br>"																					//$NON-NLS-1$
+					+ "also required whenever a character goes into negative hits,<br>"																				//$NON-NLS-1$
+					+ "you will find more information on that subject in the section<br>"																			//$NON-NLS-1$
+					+ "on Healing and Death.</html>";																												//$NON-NLS-1$
+	private static final String	STRESS_TOOLTIP		= "<html>This is the saving throw for the mind, whenever someone<br>"											//$NON-NLS-1$
+					+ "needs to do something extremely brave, or when you want<br>"																					//$NON-NLS-1$
+					+ "to try something that requires a test of willpower.</html>";																					//$NON-NLS-1$
+	private static final String	UNCONSCIOUS_TOOLTIP	= "<html>This is rolled whenever a character is hit in the head, solar<br>"										//$NON-NLS-1$
+					+ "plexus, or tender area, or whenever a character has less than (3)<br>"																		//$NON-NLS-1$
+					+ "Hit Points or Stamina.  If the character fail’s he is unconscious<br>"																		//$NON-NLS-1$
+					+ "for 2D10 rounds (30 seconds to 5 minutes).  When that time is up<br>"																		//$NON-NLS-1$
+					+ "the character will repeat the process until he wakes up, or passes<br>"																		//$NON-NLS-1$
+					+ "away, depending on the citation</html>";																										//$NON-NLS-1$
+	private static final String	SURPRISE_TOOLTIP	= "<html>This is also a saving throw, it doesn't go up like the other's because it is <br>"						//$NON-NLS-1$
+					+ "a little different.  Where the others are geared for each individual character,<br>"															//$NON-NLS-1$
+					+ "surprise is for a group or the individual.  If you are traveling with a group of<br>"														//$NON-NLS-1$
+					+ "friends through the forest, your scout or party leader might roll surprise to<br>"															//$NON-NLS-1$
+					+ "keep a group of Yrch (Orcs) from surprising you by dropping their capture<br>"																//$NON-NLS-1$
+					+ "nets on you.  If you are alone you would roll, if you saved you would see the<br>"															//$NON-NLS-1$
+					+ "net before it was too late, if not you had best get used to the underworld.<br>"																//$NON-NLS-1$
+					+ "This can be modified by special circumstances by the Game Master.</html>";																	//$NON-NLS-1$
+	private static final String	BELIEF_TOOLTIP		= "<html>This is what you use to save vs. Illusions, when fighting an illusion<br>"								//$NON-NLS-1$
+					+ "this acts as your armor rating.  The illusion will attempt to roll over your<br>"															//$NON-NLS-1$
+					+ "belief rating to make you believe you've been hit and have taken actual<br>"																	//$NON-NLS-1$
+					+ "damage, and therefore in pain.</html>";																										//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -198,13 +234,6 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 		return wrapper;
 	}
 
-	/*****************************************************************************
-	 * Setter's and Getter's
-	 ****************************************************************************/
-
-	/*****************************************************************************
-	 * Serialization
-	 ****************************************************************************/
 	@Override
 	public void loadDisplay() {
 		SavingThrowsRecord record = ((CharacterSheet) getOwner()).getSavingThrowsRecord();
@@ -220,6 +249,14 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 			mSurpriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSurprise());
 			mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
 
+			updateToolTips();
+		}
+	}
+
+	public void updateToolTips() {
+		SavingThrowsRecord record = ((CharacterSheet) getOwner()).getSavingThrowsRecord();
+
+		if (record != null) {
 			mAgilityField.setToolTipText(record.getAgilityToolTip());
 			mBleedingField.setToolTipText(record.getBleedingToolTip());
 			mMagicField.setToolTipText(record.getMagicToolTip());
@@ -231,4 +268,12 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 			mBeliefField.setToolTipText(record.getBeliefToolTip());
 		}
 	}
+
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
+
+	/*****************************************************************************
+	 * Serialization
+	 ****************************************************************************/
 }
