@@ -26,40 +26,41 @@ public abstract class BaseClass extends Object {
 
 	public abstract String[] getInnateDisplayList();
 
-	// Skills
+	// Regular Skills
 	public abstract boolean[] getInnateSkills();
+
+	public abstract int getAppraise();
 
 	public abstract int getBandaging();
 
-	public abstract int getHerbalLore();
-
-	public abstract int getHunting();
-
-	public abstract int getTracking();
+	public abstract int getDepthSense();
 
 	public abstract int getDetectMagic();
 
 	public abstract int getDetectMetals();
 
-	public abstract int getDetectSecretDoors();
-
 	public abstract int getDetectTraps();
 
-	public abstract int getAppraise();
+	public abstract int getHerbalLore();
 
-	public abstract int getDepthSense();
+	public abstract int getHunting();
+
+	public abstract int getPerception();
+
+	public abstract int getDetectSecretDoors();
+
+	public abstract int getTracking();
 
 	public abstract int getBerserk();
 
-	public abstract int getConceal();
+	// Thieving Skills
+	public abstract int getClimb();
 
-	public abstract int getStealth();
+	public abstract int getConceal();
 
 	public abstract int getHear();
 
-	public abstract int getClimb();
-
-	public abstract int getPerception();
+	public abstract int getStealth();
 
 	public abstract int getUnallocatedSkills();
 

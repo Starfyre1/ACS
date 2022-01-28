@@ -522,15 +522,6 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 			mRemoveTrapField.setToolTipText(record.getRemoveTrapToolTip());
 			mStealthField.setToolTipText(record.getStealthToolTip());
 
-			mClimbLevelBonusField.setToolTipText(record.getClimbLevelBonusToolTip());
-			mConcealLevelBonusField.setToolTipText(record.getConcealLevelBonusToolTip());
-			mFindTrapLevelBonusField.setToolTipText(record.getFindTrapLevelBonusToolTip());
-			mHearLevelBonusField.setToolTipText(record.getHearLevelBonusToolTip());
-			mLockPickLevelBonusField.setToolTipText(record.getLockPickLevelBonusToolTip());
-			mPickPocketLevelBonusField.setToolTipText(record.getPickPocketLevelBonusToolTip());
-			mRemoveTrapLevelBonusField.setToolTipText(record.getRemoveTrapLevelBonusToolTip());
-			mStealthLevelBonusField.setToolTipText(record.getStealthLevelBonusToolTip());
-
 			mUnallocatedField.setToolTipText(record.getUnallocatedSkillsToolTip());
 		}
 	}

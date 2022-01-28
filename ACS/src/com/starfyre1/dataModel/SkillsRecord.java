@@ -7,6 +7,7 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.startup.ACS;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,49 +19,49 @@ public class SkillsRecord implements LevelListener, Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY			= "SKILLS_SECTTION_START";			//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY			= "SKILLS_SECTTION_END";			//$NON-NLS-1$
+	public static final String	FILE_SECTTION_START_KEY			= "SKILLS_SECTTION_START";							//$NON-NLS-1$
+	public static final String	FILE_SECTTION_END_KEY			= "SKILLS_SECTTION_END";							//$NON-NLS-1$
 
-	public static final String	CONCEAL_LEVEL_BONUS_KEY			= "CONCEAL_LEVEL_BONUS_KEY";		//$NON-NLS-1$
-	public static final String	STEALTH_LEVEL_BONUS_KEY			= "STEALTH_LEVEL_BONUS_KEY";		//$NON-NLS-1$
-	public static final String	HEAR_LEVEL_BONUS_KEY			= "HEAR_LEVEL_BONUS_KEY";			//$NON-NLS-1$
-	public static final String	LOCK_PICK_LEVEL_BONUS_KEY		= "LOCK_PICK_LEVEL_BONUS_KEY";		//$NON-NLS-1$
-	public static final String	POCKET_PICK_LEVEL_BONUS_KEY		= "POCKET_PICK_LEVEL_BONUS_KEY";	//$NON-NLS-1$
-	public static final String	CLIMB_LEVEL_BONUS_KEY			= "CLIMB_LEVEL_BONUS_KEY";			//$NON-NLS-1$
-	public static final String	FIND_TRAP_LEVEL_BONUS_KEY		= "FIND_TRAP_LEVEL_BONUS_KEY";		//$NON-NLS-1$
-	public static final String	REMOVE_TRAP_LEVEL_BONUS_KEY		= "REMOVE_TRAP_LEVEL_BONUS_KEY";	//$NON-NLS-1$
+	public static final String	CONCEAL_LEVEL_BONUS_KEY			= "CONCEAL_LEVEL_BONUS_KEY";						//$NON-NLS-1$
+	public static final String	STEALTH_LEVEL_BONUS_KEY			= "STEALTH_LEVEL_BONUS_KEY";						//$NON-NLS-1$
+	public static final String	HEAR_LEVEL_BONUS_KEY			= "HEAR_LEVEL_BONUS_KEY";							//$NON-NLS-1$
+	public static final String	LOCK_PICK_LEVEL_BONUS_KEY		= "LOCK_PICK_LEVEL_BONUS_KEY";						//$NON-NLS-1$
+	public static final String	POCKET_PICK_LEVEL_BONUS_KEY		= "POCKET_PICK_LEVEL_BONUS_KEY";					//$NON-NLS-1$
+	public static final String	CLIMB_LEVEL_BONUS_KEY			= "CLIMB_LEVEL_BONUS_KEY";							//$NON-NLS-1$
+	public static final String	FIND_TRAP_LEVEL_BONUS_KEY		= "FIND_TRAP_LEVEL_BONUS_KEY";						//$NON-NLS-1$
+	public static final String	REMOVE_TRAP_LEVEL_BONUS_KEY		= "REMOVE_TRAP_LEVEL_BONUS_KEY";					//$NON-NLS-1$
 
-	private static final String	APPRAISE_TOOLTIP				= "Appraise";						//$NON-NLS-1$
-	private static final String	BANDAGING_TOOLTIP				= "Bandaging";						//$NON-NLS-1$
-	private static final String	DEPTH_SENSE_TOOLTIP				= "Depth Sense";					//$NON-NLS-1$
-	private static final String	DETECT_MAGIC_TOOLTIP			= "Detect Magic";					//$NON-NLS-1$
-	private static final String	DETECT_METALS_TOOLTIP			= "Detect Metals";					//$NON-NLS-1$
-	private static final String	DETECT_MORALS_TOOLTIP			= "Detect Morals";					//$NON-NLS-1$
-	private static final String	DETECT_SECRET_DOORS_TOOLTIP		= "Secret Doors";					//$NON-NLS-1$
-	private static final String	DETECT_TRAPS_TOOLTIP			= "Detect Traps";					//$NON-NLS-1$
-	private static final String	HERBAL_LORE_TOOLTIP				= "Herbal Lore";					//$NON-NLS-1$
-	private static final String	HUNTING_TOOLTIP					= "Hunting";						//$NON-NLS-1$
-	private static final String	PERCEPTION_TOOLTIP				= "Perception";						//$NON-NLS-1$
-	private static final String	TRACKING_TOOLTIP				= "Tracking";						//$NON-NLS-1$
+	private static final String	APPRAISE_TOOLTIP				= "90 + lvl";										//$NON-NLS-1$
+	private static final String	BANDAGING_TOOLTIP				= "(lvl * 10) + (WIS > 12 ? +10) + Class Bonus";	//$NON-NLS-1$
+	private static final String	DEPTH_SENSE_TOOLTIP				= "60 + (lvl * 3)";									//$NON-NLS-1$
+	private static final String	DETECT_MAGIC_TOOLTIP			= "50 + (lvl * 5)";									//$NON-NLS-1$
+	private static final String	DETECT_METALS_TOOLTIP			= "50 + (lvl * 5)";									//$NON-NLS-1$
+	private static final String	DETECT_MORALS_TOOLTIP			= "30 + (diff in lvls * 5)";						//$NON-NLS-1$
+	private static final String	DETECT_SECRET_DOORS_TOOLTIP		= "50 + (lvl * 5)";									//$NON-NLS-1$
+	private static final String	DETECT_TRAPS_TOOLTIP			= "50 + (lvl * 5)";									//$NON-NLS-1$
+	private static final String	HERBAL_LORE_TOOLTIP				= "15 + (lvl * 3) + Class Bonus";					//$NON-NLS-1$
+	private static final String	HUNTING_TOOLTIP					= "WIS + (lvl * 5) + Weapon Bonus";					//$NON-NLS-1$
+	private static final String	PERCEPTION_TOOLTIP				= "15 + INT + WIS + ((lvl -1) * 2) + Class Bonus";	//$NON-NLS-1$
+	private static final String	TRACKING_TOOLTIP				= "70 + (lvl * 3) + Modifiers";						//$NON-NLS-1$
 
-	private static final String	CONCEAL_TOOLTIP					= "Conceal";						//$NON-NLS-1$
-	private static final String	STEALTH_TOOLTIP					= "Stealth";						//$NON-NLS-1$
-	private static final String	HEAR_TOOLTIP					= "Hear";							//$NON-NLS-1$
-	private static final String	LOCK_PICK_TOOLTIP				= "Lock Pick";						//$NON-NLS-1$
-	private static final String	PICK_POCKET_TOOLTIP				= "Pick Pocket";					//$NON-NLS-1$
-	private static final String	CLIMB_TOOLTIP					= "Climb";							//$NON-NLS-1$
-	private static final String	FIND_TRAP_TOOLTIP				= "Find Trap";						//$NON-NLS-1$
-	private static final String	REMOVE_TRAP_TOOLTIP				= "Remove Trap";					//$NON-NLS-1$
+	private static final String	CONCEAL_TOOLTIP					= "20 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
+	private static final String	STEALTH_TOOLTIP					= "20 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
+	private static final String	HEAR_TOOLTIP					= "Class Bonus + Skill Bonus";						//$NON-NLS-1$
+	private static final String	LOCK_PICK_TOOLTIP				= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
+	private static final String	PICK_POCKET_TOOLTIP				= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
+	private static final String	CLIMB_TOOLTIP					= "70 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
+	private static final String	FIND_TRAP_TOOLTIP				= "20 + Wis & INT Modifier + Skill Bonus";			//$NON-NLS-1$
+	private static final String	REMOVE_TRAP_TOOLTIP				= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
 
-	private static final String	CONCEAL_LEVEL_BONUS_TOOLTIP		= "Conceal";						//$NON-NLS-1$
-	private static final String	STEALTH_LEVEL_BONUS_TOOLTIP		= "Stealth";						//$NON-NLS-1$
-	private static final String	HEAR_LEVEL_BONUS_TOOLTIP		= "Hear";							//$NON-NLS-1$
-	private static final String	LOCK_PICK_LEVEL_BONUS_TOOLTIP	= "Lock Pick";						//$NON-NLS-1$
-	private static final String	PICK_POCKET_LEVEL_BONUS_TOOLTIP	= "Pick Pocket";					//$NON-NLS-1$
-	private static final String	CLIMB_LEVEL_BONUS_TOOLTIP		= "Climb";							//$NON-NLS-1$
-	private static final String	FIND_TRAP_LEVEL_BONUS_TOOLTIP	= "Find Trap";						//$NON-NLS-1$
-	private static final String	REMOVE_TRAP_LEVEL_BONUS_TOOLTIP	= "Remove Trap";					//$NON-NLS-1$
-	private static final String	UNALLOCATED_TOOLTIP				= "Unallocated";
+	private static final String	CONCEAL_LEVEL_BONUS_TOOLTIP		= "Conceal";										//$NON-NLS-1$
+	private static final String	STEALTH_LEVEL_BONUS_TOOLTIP		= "Stealth";										//$NON-NLS-1$
+	private static final String	HEAR_LEVEL_BONUS_TOOLTIP		= "Hear";											//$NON-NLS-1$
+	private static final String	LOCK_PICK_LEVEL_BONUS_TOOLTIP	= "Lock Pick";										//$NON-NLS-1$
+	private static final String	PICK_POCKET_LEVEL_BONUS_TOOLTIP	= "Pick Pocket";									//$NON-NLS-1$
+	private static final String	CLIMB_LEVEL_BONUS_TOOLTIP		= "Climb";											//$NON-NLS-1$
+	private static final String	FIND_TRAP_LEVEL_BONUS_TOOLTIP	= "Find Trap";										//$NON-NLS-1$
+	private static final String	REMOVE_TRAP_LEVEL_BONUS_TOOLTIP	= "Remove Trap";									//$NON-NLS-1$
+	private static final String	UNALLOCATED_TOOLTIP				= "Unallocated";									//$NON-NLS-1$
 
 	private boolean				mIsInnate[]						= new boolean[20];
 
@@ -75,7 +76,7 @@ public class SkillsRecord implements LevelListener, Savable {
 	private static final int	APPRAISE						= 8;
 	private static final int	DEPTH_SENSE						= 9;
 	private static final int	CONCEAL							= 10;
-	//	private static final int	STEALTH						= 11;
+	private static final int	STEALTH							= 11;
 	private static final int	HEAR							= 12;
 	private static final int	LOCK_PICK						= 13;
 	private static final int	PICK_POCKET						= 14;
@@ -359,7 +360,7 @@ public class SkillsRecord implements LevelListener, Savable {
 	}
 
 	public void generateStealth(BaseClass classInfo) {
-		boolean innate = mIsInnate[CONCEAL];
+		boolean innate = mIsInnate[STEALTH];
 		int base = 0;
 		int classBonus = 0;
 		int dexModifier = 0;
@@ -379,21 +380,21 @@ public class SkillsRecord implements LevelListener, Savable {
 		  		Listener is:				Chance to Hear 		Range
 				Human, Non-thief with a save		20%			60'
 				Vs. Surprise of less than 75%
-
-
+		
+		
 				Human, Non-thief with a save		30%			60'
 				Vs. Surprise of more than 75%
-
+		
 				Elven, Half-Elven and Dwarrow		30% 		120'
-
+		
 				Other--(some monsters will have		20%			60'
 				high hearing abilities)
-
+		
 				Thief					Varies with lvl		60' *
 					*	Add 5’ per 10% above 100% to hear.
-
+		
 				Halve all chances when listening to a door.
-
+		
 		*/
 
 		boolean innate = mIsInnate[HEAR];
@@ -759,147 +760,387 @@ public class SkillsRecord implements LevelListener, Savable {
 		mUnallocated = unallocated;
 	}
 
-	/** @return The bandaging. */
+	/** @return The bandaging tooltip. */
 	public String getBandagingToolTip() {
-		return BANDAGING_TOOLTIP;
+		// implement if needed - Everyone can bandage, does not need to be innate
+		// boolean innate = mIsInnate[BANDAGING];
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int level = 10 * headerRecord.getLevel();
+		int wisdomBonus = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.WIS) > 12 ? 10 : 0;
+		int classBonus = headerRecord.getCharacterClass().getBandaging();
+
+		if (ACS.showCalculations()) {
+			sb.append(BANDAGING_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append("(" + level + ") + (" + wisdomBonus + ") + " + classBonus + " = " + (level + wisdomBonus + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+		return sb.toString();
 	}
 
-	/** @return The hunting. */
+	/** @return The hunting tooltip. */
 	public String getHuntingToolTip() {
-		return HUNTING_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[HUNTING];
+
+		// Add +20% if they are hunting with a Spear or a Bow.
+		int wisBonus = 0;
+		int classBonus = 0;
+		int weaponBonus = 0;
+		if (innate) {
+			wisBonus = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
+			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getHunting();
+			// DW __add weapon bonus
+			//			weaponBonus = hasWeaponBonus() ? 20 : 0; // Spear or Bow
+		}
+		if (ACS.showCalculations()) {
+			sb.append(HUNTING_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(wisBonus + " + (" + classBonus + ") + " + weaponBonus + " = " + (wisBonus + classBonus + weaponBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+		return sb.toString();
 	}
 
-	/** @return The tracking. */
+	/** @return The tracking tooltip. */
 	public String getTrackingToolTip() {
-		return TRACKING_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[TRACKING];
+		int base = 0;
+		int classBonus = 0;
+
+		if (innate) {
+			base = 70;
+			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getTracking();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(TRACKING_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + (" + classBonus + ") = " + (base + classBonus) + " +/- modifiers<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+		return sb.toString();
 	}
 
-	/** @return The detectMagic. */
+	/** @return The detectMagic tooltip. */
 	public String getDetectMagicToolTip() {
-		return DETECT_MAGIC_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[DETECT_MAGIC];
+		int base = 0;
+		int classBonus = 0;
+		if (innate) {
+			base = 50;
+			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getDetectMagic();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(DETECT_MAGIC_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + (" + classBonus + ") = " + (base + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+		return sb.toString();
 	}
 
-	/** @return The detectMorals. */
+	/** @return The detectMorals tooltip. */
 	public String getDetectMoralsToolTip() {
-		return DETECT_MORALS_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[DETECT_MORALS];
+		int base = innate ? 30 : 0;
+		if (ACS.showCalculations()) {
+			sb.append(DETECT_MORALS_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " = " + base + " +/- level modifiers<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		return sb.toString();
 	}
 
-	/** @return The detectMetals. */
+	/** @return The detectMetals tooltip. */
 	public String getDetectMetalsToolTip() {
-		return DETECT_METALS_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+
+		boolean innate = mIsInnate[DETECT_METALS];
+		int base = innate ? mCharacterSheet.getHeaderRecord().getCharacterClass().getDetectMetals() : 0;
+		if (ACS.showCalculations()) {
+			sb.append(DETECT_METALS_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " = " + base + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		return sb.toString();
 	}
 
-	/** @return The detectSecretDoors. */
+	/** @return The detectSecretDoors tooltip. */
 	public String getDetectSecretDoorsToolTip() {
-		return DETECT_SECRET_DOORS_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+
+		boolean innate = mIsInnate[DETECT_SECRET_DOORS];
+		int base = 0;
+		int classBonus = 0;
+
+		if (innate) {
+			base = 50;
+			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getDetectSecretDoors();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(DETECT_SECRET_DOORS_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + (" + classBonus + ") = " + (base + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+		return sb.toString();
 	}
 
-	/** @return The detectTraps. */
+	/** @return The detectTraps tooltip. */
 	public String getDetectTrapsToolTip() {
-		return DETECT_TRAPS_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+
+		boolean innate = mIsInnate[DETECT_TRAPS];
+		int base = 0;
+		int level = 0;
+		if (innate) {
+			base = 50;
+			level = mCharacterSheet.getHeaderRecord().getLevel() * 5;
+		}
+		if (ACS.showCalculations()) {
+			sb.append(DETECT_TRAPS_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + (" + level + ") = " + (base + level) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+		return sb.toString();
 	}
 
-	/** @return The appraise. */
+	/** @return The appraise tooltip. */
 	public String getAppraiseToolTip() {
-		return APPRAISE_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[APPRAISE];
+		int base = 0;
+		int classBonus = 0;
+		if (innate) {
+			base = 90;
+			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getAppraise();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(APPRAISE_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + " + classBonus + " = " + (base + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+		return sb.toString();
 	}
 
-	/** @return The depthSense. */
+	/** @return The depthSense tooltip. */
 	public String getDepthSenseToolTip() {
-		return DEPTH_SENSE_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[DEPTH_SENSE];
+		int base = 0;
+		int classBonus = 0;
+		if (innate) {
+			base = 60;
+			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getDepthSense();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(DEPTH_SENSE_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + (" + classBonus + ") = " + (base + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+		return sb.toString();
 	}
 
-	/** @return The conceal. */
+	/** @return The conceal tooltip. */
 	public String getConcealToolTip() {
-		return CONCEAL_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[CONCEAL];
+		int base = 0;
+		int classBonus = 0;
+		int skillBonus = 0;
+		int dexModifier = 0;
+		if (innate) {
+			base = 20;
+			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getConceal();
+			skillBonus = getConcealLevelBonus();
+			dexModifier = getDexModifier();
+		}
+
+		if (ACS.showCalculations()) {
+			sb.append(CONCEAL_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + " + dexModifier + " + " + classBonus + " + " + skillBonus + " = " + (base + dexModifier + classBonus + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+		return sb.toString();
 	}
 
-	/** @return The stealth. */
+	/** @return The stealth tooltip. */
 	public String getStealthToolTip() {
-		return STEALTH_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[STEALTH];
+		int base = 0;
+		int dexModifier = 0;
+		int classBonus = 0;
+		int skillBonus = 0;
+		if (innate) {
+			base = 20;
+			dexModifier = getDexModifier();
+			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getStealth();
+			skillBonus = getStealthLevelBonus();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(STEALTH_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + " + dexModifier + " + " + classBonus + " + " + skillBonus + " = " + (base + dexModifier + classBonus + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+		return sb.toString();
 	}
 
-	/** @return The hear. */
+	/** @return The hear tooltip. */
 	public String getHearToolTip() {
-		return HEAR_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		//		boolean innate = mIsInnate[HEAR];
+		int classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getHear();
+		int skillBonus = getHearLevelBonus();
+
+		if (ACS.showCalculations()) {
+			sb.append(HEAR_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(classBonus + " + " + skillBonus + " = " + (classBonus + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
+		return sb.toString();
 	}
 
-	/** @return The lockPick. */
+	/** @return The lockPick tooltip. */
 	public String getLockPickToolTip() {
-		return LOCK_PICK_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[LOCK_PICK];
+		int base = 0;
+		int dexModifier = 0;
+		int skillBonus = 0;
+		if (innate) {
+			base = 20;
+			dexModifier = getDexModifier();
+			skillBonus = getLockPickLevelBonus();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(LOCK_PICK_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + " + dexModifier + " + " + skillBonus + " = " + (base + dexModifier + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+		return sb.toString();
 	}
 
-	/** @return The pickPocket. */
+	/** @return The pickPocket tooltip. */
 	public String getPickPocketToolTip() {
-		return PICK_POCKET_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[PICK_POCKET];
+		int base = 0;
+		int dexModifier = 0;
+		int skillBonus = 0;
+		if (innate) {
+			base = 20;
+			dexModifier = getDexModifier();
+			skillBonus = getPickPocketLevelBonus();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(PICK_POCKET_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + " + dexModifier + " + " + skillBonus + " = " + (base + dexModifier + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+		return sb.toString();
 	}
 
-	/** @return The climb. */
+	/** @return The climb tooltip. */
 	public String getClimbToolTip() {
-		return CLIMB_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[CLIMB];
+		int base = 0;
+		int dexModifier = 0;
+		int classBonus = 0;
+		int skillBonus = 0;
+		if (innate) {
+			base = 70;
+			dexModifier = getDexModifier();
+			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getClimb();
+			skillBonus = getClimbLevelBonus();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(CLIMB_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + " + dexModifier + " + " + classBonus + " + " + skillBonus + " = " + (base + dexModifier + classBonus + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+
+		return sb.toString();
 	}
 
-	/** @return The findTrap. */
+	/** @return The findTrap tooltip. */
 	public String getFindTrapToolTip() {
-		return FIND_TRAP_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		boolean innate = mIsInnate[FIND_TRAP];
+		int base = 0;
+		int mod = 0;
+		int skillBonus = 0;
+		if (innate) {
+			mod = findTrapModification();
+			base = 20;
+			skillBonus = getFindTrapLevelBonus();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(FIND_TRAP_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + " + mod + " + " + skillBonus + " = " + (base + mod + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+		return sb.toString();
 	}
 
-	/** @return The removeTrap. */
+	/** @return The removeTrap tooltip. */
 	public String getRemoveTrapToolTip() {
-		return REMOVE_TRAP_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+
+		boolean innate = mIsInnate[REMOVE_TRAP];
+		int base = 0;
+		int mod = 0;
+		int skillBonus = 0;
+		if (innate) {
+			base = 20;
+			mod = getDexModifier();
+			skillBonus = getRemoveTrapLevelBonus();
+		}
+		if (ACS.showCalculations()) {
+			sb.append(REMOVE_TRAP_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + " + mod + " + " + skillBonus + " = " + (base + mod + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+		return sb.toString();
 	}
 
-	/** @return The herbalLore. */
+	/** @return The herbalLore tooltip. */
 	public String getHerbalLoreToolTip() {
-		return HERBAL_LORE_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+		int base = 15;
+		int level = headerRecord.getLevel() * 3;
+		int classBonus = headerRecord.getCharacterClass().getHerbalLore();
+
+		if (ACS.showCalculations()) {
+			sb.append(HERBAL_LORE_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + (" + level + ") + " + classBonus + " = " + (base + level + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+		return sb.toString();
 	}
 
-	/** @return The Perception. */
+	/** @return The perception tooltip. */
 	public String getPerceptionToolTip() {
-		return PERCEPTION_TOOLTIP;
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+
+		int intel = attr.getModifiedStat(AttributesRecord.INT);
+		int wis = attr.getModifiedStat(AttributesRecord.WIS);
+		int base = 15;
+		int level = headerRecord.getLevel() - 1;
+		int classBonus = headerRecord.getCharacterClass().getPerception();
+
+		if (ACS.showCalculations()) {
+			sb.append(PERCEPTION_TOOLTIP + "<br>"); //$NON-NLS-1$
+		}
+		sb.append(base + " + " + intel + " + " + wis + " + (" + level * 2 + ") + " + classBonus + " = " + (base + intel + wis + level * 2 + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+
+		return sb.toString();
 	}
 
-	/** @return The concealLevelBonus. */
-	public String getConcealLevelBonusToolTip() {
-		return CONCEAL_LEVEL_BONUS_TOOLTIP;
-	}
-
-	/** @return The stealthLevelBonus. */
-	public String getStealthLevelBonusToolTip() {
-		return STEALTH_LEVEL_BONUS_TOOLTIP;
-	}
-
-	/** @return The hearLevelBonus. */
-	public String getHearLevelBonusToolTip() {
-		return HEAR_LEVEL_BONUS_TOOLTIP;
-	}
-
-	/** @return The lockPickLevelBonus. */
-	public String getLockPickLevelBonusToolTip() {
-		return LOCK_PICK_LEVEL_BONUS_TOOLTIP;
-	}
-
-	/** @return The pickPocketLevelBonus. */
-	public String getPickPocketLevelBonusToolTip() {
-		return PICK_POCKET_LEVEL_BONUS_TOOLTIP;
-	}
-
-	/** @return The climbLevelBonus. */
-	public String getClimbLevelBonusToolTip() {
-		return CLIMB_LEVEL_BONUS_TOOLTIP;
-	}
-
-	/** @return The findTrapLevelBonus. */
-	public String getFindTrapLevelBonusToolTip() {
-		return FIND_TRAP_LEVEL_BONUS_TOOLTIP;
-	}
-
-	/** @return The removeTrapLevelBonus. */
-	public String getRemoveTrapLevelBonusToolTip() {
-		return REMOVE_TRAP_LEVEL_BONUS_TOOLTIP;
-	}
-
-	/** @return The unallocated poStrings. */
+	/** @return The UnallocatedSkill tooltip. */
 	public String getUnallocatedSkillsToolTip() {
 		return UNALLOCATED_TOOLTIP;
 	}
