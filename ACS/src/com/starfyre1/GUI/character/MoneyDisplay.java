@@ -9,7 +9,6 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.MoneyRecord;
 
-import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.BoxLayout;
@@ -21,7 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -70,10 +68,9 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 		JPanel wrapper = new JPanel();
 		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.X_AXIS));
 		wrapper.setAlignmentX(Component.LEFT_ALIGNMENT);
-		wrapper.setBorder(new LineBorder(Color.red));
 
 		JLabel goldLabel = new JLabel(GOLD_LABEL, SwingConstants.RIGHT);
-		goldLabel.setBorder(new EmptyBorder(0, 5, 0, 5));
+		goldLabel.setBorder(new EmptyBorder(0, 0, 0, 5));
 		mGoldField = TKComponentHelpers.createTextField(4, 20, this, filter);
 
 		JLabel silverLabel = new JLabel(SILVER_LABEL, SwingConstants.RIGHT);
@@ -86,7 +83,6 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 
 		JLabel gemsLabel = new JLabel(GEMS_LABEL, SwingConstants.RIGHT);
 		mGemsArea = new JTextArea(3, 10);
-		mGemsArea.setBorder(new LineBorder(Color.black));
 
 		JScrollPane gemsScrollPane = new JScrollPane(mGemsArea);
 		gemsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -96,7 +92,6 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 
 		JLabel jewelryLabel = new JLabel(JEWELRY_LABEL, SwingConstants.RIGHT);
 		mJewelryArea = new JTextArea(3, 10);
-		mJewelryArea.setBorder(new LineBorder(Color.black));
 
 		JScrollPane jewelryScrollPane = new JScrollPane(mJewelryArea);
 		jewelryScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -106,7 +101,6 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 
 		JLabel otherLabel = new JLabel(OTHER_LABEL, SwingConstants.RIGHT);
 		mOtherArea = new JTextArea(3, 10);
-		mOtherArea.setBorder(new LineBorder(Color.black));
 
 		JScrollPane otherScrollPane = new JScrollPane(mOtherArea);
 		otherScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
