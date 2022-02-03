@@ -11,13 +11,14 @@ import com.starfyre1.dataModel.MoneyRecord;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -67,27 +68,51 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
 		JPanel wrapper = new JPanel();
+		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.X_AXIS));
+		wrapper.setAlignmentX(Component.LEFT_ALIGNMENT);
+		wrapper.setBorder(new LineBorder(Color.red));
 
 		JLabel goldLabel = new JLabel(GOLD_LABEL, SwingConstants.RIGHT);
-		mGoldField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
+		goldLabel.setBorder(new EmptyBorder(0, 5, 0, 5));
+		mGoldField = TKComponentHelpers.createTextField(4, 20, this, filter);
 
 		JLabel silverLabel = new JLabel(SILVER_LABEL, SwingConstants.RIGHT);
-		mSilverField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
+		silverLabel.setBorder(new EmptyBorder(0, 5, 0, 5));
+		mSilverField = TKComponentHelpers.createTextField(4, 20, this, filter);
 
 		JLabel copperLabel = new JLabel(COPPER_LABEL, SwingConstants.RIGHT);
-		mCopperField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
+		copperLabel.setBorder(new EmptyBorder(0, 5, 0, 5));
+		mCopperField = TKComponentHelpers.createTextField(4, 20, this, filter);
 
 		JLabel gemsLabel = new JLabel(GEMS_LABEL, SwingConstants.RIGHT);
-		mGemsArea = new JTextArea(3, 20);
+		mGemsArea = new JTextArea(3, 10);
 		mGemsArea.setBorder(new LineBorder(Color.black));
 
+		JScrollPane gemsScrollPane = new JScrollPane(mGemsArea);
+		gemsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		gemsScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		gemsScrollPane.getVerticalScrollBar().setUnitIncrement(10);
+		gemsScrollPane.getHorizontalScrollBar().setUnitIncrement(10);
+
 		JLabel jewelryLabel = new JLabel(JEWELRY_LABEL, SwingConstants.RIGHT);
-		mJewelryArea = new JTextArea(3, 20);
+		mJewelryArea = new JTextArea(3, 10);
 		mJewelryArea.setBorder(new LineBorder(Color.black));
 
+		JScrollPane jewelryScrollPane = new JScrollPane(mJewelryArea);
+		jewelryScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jewelryScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		jewelryScrollPane.getVerticalScrollBar().setUnitIncrement(10);
+		jewelryScrollPane.getHorizontalScrollBar().setUnitIncrement(10);
+
 		JLabel otherLabel = new JLabel(OTHER_LABEL, SwingConstants.RIGHT);
-		mOtherArea = new JTextArea(3, 20);
+		mOtherArea = new JTextArea(3, 10);
 		mOtherArea.setBorder(new LineBorder(Color.black));
+
+		JScrollPane otherScrollPane = new JScrollPane(mOtherArea);
+		otherScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		otherScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		otherScrollPane.getVerticalScrollBar().setUnitIncrement(10);
+		otherScrollPane.getHorizontalScrollBar().setUnitIncrement(10);
 
 		wrapper.add(goldLabel);
 		wrapper.add(mGoldField);
@@ -98,18 +123,18 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 
 		JPanel wrapper2 = new JPanel();
 		wrapper2.setLayout(new BoxLayout(wrapper2, BoxLayout.Y_AXIS));
+		wrapper2.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 		wrapper2.add(gemsLabel);
-		wrapper2.add(mGemsArea);
+		wrapper2.add(gemsScrollPane);
 		wrapper2.add(jewelryLabel);
-		wrapper2.add(mJewelryArea);
+		wrapper2.add(jewelryScrollPane);
 		wrapper2.add(otherLabel);
-		wrapper2.add(mOtherArea);
+		wrapper2.add(otherScrollPane);
 
 		outerWrapper.add(wrapper);
 		outerWrapper.add(wrapper2);
 
-		outerWrapper.setPreferredSize(new Dimension(300, 100));
 		return outerWrapper;
 
 	}
