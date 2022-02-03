@@ -67,35 +67,35 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 		//		wrapper.setBorder(new EmptyBorder(0, 0, 0, 10));
 
 		JLabel heightLabel = new JLabel(HEIGHT_LABEL, SwingConstants.RIGHT);
-		mHeightField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+		mHeightField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
 		mHeightField.setEditable(false);
 
 		JLabel weightLabel = new JLabel(WEIGHT_LABEL, SwingConstants.RIGHT);
-		mWeightField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+		mWeightField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
 		mWeightField.setEditable(false);
 
 		JLabel sexLabel = new JLabel(SEX_LABEL, SwingConstants.RIGHT);
-		mSexField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this);
+		mSexField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel hairLabel = new JLabel(HAIR_LABEL, SwingConstants.RIGHT);
-		mHairField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this);
+		mHairField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel eyesLabel = new JLabel(EYES_LABEL, SwingConstants.RIGHT);
-		mEyesField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this);
+		mEyesField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel ageLabel = new JLabel(AGE_LABEL, SwingConstants.RIGHT);
-		mAgeField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this);
+		mAgeField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel socialClassLabel = new JLabel(SOCIAL_CLASS_LABEL, SwingConstants.RIGHT);
-		mSocialClassField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+		mSocialClassField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
 		mSocialClassField.setEditable(false);
 
 		JLabel carryLabel = new JLabel(CARRY_LABEL, SwingConstants.RIGHT);
-		mCarryField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+		mCarryField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
 		mCarryField.setEditable(false);
 
 		JLabel encumbranceLabel = new JLabel(ENCUMBRANCE_LABEL, SwingConstants.RIGHT);
-		mEncumbranceField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
+		mEncumbranceField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
 		mEncumbranceField.setEditable(false);
 
 		JPanel temp = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));

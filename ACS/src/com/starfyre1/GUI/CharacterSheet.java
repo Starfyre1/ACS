@@ -137,6 +137,7 @@ public class CharacterSheet implements ActionListener {
 	public static final Insets				BORDER_INSETS				= new Insets(5, 5, 5, 5);
 	public static final int					FIELD_SIZE_SMALL			= 2;
 	public static final int					FIELD_SIZE_MEDIUM			= 5;
+	public static final int					FIELD_SIZE_MEDIUM_LARGE		= 8;
 	public static final int					FIELD_SIZE_LARGE			= 14;
 	public static final int					FIELD_SIZE_EXLARGE			= 50;
 	public static final int					CELL_SMALL_MAX_WIDTH		= 45;
