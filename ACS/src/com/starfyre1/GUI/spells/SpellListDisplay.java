@@ -238,7 +238,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 				break;
 			}
 		}
-		if (!found) {
+		if (!(found || MagicAreaPopup.SELECT_MAGIC_AREA.equals(text))) {
 			SpellList list = new SpellList(text);
 			mCards.add(text, list);
 			mCurrentList = list;
@@ -261,6 +261,22 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	protected void loadDisplay() {
 		enableFields(!MagicAreaPopup.SELECT_MAGIC_AREA.equals(getMagicArea()));
 
+	}
+
+	public void clearRecords() {
+		for (int i = 0; i < mCards.getComponentCount(); i++) {
+			Component comp = mCards.getComponent(i);
+			if (comp instanceof SpellList) {
+				SpellList spellList = (SpellList) comp;
+				spellList.clearRecords();
+				String spellArea = spellList.getName();
+				updateSpellList(spellArea);
+
+			}
+		}
+		mCards.removeAll();
+		mCurrentList = null;
+		mAreaPopup.selectPopupMenuItem(MagicAreaPopup.SELECT_MAGIC_AREA);
 	}
 
 	/*****************************************************************************

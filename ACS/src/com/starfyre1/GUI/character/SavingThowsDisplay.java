@@ -241,9 +241,8 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 		if (!sheet.isLoadingData()) {
 			sheet.setLoadingData(true);
 			SavingThrowsRecord record = sheet.getSavingThrowsRecord();
-			BaseClass characterClass = sheet.getHeaderRecord().getCharacterClass();
 
-			if (!(record == null || characterClass == null)) {
+			if (!(record == null)) {
 				mAgilityField.setText(TKStringHelpers.EMPTY_STRING + record.getAgility());
 				mBleedingField.setText(TKStringHelpers.EMPTY_STRING + record.getBleeding());
 				mMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getMagic());
@@ -261,18 +260,21 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 	}
 
 	public void updateToolTips() {
-		SavingThrowsRecord record = ((CharacterSheet) getOwner()).getSavingThrowsRecord();
+		CharacterSheet owner = (CharacterSheet) getOwner();
+		SavingThrowsRecord record = owner.getSavingThrowsRecord();
+		BaseClass base = owner.getHeaderRecord().getCharacterClass();
+		String zero = "0"; //$NON-NLS-1$
 
 		if (record != null) {
-			mAgilityField.setToolTipText(record.getAgilityToolTip());
-			mBleedingField.setToolTipText(record.getBleedingToolTip());
-			mMagicField.setToolTipText(record.getMagicToolTip());
-			mPoisonField.setToolTipText(record.getPoisonToolTip());
-			mShockField.setToolTipText(record.getShockToolTip());
-			mStressField.setToolTipText(record.getStressToolTip());
-			mUnconciousField.setToolTipText(record.getUnconsciousToolTip());
-			mSurpriseField.setToolTipText(record.getSurpriseToolTip());
-			mBeliefField.setToolTipText(record.getBeliefToolTip());
+			mAgilityField.setToolTipText(base == null ? zero : record.getAgilityToolTip());
+			mBleedingField.setToolTipText(base == null ? zero : record.getBleedingToolTip());
+			mMagicField.setToolTipText(base == null ? zero : record.getMagicToolTip());
+			mPoisonField.setToolTipText(base == null ? zero : record.getPoisonToolTip());
+			mShockField.setToolTipText(base == null ? zero : record.getShockToolTip());
+			mStressField.setToolTipText(base == null ? zero : record.getStressToolTip());
+			mUnconciousField.setToolTipText(base == null ? zero : record.getUnconsciousToolTip());
+			mSurpriseField.setToolTipText(base == null ? zero : record.getSurpriseToolTip());
+			mBeliefField.setToolTipText(base == null ? zero : record.getBeliefToolTip());
 		}
 	}
 

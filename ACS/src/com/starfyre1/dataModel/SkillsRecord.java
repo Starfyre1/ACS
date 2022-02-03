@@ -19,112 +19,104 @@ public class SkillsRecord implements LevelListener, Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY			= "SKILLS_SECTTION_START";							//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY			= "SKILLS_SECTTION_END";							//$NON-NLS-1$
+	public static final String	FILE_SECTTION_START_KEY		= "SKILLS_SECTTION_START";							//$NON-NLS-1$
+	public static final String	FILE_SECTTION_END_KEY		= "SKILLS_SECTTION_END";							//$NON-NLS-1$
 
-	public static final String	CONCEAL_LEVEL_BONUS_KEY			= "CONCEAL_LEVEL_BONUS_KEY";						//$NON-NLS-1$
-	public static final String	STEALTH_LEVEL_BONUS_KEY			= "STEALTH_LEVEL_BONUS_KEY";						//$NON-NLS-1$
-	public static final String	HEAR_LEVEL_BONUS_KEY			= "HEAR_LEVEL_BONUS_KEY";							//$NON-NLS-1$
-	public static final String	LOCK_PICK_LEVEL_BONUS_KEY		= "LOCK_PICK_LEVEL_BONUS_KEY";						//$NON-NLS-1$
-	public static final String	POCKET_PICK_LEVEL_BONUS_KEY		= "POCKET_PICK_LEVEL_BONUS_KEY";					//$NON-NLS-1$
-	public static final String	CLIMB_LEVEL_BONUS_KEY			= "CLIMB_LEVEL_BONUS_KEY";							//$NON-NLS-1$
-	public static final String	FIND_TRAP_LEVEL_BONUS_KEY		= "FIND_TRAP_LEVEL_BONUS_KEY";						//$NON-NLS-1$
-	public static final String	REMOVE_TRAP_LEVEL_BONUS_KEY		= "REMOVE_TRAP_LEVEL_BONUS_KEY";					//$NON-NLS-1$
+	public static final String	CONCEAL_LEVEL_BONUS_KEY		= "CONCEAL_LEVEL_BONUS_KEY";						//$NON-NLS-1$
+	public static final String	STEALTH_LEVEL_BONUS_KEY		= "STEALTH_LEVEL_BONUS_KEY";						//$NON-NLS-1$
+	public static final String	HEAR_LEVEL_BONUS_KEY		= "HEAR_LEVEL_BONUS_KEY";							//$NON-NLS-1$
+	public static final String	LOCK_PICK_LEVEL_BONUS_KEY	= "LOCK_PICK_LEVEL_BONUS_KEY";						//$NON-NLS-1$
+	public static final String	POCKET_PICK_LEVEL_BONUS_KEY	= "POCKET_PICK_LEVEL_BONUS_KEY";					//$NON-NLS-1$
+	public static final String	CLIMB_LEVEL_BONUS_KEY		= "CLIMB_LEVEL_BONUS_KEY";							//$NON-NLS-1$
+	public static final String	FIND_TRAP_LEVEL_BONUS_KEY	= "FIND_TRAP_LEVEL_BONUS_KEY";						//$NON-NLS-1$
+	public static final String	REMOVE_TRAP_LEVEL_BONUS_KEY	= "REMOVE_TRAP_LEVEL_BONUS_KEY";					//$NON-NLS-1$
 
-	private static final String	APPRAISE_TOOLTIP				= "90 + lvl";										//$NON-NLS-1$
-	private static final String	BANDAGING_TOOLTIP				= "(lvl * 10) + (WIS > 12 ? +10) + Class Bonus";	//$NON-NLS-1$
-	private static final String	DEPTH_SENSE_TOOLTIP				= "60 + (lvl * 3)";									//$NON-NLS-1$
-	private static final String	DETECT_MAGIC_TOOLTIP			= "50 + (lvl * 5)";									//$NON-NLS-1$
-	private static final String	DETECT_METALS_TOOLTIP			= "50 + (lvl * 5)";									//$NON-NLS-1$
-	private static final String	DETECT_MORALS_TOOLTIP			= "30 + (diff in lvls * 5)";						//$NON-NLS-1$
-	private static final String	DETECT_SECRET_DOORS_TOOLTIP		= "50 + (lvl * 5)";									//$NON-NLS-1$
-	private static final String	DETECT_TRAPS_TOOLTIP			= "50 + (lvl * 5)";									//$NON-NLS-1$
-	private static final String	HERBAL_LORE_TOOLTIP				= "15 + (lvl * 3) + Class Bonus";					//$NON-NLS-1$
-	private static final String	HUNTING_TOOLTIP					= "WIS + (lvl * 5) + Weapon Bonus";					//$NON-NLS-1$
-	private static final String	PERCEPTION_TOOLTIP				= "15 + INT + WIS + ((lvl -1) * 2) + Class Bonus";	//$NON-NLS-1$
-	private static final String	TRACKING_TOOLTIP				= "70 + (lvl * 3) + Modifiers";						//$NON-NLS-1$
+	private static final String	APPRAISE_TOOLTIP			= "90 + lvl";										//$NON-NLS-1$
+	private static final String	BANDAGING_TOOLTIP			= "(lvl * 10) + (WIS > 12 ? +10) + Class Bonus";	//$NON-NLS-1$
+	private static final String	DEPTH_SENSE_TOOLTIP			= "60 + (lvl * 3)";									//$NON-NLS-1$
+	private static final String	DETECT_MAGIC_TOOLTIP		= "50 + (lvl * 5)";									//$NON-NLS-1$
+	private static final String	DETECT_METALS_TOOLTIP		= "50 + (lvl * 5)";									//$NON-NLS-1$
+	private static final String	DETECT_MORALS_TOOLTIP		= "30 + (diff in lvls * 5)";						//$NON-NLS-1$
+	private static final String	DETECT_SECRET_DOORS_TOOLTIP	= "50 + (lvl * 5)";									//$NON-NLS-1$
+	private static final String	DETECT_TRAPS_TOOLTIP		= "50 + (lvl * 5)";									//$NON-NLS-1$
+	private static final String	HERBAL_LORE_TOOLTIP			= "15 + (lvl * 3) + Class Bonus";					//$NON-NLS-1$
+	private static final String	HUNTING_TOOLTIP				= "WIS + (lvl * 5) + Weapon Bonus";					//$NON-NLS-1$
+	private static final String	PERCEPTION_TOOLTIP			= "15 + INT + WIS + ((lvl -1) * 2) + Class Bonus";	//$NON-NLS-1$
+	private static final String	TRACKING_TOOLTIP			= "70 + (lvl * 3) + Modifiers";						//$NON-NLS-1$
 
-	private static final String	CONCEAL_TOOLTIP					= "20 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
-	private static final String	STEALTH_TOOLTIP					= "20 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
-	private static final String	HEAR_TOOLTIP					= "Class Bonus + Skill Bonus";						//$NON-NLS-1$
-	private static final String	LOCK_PICK_TOOLTIP				= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
-	private static final String	PICK_POCKET_TOOLTIP				= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
-	private static final String	CLIMB_TOOLTIP					= "70 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
-	private static final String	FIND_TRAP_TOOLTIP				= "20 + Wis & INT Modifier + Skill Bonus";			//$NON-NLS-1$
-	private static final String	REMOVE_TRAP_TOOLTIP				= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
+	private static final String	CONCEAL_TOOLTIP				= "20 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
+	private static final String	STEALTH_TOOLTIP				= "20 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
+	private static final String	HEAR_TOOLTIP				= "Class Bonus + Skill Bonus";						//$NON-NLS-1$
+	private static final String	LOCK_PICK_TOOLTIP			= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
+	private static final String	PICK_POCKET_TOOLTIP			= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
+	private static final String	CLIMB_TOOLTIP				= "70 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
+	private static final String	FIND_TRAP_TOOLTIP			= "20 + Wis & INT Modifier + Skill Bonus";			//$NON-NLS-1$
+	private static final String	REMOVE_TRAP_TOOLTIP			= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
 
-	private static final String	CONCEAL_LEVEL_BONUS_TOOLTIP		= "Conceal";										//$NON-NLS-1$
-	private static final String	STEALTH_LEVEL_BONUS_TOOLTIP		= "Stealth";										//$NON-NLS-1$
-	private static final String	HEAR_LEVEL_BONUS_TOOLTIP		= "Hear";											//$NON-NLS-1$
-	private static final String	LOCK_PICK_LEVEL_BONUS_TOOLTIP	= "Lock Pick";										//$NON-NLS-1$
-	private static final String	PICK_POCKET_LEVEL_BONUS_TOOLTIP	= "Pick Pocket";									//$NON-NLS-1$
-	private static final String	CLIMB_LEVEL_BONUS_TOOLTIP		= "Climb";											//$NON-NLS-1$
-	private static final String	FIND_TRAP_LEVEL_BONUS_TOOLTIP	= "Find Trap";										//$NON-NLS-1$
-	private static final String	REMOVE_TRAP_LEVEL_BONUS_TOOLTIP	= "Remove Trap";									//$NON-NLS-1$
-	private static final String	UNALLOCATED_TOOLTIP				= "Unallocated";									//$NON-NLS-1$
+	private static final String	UNALLOCATED_TOOLTIP			= "Unallocated";									//$NON-NLS-1$
 
-	private boolean				mIsInnate[]						= new boolean[20];
+	private boolean				mIsInnate[]					= new boolean[20];
 
 	//	private static final int	BANDAGING					= 0;
-	private static final int	HUNTING							= 1;
-	private static final int	TRACKING						= 2;
-	private static final int	DETECT_MAGIC					= 3;
-	private static final int	DETECT_MORALS					= 4;
-	private static final int	DETECT_METALS					= 5;
-	private static final int	DETECT_SECRET_DOORS				= 6;
-	private static final int	DETECT_TRAPS					= 7;
-	private static final int	APPRAISE						= 8;
-	private static final int	DEPTH_SENSE						= 9;
-	private static final int	CONCEAL							= 10;
-	private static final int	STEALTH							= 11;
-	private static final int	HEAR							= 12;
-	private static final int	LOCK_PICK						= 13;
-	private static final int	PICK_POCKET						= 14;
-	private static final int	CLIMB							= 15;
-	private static final int	FIND_TRAP						= 16;
-	private static final int	REMOVE_TRAP						= 17;
+	private static final int	HUNTING						= 1;
+	private static final int	TRACKING					= 2;
+	private static final int	DETECT_MAGIC				= 3;
+	private static final int	DETECT_MORALS				= 4;
+	private static final int	DETECT_METALS				= 5;
+	private static final int	DETECT_SECRET_DOORS			= 6;
+	private static final int	DETECT_TRAPS				= 7;
+	private static final int	APPRAISE					= 8;
+	private static final int	DEPTH_SENSE					= 9;
+	private static final int	CONCEAL						= 10;
+	private static final int	STEALTH						= 11;
+	private static final int	HEAR						= 12;
+	private static final int	LOCK_PICK					= 13;
+	private static final int	PICK_POCKET					= 14;
+	private static final int	CLIMB						= 15;
+	private static final int	FIND_TRAP					= 16;
+	private static final int	REMOVE_TRAP					= 17;
 	//	private static final int	HERBAL_LORE					= 18;
-	private static final int	BERSERK							= 19;
+	private static final int	BERSERK						= 19;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	private CharacterSheet		mCharacterSheet;
 
-	private int					mAppraise						= 0;
-	private int					mBandaging						= 0;
-	private int					mDepthSense						= 0;
-	private int					mDetectMagic					= 0;
-	private int					mDetectMetals					= 0;
-	private int					mDetectMorals					= 0;
-	private int					mDetectSecretDoors				= 0;
-	private int					mDetectTraps					= 0;
-	private int					mHerbalLore						= 0;
-	private int					mHunting						= 0;
-	private int					mPerception						= 0;
-	private int					mTracking						= 0;
+	private int					mAppraise					= 0;
+	private int					mBandaging					= 0;
+	private int					mDepthSense					= 0;
+	private int					mDetectMagic				= 0;
+	private int					mDetectMetals				= 0;
+	private int					mDetectMorals				= 0;
+	private int					mDetectSecretDoors			= 0;
+	private int					mDetectTraps				= 0;
+	private int					mHerbalLore					= 0;
+	private int					mHunting					= 0;
+	private int					mPerception					= 0;
+	private int					mTracking					= 0;
 
-	private int					mBerserk						= 0;
+	private int					mBerserk					= 0;
 
-	private int					mClimb							= 0;
-	private int					mConceal						= 0;
-	private int					mFindTrap						= 0;
-	private int					mHear							= 0;
-	private int					mLockPick						= 0;
-	private int					mPickPocket						= 0;
-	private int					mRemoveTrap						= 0;
-	private int					mStealth						= 0;
+	private int					mClimb						= 0;
+	private int					mConceal					= 0;
+	private int					mFindTrap					= 0;
+	private int					mHear						= 0;
+	private int					mLockPick					= 0;
+	private int					mPickPocket					= 0;
+	private int					mRemoveTrap					= 0;
+	private int					mStealth					= 0;
 
-	private int					mClimbLevelBonus				= 0;
-	private int					mConcealLevelBonus				= 0;
-	private int					mFindTrapLevelBonus				= 0;
-	private int					mHearLevelBonus					= 0;
-	private int					mLockPickLevelBonus				= 0;
-	private int					mPickPocketLevelBonus			= 0;
-	private int					mRemoveTrapLevelBonus			= 0;
-	private int					mStealthLevelBonus				= 0;
+	private int					mClimbLevelBonus			= 0;
+	private int					mConcealLevelBonus			= 0;
+	private int					mFindTrapLevelBonus			= 0;
+	private int					mHearLevelBonus				= 0;
+	private int					mLockPickLevelBonus			= 0;
+	private int					mPickPocketLevelBonus		= 0;
+	private int					mRemoveTrapLevelBonus		= 0;
+	private int					mStealthLevelBonus			= 0;
 
-	private int					mUnallocated					= 0;
+	private int					mUnallocated				= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -1225,14 +1217,40 @@ public class SkillsRecord implements LevelListener, Savable {
 	 *
 	 */
 	public void clearRecords() {
+		mAppraise = 0;
+		mBandaging = 0;
+		mDepthSense = 0;
+		mDetectMagic = 0;
+		mDetectMetals = 0;
+		mDetectMorals = 0;
+		mDetectSecretDoors = 0;
+		mDetectTraps = 0;
+		mHerbalLore = 0;
+		mHunting = 0;
+		mPerception = 0;
+		mTracking = 0;
+
+		mBerserk = 0;
+
+		mClimb = 0;
+		mConceal = 0;
+		mFindTrap = 0;
+		mHear = 0;
+		mLockPick = 0;
+		mPickPocket = 0;
+		mRemoveTrap = 0;
+		mStealth = 0;
+
+		mClimbLevelBonus = 0;
 		mConcealLevelBonus = 0;
-		mStealthLevelBonus = 0;
+		mFindTrapLevelBonus = 0;
 		mHearLevelBonus = 0;
 		mLockPickLevelBonus = 0;
 		mPickPocketLevelBonus = 0;
-		mClimbLevelBonus = 0;
-		mFindTrapLevelBonus = 0;
 		mRemoveTrapLevelBonus = 0;
+		mStealthLevelBonus = 0;
+
+		mUnallocated = 0;
 	}
 
 }

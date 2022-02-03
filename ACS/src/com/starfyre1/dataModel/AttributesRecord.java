@@ -76,12 +76,14 @@ public class AttributesRecord implements Savable {
 	private int					mStatsOld[]				= new int[9];
 	private int					mModifiedStats[]		= new int[9];
 	private int					mModifiedStatsOld[]		= new int[9];
+	private boolean				mGenerateOwnStats		= true;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
 	// Creates a record from the character sheet and generates values if requested
 	public AttributesRecord(boolean generate) {
+		mGenerateOwnStats = !generate;
 
 		if (generate) {
 			generateStats();
@@ -194,6 +196,11 @@ public class AttributesRecord implements Savable {
 
 	public void setModifiedStatOld(int which, int value) {
 		mModifiedStatsOld[which] = value;
+	}
+
+	/** @return The generateOwnStats. */
+	public boolean isGenerateOwnStats() {
+		return mGenerateOwnStats;
 	}
 
 	/*****************************************************************************

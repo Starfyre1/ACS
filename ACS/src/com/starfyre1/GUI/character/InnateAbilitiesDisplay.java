@@ -73,6 +73,14 @@ public class InnateAbilitiesDisplay extends TKTitledDisplay {
 
 	}
 
+	/**
+	 *
+	 */
+	public void clearRecords() {
+		TKTableModel model = (TKTableModel) mTable.getModel();
+		model.setRowCount(0);
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

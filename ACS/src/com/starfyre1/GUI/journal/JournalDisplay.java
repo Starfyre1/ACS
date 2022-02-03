@@ -185,6 +185,12 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		mPanel.revalidate();
 	}
 
+	public void clearRecords() {
+		mEntries = new ArrayList<>();
+		updatePreviewPanel();
+
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

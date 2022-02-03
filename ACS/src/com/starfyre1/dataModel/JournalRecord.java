@@ -356,6 +356,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		}
 	}
 
+	// DW may want to reverse this so we sort by campaign calendar first
 	@Override
 	public int compareTo(JournalRecord o) {
 		if (mWorldDate.equals(o.mWorldDate)) {

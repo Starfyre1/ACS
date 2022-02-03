@@ -329,6 +329,21 @@ public class SavingThrowsRecord implements LevelListener {
 		return sb.toString();
 	}
 
+	/**
+	 *
+	 */
+	public void clearRecords() {
+		mAgility = 0;
+		mBleeding = 0;
+		mMagic = 0;
+		mPoison = 0;
+		mShock = 0;
+		mStress = 0;
+		mUnconscious = 0;
+		mSurprise = 0;
+		mBelief = 0;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

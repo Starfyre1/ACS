@@ -534,5 +534,7 @@ public class PersonalInformationRecord implements Savable {
 		mEyes = TKStringHelpers.EMPTY_STRING;
 		mAge = 0;
 		mSocialClass = null;
+		mCarry = 0;
+		mEncumbrance = 0f;
 	}
 }

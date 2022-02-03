@@ -192,7 +192,7 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 			return;
 		}
 
-		if (source instanceof JTextField) {
+		if (source instanceof JTextField && record.isGenerateOwnStats()) {
 			if (((JTextField) source).equals(mModStrField)) {
 				record.setModifiedStat(0, TKStringHelpers.getIntValue(mModStrField.getText(), record.getModifiedStatOld(0)));
 			} else if (((JTextField) source).equals(mModConField)) {

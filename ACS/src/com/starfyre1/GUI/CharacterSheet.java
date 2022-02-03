@@ -732,7 +732,7 @@ public class CharacterSheet implements ActionListener {
 			mMoneyRecord.clearRecords();
 		}
 		if (mSavingThrowsRecord != null) {
-			mSavingThrowsRecord.updateRecord();
+			mSavingThrowsRecord.clearRecords();
 		}
 		if (mSkillsRecord != null) {
 			mSkillsRecord.clearRecords();
@@ -755,8 +755,16 @@ public class CharacterSheet implements ActionListener {
 		if (mDeterminationList != null) {
 			DeterminationList.clearRecords();
 		}
+		if (mInnateAbilitiesDisplay != null) {
+			mInnateAbilitiesDisplay.clearRecords();
+		}
+
+		mSpellTab.clearRecords();
+		mJournalTab.clearRecords();
 		mDefenseInformationDisplay.clearRecords();
+		mCharacterFile = null;
 		mIsCharacterLoaded = false;
+		mFrame.setTitle(ACS.TITLE);
 	}
 
 	private int saveOption(boolean exit) {
@@ -1380,7 +1388,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void updateToolTips() {
 		mSavingThrowsDisplay.updateToolTips();
-		mSkillsDisplay.updateToolTips();
+		mSkillsDisplay.updateToolTips(getHeaderRecord().getCharacterClass() == null);
 	}
 
 }

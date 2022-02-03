@@ -153,6 +153,14 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 		// DW Do something... update tables...
 	}
 
+	public void clearRecords() {
+		TKTableModel model = (TKTableModel) mTable1.getModel();
+		model.setRowCount(0);
+		model = (TKTableModel) mTable2.getModel();
+		model.setRowCount(0);
+		mKnownSpells = new ArrayList<>(128);
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

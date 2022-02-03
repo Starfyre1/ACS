@@ -211,7 +211,8 @@ public class HeaderRecord implements Savable {
 	 *
 	 */
 	public void clearRecords() {
-		mClass = TKStringHelpers.EMPTY_STRING;
+		mCharacterName = new String();
+		mClass = new String();
 		mExperience = 0;
 		mOldExperience = 0;
 	}

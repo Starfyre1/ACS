@@ -8,7 +8,6 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.CombatInformationRecord;
-import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -223,9 +222,8 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		if (!sheet.isLoadingData()) {
 			sheet.setLoadingData(true);
 			CombatInformationRecord record = sheet.getCombatInformationRecord();
-			BaseClass characterClass = sheet.getHeaderRecord().getCharacterClass();
 
-			if (!(record == null || characterClass == null)) {
+			if (!(record == null)) {
 				enableFields(true);
 				mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
 				mHitLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHitLevelBonus());
@@ -271,33 +269,36 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
+		CharacterSheet sheet = (CharacterSheet) getOwner();
+		if (!sheet.isLoadingData()) {
+			Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 
-		CombatInformationRecord record = ((CharacterSheet) getOwner()).getCombatInformationRecord();
-		if (record == null) {
-			return;
-		}
-
-		if (source instanceof JTextField) {
-			if (((JTextField) source).equals(mCastingSpeedLevelField)) {
-				record.setCastingLevelBonus(TKStringHelpers.getIntValue(mCastingSpeedLevelField.getText(), record.getCastingLevelBonus()));
-			} else if (((JTextField) source).equals(mHitLevelBonusField)) {
-				record.setHitLevelBonus(TKStringHelpers.getIntValue(mHitLevelBonusField.getText(), record.getHitLevelBonus()));
-				record.generateDefenseAndFreeAttack();
-			} else if (((JTextField) source).equals(mBowLevelBonusField)) {
-				record.setBowLevelBonus(TKStringHelpers.getIntValue(mBowLevelBonusField.getText(), record.getBowLevelBonus()));
+			CombatInformationRecord record = ((CharacterSheet) getOwner()).getCombatInformationRecord();
+			if (record == null) {
+				return;
 			}
-		}
-		record.generateUnallocated();
-		if (!((CharacterSheet) getOwner()).isLoadingData()) {
-			Runnable load = new Runnable() {
 
-				@Override
-				public void run() {
-					loadDisplay();
+			if (source instanceof JTextField) {
+				if (((JTextField) source).equals(mCastingSpeedLevelField)) {
+					record.setCastingLevelBonus(TKStringHelpers.getIntValue(mCastingSpeedLevelField.getText(), record.getCastingLevelBonus()));
+				} else if (((JTextField) source).equals(mHitLevelBonusField)) {
+					record.setHitLevelBonus(TKStringHelpers.getIntValue(mHitLevelBonusField.getText(), record.getHitLevelBonus()));
+					record.generateDefenseAndFreeAttack();
+				} else if (((JTextField) source).equals(mBowLevelBonusField)) {
+					record.setBowLevelBonus(TKStringHelpers.getIntValue(mBowLevelBonusField.getText(), record.getBowLevelBonus()));
 				}
-			};
-			SwingUtilities.invokeLater(load);
+			}
+			record.generateUnallocated();
+			if (!((CharacterSheet) getOwner()).isLoadingData()) {
+				Runnable load = new Runnable() {
+
+					@Override
+					public void run() {
+						loadDisplay();
+					}
+				};
+				SwingUtilities.invokeLater(load);
+			}
 		}
 	}
 

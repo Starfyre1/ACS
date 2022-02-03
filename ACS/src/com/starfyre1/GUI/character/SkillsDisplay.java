@@ -8,7 +8,6 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.SkillsRecord;
-import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -450,10 +449,9 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 		if (!sheet.isLoadingData()) {
 			sheet.setLoadingData(true);
 			SkillsRecord record = sheet.getSkillsRecord();
-			BaseClass characterClass = sheet.getHeaderRecord().getCharacterClass();
 
-			if (!(record == null || characterClass == null)) {
-				enableFields(true);
+			if (!(record == null)) {
+				enableFields(record.getUnallocatedSkills() > 0);
 				mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
 				mBandagingField.setText(TKStringHelpers.EMPTY_STRING + record.getBandaging());
 				mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDepthSense());
@@ -487,7 +485,7 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 
 				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocatedSkills());
 
-				updateToolTips();
+				updateToolTips(sheet.getHeaderRecord().getCharacterClass() == null);
 			} else {
 				enableFields(false);
 			}
@@ -496,33 +494,34 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 
 	}
 
-	public void updateToolTips() {
+	public void updateToolTips(boolean clear) {
 		SkillsRecord record = ((CharacterSheet) getOwner()).getSkillsRecord();
+		String zero = new String("0"); //$NON-NLS-1$
 
 		if (record != null) {
-			mAppraiseField.setToolTipText(record.getAppraiseToolTip());
-			mBandagingField.setToolTipText(record.getBandagingToolTip());
-			mDepthSenseField.setToolTipText(record.getDepthSenseToolTip());
-			mDetectMagicField.setToolTipText(record.getDetectMagicToolTip());
-			mDetectMetalsField.setToolTipText(record.getDetectMetalsToolTip());
-			mDetectMoralsField.setToolTipText(record.getDetectMoralsToolTip());
-			mDetectSecretDoorsField.setToolTipText(record.getDetectSecretDoorsToolTip());
-			mDetectTrapsField.setToolTipText(record.getDetectTrapsToolTip());
-			mHerbalLoreField.setToolTipText(record.getHerbalLoreToolTip());
-			mHuntingField.setToolTipText(record.getHuntingToolTip());
-			mPerceptionField.setToolTipText(record.getPerceptionToolTip());
-			mTrackingField.setToolTipText(record.getTrackingToolTip());
+			mAppraiseField.setToolTipText(clear ? zero : record.getAppraiseToolTip());
+			mBandagingField.setToolTipText(clear ? zero : record.getBandagingToolTip());
+			mDepthSenseField.setToolTipText(clear ? zero : record.getDepthSenseToolTip());
+			mDetectMagicField.setToolTipText(clear ? zero : record.getDetectMagicToolTip());
+			mDetectMetalsField.setToolTipText(clear ? zero : record.getDetectMetalsToolTip());
+			mDetectMoralsField.setToolTipText(clear ? zero : record.getDetectMoralsToolTip());
+			mDetectSecretDoorsField.setToolTipText(clear ? zero : record.getDetectSecretDoorsToolTip());
+			mDetectTrapsField.setToolTipText(clear ? zero : record.getDetectTrapsToolTip());
+			mHerbalLoreField.setToolTipText(clear ? zero : record.getHerbalLoreToolTip());
+			mHuntingField.setToolTipText(clear ? zero : record.getHuntingToolTip());
+			mPerceptionField.setToolTipText(clear ? zero : record.getPerceptionToolTip());
+			mTrackingField.setToolTipText(clear ? zero : record.getTrackingToolTip());
 
-			mClimbField.setToolTipText(record.getClimbToolTip());
-			mConcealField.setToolTipText(record.getConcealToolTip());
-			mFindTrapField.setToolTipText(record.getFindTrapToolTip());
-			mHearField.setToolTipText(record.getHearToolTip());
-			mLockPickField.setToolTipText(record.getLockPickToolTip());
-			mPickPocketField.setToolTipText(record.getPickPocketToolTip());
-			mRemoveTrapField.setToolTipText(record.getRemoveTrapToolTip());
-			mStealthField.setToolTipText(record.getStealthToolTip());
+			mClimbField.setToolTipText(clear ? zero : record.getClimbToolTip());
+			mConcealField.setToolTipText(clear ? zero : record.getConcealToolTip());
+			mFindTrapField.setToolTipText(clear ? zero : record.getFindTrapToolTip());
+			mHearField.setToolTipText(clear ? zero : record.getHearToolTip());
+			mLockPickField.setToolTipText(clear ? zero : record.getLockPickToolTip());
+			mPickPocketField.setToolTipText(clear ? zero : record.getPickPocketToolTip());
+			mRemoveTrapField.setToolTipText(clear ? zero : record.getRemoveTrapToolTip());
+			mStealthField.setToolTipText(clear ? zero : record.getStealthToolTip());
 
-			mUnallocatedField.setToolTipText(record.getUnallocatedSkillsToolTip());
+			mUnallocatedField.setToolTipText(clear ? zero : record.getUnallocatedSkillsToolTip());
 		}
 	}
 
