@@ -278,7 +278,8 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 	public void focusLost(FocusEvent e) {
 		Object source = e.getSource();
 
-		HeaderRecord record = ((CharacterSheet) getOwner()).getHeaderRecord();
+		CharacterSheet characterSheet = (CharacterSheet) getOwner();
+		HeaderRecord record = characterSheet.getHeaderRecord();
 		if (record == null) {
 			return;
 		}
@@ -304,11 +305,11 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 					mLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getLevel());
 					mCurrentExperienceField.setToolTipText(manager.getTooltip(HistoryManager.EXPERIENCE_KEY));
 					mNextLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getNextLevelsExperience());
-					((CharacterSheet) getOwner()).updateRecords();
+					characterSheet.updateRecords();
 					manager.addRecord(HistoryManager.LEVEL_KEY, new HistoryRecord(WorldDateChooser.getWorldDate(), CampaignDateChooser.getCampaignDate(), record.getLevel()));
 					mLevelField.setToolTipText(manager.getTooltip(HistoryManager.LEVEL_KEY));
 					if (levelUp) {
-						ACS.getInstance().getCharacterSheet().getJournalTab().characterLevelUp(record.getLevel());
+						characterSheet.getJournalTab().characterLevelUp(record.getLevel());
 					}
 				}
 			}

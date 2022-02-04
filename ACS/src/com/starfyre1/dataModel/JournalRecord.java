@@ -61,6 +61,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	private JLabel				mHeaderLabel2;
 	private boolean				mRecordDeleted					= false;
 	private boolean				mRecordCancelled				= false;
+	private String				mOldDocument;
 
 	/*****************************************************************************
 	 * Constructors
@@ -193,9 +194,16 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		return panel;
 	}
 
-	public void displayJournalRecord(boolean saveIfCanceled) {
+	public void displayJournalRecord(boolean saveIfCancelled) {
 		JDialog dialog = new JDialog();
 		dialog.setLayout(new BorderLayout());
+
+		Document doc = getDocument();
+		try {
+			mOldDocument = doc.getText(0, doc.getLength());
+		} catch (BadLocationException exception) {
+			exception.printStackTrace();
+		}
 
 		JScrollPane scrollPane = new JScrollPane(this);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -211,7 +219,12 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		dialog.setMinimumSize(JournalDisplay.JOURNAL_ENTRY_SIZE);
 		dialog.setLocationRelativeTo(((CharacterSheet) mParent.getOwner()).getFrame());
 		dialog.setVisible(true);
-		if (saveIfCanceled && !isRecordDeleted()) {
+		if (isRecordCancelled() && saveIfCancelled) {
+			setText(null);
+			setText(mOldDocument);
+			setHeaderText();
+			return;
+		} else if (saveIfCancelled && !isRecordDeleted()) {
 			setHeaderText();
 		} else {
 			mParent.removeRecord(this);
@@ -227,6 +240,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mRecordCancelled = true;
+				mRecordDeleted = false;
 				dialog.dispose();
 			}
 
@@ -239,7 +253,10 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 			public void actionPerformed(ActionEvent e) {
 				if (getDocument().getLength() == 0) {
 					mRecordDeleted = true;
+				} else {
+					mRecordDeleted = false;
 				}
+				mRecordCancelled = false;
 				dialog.dispose();
 			}
 
@@ -251,6 +268,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mRecordDeleted = true;
+				mRecordCancelled = false;
 				dialog.dispose();
 			}
 

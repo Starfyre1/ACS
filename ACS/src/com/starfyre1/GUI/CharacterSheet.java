@@ -581,6 +581,7 @@ public class CharacterSheet implements ActionListener {
 
 		loadDisplay();
 		mJournalTab.characterCreated();
+		mJournalTab.characterLevelUp(mHeaderRecord.getLevel());
 		mJournalTab.gameDayStartQuestion();
 		mIsLoadingData = false;
 		mIsCharacterLoaded = true;
