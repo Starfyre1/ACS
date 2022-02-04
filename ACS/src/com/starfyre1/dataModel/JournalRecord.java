@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -38,10 +39,12 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	 ****************************************************************************/
 	private static final String	CREATE							= "Create";							//$NON-NLS-1$
 	private static final String	CANCEL							= "Cancel";							//$NON-NLS-1$
+	private static final String	DELETE							= "Delete";							//$NON-NLS-1$
 
-	public static final String	GAME_DAY_START					= "GAME DAY START";					//$NON-NLS-1$
-	public static final String	GAME_DAY_END					= "GAME DAY END";					//$NON-NLS-1$
+	public static final String	CAMPAIGN_DAY_START				= "CAMPAIGN DAY START";				//$NON-NLS-1$
+	public static final String	CAMPAIGN_DAY_END				= "CAMPAIGN DAY END";				//$NON-NLS-1$
 	public static final String	LEVEL_UP						= "LEVEL UP!";						//$NON-NLS-1$
+	public static final String	CHARACTER_CREATION				= "CHARACTER CREATION!";			//$NON-NLS-1$
 	public static final String	DETERMINATION_START				= "DETERMINATION START";			//$NON-NLS-1$
 	public static final String	DETERMINATION_COMPLETE_SUCCESS	= "DETERMINATION COMPLETE SUCCESS";	//$NON-NLS-1$
 	public static final String	DETERMINATION_COMPLETE_FAILED	= "DETERMINATION COMPLETE FAILED";	//$NON-NLS-1$
@@ -50,13 +53,14 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	 * Member Variables
 	 ****************************************************************************/
 	private JournalDisplay		mParent;
-	private JButton				mWorldButton;
-	private JButton				mCampaignButton;
+	private JButton				mWorldDateButton;
+	private JButton				mCampaignDateButton;
 	private String				mWorldDate;
 	private String				mCampaignDate;
 	private JLabel				mHeaderLabel1;
 	private JLabel				mHeaderLabel2;
-	private boolean				mSaveRecord						= true;
+	private boolean				mRecordDeleted					= false;
+	private boolean				mRecordCancelled				= false;
 
 	/*****************************************************************************
 	 * Constructors
@@ -109,12 +113,14 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		String campaignDate = CampaignDateChooser.getCampaignDate();
 		String worldDate = WorldDateChooser.getWorldDate();
 		JournalRecord record = switch (which) {
-			case GAME_DAY_START:
-				yield new JournalRecord(parent, campaignDate, GAME_DAY_START, worldDate);
-			case GAME_DAY_END:
-				yield new JournalRecord(parent, campaignDate, GAME_DAY_END, worldDate);
+			case CAMPAIGN_DAY_START:
+				yield new JournalRecord(parent, campaignDate, CAMPAIGN_DAY_START, worldDate);
+			case CAMPAIGN_DAY_END:
+				yield new JournalRecord(parent, campaignDate, CAMPAIGN_DAY_END, worldDate);
 			case LEVEL_UP:
 				yield new JournalRecord(parent, campaignDate, LEVEL_UP, worldDate);
+			case CHARACTER_CREATION:
+				yield new JournalRecord(parent, campaignDate, CHARACTER_CREATION, worldDate);
 			case DETERMINATION_START:
 				yield new JournalRecord(parent, campaignDate, DETERMINATION_START, worldDate);
 			case DETERMINATION_COMPLETE_SUCCESS:
@@ -159,8 +165,8 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	}
 
 	public JPanel getJournalRecordHeader() {
-		mCampaignButton = getDateButton(mCampaignDate, new CampaignDateActionListener());
-		mWorldButton = getDateButton(mWorldDate, new WorldDateActionListener());
+		mCampaignDateButton = getDateButton(mCampaignDate, new CampaignDateActionListener());
+		mWorldDateButton = getDateButton(mWorldDate, new WorldDateActionListener());
 
 		JPanel textHeaderPanel = new JPanel(new GridLayout(2, 1, 5, 0));
 		textHeaderPanel.setBorder(new EmptyBorder(0, 15, 0, 15));
@@ -179,15 +185,15 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		panel.setLayout(boxLayout);
 		panel.setBorder(new LineBorder(Color.BLACK));
 
-		panel.add(mCampaignButton);
+		panel.add(mCampaignDateButton);
 		panel.add(textHeaderPanel);
-		panel.add(mWorldButton);
+		panel.add(mWorldDateButton);
 
 		panel.setMaximumSize(new Dimension(panel.getMaximumSize().width, panel.getMinimumSize().height));
 		return panel;
 	}
 
-	public void displayJournalRecord(boolean saveRecordIfCancelled) {
+	public void displayJournalRecord(boolean saveIfCanceled) {
 		JDialog dialog = new JDialog();
 		dialog.setLayout(new BorderLayout());
 
@@ -205,7 +211,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		dialog.setMinimumSize(JournalDisplay.JOURNAL_ENTRY_SIZE);
 		dialog.setLocationRelativeTo(((CharacterSheet) mParent.getOwner()).getFrame());
 		dialog.setVisible(true);
-		if ((saveRecordIfCancelled || saveRecord()) && getDocument().getLength() != 0) {
+		if (saveIfCanceled && !isRecordDeleted()) {
 			setHeaderText();
 		} else {
 			mParent.removeRecord(this);
@@ -215,27 +221,43 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 
 	private JPanel createButtonPanel(JDialog dialog) {
 		JPanel panel = new JPanel();
+
 		JButton cancelButton = TKComponentHelpers.createButton(CANCEL, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mSaveRecord = false;
+				mRecordCancelled = true;
 				dialog.dispose();
 			}
 
 		});
-		mSaveRecord = true;
 
 		// DW need to add a listener on the JTextArea to disable the createButton when there is no text
 		JButton createButton = TKComponentHelpers.createButton(CREATE, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mSaveRecord = true;
+				if (getDocument().getLength() == 0) {
+					mRecordDeleted = true;
+				}
 				dialog.dispose();
 			}
 
 		});
+
+		// DW need to add a listener on the JTextArea to disable the createButton when there is no text
+		JButton deleteButton = TKComponentHelpers.createButton(DELETE, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mRecordDeleted = true;
+				dialog.dispose();
+			}
+
+		});
+
+		panel.add(deleteButton);
+		panel.add(Box.createHorizontalStrut(50));
 		panel.add(createButton);
 		panel.add(cancelButton);
 
@@ -266,11 +288,6 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 			}
 		});
 		return dateButton;
-	}
-
-	/** @return The saveRecord. */
-	public boolean saveRecord() {
-		return mSaveRecord;
 	}
 
 	private int getWorldYear() {
@@ -314,6 +331,16 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		}
 	}
 
+	/** @return The deleteRecord. */
+	public boolean isRecordDeleted() {
+		return mRecordDeleted;
+	}
+
+	/** @return The saveRecordIfCancelled. */
+	public boolean isRecordCancelled() {
+		return mRecordCancelled;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
@@ -331,7 +358,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 			String date = cal.getSelectedDate();
 			if (!date.isEmpty()) {
 				mCampaignDate = date;
-				mCampaignButton.setText(mCampaignDate);
+				mCampaignDateButton.setText(mCampaignDate);
 				mParent.updatePreviewPanel();
 			}
 		}
@@ -350,7 +377,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 			String date = cal.getSelectedDate();
 			if (!date.isEmpty()) {
 				mWorldDate = date;
-				mWorldButton.setText(mWorldDate);
+				mWorldDateButton.setText(mWorldDate);
 				mParent.updatePreviewPanel();
 			}
 		}

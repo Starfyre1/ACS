@@ -88,7 +88,11 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 			if (sheet != null) {
 				sheet.setGameDayStarted(true);
 			}
-			mEntries.add(JournalRecord.getJournalRecord(this, JournalRecord.GAME_DAY_START));
+			JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.CAMPAIGN_DAY_START);
+			record.append("\n     This is the beginning of a new campaign day"); //$NON-NLS-1$
+			record.setHeaderText();
+
+			mEntries.add(record);
 			updatePreviewPanel();
 		}
 	}
@@ -98,7 +102,11 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		if (((CharacterSheet) getOwner()).hasGameDayStarted()) {
 			int n = JOptionPane.showConfirmDialog(((CharacterSheet) getOwner()).getFrame(), "Are we done playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
 			if (n == 0) {
-				mEntries.add(JournalRecord.getJournalRecord(this, JournalRecord.GAME_DAY_END));
+				JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.CAMPAIGN_DAY_END);
+				record.append("\n     This is the ending of a campaign day"); //$NON-NLS-1$
+				record.setHeaderText();
+
+				mEntries.add(record);
 				updatePreviewPanel();
 			}
 		}
@@ -107,6 +115,15 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	public void characterLevelUp(int level) {
 		JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.LEVEL_UP);
 		record.append("\n     You have become level " + level); //$NON-NLS-1$
+		record.setHeaderText();
+
+		mEntries.add(record);
+		updatePreviewPanel();
+	}
+
+	public void characterCreated() {
+		JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.CHARACTER_CREATION);
+		record.append("\n     You have started your adventure! "); //$NON-NLS-1$
 		record.setHeaderText();
 
 		mEntries.add(record);
@@ -160,7 +177,8 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		JournalRecord record = new JournalRecord(this);
 		record.displayJournalRecord(false);
 
-		if (record.saveRecord() && record.getDocument().getLength() != 0) {
+		if (!(record.isRecordCancelled() || record.isRecordDeleted())) {
+			record.setHeaderText();
 			mEntries.add(record);
 			updatePreviewPanel();
 		}

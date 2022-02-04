@@ -554,10 +554,11 @@ public class CharacterSheet implements ActionListener {
 		int result = JOptionPane.showConfirmDialog(mFrame, "Do you want to roll your own stats?", "New Character", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
 		if (result == JOptionPane.YES_OPTION) {
 			manualEntry();
-			mIsLoadingData = true;
+			// cancelled out of manualEntry
 			if (mAttributesRecord == null) {
 				return;
 			}
+			mIsLoadingData = true;
 		} else if (result == JOptionPane.NO_OPTION) {
 			mIsLoadingData = true;
 			mAttributesRecord = new AttributesRecord(true);
@@ -579,6 +580,7 @@ public class CharacterSheet implements ActionListener {
 		mDeterminationList = new DeterminationList();
 
 		loadDisplay();
+		mJournalTab.characterCreated();
 		mJournalTab.gameDayStartQuestion();
 		mIsLoadingData = false;
 		mIsCharacterLoaded = true;
