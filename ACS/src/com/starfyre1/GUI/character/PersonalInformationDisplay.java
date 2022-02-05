@@ -67,12 +67,10 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 		//		wrapper.setBorder(new EmptyBorder(0, 0, 0, 10));
 
 		JLabel heightLabel = new JLabel(HEIGHT_LABEL, SwingConstants.RIGHT);
-		mHeightField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
-		mHeightField.setEditable(false);
+		mHeightField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel weightLabel = new JLabel(WEIGHT_LABEL, SwingConstants.RIGHT);
-		mWeightField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
-		mWeightField.setEditable(false);
+		mWeightField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel sexLabel = new JLabel(SEX_LABEL, SwingConstants.RIGHT);
 		mSexField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
@@ -87,8 +85,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 		mAgeField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel socialClassLabel = new JLabel(SOCIAL_CLASS_LABEL, SwingConstants.RIGHT);
-		mSocialClassField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
-		mSocialClassField.setEditable(false);
+		mSocialClassField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel carryLabel = new JLabel(CARRY_LABEL, SwingConstants.RIGHT);
 		mCarryField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
@@ -167,7 +164,11 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 		}
 
 		if (source instanceof JTextField) {
-			if (mSexField.equals(source)) {
+			if (mHeightField.equals(source)) {
+				record.setHeight(mHeightField.getText());
+			} else if (mWeightField.equals(source)) {
+				record.setWeight(mWeightField.getText());
+			} else if (mSexField.equals(source)) {
 				record.setSex(mSexField.getText());
 			} else if (mHairField.equals(source)) {
 				record.setHair(mHairField.getText());
@@ -175,6 +176,8 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 				record.setEyes(mEyesField.getText());
 			} else if (mAgeField.equals(source)) {
 				record.setAge(TKStringHelpers.getIntValue(mAgeField.getText(), record.getAge()));
+			} else if (mSocialClassField.equals(source)) {
+				record.setSocialClass(mSocialClassField.getText());
 			}
 		}
 	}

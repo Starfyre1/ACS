@@ -537,4 +537,17 @@ public class PersonalInformationRecord implements Savable {
 		mCarry = 0;
 		mEncumbrance = 0f;
 	}
+
+	public void setHeight(String height) {
+		mHeight = TKStringHelpers.getIntValue(height, mOldHeight);
+	}
+
+	public void setWeight(String weight) {
+		mWeight = TKStringHelpers.getIntValue(weight, mOldWeight);
+	}
+
+	public void setSocialClass(String socialClass) {
+		mSocialClass = new SocialClassRecord(socialClass);
+		
+	}
 }
