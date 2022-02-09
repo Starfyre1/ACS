@@ -133,6 +133,9 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 				if (!date.isEmpty()) {
 					CampaignDateChooser.setCampaignDate(date);
 					mCampaignButton.setText(date);
+					JournalDisplay journalTab = ((CharacterSheet) getOwner()).getJournalTab();
+					journalTab.gameDayEndQuestion();
+					journalTab.gameDayStartQuestion();
 				}
 			}
 		});

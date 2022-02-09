@@ -582,7 +582,6 @@ public class CharacterSheet implements ActionListener {
 		loadDisplay();
 		mJournalTab.characterCreated();
 		mJournalTab.characterLevelUp(mHeaderRecord.getLevel());
-		mJournalTab.gameDayStartQuestion();
 		mIsLoadingData = false;
 		mIsCharacterLoaded = true;
 
@@ -633,7 +632,6 @@ public class CharacterSheet implements ActionListener {
 		updateForEncubrance();
 
 		loadDisplay();
-		mJournalTab.gameDayStartQuestion();
 
 		mIsLoadingData = false;
 		mIsCharacterLoaded = true;
@@ -773,10 +771,6 @@ public class CharacterSheet implements ActionListener {
 
 	private int saveOption(boolean exit) {
 		if (mIsCharacterLoaded) {
-			if (exit) {
-				mJournalTab.gameDayEndQuestion();
-			}
-
 			Object[] options = { SAVE, SAVE_AS, DONT_SAVE };
 			int results = JOptionPane.showOptionDialog(mFrame, //
 							"Do you want to save?", "Save Character?", // //$NON-NLS-1$ //$NON-NLS-2$

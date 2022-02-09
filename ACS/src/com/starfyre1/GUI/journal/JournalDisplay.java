@@ -25,7 +25,6 @@ import java.util.StringTokenizer;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -74,42 +73,25 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	public void gameDayStartQuestion() {
 		// yes = 0; no = 1
 		CharacterSheet sheet = (CharacterSheet) getOwner();
-		int n = JOptionPane.showConfirmDialog(sheet != null ? sheet.getFrame() : null, "Is this a new game day?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
-		if (n == 0) {
-			CampaignDateChooser campaignDate = new CampaignDateChooser(((CharacterSheet) getOwner()).getFrame(), CampaignDateChooser.parseCampaignDate(CampaignDateChooser.getCampaignDate()));
-			String date = campaignDate.getSelectedDate();
-			if (!date.isEmpty()) {
-				mCampaignDate = date;
-				CampaignDateChooser.setCampaignDate(date);
-				if (sheet != null) {
-					sheet.setGameDay(date);
-				}
-			}
-			if (sheet != null) {
-				sheet.setGameDayStarted(true);
-			}
-			JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.CAMPAIGN_DAY_START);
-			record.append("\n     This is the beginning of a new campaign day"); //$NON-NLS-1$
-			record.setHeaderText();
-
-			mEntries.add(record);
-			updatePreviewPanel();
+		if (sheet != null) {
+			sheet.setGameDayStarted(true);
 		}
+		JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.CAMPAIGN_DAY_START);
+		record.append("\n     This is the beginning of a new campaign day"); //$NON-NLS-1$
+		record.setHeaderText();
+
+		mEntries.add(record);
+		updatePreviewPanel();
 	}
 
 	public void gameDayEndQuestion() {
 		// yes = 0; no = 1
-		if (((CharacterSheet) getOwner()).hasGameDayStarted()) {
-			int n = JOptionPane.showConfirmDialog(((CharacterSheet) getOwner()).getFrame(), "Are we done playing today?", "Game Day?", JOptionPane.YES_NO_OPTION); //$NON-NLS-1$ //$NON-NLS-2$
-			if (n == 0) {
-				JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.CAMPAIGN_DAY_END);
-				record.append("\n     This is the ending of a campaign day"); //$NON-NLS-1$
-				record.setHeaderText();
+		JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.CAMPAIGN_DAY_END);
+		record.append("\n     This is the ending of a campaign day"); //$NON-NLS-1$
+		record.setHeaderText();
 
-				mEntries.add(record);
-				updatePreviewPanel();
-			}
-		}
+		mEntries.add(record);
+		updatePreviewPanel();
 	}
 
 	public void characterLevelUp(int level) {
