@@ -135,10 +135,11 @@ public class WeaponList implements Savable {
 		if (mWeaponMasterList == null) {
 			mWeaponMasterList = new WeaponRecord[56];
 			mWeaponProficiencyList = new String[56];
-
+			Scanner scanner;
+			
 			try {
 				InputStream is = ACS.class.getModule().getResourceAsStream("resources/Weapon.txt"); //$NON-NLS-1$
-				Scanner scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
+				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 				int count = 0;
 				for (String line; (line = scanner.nextLine()) != null;) {
 					line = line.trim();
@@ -180,6 +181,8 @@ public class WeaponList implements Savable {
 				// End of file, nothing to do except exit
 			} catch (IOException exception) {
 				exception.printStackTrace();
+			} finally {
+				scanner = null;
 			}
 
 		}

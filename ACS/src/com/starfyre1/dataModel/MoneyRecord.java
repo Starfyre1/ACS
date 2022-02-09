@@ -227,6 +227,9 @@ public class MoneyRecord implements Savable {
 						break;
 					}
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value = value + " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}

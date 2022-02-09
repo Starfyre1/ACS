@@ -119,10 +119,11 @@ public class EquipmentList implements Savable {
 	public static Object[] getEquipmentMasterList() {
 		if (mEquipmentMasterList == null) {
 			mEquipmentMasterList = new EquipmentRecord[144];
-
+			Scanner scanner;
+			
 			try {
 				InputStream is = ACS.class.getModule().getResourceAsStream("resources/Equipment.txt"); //$NON-NLS-1$
-				Scanner scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
+				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 				int count = 0;
 				for (String line; (line = scanner.nextLine()) != null;) {
 					line = line.trim();
@@ -149,6 +150,8 @@ public class EquipmentList implements Savable {
 				// End of file, nothing to do except exit
 			} catch (IOException exception) {
 				exception.printStackTrace();
+			} finally {
+				scanner = null;
 			}
 
 		}

@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
@@ -83,6 +84,7 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 
 		JLabel gemsLabel = new JLabel(GEMS_LABEL, SwingConstants.RIGHT);
 		mGemsArea = new JTextArea(3, 10);
+		mGemsArea.getDocument().addDocumentListener(this);
 
 		JScrollPane gemsScrollPane = new JScrollPane(mGemsArea);
 		gemsScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -92,6 +94,7 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 
 		JLabel jewelryLabel = new JLabel(JEWELRY_LABEL, SwingConstants.RIGHT);
 		mJewelryArea = new JTextArea(3, 10);
+		mJewelryArea.getDocument().addDocumentListener(this);
 
 		JScrollPane jewelryScrollPane = new JScrollPane(mJewelryArea);
 		jewelryScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -101,6 +104,7 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 
 		JLabel otherLabel = new JLabel(OTHER_LABEL, SwingConstants.RIGHT);
 		mOtherArea = new JTextArea(3, 10);
+		mOtherArea.getDocument().addDocumentListener(this);
 
 		JScrollPane otherScrollPane = new JScrollPane(mOtherArea);
 		otherScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -141,9 +145,9 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 			mGoldField.setText(TKStringHelpers.EMPTY_STRING + record.getGold());
 			mSilverField.setText(TKStringHelpers.EMPTY_STRING + record.getSilver());
 			mCopperField.setText(TKStringHelpers.EMPTY_STRING + record.getCopper());
-			mGemsArea.setText(record.getGemsArea().toString());
-			mJewelryArea.setText(TKStringHelpers.EMPTY_STRING + record.getJewelryArea());
-			mOtherArea.setText(TKStringHelpers.EMPTY_STRING + record.getOtherArea());
+			mGemsArea.setText(record.getGemsArea());
+			mJewelryArea.setText(record.getJewelryArea());
+			mOtherArea.setText(record.getOtherArea());
 		}
 	}
 
@@ -159,7 +163,8 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
+		Document document = e.getDocument();
+		Object source = document.getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 
 		MoneyRecord record = ((CharacterSheet) getOwner()).getMoneyRecord();
 		if (record == null) {
@@ -173,6 +178,14 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 				record.setSilver(TKStringHelpers.getIntValue(mSilverField.getText(), record.getSilverOld()));
 			} else if (((JTextField) source).equals(mCopperField)) {
 				record.setCopper(TKStringHelpers.getIntValue(mCopperField.getText(), record.getCopperOld()));
+			}
+		} else {
+			if (document.equals(mGemsArea.getDocument())) {
+				record.setGemsArea(mGemsArea.getText());
+			} else if (document.equals(mJewelryArea.getDocument())) {
+				record.setJewelryArea(mJewelryArea.getText());
+			} else if (document.equals(mOtherArea.getDocument())) {
+				record.setOtherArea(mOtherArea.getText());
 			}
 		}
 	}
