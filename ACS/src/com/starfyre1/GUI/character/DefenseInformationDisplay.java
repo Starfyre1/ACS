@@ -356,6 +356,9 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			for (ArmorRecord record : records) {
 				int[] location = record.getProtectionType();
 				for (int i = 0; i < location.length; i++) {
+					if (location[i] >= mArmorCoverage.length) {
+						continue;
+					}
 					mArmorCoverage[location[i]] += record.getAbsorption();
 					mArmorMissileCoverage[location[i]] += record.getMissileAbsorption();
 					mArmorBonusCoverage[location[i]] += record.getBonus();
