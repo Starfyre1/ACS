@@ -251,9 +251,9 @@ public class MoneyRecord implements Savable {
 		br.write(GOLD_KEY + TKStringHelpers.SPACE + mGold + System.lineSeparator());
 		br.write(SILVER_KEY + TKStringHelpers.SPACE + mSilver + System.lineSeparator());
 		br.write(COPPER_KEY + TKStringHelpers.SPACE + mCopper + System.lineSeparator());
-		br.write(GEMS_KEY + TKStringHelpers.SPACE + mGemsArea + System.lineSeparator());
-		br.write(JEWELRY_KEY + TKStringHelpers.SPACE + mJewelryArea + System.lineSeparator());
-		br.write(OTHER_KEY + TKStringHelpers.SPACE + mOtherArea + System.lineSeparator());
+		br.write(GEMS_KEY + TKStringHelpers.SPACE + mGemsArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+		br.write(JEWELRY_KEY + TKStringHelpers.SPACE + mJewelryArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+		br.write(OTHER_KEY + TKStringHelpers.SPACE + mOtherArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}
@@ -261,6 +261,7 @@ public class MoneyRecord implements Savable {
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
+		value = value.replace("~", "\n "); //$NON-NLS-1$ //$NON-NLS-2$
 		if (GOLD_KEY.equals(key)) {
 			mGold = TKStringHelpers.getIntValue(value, 0);
 		} else if (SILVER_KEY.equals(key)) {
