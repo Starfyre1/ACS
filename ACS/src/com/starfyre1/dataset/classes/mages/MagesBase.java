@@ -189,7 +189,8 @@ public abstract class MagesBase extends SpellUser {
 
 	@Override
 	public int getSurprise() {
-		return 0;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl;
 	}
 
 	@Override

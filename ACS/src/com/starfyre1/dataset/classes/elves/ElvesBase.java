@@ -167,7 +167,8 @@ public abstract class ElvesBase extends BaseClass {
 
 	@Override
 	public int getSurprise() {
-		return 0;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return lvl;
 	}
 
 	@Override
