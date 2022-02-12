@@ -837,6 +837,7 @@ public class CharacterSheet implements ActionListener {
 			mDeterminationPointsDisplay.loadDisplay();
 			mDefenseInformationDisplay.loadDisplay();
 			mSkillsDisplay.loadDisplay();
+			mInnateAbilitiesDisplay.loadDisplay();
 
 			updateForEncubrance();
 			mCombatInformationDisplay.loadDisplay();
