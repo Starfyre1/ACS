@@ -84,16 +84,6 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		updatePreviewPanel();
 	}
 
-	public void gameDayEndQuestion() {
-		// yes = 0; no = 1
-		JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.CAMPAIGN_DAY_END);
-		record.append("\n     This is the ending of a campaign day"); //$NON-NLS-1$
-		record.setHeaderText();
-
-		mEntries.add(record);
-		updatePreviewPanel();
-	}
-
 	public void characterLevelUp(int level) {
 		JournalRecord record = JournalRecord.getJournalRecord(this, JournalRecord.LEVEL_UP);
 		record.append("\n     You have become level " + level); //$NON-NLS-1$

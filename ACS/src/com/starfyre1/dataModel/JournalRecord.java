@@ -42,7 +42,6 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	private static final String	DELETE							= "Delete";							//$NON-NLS-1$
 
 	public static final String	CAMPAIGN_DAY_START				= "CAMPAIGN DAY START";				//$NON-NLS-1$
-	public static final String	CAMPAIGN_DAY_END				= "CAMPAIGN DAY END";				//$NON-NLS-1$
 	public static final String	LEVEL_UP						= "LEVEL UP!";						//$NON-NLS-1$
 	public static final String	CHARACTER_CREATION				= "CHARACTER CREATION!";			//$NON-NLS-1$
 	public static final String	DETERMINATION_START				= "DETERMINATION START";			//$NON-NLS-1$
@@ -116,8 +115,6 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		JournalRecord record = switch (which) {
 			case CAMPAIGN_DAY_START:
 				yield new JournalRecord(parent, campaignDate, CAMPAIGN_DAY_START, worldDate);
-			case CAMPAIGN_DAY_END:
-				yield new JournalRecord(parent, campaignDate, CAMPAIGN_DAY_END, worldDate);
 			case LEVEL_UP:
 				yield new JournalRecord(parent, campaignDate, LEVEL_UP, worldDate);
 			case CHARACTER_CREATION:
