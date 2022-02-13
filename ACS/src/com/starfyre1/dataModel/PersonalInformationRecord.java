@@ -456,7 +456,7 @@ public class PersonalInformationRecord implements Savable {
 							+ "Combat bonus' are at -25%.<br>" // //$NON-NLS-1$
 							+ "Character has a -20% on their save Vs. surprise,<br>" // //$NON-NLS-1$
 							+ "those that they try to surprise get a +20% added to theirs.<br>" // //$NON-NLS-1$
-							+ "Loses 1 stamina point per 10 min.of movement or 3 rounds of combat.</htmp>"; //$NON-NLS-1$
+							+ "Loses 1 stamina point per 10 min.of movement or 3 rounds of combat.</html>"; //$NON-NLS-1$
 
 		} else if (value == 2) {
 			tooltip = "<html>You are carrying more than 2X your encumbrance<br>" // //$NON-NLS-1$
@@ -464,13 +464,13 @@ public class PersonalInformationRecord implements Savable {
 							+ "Combat speeds are at -3.<br>" // //$NON-NLS-1$
 							+ "Combat bonus' are at -15%.<br>" // //$NON-NLS-1$
 							+ "Character has a -10% on their save Vs. surprise,<br>" // //$NON-NLS-1$
-							+ "those that they try to surprise get a +10% added to theirs.</htmp>"; //$NON-NLS-1$
+							+ "those that they try to surprise get a +10% added to theirs.</html>"; //$NON-NLS-1$
 
 		} else if (value == 1) {
 			tooltip = "<html>You are carrying more than 1X your encumbrance<br>" // //$NON-NLS-1$
 							+ "Movement is cut by 25%.<br>" // //$NON-NLS-1$
 							+ "Combat speeds are at -1.<br>" // //$NON-NLS-1$
-							+ "Combat bonus' are at -5%.</htmp>"; //$NON-NLS-1$
+							+ "Combat bonus' are at -5%.</html>"; //$NON-NLS-1$
 
 		} else {
 			tooltip = "<html>You are carrying under your encumbrance</html>"; //$NON-NLS-1$

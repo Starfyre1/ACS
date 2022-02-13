@@ -192,6 +192,16 @@ public class Earth extends MagesBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public String getFocus() {
+		return "Stone or Rock"; //$NON-NLS-1$
+	}
+
+	@Override
+	public String getFocusToolTip() {
+		return "<html>The Focus for this area is a Stone or Rock of some kind, <br>" //$NON-NLS-1$
+						+ "it doesn’t have to be valuable, set in a Ring or Amulet.</html>"; //$NON-NLS-1$
+	}
 
 	/*****************************************************************************
 	 * Serialization

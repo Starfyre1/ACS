@@ -182,6 +182,16 @@ public class Fire extends MagesBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public String getFocus() {
+		return "Red Gem"; //$NON-NLS-1$
+	}
+
+	@Override
+	public String getFocusToolTip() {
+		return "<html>Their Focus is usually a Red Gem of some sort,<br>" //$NON-NLS-1$
+						+ "either by itself or set into some sort of jewelry.</html>"; //$NON-NLS-1$
+	}
 
 	/*****************************************************************************
 	 * Serialization

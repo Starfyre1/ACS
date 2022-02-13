@@ -16,20 +16,20 @@ public class NaturalLore extends MagesBase {
 	/*
 		Natural Lore
 		Second Requisite = Wisdom
-
+	
 			This area of Magic is a combination between Mages & Priests.  The Natural
 			Lorist's are basically Druid's, they worship Wynd, Lorrell or Talon.  Most
 			worship Wynd, they very Essence of Nature, neither Male or
 			Female Wynd has no true form.  The Natural Lorist has very strict guidelines,
 			First and Foremost, They Kill only for food or to preserve their own life.
-
+	
 			When researching spells treat the Natural Lorist as a Elf, they spend
 			Experience points instead of Silver, but they must spend their research
 			time in the wilderness meditating.   The Natural Lorist's personal focus can
 			very from Mage to Mage, however it is usually a Staff.
 			No matter what item is their focus it will have symbols of the natural elements
 			on it, such as Holly, Oak, or Mistletoe.  Their Spells are as Follows:
-
+	
 			Power Zero:						Power One:
 			1)Clear Water (-2)				1)Calm Waters (-10)F
 			2)Detect Morals I (-10)F		2)Charm I (-6)F
@@ -47,7 +47,7 @@ public class NaturalLore extends MagesBase {
 			14)Tracking (-8)				14)Web Stream (-3)F
 			15)Translate (-1)				15)Healing (Animal) (-40)F
 			16)Locate Life (Animal) (-15)	16)Cure Illness (Animals) (-20)
-
+	
 			Power Two:						Power Three:
 			1)Area of Fog (-10)				1)Alter Shape (-3)
 			2)Charm Animals (-4)			2)Anoint (-60)
@@ -61,7 +61,7 @@ public class NaturalLore extends MagesBase {
 			10)Vengeance (-2)F				10)Summon Animals I (-10)F
 			11)Protection : Dark (-5)		11)Summon Fire (-3)F
 			12)Earth Womb (-5)				12)Water Breathing (-10)
-
+	
 			Power Four:						Power Five:
 			1)Control Element (-20)F		1)Commune (-30)
 			2)Control Winds (-12)			2)Control Weather (-30)
@@ -82,7 +82,7 @@ public class NaturalLore extends MagesBase {
 			3)Command Insects (-10)
 			4)Lightning Storm II (-6)F
 			5)Symbol I (-60)
-
+	
 	*/
 
 	/*****************************************************************************
@@ -230,36 +230,36 @@ public class NaturalLore extends MagesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-		
+
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-		
+
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-		
+
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-		
+
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-		
+
 			4)	Add +3 Determination points per level past (1st).
-		
+
 			5)	Add +2% to Perception every level past (1st).
-		
+
 		Mages / Priests:
-		
+
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-		
+
 			2)	Add +2% to their Missile Bonus.
-		
+
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-		
+
 			4)	Add +1 Hit Point per level till the 10th level.
-		
+
 			5)	Add +1% per level to their Save Vs. Surprise.
-		
+
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/
@@ -268,6 +268,18 @@ public class NaturalLore extends MagesBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public String getFocus() {
+		return "User/DM"; //$NON-NLS-1$
+	}
+
+	@Override
+	public String getFocusToolTip() {
+		return "<html>The Natural Lorist's personal focus can very from Mage to Mage,<br>" //$NON-NLS-1$
+						+ "however it is usually a Staff. No matter what item is their focus it will<br>" //$NON-NLS-1$
+						+ "have symbols of the natural elements on it, such as Holly, Oak, or Mistletoe.</html>"; //$NON-NLS-1$
+	}
 
 	public static NaturalLore getInstance() {
 		if (sInstance == null) {

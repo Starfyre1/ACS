@@ -48,6 +48,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private static final String	LEVEL_BONUSES_LABEL			= "Level Bonuses";		//$NON-NLS-1$
 	private static final String	UNALLOCATED_LABEL			= "Unallocated";		//$NON-NLS-1$
 	private static final String	SPEED_LABEL					= "Speed";				//$NON-NLS-1$
+	private static final String	CASTING_LABEL				= "Casting";			//$NON-NLS-1$
 
 	// May create speed label and bonus label and make them headers to column
 
@@ -133,7 +134,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mFreeField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mFreeField.setEditable(false);
 		JLabel focusLabel = new JLabel(FOCUS_LABEL, SwingConstants.RIGHT);
-		mFocusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
+		mFocusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this);
 		mFocusField.setEditable(false);
 
 		JLabel movementLabel = new JLabel(MOVEMENT_LABEL, SwingConstants.RIGHT);
@@ -183,7 +184,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		wrapper.add(mDefenseField);
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
+		wrapper.add(new JLabel(CASTING_LABEL, SwingConstants.CENTER));
 		wrapper.add(new JLabel());
 
 		wrapper.add(freeLabel);
@@ -239,7 +240,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 				mCastingSpeedField.setText(TKStringHelpers.EMPTY_STRING + (record.getCastingSpeed() + record.getCastingLevelBonus() / 4));
 				mManaField.setText(TKStringHelpers.EMPTY_STRING + record.getMana());
-				mFocusField.setText(TKStringHelpers.EMPTY_STRING + record.getFocus());
+				mFocusField.setText(record.getFocus());
 
 				mDefenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDefense());
 				mFreeField.setText(TKStringHelpers.EMPTY_STRING + record.getFree());
@@ -321,6 +322,8 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 					} else {
 						record.setBowLevelBonus(TKStringHelpers.getIntValue(value, record.getBowLevelBonus()));
 					}
+				} else if (((JTextField) source).equals(mFocusField)) {
+					record.setFocus(mFocusField.getText());
 				}
 			}
 			record.generateUnallocated();
@@ -345,6 +348,11 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		return false;
 	}
 
+	public void updateToolTips() {
+		BaseClass charClass = ((CharacterSheet) getOwner()).getHeaderRecord().getCharacterClass();
+		mFocusField.setToolTipText(charClass.getFocusToolTip());
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -352,6 +360,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mCastingSpeedLevelBonusField.setEditable(enabled && isUsable());
 		mHitLevelBonusField.setEditable(enabled);
 		mBowLevelBonusField.setEditable(enabled);
+		mFocusField.setEditable(enabled);
 	}
 
 	/*****************************************************************************

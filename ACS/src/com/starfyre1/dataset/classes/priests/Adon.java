@@ -270,6 +270,17 @@ public class Adon extends PriestsBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public String getFocus() {
+		return "Circle of Silver"; //$NON-NLS-1$
+	}
+
+	@Override
+	public String getFocusToolTip() {
+		return "<html>The focus for this priest is the symbol of<br>" //$NON-NLS-1$
+						+ "Adon (really imaginative, I know) a Circle of Silver<br>" //  //$NON-NLS-1$
+						+ "with a Sword upraised in the centeron a medallion.</html>"; //$NON-NLS-1$
+	}
 
 	/*****************************************************************************
 	 * Serialization

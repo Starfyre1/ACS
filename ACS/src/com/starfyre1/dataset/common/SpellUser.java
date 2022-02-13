@@ -30,6 +30,16 @@ public abstract class SpellUser extends BaseClass {
 	 * Setter's and Getter's
 	 ****************************************************************************/
 
+	@Override
+	public String getFocus() {
+		return "User/DM"; //$NON-NLS-1$
+	}
+
+	@Override
+	public String getFocusToolTip() {
+		return "<html>Their focus can be anything the DM or player chooses.</html>"; //$NON-NLS-1$
+	}
+
 	public int getSpellLevels() {
 		return mSpells.size();
 	}

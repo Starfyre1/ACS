@@ -22,6 +22,14 @@ public abstract class BaseClass extends Object {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public String getFocus() {
+		return "None"; //$NON-NLS-1$
+	}
+
+	public String getFocusToolTip() {
+		return null;
+	}
+
 	public abstract int[] getMinimumStats();
 
 	public abstract String[] getInnateDisplayList();

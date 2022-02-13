@@ -21,6 +21,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	public static final String	HIT_LEVEL_BONUS_KEY				= "HIT_LEVEL_BONUS_KEY";																//$NON-NLS-1$
 	public static final String	BOW_LEVEL_BONUS_KEY				= "BOW_LEVEL_BONUS_KEY";																//$NON-NLS-1$
 	public static final String	CASTING_SPEED_LEVEL_BONUS_KEY	= "CASTING_SPEED_LEVEL_BONUS_KEY";														//$NON-NLS-1$
+	public static final String	FOCUS_KEY						= "FOCUS_KEY";																			//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constants
@@ -50,9 +51,10 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	private int					mDefense						= 0;
 	private int					mMana							= 0;
 	private int					mFreeAttack						= 0;
-	private int					mFocus							= 0;
+	private String				mFocus							= "";																					//$NON-NLS-1$
 	private int					mMovement						= 0;
 	private int					mUnallocated					= 0;
+	private boolean				mUserFocus						= false;
 
 	/*****************************************************************************
 	 * Constructors
@@ -90,12 +92,18 @@ public class CombatInformationRecord implements LevelListener, Savable {
 			generateBowSpeed();
 			generateCastingSpeed();
 			generateMana();
+			generateFocus();
 		}
 	}
 
-	/**
-	 *
-	 */
+	private void generateFocus() {
+		if (!mUserFocus) {
+			BaseClass charClass = mCharacterSheet.getHeaderRecord().getCharacterClass();
+			mFocus = charClass.getFocus();
+			mCharacterSheet.updateToolTips();
+		}
+	}
+
 	private void generateMana() {
 		int level = mCharacterSheet.getHeaderRecord().getLevel();
 		int bonusMana = 0;
@@ -484,12 +492,12 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	}
 
 	/** @return The focus. */
-	public int getFocus() {
+	public String getFocus() {
 		return mFocus;
 	}
 
 	/** @param focus The value to set for focus. */
-	public void setFocus(int focus) {
+	public void setFocus(String focus) {
 		mFocus = focus;
 	}
 
@@ -556,6 +564,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		br.write(HIT_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mHitLevelBonus + System.lineSeparator());
 		br.write(BOW_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mBowLevelBonus + System.lineSeparator());
 		br.write(CASTING_SPEED_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mCastingSpeedLevelBonus + System.lineSeparator());
+		br.write(FOCUS_KEY + TKStringHelpers.SPACE + mFocus + System.lineSeparator());
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}
 
@@ -568,6 +577,12 @@ public class CombatInformationRecord implements LevelListener, Savable {
 			mBowLevelBonus = TKStringHelpers.getIntValue(value, 0);
 		} else if (CASTING_SPEED_LEVEL_BONUS_KEY.equals(key)) {
 			mCastingSpeedLevelBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (FOCUS_KEY.equals(key)) {
+			mFocus = value;
+			String baseFocus = mCharacterSheet.getHeaderRecord().getCharacterClass().getFocus();
+			if (!baseFocus.equals(mFocus)) {
+				mUserFocus = true;
+			}
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
@@ -592,9 +607,10 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mDefense = 0;
 		mMana = 0;
 		mFreeAttack = 0;
-		mFocus = 0;
+		mFocus = TKStringHelpers.EMPTY_STRING;
 		mMovement = 0;
 		mUnallocated = 0;
+		mUserFocus = false;
 	}
 
 }

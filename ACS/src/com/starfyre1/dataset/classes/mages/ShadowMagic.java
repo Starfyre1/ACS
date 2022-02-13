@@ -215,6 +215,15 @@ public class ShadowMagic extends MagesBase {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public String getFocus() {
+		return "User/DM"; //$NON-NLS-1$
+	}
+
+	@Override
+	public String getFocusToolTip() {
+		return "<html>The Player and the DM must decide what their focus is to be.</html>"; //$NON-NLS-1$
+	}
 
 	/*****************************************************************************
 	 * Serialization
