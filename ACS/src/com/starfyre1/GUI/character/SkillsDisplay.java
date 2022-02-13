@@ -8,6 +8,9 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.SkillsRecord;
+import com.starfyre1.dataset.classes.Thief;
+import com.starfyre1.dataset.classes.elves.Tsiri;
+import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -449,9 +452,10 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 		if (!sheet.isLoadingData()) {
 			sheet.setLoadingData(true);
 			SkillsRecord record = sheet.getSkillsRecord();
+			BaseClass charClass = sheet.getHeaderRecord().getCharacterClass();
 
 			if (!(record == null)) {
-				enableFields(record.getUnallocatedSkills() > 0);
+				enableFields(charClass instanceof Thief || charClass instanceof Tsiri);
 
 				mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
 				mBandagingField.setText(TKStringHelpers.EMPTY_STRING + record.getBandaging());
