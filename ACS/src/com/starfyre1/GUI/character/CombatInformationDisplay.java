@@ -300,12 +300,27 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 			if (source instanceof JTextField) {
 				if (((JTextField) source).equals(mCastingSpeedLevelBonusField)) {
-					record.setCastingLevelBonus(TKStringHelpers.getIntValue(mCastingSpeedLevelBonusField.getText(), record.getCastingLevelBonus()));
+					String value = mCastingSpeedLevelBonusField.getText();
+					if (value.isEmpty()) {
+						record.setCastingLevelBonus(0);
+					} else {
+						record.setCastingLevelBonus(TKStringHelpers.getIntValue(value, record.getCastingLevelBonus()));
+					}
 				} else if (((JTextField) source).equals(mHitLevelBonusField)) {
-					record.setHitLevelBonus(TKStringHelpers.getIntValue(mHitLevelBonusField.getText(), record.getHitLevelBonus()));
+					String value = mHitLevelBonusField.getText();
+					if (value.isEmpty()) {
+						record.setHitLevelBonus(0);
+					} else {
+						record.setHitLevelBonus(TKStringHelpers.getIntValue(value, record.getHitLevelBonus()));
+					}
 					record.generateDefenseAndFreeAttack();
 				} else if (((JTextField) source).equals(mBowLevelBonusField)) {
-					record.setBowLevelBonus(TKStringHelpers.getIntValue(mBowLevelBonusField.getText(), record.getBowLevelBonus()));
+					String value = mBowLevelBonusField.getText();
+					if (value.isEmpty()) {
+						record.setBowLevelBonus(0);
+					} else {
+						record.setBowLevelBonus(TKStringHelpers.getIntValue(value, record.getBowLevelBonus()));
+					}
 				}
 			}
 			record.generateUnallocated();

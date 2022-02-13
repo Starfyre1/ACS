@@ -192,7 +192,7 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 			return;
 		}
 
-		if (source instanceof JTextField && record.isGenerateOwnStats()) {
+		if (source instanceof JTextField) {
 			if (((JTextField) source).equals(mModStrField)) {
 				record.setModifiedStat(0, TKStringHelpers.getIntValue(mModStrField.getText(), record.getModifiedStatOld(0)));
 			} else if (((JTextField) source).equals(mModConField)) {
@@ -212,7 +212,9 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 			} else if (((JTextField) source).equals(mModWPField)) {
 				record.setModifiedStat(8, TKStringHelpers.getIntValue(mModWPField.getText(), record.getModifiedStatOld(8)));
 			}
-			((CharacterSheet) getOwner()).enableCreateButton(areAllAttributeFieldsSet());
+			if (record.isGenerateOwnStats()) {
+				((CharacterSheet) getOwner()).enableCreateButton(areAllAttributeFieldsSet());
+			}
 		}
 
 	}
