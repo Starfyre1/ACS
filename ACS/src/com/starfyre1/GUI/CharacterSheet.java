@@ -720,24 +720,30 @@ public class CharacterSheet implements ActionListener {
 	private void clearRecords() {
 		if (mAttributesRecord != null) {
 			mAttributesRecord.clearRecords();
+			mAttributesRecord = null;
 		}
 		if (mCombatInformationRecord != null) {
 			mCombatInformationRecord.clearRecords();
+			mCombatInformationRecord = null;
 		}
 		if (mHeaderRecord != null) {
 			mHeaderRecord.clearRecords();
 		}
 		if (mPersonalInformationRecord != null) {
 			mPersonalInformationRecord.clearRecords();
+			mPersonalInformationRecord = null;
 		}
 		if (mMoneyRecord != null) {
 			mMoneyRecord.clearRecords();
+			mMoneyRecord = null;
 		}
 		if (mSavingThrowsRecord != null) {
 			mSavingThrowsRecord.clearRecords();
+			mSavingThrowsRecord = null;
 		}
 		if (mSkillsRecord != null) {
 			mSkillsRecord.clearRecords();
+			mSkillsRecord = null;
 		}
 		if (mEquipmentList != null) {
 			mEquipmentList.clearRecords();

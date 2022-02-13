@@ -452,6 +452,7 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 
 			if (!(record == null)) {
 				enableFields(record.getUnallocatedSkills() > 0);
+
 				mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
 				mBandagingField.setText(TKStringHelpers.EMPTY_STRING + record.getBandaging());
 				mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDepthSense());
@@ -488,6 +489,40 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 				updateToolTips(sheet.getHeaderRecord().getCharacterClass() == null);
 			} else {
 				enableFields(false);
+
+				mAppraiseField.setText(TKStringHelpers.EMPTY_STRING);
+				mBandagingField.setText(TKStringHelpers.EMPTY_STRING);
+				mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING);
+				mDetectMagicField.setText(TKStringHelpers.EMPTY_STRING);
+				mDetectMetalsField.setText(TKStringHelpers.EMPTY_STRING);
+				mDetectMoralsField.setText(TKStringHelpers.EMPTY_STRING);
+				mDetectSecretDoorsField.setText(TKStringHelpers.EMPTY_STRING);
+				mDetectTrapsField.setText(TKStringHelpers.EMPTY_STRING);
+				mHerbalLoreField.setText(TKStringHelpers.EMPTY_STRING);
+				mHuntingField.setText(TKStringHelpers.EMPTY_STRING);
+				mPerceptionField.setText(TKStringHelpers.EMPTY_STRING);
+				mTrackingField.setText(TKStringHelpers.EMPTY_STRING);
+
+				mClimbField.setText(TKStringHelpers.EMPTY_STRING);
+				mConcealField.setText(TKStringHelpers.EMPTY_STRING);
+				mFindTrapField.setText(TKStringHelpers.EMPTY_STRING);
+				mHearField.setText(TKStringHelpers.EMPTY_STRING);
+				mLockPickField.setText(TKStringHelpers.EMPTY_STRING);
+				mPickPocketField.setText(TKStringHelpers.EMPTY_STRING);
+				mRemoveTrapField.setText(TKStringHelpers.EMPTY_STRING);
+				mStealthField.setText(TKStringHelpers.EMPTY_STRING);
+
+				mClimbLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mConcealLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mFindTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mHearLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mLockPickLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mPickPocketLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mRemoveTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mStealthLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+
+				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING);
+
 			}
 		}
 		sheet.setLoadingData(false);

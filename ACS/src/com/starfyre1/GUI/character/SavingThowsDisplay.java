@@ -238,23 +238,31 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 	@Override
 	public void loadDisplay() {
 		CharacterSheet sheet = (CharacterSheet) getOwner();
-		if (!sheet.isLoadingData()) {
-			sheet.setLoadingData(true);
-			SavingThrowsRecord record = sheet.getSavingThrowsRecord();
+		SavingThrowsRecord record = sheet.getSavingThrowsRecord();
 
-			if (!(record == null)) {
-				mAgilityField.setText(TKStringHelpers.EMPTY_STRING + record.getAgility());
-				mBleedingField.setText(TKStringHelpers.EMPTY_STRING + record.getBleeding());
-				mMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getMagic());
-				mPoisonField.setText(TKStringHelpers.EMPTY_STRING + record.getPoison());
-				mShockField.setText(TKStringHelpers.EMPTY_STRING + record.getShock());
-				mStressField.setText(TKStringHelpers.EMPTY_STRING + record.getStress());
-				mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconscious());
-				mSurpriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSurprise());
-				mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
+		if (!(record == null)) {
+			mAgilityField.setText(TKStringHelpers.EMPTY_STRING + record.getAgility());
+			mBleedingField.setText(TKStringHelpers.EMPTY_STRING + record.getBleeding());
+			mMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getMagic());
+			mPoisonField.setText(TKStringHelpers.EMPTY_STRING + record.getPoison());
+			mShockField.setText(TKStringHelpers.EMPTY_STRING + record.getShock());
+			mStressField.setText(TKStringHelpers.EMPTY_STRING + record.getStress());
+			mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconscious());
+			mSurpriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSurprise());
+			mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
 
-				updateToolTips();
-			}
+			updateToolTips();
+		} else {
+			mAgilityField.setText(TKStringHelpers.EMPTY_STRING);
+			mBleedingField.setText(TKStringHelpers.EMPTY_STRING);
+			mMagicField.setText(TKStringHelpers.EMPTY_STRING);
+			mPoisonField.setText(TKStringHelpers.EMPTY_STRING);
+			mShockField.setText(TKStringHelpers.EMPTY_STRING);
+			mStressField.setText(TKStringHelpers.EMPTY_STRING);
+			mUnconciousField.setText(TKStringHelpers.EMPTY_STRING);
+			mSurpriseField.setText(TKStringHelpers.EMPTY_STRING);
+			mBeliefField.setText(TKStringHelpers.EMPTY_STRING);
+
 		}
 		sheet.setLoadingData(false);
 	}

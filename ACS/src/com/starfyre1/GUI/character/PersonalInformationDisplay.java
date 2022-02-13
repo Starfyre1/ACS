@@ -155,6 +155,40 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 	}
 
 	@Override
+	public void loadDisplay() {
+		PersonalInformationRecord record = ((CharacterSheet) getOwner()).getPersonalInformationRecord();
+
+		if (record != null) {
+			mHeightField.setText(record.getHeight());
+			mWeightField.setText(TKStringHelpers.EMPTY_STRING + record.getWeight());
+			mSexField.setText(record.getSex());
+			mHairField.setText(record.getHair());
+			mEyesField.setText(record.getEyes());
+			mAgeField.setText(TKStringHelpers.EMPTY_STRING + record.getAge());
+			mSocialClassField.setText(record.getSocialClassTitle());
+			mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
+			String carryTooltip = record.getCarryTooltip();
+			mCarryField.setText(TKStringHelpers.EMPTY_STRING + record.getCarry());
+			mCarryField.setToolTipText(carryTooltip);
+			mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING + record.getEncumbrance());
+			mEncumbranceField.setToolTipText(carryTooltip);
+		} else {
+			mHeightField.setText(TKStringHelpers.EMPTY_STRING);
+			mWeightField.setText(TKStringHelpers.EMPTY_STRING);
+			mSexField.setText(TKStringHelpers.EMPTY_STRING);
+			mHairField.setText(TKStringHelpers.EMPTY_STRING);
+			mEyesField.setText(TKStringHelpers.EMPTY_STRING);
+			mAgeField.setText(TKStringHelpers.EMPTY_STRING);
+			mSocialClassField.setText(TKStringHelpers.EMPTY_STRING);
+			mMoralsField.setText(TKStringHelpers.EMPTY_STRING);
+			mCarryField.setText(TKStringHelpers.EMPTY_STRING);
+			mCarryField.setToolTipText(TKStringHelpers.EMPTY_STRING);
+			mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING);
+			mEncumbranceField.setToolTipText(TKStringHelpers.EMPTY_STRING);
+		}
+	}
+
+	@Override
 	public void insertUpdate(DocumentEvent e) {
 		changedUpdate(e);
 	}
@@ -221,25 +255,4 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
-	@Override
-	public void loadDisplay() {
-		PersonalInformationRecord record = ((CharacterSheet) getOwner()).getPersonalInformationRecord();
-
-		if (record != null) {
-			mHeightField.setText(record.getHeight());
-			mWeightField.setText(TKStringHelpers.EMPTY_STRING + record.getWeight());
-			mSexField.setText(record.getSex());
-			mHairField.setText(record.getHair());
-			mEyesField.setText(record.getEyes());
-			mAgeField.setText(TKStringHelpers.EMPTY_STRING + record.getAge());
-			mSocialClassField.setText(record.getSocialClassTitle());
-			mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
-			String carryTooltip = record.getCarryTooltip();
-			mCarryField.setText(TKStringHelpers.EMPTY_STRING + record.getCarry());
-			mCarryField.setToolTipText(carryTooltip);
-			mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING + record.getEncumbrance());
-			mEncumbranceField.setToolTipText(carryTooltip);
-		}
-	}
-
 }

@@ -222,6 +222,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 			if (!(record == null)) {
 				enableFields(true);
+
 				mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
 				mHitLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHitLevelBonus());
 				mAttackSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getAttackSpeed());
@@ -247,6 +248,30 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocated());
 			} else {
 				enableFields(false);
+
+				mHitBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mHitLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mAttackSpeedField.setText(TKStringHelpers.EMPTY_STRING);
+
+				mMissileBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mCastingSpeedLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mMissileSpeedField.setText(TKStringHelpers.EMPTY_STRING);
+
+				mBowBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mBowLevelBonusField.setText(TKStringHelpers.EMPTY_STRING);
+				mBowSpeedField.setText(TKStringHelpers.EMPTY_STRING);
+
+				mDamageBonusField.setText(TKStringHelpers.EMPTY_STRING);
+
+				mCastingSpeedField.setText(TKStringHelpers.EMPTY_STRING);
+				mManaField.setText(TKStringHelpers.EMPTY_STRING);
+				mFocusField.setText(TKStringHelpers.EMPTY_STRING);
+
+				mDefenseField.setText(TKStringHelpers.EMPTY_STRING);
+				mFreeField.setText(TKStringHelpers.EMPTY_STRING);
+
+				mMovementField.setText(TKStringHelpers.EMPTY_STRING);
+				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING);
 			}
 		}
 		sheet.setLoadingData(false);

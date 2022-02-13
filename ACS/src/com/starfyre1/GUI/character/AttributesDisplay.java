@@ -279,6 +279,26 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 			mModWPField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(8));
 		} else {
 			enableFields(false);
+
+			mStrField.setText(TKStringHelpers.EMPTY_STRING);
+			mConField.setText(TKStringHelpers.EMPTY_STRING);
+			mIntField.setText(TKStringHelpers.EMPTY_STRING);
+			mWisField.setText(TKStringHelpers.EMPTY_STRING);
+			mDexField.setText(TKStringHelpers.EMPTY_STRING);
+			mBSField.setText(TKStringHelpers.EMPTY_STRING);
+			mChaField.setText(TKStringHelpers.EMPTY_STRING);
+			mPAField.setText(TKStringHelpers.EMPTY_STRING);
+			mWPField.setText(TKStringHelpers.EMPTY_STRING);
+
+			mModStrField.setText(TKStringHelpers.EMPTY_STRING);
+			mModConField.setText(TKStringHelpers.EMPTY_STRING);
+			mModIntField.setText(TKStringHelpers.EMPTY_STRING);
+			mModWisField.setText(TKStringHelpers.EMPTY_STRING);
+			mModDexField.setText(TKStringHelpers.EMPTY_STRING);
+			mModBSField.setText(TKStringHelpers.EMPTY_STRING);
+			mModChaField.setText(TKStringHelpers.EMPTY_STRING);
+			mModPAField.setText(TKStringHelpers.EMPTY_STRING);
+			mModWPField.setText(TKStringHelpers.EMPTY_STRING);
 		}
 	}
 }
