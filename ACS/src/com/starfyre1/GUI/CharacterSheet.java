@@ -546,7 +546,7 @@ public class CharacterSheet implements ActionListener {
 			mCreateButton.setEnabled(enable);
 		} else {
 			// DW this is just a hack... needs to be cleaned up
-			updateRecords();
+			//			updateRecords();
 		}
 	}
 
@@ -680,7 +680,7 @@ public class CharacterSheet implements ActionListener {
 		} else if (cmd.equals(OPEN)) {
 			if (saveOption(false) != -1) {
 				clearRecords();
-				loadDisplay();
+				//				loadDisplay();
 				loadAndUpdate(null);
 			}
 		} else if (cmd.equals(CLOSE)) {
@@ -755,12 +755,10 @@ public class CharacterSheet implements ActionListener {
 			mMagicItemList.clearRecords();
 		}
 		if (mDeterminationList != null) {
-			DeterminationList.clearRecords();
-		}
-		if (mInnateAbilitiesDisplay != null) {
-			mInnateAbilitiesDisplay.clearRecords();
+			mDeterminationList.clearRecords();
 		}
 
+		mInnateAbilitiesDisplay.clearRecords();
 		mSpellTab.clearRecords();
 		mJournalTab.clearRecords();
 		mDefenseInformationDisplay.clearRecords();

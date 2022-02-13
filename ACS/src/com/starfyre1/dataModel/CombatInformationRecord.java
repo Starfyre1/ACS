@@ -53,7 +53,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	private int					mFocus							= 0;
 	private int					mMovement						= 0;
 	private int					mUnallocated					= 0;
-	private int					mMorals							= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -514,16 +513,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mUnallocated = unallocated;
 	}
 
-	/** @return The morals. */
-	public int getMorals() {
-		return mMorals;
-	}
-
-	/** @param morals The value to set for morals. */
-	public void setMorals(int morals) {
-		mMorals = morals;
-	}
-
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
@@ -606,7 +595,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mFocus = 0;
 		mMovement = 0;
 		mUnallocated = 0;
-		mMorals = 0;
 	}
 
 }

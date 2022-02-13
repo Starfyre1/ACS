@@ -34,6 +34,7 @@ public class PersonalInformationRecord implements Savable {
 	public static final String	EYES_KEY				= "EYES_KEY";										//$NON-NLS-1$
 	public static final String	AGE_KEY					= "AGE_KEY";										//$NON-NLS-1$
 	public static final String	SOCIAL_CLASS_KEY		= "SOCIAL_CLASS_KEY";								//$NON-NLS-1$
+	public static final String	MORALS_KEY				= "MORALS_KEY";										//$NON-NLS-1$
 
 	private static final String	FEMALE					= "Female";											//$NON-NLS-1$
 
@@ -54,6 +55,7 @@ public class PersonalInformationRecord implements Savable {
 	String						mEyes					= TKStringHelpers.EMPTY_STRING;
 	int							mAge					= 0;
 	SocialClassRecord			mSocialClass;
+	int							mMorals					= 0;
 	int							mCarry					= 0;
 	float						mEncumbrance			= 0f;
 
@@ -64,6 +66,7 @@ public class PersonalInformationRecord implements Savable {
 	String						mOldEyes				= TKStringHelpers.EMPTY_STRING;
 	int							mOldAge					= 0;
 	SocialClassRecord			mOldSocialClass;
+	int							mOldMorals				= 0;
 	int							mOldCarry				= 0;
 	float						mOldEncumbrance			= 0f;
 
@@ -97,6 +100,7 @@ public class PersonalInformationRecord implements Savable {
 		mOldEyes = mEyes;
 		mOldAge = mAge;
 		mOldSocialClass = mSocialClass.clone();
+		mOldMorals = mMorals;
 		mOldCarry = mCarry;
 		mOldEncumbrance = mEncumbrance;
 	}
@@ -337,6 +341,17 @@ public class PersonalInformationRecord implements Savable {
 		return TKStringHelpers.EMPTY_STRING + feet + "\'" + inches + "\""; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
+	public void setHeight(String height) {
+		int iHeight = TKStringHelpers.getIntValue(height, mOldHeight);
+		if (iHeight == mOldHeight) {
+			return;
+		}
+		if (iHeight == 0) {
+			System.out.println("here"); //$NON-NLS-1$
+		}
+		mHeight = iHeight;
+	}
+
 	/** @return The sex. */
 	public String getSex() {
 		return mSex;
@@ -382,6 +397,10 @@ public class PersonalInformationRecord implements Savable {
 		return mWeight;
 	}
 
+	public void setWeight(String weight) {
+		mWeight = TKStringHelpers.getIntValue(weight, mOldWeight);
+	}
+
 	/** @return The socialClass. */
 	public String getSocialClassTitle() {
 		if (mSocialClass == null) {
@@ -393,6 +412,21 @@ public class PersonalInformationRecord implements Savable {
 	/** @return The socialClass. */
 	public SocialClassRecord getSocialClass() {
 		return mSocialClass;
+	}
+
+	public void setSocialClass(String socialClass) {
+		mSocialClass = new SocialClassRecord(socialClass);
+
+	}
+
+	/** @return The morals. */
+	public int getMorals() {
+		return mMorals;
+	}
+
+	/** @param morals The value to set for morals. */
+	public void setMorals(int morals) {
+		mMorals = morals;
 	}
 
 	/** @return The carry. */
@@ -496,6 +530,7 @@ public class PersonalInformationRecord implements Savable {
 		br.write(EYES_KEY + TKStringHelpers.SPACE + mEyes + System.lineSeparator());
 		br.write(AGE_KEY + TKStringHelpers.SPACE + mAge + System.lineSeparator());
 		br.write(SOCIAL_CLASS_KEY + TKStringHelpers.SPACE + mSocialClass.getSocialClass() + System.lineSeparator());
+		br.write(MORALS_KEY + TKStringHelpers.SPACE + mMorals + System.lineSeparator());
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}
@@ -517,6 +552,8 @@ public class PersonalInformationRecord implements Savable {
 			mAge = TKStringHelpers.getIntValue(value, 0);
 		} else if (SOCIAL_CLASS_KEY.equals(key)) {
 			mSocialClass = new SocialClassRecord(value);
+		} else if (MORALS_KEY.equals(key)) {
+			mMorals = TKStringHelpers.getIntValue(value, 0);
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
@@ -534,20 +571,9 @@ public class PersonalInformationRecord implements Savable {
 		mEyes = TKStringHelpers.EMPTY_STRING;
 		mAge = 0;
 		mSocialClass = null;
+		mMorals = 0;
 		mCarry = 0;
 		mEncumbrance = 0f;
 	}
 
-	public void setHeight(String height) {
-		mHeight = TKStringHelpers.getIntValue(height, mOldHeight);
-	}
-
-	public void setWeight(String weight) {
-		mWeight = TKStringHelpers.getIntValue(weight, mOldWeight);
-	}
-
-	public void setSocialClass(String socialClass) {
-		mSocialClass = new SocialClassRecord(socialClass);
-		
-	}
 }

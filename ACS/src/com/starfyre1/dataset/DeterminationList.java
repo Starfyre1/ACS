@@ -69,7 +69,7 @@ public class DeterminationList implements Savable {
 		mWeaponsTeachersRecords.add(record);
 	}
 
-	public static void clearRecords() {
+	public void clearRecords() {
 		mAttribRecords = new ArrayList<>(16);
 		mLanguageRecords = new ArrayList<>(16);
 		mMagicSpellRecords = new ArrayList<>(64);

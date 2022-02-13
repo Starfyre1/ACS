@@ -8,6 +8,9 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.CombatInformationRecord;
+import com.starfyre1.dataset.classes.elves.Sailor;
+import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.common.SpellUser;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -34,7 +37,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private static final String	DEFENSE_LABEL				= "Defense";			//$NON-NLS-1$
 	private static final String	FREE_ATTACK_LABEL			= "Free Attack";		//$NON-NLS-1$
 	private static final String	MOVEMENT_LABEL				= "Movement";			//$NON-NLS-1$
-	private static final String	MORALS_LABEL				= "Morals";				//$NON-NLS-1$
 	private static final String	ATTACK_SPEED_LABEL			= "Attack";				//$NON-NLS-1$
 	private static final String	MISSILE_SPEED_LABEL			= "Missile";			//$NON-NLS-1$
 	private static final String	BOW_SPEED_LABEL				= "Bow";				//$NON-NLS-1$
@@ -43,6 +45,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private static final String	FOCUS_LABEL					= "Focus";				//$NON-NLS-1$
 	private static final String	BONUS_LABEL					= "Bonus";				//$NON-NLS-1$
 	private static final String	LEVEL_BONUS_LABEL			= "Level Bonus";		//$NON-NLS-1$
+	private static final String	LEVEL_BONUSES_LABEL			= "Level Bonuses";		//$NON-NLS-1$
 	private static final String	UNALLOCATED_LABEL			= "Unallocated";		//$NON-NLS-1$
 	private static final String	SPEED_LABEL					= "Speed";				//$NON-NLS-1$
 
@@ -60,7 +63,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private JTextField			mBowLevelBonusField;
 	private JTextField			mBowSpeedField;
 	private JTextField			mDamageBonusField;
-	private JTextField			mCastingSpeedLevelField;
+	private JTextField			mCastingSpeedLevelBonusField;
 	private JTextField			mCastingSpeedField;
 	private JTextField			mDefenseField;
 	private JTextField			mManaField;
@@ -68,7 +71,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private JTextField			mUnallocatedField;
 	private JTextField			mFocusField;
 	private JTextField			mMovementField;
-	private JTextField			mMoralsField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -86,12 +88,8 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		JPanel wrapper = new JPanel(new GridLayout(10, 5, 5, 0));
+		JPanel wrapper = new JPanel(new GridLayout(9, 6, 5, 0));
 		wrapper.setBorder(new EmptyBorder(0, 0, 5, 10));
-
-		JLabel bonusLabel = new JLabel(BONUS_LABEL, SwingConstants.CENTER);
-		JLabel maxLabel = new JLabel(LEVEL_BONUS_LABEL, SwingConstants.CENTER);
-		JLabel speedLabel = new JLabel(SPEED_LABEL, SwingConstants.CENTER);
 
 		JLabel hitBonusLabel = new JLabel(HIT_BONUS_LABEL, SwingConstants.RIGHT);
 		mHitBonusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
@@ -104,7 +102,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		JLabel missileLabel = new JLabel(MISSILE_BONUS_LABEL, SwingConstants.RIGHT);
 		mMissileBonusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mMissileBonusField.setEditable(false);
-		mCastingSpeedLevelField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mCastingSpeedLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
 		JLabel missileSpeedLabel = new JLabel(MISSILE_SPEED_LABEL, SwingConstants.RIGHT);
 		mMissileSpeedField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mMissileSpeedField.setEditable(false);
@@ -141,71 +139,70 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		JLabel movementLabel = new JLabel(MOVEMENT_LABEL, SwingConstants.RIGHT);
 		mMovementField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mMovementField.setEditable(false);
-		JLabel unallocatedLabel = new JLabel(UNALLOCATED_LABEL, SwingConstants.CENTER);
 		mUnallocatedField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mUnallocatedField.setEditable(false);
-		JLabel moralsLabel = new JLabel(MORALS_LABEL, SwingConstants.RIGHT);
-		mMoralsField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
-		mMoralsField.setEditable(false);
 
 		enableFields(false);
 
 		wrapper.add(new JLabel());
-		wrapper.add(bonusLabel);
-		wrapper.add(maxLabel);
+		wrapper.add(new JLabel(BONUS_LABEL, SwingConstants.CENTER));
+		wrapper.add(new JLabel(LEVEL_BONUS_LABEL, SwingConstants.CENTER));
 		wrapper.add(new JLabel());
-		wrapper.add(speedLabel);
+		wrapper.add(new JLabel(SPEED_LABEL, SwingConstants.CENTER));
+		wrapper.add(new JLabel(LEVEL_BONUS_LABEL, SwingConstants.CENTER));
 
 		wrapper.add(hitBonusLabel);
 		wrapper.add(mHitBonusField);
 		wrapper.add(mHitLevelBonusField);
 		wrapper.add(attackSpeedLabel);
 		wrapper.add(mAttackSpeedField);
+		wrapper.add(new JLabel());
 
 		wrapper.add(missileLabel);
 		wrapper.add(mMissileBonusField);
 		wrapper.add(new JLabel());
 		wrapper.add(missileSpeedLabel);
 		wrapper.add(mMissileSpeedField);
+		wrapper.add(new JLabel());
 
 		wrapper.add(bowLabel);
 		wrapper.add(mBowBonusField);
 		wrapper.add(mBowLevelBonusField);
 		wrapper.add(bowSpeedLabel);
 		wrapper.add(mBowSpeedField);
+		wrapper.add(new JLabel());
 
 		wrapper.add(damageBonusLabel);
 		wrapper.add(mDamageBonusField);
-		wrapper.add(mCastingSpeedLevelField);
+		wrapper.add(new JLabel());
 		wrapper.add(castingSpeedLabel);
 		wrapper.add(mCastingSpeedField);
+		wrapper.add(mCastingSpeedLevelBonusField);
 
 		wrapper.add(defenseLabel);
 		wrapper.add(mDefenseField);
 		wrapper.add(new JLabel());
-		wrapper.add(manaLabel);
-		wrapper.add(mManaField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
 
 		wrapper.add(freeLabel);
 		wrapper.add(mFreeField);
-		wrapper.add(unallocatedLabel);
-		wrapper.add(focusLabel);
-		wrapper.add(mFocusField);
+		wrapper.add(new JLabel(UNALLOCATED_LABEL, SwingConstants.CENTER));
+		wrapper.add(manaLabel);
+		wrapper.add(mManaField);
+		wrapper.add(new JLabel());
 
 		wrapper.add(movementLabel);
 		wrapper.add(mMovementField);
+		wrapper.add(new JLabel(LEVEL_BONUSES_LABEL, SwingConstants.CENTER));
+		wrapper.add(focusLabel);
+		wrapper.add(mFocusField);
+		wrapper.add(new JLabel());
+
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
 		wrapper.add(mUnallocatedField);
-		wrapper.add(moralsLabel);
-		wrapper.add(mMoralsField);
-
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
@@ -230,7 +227,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 				mAttackSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getAttackSpeed());
 
 				mMissileBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileBonus());
-				mCastingSpeedLevelField.setText(TKStringHelpers.EMPTY_STRING + record.getCastingLevelBonus());
+				mCastingSpeedLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getCastingLevelBonus());
 				mMissileSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileSpeed());
 
 				mBowBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getBowBonus() + record.getBowLevelBonus()));
@@ -248,8 +245,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 				mMovementField.setText(TKStringHelpers.EMPTY_STRING + record.getMovement());
 				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocated());
-
-				mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
 			} else {
 				enableFields(false);
 			}
@@ -279,8 +274,8 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 			}
 
 			if (source instanceof JTextField) {
-				if (((JTextField) source).equals(mCastingSpeedLevelField)) {
-					record.setCastingLevelBonus(TKStringHelpers.getIntValue(mCastingSpeedLevelField.getText(), record.getCastingLevelBonus()));
+				if (((JTextField) source).equals(mCastingSpeedLevelBonusField)) {
+					record.setCastingLevelBonus(TKStringHelpers.getIntValue(mCastingSpeedLevelBonusField.getText(), record.getCastingLevelBonus()));
 				} else if (((JTextField) source).equals(mHitLevelBonusField)) {
 					record.setHitLevelBonus(TKStringHelpers.getIntValue(mHitLevelBonusField.getText(), record.getHitLevelBonus()));
 					record.generateDefenseAndFreeAttack();
@@ -302,11 +297,19 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		}
 	}
 
+	private boolean isUsable() {
+		BaseClass charClass = ((CharacterSheet) getOwner()).getHeaderRecord().getCharacterClass();
+		if (charClass instanceof SpellUser || charClass instanceof Sailor) {
+			return true;
+		}
+		return false;
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
 	public void enableFields(boolean enabled) {
-		mCastingSpeedLevelField.setEditable(enabled);
+		mCastingSpeedLevelBonusField.setEditable(enabled && isUsable());
 		mHitLevelBonusField.setEditable(enabled);
 		mBowLevelBonusField.setEditable(enabled);
 	}

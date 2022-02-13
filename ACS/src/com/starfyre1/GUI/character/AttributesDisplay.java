@@ -72,7 +72,7 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 
 	@Override
 	protected Component createDisplay() {
-		JPanel wrapper = new JPanel(new GridLayout(10, 3, 5, 0));
+		JPanel wrapper = new JPanel(new GridLayout(9, 3, 5, 0));
 		wrapper.setBorder(new EmptyBorder(0, 0, 5, 10));
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();

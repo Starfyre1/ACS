@@ -23,30 +23,32 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	static final String	PERSONAL_INFORMATION_TITLE	= "<html>Personal<br>Information</html>";	//$NON-NLS-1$
+	static final String			PERSONAL_INFORMATION_TITLE	= "<html>Personal<br>Information</html>";	//$NON-NLS-1$
 
-	static final String	HEIGHT_LABEL				= "Height";									//$NON-NLS-1$
-	static final String	WEIGHT_LABEL				= "Weight";									//$NON-NLS-1$
-	static final String	SEX_LABEL					= "Sex";									//$NON-NLS-1$
-	static final String	HAIR_LABEL					= "Hair";									//$NON-NLS-1$
-	static final String	EYES_LABEL					= "Eyes";									//$NON-NLS-1$
-	static final String	AGE_LABEL					= "Age";									//$NON-NLS-1$
-	static final String	SOCIAL_CLASS_LABEL			= "Social Class";							//$NON-NLS-1$
-	static final String	CARRY_LABEL					= "Carry";									//$NON-NLS-1$
-	static final String	ENCUMBRANCE_LABEL			= "Encumbrance";							//$NON-NLS-1$
+	private static final String	HEIGHT_LABEL				= "Height";									//$NON-NLS-1$
+	private static final String	WEIGHT_LABEL				= "Weight";									//$NON-NLS-1$
+	private static final String	SEX_LABEL					= "Sex";									//$NON-NLS-1$
+	private static final String	HAIR_LABEL					= "Hair";									//$NON-NLS-1$
+	private static final String	EYES_LABEL					= "Eyes";									//$NON-NLS-1$
+	private static final String	AGE_LABEL					= "Age";									//$NON-NLS-1$
+	private static final String	SOCIAL_CLASS_LABEL			= "Social Class";							//$NON-NLS-1$
+	private static final String	MORALS_LABEL				= "Morals";									//$NON-NLS-1$
+	private static final String	CARRY_LABEL					= "Carry";									//$NON-NLS-1$
+	private static final String	ENCUMBRANCE_LABEL			= "Encumbrance";							//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private JTextField	mHeightField;
-	private JTextField	mWeightField;
-	private JTextField	mSexField;
-	private JTextField	mHairField;
-	private JTextField	mEyesField;
-	private JTextField	mAgeField;
-	private JTextField	mSocialClassField;
-	private JTextField	mCarryField;
-	private JTextField	mEncumbranceField;
+	private JTextField			mHeightField;
+	private JTextField			mWeightField;
+	private JTextField			mSexField;
+	private JTextField			mHairField;
+	private JTextField			mEyesField;
+	private JTextField			mAgeField;
+	private JTextField			mSocialClassField;
+	private JTextField			mMoralsField;
+	private JTextField			mCarryField;
+	private JTextField			mEncumbranceField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -86,6 +88,9 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 
 		JLabel socialClassLabel = new JLabel(SOCIAL_CLASS_LABEL, SwingConstants.RIGHT);
 		mSocialClassField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
+
+		JLabel moralsLabel = new JLabel(MORALS_LABEL, SwingConstants.RIGHT);
+		mMoralsField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel carryLabel = new JLabel(CARRY_LABEL, SwingConstants.RIGHT);
 		mCarryField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
@@ -128,6 +133,11 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 		temp = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
 		temp.add(socialClassLabel);
 		temp.add(mSocialClassField);
+		wrapper.add(temp);
+
+		temp = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+		temp.add(moralsLabel);
+		temp.add(mMoralsField);
 		wrapper.add(temp);
 
 		temp = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
@@ -177,7 +187,10 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 			} else if (mAgeField.equals(source)) {
 				record.setAge(TKStringHelpers.getIntValue(mAgeField.getText(), record.getAge()));
 			} else if (mSocialClassField.equals(source)) {
+				// DW validate the string value and reset old value if invalid
 				record.setSocialClass(mSocialClassField.getText());
+			} else if (mMoralsField.equals(source)) {
+				record.setMorals(TKStringHelpers.getIntValue(mMoralsField.getText(), record.getMorals()));
 			}
 		}
 	}
@@ -220,6 +233,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 			mEyesField.setText(record.getEyes());
 			mAgeField.setText(TKStringHelpers.EMPTY_STRING + record.getAge());
 			mSocialClassField.setText(record.getSocialClassTitle());
+			mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
 			String carryTooltip = record.getCarryTooltip();
 			mCarryField.setText(TKStringHelpers.EMPTY_STRING + record.getCarry());
 			mCarryField.setToolTipText(carryTooltip);
