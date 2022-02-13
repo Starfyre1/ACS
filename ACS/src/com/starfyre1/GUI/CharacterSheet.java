@@ -55,6 +55,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -589,6 +590,13 @@ public class CharacterSheet implements ActionListener {
 
 	public void loadAndUpdate(File file) {
 		mIsLoadingData = true;
+		if (file == null) {
+			file = getCharacterFile();
+			if (file == null) {
+				mIsLoadingData = false;
+				return;
+			}
+		}
 
 		mAttributesRecord = new AttributesRecord(false);
 		mHeaderRecord = new HeaderRecord();
@@ -603,24 +611,6 @@ public class CharacterSheet implements ActionListener {
 		mMagicItemList = new MagicItemList();
 		mDeterminationList = new DeterminationList();
 
-		final JFileChooser fc = new JFileChooser();
-		fc.setAcceptAllFileFilterUsed(true);
-		String[] exts = { "acs" }; //$NON-NLS-1$
-		String description = "supported files: " + Arrays.toString(exts).replace('[', '(').replace(']', ')'); //$NON-NLS-1$
-		fc.setFileFilter(new FileNameExtensionFilter(description, exts));
-		fc.setCurrentDirectory(new File(PreferenceStore.getInstance().getCurrentFileLocation()));
-		if (file == null) {
-			if (fc.showOpenDialog(mFrame) == JFileChooser.APPROVE_OPTION) {
-				file = fc.getSelectedFile();
-			} else {
-				mIsLoadingData = false;
-				return;
-			}
-		}
-		PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
-		mCharacterFile = file.getAbsolutePath();
-		PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
-		mFrame.setTitle(ACS.TITLE + " " + file); //$NON-NLS-1$
 		openFile(file);
 
 		mAttributesRecord.finalizeCreation(false);
@@ -636,6 +626,39 @@ public class CharacterSheet implements ActionListener {
 		mIsLoadingData = false;
 		mIsCharacterLoaded = true;
 
+	}
+
+	private File getCharacterFile() {
+		File file = null;
+		String os = System.getProperty("os.name"); //$NON-NLS-1$
+		System.out.println(os);
+		boolean test = os.contains("Mac"); //$NON-NLS-1$
+		if (test) {
+			FileDialog fd = new FileDialog(mFrame, "Choose Character", FileDialog.LOAD); //$NON-NLS-1$
+			fd.setDirectory(PreferenceStore.getInstance().getCurrentFileLocation());
+			fd.setFile("*.acs"); //$NON-NLS-1$
+			fd.setVisible(true);
+			String child = fd.getFile();
+			String parent = fd.getDirectory();
+			if (child != null) {
+				file = new File(parent, child);
+				PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
+				mCharacterFile = file.getAbsolutePath();
+				PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
+				mFrame.setTitle(ACS.TITLE + " " + file); //$NON-NLS-1$
+			}
+		} else {
+			final JFileChooser fc = new JFileChooser();
+			fc.setAcceptAllFileFilterUsed(true);
+			String[] exts = { "acs" }; //$NON-NLS-1$
+			String description = "supported files: " + Arrays.toString(exts).replace('[', '(').replace(']', ')'); //$NON-NLS-1$
+			fc.setFileFilter(new FileNameExtensionFilter(description, exts));
+			fc.setCurrentDirectory(new File(PreferenceStore.getInstance().getCurrentFileLocation()));
+			if (fc.showOpenDialog(mFrame) == JFileChooser.APPROVE_OPTION) {
+				file = fc.getSelectedFile();
+			}
+		}
+		return file;
 	}
 
 	void loadDisplay() {
