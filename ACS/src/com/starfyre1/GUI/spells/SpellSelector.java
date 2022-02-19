@@ -86,7 +86,6 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		add(spellWrapper, BorderLayout.CENTER);
 		add(createButtonPanel(), BorderLayout.SOUTH);
 
-		System.out.println(spellWrapper.getPreferredSize());
 		setMinimumSize(new Dimension(350, 500));
 
 		pack();
