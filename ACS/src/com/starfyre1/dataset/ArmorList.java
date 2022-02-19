@@ -129,10 +129,11 @@ public class ArmorList implements Savable {
 	public static Object[] getArmorMasterList() {
 		if (mArmorMasterList == null) {
 			mArmorMasterList = new ArmorRecord[52];
-			Scanner scanner;
-			
+
+			Scanner scanner = null;
+			InputStream is = null;
 			try {
-				InputStream is = ACS.class.getModule().getResourceAsStream("resources/Armor.txt"); //$NON-NLS-1$
+				is = ACS.class.getModule().getResourceAsStream("resources/Armor.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 				int count = 0;
 				for (String line; (line = scanner.nextLine()) != null;) {
@@ -175,7 +176,16 @@ public class ArmorList implements Savable {
 			} catch (IOException exception) {
 				exception.printStackTrace();
 			} finally {
-				scanner = null;
+				try {
+					if (is != null) {
+						is.close();
+					}
+				} catch (IOException exception) {
+					exception.printStackTrace();
+				}
+			}
+			if (scanner != null) {
+				scanner.close();
 			}
 
 		}

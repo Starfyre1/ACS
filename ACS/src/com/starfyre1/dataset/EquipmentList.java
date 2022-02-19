@@ -119,10 +119,11 @@ public class EquipmentList implements Savable {
 	public static Object[] getEquipmentMasterList() {
 		if (mEquipmentMasterList == null) {
 			mEquipmentMasterList = new EquipmentRecord[144];
-			Scanner scanner;
-			
+
+			Scanner scanner = null;
+			InputStream is = null;
 			try {
-				InputStream is = ACS.class.getModule().getResourceAsStream("resources/Equipment.txt"); //$NON-NLS-1$
+				is = ACS.class.getModule().getResourceAsStream("resources/Equipment.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 				int count = 0;
 				for (String line; (line = scanner.nextLine()) != null;) {
@@ -151,7 +152,16 @@ public class EquipmentList implements Savable {
 			} catch (IOException exception) {
 				exception.printStackTrace();
 			} finally {
-				scanner = null;
+				try {
+					if (is != null) {
+						is.close();
+					}
+				} catch (IOException exception) {
+					exception.printStackTrace();
+				}
+			}
+			if (scanner != null) {
+				scanner.close();
 			}
 
 		}

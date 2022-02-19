@@ -117,10 +117,11 @@ public class MagicItemList implements Savable {
 	public static Object[] getMagicItemsMasterList() {
 		if (mMagicItemMasterList == null) {
 			mMagicItemMasterList = new MagicItemRecord[2];
-			Scanner scanner;
-			
+
+			Scanner scanner = null;
+			InputStream is = null;
 			try {
-				InputStream is = ACS.class.getModule().getResourceAsStream("resources/MagicItem.txt"); //$NON-NLS-1$
+				is = ACS.class.getModule().getResourceAsStream("resources/MagicItem.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 				int count = 0;
 				for (String line; (line = scanner.nextLine()) != null;) {
@@ -144,7 +145,16 @@ public class MagicItemList implements Savable {
 			} catch (IOException exception) {
 				exception.printStackTrace();
 			} finally {
-				scanner = null;
+				try {
+					if (is != null) {
+						is.close();
+					}
+				} catch (IOException exception) {
+					exception.printStackTrace();
+				}
+			}
+			if (scanner != null) {
+				scanner.close();
 			}
 
 		}

@@ -34,10 +34,11 @@ public class MetalList {
 	 ****************************************************************************/
 	private static void createMetalMasterList() {
 		mMetalMasterList = new MetalRecord[10];
-		Scanner scanner;
-		
+
+		Scanner scanner = null;
+		InputStream is = null;
 		try {
-			InputStream is = ACS.class.getModule().getResourceAsStream("resources/Metal.txt"); //$NON-NLS-1$
+			is = ACS.class.getModule().getResourceAsStream("resources/Metal.txt"); //$NON-NLS-1$
 			scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 			int count = 0;
 			for (String line; (line = scanner.nextLine()) != null;) {
@@ -69,8 +70,17 @@ public class MetalList {
 			// End of file, nothing to do except exit
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
-		} finally { 
-			scanner = null;
+		} finally {
+			try {
+				if (is != null) {
+					is.close();
+				}
+			} catch (IOException exception) {
+				exception.printStackTrace();
+			}
+		}
+		if (scanner != null) {
+			scanner.close();
 		}
 	}
 

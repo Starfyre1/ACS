@@ -152,10 +152,12 @@ public class AnimalList implements Savable {
 		// DW Implement 1D3 for kick damage bonus for falcon
 		if (mAnimalMasterList == null) {
 			mAnimalMasterList = new AnimalRecord[26];
-			Scanner scanner;
+
+			Scanner scanner = null;
+			InputStream is = null;
 			try {
-				InputStream is = ACS.class.getModule().getResourceAsStream("resources/Animal.txt"); //$NON-NLS-1$
-				 scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
+				is = ACS.class.getModule().getResourceAsStream("resources/Animal.txt"); //$NON-NLS-1$
+				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 				int count = 0;
 				for (String line; (line = scanner.nextLine()) != null;) {
 					line = line.trim();
@@ -182,13 +184,21 @@ public class AnimalList implements Savable {
 									splitLine[10].replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
 					mAnimalMasterList[count++] = record;
 				}
-
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			} finally {
-				scanner = null;
+				try {
+					if (is != null) {
+						is.close();
+					}
+				} catch (IOException exception) {
+					exception.printStackTrace();
+				}
+			}
+			if (scanner != null) {
+				scanner.close();
 			}
 
 		}
