@@ -56,7 +56,7 @@ public class SpellDescriptionCard extends JPanel {
 		mPowersPanel = new JPanel(new GridBagLayout());
 		updatePowersPanel(mPowersPanel);
 
-		TKScrollablePanel wrapper = new TKScrollablePanel();
+		TKScrollablePanel wrapper = new TKScrollablePanel(16, 16, true, false);
 		BoxLayout bl = new BoxLayout(wrapper, BoxLayout.Y_AXIS);
 		wrapper.setLayout(bl);
 		wrapper.add(mDescriptionArea);
