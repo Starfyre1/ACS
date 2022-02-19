@@ -74,7 +74,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		mSpellAreaName = spellAreaName;
 		updatePanel(mSpellLevel);
 
-		JPanel spellWrapper = new JPanel(new BorderLayout());
+		JPanel spellWrapper = new JPanel(new BorderLayout(10, 10));
 		spellWrapper.add(mSpellListPanel, BorderLayout.NORTH);
 		spellWrapper.add(mSpellDescriptionCard, BorderLayout.CENTER);
 
@@ -85,6 +85,9 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		add(createSpellsHeader(), BorderLayout.NORTH);
 		add(spellWrapper, BorderLayout.CENTER);
 		add(createButtonPanel(), BorderLayout.SOUTH);
+
+		System.out.println(spellWrapper.getPreferredSize());
+		setMinimumSize(new Dimension(350, 500));
 
 		pack();
 		setLocationRelativeTo(getOwner());

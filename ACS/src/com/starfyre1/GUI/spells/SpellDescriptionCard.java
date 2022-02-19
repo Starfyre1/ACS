@@ -2,7 +2,7 @@
 
 package com.starfyre1.GUI.spells;
 
-import com.starfyre1.GUI.component.ScrollablePanel;
+import com.starfyre1.ToolKit.TKScrollablePanel;
 import com.starfyre1.dataset.spells.SpellDescriptionList;
 import com.starfyre1.dataset.spells.SpellDescriptionRecord;
 import com.starfyre1.dataset.spells.SpellDescriptionRecord.Pair;
@@ -56,7 +56,7 @@ public class SpellDescriptionCard extends JPanel {
 		mPowersPanel = new JPanel(new GridBagLayout());
 		updatePowersPanel(mPowersPanel);
 
-		ScrollablePanel wrapper = new ScrollablePanel();
+		TKScrollablePanel wrapper = new TKScrollablePanel();
 		BoxLayout bl = new BoxLayout(wrapper, BoxLayout.Y_AXIS);
 		wrapper.setLayout(bl);
 		wrapper.add(mDescriptionArea);
