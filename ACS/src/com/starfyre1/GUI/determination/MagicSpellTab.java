@@ -81,11 +81,17 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 	 * Methods
 	 ****************************************************************************/
 	private int getPanelIndex(JMenuItem menuItem) {
+
 		JPopupMenu popup = (JPopupMenu) menuItem.getParent();
 		JMenu menu = (JMenu) popup.getInvoker();
-		JPopupMenu popup2 = (JPopupMenu) menu.getParent();
-		ComboMenu menu2 = (ComboMenu) popup2.getInvoker();
-		TKPopupMenu popup3 = (TKPopupMenu) menu2.getParent();
+		TKPopupMenu popup3;
+		if (menu.getParent() instanceof TKPopupMenu) {
+			popup3 = (TKPopupMenu) menu.getParent();
+		} else {
+			JPopupMenu popup2 = (JPopupMenu) menu.getParent();
+			ComboMenu menu2 = (ComboMenu) popup2.getInvoker();
+			popup3 = (TKPopupMenu) menu2.getParent();
+		}
 
 		return getIndexInPanel((JPanel) popup3.getParent(), popup3);
 	}
@@ -122,6 +128,11 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 					mSpellLabel[index].setForeground(getOldColor(index));
 					setOldColor(index, null);
 				}
+			} else {
+				mSpellLabel[index].removeMouseListener(this);
+				mSpellLabel[index].setText(CHOOSE_SCHOOL);
+				mSpellLabel[index].setForeground(getOldColor(index));
+				setOldColor(index, null);
 			}
 		}
 	}

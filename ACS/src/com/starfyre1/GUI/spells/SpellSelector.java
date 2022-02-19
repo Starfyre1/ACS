@@ -24,43 +24,38 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EtchedBorder;
 
 public class SpellSelector extends JDialog implements ActionListener, MouseListener {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	SPELL_SELECTOR		= "Spell Selector";	//$NON-NLS-1$
-	private static final String	LEVEL				= "Level ";			//$NON-NLS-1$
+	private static final String		SPELL_SELECTOR			= "Spell Selector";	//$NON-NLS-1$
+	private static final String		LEVEL					= "Level ";			//$NON-NLS-1$
 
-	private static final String	DESCRIPTION			= "Description";	//$NON-NLS-1$
-	private static final String	LEARN				= "Learn";			//$NON-NLS-1$
-	private static final String	CLOSE				= "Close";			//$NON-NLS-1$
+	private static final String		LEARN					= "Learn";			//$NON-NLS-1$
+	private static final String		CLOSE					= "Close";			//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private CharacterSheet		mSheet;
-	private String				mSpellAreaName;
-	private int					mSpellLevel			= 0;
-	private SpellRecord			mSpellToLearn		= null;
+	private CharacterSheet			mCharacterSheet;
+	private String					mSpellAreaName;
+	private int						mSpellLevel				= 0;
+	private SpellRecord				mSpellToLearn			= null;
 
-	private Color				mOldColor			= null;
-	private Color				mOldSelectedColor	= null;
-	private JLabel				mOldLabel			= null;
-	private JButton				mDescriptionButton	= null;
-	private JButton				mLearnButton		= null;
+	private Color					mOldColor				= null;
+	private Color					mOldSelectedColor		= null;
+	private JLabel					mOldLabel				= null;
+	private JButton					mLearnButton			= null;
 
-	private JPanel				mSpellListPanel		= new JPanel();
-	//	private SpellDescriptionCard2	mSpellDescriptionCard	= null;
+	private JPanel					mSpellListPanel			= null;
+	private SpellDescriptionCard	mSpellDescriptionCard	= null;
 
 	/*****************************************************************************
 	 * Constructors
@@ -70,22 +65,37 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	 */
 	public SpellSelector(CharacterSheet owner, String spellAreaName) {
 		super(owner.getFrame(), SPELL_SELECTOR, true);
-		mSheet = owner;
+		mCharacterSheet = owner;
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-		mSpellAreaName = spellAreaName;
+		mSpellListPanel = new JPanel();
+		mSpellDescriptionCard = new SpellDescriptionCard(null);
 
+		mSpellAreaName = spellAreaName;
 		updatePanel(mSpellLevel);
 
-		JPanel buttonPanel = new JPanel();
-		mDescriptionButton = getButton(DESCRIPTION);
-		mLearnButton = getButton(LEARN);
-		updateButtons(false);
+		JPanel spellWrapper = new JPanel(new BorderLayout());
+		spellWrapper.add(mSpellListPanel, BorderLayout.NORTH);
+		spellWrapper.add(mSpellDescriptionCard, BorderLayout.CENTER);
 
-		buttonPanel.add(mDescriptionButton);
-		buttonPanel.add(mLearnButton);
-		buttonPanel.add(getButton(CLOSE));
+		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(400, 700));
+		//		super.setBorder(new CompoundBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), new EtchedBorder(EtchedBorder.RAISED)), new EtchedBorder(EtchedBorder.LOWERED)));
 
+		add(createSpellsHeader(), BorderLayout.NORTH);
+		add(spellWrapper, BorderLayout.CENTER);
+		add(createButtonPanel(), BorderLayout.SOUTH);
+
+		pack();
+		setLocationRelativeTo(getOwner());
+		setVisible(true);
+	}
+
+	/*****************************************************************************
+	 * Methods
+	 ****************************************************************************/
+
+	private JPanel createSpellsHeader() {
 		JPanel header = new JPanel();
 		BoxLayout bl = new BoxLayout(header, BoxLayout.Y_AXIS);
 		header.setLayout(bl);
@@ -99,25 +109,18 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		popupPanel.add(new TKPopupMenu(generateSpellLevelPopup()));
 
 		header.add(popupPanel);
-
-		JPanel wrapper = new JPanel(new BorderLayout());
-		wrapper.setPreferredSize(new Dimension(400, 500));
-		wrapper.setBorder(new CompoundBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), new EtchedBorder(EtchedBorder.RAISED)), new EtchedBorder(EtchedBorder.LOWERED)));
-
-		wrapper.add(header, BorderLayout.NORTH);
-		wrapper.add(mSpellListPanel, BorderLayout.CENTER);
-		wrapper.add(buttonPanel, BorderLayout.SOUTH);
-
-		add(wrapper);
-
-		pack();
-		setLocationRelativeTo(getOwner());
-		setVisible(true);
+		return header;
 	}
 
-	/*****************************************************************************
-	 * Methods
-	 ****************************************************************************/
+	private JPanel createButtonPanel() {
+		JPanel buttonPanel = new JPanel();
+		mLearnButton = getButton(LEARN);
+		updateButtons(false);
+
+		buttonPanel.add(mLearnButton);
+		buttonPanel.add(getButton(CLOSE));
+		return buttonPanel;
+	}
 
 	private void updatePanel(int spellLevel) {
 		SpellUser caster = (SpellUser) ClassList.getCharacterClass(mSpellAreaName);
@@ -143,7 +146,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 			label2 = new JLabel("" + record.getCastingTime(), SwingConstants.CENTER); //$NON-NLS-1$
 			label3 = new JLabel("" + record.getPower(), SwingConstants.CENTER); //$NON-NLS-1$
 
-			SpellList currentList = mSheet.getSpellListDisplay().getCurrentList();
+			SpellList currentList = mCharacterSheet.getSpellListDisplay().getCurrentList();
 			if (currentList != null && currentList.isSpellKnown(record)) {
 				label1.setForeground(Color.LIGHT_GRAY);
 				label2.setForeground(Color.LIGHT_GRAY);
@@ -156,12 +159,6 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 
 			mSpellListPanel.add(panel);
 		}
-		//		JPanel descPanel = new JPanel();
-		//		descPanel.setPreferredSize(panel.getPreferredSize());
-		//		mSpellDescriptionCard = new SpellDescriptionCard2(null);
-		//		descPanel.add(mSpellDescriptionCard);
-		//		mSpellListPanel.add(descPanel);
-
 	}
 
 	private JMenu generateSpellLevelPopup() {
@@ -198,12 +195,18 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		String name = ((JLabel) e.getSource()).getText();
+
+		mSpellDescriptionCard.setDescriptionText(name);
+		mSpellDescriptionCard.repaint(mSpellDescriptionCard.getBounds());
+		mSpellDescriptionCard.revalidate();
+
 		if (mOldLabel != null && mOldSelectedColor != null) {
 			mOldLabel.setBackground(mOldSelectedColor);
 		}
 
-		SpellList currentList = mSheet.getSpellListDisplay().getCurrentList();
-		if (currentList == null || !currentList.isSpellKnown(getSpellRecord(((JLabel) e.getSource()).getText()))) {
+		SpellList currentList = mCharacterSheet.getSpellListDisplay().getCurrentList();
+		if (currentList == null || !currentList.isSpellKnown(getSpellRecord(name))) {
 			mOldLabel = (JLabel) e.getSource();
 			mOldSelectedColor = mOldLabel.getBackground();
 
@@ -219,7 +222,6 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 
 	private void updateButtons(boolean enable) {
 
-		mDescriptionButton.setEnabled(enable);
 		mLearnButton.setEnabled(enable);
 
 	}
@@ -276,8 +278,6 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 					} else if (LEARN.equals(buttonName)) {
 						mSpellToLearn = getSpellRecord(mOldLabel.getText());
 						dispose();
-					} else if (DESCRIPTION.equals(buttonName)) {
-						new SpellDescriptionCard((JFrame) getOwner(), mOldLabel.getText());
 					}
 
 				}

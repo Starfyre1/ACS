@@ -2,74 +2,95 @@
 
 package com.starfyre1.GUI.spells;
 
-import com.starfyre1.ToolKit.TKPageTitleLabel;
+import com.starfyre1.GUI.component.ScrollablePanel;
 import com.starfyre1.dataset.spells.SpellDescriptionList;
 import com.starfyre1.dataset.spells.SpellDescriptionRecord;
 import com.starfyre1.dataset.spells.SpellDescriptionRecord.Pair;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.swing.Box;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EtchedBorder;
 
-public class SpellDescriptionCard extends JDialog {
+public class SpellDescriptionCard extends JPanel {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		SPELL_CARD	= "Spell Description Card";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private SpellDescriptionRecord	mRecord;
+	private SpellDescriptionRecord	mRecord				= null;
+	private JPanel					mPowersPanel		= null;
+	private JTextArea				mDescriptionArea	= null;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public SpellDescriptionCard(JFrame parent, String name) {
-		super(parent, SPELL_CARD, true);
-		mRecord = SpellDescriptionList.getRecord(name);
+	public SpellDescriptionCard(String name) {
+		super();
 
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		mDescriptionArea = new JTextArea();
+		if (name != null) {
+			mRecord = SpellDescriptionList.getRecord(name);
+		}
 
-		JTextArea spellDescription = new JTextArea(20, 20);
-		spellDescription.setEditable(false);
-		spellDescription.setFocusable(false);
-		spellDescription.setOpaque(false);
-		spellDescription.setText(mRecord != null ? mRecord.getDescription() : "Spell description not available"); //$NON-NLS-1$
-		spellDescription.setLineWrap(true);
-		spellDescription.setWrapStyleWord(true);
+		mDescriptionArea.setEditable(false);
+		mDescriptionArea.setFocusable(false);
+		mDescriptionArea.setOpaque(false);
+		mDescriptionArea.setText(mRecord != null ? mRecord.getDescription() : "Spell description not available"); //$NON-NLS-1$
+		mDescriptionArea.setLineWrap(true);
+		mDescriptionArea.setWrapStyleWord(true);
 
-		JPanel messagePanel = new JPanel();
-		BoxLayout bl = new BoxLayout(messagePanel, BoxLayout.Y_AXIS);
-		messagePanel.setLayout(bl);
+		mPowersPanel = new JPanel(new GridBagLayout());
+		updatePowersPanel(mPowersPanel);
 
-		messagePanel.add(spellDescription);
+		ScrollablePanel wrapper = new ScrollablePanel();
+		BoxLayout bl = new BoxLayout(wrapper, BoxLayout.Y_AXIS);
+		wrapper.setLayout(bl);
+		wrapper.add(mDescriptionArea);
+		wrapper.add(mPowersPanel);
 
+		JScrollPane scrollPane = new JScrollPane(wrapper);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);//AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//AS_NEEDED);
+
+		setLayout(new BorderLayout());
+		add(scrollPane, BorderLayout.CENTER);
+		setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+	}
+
+	/*****************************************************************************
+	 * Methods
+	 ****************************************************************************/
+	public void setDescriptionText(String name) {
+		if (name != null) {
+			mRecord = SpellDescriptionList.getRecord(name);
+			updatePowersPanel(mPowersPanel);
+		}
+
+		mDescriptionArea.setText(mRecord != null ? mRecord.getDescription() : "Spell description not available"); //$NON-NLS-1$
+		mDescriptionArea.getParent().validate();
+		mDescriptionArea.getParent().repaint();
+	}
+
+	private void updatePowersPanel(JPanel panel) {
+		panel.setAlignmentY(TOP_ALIGNMENT);
+		panel.removeAll();
 		if (mRecord != null) {
 			ArrayList<Pair> effects = mRecord.getEffects();
-			JPanel panel = new JPanel(new GridBagLayout());
-			panel.setAlignmentY(TOP_ALIGNMENT);
 			GridBagConstraints c = new GridBagConstraints();
 			int row = 0;
 			for (Pair pair : effects) {
@@ -95,61 +116,8 @@ public class SpellDescriptionCard extends JDialog {
 				c.weightx = 0.5;
 				panel.add(label2, c);
 			}
-			messagePanel.add(panel);
 		}
-		messagePanel.add(Box.createVerticalStrut(500));
-
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(getCloseButton());
-
-		JPanel wrapper = new JPanel(new BorderLayout());
-		wrapper.setPreferredSize(new Dimension(400, 500));
-		wrapper.setBorder(new CompoundBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), new EtchedBorder(EtchedBorder.RAISED)), new EtchedBorder(EtchedBorder.LOWERED)));
-
-		wrapper.add(new TKPageTitleLabel(name), BorderLayout.PAGE_START);
-		wrapper.add(messagePanel, BorderLayout.CENTER);
-		wrapper.add(buttonPanel, BorderLayout.PAGE_END);
-
-		add(wrapper);
-
-		pack();
-		setLocationRelativeTo(parent);
-		setVisible(true);
-
 	}
-
-	private JButton getCloseButton() {
-		JButton button = new JButton("Close"); //$NON-NLS-1$
-		button.setFocusable(false);
-		button.addMouseListener(new MouseAdapter() {
-			private Color mOldColor = null;
-
-			@Override
-			public void mouseEntered(MouseEvent evt) {
-				mOldColor = button.getBackground();
-				button.setBackground(Color.GRAY);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent evt) {
-				if (mOldColor != null) {
-					button.setBackground(mOldColor);
-				}
-			}
-		});
-		button.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		return button;
-	}
-
-	/*****************************************************************************
-	 * Methods
-	 ****************************************************************************/
 
 	/*****************************************************************************
 	 * Setter's and Getter's
