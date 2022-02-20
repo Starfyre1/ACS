@@ -30,7 +30,7 @@ public class ACS {
 
 	private static int					MAJOR			= 0;																	// Incompatible changes
 	private static int					MINOR			= 1;																	// Compatible changes
-	private static int					PATCH			= 2;																	// Bug fixes
+	private static int					PATCH			= 6;																	// Bug fixes
 
 	private static String				RELEASE_DATE	= "December 06, 2021";													//$NON-NLS-1$
 	private static String				RELEASE_TIME	= "8:42 UTC/GMT";														//$NON-NLS-1$
