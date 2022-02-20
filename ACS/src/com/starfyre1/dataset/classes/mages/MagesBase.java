@@ -131,8 +131,13 @@ public abstract class MagesBase extends SpellUser {
 	}
 
 	@Override
-	public int getHitBonus() {
+	public int getOriginalHitBonus() {
 		return 2;
+	}
+
+	@Override
+	public int getHitBonus() {
+		return 0;
 	}
 
 	@Override
@@ -196,6 +201,34 @@ public abstract class MagesBase extends SpellUser {
 	@Override
 	public int getBelief() {
 		return 5;
+	}
+
+	// Defensive Information
+	@Override
+	public int getStanima() {
+		int stanima;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		if (lvl <= 10) {
+			stanima = (lvl - 1) * 3;
+		} else {
+			stanima = 27 + lvl - 10;
+		}
+		return stanima;
+	}
+
+	@Override
+	public int getHitPoints() {
+		int hp;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+
+		if (lvl <= 10) {
+			hp = lvl - 1;
+		} else {
+			hp = 9;
+		}
+
+		return hp;
+
 	}
 
 	/*****************************************************************************

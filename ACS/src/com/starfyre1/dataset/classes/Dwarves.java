@@ -254,9 +254,14 @@ public class Dwarves extends BaseClass {
 	}
 
 	@Override
+	public int getOriginalHitBonus() {
+		return 4;
+	}
+
+	@Override
 	public int getHitBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return 4 + lvl;
+		return lvl;
 	}
 
 	@Override
@@ -320,6 +325,33 @@ public class Dwarves extends BaseClass {
 	public int getSurprise() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
 		return lvl;
+	}
+
+	// Defensive Information
+	@Override
+	public int getStanima() {
+		int stanima;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		if (lvl <= 10) {
+			stanima = (lvl - 1) * 4;
+		} else {
+			stanima = 36 + (lvl - 10) * 2;
+		}
+		return stanima;
+	}
+
+	@Override
+	public int getHitPoints() {
+		int hp;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+
+		if (lvl <= 10) {
+			hp = lvl - 1;
+		} else {
+			hp = 9 + (lvl - 9) / 2;
+		}
+
+		return hp;
 	}
 
 	/*****************************************************************************

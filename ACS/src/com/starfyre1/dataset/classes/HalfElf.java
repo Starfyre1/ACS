@@ -139,9 +139,15 @@ public class HalfElf extends BaseClass {
 	}
 
 	@Override
+	public int getOriginalHitBonus() {
+		// DW verify
+		return 3;
+	}
+
+	@Override
 	public int getHitBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return 3 + lvl;
+		return lvl;
 	}
 
 	@Override
@@ -205,6 +211,35 @@ public class HalfElf extends BaseClass {
 	@Override
 	public int getBelief() {
 		return 0;
+	}
+
+	// Defensive Information
+	@Override
+	public int getStanima() {
+		int stanima = 0;
+		// DW verify
+		//		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		//		if (lvl <= 10) {
+		//			stanima = (lvl - 1) * 5;
+		//		} else {
+		//			stanima = 45 + (lvl - 10) * 2;
+		//		}
+		return stanima;
+	}
+
+	@Override
+	public int getHitPoints() {
+		int hp = 0;
+		// DW verify
+		//		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		//
+		//		if (lvl <= 10) {
+		//			hp = lvl - 1;
+		//		} else {
+		//			hp = 9 + (lvl - 9) / 2;
+		//		}
+
+		return hp;
 	}
 
 	/*****************************************************************************

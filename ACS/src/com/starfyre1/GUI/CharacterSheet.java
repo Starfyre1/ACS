@@ -1256,6 +1256,11 @@ public class CharacterSheet implements ActionListener {
 		return mIsGameDayStarted;
 	}
 
+	/** @return The isCharacterLoaded. */
+	public boolean isCharacterLoaded() {
+		return mIsCharacterLoaded;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

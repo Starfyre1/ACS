@@ -107,9 +107,14 @@ public abstract class ElvesBase extends BaseClass {
 	}
 
 	@Override
+	public int getOriginalHitBonus() {
+		return 3;
+	}
+
+	@Override
 	public int getHitBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return 3 + lvl;
+		return lvl;
 	}
 
 	@Override
@@ -174,6 +179,37 @@ public abstract class ElvesBase extends BaseClass {
 	@Override
 	public int getBelief() {
 		return 0;
+	}
+
+	// Defensive Information
+	@Override
+	public int getStanima() {
+		int stanima;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		if (lvl <= 5) {
+			stanima = (lvl - 1) * 4;
+		} else {
+			stanima = 16 + (lvl - 5) * 2;
+		}
+
+		return stanima;
+
+	}
+
+	@Override
+	public int getHitPoints() {
+		int hp;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+
+		if (lvl <= 10) {
+			hp = lvl - 1;
+		} else {
+			// DW double check this one value (2-10, 13, 16 levels)
+			hp = 9 + (lvl - 10) / 3;
+		}
+
+		return hp;
+
 	}
 
 	/*****************************************************************************

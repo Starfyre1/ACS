@@ -77,6 +77,8 @@ public abstract class BaseClass extends Object {
 
 	public abstract int getHitBonus();
 
+	public abstract int getOriginalHitBonus();
+
 	public abstract int getMissileBonus();
 
 	public abstract int getBowBonus();
@@ -101,6 +103,11 @@ public abstract class BaseClass extends Object {
 	public abstract int getSurprise();
 
 	public abstract int getBelief();
+
+	// Defensive Information
+	public abstract int getStanima();
+
+	public abstract int getHitPoints();
 
 	/*****************************************************************************
 	 * Serialization

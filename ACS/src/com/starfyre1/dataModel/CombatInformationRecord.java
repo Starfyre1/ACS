@@ -37,6 +37,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	 ****************************************************************************/
 	CharacterSheet				mCharacterSheet;
 
+	private int					mOriginalHitBonus				= 0;
 	private int					mHitBonus						= 0;
 	private int					mHitLevelBonus					= 0;
 	private int					mAttackSpeed					= 0;
@@ -79,6 +80,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 
 	private void updateValues() {
 		if (mCharacterSheet.getHeaderRecord().getCharacterClass() != null) {
+			generateOriginalHitBonus();
 			generateHitBonus();
 			generateMissileBonus();
 			generateBowBonus();
@@ -118,10 +120,10 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mMana = manaValues[intValue][level - 1] + bonusMana;
 	}
 
-	private void generateHitBonus() {
+	private void generateOriginalHitBonus() {
 		AttributesRecord stats = mCharacterSheet.getAttributesRecord();
 
-		int classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getHitBonus();
+		int classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getOriginalHitBonus();
 		int strBonus = stats.getModifiedStat(AttributesRecord.STR) - 10;
 		int dex = stats.getModifiedStat(AttributesRecord.DEX);
 
@@ -134,7 +136,11 @@ public class CombatInformationRecord implements LevelListener, Savable {
 			dexBonus = (dex - 14) * 2 + 2;
 		}
 
-		mHitBonus = classBonus + strBonus + dexBonus;
+		mOriginalHitBonus = classBonus + strBonus + dexBonus;
+	}
+
+	private void generateHitBonus() {
+		mHitBonus = mOriginalHitBonus + mCharacterSheet.getHeaderRecord().getCharacterClass().getHitBonus();
 	}
 
 	private void generateMissileBonus() {
@@ -334,14 +340,16 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	}
 
 	public void generateDefenseAndFreeAttack() {
+		// DW verify if dexBonus is from Modified stat or Original stat.
 		int dex = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
-		int classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getDefenseBonus();
-		int lvl = mCharacterSheet.getHeaderRecord().getLevel();
-
 		int dexBonus = dex > 14 ? (dex - 14) * 5 : dex < 6 ? (dex - 6) * 5 : 0;
 
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+		int classBonus = headerRecord.getCharacterClass().getDefenseBonus();
+		int lvl = headerRecord.getLevel();
+
 		// 	DW need to add Class modifiers to defense
-		int defense = mHitBonus + mHitLevelBonus + 30 + dexBonus + classBonus;
+		int defense = mOriginalHitBonus + 30 + classBonus + dexBonus;
 		int free = 30 + lvl + dexBonus;
 
 		mDefense = defense;
@@ -351,6 +359,11 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	/** @return The hitBonus. */
+	public int getOriginalHitBonus() {
+		return mOriginalHitBonus;
+	}
+
 	/** @return The hitBonus. */
 	public int getHitBonus() {
 		return mHitBonus;
@@ -593,6 +606,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mHitLevelBonus = 0;
 		mBowLevelBonus = 0;
 		mCastingSpeedLevelBonus = 0;
+		mOriginalHitBonus = 0;
 		mHitBonus = 0;
 		mHitLevelBonus = 0;
 		mAttackSpeed = 0;

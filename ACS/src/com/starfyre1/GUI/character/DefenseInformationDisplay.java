@@ -9,15 +9,6 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.ArmorRecord;
 import com.starfyre1.dataModel.AttributesRecord;
-import com.starfyre1.dataModel.HeaderRecord;
-import com.starfyre1.dataset.classes.Dwarrow;
-import com.starfyre1.dataset.classes.Dwarves;
-import com.starfyre1.dataset.classes.Thief;
-import com.starfyre1.dataset.classes.elves.ElvesBase;
-import com.starfyre1.dataset.classes.mages.MagesBase;
-import com.starfyre1.dataset.classes.priests.PriestsBase;
-import com.starfyre1.dataset.classes.warriors.Ranger;
-import com.starfyre1.dataset.classes.warriors.Warrior;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
@@ -47,11 +38,11 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	/*
 		There are many ways to figure your characters Base Armor Rating,
 		the two that have worked best for me in my games are as follows:
-	
+
 		1)	Start your character at a base of 50%, then add the Protection
 			Percentage from the armor you are wearing, this will give you
 			your Armor Rating.
-	
+
 		2)	Start your character with (2 X Dex) + 30% = Base Armor Rating,
 			then add the Protection Percentage from the armor you are
 			wearing, this will give you your Armor Rating.  This rule heavily
@@ -61,7 +52,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			1/2 their allotted carry capacity, at the time of combat.
 			(Remember this is a Optional rule, this way they can't take
 			Total advantage of a 18 Dexterity, and wear Field Plate!)
-	
+
 	*/
 
 	public static final String	FILE_SECTTION_START_KEY		= "DEFENSE_INFORMATION_SECTTION_START";	//$NON-NLS-1$
@@ -367,115 +358,42 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		}
 	}
 
+	private int getAttributeBonus(int stat) {
+		int bonus = 0;
+		if (stat < 6) {
+			bonus = stat - 6;
+		} else if (stat > 12) {
+			bonus = stat - 12;
+		}
+		return bonus;
+	}
+
 	private int generateFullStanima() {
 		CharacterSheet owner = (CharacterSheet) getOwner();
-		HeaderRecord headerRecord = owner.getHeaderRecord();
-		BaseClass characterClass = headerRecord.getCharacterClass();
+		BaseClass characterClass = owner.getHeaderRecord().getCharacterClass();
 
 		if (characterClass == null) {
 			return 0;
 		}
 
-		int lvl = headerRecord.getLevel();
+		int stanima = 1 + characterClass.getStanima() + getAttributeBonus(owner.getAttributesRecord().getModifiedStat(AttributesRecord.STR));
 
-		int stanimaLevelBonus = 0;
-
-		if (characterClass instanceof Warrior) {
-			if (lvl <= 10) {
-				stanimaLevelBonus = (lvl - 1) * 5;
-			} else {
-				stanimaLevelBonus = 45 + (lvl - 10) * 2;
-			}
-			if (characterClass instanceof Ranger) {
-				// DW Rangers get a 1D6 bonus to their stanima... this needs to be saved
-				// stanimaLevelBonus
-			}
-		} else if (characterClass instanceof Thief || characterClass instanceof Dwarves) {
-			if (lvl <= 10) {
-				stanimaLevelBonus = (lvl - 1) * 4;
-			} else {
-				stanimaLevelBonus = 36 + (lvl - 10) * 2;
-			}
-		} else if (characterClass instanceof MagesBase || characterClass instanceof PriestsBase) {
-			if (lvl <= 10) {
-				stanimaLevelBonus = (lvl - 1) * 3;
-			} else {
-				stanimaLevelBonus = 27 + lvl - 10;
-			}
-		} else if (characterClass instanceof ElvesBase || characterClass instanceof Dwarrow) {
-			if (lvl <= 5) {
-				stanimaLevelBonus = (lvl - 1) * 4;
-			} else {
-				stanimaLevelBonus = 16 + (lvl - 5) * 2;
-			}
-		}
-
-		int str = owner.getAttributesRecord().getModifiedStat(AttributesRecord.STR);
-		int stanima = 1;
-
-		if (str < 6) {
-			stanima += str - 6;
-		} else if (str > 12) {
-			stanima += str - 12;
-		}
-
-		if (stanima < 1) {
-			stanima = 1;
-		}
-
-		return stanima + stanimaLevelBonus;
+		return stanima < 1 ? 1 : stanima;
 
 	}
 
 	private int generateFullHitPoints() {
 		CharacterSheet owner = (CharacterSheet) getOwner();
-		HeaderRecord headerRecord = owner.getHeaderRecord();
-		BaseClass characterClass = headerRecord.getCharacterClass();
+		BaseClass characterClass = owner.getHeaderRecord().getCharacterClass();
 
+		// DW should be able to use... owner.isCharacterLoaded(); need to verify
 		if (characterClass == null) {
 			return 0;
 		}
-		int lvl = headerRecord.getLevel();
 
-		int hpLevelBonus = 0;
+		int hp = 7 + characterClass.getHitPoints() + getAttributeBonus(owner.getAttributesRecord().getModifiedStat(AttributesRecord.CON));
 
-		if (characterClass instanceof Warrior) {
-			if (lvl <= 10) {
-				hpLevelBonus = lvl - 1;
-			} else {
-				hpLevelBonus = 9 + (lvl - 9) / 2;
-			}
-		} else if (characterClass instanceof Thief || characterClass instanceof Dwarves) {
-			if (lvl <= 10) {
-				hpLevelBonus = lvl - 1;
-			} else {
-				hpLevelBonus = 9 + (lvl - 9) / 2;
-			}
-		} else if (characterClass instanceof MagesBase || characterClass instanceof PriestsBase) {
-			if (lvl <= 10) {
-				hpLevelBonus = lvl - 1;
-			} else {
-				hpLevelBonus = 9;
-			}
-		} else if (characterClass instanceof ElvesBase || characterClass instanceof Dwarrow) {
-			if (lvl <= 10) {
-				hpLevelBonus = lvl - 1;
-			} else {
-				// DW double check this one value (2-10, 13, 16 levels)
-				hpLevelBonus = 9 + (lvl - 10) / 3;
-			}
-		}
-
-		int con = owner.getAttributesRecord().getModifiedStat(AttributesRecord.CON);
-		int hp = 7;
-
-		if (con < 6) {
-			hp += con - 6;
-		} else if (con > 12) {
-			hp += con - 12;
-		}
-
-		return hp + hpLevelBonus;
+		return hp;
 
 	}
 

@@ -199,9 +199,14 @@ public class Ranger extends Warrior {
 
 	// Combat Skills
 	@Override
+	public int getOriginalHitBonus() {
+		return 4;
+	}
+
+	@Override
 	public int getHitBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return 4 + lvl;
+		return lvl;
 	}
 
 	@Override
@@ -225,6 +230,17 @@ public class Ranger extends Warrior {
 	public int getSurprise() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
 		return 10 + lvl;
+	}
+
+	// Defensive Information
+	@Override
+	public int getStanima() {
+		int stanima = super.getStanima();
+
+		// DW Rangers get a 1D6 bonus to their stanima... this needs to be saved
+		// stanima += 1D6;
+
+		return stanima;
 	}
 	/*****************************************************************************
 	 * Serialization
