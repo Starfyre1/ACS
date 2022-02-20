@@ -244,6 +244,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 			mCurrentList = list;
 		}
 		((CardLayout) mCards.getLayout()).show(mCards, text);
+		enableFields(!MagicAreaPopup.SELECT_MAGIC_AREA.equals(text));
 	}
 
 	@Override
@@ -277,6 +278,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		mCards.removeAll();
 		mCurrentList = null;
 		mAreaPopup.selectPopupMenuItem(MagicAreaPopup.SELECT_MAGIC_AREA);
+		enableFields(false);
 	}
 
 	/*****************************************************************************
