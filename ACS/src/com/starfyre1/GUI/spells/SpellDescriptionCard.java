@@ -63,8 +63,8 @@ public class SpellDescriptionCard extends JPanel {
 		wrapper.add(mPowersPanel);
 
 		JScrollPane scrollPane = new JScrollPane(wrapper);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);//AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);//AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 		setLayout(new BorderLayout());
 		add(scrollPane, BorderLayout.CENTER);
@@ -76,14 +76,15 @@ public class SpellDescriptionCard extends JPanel {
 	 * Methods
 	 ****************************************************************************/
 	public void setDescriptionText(String name) {
+		mRecord = null;
 		if (name != null) {
 			mRecord = SpellDescriptionList.getRecord(name);
-			updatePowersPanel(mPowersPanel);
 		}
+		updatePowersPanel(mPowersPanel);
 
 		mDescriptionArea.setText(mRecord != null ? mRecord.getDescription() : "Spell description not available"); //$NON-NLS-1$
-		mDescriptionArea.getParent().validate();
-		mDescriptionArea.getParent().repaint();
+		mDescriptionArea.revalidate();
+		mDescriptionArea.repaint();
 	}
 
 	private void updatePowersPanel(JPanel panel) {

@@ -129,8 +129,8 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		ArrayList<SpellRecord> spells = caster.getSpellList(spellLevel);
 
 		mSpellListPanel.removeAll();
-		mSpellListPanel.repaint(mSpellListPanel.getBounds());
 		mSpellListPanel.revalidate();
+		mSpellListPanel.repaint();
 
 		JPanel panel = new JPanel(new GridLayout(0, 3));
 		JLabel label1 = new JLabel("Name", SwingConstants.CENTER); //$NON-NLS-1$
@@ -200,8 +200,8 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 		String name = ((JLabel) e.getSource()).getText();
 
 		mSpellDescriptionCard.setDescriptionText(name);
-		mSpellDescriptionCard.repaint(mSpellDescriptionCard.getBounds());
 		mSpellDescriptionCard.revalidate();
+		mSpellDescriptionCard.repaint();
 
 		if (mOldLabel != null && mOldSelectedColor != null) {
 			mOldLabel.setBackground(mOldSelectedColor);
@@ -213,8 +213,6 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 			mOldSelectedColor = mOldLabel.getBackground();
 
 			mOldLabel.setBackground(CharacterSheet.SELECTED_COLOR);
-
-			//			mSpellDescriptionCard.setDescriptionText(mOldLabel.getText());
 
 			updateButtons(true);
 		} else {

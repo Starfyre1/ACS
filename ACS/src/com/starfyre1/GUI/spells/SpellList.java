@@ -16,25 +16,27 @@ import com.starfyre1.startup.ACS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-public class SpellList extends JPanel implements TableModelListener, Savable {
+public class SpellList extends JPanel implements TableModelListener, Savable, ListSelectionListener {
 
 	/*****************************************************************************
 	 * Constants
@@ -55,9 +57,10 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 	 * Member Variables
 	 ****************************************************************************/
 	//	private JPanel					mFilterPanel;
-	private TKTable					mTable1;
-	private TKTable					mTable2;
+	private TKTable					mTable;
 	private ArrayList<SpellRecord>	mKnownSpells			= new ArrayList<>(128);
+
+	private SpellDescriptionCard	mSpellDescriptionCard	= null;
 
 	/*****************************************************************************
 	 * Constructors
@@ -96,31 +99,27 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 		tc1 = tcm1.getColumn(3);
 		tc1.setHeaderValue(NOTES_LABEL);
 
-		table.setEnabled(false);
-		table.setPreferredSize(new Dimension(520, 200));
+		table.setEnabled(true);
 		table.setFillsViewportHeight(true);
 		table.getModel().addTableModelListener(this);
+		table.getSelectionModel().addListSelectionListener(this);
 
 		return table;
 	}
 
 	protected Component createDisplay() {
-		mTable1 = getTable();
+		mTable = getTable();
+		mSpellDescriptionCard = new SpellDescriptionCard(null);
+		mSpellDescriptionCard.setPreferredSize(mTable.getPreferredScrollableViewportSize());
+		mSpellDescriptionCard.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 
-		JScrollPane sp1 = new JScrollPane(mTable1);
+		JScrollPane sp1 = new JScrollPane(mTable);
 		sp1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		sp1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-		mTable2 = getTable();
-
-		JScrollPane sp2 = new JScrollPane(mTable2);
-		sp2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		sp2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-
 		JPanel wrapper = new JPanel(new BorderLayout());
-
 		wrapper.add(sp1, BorderLayout.LINE_START);
-		wrapper.add(sp2, BorderLayout.LINE_END);
+		wrapper.add(mSpellDescriptionCard, BorderLayout.LINE_END);
 
 		JScrollPane scrollPane = new JScrollPane(wrapper);
 		scrollPane.setBorder(new EmptyBorder(getInsets()));
@@ -134,14 +133,8 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 
 	public void addToKnownSpells(SpellRecord record) {
 		mKnownSpells.add(record);
-		// DW do I want the spells going left/right or down the left table and then down the right table?
-		if (mKnownSpells.size() % 2 == 0) {
-			TKTableModel model = (TKTableModel) mTable2.getModel();
-			model.addRow(record.getRecord());
-		} else {
-			TKTableModel model = (TKTableModel) mTable1.getModel();
-			model.addRow(record.getRecord());
-		}
+		TKTableModel model = (TKTableModel) mTable.getModel();
+		model.addRow(record.getRecord());
 	}
 
 	protected void loadDisplay() {
@@ -150,13 +143,34 @@ public class SpellList extends JPanel implements TableModelListener, Savable {
 
 	@Override
 	public void tableChanged(TableModelEvent e) {
+		// This is called when row is added to table (tableChanged)
 		// DW Do something... update tables...
 	}
 
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		int viewRow = mTable.getSelectedRow();
+
+		if (!e.getValueIsAdjusting() && viewRow != -1) {
+			int nameIndex = 1; // name of spell
+
+			// Access table row using modelRow not viewRow (view rows can change location)
+			int modelRow = mTable.convertRowIndexToModel(viewRow);
+			String name = (String) mTable.getModel().getValueAt(modelRow, nameIndex);
+			mSpellDescriptionCard.setDescriptionText(name);
+			mSpellDescriptionCard.revalidate();
+			mSpellDescriptionCard.repaint();
+
+		} else {
+			mSpellDescriptionCard.setDescriptionText(null);
+			mSpellDescriptionCard.revalidate();
+			mSpellDescriptionCard.repaint();
+
+		}
+	}
+
 	public void clearRecords() {
-		TKTableModel model = (TKTableModel) mTable1.getModel();
-		model.setRowCount(0);
-		model = (TKTableModel) mTable2.getModel();
+		TKTableModel model = (TKTableModel) mTable.getModel();
 		model.setRowCount(0);
 		mKnownSpells = new ArrayList<>(128);
 	}
