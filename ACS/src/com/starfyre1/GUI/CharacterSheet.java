@@ -858,6 +858,7 @@ public class CharacterSheet implements ActionListener {
 			mSavingThrowsRecord.updateRecord();
 			mCombatInformationRecord.updateRecord();
 			mSkillsRecord.updateRecord();
+			mPersonalInformationRecord.generate();
 
 			// DW this is probably loading the display twice on character load.
 			mSavingThrowsDisplay.loadDisplay();
@@ -869,6 +870,7 @@ public class CharacterSheet implements ActionListener {
 			mCombatInformationDisplay.loadDisplay();
 			mHeaderDisplay.updateClassPopup();
 			mInnateAbilitiesDisplay.loadDisplay();
+			mPersonalInformationDisplay.loadDisplay();
 		}
 	}
 
@@ -1057,6 +1059,7 @@ public class CharacterSheet implements ActionListener {
 
 		int value = (int) (encumbrance / (carry + .001f));
 
+		// DW fix - the LevelBonuses need to be modified but not here... this should all be done on the display and not on the records
 		if (value >= 4) {
 			cir.setMovement(0);
 			cir.setAttackSpeed(0);

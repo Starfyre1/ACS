@@ -78,10 +78,7 @@ public class PersonalInformationRecord implements Savable {
 		mCharacterSheet = sheet;
 
 		if (generate) {
-			generateCarry();
-			generateHeightAndWeight();
-			mSocialClass = new SocialClassRecord(true);
-			updateOldRecords();
+			generate();
 		}
 
 	}
@@ -89,9 +86,13 @@ public class PersonalInformationRecord implements Savable {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	/**
-	 *
-	 */
+	public void generate() {
+		generateCarry();
+		generateHeightAndWeight();
+		mSocialClass = new SocialClassRecord(true);
+		updateOldRecords();
+	}
+
 	private void updateOldRecords() {
 		mOldHeight = mHeight;
 		mOldWeight = mWeight;
