@@ -221,7 +221,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 			sheet.setLoadingData(true);
 			CombatInformationRecord record = sheet.getCombatInformationRecord();
 
-			if (!(record == null)) {
+			if (record != null) {
 				enableFields(true);
 
 				mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));

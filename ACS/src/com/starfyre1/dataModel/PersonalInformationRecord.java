@@ -331,6 +331,19 @@ public class PersonalInformationRecord implements Savable {
 		return conWeightBonus;
 	}
 
+	public void clearRecords() {
+		mHeight = 0;
+		mWeight = 0;
+		mSex = TKStringHelpers.EMPTY_STRING;
+		mHair = TKStringHelpers.EMPTY_STRING;
+		mEyes = TKStringHelpers.EMPTY_STRING;
+		mAge = 0;
+		mSocialClass = null;
+		mMorals = 0;
+		mCarry = 0;
+		mEncumbrance = 0f;
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -559,21 +572,4 @@ public class PersonalInformationRecord implements Savable {
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
 		}
 	}
-
-	/**
-	 *
-	 */
-	public void clearRecords() {
-		mHeight = 0;
-		mWeight = 0;
-		mSex = TKStringHelpers.EMPTY_STRING;
-		mHair = TKStringHelpers.EMPTY_STRING;
-		mEyes = TKStringHelpers.EMPTY_STRING;
-		mAge = 0;
-		mSocialClass = null;
-		mMorals = 0;
-		mCarry = 0;
-		mEncumbrance = 0f;
-	}
-
 }

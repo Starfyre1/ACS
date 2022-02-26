@@ -332,8 +332,10 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 			if (ACS.getClasses().getClassesNamesList().contains(text)) {
 				record.setClass(text);
 				((CharacterSheet) getOwner()).updateRecords();
+				loadDisplay();
 			} else {
 				mClassPopup.selectPopupMenuItem(SELECT_CLASS);
+				record.setClass(TKStringHelpers.EMPTY_STRING);
 				((CharacterSheet) getOwner()).updateRecords();
 				//				((CharacterSheet) getOwner()).getCombatInformationRecord();
 			}

@@ -68,6 +68,8 @@ public class InnateAbilitiesDisplay extends TKTitledDisplay {
 					temp[1] = element;
 					model.addRow(temp);
 				}
+			} else {
+				clearRecords();
 			}
 		}
 

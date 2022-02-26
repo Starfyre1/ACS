@@ -12,7 +12,7 @@ public class Tsiri extends ElvesBase {
 	/*
 		Minimum Required Stats;
 		ST=”12 CN=”10” IN=”13” WS=”12” DX=”14” BS=”13” CH=”10” PA=”*” WP=”12”
-
+	
 				The Tsiri Elves, or Dark Elves as they are called, are split into 2
 				distinct branches.  One lives above ground, often close to a
 				Sithrian village or city, they’re are Very Few of these, most of the
@@ -20,7 +20,7 @@ public class Tsiri extends ElvesBase {
 				too raid and pillage those around them.  Needless to say, most
 				people's natural reaction to a Tsiri Elf is Distrust, if not out-
 				right attacking them on sight.
-
+	
 				Any player character wanting to use this race will face allot of hardships,
 				along with disabilities.  Tsiri are the Shortest of the Three types of Elves
 				I've told you about, standing between 5' to 6' tall. Their skin is Ebony color,
@@ -28,7 +28,7 @@ public class Tsiri extends ElvesBase {
 				ranges from, silver, purple, blue, gray, gold or Clear.  They receive the
 				Thieving skills of Stealth, Conceal, Hear, Climb, and Find & Remove
 				Traps at basic percentages.
-
+	
 				The Tsiri are very good with Small hand held Crossbows,
 				and thrown objects, they have a +5% to their Missile bonus
 				and will receive a +5% when they use their Hand Crossbows.
@@ -36,21 +36,21 @@ public class Tsiri extends ElvesBase {
 				into Hit bonus and 3% must go into Missile bonus, the other
 				3% can be split up as the player chooses.  They receive a +2%
 				per level to their Bow Bonus.
-
+	
 				They like their cousins are Magical by nature, and may cast
 				spells like a Mage.  They may enter Nine Areas of Magic,
 				Natural Lore, The Elements of Air & Earth, or the Priest's
 				of Wynd, Knull, Graun or Narese,.  They have Restrictions on their
 				Combat and Magical powers as to how far they may Rise.
-
+	
 			1)	Tsiri may have a Maximum Hit Bonus = 5 X Strength.
 			2)	Tsiri may have a Maximum Bow Bonus = 4 X Bow Skill.
 			3)	Their Missile and Defense are Not Restricted in anyway.
 			4)	The Tsiri have the same limitations as the Tellorians in
 					regards to Magic. ( See Tellorian)
-
+	
 		Other Facts about the Tsiri:
-
+	
 			1)	The Tsiri receive +5 Stamina and +1 Hit point past 1st level. After 10th
 				level they stop adding +5 to Stam and start adding +2 per level.  After 16th
 				level they stop adding +1 to Hit points.
@@ -102,7 +102,7 @@ public class Tsiri extends ElvesBase {
 			20)	Because of the Viscousness of this Race, there is a 50% chance at
 				anytime that whatever traveler you meet, will either Run or Attack
 				you on site
-
+	
 	*/
 
 	/*****************************************************************************
@@ -123,41 +123,41 @@ public class Tsiri extends ElvesBase {
 
 		/*
 			Advancing Levels:
-
+		
 				All classes modify their characters in the following ways when they advance a
 				level of experience:
-
+		
 				1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 				2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 				3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 					providing the characters actually use this skill at least once per level.
-
+		
 				4)	Add +3 Determination points per level past (1st).
-
+		
 				5)	Add +2% to Perception every level past (1st).
-
+		
 			Elves & Dwarrow:
-
+		
 				1)	Add +7% per level past (1st) to their Hit and Bow Bonuses.  They must
 					invest at least +1% into their Hit Bonus and at least +3% into their Bow
 					Bonus, the rest may be split as they desire.  Even when they are Maxed
 					out on their Hit Bonus, they must still invest +1% to it....
-
+		
 				2)	Add +2% to their Missile Bonus.
-
+		
 				3)	Add +4 Stamina per level until 5th level, after 5th level add +2 Stamina
 					per level.
-
+		
 				4)	Add +1 Hit Point per level past (1st) until 10th level, after 10th level
 					add +1 hit point for every 3) levels earned.
-
+		
 				5)	Add +1% to their Surprise.
-
+		
 				6)	Add +5% to their Defense.  When their Hit Bonus has maxed out, they must
 					still add +1% to their Defense.  Their Free Attack rises +1% per level.
-
+		
 		*/
 	}
 
@@ -206,6 +206,12 @@ public class Tsiri extends ElvesBase {
 	public int getUnallocatedSkills() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
 		return lvl * 20;
+	}
+
+	// CombatInfo
+	@Override
+	public int getDefenseBonus() {
+		return 5;
 	}
 
 	/*****************************************************************************

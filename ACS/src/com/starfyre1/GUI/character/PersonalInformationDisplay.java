@@ -6,7 +6,9 @@ import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
+import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.PersonalInformationRecord;
+import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -156,22 +158,43 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 
 	@Override
 	public void loadDisplay() {
-		PersonalInformationRecord record = ((CharacterSheet) getOwner()).getPersonalInformationRecord();
+		CharacterSheet characterSheet = (CharacterSheet) getOwner();
+		PersonalInformationRecord record = characterSheet.getPersonalInformationRecord();
 
 		if (record != null) {
-			mHeightField.setText(record.getHeight());
-			mWeightField.setText(TKStringHelpers.EMPTY_STRING + record.getWeight());
-			mSexField.setText(record.getSex());
-			mHairField.setText(record.getHair());
-			mEyesField.setText(record.getEyes());
-			mAgeField.setText(TKStringHelpers.EMPTY_STRING + record.getAge());
-			mSocialClassField.setText(record.getSocialClassTitle());
-			mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
-			String carryTooltip = record.getCarryTooltip();
-			mCarryField.setText(TKStringHelpers.EMPTY_STRING + record.getCarry());
-			mCarryField.setToolTipText(carryTooltip);
-			mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING + record.getEncumbrance());
-			mEncumbranceField.setToolTipText(carryTooltip);
+			HeaderRecord header = characterSheet.getHeaderRecord();
+			if (header != null) {
+				BaseClass classInfo = header.getCharacterClass();
+				if (classInfo != null) {
+					mHeightField.setText(record.getHeight());
+					mWeightField.setText(TKStringHelpers.EMPTY_STRING + record.getWeight());
+					mSexField.setText(record.getSex());
+					mHairField.setText(record.getHair());
+					mEyesField.setText(record.getEyes());
+					mAgeField.setText(TKStringHelpers.EMPTY_STRING + record.getAge());
+					mSocialClassField.setText(record.getSocialClassTitle());
+					mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
+					String carryTooltip = record.getCarryTooltip();
+					mCarryField.setText(TKStringHelpers.EMPTY_STRING + record.getCarry());
+					mCarryField.setToolTipText(carryTooltip);
+					mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING + record.getEncumbrance());
+					mEncumbranceField.setToolTipText(carryTooltip);
+				} else {
+					record.clearRecords();
+					mHeightField.setText(TKStringHelpers.EMPTY_STRING);
+					mWeightField.setText(TKStringHelpers.EMPTY_STRING);
+					mSexField.setText(TKStringHelpers.EMPTY_STRING);
+					mHairField.setText(TKStringHelpers.EMPTY_STRING);
+					mEyesField.setText(TKStringHelpers.EMPTY_STRING);
+					mAgeField.setText(TKStringHelpers.EMPTY_STRING);
+					mSocialClassField.setText(TKStringHelpers.EMPTY_STRING);
+					mMoralsField.setText(TKStringHelpers.EMPTY_STRING);
+					mCarryField.setText(TKStringHelpers.EMPTY_STRING);
+					mCarryField.setToolTipText(TKStringHelpers.EMPTY_STRING);
+					mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING);
+					mEncumbranceField.setToolTipText(TKStringHelpers.EMPTY_STRING);
+				}
+			}
 		} else {
 			mHeightField.setText(TKStringHelpers.EMPTY_STRING);
 			mWeightField.setText(TKStringHelpers.EMPTY_STRING);

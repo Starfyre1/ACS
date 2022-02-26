@@ -146,39 +146,40 @@ public class SkillsRecord implements LevelListener, Savable {
 		AttributesRecord stats = mCharacterSheet.getAttributesRecord();
 		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
 		BaseClass classInfo = headerRecord.getCharacterClass();
-		if (classInfo == null) {
-			return;
+		if (classInfo != null) {
+			int lvl = headerRecord.getLevel();
+
+			boolean isInnateClass[] = classInfo.getInnateSkills();
+			if (isInnateClass != null) {
+				mIsInnate = isInnateClass;
+			}
+
+			generateBandaging(lvl, stats.getModifiedStat(AttributesRecord.WIS), classInfo);
+			generateHunting(classInfo, stats.getModifiedStat(AttributesRecord.WIS));
+			generateTracking(classInfo);
+			generateDetectMagic(classInfo);
+			generateDetectMorals();
+			generateDetectMetals(classInfo);
+			generateDetectSecretDoors(classInfo);
+			generateDetectTraps(lvl, classInfo);
+			generateAppraise(classInfo);
+			generateDepthSense(classInfo);
+			generateHerbalLore(lvl, classInfo);
+			generateBerserk();
+			generatePerception(classInfo, lvl, stats.getModifiedStat(AttributesRecord.INT), stats.getModifiedStat(AttributesRecord.WIS));
+			generateUnallocatedSkills();
+
+			generateConceal(classInfo);
+			generateStealth(classInfo);
+			generateHear(classInfo);
+			generateLockPick();
+			generatePickPocket();
+			generateClimb(classInfo);
+			generateFindTrap();
+			generateRemoveTrap();
+		} else {
+			clearRecords();
 		}
-		int lvl = headerRecord.getLevel();
-
-		boolean isInnateClass[] = classInfo.getInnateSkills();
-		if (isInnateClass != null) {
-			mIsInnate = isInnateClass;
-		}
-
-		generateBandaging(lvl, stats.getModifiedStat(AttributesRecord.WIS), classInfo);
-		generateHunting(classInfo, stats.getModifiedStat(AttributesRecord.WIS));
-		generateTracking(classInfo);
-		generateDetectMagic(classInfo);
-		generateDetectMorals();
-		generateDetectMetals(classInfo);
-		generateDetectSecretDoors(classInfo);
-		generateDetectTraps(lvl, classInfo);
-		generateAppraise(classInfo);
-		generateDepthSense(classInfo);
-		generateHerbalLore(lvl, classInfo);
-		generateBerserk();
-		generatePerception(classInfo, lvl, stats.getModifiedStat(AttributesRecord.INT), stats.getModifiedStat(AttributesRecord.WIS));
-		generateUnallocatedSkills();
-
-		generateConceal(classInfo);
-		generateStealth(classInfo);
-		generateHear(classInfo);
-		generateLockPick();
-		generatePickPocket();
-		generateClimb(classInfo);
-		generateFindTrap();
-		generateRemoveTrap();
 	}
 
 	public void generateBandaging(int lvl, int wisdom, BaseClass classInfo) {
@@ -372,21 +373,21 @@ public class SkillsRecord implements LevelListener, Savable {
 		  		Listener is:				Chance to Hear 		Range
 				Human, Non-thief with a save		20%			60'
 				Vs. Surprise of less than 75%
-		
-		
+
+
 				Human, Non-thief with a save		30%			60'
 				Vs. Surprise of more than 75%
-		
+
 				Elven, Half-Elven and Dwarrow		30% 		120'
-		
+
 				Other--(some monsters will have		20%			60'
 				high hearing abilities)
-		
+
 				Thief					Varies with lvl		60' *
 					*	Add 5’ per 10% above 100% to hear.
-		
+
 				Halve all chances when listening to a door.
-		
+
 		*/
 
 		boolean innate = mIsInnate[HEAR];

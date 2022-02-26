@@ -1068,29 +1068,29 @@ public class CharacterSheet implements ActionListener {
 		} else if (value == 3) {
 			cir.setMovement((int) (cir.getMovement() * .25));
 			cir.setAttackSpeed(cir.getAttackSpeed() - 5);
-			cir.setHitBonus((int) (cir.getHitBonus() * .75));
+			cir.setHitBonus((int) ((cir.getHitBonus() + cir.getHitLevelBonus()) * .75));
 			cir.setMissileSpeed(cir.getMissileSpeed() - 5);
 			cir.setMissileBonus((int) (cir.getMissileBonus() * .75));
 			cir.setBowSpeed(cir.getBowSpeed() - 5);
-			cir.setBowBonus((int) (cir.getBowBonus() * .75));
+			cir.setBowBonus((int) ((cir.getBowBonus() + cir.getBowLevelBonus()) * .75));
 			str.setSurprise(str.getSurprise() - 20);
 		} else if (value == 2) {
 			cir.setMovement((int) (cir.getMovement() * .50));
 			cir.setAttackSpeed(cir.getAttackSpeed() - 3);
-			cir.setHitBonus((int) (cir.getHitBonus() * .85));
+			cir.setHitBonus((int) ((cir.getHitBonus() + cir.getHitLevelBonus()) * .85));
 			cir.setMissileSpeed(cir.getMissileSpeed() - 3);
 			cir.setMissileBonus((int) (cir.getMissileBonus() * .85));
 			cir.setBowSpeed(cir.getBowSpeed() - 3);
-			cir.setBowBonus((int) (cir.getBowBonus() * .85));
+			cir.setBowBonus((int) ((cir.getBowBonus() + cir.getBowLevelBonus()) * .85));
 			str.setSurprise(str.getSurprise() - 10);
 		} else if (value == 1) {
 			cir.setMovement((int) (cir.getMovement() * .75));
 			cir.setAttackSpeed(cir.getAttackSpeed() - 1);
-			cir.setHitBonus((int) (cir.getHitBonus() * .95));
+			cir.setHitBonus((int) ((cir.getHitBonus() + cir.getHitLevelBonus()) * .95));
 			cir.setMissileSpeed(cir.getMissileSpeed() - 1);
 			cir.setMissileBonus((int) (cir.getMissileBonus() * .95));
 			cir.setBowSpeed(cir.getBowSpeed() - 1);
-			cir.setBowBonus((int) (cir.getBowBonus() * .95));
+			cir.setBowBonus((int) ((cir.getBowBonus() + cir.getBowLevelBonus()) * .95));
 		}
 	}
 

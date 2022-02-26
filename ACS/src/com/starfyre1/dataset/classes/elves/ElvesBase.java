@@ -103,7 +103,7 @@ public abstract class ElvesBase extends BaseClass {
 	// CombatInfo
 	@Override
 	public int getDefenseBonus() {
-		return 5;
+		return 0;
 	}
 
 	@Override
