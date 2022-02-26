@@ -97,7 +97,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 
 	@Override
 	protected void loadDisplay() {
-		updateCheckboxEnabledState();
+		updateEnabledState();
 		super.loadDisplay();
 	}
 
@@ -176,12 +176,12 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 		wrapperPanel.add(maintPanel);
 		wrapperPanel.add(successPanel);
 
-		updateCheckboxEnabledState();
+		updateEnabledState();
 
 		return wrapperPanel;
 	}
 
-	private void updateCheckboxEnabledState() {
+	private void updateEnabledState() {
 		AttributesRecord attribs = ACS.getInstance().getCharacterSheet().getAttributesRecord();
 		// DW Also need to make sure we can't increase it more than 3 times... will need to check against DeterminationPointsRecord when created
 

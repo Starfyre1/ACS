@@ -9,8 +9,10 @@ import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 import com.starfyre1.dataset.WeaponList;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -18,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -39,6 +42,7 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 	static final String			CHOOSE_EXPERTISE		= "Choose Expertise";																						//$NON-NLS-1$
 	static final String			CHOOSE_TEACHER			= "Choose Teacher  ";																						//$NON-NLS-1$
 
+	private static final String	ID						= "ID:";																									//$NON-NLS-1$
 	private static final String	BONUS					= "Bonus:";																									//$NON-NLS-1$
 	private static final String	COST					= "Cost:";																									//$NON-NLS-1$
 	private static final String	EXPERTISE				= "Expertise:";																								//$NON-NLS-1$
@@ -49,10 +53,11 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private JLabel[]			mIDLabel;
 	private JTextField[]		mTeacherNameField;
-	private TKPopupMenu[]		mExpertiseLabel;
-	private JTextField[]		mCostLabel;
-	private JTextField[]		mBonusLabel;
+	private TKPopupMenu[]		mExpertisePopup;
+	private JTextField[]		mCostField;
+	private JTextField[]		mBonusField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -83,7 +88,6 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-
 	}
 
 	@Override
@@ -91,9 +95,27 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 		//		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
 	}
 
+	private void updateEnabledState() {
+		HeaderRecord headerRecord = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		boolean enable = headerRecord == null ? false : headerRecord.getCharacterClass() != null;
+		for (int i = 0; i < ROWS; i++) {
+			mTeacherNameField[i].setEnabled(enable);
+			mTeacherNameField[i].setEditable(enable);
+
+			mExpertisePopup[i].getMenu().setEnabled(enable);
+
+			mBonusField[i].setEnabled(enable);
+			mBonusField[i].setEditable(enable);
+
+			mCostField[i].setEnabled(enable);
+			mCostField[i].setEditable(enable);
+		}
+	}
+
 	@Override
 	protected void loadDisplay() {
-		//DW to do
+		updateEnabledState();
+		super.loadDisplay();
 	}
 
 	@Override
@@ -104,44 +126,69 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 	private JPanel createCenterPanel() {
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
+		mIDLabel = new JLabel[ROWS];
 		mTeacherNameField = new JTextField[ROWS];
-		mExpertiseLabel = new TKPopupMenu[ROWS];
-		mBonusLabel = new JTextField[ROWS];
-		mCostLabel = new JTextField[ROWS];
+		mExpertisePopup = new TKPopupMenu[ROWS];
+		mBonusField = new JTextField[ROWS];
+		mCostField = new JTextField[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
+		JPanel idPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel teacherPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel expertisePanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
 		JPanel bonusAmountPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel costPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 
+		JLabel header = new JLabel(ID);
+		idPanel.add(header);
 		teacherPanel.add(new JLabel(TEACHERS_NAME));
+		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
 		expertisePanel.add(new JLabel(EXPERTISE));
 		bonusAmountPanel.add(new JLabel(BONUS));
 		costPanel.add(new JLabel(COST));
 
 		for (int i = 0; i < ROWS; i++) {
+			mIDLabel[i] = TKComponentHelpers.createLabel("0"); //$NON-NLS-1$
+			mIDLabel[i].setMinimumSize(size);
+			mIDLabel[i].setPreferredSize(size);
+			idPanel.add(mIDLabel[i]);
+
 			mTeacherNameField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_EXLARGE, TEXT_FIELD_HEIGHT, this);
+			mTeacherNameField[i].getDocument().addDocumentListener(this);
+			mTeacherNameField[i].setEnabled(false);
+			mTeacherNameField[i].setEditable(false);
 			teacherPanel.add(mTeacherNameField[i]);
 
-			mExpertiseLabel[i] = new TKPopupMenu(getExpertisePopup());
-			mExpertiseLabel[i].setAlignmentX(Component.LEFT_ALIGNMENT);
-			Dimension size = new Dimension(mExpertiseLabel[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
-			mExpertiseLabel[i].setMaximumSize(size);
-			mExpertiseLabel[i].setPreferredSize(size);
-			expertisePanel.add(mExpertiseLabel[i]);
+			mExpertisePopup[i] = new TKPopupMenu(getExpertisePopup());
+			mExpertisePopup[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+			Dimension size2 = new Dimension(mExpertisePopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
+			mExpertisePopup[i].setMaximumSize(size2);
+			mExpertisePopup[i].setPreferredSize(size2);
+			mExpertisePopup[i].getMenu().setEnabled(false);
+			expertisePanel.add(mExpertisePopup[i]);
 
-			mBonusLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT, this, filter);
-			bonusAmountPanel.add(mBonusLabel[i]);
+			mBonusField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT, this, filter);
+			mBonusField[i].getDocument().addDocumentListener(this);
+			mBonusField[i].setEnabled(false);
+			mBonusField[i].setEditable(false);
+			bonusAmountPanel.add(mBonusField[i]);
 
-			mCostLabel[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
-			costPanel.add(mCostLabel[i]);
+			mCostField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+			mCostField[i].getDocument().addDocumentListener(this);
+			mCostField[i].setEnabled(false);
+			mCostField[i].setEditable(false);
+			costPanel.add(mCostField[i]);
 		}
 
+		idPanel.add(Box.createVerticalGlue());
+
+		outerWrapper.add(idPanel);
 		outerWrapper.add(teacherPanel);
 		outerWrapper.add(expertisePanel);
 		outerWrapper.add(bonusAmountPanel);
 		outerWrapper.add(costPanel);
+
+		updateEnabledState();
 
 		return outerWrapper;
 	}
@@ -198,9 +245,9 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 		ArrayList<TeacherDeterminationRecord> list = new ArrayList<>();
 		// DW _finish
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mTeacherNameField[i].getText().isBlank() || mExpertiseLabel[i].getSelectedItem().equals(CHOOSE_EXPERTISE) || mCostLabel[i].getText().isBlank() || mBonusLabel[i].getText().isBlank())) {
+			if (!(mTeacherNameField[i].getText().isBlank() || mExpertisePopup[i].getSelectedItem().equals(CHOOSE_EXPERTISE) || mCostField[i].getText().isBlank() || mBonusField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new TeacherDeterminationRecord(mTeacherNameField[i].getText().trim(), mExpertiseLabel[i].getSelectedItem(), TKStringHelpers.getFloatValue(mCostLabel[i].getText(), 0f), TKStringHelpers.getIntValue(mBonusLabel[i].getText(), 0), campaignDate));
+				list.add(new TeacherDeterminationRecord(mTeacherNameField[i].getText().trim(), mExpertisePopup[i].getSelectedItem(), TKStringHelpers.getFloatValue(mCostField[i].getText(), 0f), TKStringHelpers.getIntValue(mBonusField[i].getText(), 0), campaignDate));
 			}
 		}
 		return list;

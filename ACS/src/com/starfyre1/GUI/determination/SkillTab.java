@@ -10,6 +10,7 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
 import com.starfyre1.startup.ACS;
 
@@ -52,7 +53,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private TKPopupMenu[]		mSkillsField;
+	private TKPopupMenu[]		mSkillsPopup;
 	private JLabel[]			mTeacherLabel;
 	private JTextField[]		mDPPerWeekField;
 
@@ -77,6 +78,23 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 		Object source = e.getSource();
 	}
 
+	private void updateEnabledState() {
+		HeaderRecord headerRecord = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		boolean enable = headerRecord == null ? false : headerRecord.getCharacterClass() != null;
+		for (int i = 0; i < ROWS; i++) {
+			mSkillsPopup[i].getMenu().setEnabled(enable);
+
+			mDPPerWeekField[i].setEnabled(enable);
+			mDPPerWeekField[i].setEditable(enable);
+		}
+	}
+
+	@Override
+	protected void loadDisplay() {
+		updateEnabledState();
+		//DW to do
+	}
+
 	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), SKILLS_DESCRIPTION, SKILL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
@@ -92,7 +110,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		mSkillsField = new TKPopupMenu[ROWS];
+		mSkillsPopup = new TKPopupMenu[ROWS];
 		mTeacherLabel = new JLabel[ROWS];
 		mDPPerWeekField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
@@ -120,12 +138,12 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			mSkillsField[i] = new TKPopupMenu(getSkillsMenu());
-			mSkillsField[i].setAlignmentX(Component.LEFT_ALIGNMENT);
-			Dimension size2 = new Dimension(mSkillsField[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
-			mSkillsField[i].setMinimumSize(size2);
-			mSkillsField[i].setPreferredSize(size2);
-			skillsPanel.add(mSkillsField[i]);
+			mSkillsPopup[i] = new TKPopupMenu(getSkillsMenu());
+			mSkillsPopup[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+			Dimension size2 = new Dimension(mSkillsPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
+			mSkillsPopup[i].setMinimumSize(size2);
+			mSkillsPopup[i].setPreferredSize(size2);
+			skillsPanel.add(mSkillsPopup[i]);
 
 			mTeacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
 			mTeacherLabel[i].setMinimumSize(size);
@@ -169,6 +187,8 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 		outerWrapper.add(dpSpentPanel);
 		outerWrapper.add(maintPanel);
 		outerWrapper.add(successfulPanel);
+
+		updateEnabledState();
 
 		return outerWrapper;
 	}
@@ -215,7 +235,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mSkillsField[i].getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mSkillsPopup[i].getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				return true;
 			}
 		}
@@ -225,9 +245,9 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 	public ArrayList<SkillDeterminationRecord> getRecordsToLearn() {
 		ArrayList<SkillDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mSkillsField[i].getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mSkillsPopup[i].getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new SkillDeterminationRecord(mSkillsField[i].getSelectedItem(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
+				list.add(new SkillDeterminationRecord(mSkillsPopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
 			}
 		}
 		return list;

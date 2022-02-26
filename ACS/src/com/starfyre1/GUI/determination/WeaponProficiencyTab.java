@@ -9,6 +9,7 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
+import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.dataset.WeaponList;
 import com.starfyre1.startup.ACS;
@@ -50,7 +51,7 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private TKPopupMenu[]		mWeaponField;
+	private TKPopupMenu[]		mWeaponPopup;
 	private JLabel[]			mTeacherLabel;
 	private JTextField[]		mDPPerWeekField;
 
@@ -74,6 +75,23 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		Object source = e.getSource();
 	}
 
+	private void updateEnabledState() {
+		HeaderRecord headerRecord = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		boolean enable = headerRecord == null ? false : headerRecord.getCharacterClass() != null;
+		for (int i = 0; i < ROWS; i++) {
+			mWeaponPopup[i].getMenu().setEnabled(enable);
+
+			mDPPerWeekField[i].setEnabled(enable);
+			mDPPerWeekField[i].setEditable(enable);
+		}
+	}
+
+	@Override
+	protected void loadDisplay() {
+		updateEnabledState();
+		super.loadDisplay();
+	}
+
 	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
@@ -88,7 +106,7 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		mWeaponField = new TKPopupMenu[ROWS];
+		mWeaponPopup = new TKPopupMenu[ROWS];
 		mTeacherLabel = new JLabel[ROWS];
 		mDPPerWeekField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
@@ -114,12 +132,12 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		successfulPanel.add(new JLabel("Successful:")); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			mWeaponField[i] = new TKPopupMenu(getWeaponsMenu());
-			mWeaponField[i].setAlignmentX(Component.LEFT_ALIGNMENT);
-			Dimension size2 = new Dimension(mWeaponField[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
-			mWeaponField[i].setMinimumSize(size2);
-			mWeaponField[i].setPreferredSize(size2);
-			weaponPanel.add(mWeaponField[i]);
+			mWeaponPopup[i] = new TKPopupMenu(getWeaponsMenu());
+			mWeaponPopup[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+			Dimension size2 = new Dimension(mWeaponPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
+			mWeaponPopup[i].setMinimumSize(size2);
+			mWeaponPopup[i].setPreferredSize(size2);
+			weaponPanel.add(mWeaponPopup[i]);
 			mTeacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
 			mTeacherLabel[i].setMinimumSize(size);
 			mTeacherLabel[i].setPreferredSize(size);
@@ -155,6 +173,8 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		outerWrapper.add(dpPerWeekPanel);
 		outerWrapper.add(dpSpentPanel);
 		outerWrapper.add(successfulPanel);
+
+		updateEnabledState();
 
 		return outerWrapper;
 	}
@@ -198,9 +218,9 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 		ArrayList<WeaponProficiencyDeterminationRecord> list = new ArrayList<>();
 		// DW _finish
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mWeaponField[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new WeaponProficiencyDeterminationRecord(mWeaponField[i].getSelectedItem(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText(), 0), COST, campaignDate));
+				list.add(new WeaponProficiencyDeterminationRecord(mWeaponPopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText(), 0), COST, campaignDate));
 			}
 		}
 		return list;

@@ -68,7 +68,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private TKPopupMenu[]			mLangField;
+	private TKPopupMenu[]			mLangPopup;
 	private JTextField[]			mDPPerWeekField;
 
 	/*****************************************************************************
@@ -92,6 +92,23 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 		Object source = e.getSource();
 	}
 
+	private void updateEnabledState() {
+		HeaderRecord headerRecord = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		boolean enable = headerRecord == null ? false : headerRecord.getCharacterClass() != null;
+		for (int i = 0; i < ROWS; i++) {
+			mLangPopup[i].getMenu().setEnabled(enable);
+
+			mDPPerWeekField[i].setEnabled(enable);
+			mDPPerWeekField[i].setEditable(enable);
+		}
+	}
+
+	@Override
+	protected void loadDisplay() {
+		updateEnabledState();
+		super.loadDisplay();
+	}
+
 	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), LANGUAGE_DESCRIPTION, LANGUAGE_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
@@ -105,7 +122,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		mLangField = new TKPopupMenu[ROWS];
+		mLangPopup = new TKPopupMenu[ROWS];
 		mDPPerWeekField = new JTextField[ROWS];
 		JLabel[] usedLabel = new JLabel[ROWS];
 		JLabel[] maintLabel = new JLabel[ROWS];
@@ -127,12 +144,13 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			mLangField[i] = new TKPopupMenu(getLanguagePopup());
-			mLangField[i].setAlignmentX(Component.LEFT_ALIGNMENT);
-			Dimension size2 = new Dimension(mLangField[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
-			mLangField[i].setMinimumSize(size2);
-			mLangField[i].setPreferredSize(size2);
-			langPanel.add(mLangField[i]);
+			mLangPopup[i] = new TKPopupMenu(getLanguagePopup());
+			mLangPopup[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+			Dimension size2 = new Dimension(mLangPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
+			mLangPopup[i].setMinimumSize(size2);
+			mLangPopup[i].setPreferredSize(size2);
+			mLangPopup[i].getMenu().setEnabled(false);
+			langPanel.add(mLangPopup[i]);
 
 			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
 			dpPerWeekPanel.add(mDPPerWeekField[i]);
@@ -162,6 +180,8 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 		wrapper.add(dpSpentPanel);
 		wrapper.add(maintPanel);
 		wrapper.add(successfulPanel);
+
+		updateEnabledState();
 
 		return wrapper;
 	}
@@ -194,7 +214,7 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mLangField[i].getSelectedItem().equals(CHOOSE_LANGUAGE) || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mLangPopup[i].getSelectedItem().equals(CHOOSE_LANGUAGE) || mDPPerWeekField[i].getText().isBlank())) {
 				return true;
 			}
 		}
@@ -204,9 +224,9 @@ public class LanguageTab extends DeterminationTab implements ActionListener {
 	public ArrayList<LanguageDeterminationRecord> getRecordsToLearn() {
 		ArrayList<LanguageDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mLangField[i].getSelectedItem().equals(CHOOSE_LANGUAGE) || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mLangPopup[i].getSelectedItem().equals(CHOOSE_LANGUAGE) || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new LanguageDeterminationRecord(mLangField[i].getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
+				list.add(new LanguageDeterminationRecord(mLangPopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
 			}
 		}
 		return list;

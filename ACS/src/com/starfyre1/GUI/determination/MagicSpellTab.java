@@ -11,8 +11,10 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKPopupMenu.ComboMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
 import com.starfyre1.dataset.spells.SpellRecord;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -196,6 +198,26 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 		// Nothing to do
 	}
 
+	private void updateEnabledState() {
+		HeaderRecord headerRecord = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		boolean enable = headerRecord == null ? false : headerRecord.getCharacterClass() != null;
+		for (int i = 0; i < ROWS; i++) {
+			mSchoolPopup[i].getMenu().setEnabled(enable);
+
+			mCostField[i].setEnabled(enable);
+			mCostField[i].setEditable(enable);
+
+			mDPPerWeekField[i].setEnabled(enable);
+			mDPPerWeekField[i].setEditable(enable);
+		}
+	}
+
+	@Override
+	protected void loadDisplay() {
+		updateEnabledState();
+		super.loadDisplay();
+	}
+
 	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TEXT, SUCCESS_TEXT, SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
@@ -277,6 +299,8 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 		outerWrapper.add(dpPerWeekPanel);
 		outerWrapper.add(dpSpentPanel);
 		outerWrapper.add(successfulPanel);
+
+		updateEnabledState();
 
 		return outerWrapper;
 	}
