@@ -4,24 +4,25 @@ package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.character.SkillsDisplay;
-import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKFloatFilter;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
+import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.dataset.WeaponList;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -30,7 +31,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 
-public class TeacherTab extends DeterminationTab implements ActionListener {
+public class TeacherTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -44,7 +45,7 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 
 	private static final String	ID						= "ID:";																									//$NON-NLS-1$
 	private static final String	BONUS					= "Bonus:";																									//$NON-NLS-1$
-	private static final String	COST					= "Cost:";																									//$NON-NLS-1$
+	private static final String	COST					= "$ Cost:";																								//$NON-NLS-1$
 	private static final String	EXPERTISE				= "Expertise:";																								//$NON-NLS-1$
 	private static final String	TEACHERS_NAME			= "Teacher's Name:";																						//$NON-NLS-1$
 
@@ -88,12 +89,23 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
+		if (source instanceof JButton) {
+			if (source.equals(mLearnButton)) {
+				ArrayList<TeacherDeterminationRecord> list = getRecordsToLearn();
+				for (TeacherDeterminationRecord record : list) {
+					DeterminationList.addTeacherRecord(record);
+				}
+				// DW Create Record
+			} else if (source.equals(mGiveUpButton)) {
+				// DW Added game date to record
+			}
+		}
 	}
 
-	@Override
-	protected void updateDialogButtons() {
-		//		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
-	}
+	//	@Override
+	//	protected void updateDialogButtons() {
+	//		//		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
+	//	}
 
 	private void updateEnabledState() {
 		HeaderRecord headerRecord = ACS.getInstance().getCharacterSheet().getHeaderRecord();
@@ -124,7 +136,8 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 	}
 
 	private JPanel createCenterPanel() {
-		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
+		TKIntegerFilter intFilter = TKIntegerFilter.getFilterInstance();
+		TKFloatFilter floatFilter = TKFloatFilter.getFilterInstance();
 
 		mIDLabel = new JLabel[ROWS];
 		mTeacherNameField = new JTextField[ROWS];
@@ -167,13 +180,13 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 			mExpertisePopup[i].getMenu().setEnabled(false);
 			expertisePanel.add(mExpertisePopup[i]);
 
-			mBonusField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT, this, filter);
+			mBonusField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT, this, intFilter);
 			mBonusField[i].getDocument().addDocumentListener(this);
 			mBonusField[i].setEnabled(false);
 			mBonusField[i].setEditable(false);
 			bonusAmountPanel.add(mBonusField[i]);
 
-			mCostField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+			mCostField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, floatFilter);
 			mCostField[i].getDocument().addDocumentListener(this);
 			mCostField[i].setEnabled(false);
 			mCostField[i].setEditable(false);
@@ -245,9 +258,10 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 		ArrayList<TeacherDeterminationRecord> list = new ArrayList<>();
 		// DW _finish
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mTeacherNameField[i].getText().isBlank() || mExpertisePopup[i].getSelectedItem().equals(CHOOSE_EXPERTISE) || mCostField[i].getText().isBlank() || mBonusField[i].getText().isBlank())) {
-				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new TeacherDeterminationRecord(mTeacherNameField[i].getText().trim(), mExpertisePopup[i].getSelectedItem(), TKStringHelpers.getFloatValue(mCostField[i].getText(), 0f), TKStringHelpers.getIntValue(mBonusField[i].getText(), 0), campaignDate));
+			if (!(TKStringHelpers.getIntValue(mIDLabel[i].getText(), 0) != 0 || mTeacherNameField[i].getText().isBlank() || mExpertisePopup[i].getSelectedItem().equals(CHOOSE_EXPERTISE) || mCostField[i].getText().isBlank() || mBonusField[i].getText().isBlank())) {
+				int id = TeacherDeterminationRecord.getNextIdNumber();
+				mIDLabel[i].setText(Integer.toString(id));
+				list.add(new TeacherDeterminationRecord(id, mTeacherNameField[i].getText().trim(), mExpertisePopup[i].getSelectedItem(), TKStringHelpers.getFloatValue(mCostField[i].getText(), 0f), TKStringHelpers.getIntValue(mBonusField[i].getText(), 0)));
 			}
 		}
 		return list;
@@ -255,6 +269,11 @@ public class TeacherTab extends DeterminationTab implements ActionListener {
 
 	@Override
 	protected boolean hasValidEntriesToLearn() {
+		for (int i = 0; i < ROWS; i++) {
+			if (!(mTeacherNameField[i].getText().isBlank() || mExpertisePopup[i].getSelectedItem().equals(CHOOSE_EXPERTISE) || mCostField[i].getText().isBlank() || mBonusField[i].getText().isBlank())) {
+				return true;
+			}
+		}
 		return false;
 	}
 

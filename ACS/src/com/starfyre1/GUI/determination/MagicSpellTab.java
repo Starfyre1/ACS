@@ -7,12 +7,14 @@ import com.starfyre1.GUI.component.MagicAreaPopup;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.spells.SpellSelector;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKFloatFilter;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKPopupMenu.ComboMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
+import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.startup.ACS;
 
@@ -20,7 +22,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -38,7 +40,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class MagicSpellTab extends DeterminationTab implements ActionListener, ItemListener, MouseListener {
+public class MagicSpellTab extends DeterminationTab implements ItemListener, MouseListener {
+	private static final String	SUCCESSFUL_LABEL		= "Successful:";													//$NON-NLS-1$
+	private static final String	USED_LABEL				= "   Used:    ";													//$NON-NLS-1$
+	private static final String	DP_WEEK_LABEL			= "DP/Week";														//$NON-NLS-1$
+	private static final String	COST_LABEL				= "$ Cost:";														//$NON-NLS-1$
+	private static final String	SPELL_LABEL				= "Spell:";															//$NON-NLS-1$
+	private static final String	SCHOOL_LABEL			= "School:";														//$NON-NLS-1$
+
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -55,7 +64,6 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 	private static final String	CHOOSE_SPELL			= "Choose Spell";													//$NON-NLS-1$
 
 	private static final int	ROWS					= 5;
-	private static final int	COST					= 0;
 
 	/*****************************************************************************
 	 * Member Variables
@@ -64,6 +72,9 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 	private JLabel[]			mSpellLabel;
 	private JTextField[]		mCostField;
 	private JTextField[]		mDPPerWeekField;
+	private JLabel[]			mUsedLabel;
+	private int[]				mDPCost;
+	private int[]				mCurrentlySpentLabel;
 
 	private Color[]				mOldColor;
 
@@ -129,6 +140,9 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 					mSpellLabel[index].removeMouseListener(this);
 					mSpellLabel[index].setForeground(getOldColor(index));
 					setOldColor(index, null);
+					mDPCost[index] = getDPCost(record);
+					//					mUsedLabel[index].setText(mCurrentlySpentLabel[index] + " / " + mDPCost[index]); //$NON-NLS-1$
+					mUsedLabel[index].setText("384 / " + mDPCost[index]); //$NON-NLS-1$
 				}
 			} else {
 				mSpellLabel[index].removeMouseListener(this);
@@ -136,11 +150,22 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 				mSpellLabel[index].setForeground(getOldColor(index));
 				setOldColor(index, null);
 			}
+		} else if (source instanceof JButton) {
+			if (source.equals(mLearnButton)) {
+				ArrayList<MagicSpellDeterminationRecord> list = getRecordsToLearn();
+				for (MagicSpellDeterminationRecord record : list) {
+					DeterminationList.addMagicSpellRecord(record);
+				}
+				// DW Create Record
+			} else if (source.equals(mGiveUpButton)) {
+				// DW Added game date to record
+			}
 		}
+
 	}
 
-	private SpellRecord selectSpell(String text, int index) {
-		SpellSelector selector = new SpellSelector((CharacterSheet) ((DeterminationPointsDisplay) getOwner()).getOwner(), text);
+	private SpellRecord selectSpell(String school, int index) {
+		SpellSelector selector = new SpellSelector((CharacterSheet) ((DeterminationPointsDisplay) getOwner()).getOwner(), school);
 		SpellRecord record = selector.getSpellToLearn();
 		if (record != null) {
 			mSpellLabel[index].setText(record.getName());
@@ -224,18 +249,20 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 	}
 
 	private JPanel createCenterPanel() {
-		int currentlySpent = 0;
 		int completed = 0;
 		int attempted = 0;
 
-		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
+		TKIntegerFilter intFilter = TKIntegerFilter.getFilterInstance();
+		TKFloatFilter floatFilter = TKFloatFilter.getFilterInstance();
 
 		mSchoolPopup = new TKPopupMenu[ROWS];
 		mSpellLabel = new JLabel[ROWS];
 		mOldColor = new Color[ROWS];
 		mCostField = new JTextField[ROWS];
 		mDPPerWeekField = new JTextField[ROWS];
-		JLabel[] usedLabel = new JLabel[ROWS];
+		mUsedLabel = new JLabel[ROWS];
+		mCurrentlySpentLabel = new int[ROWS];
+		mDPCost = new int[ROWS];
 		JLabel[] successfulLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
@@ -246,12 +273,12 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 		JPanel dpSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel successfulPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		schoolPanel.add(new JLabel("School:", SwingConstants.CENTER)); //$NON-NLS-1$
-		spellPanel.add(new JLabel("Spell:", SwingConstants.CENTER)); //$NON-NLS-1$
-		costPanel.add(new JLabel("Cost:", SwingConstants.CENTER)); //$NON-NLS-1$
-		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
-		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
-		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
+		schoolPanel.add(new JLabel(SCHOOL_LABEL, SwingConstants.CENTER));
+		spellPanel.add(new JLabel(SPELL_LABEL, SwingConstants.CENTER));
+		costPanel.add(new JLabel(COST_LABEL, SwingConstants.CENTER));
+		dpPerWeekPanel.add(new JLabel(DP_WEEK_LABEL, SwingConstants.CENTER));
+		dpSpentPanel.add(new JLabel(USED_LABEL, SwingConstants.CENTER));
+		successfulPanel.add(new JLabel(SUCCESSFUL_LABEL, SwingConstants.CENTER));
 
 		Dimension size = new Dimension(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT);
 		for (int i = 0; i < ROWS; i++) {
@@ -269,16 +296,17 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 			spellPanel.add(mSpellLabel[i]);
 
 			// DW this filter may need to be a float filter if cost can have copper
-			mCostField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+			mCostField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, floatFilter);
 			costPanel.add(mCostField[i]);
 
-			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT, this, filter);
+			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, intFilter);
 			dpPerWeekPanel.add(mDPPerWeekField[i]);
 
-			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
-			usedLabel[i].setMinimumSize(size);
-			usedLabel[i].setPreferredSize(size);
-			dpSpentPanel.add(usedLabel[i]);
+			mUsedLabel[i] = new JLabel(mCurrentlySpentLabel[i] + " / " + mDPCost[i]); //$NON-NLS-1$
+			mUsedLabel[i].setMinimumSize(size);
+			mUsedLabel[i].setPreferredSize(size);
+			mUsedLabel[i].setSize(size);
+			dpSpentPanel.add(mUsedLabel[i]);
 
 			successfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
 			successfulLabel[i].setMinimumSize(size);
@@ -323,10 +351,17 @@ public class MagicSpellTab extends DeterminationTab implements ActionListener, I
 		for (int i = 0; i < ROWS; i++) {
 			if (!(mSpellLabel[i].getText().isBlank() || mSchoolPopup[i].getSelectedItem().equals(MagicAreaPopup.SELECT_MAGIC_AREA) || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new MagicSpellDeterminationRecord(mSpellLabel[i].getText().trim(), mSchoolPopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mCostField[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), campaignDate));
+				list.add(new MagicSpellDeterminationRecord(mSpellLabel[i].getText().trim(), mSchoolPopup[i].getSelectedItem(), TKStringHelpers.getFloatValue(mCostField[i].getText().trim(), 0f), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), mDPCost[i], campaignDate));
 			}
 		}
 		return list;
+	}
+
+	private int getDPCost(SpellRecord spellRecord) {
+		int level = spellRecord.getLevel() + 1;
+		int cost = level * level * 6;
+
+		return cost;
 	}
 
 	@Override

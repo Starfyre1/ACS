@@ -17,20 +17,23 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	public static final String	FILE_SECTTION_START_KEY	= "TEACHER_DETERMINATION_SECTTION_START";	//$NON-NLS-1$
 	public static final String	FILE_SECTTION_END_KEY	= "TEACHER_DETERMINATION_SECTTION_END";		//$NON-NLS-1$
 
+	private static final String	TEACHER_ID_KEY			= "TEACHER_ID_KEY";							//$NON-NLS-1$
 	private static final String	TEACHER_KEY				= "TEACHER_KEY";							//$NON-NLS-1$
 	private static final String	EXPERTISE_KEY			= "EXPERTISE_KEY";							//$NON-NLS-1$
 	private static final String	COST_KEY				= "COST_KEY";								//$NON-NLS-1$
 	private static final String	BONUS_KEY				= "BONUS_KEY";								//$NON-NLS-1$
 
+	// DW still need to save out and restore the static ID_NUMBER;
+	public static int			ID_NUMBER				= 0;
+
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	int							mID						= 0;
 	String						mTeacher				= TKStringHelpers.EMPTY_STRING;
 	String						mExpertise				= TKStringHelpers.EMPTY_STRING;
 	float						mCost					= 0;
 	int							mBonus					= 0;
-	String						mStartDate				= "";										//$NON-NLS-1$
-	String						mCompletionDate			= "";										//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -38,21 +41,42 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	/**
 	 * Creates a new {@link TeacherDeterminationRecord}.
 	 */
-	public TeacherDeterminationRecord(String teacher, String expertise, float cost, int bonus, String startDate) {
+	public TeacherDeterminationRecord(int id, String teacher, String expertise, float cost, int bonus) {
+		mID = id;
 		mTeacher = teacher;
 		mExpertise = expertise;
 		mCost = cost;
 		mBonus = bonus;
-		mStartDate = startDate;
 	}
 
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+	@Override
+	public String toString() {
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("ID Number: " + mID); //$NON-NLS-1$
+		sb.append("\nTeacher: " + mTeacher); //$NON-NLS-1$
+		sb.append("\nExpertise: " + mExpertise); //$NON-NLS-1$
+		sb.append("\nBonus: " + mBonus); //$NON-NLS-1$
+		sb.append("\nCost: " + mCost); //$NON-NLS-1$
+		sb.append("\n"); //$NON-NLS-1$
+
+		return sb.toString();
+	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public static int getNextIdNumber() {
+		return ++ID_NUMBER;
+	}
+
+	public String getExpertise() {
+		return mExpertise;
+	}
 
 	/*****************************************************************************
 	 * Serialization
@@ -93,6 +117,7 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
 
+		br.write(TEACHER_ID_KEY + TKStringHelpers.SPACE + mID + System.lineSeparator());
 		br.write(TEACHER_KEY + TKStringHelpers.SPACE + mTeacher + System.lineSeparator());
 		br.write(EXPERTISE_KEY + TKStringHelpers.SPACE + mExpertise + System.lineSeparator());
 		br.write(COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());

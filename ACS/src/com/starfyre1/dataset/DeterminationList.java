@@ -2,6 +2,7 @@
 
 package com.starfyre1.dataset;
 
+import com.starfyre1.GUI.character.SkillsDisplay;
 import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
 import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
 import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
@@ -31,8 +32,9 @@ public class DeterminationList implements Savable {
 	private static ArrayList<MagicSpellDeterminationRecord>			mMagicSpellRecords		= new ArrayList<>(64);
 	private static ArrayList<SkillDeterminationRecord>				mSkillRecords			= new ArrayList<>(16);
 	private static ArrayList<WeaponProficiencyDeterminationRecord>	mWeaponRecords			= new ArrayList<>(16);
-	private static ArrayList<TeacherDeterminationRecord>			mSkillsTeachersRecords	= new ArrayList<>(16);
 	private static ArrayList<TeacherDeterminationRecord>			mWeaponsTeachersRecords	= new ArrayList<>(16);
+	private static ArrayList<TeacherDeterminationRecord>			mSkillsTeachersRecords	= new ArrayList<>(16);
+	private static ArrayList<TeacherDeterminationRecord>			mThiefTeachersRecords	= new ArrayList<>(16);
 
 	/*****************************************************************************
 	 * Constructors
@@ -42,31 +44,70 @@ public class DeterminationList implements Savable {
 	 * Methods
 	 ****************************************************************************/
 	public static void addAttribRecord(AttributeDeterminationRecord record) {
+		System.out.println(record);
 		mAttribRecords.add(record);
 	}
 
 	public static void addLanguageRecord(LanguageDeterminationRecord record) {
+		System.out.println(record);
 		mLanguageRecords.add(record);
 	}
 
 	public static void addMagicSpellRecord(MagicSpellDeterminationRecord record) {
+		System.out.println(record);
 		mMagicSpellRecords.add(record);
 	}
 
 	public static void addSkillRecord(SkillDeterminationRecord record) {
+		System.out.println(record);
 		mSkillRecords.add(record);
 	}
 
 	public static void addWeaponRecord(WeaponProficiencyDeterminationRecord record) {
+		System.out.println(record);
 		mWeaponRecords.add(record);
 	}
 
-	public static void addSkillsTeacherRecord(TeacherDeterminationRecord record) {
-		mSkillsTeachersRecords.add(record);
-	}
+	public static void addTeacherRecord(TeacherDeterminationRecord record) {
+		System.out.println(record);
+		String weaponList[] = WeaponList.getProficiencyList();
+		String skillBasicList[] = SkillsDisplay.getBasicSkillsLabels();
+		String skillThiefList[] = SkillsDisplay.getThiefSkillsLabels();
 
-	public static void addWeaponsTeacherRecord(TeacherDeterminationRecord record) {
-		mWeaponsTeachersRecords.add(record);
+		String type = null;
+		String expertise = record.getExpertise();
+		for (String expert : weaponList) {
+			if (expertise.equals(expert)) {
+				type = "Weapon"; //$NON-NLS-1$
+				break;
+			}
+		}
+		if (type == null) {
+			for (String expert : skillBasicList) {
+				if (expertise.equals(expert)) {
+					type = "Skills"; //$NON-NLS-1$
+					break;
+				}
+			}
+		}
+		if (type == null) {
+			for (String expert : skillThiefList) {
+				if (expertise.equals(expert)) {
+					type = "Thief"; //$NON-NLS-1$
+					break;
+				}
+			}
+		}
+
+		if (type != null) {
+			if (type.equals("Weapon")) { //$NON-NLS-1$
+				mWeaponsTeachersRecords.add(record);
+			} else if (type.equals("Skills")) { //$NON-NLS-1$
+				mSkillsTeachersRecords.add(record);
+			} else {
+				mThiefTeachersRecords.add(record);
+			}
+		}
 	}
 
 	public void clearRecords() {
@@ -75,8 +116,9 @@ public class DeterminationList implements Savable {
 		mMagicSpellRecords = new ArrayList<>(64);
 		mSkillRecords = new ArrayList<>(16);
 		mWeaponRecords = new ArrayList<>(16);
-		mSkillsTeachersRecords = new ArrayList<>(16);
 		mWeaponsTeachersRecords = new ArrayList<>(16);
+		mSkillsTeachersRecords = new ArrayList<>(16);
+		mThiefTeachersRecords = new ArrayList<>(16);
 	}
 
 	/*****************************************************************************

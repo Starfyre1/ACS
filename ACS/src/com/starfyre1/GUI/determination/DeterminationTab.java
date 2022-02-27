@@ -3,13 +3,17 @@
 package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,8 +25,25 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public abstract class DeterminationTab extends TKTitledDisplay implements DocumentListener {
+public abstract class DeterminationTab extends TKTitledDisplay implements DocumentListener, ActionListener {
 
+	/*****************************************************************************
+	 * Constants
+	 ****************************************************************************/
+	protected static final int	TEXT_FIELD_HEIGHT	= 20;
+	private static final String	GIVE_UP				= "Give Up";	//$NON-NLS-1$
+	private static final String	LEARN				= "Learn";		//$NON-NLS-1$
+
+	/*****************************************************************************
+	 * Member Variables
+	 ****************************************************************************/
+	private JLabel				mSuccessLabel;
+	protected JButton			mLearnButton;
+	protected JButton			mGiveUpButton;
+
+	/*****************************************************************************
+	 * Constructors
+	 ****************************************************************************/
 	/**
 	 * Creates a new {@link DeterminationTab}.
 	 *
@@ -32,20 +53,6 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 	public DeterminationTab(Object owner, String title) {
 		super(owner, ""); //$NON-NLS-1$
 	}
-
-	/*****************************************************************************
-	 * Constants
-	 ****************************************************************************/
-	protected static final int	TEXT_FIELD_HEIGHT	= 20;
-
-	/*****************************************************************************
-	 * Member Variables
-	 ****************************************************************************/
-	private JLabel				mSuccessLabel;
-
-	/*****************************************************************************
-	 * Constructors
-	 ****************************************************************************/
 
 	/*****************************************************************************
 	 * Methods
@@ -74,9 +81,6 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 		costWrapper.add(costLabel1);
 		costWrapper.add(costLabel2);
 
-		top.add(titleWrapper, BorderLayout.WEST);
-		top.add(costWrapper, BorderLayout.EAST);
-
 		JTextArea descriptionTextArea = new JTextArea();
 		CompoundBorder cb = new CompoundBorder(new CompoundBorder(new EmptyBorder(5, 15, 5, 15), new LineBorder(Color.BLACK)), new EmptyBorder(5, 5, 5, 5));
 		descriptionTextArea.setBorder(cb);
@@ -87,12 +91,27 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 		descriptionTextArea.setWrapStyleWord(true);
 		descriptionTextArea.setText(description);
 
+		top.add(titleWrapper, BorderLayout.WEST);
+		top.add(costWrapper, BorderLayout.EAST);
+		top.add(descriptionTextArea, BorderLayout.NORTH);
+
 		page.add(top, BorderLayout.NORTH);
 		if (lowerPanel != null) {
 			page.add(lowerPanel, BorderLayout.CENTER);
 		}
-		page.add(descriptionTextArea, BorderLayout.SOUTH);
 
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+
+		mLearnButton = TKComponentHelpers.createButton(LEARN, this, false);
+		mGiveUpButton = TKComponentHelpers.createButton(GIVE_UP, this, false);
+
+		buttonPanel.add(mGiveUpButton);
+		buttonPanel.add(Box.createHorizontalGlue());
+		buttonPanel.add(mLearnButton);
+
+		page.add(buttonPanel, BorderLayout.SOUTH);
 		return page;
 
 	}
@@ -103,8 +122,6 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 		updateDialogButtons();
 	}
 
-	protected abstract String getSuccessText();
-
 	protected JPanel getPanel(int compLayout, AbstractBorder border) {
 		JPanel panel = new JPanel();
 		BoxLayout bl = new BoxLayout(panel, compLayout);
@@ -114,6 +131,8 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 
 		return panel;
 	}
+
+	protected abstract String getSuccessText();
 
 	protected void setSuccessText(String text) {
 		mSuccessLabel.setText(text);
@@ -135,8 +154,13 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 		updateDialogButtons();
 	}
 
+	void updateButtons(boolean hasSelection, boolean hasPointsInvested) {
+		mLearnButton.setEnabled(hasSelection && !hasPointsInvested);
+		mGiveUpButton.setEnabled(hasSelection && hasPointsInvested);
+	}
+
 	protected void updateDialogButtons() {
-		((DeterminationPointsDisplay) getOwner()).updateButtons(hasValidEntriesToLearn(), false);
+		updateButtons(hasValidEntriesToLearn(), false);
 	}
 
 	protected abstract boolean hasValidEntriesToLearn();

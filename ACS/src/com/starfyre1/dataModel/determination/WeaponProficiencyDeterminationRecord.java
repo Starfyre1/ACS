@@ -57,6 +57,23 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+	@Override
+	public String toString() {
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("Weapon: " + mWeapon); //$NON-NLS-1$
+		sb.append("\nTeacher: " + mTeacher); //$NON-NLS-1$
+		sb.append("\nBonus: " + mBonus); //$NON-NLS-1$
+		sb.append("\nDP Per Week: " + mDPPerWeek); //$NON-NLS-1$
+		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
+		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
+		sb.append("\nCompletion Date: " + (mCompletionDate.isBlank() ? "Not Complete" : mCompletionDate)); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\n"); //$NON-NLS-1$
+
+		return sb.toString();
+	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's

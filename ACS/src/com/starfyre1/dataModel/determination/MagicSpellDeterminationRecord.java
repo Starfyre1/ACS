@@ -19,9 +19,10 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 
 	private static final String	SPELL_KEY				= "SPELL_KEY";									//$NON-NLS-1$
 	private static final String	SCHOOL_KEY				= "SCHOOL_KEY";									//$NON-NLS-1$
+	private static final String	COST_KEY				= "COST_KEY";									//$NON-NLS-1$
 	private static final String	DP_PER_WEEK_KEY			= "DP_PER_WEEK_KEY";							//$NON-NLS-1$
 	private static final String	DP_TOTAL_SPENT_KEY		= "DP_TOTAL_SPENT_KEY";							//$NON-NLS-1$
-	private static final String	COST_KEY				= "COST_KEY";									//$NON-NLS-1$
+	private static final String	DP_COST_KEY				= "DP_COST_KEY";								//$NON-NLS-1$
 	private static final String	SUCCESSFUL_KEY			= "SUCCESSFUL_KEY";								//$NON-NLS-1$
 	private static final String	START_DATE_KEY			= "START_DATE_KEY";								//$NON-NLS-1$
 	private static final String	COMPLETION_DATE_KEY		= "COMPLETION_DATE_KEY";						//$NON-NLS-1$
@@ -34,6 +35,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	float						mCost					= 0;
 	int							mDPPerWeek				= 0;
 	int							mDPTotalSpent			= 0;
+	int							mDPCost					= 0;
 	boolean						mSuccessful				= false;
 	String						mStartDate				= "";											//$NON-NLS-1$
 	String						mCompletionDate			= "";											//$NON-NLS-1$
@@ -44,11 +46,12 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/**
 	 * Creates a new {@link MagicSpellDeterminationRecord}.
 	 */
-	public MagicSpellDeterminationRecord(String spell, String school, float cost, int dpPerWeek, String startDate) {
+	public MagicSpellDeterminationRecord(String spell, String school, float cost, int dpPerWeek, int dpCost, String startDate) {
 		mSpell = spell;
 		mSchool = school;
 		mCost = cost;
 		mDPPerWeek = dpPerWeek;
+		mDPCost = dpCost;
 		mStartDate = startDate;
 
 	}
@@ -56,6 +59,24 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+
+	@Override
+	public String toString() {
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("Spell: " + mSpell); //$NON-NLS-1$
+		sb.append("\nSchool: " + mSchool); //$NON-NLS-1$
+		sb.append("\nCost: " + mCost); //$NON-NLS-1$
+		sb.append("\nDP Per Week: " + mDPPerWeek); //$NON-NLS-1$
+		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
+		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
+		sb.append("\nCompletion Date: " + (mCompletionDate.isBlank() ? "Not Complete" : mCompletionDate)); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\n"); //$NON-NLS-1$
+
+		return sb.toString();
+	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
@@ -103,6 +124,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 		br.write(COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());
 		br.write(DP_PER_WEEK_KEY + TKStringHelpers.SPACE + mDPPerWeek + System.lineSeparator());
 		br.write(DP_TOTAL_SPENT_KEY + TKStringHelpers.SPACE + mDPTotalSpent + System.lineSeparator());
+		br.write(DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
 		br.write(SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
 		br.write(START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
 		br.write(COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
@@ -123,6 +145,8 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 			mDPPerWeek = TKStringHelpers.getIntValue(value, 0);
 		} else if (DP_TOTAL_SPENT_KEY.equals(key)) {
 			mDPTotalSpent = TKStringHelpers.getIntValue(value, 0);
+		} else if (DP_COST_KEY.equals(key)) {
+			mDPCost = TKStringHelpers.getIntValue(value, 0);
 		} else if (SUCCESSFUL_KEY.equals(key)) {
 			mSuccessful = TKStringHelpers.getBoolValue(value, false);
 		} else if (START_DATE_KEY.equals(key)) {

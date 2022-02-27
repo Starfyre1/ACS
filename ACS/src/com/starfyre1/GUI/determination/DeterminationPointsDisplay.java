@@ -3,38 +3,25 @@
 package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.AttributesRecord;
-import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
-import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
-import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
-import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
-import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
-import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
-import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.interfaces.LevelListener;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
-public class DeterminationPointsDisplay extends TKTitledDisplay implements LevelListener, ActionListener {
+public class DeterminationPointsDisplay extends TKTitledDisplay implements LevelListener {
 
 	/*****************************************************************************
 	 * Constants
@@ -43,10 +30,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 	private static final String		POINTS_WEEK_LABEL			= "Remaining Points this Week";	//$NON-NLS-1$
 
-	private static final String		GIVE_UP						= "Give Up";					//$NON-NLS-1$
-	private static final String		LEARN						= "Learn";						//$NON-NLS-1$
-
-	private static final String		ASSIGN_POINTS				= "Assign Points";				//$NON-NLS-1$
+	//	private static final String		ASSIGN_POINTS				= "Assign Points";				//$NON-NLS-1$
 
 	private static final Dimension	PREFERRED_SIZE				= new Dimension(600, 285);
 
@@ -55,9 +39,6 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	 ****************************************************************************/
 	private JLabel					mPointsPerWeekLabel;
 	private JTabbedPane				mTabbedPane;
-
-	private JButton					mLearnButton;
-	private JButton					mGiveUpButton;
 
 	/*****************************************************************************
 	 * Constructors
@@ -75,57 +56,6 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	@Override
 	public void updateRecord() {
 		updateValues();
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object source = e.getSource();
-		if (source instanceof JButton) {
-			if (source.equals(mLearnButton)) {
-				Component comp = mTabbedPane.getSelectedComponent();
-				DeterminationList determinationList = ((CharacterSheet) getOwner()).getDeterminationList();
-				if (comp instanceof AttributesTab) {
-					AttributesTab tab = (AttributesTab) comp;
-					ArrayList<AttributeDeterminationRecord> list = tab.getRecordsToLearn();
-					for (AttributeDeterminationRecord record : list) {
-						DeterminationList.addAttribRecord(record);
-					}
-				} else if (comp instanceof LanguageTab) {
-					LanguageTab tab = (LanguageTab) comp;
-					ArrayList<LanguageDeterminationRecord> list = tab.getRecordsToLearn();
-					for (LanguageDeterminationRecord record : list) {
-						DeterminationList.addLanguageRecord(record);
-					}
-				} else if (comp instanceof MagicSpellTab) {
-					MagicSpellTab tab = (MagicSpellTab) comp;
-					ArrayList<MagicSpellDeterminationRecord> list = tab.getRecordsToLearn();
-					for (MagicSpellDeterminationRecord record : list) {
-						DeterminationList.addMagicSpellRecord(record);
-					}
-				} else if (comp instanceof WeaponProficiencyTab) {
-					WeaponProficiencyTab tab = (WeaponProficiencyTab) comp;
-					ArrayList<WeaponProficiencyDeterminationRecord> list = tab.getRecordsToLearn();
-					for (WeaponProficiencyDeterminationRecord record : list) {
-						DeterminationList.addWeaponRecord(record);
-					}
-				} else if (comp instanceof SkillTab) {
-					SkillTab tab = (SkillTab) comp;
-					ArrayList<SkillDeterminationRecord> list = tab.getRecordsToLearn();
-					for (SkillDeterminationRecord record : list) {
-						DeterminationList.addSkillRecord(record);
-					}
-				} else if (comp instanceof TeacherTab) {
-					TeacherTab tab = (TeacherTab) comp;
-					ArrayList<TeacherDeterminationRecord> list = tab.getRecordsToLearn();
-					for (TeacherDeterminationRecord record : list) {
-						//						determinationList. (record);
-					}
-				}
-				// DW Create Record
-			} else if (source.equals(mGiveUpButton)) {
-				// DW Added game date to record
-			}
-		}
 	}
 
 	private JPanel getDeterminationDisplay() {
@@ -152,29 +82,12 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		mTabbedPane.setMnemonicAt(4, KeyEvent.VK_S);
 		mTabbedPane.setMnemonicAt(5, KeyEvent.VK_T);
 
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
-
-		mLearnButton = TKComponentHelpers.createButton(LEARN, this, false);
-		mGiveUpButton = TKComponentHelpers.createButton(GIVE_UP, this, false);
-
-		buttonPanel.add(mGiveUpButton);
-		buttonPanel.add(Box.createHorizontalGlue());
-		buttonPanel.add(mLearnButton);
-
 		JPanel wrapper = new JPanel(new BorderLayout());
 		wrapper.add(mTabbedPane, BorderLayout.CENTER);
-		wrapper.add(buttonPanel, BorderLayout.SOUTH);
 
 		wrapper.setPreferredSize(PREFERRED_SIZE);
 
 		return wrapper;
-	}
-
-	void updateButtons(boolean hasSelection, boolean hasPointsInvested) {
-		mLearnButton.setEnabled(hasSelection && !hasPointsInvested);
-		mGiveUpButton.setEnabled(hasSelection && hasPointsInvested);
 	}
 
 	private void updateValues() {

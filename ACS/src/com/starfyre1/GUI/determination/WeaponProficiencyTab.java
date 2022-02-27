@@ -11,17 +11,18 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
+import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.dataset.WeaponList;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -29,7 +30,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class WeaponProficiencyTab extends DeterminationTab implements ActionListener {
+public class WeaponProficiencyTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -73,6 +74,17 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
+		if (source instanceof JButton) {
+			if (source.equals(mLearnButton)) {
+				ArrayList<WeaponProficiencyDeterminationRecord> list = getRecordsToLearn();
+				for (WeaponProficiencyDeterminationRecord record : list) {
+					DeterminationList.addWeaponRecord(record);
+				}
+				// DW Create Record
+			} else if (source.equals(mGiveUpButton)) {
+				// DW Added game date to record
+			}
+		}
 	}
 
 	private void updateEnabledState() {
@@ -206,11 +218,11 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 
 	@Override
 	protected boolean hasValidEntriesToLearn() {
-		//		for (int i = 0; i < ROWS; i++) {
-		//			if (!(mWeaponField[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
-		//				return true;
-		//			}
-		//		}
+		for (int i = 0; i < ROWS; i++) {
+			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -230,7 +242,7 @@ public class WeaponProficiencyTab extends DeterminationTab implements ActionList
 	protected String getSuccessText() {
 		AttributesRecord record = ACS.getInstance().getCharacterSheet().getAttributesRecord();
 		if (record == null) {
-			return "?"; //$NON-NLS-1$
+			return "Success: ?"; //$NON-NLS-1$
 		}
 		int success = record.getModifiedStat(AttributesRecord.DEX);
 		return SUCCESS_TEXT1 + success;

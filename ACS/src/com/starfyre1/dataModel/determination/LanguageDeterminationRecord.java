@@ -18,6 +18,7 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	public static final String	FILE_SECTTION_END_KEY	= "LANGUAGE_DETERMINATION_SECTTION_END";	//$NON-NLS-1$
 
 	private static final String	LANGUAGE_KEY			= "LANGUAGE_KEY";							//$NON-NLS-1$
+	private static final String	SOURCE_KEY				= "SOURCE_KEY";								//$NON-NLS-1$
 	private static final String	DP_PER_WEEK_KEY			= "DP_PER_WEEK_KEY";						//$NON-NLS-1$
 	private static final String	DP_TOTAL_SPENT_KEY		= "DP_TOTAL_SPENT_KEY";						//$NON-NLS-1$
 	private static final String	DP_COST_KEY				= "DP_COST_KEY";							//$NON-NLS-1$
@@ -30,6 +31,7 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	 * Member Variables
 	 ****************************************************************************/
 	String						mLanguage				= TKStringHelpers.EMPTY_STRING;
+	String						mSource					= TKStringHelpers.EMPTY_STRING;
 	int							mDPPerWeek				= 0;
 	int							mDPTotalSpent			= 0;
 	int							mDPCost					= 0;
@@ -44,8 +46,9 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	/**
 	 * Creates a new {@link LanguageDeterminationRecord}.
 	 */
-	public LanguageDeterminationRecord(String language, int dpPerWeek, int cost, String startDate) {
+	public LanguageDeterminationRecord(String language, String source, int dpPerWeek, int cost, String startDate) {
 		mLanguage = language;
+		mSource = source;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
 		mStartDate = startDate;
@@ -54,6 +57,23 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+	@Override
+	public String toString() {
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("Language: " + mLanguage); //$NON-NLS-1$
+		sb.append("\nSource: " + mSource); //$NON-NLS-1$
+		sb.append("\nDP Per Week: " + mDPPerWeek); //$NON-NLS-1$
+		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\nMaintainence cost: " + (mMaintainence ? 1 : 0)); //$NON-NLS-1$
+		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
+		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
+		sb.append("\nCompletion Date: " + (mCompletionDate.isBlank() ? "Not Complete" : mCompletionDate)); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\n"); //$NON-NLS-1$
+
+		return sb.toString();
+	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
@@ -97,6 +117,7 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
 
 		br.write(LANGUAGE_KEY + TKStringHelpers.SPACE + mLanguage + System.lineSeparator());
+		br.write(SOURCE_KEY + TKStringHelpers.SPACE + mSource + System.lineSeparator());
 		br.write(DP_PER_WEEK_KEY + TKStringHelpers.SPACE + mDPPerWeek + System.lineSeparator());
 		br.write(DP_TOTAL_SPENT_KEY + TKStringHelpers.SPACE + mDPTotalSpent + System.lineSeparator());
 		br.write(DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
@@ -113,6 +134,8 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 		String value = (String) obj;
 		if (LANGUAGE_KEY.equals(key)) {
 			mLanguage = value;
+		} else if (SOURCE_KEY.equals(key)) {
+			mSource = value;
 		} else if (DP_PER_WEEK_KEY.equals(key)) {
 			mDPPerWeek = TKStringHelpers.getIntValue(value, 0);
 		} else if (DP_TOTAL_SPENT_KEY.equals(key)) {

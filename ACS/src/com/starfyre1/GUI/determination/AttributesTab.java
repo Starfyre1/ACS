@@ -10,16 +10,17 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
+import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,7 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class AttributesTab extends DeterminationTab implements ActionListener {
+public class AttributesTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -39,8 +40,8 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week";																																		//$NON-NLS-1$
 	private static final String		PHYSICAL_TEXT			= PHYSICAL_TAB_TOOLTIP;
 	private static final String		SUCCESS_TOOLTIP			= "1D20 + 1/2 level > stat";																																	//$NON-NLS-1$
-	private static final String		SUCCESS_TEXT1			= "Success: 1D20 + ";																																			//$NON-NLS-1$
-	private static final String		SUCCESS_TEXT2			= " > ";																																						//$NON-NLS-1$
+	private static final String		SUCCESS_TEXT1			= "Success: (1D20 + ";																																			//$NON-NLS-1$
+	private static final String		SUCCESS_TEXT2			= ") > ";																																						//$NON-NLS-1$
 
 	public static final String[]	ATTRIBUTE_NAMES			= new String[] { AttributesRecord.STRENGTH, AttributesRecord.CONSTITUTION, AttributesRecord.WISDOM, AttributesRecord.DEXTERITY, AttributesRecord.BOW_SKILL };
 	private static final int[]		ATTRIBUTE_NUMBERS		= new int[] { AttributesRecord.STR, AttributesRecord.CON, AttributesRecord.WIS, AttributesRecord.DEX, AttributesRecord.BOW };
@@ -92,7 +93,19 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 				mDPPerWeekField[4].setEditable(checkBox.isSelected());
 			}
 			updateDialogButtons();
+		} else if (source instanceof JButton) {
+			if (source.equals(mLearnButton)) {
+				ArrayList<AttributeDeterminationRecord> list = getRecordsToLearn();
+				for (AttributeDeterminationRecord record : list) {
+					DeterminationList.addAttribRecord(record);
+				}
+
+				// DW Create Record
+			} else if (source.equals(mGiveUpButton)) {
+				// DW Added game date to record
+			}
 		}
+
 	}
 
 	@Override
@@ -220,7 +233,7 @@ public class AttributesTab extends DeterminationTab implements ActionListener {
 		HeaderRecord record = ACS.getInstance().getCharacterSheet().getHeaderRecord();
 		AttributesRecord attributesRecord = ACS.getInstance().getCharacterSheet().getAttributesRecord();
 		if (record == null || attributesRecord == null) {
-			return "?"; //$NON-NLS-1$
+			return "Success: ?"; //$NON-NLS-1$
 		}
 		int level = record.getLevel() / 2;
 		// DW ATTRIBUTE_NUMBERS[0] needs to be [currently selected stat]

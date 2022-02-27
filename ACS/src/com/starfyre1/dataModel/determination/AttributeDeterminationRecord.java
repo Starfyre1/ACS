@@ -67,13 +67,14 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 
 		StringBuffer sb = new StringBuffer();
 
-		sb.append(AttributesTab.ATTRIBUTE_NAMES[mAttribute]);
+		sb.append("Attribute: " + AttributesTab.ATTRIBUTE_NAMES[mAttribute]); //$NON-NLS-1$
 		sb.append("\nDP Per Week: " + mDPPerWeek); //$NON-NLS-1$
 		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost); //$NON-NLS-1$ //$NON-NLS-2$
 		sb.append("\nMaintainence cost: " + (mMaintainence ? 1 : 0)); //$NON-NLS-1$
 		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
 		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
 		sb.append("\nCompletion Date: " + (mCompletionDate.isBlank() ? "Not Complete" : mCompletionDate)); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\n"); //$NON-NLS-1$
 
 		return sb.toString();
 	}

@@ -12,18 +12,19 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
+import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -32,7 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class SkillTab extends DeterminationTab implements ActionListener, ItemListener {
+public class SkillTab extends DeterminationTab implements ItemListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -76,6 +77,17 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
+		if (source instanceof JButton) {
+			if (source.equals(mLearnButton)) {
+				ArrayList<SkillDeterminationRecord> list = getRecordsToLearn();
+				for (SkillDeterminationRecord record : list) {
+					DeterminationList.addSkillRecord(record);
+				}
+				// DW Create Record
+			} else if (source.equals(mGiveUpButton)) {
+				// DW Added game date to record
+			}
+		}
 	}
 
 	private void updateEnabledState() {
@@ -92,7 +104,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 	@Override
 	protected void loadDisplay() {
 		updateEnabledState();
-		//DW to do
+		super.loadDisplay();
 	}
 
 	@Override
@@ -257,7 +269,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 	protected String getSuccessText() {
 		AttributesRecord record = ACS.getInstance().getCharacterSheet().getAttributesRecord();
 		if (record == null) {
-			return "?"; //$NON-NLS-1$
+			return "Success: ?"; //$NON-NLS-1$
 		}
 		int success = record.getModifiedStat(AttributesRecord.INT);
 		return SUCCESS_TEXT1 + success;
@@ -265,6 +277,7 @@ public class SkillTab extends DeterminationTab implements ActionListener, ItemLi
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
+		// DW do something or remove
 	}
 
 	/*****************************************************************************
