@@ -256,7 +256,6 @@ public class TeacherTab extends DeterminationTab {
 
 	public ArrayList<TeacherDeterminationRecord> getRecordsToLearn() {
 		ArrayList<TeacherDeterminationRecord> list = new ArrayList<>();
-		// DW _finish
 		for (int i = 0; i < ROWS; i++) {
 			if (!(TKStringHelpers.getIntValue(mIDLabel[i].getText(), 0) != 0 || mTeacherNameField[i].getText().isBlank() || mExpertisePopup[i].getSelectedItem().equals(CHOOSE_EXPERTISE) || mCostField[i].getText().isBlank() || mBonusField[i].getText().isBlank())) {
 				int id = TeacherDeterminationRecord.getNextIdNumber();

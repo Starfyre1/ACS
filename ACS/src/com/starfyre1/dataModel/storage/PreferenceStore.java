@@ -45,7 +45,7 @@ public class PreferenceStore {
 	private static final String		SHOW_TOOLTIPS_KEY			= "SHOW_TOOLTIPS_KEY";					// Auto load last character played  //$NON-NLS-1$
 	private static final String		DETAILED_TOOLTIPS_KEY		= "DETAILED_TOOLTIPS_KEY";				// Auto load last character played  //$NON-NLS-1$
 
-	private static final Rectangle	DEFAULT_WINDOW_BOUNDS		= new Rectangle(100, 25, 1200, 1375);
+	private static final Rectangle	DEFAULT_WINDOW_BOUNDS		= new Rectangle(50, 50, 1150, 1375);
 	//DW change this to installation directory
 	private static final String		DEFAULT_FILE_LOCATION		= SystemInfo.getApplicationLocalPath();
 

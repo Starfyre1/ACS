@@ -10,30 +10,30 @@ public class Ranger extends Warrior {
 	 ****************************************************************************/
 	/*
 		The Ranger:
-	
+
 			Minimum Stat's Required for the King's Rangers:
 			ST="12" CON="12" IN="11" WS="12" DX="12" BS="12" CH="10" PA="*" WP="10"
 			* = Any
-	
+
 				There are two different Rangers in this game.  The King's Rangers
 				who patrol the roads of Athri, dispensing the King's justice and helping
 				any that need help.  They are all part of the Knights of Athri and
 				have a very rigid code of honor and conduct.  These people are one step
 				away from Paladins, they roam the roads and wilderness of the continent.
-	
-	
+
+
 			Minimum Stat's Required for the Wilderness Ranger:
 			ST="10" CON="10" IN="12" WS="11" DX="10" BS="12" CH="*" PA="*" WP="10"
 			* = Any
-	
+
 				The other Rangers are a Wilderness type Warrior/Mage, they are excellent
 				Hunters and Scouts.  They also have at least a small amount of Herb Lore,
 				some are Herb Lore masters able to tell you the benefit or danger of any
 				plant found in their Woodland Homes. They are the Helpers of Druid's and
 				the Friends of Elves and are usually of Neutral or Good Morals.
-	
+
 			Other facts about Rangers:
-	
+
 				1)	Each level past 1st they receive +6% to their Combat Bonus'(+1%
 					must go towards their Hit Bonus, and +1% must go towards their
 					Bow Bonus, the other +4% may be split between the two as the
@@ -62,7 +62,7 @@ public class Ranger extends Warrior {
 				10)	In all other aspects they are rated as Warriors (I.E. when
 					figuring out their Hit Bonus add +5% to their Hit Bonus).
 				11)	They add +3% to their Perception skill.
-	
+
 	*/
 
 	/*****************************************************************************
@@ -85,37 +85,37 @@ public class Ranger extends Warrior {
 
 		/*
 				Advancing Levels:
-
+		
 					All classes modify their characters in the following ways when they advance a
 					level of experience:
-
+		
 					1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 					2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 					3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 						providing the characters actually use this skill at least once per level.
-
+		
 					4)	Add +3 Determination points per level past (1st).
-
+		
 					5)	Add +2% to Perception every level past (1st).
-
+		
 				Warriors:
-
+		
 					1)	Add +5% per level to be divided up between their Hit and Bow Bonuses.  At
 						least +1% must go into their Hit Bonus, the other +4% can be split as the they
 						wish.
-
+		
 					2)	Add +3% to their Missile Bonus.
-
+		
 					3)	Add +5 Stamina per level up to 10th level.  After 10th, add +2 Stamina per
 						level.
-
+		
 					4)	Add +1 Hit Point per level until 10th level.  Then add +1 Hit Point every Odd
 						level.
-
+		
 					5)	Add +1% per level to their Save Vs. Surprise.
-
+		
 					6)	Warriors Defense rises the same as their Hit Bonus, and their Free Attack
 						Rises +1% per level past (1st).
 		 */
@@ -228,7 +228,7 @@ public class Ranger extends Warrior {
 
 	@Override
 	public int getSurprise() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		return 10 + lvl;
 	}
 

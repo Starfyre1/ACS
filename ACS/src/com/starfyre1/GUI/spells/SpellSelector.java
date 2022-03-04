@@ -60,9 +60,6 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	/**
-	 * DW add Description
-	 */
 	public SpellSelector(CharacterSheet owner, String spellAreaName) {
 		super(owner.getFrame(), SPELL_SELECTOR, true);
 		mCharacterSheet = owner;

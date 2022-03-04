@@ -228,7 +228,6 @@ public class WeaponProficiencyTab extends DeterminationTab {
 
 	public ArrayList<WeaponProficiencyDeterminationRecord> getRecordsToLearn() {
 		ArrayList<WeaponProficiencyDeterminationRecord> list = new ArrayList<>();
-		// DW _finish
 		for (int i = 0; i < ROWS; i++) {
 			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();

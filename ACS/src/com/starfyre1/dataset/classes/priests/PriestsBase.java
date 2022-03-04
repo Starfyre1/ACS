@@ -194,7 +194,7 @@ public abstract class PriestsBase extends SpellUser {
 
 	@Override
 	public int getSurprise() {
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		return lvl;
 	}
 

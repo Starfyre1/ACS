@@ -61,14 +61,14 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	private JPanel getDeterminationDisplay() {
 		mTabbedPane = new JTabbedPane();
 
-		JComponent physicalTab = new AttributesTab(this);
+		JComponent attributesTab = new AttributesTab(this);
 		JComponent languageTab = new LanguageTab(this);
 		JComponent magicSpellTab = new MagicSpellTab(this);
 		JComponent weaponProficiencyTab = new WeaponProficiencyTab(this);
 		JComponent skillTab = new SkillTab(this);
 		JComponent teacherTab = new TeacherTab(this);
 
-		mTabbedPane.addTab(AttributesTab.PHYSICAL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, physicalTab, AttributesTab.PHYSICAL_TAB_TOOLTIP);
+		mTabbedPane.addTab(AttributesTab.PHYSICAL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, attributesTab, AttributesTab.PHYSICAL_TAB_TOOLTIP);
 		mTabbedPane.addTab(LanguageTab.LANGUAGE_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, languageTab, LanguageTab.LANGUAGE_TAB_TOOLTIP);
 		mTabbedPane.addTab(MagicSpellTab.MAGIC_SPELL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, magicSpellTab, MagicSpellTab.MAGIC_SPELL_TAB_TOOLTIP);
 		mTabbedPane.addTab(WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, weaponProficiencyTab, WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TOOLTIP);
@@ -135,7 +135,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		topWrapper.add(new JLabel(POINTS_WEEK_LABEL));
 
 		JPanel mainWrapper = new JPanel(new GridLayout(1, 3, 5, 0));
-		mainWrapper.setBorder(new EmptyBorder(0, 0, 5, 0));
+		mainWrapper.setBorder(new EmptyBorder(0, 0, 0, 0));
 		mainWrapper.add(getDeterminationDisplay());
 
 		outerWrapper.add(topWrapper);

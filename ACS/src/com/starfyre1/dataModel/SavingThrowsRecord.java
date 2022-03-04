@@ -73,7 +73,7 @@ public class SavingThrowsRecord implements LevelListener {
 			mShock = stats.getModifiedStat(AttributesRecord.CON) * 2 + stats.getModifiedStat(AttributesRecord.WP) + 30 + levelBonus + classInfo.getShock();
 			mStress = stats.getModifiedStat(AttributesRecord.WP) * 3 + levelBonus + classInfo.getStress();
 			mUnconscious = stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) + stats.getModifiedStat(AttributesRecord.WP) * 2 + levelBonus + classInfo.getUnconscious();
-			mSurprise = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.DEX) + stats.getModifiedStat(AttributesRecord.WP) + 35 + level + classInfo.getSurprise();
+			mSurprise = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.DEX) + stats.getModifiedStat(AttributesRecord.WP) + 35 + classInfo.getSurprise(); // level is taken care of in the class info
 			mBelief = stats.getModifiedStat(AttributesRecord.INT) + stats.getModifiedStat(AttributesRecord.WIS) + 35 + level * 5 + classInfo.getBelief();
 		} else {
 			clearRecords();
