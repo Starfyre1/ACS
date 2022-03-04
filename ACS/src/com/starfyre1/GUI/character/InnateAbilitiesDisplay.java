@@ -10,6 +10,7 @@ import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
+import java.util.Arrays;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -55,12 +56,14 @@ public class InnateAbilitiesDisplay extends TKTitledDisplay {
 
 	@Override
 	public void loadDisplay() {
+		// DW need to add success values
 
 		HeaderRecord header = ((CharacterSheet) getOwner()).getHeaderRecord();
 		if (header != null) {
 			BaseClass classInfo = header.getCharacterClass();
 			if (classInfo != null) {
-				Object[] master = classInfo.getInnateDisplayList();
+				String[] master = classInfo.getInnateDisplayList();
+				Arrays.sort(master);
 				TKTableModel model = (TKTableModel) mTable.getModel();
 				model.setRowCount(0);
 				for (Object element : master) {
