@@ -8,6 +8,7 @@ import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.classes.Dwarrow;
 import com.starfyre1.dataset.classes.elves.ElvesBase;
 import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.common.SpellUser;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
 
@@ -199,7 +200,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mBowBonus = classBonus + BowBonus;
 	}
 
-	private int speed(int value) {
+	private int speedTable(int value) {
 		int speed = (mCharacterSheet.getHeaderRecord().getLevel() - 1) / 2;
 
 		if (value < 9) {
@@ -215,115 +216,41 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		AttributesRecord stats = mCharacterSheet.getAttributesRecord();
 		int value = (int) Math.ceil((stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.DEX)) / 2);
 
-		mAttackSpeed = speed(value);
+		mAttackSpeed = speedTable(value);
 	}
 
 	private void generateMissileSpeed() {
 		AttributesRecord stats = mCharacterSheet.getAttributesRecord();
 		int value = stats.getModifiedStat(AttributesRecord.DEX);
 
-		mMissileSpeed = speed(value);
+		mMissileSpeed = speedTable(value);
 	}
 
 	private void generateBowSpeed() {
 		AttributesRecord stats = mCharacterSheet.getAttributesRecord();
 		int value = stats.getModifiedStat(AttributesRecord.BOW);
 
-		mBowSpeed = speed(value);
+		mBowSpeed = speedTable(value);
 	}
 
 	// DW need to make this available to other classes that just use magic
 	private void generateCastingSpeed() {
 		AttributesRecord record = mCharacterSheet.getAttributesRecord();
-		String magicArea = mCharacterSheet.getSpellListDisplay().getMagicArea();
-
-		int value = 0;
-
-		// DW switch methods once getSecondary is implemented.
-		//		String secondary = mCharacterSheet.getClasses().getSecondary(characterClass);
-		//		if (secondary != null) {
-		//			value = switch (secondary) {
-		if (magicArea != null) {
-			value = switch (magicArea) {
-				case ClassList.THANTOS:
-				case AttributesRecord.STRENGTH: {
-					yield record.getModifiedStat(AttributesRecord.STR); // 1
-				}
-				case ClassList.TALON:
-				case AttributesRecord.CONSTITUTION: {
-					yield record.getModifiedStat(AttributesRecord.CON); // 1
-				}
-				case ClassList.ARCANE_LORE:
-				case ClassList.MISTRESS_NIGHT:
-				case ClassList.NARIUS:
-				case AttributesRecord.INTELLIGENCE: {
-					yield record.getModifiedStat(AttributesRecord.INT); // 3
-				}
-				case ClassList.NATURAL_LORE:
-				case ClassList.NECROMANCER:
-				case ClassList.GRAUN:
-				case ClassList.LORRELL:
-				case ClassList.TARN:
-				case ClassList.WYND:
-				case AttributesRecord.WISDOM: {
-					yield record.getModifiedStat(AttributesRecord.WIS); // 6
-				}
-				case ClassList.ILLUSION:
-				case ClassList.SHADOW_MAGIC:
-				case ClassList.TAROT:
-				case AttributesRecord.DEXTERITY: {
-					yield record.getModifiedStat(AttributesRecord.DEX); // 3
-				}
-				case AttributesRecord.BOW_SKILL: {
-					yield record.getModifiedStat(AttributesRecord.BOW); // 0
-				}
-				case ClassList.CONTROL:
-				case ClassList.SAUTRIAN:
-				case AttributesRecord.CHARISMA: {
-					yield record.getModifiedStat(AttributesRecord.CHA); // 2
-				}
-				case ClassList.THAER:
-				case AttributesRecord.PERSONAL_APPEARANCE: {
-					yield record.getModifiedStat(AttributesRecord.PA); // 1
-				}
-				case ClassList.AIR_ELEMENTALIST:
-				case ClassList.EARTH_ELEMENTALIST:
-				case ClassList.FIRE_ELEMENTALIST:
-				case ClassList.WATER_ELEMENTALIST:
-				case ClassList.CHAUNTIL:
-				case ClassList.NARESE:
-				case ClassList.ORN:
-				case ClassList.RYSH:
-				case AttributesRecord.WILLPOWER: {
-					yield record.getModifiedStat(AttributesRecord.WP); // 8
-				}
-				case ClassList.SARN: {
-					yield (record.getModifiedStat(AttributesRecord.WIS) + record.getModifiedStat(AttributesRecord.DEX)) / 2;
-				}
-				default:
-					yield 0;
-			};
+		BaseClass base = ClassList.getCharacterClass(mCharacterSheet.getSpellListDisplay().getMagicArea());
+		String secondary = base instanceof SpellUser ? ((SpellUser) base).getSecondRequisite() : null;
+		if (secondary == null) {
+			mCastingSpeed = 0;
+		} else if (secondary.equals("Dexterity/Wisdom")) { //$NON-NLS-1$
+			int value = (record.getModifiedStat(record.getArrayPosition("Dexterity")) + record.getModifiedStat(record.getArrayPosition("Wisdom"))) / 2; //$NON-NLS-1$ //$NON-NLS-2$
+			mCastingSpeed = speedTable(value);
+		} else {
+			int value = record.getModifiedStat(record.getArrayPosition(secondary));
+			mCastingSpeed = speedTable(value);
 		}
-		mCastingSpeed = speed(value);
 	}
 
 	private void generateMovement() {
 		mMovement = mCharacterSheet.getHeaderRecord().getCharacterClass().getMovement();
-
-		// DW Movement for Human, Half Elven, Gnome, Barbarian... create the classes/races
-		//		int move = switch (characterClass) {
-		//			case ClassList.HUMAN:
-		//			case ClassList.HALF_ELVEN: {
-		//				yield 12;
-		//			}
-		//
-		//			case ClassList.GNOME: {
-		//				yield 9;
-		//			}
-		//			case ClassList.BARBARIAN: {
-		//				yield 15;
-		//			}
-		//		};
 	}
 
 	public void generateUnallocated() {

@@ -2,7 +2,6 @@
 
 package com.starfyre1.dataset;
 
-import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.dataModel.ClassesRecord;
 import com.starfyre1.dataset.classes.Dwarrow;
 import com.starfyre1.dataset.classes.Dwarves;
@@ -14,7 +13,6 @@ import com.starfyre1.dataset.classes.elves.Tsiri;
 import com.starfyre1.dataset.classes.warriors.Ranger;
 import com.starfyre1.dataset.classes.warriors.Warrior;
 import com.starfyre1.dataset.common.BaseClass;
-import com.starfyre1.startup.ACS;
 
 import java.util.ArrayList;
 
@@ -138,12 +136,6 @@ public class ClassList {
 	/** @return The classesList. */
 	public ArrayList<ClassesRecord> getRecordsList() {
 		return mClassesList;
-	}
-
-	public String getSecondary(String which) {
-		CharacterSheet character = ACS.getInstance().getCharacterSheet();
-
-		return MageList.isMage(which) ? character.getMages().getSecondary(which) : character.getPriests().getSecondary(which);
 	}
 
 	public static BaseClass getCharacterClass(String class1) {

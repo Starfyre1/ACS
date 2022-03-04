@@ -162,6 +162,32 @@ public class AttributesRecord implements Savable {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public int getArrayPosition(String which) {
+		int position = switch (which) {
+			case STRENGTH:
+				yield 0;
+			case CONSTITUTION:
+				yield 1;
+			case INTELLIGENCE:
+				yield 2;
+			case WISDOM:
+				yield 3;
+			case DEXTERITY:
+				yield 4;
+			case BOW_SKILL:
+				yield 5;
+			case CHARISMA:
+				yield 6;
+			case PERSONAL_APPEARANCE:
+				yield 7;
+			case WILLPOWER:
+				yield 8;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + which); //$NON-NLS-1$
+		};
+		return position;
+	}
+
 	public int[] getModifiedStats() {
 		return mModifiedStats;
 	}
