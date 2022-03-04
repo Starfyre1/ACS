@@ -4,6 +4,7 @@ package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
@@ -187,10 +188,24 @@ public class SkillsRecord implements LevelListener, Savable {
 		// boolean innate = mIsInnate[BANDAGING];
 		int base = 10 * lvl;
 		int wisdomBonus = wisdom > 12 ? 10 : 0;
-
 		int classBonus = classInfo.getBandaging();
 
-		mBandaging = base + wisdomBonus + classBonus;
+		// DW fix... need to check all magic areas
+		String magicArea = ACS.getInstance().getCharacterSheet().getSpellListDisplay().getMagicArea();
+		int magicAreaBonus = switch (magicArea) {
+			case ClassList.NATURAL_LORE:
+			case ClassList.ARCANE_LORE:
+				yield 20;
+			case ClassList.SAUTRIAN:
+			case ClassList.GRAUN:
+			case ClassList.LORRELL:
+				yield 10;
+			default:
+				yield 0;
+
+		};
+
+		mBandaging = base + wisdomBonus + classBonus + magicAreaBonus;
 	}
 
 	public void generateHunting(BaseClass classInfo, int wisdom) {
@@ -373,21 +388,21 @@ public class SkillsRecord implements LevelListener, Savable {
 		  		Listener is:				Chance to Hear 		Range
 				Human, Non-thief with a save		20%			60'
 				Vs. Surprise of less than 75%
-
-
+		
+		
 				Human, Non-thief with a save		30%			60'
 				Vs. Surprise of more than 75%
-
+		
 				Elven, Half-Elven and Dwarrow		30% 		120'
-
+		
 				Other--(some monsters will have		20%			60'
 				high hearing abilities)
-
+		
 				Thief					Varies with lvl		60' *
 					*	Add 5’ per 10% above 100% to hear.
-
+		
 				Halve all chances when listening to a door.
-
+		
 		*/
 
 		boolean innate = mIsInnate[HEAR];

@@ -133,7 +133,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 
 		int dexBonus = 0;
 		if (dex < 9) {
-			dexBonus = dex - 10;
+			dexBonus = dex - 9;
 		} else if (dex > 12 && dex < 23) {
 			dexBonus = (dex - 13) * 2 + 1;
 		} else if (dex > 22) {

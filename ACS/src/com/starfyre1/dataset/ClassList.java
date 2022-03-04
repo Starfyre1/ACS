@@ -6,7 +6,6 @@ import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.dataModel.ClassesRecord;
 import com.starfyre1.dataset.classes.Dwarrow;
 import com.starfyre1.dataset.classes.Dwarves;
-import com.starfyre1.dataset.classes.Human;
 import com.starfyre1.dataset.classes.Thief;
 import com.starfyre1.dataset.classes.elves.Sailor;
 import com.starfyre1.dataset.classes.elves.Sithrian;
@@ -68,8 +67,8 @@ public class ClassList {
 	public static final String					SITHRIAN			= "Sithrian";			//$NON-NLS-1$
 	public static final String					SAILOR				= "Sailor";				//$NON-NLS-1$
 
-	public static final String					HALF_ELVEN			= "Half Elven";			//$NON-NLS-1$
-	public static final String					HUMAN				= "Human";				//$NON-NLS-1$
+	//	public static final String					HALF_ELVEN			= "Half Elven";			//$NON-NLS-1$
+	//	public static final String					HUMAN				= "Human";				//$NON-NLS-1$
 	public static final String					DWARROW				= "Dwarrow";			//$NON-NLS-1$
 	public static final String					DWARVEN				= "Dwarven";			//$NON-NLS-1$
 	public static final String					GNOME				= "Gnome";				//$NON-NLS-1$
@@ -100,7 +99,7 @@ public class ClassList {
 			mClassesList.add(new ClassesRecord(new Tsiri(), ELVEN, TSIRI, 3));
 
 			mClassesList.add(new ClassesRecord(new Thief(), null, THIEF, 3));
-			mClassesList.add(new ClassesRecord(new Human(), null, HUMAN, 3));
+			//			mClassesList.add(new ClassesRecord(new Human(), null, HUMAN, 3));
 			mClassesList.add(new ClassesRecord(new Dwarves(), null, DWARVEN, 3));
 			mClassesList.add(new ClassesRecord(new Dwarrow(), null, DWARROW, 3));
 		}

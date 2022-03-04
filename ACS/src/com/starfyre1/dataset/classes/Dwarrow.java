@@ -48,7 +48,7 @@ public class Dwarrow extends BaseClass {
 	 * Member Variables
 	 ****************************************************************************/
 	private boolean[]	mInnateSkills		= { true, false, true, true, false, false, false, false, false, false, true, true, true, false, false, false, false, false, false, false };
-	private String[]	mInnateDisplayList	= { "Stealth", "Hear", "Conceal", "Tracking", "Night Sight", "Detect Magic", "Detect aura" };												//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+	private String[]	mInnateDisplayList	= { "Tracking", "Hunting", "Stealth", "Conceal", "Hear", "Detect Magic", "Detect aura", "Herbal Lore", "Night Sight", "Immune to Sleep / Charm spells", "Perception ( +7 per level )" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
 	private int[]		mMinimumStats		= { 10, 12, 12, 12, 15, 15, 0, 0, 12 };
 
 	/*****************************************************************************
@@ -231,7 +231,7 @@ public class Dwarrow extends BaseClass {
 	@Override
 	public int getMissileBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return lvl * 2;
+		return 5 + lvl * 2;
 	}
 
 	@Override

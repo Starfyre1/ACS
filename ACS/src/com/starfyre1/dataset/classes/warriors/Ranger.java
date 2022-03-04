@@ -210,9 +210,15 @@ public class Ranger extends Warrior {
 	}
 
 	@Override
+	public int getMissileBonus() {
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
+		return 3 + lvl * 3;
+	}
+
+	@Override
 	public int getBowBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return 3 + lvl;
+		return 4 + lvl;
 	}
 
 	// Saving Throws

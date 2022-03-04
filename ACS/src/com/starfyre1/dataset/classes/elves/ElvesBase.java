@@ -120,7 +120,7 @@ public abstract class ElvesBase extends BaseClass {
 	@Override
 	public int getMissileBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return lvl * 2;
+		return 3 + lvl * 2;
 	}
 
 	@Override
