@@ -109,7 +109,7 @@ public class Tsiri extends ElvesBase {
 	 * Member Variables
 	 ****************************************************************************/
 	private boolean	mInnateSkills[]			= { true, false, false, true, false, false, true, false, false, false, true, true, true, false, false, true, true, true, false, false };
-	private String	mInnateDisplayList[]	= { "Spell Casting", "Detect Secret Doors", "Stealth", "Conceal", "Hear", "Climb", "Find Traps", "Remove Traps", "Detect Morals I", "Speak with Animals (or) Monsters", "Night Sight", "Detect Magic", "Resist Magical Sleep 60%" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$
+	private String	mInnateDisplayList[]	= { "Detect Secret Doors", "Detect Magic", "Hear", "Stealth", "Conceal", "Night Sight", "Resist Magical Sleep 60%", "Armor Smith", "Star Sight", "Weapon Smith", "Climb", "Find Traps", "Remove Traps", "Detect Morals I", "Speak with Animals (or) Monsters", "Spell Casting" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
 	private int[]	mMinimumStats			= { 12, 10, 13, 12, 14, 13, 10, 0, 12 };
 
 	/*****************************************************************************

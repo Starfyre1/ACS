@@ -66,7 +66,7 @@ public class Sailor extends ElvesBase {
 	 ****************************************************************************/
 	private boolean	mInnateSkills[]			= { true, false, false, true, false, false, false, false, false, false, true, true, true, false, false, false, false, false, true, false };
 	// DW verify - 18) They add 3% at the characters creation... to what?
-	private String	mInnateDisplayList[]	= { "Spell Casting", "Herbal Lore", "Stealth", "Conceal", "Hear", "Detect Morals I", "Star Sight", "Detect Magic", "Resist Magical Sleep 40%" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
+	private String	mInnateDisplayList[]	= { "Tracking", "Detect Magic", "Hear", "Stealth", "Conceal", "Star Sight", "Speak with Animals", "Herbal Lore", "Spell Casting", "Detect Morals I", "Resist Magical Sleep 40%" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
 	private int		mMinimumStats[]			= { 10, 0, 11, 10, 12, 12, 7, 11, 0 };
 
 	/*****************************************************************************

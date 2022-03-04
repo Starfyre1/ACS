@@ -37,41 +37,43 @@ public class LanguageTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		LANGUAGE_DESCRIPTION	= "To learn the language fluently, the character must successfully learn the language twice";				// //$NON-NLS-1$
+	private static final String		LANGUAGE_DESCRIPTION	= "To learn the language fluently, the character must successfully learn the language twice";								// //$NON-NLS-1$
 
-	static final String				LANGUAGE_TAB_TITLE		= "Languages";																								//$NON-NLS-1$
-	static final String				LANGUAGE_TAB_TOOLTIP	= "To learn a new language or become fluent in a known one:";												//$NON-NLS-1$
+	static final String				LANGUAGE_TAB_TITLE		= "Languages";																												//$NON-NLS-1$
+	static final String				LANGUAGE_TAB_TOOLTIP	= "To learn a new language or become fluent in a known one:";																//$NON-NLS-1$
 
-	private static final String		CHOOSE_LANGUAGE			= "Choose Language";																						//$NON-NLS-1$
-	private static final String		CHOOSE_SOURCE			= "Choose Source";																							//$NON-NLS-1$
-	private static final String		IMMERSIVE				= "Immersive";																								//$NON-NLS-1$
-	private static final String		COST_TEXT				= "Cost: 40 (immersive) or 80 (Tutor)";																		//$NON-NLS-1$
-	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week for Fluent";																		//$NON-NLS-1$
+	private static final String		CHOOSE_LANGUAGE			= "Choose Language";																										//$NON-NLS-1$
+	private static final String		CHOOSE_SOURCE			= "Choose Source";																											//$NON-NLS-1$
+	private static final String		IMMERSIVE				= "Immersive";																												//$NON-NLS-1$
+	private static final String		COST_TEXT				= "Cost: 40 (immersive) or 80 (Tutor)";																						//$NON-NLS-1$
+	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week for Fluent";																						//$NON-NLS-1$
 	private static final String		LANGUAGE_TEXT			= LANGUAGE_TAB_TOOLTIP;
-	private static final String		SUCCESS_TOOLTIP			= "1D20 - (1/4 level) < (Wisdom)";																			//$NON-NLS-1$
-	private static final String		SUCCESS_TEXT1			= "Success: (1D20 - ";																						//$NON-NLS-1$
-	private static final String		SUCCESS_TEXT2			= ") < ";																									//$NON-NLS-1$
+	private static final String		SUCCESS_TOOLTIP			= "1D20 - (1/4 level) < (Wisdom)";																							//$NON-NLS-1$
+	private static final String		SUCCESS_TEXT1			= "Success: (1D20 - ";																										//$NON-NLS-1$
+	private static final String		SUCCESS_TEXT2			= ") < ";																													//$NON-NLS-1$
 
-	private static final String		COMMON_DESCRIPTION		= "A mixture of many languages, this trade language is spoken world wide on Athri.";						//$NON-NLS-1$
-	private static final String		EA_DESCRIPTION			= "Elven, spoken through the elven and human kingdoms above the ground.";									//$NON-NLS-1$
-	private static final String		LEA_DESCRIPTION			= "High Elven, spoken by the elite and royalty of the Elven society.";										//$NON-NLS-1$
-	private static final String		TRIA_DESCRIPTION		= "Spoken by Tsiri (Dark Elven) above and below ground.";													//$NON-NLS-1$
-	private static final String		TETSRI_DESCRIPTION		= "Spoken by the humans of the Tetsuru.";																	//$NON-NLS-1$
-	private static final String		NORTHRIN_DESCRIPTION	= "Spoken by the humans of the Northlands.";																//$NON-NLS-1$
-	private static final String		ERU_DESCRIPTION			= "Spoken by the d'etri or Dwarrow of the world.";															//$NON-NLS-1$
-	private static final String		GALON_DESCRIPTION		= "Spoken by the E'Sprey or Giants of T'Sal.";																//$NON-NLS-1$
-	private static final String		UTA_DESCRIPTION			= "Spoken by the dark creatures of the world.";																//$NON-NLS-1$
-	private static final String		DUTA_DESCRIPTION		= "The Silent language, Thieves Tongue, a Sign Language with many variations and many names.";				//$NON-NLS-1$
-	private static final String		UTRU_DESCRIPTION		= "Spoken by Goblinkin around the world.";																	//$NON-NLS-1$
+	private static final String		COMMON_DESCRIPTION		= "A mixture of many languages, this trade language is spoken world wide on Athri.";										//$NON-NLS-1$
+	private static final String		EA_DESCRIPTION			= "Elven, spoken through the elven and human kingdoms above the ground.";													//$NON-NLS-1$
+	private static final String		LEA_DESCRIPTION			= "High Elven, spoken by the elite and royalty of the Elven society.";														//$NON-NLS-1$
+	private static final String		TRIA_DESCRIPTION		= "Spoken by Tsiri (Dark Elven) above and below ground.";																	//$NON-NLS-1$
+	private static final String		TETSRI_DESCRIPTION		= "Spoken by the humans of the Tetsuru.";																					//$NON-NLS-1$
+	private static final String		NORTHRIN_DESCRIPTION	= "Spoken by the humans of the Northlands.";																				//$NON-NLS-1$
+	private static final String		ERU_DESCRIPTION			= "Spoken by the d'etri or Dwarrow of the world.";																			//$NON-NLS-1$
+	private static final String		GALON_DESCRIPTION		= "Spoken by the E'Sprey or Giants of T'Sal.";																				//$NON-NLS-1$
+	private static final String		UTA_DESCRIPTION			= "Spoken by the dark creatures of the world.";																				//$NON-NLS-1$
+	private static final String		DUTA_DESCRIPTION		= "The Silent language, Thieves Tongue, a Sign Language with many variations and many names.";								//$NON-NLS-1$
+	private static final String		UTRU_DESCRIPTION		= "Spoken by Goblinkin around the world.";																					//$NON-NLS-1$
+	private static final String		KAZQ_DESCRIPTION		= "Spoken by most Dwarves around the world.";																				//$NON-NLS-1$
+	private static final String		KAZTCH_DESCRIPTION		= "Dwarves war tongue";																										//$NON-NLS-1$
 
-	private static final String		IMMERSIVE_DESCRIPTION	= "Living where the language is spoken by natives";															//$NON-NLS-1$
-	private static final String		TUTOR_DESCRIPTION		= "Learning the language from a native speaker";															//$NON-NLS-1$
-	private static final String		BOOK_DESCRIPTION		= "Learning the language from a book";																		//$NON-NLS-1$
+	private static final String		IMMERSIVE_DESCRIPTION	= "Living where the language is spoken by natives";																			//$NON-NLS-1$
+	private static final String		TUTOR_DESCRIPTION		= "Learning the language from a native speaker";																			//$NON-NLS-1$
+	private static final String		BOOK_DESCRIPTION		= "Learning the language from a book";																						//$NON-NLS-1$
 
-	private static final String[]	LANGUAGES				= { "Common", "Ea'", "L'Ea'", "T'Ria'", "TetSri", "Northrin", "Eru", "Galon", "Uta", "D'Uta", "U'Tru" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
-	private static final String[]	SOURCES					= { IMMERSIVE, "Tutor", "Book" };																			//$NON-NLS-1$ //$NON-NLS-2$
-	private static final String[]	LANGUAGE_DESCRIPTIONS	= { COMMON_DESCRIPTION, EA_DESCRIPTION, LEA_DESCRIPTION, TRIA_DESCRIPTION, TETSRI_DESCRIPTION,				//
-					NORTHRIN_DESCRIPTION, ERU_DESCRIPTION, GALON_DESCRIPTION, UTA_DESCRIPTION, DUTA_DESCRIPTION, UTRU_DESCRIPTION };
+	private static final String[]	LANGUAGES				= { "Common", "Ea'", "L'Ea'", "T'Ria'", "TetSri", "Northrin", "Eru", "Galon", "Uta", "D'Uta", "U'Tru", "Kazq", "Kaz'tch" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$
+	private static final String[]	SOURCES					= { IMMERSIVE, "Tutor", "Book" };																							//$NON-NLS-1$ //$NON-NLS-2$
+	private static final String[]	LANGUAGE_DESCRIPTIONS	= { COMMON_DESCRIPTION, EA_DESCRIPTION, LEA_DESCRIPTION, TRIA_DESCRIPTION, TETSRI_DESCRIPTION,								//
+					NORTHRIN_DESCRIPTION, ERU_DESCRIPTION, GALON_DESCRIPTION, UTA_DESCRIPTION, DUTA_DESCRIPTION, UTRU_DESCRIPTION, KAZQ_DESCRIPTION, KAZTCH_DESCRIPTION };
 	private static final String[]	SOURCE_DESCRIPTIONS		= { IMMERSIVE_DESCRIPTION, TUTOR_DESCRIPTION, BOOK_DESCRIPTION };
 
 	private static final int		ROWS					= 5;

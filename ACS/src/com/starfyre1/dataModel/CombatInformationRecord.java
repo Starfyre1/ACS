@@ -5,8 +5,6 @@ package com.starfyre1.dataModel;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.ClassList;
-import com.starfyre1.dataset.classes.Dwarrow;
-import com.starfyre1.dataset.classes.elves.ElvesBase;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.dataset.common.SpellUser;
 import com.starfyre1.interfaces.LevelListener;
@@ -271,26 +269,19 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	}
 
 	public void generateDefenseAndFreeAttack() {
-		// DW verify if dexBonus is from Modified stat or Original stat.
 		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
-		int lvl = headerRecord.getLevel();
-		int dex = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
-		int dexBonus = dex > 14 ? (dex - 14) * 5 : dex < 6 ? (dex - 6) * 5 : 0;
 
 		BaseClass baseClass = headerRecord.getCharacterClass();
 
-		int levelHitBonus = 0;
-		if (baseClass instanceof ElvesBase || baseClass instanceof Dwarrow) {
-			levelHitBonus = 5 * (lvl - 1) + mOriginalHitBonus;
-		} else {
-			levelHitBonus = baseClass.getHitBonus();
-		}
+		int dex = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
+		int dexBonus = dex > 14 ? (dex - 14) * 5 : dex < 6 ? (dex - 6) * 5 : 0;
 
 		int classBonus = baseClass.getDefenseBonus();
 
 		// 	DW need to add Class modifiers to defense
-		mDefense = levelHitBonus + 30 + classBonus + dexBonus;
+		mDefense = baseClass.getHitBonus() + getHitBonus() + getHitLevelBonus() + 30 + classBonus + dexBonus;
 
+		int lvl = headerRecord.getLevel();
 		mFreeAttack = 30 + lvl + dexBonus;
 	}
 
