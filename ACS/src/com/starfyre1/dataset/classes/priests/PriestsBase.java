@@ -161,6 +161,30 @@ public abstract class PriestsBase extends SpellUser {
 		return 4;
 	}
 
+	@Override
+	public int getHitBonusMax() {
+		//		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.STR);
+		//		return value * 3;
+		// No Max;
+		return -1;
+	}
+
+	@Override
+	public int getMissileBonusMax() {
+		//		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
+		//		return value * 3;
+		// No Max;
+		return -1;
+	}
+
+	@Override
+	public int getBowBonusMax() {
+		//		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.BOW);
+		//		return value * 3;
+		// No Max;
+		return -1;
+	}
+
 	// Saving Throws
 	@Override
 	public int getBleeding() {

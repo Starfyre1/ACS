@@ -2,6 +2,7 @@
 
 package com.starfyre1.dataset.classes.elves;
 
+import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.startup.ACS;
 
 public class Sailor extends ElvesBase {
@@ -154,6 +155,25 @@ public class Sailor extends ElvesBase {
 	public int getHear() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		return 30 + lvl * 3;
+	}
+
+	// CombatInfo
+	@Override
+	public int getHitBonusMax() {
+		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.STR);
+		return value * 3;
+	}
+
+	@Override
+	public int getMissileBonusMax() {
+		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
+		return value * 3;
+	}
+
+	@Override
+	public int getBowBonusMax() {
+		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.BOW);
+		return value * 3;
 	}
 
 	/*****************************************************************************

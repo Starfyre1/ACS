@@ -41,11 +41,14 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	private int					mOriginalHitBonus				= 0;
 	private int					mHitBonus						= 0;
 	private int					mHitLevelBonus					= 0;
+	private int					mHitBonusMax					= 0;
 	private int					mAttackSpeed					= 0;
 	private int					mMissileBonus					= 0;
+	private int					mMissileBonusMax				= 0;
 	private int					mMissileSpeed					= 0;
 	private int					mBowBonus						= 0;
 	private int					mBowLevelBonus					= 0;
+	private int					mBowBonusMax					= 0;
 	private int					mBowSpeed						= 0;
 	private int					mDamageBonus					= 0;
 	private int					mCastingSpeed					= 0;
@@ -83,8 +86,11 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		if (mCharacterSheet.getHeaderRecord().getCharacterClass() != null) {
 			generateOriginalHitBonus();
 			generateHitBonus();
+			generateHitBonusMax();
 			generateMissileBonus();
+			generateMissileBonusMax();
 			generateBowBonus();
+			generateBowBonusMax();
 			generateDamageBonus();
 			generateDefenseAndFreeAttack();
 			generateMovement();
@@ -146,6 +152,10 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mHitBonus = mOriginalHitBonus + mCharacterSheet.getHeaderRecord().getCharacterClass().getHitBonus();
 	}
 
+	private void generateHitBonusMax() {
+		mHitBonusMax = mCharacterSheet.getHeaderRecord().getCharacterClass().getHitBonusMax();
+	}
+
 	private void generateMissileBonus() {
 		int classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getMissileBonus();
 
@@ -176,6 +186,10 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mMissileBonus = classBonus + strBonus + dexBonus;
 	}
 
+	private void generateMissileBonusMax() {
+		mMissileBonusMax = mCharacterSheet.getHeaderRecord().getCharacterClass().getMissileBonusMax();
+	}
+
 	// Email to Glenn on 7/9/21
 	// Character class and race bonuses... do they stack?
 	// No... Race bonus always trumps class bonus...
@@ -196,6 +210,10 @@ public class CombatInformationRecord implements LevelListener, Savable {
 			BowBonus = (bs - 10) * 2;
 		}
 		mBowBonus = classBonus + BowBonus;
+	}
+
+	private void generateBowBonusMax() {
+		mBowBonusMax = mCharacterSheet.getHeaderRecord().getCharacterClass().getBowBonusMax();
 	}
 
 	private int speedTable(int value) {
@@ -311,6 +329,21 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	/** @param hitLevelBonus The value to set for hitBonusMax. */
 	public void setHitLevelBonus(int hitLevelBonus) {
 		mHitLevelBonus = hitLevelBonus;
+	}
+
+	/** @return The hitBonusMax. */
+	public int getHitBonusMax() {
+		return mHitBonusMax;
+	}
+
+	/** @return The missileBonusMax. */
+	public int getMissileBonusMax() {
+		return mMissileBonusMax;
+	}
+
+	/** @return The bowBonusMax. */
+	public int getBowBonusMax() {
+		return mBowBonusMax;
 	}
 
 	/** @return The attackSpeed. */
@@ -537,12 +570,15 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mCastingSpeedLevelBonus = 0;
 		mOriginalHitBonus = 0;
 		mHitBonus = 0;
+		mHitBonusMax = 0;
 		mHitLevelBonus = 0;
 		mAttackSpeed = 0;
 		mMissileBonus = 0;
+		mMissileBonusMax = 0;
 		mMissileSpeed = 0;
 		mBowBonus = 0;
 		mBowLevelBonus = 0;
+		mBowBonusMax = 0;
 		mBowSpeed = 0;
 		mDamageBonus = 0;
 		mCastingSpeed = 0;

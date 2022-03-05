@@ -2,7 +2,9 @@
 
 package com.starfyre1.dataset.classes;
 
+import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.startup.ACS;
 
 public class Giants extends BaseClass {
 	/*****************************************************************************
@@ -10,31 +12,31 @@ public class Giants extends BaseClass {
 	 ****************************************************************************/
 	/*
 			E’Sprey (Giants):
-	
+
 			Minimum Required Stats:
 			ST=“18” CN=“18” IN=“10” WS=“12” DX=“15” BS=“*” CH=“*” PA=“*” WP=“12”
-	
+
 			The E’Sprey are a race of Giants, they are Athri’s greatest sailors. Traveling on their stone Giant-
 			Ships is the safest way to travel the Oceans of the world, even the Kraken think twice about
 			attacking those ships. They appear as extra large humans standing 11’-18’ tall (10’ + 1D8),
 			weighing about 57.41 lbs per foot of height or 572-1028 lbs.
-	
+
 			The E’sprey get along with most neutral and good races, although they don’t especially like some
 			of the Elven races. Their favorites are the wee folk, the D’evri, their greatest racial enemies are
 			the Ogris & Tch-Quetch along with most goblin kind. Outside of port cities, the E’sprey are not
 			seen often, thus their large size creates terror when they are seen. They will either be run from or
 			attacked on sight 50% of the time. As long as they only defend, there is a 75% chance their
 			attackers will listen to reason.
-	
+
 			They mostly sail between N’Tal and T’sal, however they do sometimes sail as far as Athri and
 			Tetsuru. Their ships are feared world wide by pirates and raiders, they will Always help ships
 			being attacked or stranded. Being known to hunt down those raiders after helping their victims
 			and returning the goods or prisoners that were taken. They leave no survivors among those they
 			hunt.
-	
+
 			They can be Warriors, Rangers or study these areas of magic - Natural Lore, any of the
 			Elements or the Priesthoods of Adon, Tarn, Chauntil, Wynd or on a very rare occasion Orn.
-	
+
 			1) Max Hit Bonus = 5 X ST E’sprey Innate Abilities:
 			2) Max Missile Bonus = 3 X DX Star Sight ( per spell )
 			3) Max Bow Bonus = 3 X BS Swimming ( 75% + 5% per lvl )
@@ -45,7 +47,7 @@ public class Giants extends BaseClass {
 			attacks. But ( 3 ) against crushing attacks due to their bone and flesh density.
 			9) Due to their great size add 6 to any weapon length they use, almost ensuring the first
 			attack of the combat.
-	
+
 			(After meeting the minimum stat’s requirement the player must understand both the bonus’s
 			and limitations they have. The character is so large, it’s impossible to sneak up on anyone
 			and they are a large target for missile weapons. They do not fit into most Inn’s or Hostel’s
@@ -256,6 +258,25 @@ public class Giants extends BaseClass {
 	@Override
 	public int getHitPoints() {
 		return 0;
+	}
+
+	// CombatInfo
+	@Override
+	public int getHitBonusMax() {
+		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.STR);
+		return value * 5;
+	}
+
+	@Override
+	public int getMissileBonusMax() {
+		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
+		return value * 3;
+	}
+
+	@Override
+	public int getBowBonusMax() {
+		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.BOW);
+		return value * 3;
 	}
 
 	/*****************************************************************************

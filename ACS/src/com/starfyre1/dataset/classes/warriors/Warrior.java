@@ -315,6 +315,31 @@ public class Warrior extends BaseClass {
 		return hp;
 	}
 
+	// CombatInfo
+	@Override
+	public int getHitBonusMax() {
+		//		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.STR);
+		//		return value * 3;
+		// No Max;
+		return -1;
+	}
+
+	@Override
+	public int getMissileBonusMax() {
+		//		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
+		//		return value * 3;
+		// No Max;
+		return -1;
+	}
+
+	@Override
+	public int getBowBonusMax() {
+		//		int value = ACS.getInstance().getCharacterSheet().getAttributesRecord().getModifiedStat(AttributesRecord.BOW);
+		//		return value * 3;
+		// No Max;
+		return -1;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
