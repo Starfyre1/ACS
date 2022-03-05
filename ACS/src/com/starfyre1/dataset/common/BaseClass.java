@@ -105,7 +105,7 @@ public abstract class BaseClass extends Object {
 	public abstract int getBelief();
 
 	// Defensive Information
-	public abstract int getStanima();
+	public abstract int getStamina();
 
 	public abstract int getHitPoints();
 

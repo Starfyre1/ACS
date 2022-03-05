@@ -299,16 +299,16 @@ public class Dwarrow extends BaseClass {
 
 	// Defensive Information
 	@Override
-	public int getStanima() {
-		int stanima;
+	public int getStamina() {
+		int stamina;
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		if (lvl <= 5) {
-			stanima = (lvl - 1) * 4;
+			stamina = (lvl - 1) * 4;
 		} else {
-			stanima = 16 + (lvl - 5) * 2;
+			stamina = 16 + (lvl - 5) * 2;
 		}
 
-		return stanima;
+		return stamina;
 
 	}
 

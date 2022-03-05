@@ -40,12 +40,13 @@ public class LanguageTab extends DeterminationTab {
 	private static final String		LANGUAGE_DESCRIPTION	= "To learn the language fluently, the character must successfully learn the language twice";								// //$NON-NLS-1$
 
 	static final String				LANGUAGE_TAB_TITLE		= "Languages";																												//$NON-NLS-1$
-	static final String				LANGUAGE_TAB_TOOLTIP	= "To learn a new language or become fluent in a known one:";																//$NON-NLS-1$
+	static final String				LANGUAGE_TAB_TOOLTIP	= "To learn a new language or become fluent:";																				//$NON-NLS-1$
 
 	private static final String		CHOOSE_LANGUAGE			= "Choose Language";																										//$NON-NLS-1$
 	private static final String		CHOOSE_SOURCE			= "Choose Source";																											//$NON-NLS-1$
 	private static final String		IMMERSIVE				= "Immersive";																												//$NON-NLS-1$
-	private static final String		COST_TEXT				= "Cost: 40 (immersive) or 80 (Tutor)";																						//$NON-NLS-1$
+	private static final String		TUTOR					= "Tutor";																													//$NON-NLS-1$
+	private static final String		COST_TEXT				= "Cost: 40, 60, 80 (Immersive, Tutor, Book)";																				//$NON-NLS-1$
 	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week for Fluent";																						//$NON-NLS-1$
 	private static final String		LANGUAGE_TEXT			= LANGUAGE_TAB_TOOLTIP;
 	private static final String		SUCCESS_TOOLTIP			= "1D20 - (1/4 level) < (Wisdom)";																							//$NON-NLS-1$
@@ -66,19 +67,20 @@ public class LanguageTab extends DeterminationTab {
 	private static final String		KAZQ_DESCRIPTION		= "Spoken by most Dwarves around the world.";																				//$NON-NLS-1$
 	private static final String		KAZTCH_DESCRIPTION		= "Dwarves war tongue";																										//$NON-NLS-1$
 
-	private static final String		IMMERSIVE_DESCRIPTION	= "Living where the language is spoken by natives";																			//$NON-NLS-1$
-	private static final String		TUTOR_DESCRIPTION		= "Learning the language from a native speaker";																			//$NON-NLS-1$
-	private static final String		BOOK_DESCRIPTION		= "Learning the language from a book";																						//$NON-NLS-1$
+	private static final String		IMMERSIVE_DESCRIPTION	= "Learning where the language is spoken by natives and have a good tutor.";												//$NON-NLS-1$
+	private static final String		TUTOR_DESCRIPTION		= "Learning the language from a native tutor but not around natives";														//$NON-NLS-1$
+	private static final String		BOOK_DESCRIPTION		= "Learning the language from a book and a bar buddy who knows a few words.";												//$NON-NLS-1$
 
 	private static final String[]	LANGUAGES				= { "Common", "Ea'", "L'Ea'", "T'Ria'", "TetSri", "Northrin", "Eru", "Galon", "Uta", "D'Uta", "U'Tru", "Kazq", "Kaz'tch" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$
-	private static final String[]	SOURCES					= { IMMERSIVE, "Tutor", "Book" };																							//$NON-NLS-1$ //$NON-NLS-2$
+	private static final String[]	SOURCES					= { IMMERSIVE, TUTOR, "Book" };																								//$NON-NLS-1$
 	private static final String[]	LANGUAGE_DESCRIPTIONS	= { COMMON_DESCRIPTION, EA_DESCRIPTION, LEA_DESCRIPTION, TRIA_DESCRIPTION, TETSRI_DESCRIPTION,								//
 					NORTHRIN_DESCRIPTION, ERU_DESCRIPTION, GALON_DESCRIPTION, UTA_DESCRIPTION, DUTA_DESCRIPTION, UTRU_DESCRIPTION, KAZQ_DESCRIPTION, KAZTCH_DESCRIPTION };
 	private static final String[]	SOURCE_DESCRIPTIONS		= { IMMERSIVE_DESCRIPTION, TUTOR_DESCRIPTION, BOOK_DESCRIPTION };
 
 	private static final int		ROWS					= 5;
-	private static final int		COST					= 40;
-	private static final int		COST2					= 80;
+	private static final int		COST40					= 40;
+	private static final int		COST60					= 60;
+	private static final int		COST80					= 80;
 
 	/*****************************************************************************
 	 * Member Variables
@@ -145,10 +147,13 @@ public class LanguageTab extends DeterminationTab {
 					mCostLabel[i] = 0;
 					mUsedLabel[i].setText(mCurrentlySpentLabel[i] + " / " + mCostLabel[i]); //$NON-NLS-1$
 				} else if (((JMenuItem) source).getText().equals(IMMERSIVE)) {
-					mCostLabel[i] = COST;
+					mCostLabel[i] = COST40;
+					mUsedLabel[i].setText(mCurrentlySpentLabel[i] + " / " + mCostLabel[i]); //$NON-NLS-1$
+				} else if (((JMenuItem) source).getText().equals(TUTOR)) {
+					mCostLabel[i] = COST60;
 					mUsedLabel[i].setText(mCurrentlySpentLabel[i] + " / " + mCostLabel[i]); //$NON-NLS-1$
 				} else {
-					mCostLabel[i] = COST2;
+					mCostLabel[i] = COST80;
 					mUsedLabel[i].setText(mCurrentlySpentLabel[i] + " / " + mCostLabel[i]); //$NON-NLS-1$
 				}
 			}

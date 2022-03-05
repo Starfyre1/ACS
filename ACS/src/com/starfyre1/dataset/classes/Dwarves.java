@@ -329,15 +329,15 @@ public class Dwarves extends BaseClass {
 
 	// Defensive Information
 	@Override
-	public int getStanima() {
-		int stanima;
+	public int getStamina() {
+		int stamina;
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		if (lvl <= 10) {
-			stanima = (lvl - 1) * 4;
+			stamina = (lvl - 1) * 4;
 		} else {
-			stanima = 36 + (lvl - 10) * 2;
+			stamina = 36 + (lvl - 10) * 2;
 		}
-		return stanima;
+		return stamina;
 	}
 
 	@Override

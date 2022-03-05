@@ -205,15 +205,15 @@ public abstract class PriestsBase extends SpellUser {
 
 	// Defensive Information
 	@Override
-	public int getStanima() {
-		int stanima;
+	public int getStamina() {
+		int stamina;
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		if (lvl <= 10) {
-			stanima = (lvl - 1) * 3;
+			stamina = (lvl - 1) * 3;
 		} else {
-			stanima = 27 + lvl - 10;
+			stamina = 27 + lvl - 10;
 		}
-		return stanima;
+		return stamina;
 	}
 
 	@Override

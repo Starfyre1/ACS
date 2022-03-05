@@ -290,15 +290,15 @@ public class Warrior extends BaseClass {
 
 	// Defensive Information
 	@Override
-	public int getStanima() {
-		int stanima;
+	public int getStamina() {
+		int stamina;
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
 		if (lvl <= 10) {
-			stanima = (lvl - 1) * 5;
+			stamina = (lvl - 1) * 5;
 		} else {
-			stanima = 45 + (lvl - 10) * 2;
+			stamina = 45 + (lvl - 10) * 2;
 		}
-		return stanima;
+		return stamina;
 	}
 
 	@Override

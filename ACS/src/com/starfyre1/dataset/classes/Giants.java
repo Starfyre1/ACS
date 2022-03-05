@@ -249,7 +249,7 @@ public class Giants extends BaseClass {
 	}
 
 	@Override
-	public int getStanima() {
+	public int getStamina() {
 		return 0;
 	}
 

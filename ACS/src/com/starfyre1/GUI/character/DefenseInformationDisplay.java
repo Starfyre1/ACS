@@ -38,11 +38,11 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	/*
 		There are many ways to figure your characters Base Armor Rating,
 		the two that have worked best for me in my games are as follows:
-
+	
 		1)	Start your character at a base of 50%, then add the Protection
 			Percentage from the armor you are wearing, this will give you
 			your Armor Rating.
-
+	
 		2)	Start your character with (2 X Dex) + 30% = Base Armor Rating,
 			then add the Protection Percentage from the armor you are
 			wearing, this will give you your Armor Rating.  This rule heavily
@@ -52,13 +52,13 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			1/2 their allotted carry capacity, at the time of combat.
 			(Remember this is a Optional rule, this way they can't take
 			Total advantage of a 18 Dexterity, and wear Field Plate!)
-
+	
 	*/
 
 	public static final String	FILE_SECTTION_START_KEY		= "DEFENSE_INFORMATION_SECTTION_START";	//$NON-NLS-1$
 	public static final String	FILE_SECTTION_END_KEY		= "DEFENSE_INFORMATION_SECTTION_END";	//$NON-NLS-1$
 
-	private static final String	STANIMA_LEFT_KEY			= "STANIMA_LEFT_KEY";					//$NON-NLS-1$
+	private static final String	STAMINA_LEFT_KEY			= "STAMINA_LEFT_KEY";					//$NON-NLS-1$
 	private static final String	HIT_POINTS_LEFT_KEY			= "HIT_POINTS_LEFT_KEY";				//$NON-NLS-1$
 	private static final String	DEATH_KEY					= "DEATH_KEY";							//$NON-NLS-1$
 
@@ -79,7 +79,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	private static final String	HANDS_LABEL					= "Hands";								//$NON-NLS-1$
 	private static final String	LEGS_LABEL					= "Legs";								//$NON-NLS-1$
 	private static final String	FEET_LABEL					= "Feet";								//$NON-NLS-1$
-	private static final String	STANIMA_LABEL				= "Stanima";							//$NON-NLS-1$
+	private static final String	STAMINA_LABEL				= "Stamina";							//$NON-NLS-1$
 	private static final String	HIT_POINTS_LABEL			= "Hit Points";							//$NON-NLS-1$
 	private static final String	FULL_LABEL					= "Full";								//$NON-NLS-1$
 	private static final String	LEFT_LABEL					= "Left";								//$NON-NLS-1$
@@ -105,13 +105,13 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	private JTextField			mLegsField;
 	private JTextField			mFeetField;
 
-	private JTextField			mStanimaFullField;
+	private JTextField			mStaminaFullField;
 	private JTextField			mHitPointsFullField;
-	private JTextField			mStanimaLeftField;
+	private JTextField			mStaminaLeftField;
 	private JTextField			mHitPointsLeftField;
 	private JTextField			mDeathField;
 
-	private int					mStanimaLeft				= 0;
+	private int					mStaminaLeft				= 0;
 	private int					mHitPointsLeft				= 0;
 	private int					mDeath						= 0;
 
@@ -188,14 +188,14 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mFeetField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		mFeetField.setEditable(false);
 
-		mStanimaFullField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
-		mStanimaFullField.setEditable(false);
+		mStaminaFullField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
+		mStaminaFullField.setEditable(false);
 		mHitPointsFullField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		mHitPointsFullField.setEditable(false);
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		mStanimaLeftField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
+		mStaminaLeftField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 		mHitPointsLeftField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel deathLabel = new JLabel(DEATH_LABEL, SwingConstants.RIGHT);
@@ -250,21 +250,21 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		wrapper2.add(new JLabel());
 
 		wrapper2.add(new JLabel());
-		wrapper2.add(new JLabel(STANIMA_LABEL, SwingConstants.CENTER));
+		wrapper2.add(new JLabel(STAMINA_LABEL, SwingConstants.CENTER));
 		wrapper2.add(new JLabel());
 		wrapper2.add(new JLabel(HIT_POINTS_LABEL, SwingConstants.CENTER));
 		wrapper2.add(new JLabel());
 		wrapper2.add(new JLabel());
 
 		wrapper2.add(new JLabel(FULL_LABEL, SwingConstants.RIGHT));
-		wrapper2.add(mStanimaFullField);
+		wrapper2.add(mStaminaFullField);
 		wrapper2.add(new JLabel(FULL_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mHitPointsFullField);
 		wrapper2.add(new JLabel());
 		wrapper2.add(new JLabel());
 
 		wrapper2.add(new JLabel(LEFT_LABEL, SwingConstants.RIGHT));
-		wrapper2.add(mStanimaLeftField);
+		wrapper2.add(mStaminaLeftField);
 		wrapper2.add(new JLabel(LEFT_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mHitPointsLeftField);
 		wrapper2.add(new JLabel());
@@ -302,10 +302,10 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mFeetField.setText(mArmorCoverage[8] + " / " + mArmorBonusCoverage[8] + " (" + mArmorMissileCoverage[8] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 		mHitPointsFullField.setText(TKStringHelpers.EMPTY_STRING + generateFullHitPoints());
-		mStanimaFullField.setText(TKStringHelpers.EMPTY_STRING + generateFullStanima());
+		mStaminaFullField.setText(TKStringHelpers.EMPTY_STRING + generateFullStamina());
 
 		// loaded from file
-		mStanimaLeftField.setText(TKStringHelpers.EMPTY_STRING + mStanimaLeft);
+		mStaminaLeftField.setText(TKStringHelpers.EMPTY_STRING + mStaminaLeft);
 		mHitPointsLeftField.setText(TKStringHelpers.EMPTY_STRING + mHitPointsLeft);
 		mDeathField.setText(TKStringHelpers.EMPTY_STRING + mDeath);
 	}
@@ -368,7 +368,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		return bonus;
 	}
 
-	private int generateFullStanima() {
+	private int generateFullStamina() {
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		BaseClass characterClass = owner.getHeaderRecord().getCharacterClass();
 
@@ -376,9 +376,9 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			return 0;
 		}
 
-		int stanima = 1 + characterClass.getStanima() + getAttributeBonus(owner.getAttributesRecord().getModifiedStat(AttributesRecord.STR));
+		int stamina = 1 + characterClass.getStamina() + getAttributeBonus(owner.getAttributesRecord().getModifiedStat(AttributesRecord.STR));
 
-		return stanima < 1 ? 1 : stanima;
+		return stamina < 1 ? 1 : stamina;
 
 	}
 
@@ -412,8 +412,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 
 		if (source instanceof JTextField) {
-			if (((JTextField) source).equals(mStanimaLeftField)) {
-				mStanimaLeft = TKStringHelpers.getIntValue(mStanimaLeftField.getText(), 0);
+			if (((JTextField) source).equals(mStaminaLeftField)) {
+				mStaminaLeft = TKStringHelpers.getIntValue(mStaminaLeftField.getText(), 0);
 			} else if (((JTextField) source).equals(mHitPointsLeftField)) {
 				mHitPointsLeft = TKStringHelpers.getIntValue(mHitPointsLeftField.getText(), 0);
 			} else if (((JTextField) source).equals(mDeathField)) {
@@ -466,7 +466,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
-		br.write(STANIMA_LEFT_KEY + TKStringHelpers.SPACE + mStanimaLeft + System.lineSeparator());
+		br.write(STAMINA_LEFT_KEY + TKStringHelpers.SPACE + mStaminaLeft + System.lineSeparator());
 		br.write(HIT_POINTS_LEFT_KEY + TKStringHelpers.SPACE + mHitPointsLeft + System.lineSeparator());
 		br.write(DEATH_KEY + TKStringHelpers.SPACE + mDeath + System.lineSeparator());
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
@@ -475,8 +475,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
-		if (STANIMA_LEFT_KEY.equals(key)) {
-			mStanimaLeft = TKStringHelpers.getIntValue(value, 0);
+		if (STAMINA_LEFT_KEY.equals(key)) {
+			mStaminaLeft = TKStringHelpers.getIntValue(value, 0);
 		} else if (HIT_POINTS_LEFT_KEY.equals(key)) {
 			mHitPointsLeft = TKStringHelpers.getIntValue(value, 0);
 		} else if (DEATH_KEY.equals(key)) {
@@ -488,7 +488,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	}
 
 	public void clearRecords() {
-		mStanimaLeft = 0;
+		mStaminaLeft = 0;
 		mHitPointsLeft = 0;
 		mDeath = 0;
 		mArmorField.setText(TKStringHelpers.EMPTY_STRING);

@@ -109,6 +109,9 @@ public class PersonalInformationRecord implements Savable {
 	public void generateCarry() {
 		AttributesRecord stats = mCharacterSheet.getAttributesRecord();
 
+		//		for (int i = 12; i < 49; i++) {
+		//			System.out.println(i + " = " + ((i - 12) / 2 * 5 + 35));
+		//		}
 		mCarry = (stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) - 12) / 2 * 5 + 35;
 	}
 
@@ -121,7 +124,7 @@ public class PersonalInformationRecord implements Savable {
 
 		// Race and Class bonus (step 2 & 3)
 		if (characterClass instanceof Dwarves || characterClass instanceof Dwarrow) {
-			heightValue = (heightValue + 10) / 2;
+			heightValue = (heightValue + 5) / 2;
 		} else if (characterClass instanceof Human && characterClass instanceof Warrior) { //check to see if there are multiple warrior classes (ranger, barbarian, etc) Emailed Glen 09/08/2021 - yes/ implemented...
 			heightValue++;
 		}
