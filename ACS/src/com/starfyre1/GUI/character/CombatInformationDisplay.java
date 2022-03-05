@@ -25,6 +25,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class CombatInformationDisplay extends TKTitledDisplay implements DocumentListener {
+
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -50,6 +51,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private static final String	LEVEL_BONUSES_HEADER_LABEL	= "Level Bonuses";		//$NON-NLS-1$
 	private static final String	UNALLOCATED_HEADER_LABEL	= "Unallocated";		//$NON-NLS-1$
 	private static final String	MAXIMUM_BONUS_HEADER_LABEL	= "Maximum";			//$NON-NLS-1$
+	private static final String	NO_MAX						= "No Max";				//$NON-NLS-1$
 	private static final String	SPEED_HEADER_LABEL			= "Speed";				//$NON-NLS-1$
 	private static final String	CASTING_HEADER_LABEL		= "Casting";			//$NON-NLS-1$
 
@@ -247,17 +249,17 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 				mHitBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getHitBonus() + record.getHitLevelBonus()));
 				mHitLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHitLevelBonus());
-				mHitBonusMaxField.setText(TKStringHelpers.EMPTY_STRING + record.getHitBonusMax());
+				mHitBonusMaxField.setText(record.getHitBonusMax() >= 0 ? TKStringHelpers.EMPTY_STRING + record.getHitBonusMax() : NO_MAX);
 				mAttackSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getAttackSpeed());
 
 				mMissileBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileBonus());
 				mCastingSpeedLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getCastingLevelBonus());
-				mMissileBonusMaxField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileBonusMax());
+				mMissileBonusMaxField.setText(record.getMissileBonusMax() >= 0 ? TKStringHelpers.EMPTY_STRING + record.getMissileBonusMax() : NO_MAX);
 				mMissileSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getMissileSpeed());
 
 				mBowBonusField.setText(TKStringHelpers.EMPTY_STRING + (record.getBowBonus() + record.getBowLevelBonus()));
 				mBowLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getBowLevelBonus());
-				mBowBonusMaxField.setText(TKStringHelpers.EMPTY_STRING + record.getBowBonusMax());
+				mBowBonusMaxField.setText(record.getBowBonusMax() >= 0 ? TKStringHelpers.EMPTY_STRING + record.getBowBonusMax() : NO_MAX);
 				mBowSpeedField.setText(TKStringHelpers.EMPTY_STRING + record.getBowSpeed());
 
 				mDamageBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getDamageBonus());
