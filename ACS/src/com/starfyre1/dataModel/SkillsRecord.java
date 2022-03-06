@@ -253,7 +253,9 @@ public class SkillsRecord implements LevelListener, Savable {
 
 	public void generateDetectMorals() {
 		boolean innate = mIsInnate[DETECT_MORALS];
-		mDetectMorals = innate ? 30 : 0;
+		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
+		int lvlBonus = headerRecord.getLevel() * 5;
+		mDetectMorals = innate ? 30 + lvlBonus : 0;
 	}
 
 	public void generateDetectMetals(BaseClass classInfo) {
@@ -388,21 +390,21 @@ public class SkillsRecord implements LevelListener, Savable {
 		  		Listener is:				Chance to Hear 		Range
 				Human, Non-thief with a save		20%			60'
 				Vs. Surprise of less than 75%
-		
-		
+
+
 				Human, Non-thief with a save		30%			60'
 				Vs. Surprise of more than 75%
-		
+
 				Elven, Half-Elven and Dwarrow		30% 		120'
-		
+
 				Other--(some monsters will have		20%			60'
 				high hearing abilities)
-		
+
 				Thief					Varies with lvl		60' *
 					*	Add 5’ per 10% above 100% to hear.
-		
+
 				Halve all chances when listening to a door.
-		
+
 		*/
 
 		boolean innate = mIsInnate[HEAR];
