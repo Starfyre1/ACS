@@ -206,8 +206,11 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		if (item != null) {
 			if (mCurrentList.isKnownSpellsEmpty()) {
 				item.setForeground(Color.BLACK);
-				mCards.remove(mCurrentList);
-				mCurrentList = null;
+				if (!MagicAreaPopup.SELECT_MAGIC_AREA.equals(name)) {
+					mCards.remove(mCurrentList);
+					mCurrentList = null;
+					((CardLayout) mCards.getLayout()).show(mCards, MagicAreaPopup.SELECT_MAGIC_AREA);
+				}
 			} else {
 				item.setForeground(Color.BLUE);
 			}
@@ -238,7 +241,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 				break;
 			}
 		}
-		if (!(found || MagicAreaPopup.SELECT_MAGIC_AREA.equals(text))) {
+		if (!found) {
 			SpellList list = new SpellList(text);
 			mCards.add(text, list);
 			mCurrentList = list;
@@ -287,6 +290,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	public void enableFields(boolean enabled) {
 		mNewSpellButton.setEnabled(enabled);
 		mExperienceField.setEditable(enabled);
+		mAreaPopup.getMenu().setEnabled(((CharacterSheet) getOwner()).isCharacterLoaded());
 	}
 
 	public String getMagicArea() {
@@ -313,7 +317,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 					if (key.equals(FILE_SECTTION_END_KEY)) {
 						return tokenizer;
 					} else if (key.equals(SpellList.FILE_SECTTION_START_KEY)) {
-						swapPanels(mAreaPopup.getSelectedItem());
+						//						swapPanels(mAreaPopup.getSelectedItem());
 						tokenizer = mCurrentList.readValues(br);
 						updateSpellList(mCurrentList.getName());
 						continue;

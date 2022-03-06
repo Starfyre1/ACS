@@ -39,9 +39,9 @@ public class AttributesTab extends DeterminationTab {
 	private static final String		COST_TEXT				= "Cost: 50";																																					//$NON-NLS-1$
 	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week";																																		//$NON-NLS-1$
 	private static final String		PHYSICAL_TEXT			= PHYSICAL_TAB_TOOLTIP;
-	private static final String		SUCCESS_TOOLTIP			= "1D20 + 1/2 level > stat";																																	//$NON-NLS-1$
+	private static final String		SUCCESS_TOOLTIP			= "1D20 + 1/2 level >= stat";																																	//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT1			= "Success: (1D20 + ";																																			//$NON-NLS-1$
-	private static final String		SUCCESS_TEXT2			= ") > ";																																						//$NON-NLS-1$
+	private static final String		SUCCESS_TEXT2			= ") >= ";																																						//$NON-NLS-1$
 
 	public static final String[]	ATTRIBUTE_NAMES			= new String[] { AttributesRecord.STRENGTH, AttributesRecord.CONSTITUTION, AttributesRecord.WISDOM, AttributesRecord.DEXTERITY, AttributesRecord.BOW_SKILL };
 	private static final int[]		ATTRIBUTE_NUMBERS		= new int[] { AttributesRecord.STR, AttributesRecord.CON, AttributesRecord.WIS, AttributesRecord.DEX, AttributesRecord.BOW };

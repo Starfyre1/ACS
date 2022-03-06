@@ -568,6 +568,7 @@ public class CharacterSheet implements ActionListener {
 			return;
 		}
 
+		mIsCharacterLoaded = true;
 		mSavingThrowsRecord = new SavingThrowsRecord(this, true);
 		mCombatInformationRecord = new CombatInformationRecord(this, true);
 		mPersonalInformationRecord = new PersonalInformationRecord(this, true);
@@ -584,7 +585,6 @@ public class CharacterSheet implements ActionListener {
 		mJournalTab.characterCreated();
 		mJournalTab.characterLevelUp(mHeaderRecord.getLevel());
 		mIsLoadingData = false;
-		mIsCharacterLoaded = true;
 
 	}
 
@@ -598,6 +598,7 @@ public class CharacterSheet implements ActionListener {
 			}
 		}
 
+		mIsCharacterLoaded = true;
 		mAttributesRecord = new AttributesRecord(false);
 		mHeaderRecord = new HeaderRecord();
 		mMoneyRecord = new MoneyRecord(this, false);
@@ -624,7 +625,6 @@ public class CharacterSheet implements ActionListener {
 		loadDisplay();
 
 		mIsLoadingData = false;
-		mIsCharacterLoaded = true;
 
 	}
 
@@ -741,6 +741,7 @@ public class CharacterSheet implements ActionListener {
 	}
 
 	private void clearRecords() {
+		mIsCharacterLoaded = false;
 		if (mAttributesRecord != null) {
 			mAttributesRecord.clearRecords();
 			mAttributesRecord = null;
@@ -792,7 +793,6 @@ public class CharacterSheet implements ActionListener {
 		mJournalTab.clearRecords();
 		mDefenseInformationDisplay.clearRecords();
 		mCharacterFile = null;
-		mIsCharacterLoaded = false;
 		mFrame.setTitle(ACS.TITLE);
 	}
 

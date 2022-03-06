@@ -71,7 +71,9 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 		setName(name);
 
 		add(createDisplay(), BorderLayout.CENTER);
-
+		//		if (!name.equals(MagicAreaPopup.SELECT_MAGIC_AREA)) {
+		//			addAllCommonSpells();
+		//		}
 	}
 
 	/*****************************************************************************
@@ -132,6 +134,9 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	}
 
 	public void addToKnownSpells(SpellRecord record) {
+		if (mKnownSpells.isEmpty()) {
+			addAllCommonSpells();
+		}
 		mKnownSpells.add(record);
 		TKTableModel model = (TKTableModel) mTable.getModel();
 		model.addRow(record.getRecord());
@@ -175,6 +180,15 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 		mKnownSpells = new ArrayList<>(128);
 	}
 
+	private void addAllCommonSpells() {
+		mKnownSpells.addAll(0, SpellUser.getCommonSpells());
+
+		for (SpellRecord record : mKnownSpells) {
+			TKTableModel model = (TKTableModel) mTable.getModel();
+			model.addRow(record.getRecord());
+		}
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -183,7 +197,8 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	}
 
 	public boolean isKnownSpellsEmpty() {
-		return mKnownSpells.isEmpty();
+		ArrayList<SpellRecord> commonList = SpellUser.getCommonSpells();
+		return commonList.containsAll(mKnownSpells);
 	}
 
 	/*****************************************************************************
@@ -229,8 +244,10 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
 		for (SpellRecord record : mKnownSpells) {
-			br.write(LEVEL_KEY + TKStringHelpers.SPACE + record.getLevel() + System.lineSeparator());
-			br.write(SPELL_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
+			if (record.getLevel() != -1) {
+				br.write(LEVEL_KEY + TKStringHelpers.SPACE + record.getLevel() + System.lineSeparator());
+				br.write(SPELL_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
+			}
 		}
 		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
 	}

@@ -79,6 +79,9 @@ public class SpellRecord extends TKTableRecord {
 
 	@Override
 	public Object[] getRecord() {
+		if (mLevel == -1) {
+			return new Object[] { "C", mName, Integer.valueOf(mCastingTime), "" }; //$NON-NLS-1$ //$NON-NLS-2$
+		}
 		return new Object[] { Integer.valueOf(mLevel), mName, Integer.valueOf(mCastingTime), "" }; //$NON-NLS-1$
 	}
 

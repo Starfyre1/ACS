@@ -5,6 +5,7 @@ package com.starfyre1.dataset.common;
 import com.starfyre1.dataset.spells.SpellRecord;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class SpellUser extends BaseClass {
 	/*****************************************************************************
@@ -26,6 +27,16 @@ public abstract class SpellUser extends BaseClass {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+	public static ArrayList<SpellRecord> getCommonSpells() {
+		// Power Common:
+		ArrayList<SpellRecord> commonSpells = new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(-1, "Anti-Magic", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(-1, "Detect Aura", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(-1, "Detect Magic", 0, 25, 0), //$NON-NLS-1$
+						new SpellRecord(-1, "Dispel Magic", 0, 25, 0))); //$NON-NLS-1$
+		return commonSpells;
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
