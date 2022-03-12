@@ -262,7 +262,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	}
 
 	@Override
-	protected void loadDisplay() {
+	public void loadDisplay() {
 		enableFields(!MagicAreaPopup.SELECT_MAGIC_AREA.equals(getMagicArea()));
 
 	}
