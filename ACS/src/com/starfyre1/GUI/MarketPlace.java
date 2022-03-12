@@ -356,7 +356,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 
 	public boolean canAfford(float cost) {
 		if (ACS.getInstance() != null && ACS.getInstance().getCharacterSheet().getMoneyRecord() != null) {
-			if (cost > 0 && cost <= ACS.getInstance().getCharacterSheet().getMoneyRecord().getAvailableMoney()) {
+			if (cost >= 0 && cost <= ACS.getInstance().getCharacterSheet().getMoneyRecord().getAvailableMoney()) {
 				return true;
 			}
 		}

@@ -20,39 +20,40 @@ public class ArmorList implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String				FILE_SECTTION_START_KEY	= "ARMOR_SECTTION_START";	//$NON-NLS-1$
-	public static final String				FILE_SECTTION_END_KEY	= "ARMOR_SECTTION_END";		//$NON-NLS-1$
+	public static final String				FILE_SECTTION_START_KEY	= "ARMOR_SECTTION_START";		//$NON-NLS-1$
+	public static final String				FILE_SECTTION_END_KEY	= "ARMOR_SECTTION_END";			//$NON-NLS-1$
 
-	private static final String				COUNT_KEY				= "COUNT_KEY";				//$NON-NLS-1$
-	private static final String				EQUIPPED_KEY			= "EQUIPPED_KEY";			//$NON-NLS-1$
-	private static final String				NAME_KEY				= "NAME_KEY";				//$NON-NLS-1$
-	private static final String				METAL_KEY				= "METAL_KEY";				//$NON-NLS-1$
-	private static final String				TYPE_KEY				= "TYPE_KEY";				//$NON-NLS-1$
-	private static final String				PROT_KEY				= "PROT_KEY";				//$NON-NLS-1$
-	private static final String				ENCUM_KEY				= "ENCUM_KEY";				//$NON-NLS-1$
-	private static final String				ABSORB_KEY				= "ABSORB_KEY";				//$NON-NLS-1$
-	private static final String				BONUS_KEY				= "BONUS_KEY";				//$NON-NLS-1$
-	private static final String				MISSILE_KEY				= "MISSILE_KEY";			//$NON-NLS-1$
-	private static final String				STR_KEY					= "STR_KEY";				//$NON-NLS-1$
-	private static final String				PARRY_KEY				= "PARRY_KEY";				//$NON-NLS-1$
-	private static final String				BREAK_KEY				= "BREAK_KEY";				//$NON-NLS-1$
-	private static final String				COST_KEY				= "COST_KEY";				//$NON-NLS-1$
+	private static final String				COUNT_KEY				= "COUNT_KEY";					//$NON-NLS-1$
+	private static final String				EQUIPPED_KEY			= "EQUIPPED_KEY";				//$NON-NLS-1$
+	private static final String				NAME_KEY				= "NAME_KEY";					//$NON-NLS-1$
+	private static final String				METAL_KEY				= "METAL_KEY";					//$NON-NLS-1$
+	private static final String				TYPE_KEY				= "TYPE_KEY";					//$NON-NLS-1$
+	private static final String				PROT_KEY				= "PROT_KEY";					//$NON-NLS-1$
+	private static final String				ENCUM_KEY				= "ENCUM_KEY";					//$NON-NLS-1$
+	private static final String				ABSORB_KEY				= "ABSORB_KEY";					//$NON-NLS-1$
+	private static final String				BONUS_KEY				= "BONUS_KEY";					//$NON-NLS-1$
+	private static final String				MISSILE_KEY				= "MISSILE_KEY";				//$NON-NLS-1$
+	private static final String				STR_KEY					= "STR_KEY";					//$NON-NLS-1$
+	private static final String				PARRY_KEY				= "PARRY_KEY";					//$NON-NLS-1$
+	private static final String				BREAK_KEY				= "BREAK_KEY";					//$NON-NLS-1$
+	private static final String				COST_KEY				= "COST_KEY";					//$NON-NLS-1$
+	private static final int				ARRAY_SIZE				= 54;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	private static ArmorRecord[]			mArmorMasterList;
-	private static ArrayList<ArmorRecord>	mRecords				= new ArrayList<>(52);
+	private static ArrayList<ArmorRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
 
 	private int								mCount;
 	private boolean							mEquipped;
 	private String							mName;
-	private int								mMetal;												// 		[ Iron, Ang, Borang, Ardacer, Ethru, Ithilnur, Mithril, Laen, Eog, Tasarung ]
-	private int[]							mProtectionType;									// 0=Head-Top, 1=Head-Side, 2=Head-Face, 3=Neck, 4=Torso, 5=Arms, 6=Hands, 7=Legs, 8=Feet, 9=Shield
+	private int								mMetal;													// 		[ Iron, Ang, Borang, Ardacer, Ethru, Ithilnur, Mithril, Laen, Eog, Tasarung ]
+	private int[]							mProtectionType;										// 0=Head-Top, 1=Head-Side, 2=Head-Face, 3=Neck, 4=Torso, 5=Arms, 6=Hands, 7=Legs, 8=Feet, 9=Shield
 	private int								mProtectionAmount;
 	private float							mEncumbrance;
 	private int								mAbsorption;
-	private int								mBonus;												// 50% chance to increase absorption by 1
+	private int								mBonus;													// 50% chance to increase absorption by 1
 	private int								mMissileAbsorption;
 	private int								mStrengthRequirement;
 	private int								mParry;
@@ -95,7 +96,7 @@ public class ArmorList implements Savable {
 	}
 
 	public void clearRecords() {
-		mRecords = new ArrayList<>(52);
+		mRecords = new ArrayList<>(ARRAY_SIZE);
 	}
 
 	/*****************************************************************************
@@ -128,7 +129,7 @@ public class ArmorList implements Savable {
 
 	public static Object[] getArmorMasterList() {
 		if (mArmorMasterList == null) {
-			mArmorMasterList = new ArmorRecord[52];
+			mArmorMasterList = new ArmorRecord[ARRAY_SIZE];
 
 			Scanner scanner = null;
 			InputStream is = null;

@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -215,8 +216,19 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 			if (record.isGenerateOwnStats()) {
 				((CharacterSheet) getOwner()).enableCreateButton(areAllAttributeFieldsSet());
 			}
-		}
 
+			// DW fix - consolidate updates
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						((CharacterSheet) getOwner()).updateRecords();
+					} catch (Exception ex) {
+						System.err.println(ex);
+					}
+				}
+			});
+		}
 	}
 
 	/*****************************************************************************
