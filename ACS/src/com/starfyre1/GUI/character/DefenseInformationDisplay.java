@@ -43,7 +43,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			Percentage from the armor you are wearing, this will give you
 			your Armor Rating.
 	
-		2)	Start your character with (2 X Dex) + 30% = Base Armor Rating,
+		2)	Start your character with (2 X Dex) + 50% = Base Armor Rating,
 			then add the Protection Percentage from the armor you are
 			wearing, this will give you your Armor Rating.  This rule heavily
 			favors those characters with high Dexterity, so I've added an
@@ -321,7 +321,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 				armorRating = 50;
 			} else {
 				int dex = owner.getAttributesRecord().getModifiedStat(AttributesRecord.DEX);
-				armorRating = dex * 2 + 30;
+				armorRating = dex * 2 + 50;
 			}
 			ArrayList<ArmorRecord> records = owner.getEquippedArmorRecords();
 			if (records != null && withArmor) {
