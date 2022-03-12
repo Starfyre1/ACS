@@ -125,6 +125,11 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 		market.updateButtons(mTable.getSelectedRow() > -1);
 	}
 
+	public void finalizeSelections() {
+		mTable.getCellEditor().stopCellEditing();
+	}
+	
+	
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

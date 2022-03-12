@@ -1424,9 +1424,10 @@ public class CharacterSheet implements ActionListener {
 	 * This updates SavingThrowDisplay, SkillsDisplay, CombatInformationDisplay ToolTips only
 	 */
 	public void updateToolTips() {
+		if (mIsCharacterLoaded) {
 		mSavingThrowsDisplay.updateToolTips();
 		mSkillsDisplay.updateToolTips(getHeaderRecord().getCharacterClass() == null);
 		mCombatInformationDisplay.updateToolTips();
 	}
-
+	}
 }

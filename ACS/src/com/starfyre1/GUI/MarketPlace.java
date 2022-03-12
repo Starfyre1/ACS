@@ -271,6 +271,13 @@ public class MarketPlace extends JDialog implements ActionListener {
 			dispose();
 		} else if (source.equals(mBuyButton)) {
 			if (mBuyButton.getText().equals(BUY)) {
+				Component comp = ((JPanel) mTabbedPane.getSelectedComponent()).getComponent(1);
+				if (comp instanceof ArmorMarketPlaceDisplay) {
+					((ArmorMarketPlaceDisplay)comp).finalizeSelections();
+				} else if (comp instanceof WeaponMarketPlaceDisplay ) {
+					((WeaponMarketPlaceDisplay)comp).finalizeSelections();
+				}
+				comp.transferFocus();
 				getBoughtItems();
 			} else {
 				sellSelectedItems();

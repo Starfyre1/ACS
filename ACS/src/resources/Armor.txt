@@ -56,7 +56,7 @@
 			0, false, "Chain mail Gloves", 0, {6 }, 		2, 3, 		2, 0, 1, 0, 0, 0, 20
 			0, false, "Plate Mail Gloves", 0, {6 }, 		3, 5, 		3, 0, 2, 0, 0, 0, 90
 			0, false, "War Boots", 0, {8 }, 				2, 4, 		2, 0, 2, 0, 0, 0, 10
-			0, false, "Combat Boots, Steel Toed", 0, {8 }, 	0, 0.5f,	0, 1, 1, 0, 0, 0, 0
+			0, false, "Steel Toed Combat Boots", 0, {8 }, 	0, 0.5f, 	0, 1, 1, 0, 0, 0, 0
 
 			// Animal Barding
 

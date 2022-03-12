@@ -100,6 +100,11 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 		// not used
 	}
 
+	public void finalizeSelections() {
+		mTable.getCellEditor().stopCellEditing();
+	}
+	
+	
 	public void swapTables() {
 
 		TKTableModel ownedModel = (TKTableModel) ACS.getInstance().getCharacterSheet().getArmorOwnedTable().getModel();
