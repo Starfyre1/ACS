@@ -1,15 +1,16 @@
-//Name,		Weight,	Damage,	Break,	ASP,	Hit Bonus,	AR Bonus,	Absorb,	Price,	Availability,	Magical
 // DW Need to include leather, Cloth, etc
+// * Break int[] { +0, +2, +4, +6, +8, -2, -4 }
+
+//Name,		Weight,	Damage,	Break*,	ASP,	Hit Bonus,	AR Bonus,	Absorb,	Price,	Availability,	Magical
 Iron,		1,		0,		0,		0,		0,			0,			0,		1,		Common,			No
 Ang, 		1,		1,		1,		0,		5,			1,			0,		10,		Common,			No
 Borang,		.5,		1,		2,		1,		5,			2,			1,		50,		Common,			Some
 Ardacer,	.5,		2,		3,		2,		5,			2,			2,		150,	Less Common,	Some
 Ethru,		.5,		2,		2,		1,		10,			3,			2,		225,	Rare,			Yes
 Ithilnur,	.25,	4,		4,		3,		15,			5,			3,		800,	Rare,			Yes
-
 Mithril,	.25,	5,		6,		4,		15,			6,			4,		1000,	Rare,			Yes
 Laen,		.25,	5,		5,		4,		15,			0,			0,		1000,	Very Rare,		Always
 Eog,		.25,	6,		6,		5,		20,			8,			5,		1000,	Very Rare,		Always
 // Tasarung : Validate Weight, Damage, Break, ASP, Hit Bonus
 Tasarung,	1,		0,		0,		0,		0,			0,			0,		700,	Rare,			Some
-// Break int[] { +0, +2, +4, +6, +8, -2, -4 }
+
