@@ -139,15 +139,10 @@ public class HalfElf extends BaseClass {
 	}
 
 	@Override
-	public int getOriginalHitBonus() {
-		// DW verify
-		return 3;
-	}
-
-	@Override
 	public int getHitBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return lvl;
+		// DW verify
+		return 3 + lvl;
 	}
 
 	@Override

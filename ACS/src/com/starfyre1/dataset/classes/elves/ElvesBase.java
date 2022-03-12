@@ -107,14 +107,9 @@ public abstract class ElvesBase extends BaseClass {
 	}
 
 	@Override
-	public int getOriginalHitBonus() {
-		return 3;
-	}
-
-	@Override
 	public int getHitBonus() {
 		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel() - 1;
-		return lvl;
+		return 3 + lvl;
 	}
 
 	@Override

@@ -131,13 +131,8 @@ public abstract class MagesBase extends SpellUser {
 	}
 
 	@Override
-	public int getOriginalHitBonus() {
-		return 2;
-	}
-
-	@Override
 	public int getHitBonus() {
-		return 0;
+		return 2;
 	}
 
 	@Override

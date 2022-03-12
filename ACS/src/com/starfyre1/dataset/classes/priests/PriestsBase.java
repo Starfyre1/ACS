@@ -131,13 +131,8 @@ public abstract class PriestsBase extends SpellUser {
 	}
 
 	@Override
-	public int getOriginalHitBonus() {
-		return 3;
-	}
-
-	@Override
 	public int getHitBonus() {
-		return 0;
+		return 3;
 	}
 
 	@Override

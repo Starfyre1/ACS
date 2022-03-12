@@ -79,8 +79,6 @@ public abstract class BaseClass extends Object {
 
 	public abstract int getHitBonusMax();
 
-	public abstract int getOriginalHitBonus();
-
 	public abstract int getMissileBonus();
 
 	public abstract int getMissileBonusMax();
