@@ -8,6 +8,8 @@ import com.starfyre1.GUI.purchasedGear.equipment.EquipmentMarketPlaceDisplay;
 import com.starfyre1.GUI.purchasedGear.magicItems.MagicItemsMarketPlaceDisplay;
 import com.starfyre1.GUI.purchasedGear.weapon.WeaponMarketPlaceDisplay;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKIntegerFilter;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.MoneyRecord;
 import com.starfyre1.startup.ACS;
 
@@ -28,12 +30,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-public class MarketPlace extends JDialog implements ActionListener {
+public class MarketPlace extends JDialog implements ActionListener, DocumentListener {
 
 	/**
 	 * @param args
@@ -108,6 +114,8 @@ public class MarketPlace extends JDialog implements ActionListener {
 	JButton									mCancelButton;
 	JButton									mSellButton;
 	JCheckBox								mFreeCheckbox;
+	JLabel									mPercentLabel;
+	JTextField								mPercentField;
 
 	JLabel									mCost;
 	JLabel									mAvailable;
@@ -185,8 +193,17 @@ public class MarketPlace extends JDialog implements ActionListener {
 		mFreeCheckbox.setBorder(new EmptyBorder(getInsets()));
 		mFreeCheckbox.setFocusable(false);
 
+		mPercentLabel = TKComponentHelpers.createLabel("Percent Cost:", SwingConstants.RIGHT);
+
+		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
+		mPercentField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mPercentField.setText("100"); //$NON-NLS-1$
+
 		buttonPanel.add(mSellButton);
 		buttonPanel.add(Box.createHorizontalGlue());
+		buttonPanel.add(mPercentLabel);
+		buttonPanel.add(mPercentField);
+		buttonPanel.add(Box.createHorizontalStrut(5));
 		buttonPanel.add(mFreeCheckbox);
 		buttonPanel.add(Box.createHorizontalStrut(5));
 		buttonPanel.add(mBuyButton);
@@ -275,6 +292,21 @@ public class MarketPlace extends JDialog implements ActionListener {
 	}
 
 	@Override
+	public void insertUpdate(DocumentEvent e) {
+		changedUpdate(e);
+	}
+
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+		changedUpdate(e);
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
+	}
+
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source.equals(mCancelButton)) {
@@ -304,6 +336,8 @@ public class MarketPlace extends JDialog implements ActionListener {
 				mBuyButton.setText(BUY);
 				swapTables();
 			}
+		} else if (source.equals(mFreeCheckbox)) {
+			mPercentField.setEnabled(!mFreeCheckbox.isSelected());
 		}
 	}
 
@@ -384,6 +418,10 @@ public class MarketPlace extends JDialog implements ActionListener {
 	 ****************************************************************************/
 	public boolean isFreeChecked() {
 		return mFreeCheckbox.isSelected();
+	}
+
+	public int getPercentCost() {
+		return TKStringHelpers.getIntValue(mPercentField.getText().trim(), 100);
 	}
 
 	/** @return The mInstance. */

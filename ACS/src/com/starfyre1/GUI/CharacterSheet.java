@@ -671,7 +671,7 @@ public class CharacterSheet implements ActionListener {
 		mPersonalInformationDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
 		mInnateAbilitiesDisplay.loadDisplay();
-		
+
 		// Spell Tab
 		mSpellTab.loadDisplay();
 
@@ -881,6 +881,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void addEquipment(ArrayList<EquipmentRecord> purchasedItems) {
 		float cost = mEquipmentList.addEquipment(purchasedItems, true);
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.spend(cost);
 		mEquipmentOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -891,6 +892,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void addAnimals(ArrayList<AnimalRecord> purchasedItems) {
 		float cost = mAnimalList.addAnimals(purchasedItems, true);
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.spend(cost);
 		mAnimalsOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -901,6 +903,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void addArmor(ArrayList<ArmorRecord> purchasedItems) {
 		float cost = mArmorList.addArmor(purchasedItems, !MarketPlace.getInstance().isFreeChecked());
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.spend(cost);
 		mArmorOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -911,6 +914,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void addMagicItems(ArrayList<MagicItemRecord> purchasedItems) {
 		float cost = mMagicItemList.addMagicItems(purchasedItems, true);
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.spend(cost);
 		mMagicItemsOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -921,6 +925,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void addWeapons(ArrayList<WeaponRecord> purchasedItems) {
 		float cost = mWeaponList.addWeapons(purchasedItems, !MarketPlace.getInstance().isFreeChecked());
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.spend(cost);
 		mWeaponOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -931,6 +936,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void removeEquipment(ArrayList<EquipmentRecord> soldItems) {
 		float cost = mEquipmentList.removeEquipment(soldItems, true);
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mEquipmentOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -941,6 +947,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void removeAnimals(ArrayList<AnimalRecord> soldItems) {
 		float cost = mAnimalList.removeAnimals(soldItems, true);
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mAnimalsOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -951,6 +958,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void removeArmor(ArrayList<ArmorRecord> soldItems) {
 		float cost = mArmorList.removeArmor(soldItems, true);
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mArmorOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -961,6 +969,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void removeMagicItems(ArrayList<MagicItemRecord> soldItems) {
 		float cost = mMagicItemList.removeMagicItems(soldItems, true);
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mMagicItemsOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -971,6 +980,7 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void removeWeapons(ArrayList<WeaponRecord> soldItems) {
 		float cost = mWeaponList.removeWeapons(soldItems, true);
+		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mWeaponOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -1424,9 +1434,9 @@ public class CharacterSheet implements ActionListener {
 	 */
 	public void updateToolTips() {
 		if (mIsCharacterLoaded) {
-		mSavingThrowsDisplay.updateToolTips();
-		mSkillsDisplay.updateToolTips(getHeaderRecord().getCharacterClass() == null);
-		mCombatInformationDisplay.updateToolTips();
-	}
+			mSavingThrowsDisplay.updateToolTips();
+			mSkillsDisplay.updateToolTips(getHeaderRecord().getCharacterClass() == null);
+			mCombatInformationDisplay.updateToolTips();
+		}
 	}
 }
