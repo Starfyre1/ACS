@@ -901,7 +901,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param purchasedItems
 	 */
 	public void addArmor(ArrayList<ArmorRecord> purchasedItems) {
-		float cost = mArmorList.addArmor(purchasedItems, true);
+		float cost = mArmorList.addArmor(purchasedItems, !MarketPlace.getInstance().isFreeChecked());
 		mMoneyRecord.spend(cost);
 		mArmorOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
@@ -921,7 +921,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param purchasedItems
 	 */
 	public void addWeapons(ArrayList<WeaponRecord> purchasedItems) {
-		float cost = mWeaponList.addWeapons(purchasedItems, true);
+		float cost = mWeaponList.addWeapons(purchasedItems, !MarketPlace.getInstance().isFreeChecked());
 		mMoneyRecord.spend(cost);
 		mWeaponOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();

@@ -21,6 +21,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -104,6 +105,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 	JButton									mBuyButton;
 	JButton									mCancelButton;
 	JButton									mSellButton;
+	JCheckBox								mFreeCheckbox;
 
 	JLabel									mCost;
 	JLabel									mAvailable;
@@ -176,9 +178,15 @@ public class MarketPlace extends JDialog implements ActionListener {
 		mBuyButton = TKComponentHelpers.createButton(BUY, this, false);
 		mCancelButton = TKComponentHelpers.createButton(CANCEL, this);
 		mSellButton = TKComponentHelpers.createButton(SELL_MERCHANT, this, false);
+		
+		mFreeCheckbox = TKComponentHelpers.createCheckBox("Free", false, this);
+		mFreeCheckbox.setBorder(new EmptyBorder(getInsets()));
+		mFreeCheckbox.setFocusable(false);
 
 		buttonPanel.add(mSellButton);
 		buttonPanel.add(Box.createHorizontalGlue());
+		buttonPanel.add(mFreeCheckbox);
+		buttonPanel.add(Box.createHorizontalStrut(5));
 		buttonPanel.add(mBuyButton);
 		buttonPanel.add(Box.createHorizontalStrut(5));
 		buttonPanel.add(mCancelButton);
@@ -250,7 +258,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 
 	public void updateButtons(boolean canAfford) {
 		mSellButton.setEnabled(hasItemsToSell());
-		mBuyButton.setEnabled(canAfford);
+		mBuyButton.setEnabled(canAfford || mFreeCheckbox.isEnabled());
 	}
 
 	private boolean hasItemsToSell() {
@@ -277,7 +285,6 @@ public class MarketPlace extends JDialog implements ActionListener {
 				} else if (comp instanceof WeaponMarketPlaceDisplay ) {
 					((WeaponMarketPlaceDisplay)comp).finalizeSelections();
 				}
-				comp.transferFocus();
 				getBoughtItems();
 			} else {
 				sellSelectedItems();
@@ -373,6 +380,10 @@ public class MarketPlace extends JDialog implements ActionListener {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public boolean isFreeChecked() {
+		return mFreeCheckbox.isSelected();
+	}
+
 	/** @return The mInstance. */
 	public static MarketPlace getInstance() {
 		return mInstance;
