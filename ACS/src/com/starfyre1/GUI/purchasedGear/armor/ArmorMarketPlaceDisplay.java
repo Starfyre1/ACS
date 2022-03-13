@@ -30,6 +30,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 
 public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelListener, ListSelectionListener {
@@ -101,7 +102,10 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 	}
 
 	public void finalizeSelections() {
-		mTable.getCellEditor().stopCellEditing();
+		TableCellEditor editor = mTable.getCellEditor();
+		if (editor != null) {
+			editor.stopCellEditing();
+		}
 	}
 	
 	
