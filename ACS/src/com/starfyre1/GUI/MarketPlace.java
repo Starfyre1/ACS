@@ -36,10 +36,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
-public class MarketPlace extends JDialog implements ActionListener, DocumentListener {
+public class MarketPlace extends JDialog implements ActionListener {
 
 	/**
 	 * @param args
@@ -84,6 +82,7 @@ public class MarketPlace extends JDialog implements ActionListener, DocumentList
 	private static final String				CANCEL					= "Cancel";				//$NON-NLS-1$
 	private static final String				BUY						= "Buy";				//$NON-NLS-1$
 	private static final String				FREE					= "Free";				//$NON-NLS-1$
+	private static final String				PERCENT_COST			= "Percent Cost:";		//$NON-NLS-1$
 	private static final String				SELL_MERCHANT			= "Sell Merchant";		//$NON-NLS-1$
 	private static final String				BUY_MERCHANT			= "Buy Merchant";		//$NON-NLS-1$
 
@@ -193,10 +192,10 @@ public class MarketPlace extends JDialog implements ActionListener, DocumentList
 		mFreeCheckbox.setBorder(new EmptyBorder(getInsets()));
 		mFreeCheckbox.setFocusable(false);
 
-		mPercentLabel = TKComponentHelpers.createLabel("Percent Cost:", SwingConstants.RIGHT);
+		mPercentLabel = TKComponentHelpers.createLabel(PERCENT_COST, SwingConstants.RIGHT);
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
-		mPercentField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mPercentField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, null, filter);
 		mPercentField.setText("100"); //$NON-NLS-1$
 
 		buttonPanel.add(mSellButton);
@@ -289,21 +288,6 @@ public class MarketPlace extends JDialog implements ActionListener, DocumentList
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public void insertUpdate(DocumentEvent e) {
-		changedUpdate(e);
-	}
-
-	@Override
-	public void removeUpdate(DocumentEvent e) {
-		changedUpdate(e);
-	}
-
-	@Override
-	public void changedUpdate(DocumentEvent e) {
-		Object source = e.getDocument().getProperty(TKComponentHelpers.DOCUMENT_OWNER);
 	}
 
 	@Override
