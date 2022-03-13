@@ -631,7 +631,6 @@ public class CharacterSheet implements ActionListener {
 	private File getCharacterFile() {
 		File file = null;
 		String os = System.getProperty("os.name"); //$NON-NLS-1$
-		System.out.println(os);
 		boolean test = os.contains("Mac"); //$NON-NLS-1$
 		if (test) {
 			FileDialog fd = new FileDialog(mFrame, "Choose Character", FileDialog.LOAD); //$NON-NLS-1$
