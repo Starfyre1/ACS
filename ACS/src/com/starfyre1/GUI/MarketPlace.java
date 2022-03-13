@@ -34,6 +34,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
 public class MarketPlace extends JDialog implements ActionListener {
+
 	/**
 	 * @param args
 	 */
@@ -76,6 +77,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 	private static final String				SELL					= "Sell";				//$NON-NLS-1$
 	private static final String				CANCEL					= "Cancel";				//$NON-NLS-1$
 	private static final String				BUY						= "Buy";				//$NON-NLS-1$
+	private static final String				FREE					= "Free";				//$NON-NLS-1$
 	private static final String				SELL_MERCHANT			= "Sell Merchant";		//$NON-NLS-1$
 	private static final String				BUY_MERCHANT			= "Buy Merchant";		//$NON-NLS-1$
 
@@ -178,8 +180,8 @@ public class MarketPlace extends JDialog implements ActionListener {
 		mBuyButton = TKComponentHelpers.createButton(BUY, this, false);
 		mCancelButton = TKComponentHelpers.createButton(CANCEL, this);
 		mSellButton = TKComponentHelpers.createButton(SELL_MERCHANT, this, false);
-		
-		mFreeCheckbox = TKComponentHelpers.createCheckBox("Free", false, this);
+
+		mFreeCheckbox = TKComponentHelpers.createCheckBox(FREE, false, this);
 		mFreeCheckbox.setBorder(new EmptyBorder(getInsets()));
 		mFreeCheckbox.setFocusable(false);
 
@@ -281,9 +283,9 @@ public class MarketPlace extends JDialog implements ActionListener {
 			if (mBuyButton.getText().equals(BUY)) {
 				Component comp = ((JPanel) mTabbedPane.getSelectedComponent()).getComponent(1);
 				if (comp instanceof ArmorMarketPlaceDisplay) {
-					((ArmorMarketPlaceDisplay)comp).finalizeSelections();
-				} else if (comp instanceof WeaponMarketPlaceDisplay ) {
-					((WeaponMarketPlaceDisplay)comp).finalizeSelections();
+					((ArmorMarketPlaceDisplay) comp).finalizeSelections();
+				} else if (comp instanceof WeaponMarketPlaceDisplay) {
+					((WeaponMarketPlaceDisplay) comp).finalizeSelections();
 				}
 				getBoughtItems();
 			} else {
