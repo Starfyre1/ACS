@@ -73,6 +73,16 @@ public class EquipmentList implements Savable {
 		return cost;
 	}
 
+	public void updateEquipmentRecord(EquipmentRecord record) {
+		for (int i = 0; i < mRecords.size(); i++) {
+			EquipmentRecord owned = mRecords.get(i);
+			if (owned.getName().equals(record.getName())) {
+				mRecords.set(i, record);
+				return;
+			}
+		}
+	}
+
 	/**
 	 * @param soldItems
 	 * @param calculateCost

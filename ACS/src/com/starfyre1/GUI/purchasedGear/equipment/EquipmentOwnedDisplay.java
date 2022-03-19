@@ -7,14 +7,18 @@ import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.dataModel.EquipmentRecord;
 import com.starfyre1.dataset.EquipmentList;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
-public class EquipmentOwnedDisplay extends EquipmentDisplay {
+public class EquipmentOwnedDisplay extends EquipmentDisplay implements TableModelListener {
 
 	/*****************************************************************************
 	 * Constants
@@ -44,12 +48,13 @@ public class EquipmentOwnedDisplay extends EquipmentDisplay {
 			ArrayList<EquipmentRecord> records = list.getRecords();
 			if (!records.isEmpty()) {
 				mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, records.size()));
-				mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
 			}
 		} else {
 			mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 0));
-			mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
 		}
+
+		mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
+		mTable.getModel().addTableModelListener(this);
 
 		JScrollPane scrollPane = new JScrollPane(mTable);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -71,9 +76,33 @@ public class EquipmentOwnedDisplay extends EquipmentDisplay {
 		}
 	}
 
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		EquipmentRecord record = getRecord(e);
+		if (e.getColumn() == 0 || e.getColumn() == 1) {
+			ACS.getInstance().getCharacterSheet().getEquipmentList().updateEquipmentRecord(record);
+			ACS.getInstance().getCharacterSheet().getTotalEncumbrance();
+		}
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	private EquipmentRecord getRecord(TableModelEvent e) {
+		int firstChangedRow = e.getFirstRow();
+		TKTableModel model = (TKTableModel) mTable.getModel();
+		@SuppressWarnings("rawtypes")
+		Vector<Vector> data = model.getDataVector();
+		if (!data.isEmpty() && model.getRowCount() > firstChangedRow) {
+			Vector<Object> row = data.get(firstChangedRow);
+			if (row != null) {
+				EquipmentRecord record = new EquipmentRecord(row);
+				return record;
+			}
+		}
+		return null;
+	}
+
 	/** @return The table. */
 	public TKTable getTable() {
 		return mTable;

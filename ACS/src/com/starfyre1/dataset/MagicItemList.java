@@ -71,6 +71,16 @@ public class MagicItemList implements Savable {
 		return cost;
 	}
 
+	public void updateMagicItemRecord(MagicItemRecord record) {
+		for (int i = 0; i < mRecords.size(); i++) {
+			MagicItemRecord owned = mRecords.get(i);
+			if (owned.getName().equals(record.getName())) {
+				mRecords.set(i, record);
+				return;
+			}
+		}
+	}
+
 	/**
 	 * @param soldItems
 	 * @param calculateCost

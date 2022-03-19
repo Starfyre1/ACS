@@ -857,11 +857,19 @@ public class CharacterSheet implements ActionListener {
 	}
 
 	public void updateRecords() {
+		updateRecords(false);
+	}
+
+	public void updateRecords(boolean generate) {
 		if (mSavingThrowsRecord != null) {
 			mSavingThrowsRecord.updateRecord();
 			mCombatInformationRecord.updateRecord();
 			mSkillsRecord.updateRecord();
-			mPersonalInformationRecord.generateCarry();
+			if (generate) {
+				mPersonalInformationRecord.generate();
+			} else {
+				mPersonalInformationRecord.generateCarry();
+			}
 
 			// DW this is probably loading the display twice on character load.
 			mSavingThrowsDisplay.loadDisplay();
@@ -1021,7 +1029,7 @@ public class CharacterSheet implements ActionListener {
 		return (int) encumbrance / carry * 100;
 	}
 
-	private float getTotalEncumbrance() {
+	public float getTotalEncumbrance() {
 		float encumbrance = 0;
 
 		ArrayList<ArmorRecord> armors = getEquippedArmorRecords();

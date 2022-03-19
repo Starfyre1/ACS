@@ -85,22 +85,22 @@ public class ArmorEquippedDisplay extends ArmorDisplay {
 		return mEquippedArmor;
 	}
 
-	public void equipArmor(ArmorRecord equipment, int index) {
+	public void equipArmor(ArmorRecord armor, int index) {
 		if (mEquippedArmor == null) {
 			mEquippedArmor = new ArrayList<ArmorRecord>();
 		}
 
-		if (!mEquippedArmor.contains(equipment)) {
-			mEquippedArmor.add(equipment);
+		if (!mEquippedArmor.contains(armor)) {
+			mEquippedArmor.add(armor);
 			TKTableModel model = (TKTableModel) mTable.getModel();
 			int rowCount = model.getRowCount();
 			index = rowCount < index ? rowCount : index;
-			model.insertRow(index, equipment.getRecord());
+			model.insertRow(index, armor.getRecord());
 		}
 	}
 
-	public void unEquipArmor(ArmorRecord equipment) {
-		mEquippedArmor.remove(equipment);
+	public void unEquipArmor(ArmorRecord armor) {
+		mEquippedArmor.remove(armor);
 
 		TKTableModel model = (TKTableModel) mTable.getModel();
 		@SuppressWarnings("rawtypes")
@@ -110,7 +110,7 @@ public class ArmorEquippedDisplay extends ArmorDisplay {
 			Vector<Object> row = data.get(i);
 			if (row != null) {
 				ArmorRecord record = new ArmorRecord(row);
-				if (record.equals(equipment)) {
+				if (record.equals(armor)) {
 					model.removeRow(i);
 					break;
 				}

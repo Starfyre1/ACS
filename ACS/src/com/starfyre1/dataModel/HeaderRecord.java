@@ -35,6 +35,7 @@ public class HeaderRecord implements Savable {
 	private String				mClass						= TKStringHelpers.EMPTY_STRING;
 	private int					mExperience					= 0;
 
+	private String				mOldClass					= TKStringHelpers.EMPTY_STRING;
 	private int					mOldExperience				= 0;
 
 	/*****************************************************************************
@@ -54,6 +55,7 @@ public class HeaderRecord implements Savable {
 
 	private void updateOldRecords() {
 		mOldExperience = mExperience;
+		mOldClass = mClass;
 
 	}
 
@@ -88,10 +90,15 @@ public class HeaderRecord implements Savable {
 	/** @param characterClass The value to set for class. */
 	public void setClass(String characterClass) {
 		mClass = characterClass;
+		updateOldRecords();
 	}
 
 	public String getCharacterClassName() {
 		return mClass;
+	}
+
+	public String getOldClassName() {
+		return mOldClass;
 	}
 
 	/**
@@ -110,7 +117,7 @@ public class HeaderRecord implements Savable {
 	/** @param currentExperience The value to set for currentExperience. */
 	public void setCurrentExperience(int currentExperience) {
 		mExperience = currentExperience;
-
+		updateOldRecords();
 	}
 
 	/** @return The oldExperience. */
