@@ -861,7 +861,7 @@ public class CharacterSheet implements ActionListener {
 			mSavingThrowsRecord.updateRecord();
 			mCombatInformationRecord.updateRecord();
 			mSkillsRecord.updateRecord();
-			mPersonalInformationRecord.generate();
+			mPersonalInformationRecord.generateCarry();
 
 			// DW this is probably loading the display twice on character load.
 			mSavingThrowsDisplay.loadDisplay();
