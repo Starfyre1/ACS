@@ -3,7 +3,7 @@
 package com.starfyre1.GUI.purchasedGear.equipment;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.MarketPlace;
+import com.starfyre1.GUI.marketPlace.MarketPlace;
 import com.starfyre1.ToolKit.TKRowFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;

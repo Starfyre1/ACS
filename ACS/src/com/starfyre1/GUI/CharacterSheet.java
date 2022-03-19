@@ -13,6 +13,7 @@ import com.starfyre1.GUI.character.SavingThowsDisplay;
 import com.starfyre1.GUI.character.SkillsDisplay;
 import com.starfyre1.GUI.determination.DeterminationPointsDisplay;
 import com.starfyre1.GUI.journal.JournalDisplay;
+import com.starfyre1.GUI.marketPlace.MarketPlace;
 import com.starfyre1.GUI.purchasedGear.animal.AnimalsOwnedDisplay;
 import com.starfyre1.GUI.purchasedGear.armor.ArmorEquippedDisplay;
 import com.starfyre1.GUI.purchasedGear.armor.ArmorOwnedDisplay;
@@ -660,7 +661,7 @@ public class CharacterSheet implements ActionListener {
 		return file;
 	}
 
-	void loadDisplay() {
+	public void loadDisplay() {
 		// Primary Character Tab
 		mAttributesDisplay.loadDisplay();
 		mHeaderDisplay.loadDisplay();

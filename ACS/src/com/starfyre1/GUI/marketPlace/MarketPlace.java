@@ -1,7 +1,8 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.GUI;
+package com.starfyre1.GUI.marketPlace;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.purchasedGear.animal.AnimalsMarketPlaceDisplay;
 import com.starfyre1.GUI.purchasedGear.armor.ArmorMarketPlaceDisplay;
 import com.starfyre1.GUI.purchasedGear.equipment.EquipmentMarketPlaceDisplay;
@@ -47,7 +48,8 @@ public class MarketPlace extends JDialog implements ActionListener {
 
 			@Override
 			public void run() {
-				new MarketPlace(new JFrame(MARKET_PLACE));
+				JFrame frame = new JFrame(MARKET_PLACE);
+				new MarketPlace(frame);
 				System.exit(0);
 			}
 		});
@@ -59,18 +61,18 @@ public class MarketPlace extends JDialog implements ActionListener {
 	 ****************************************************************************/
 	private static final String				MARKET_PLACE			= "Market Place";		//$NON-NLS-1$
 
-	private static final String				EQUIPMENT_TAB_TITLE		= "Equipment Shop";		//$NON-NLS-1$
-	private static final String				ARMOR_TAB_TITLE			= "Armor Shop";			//$NON-NLS-1$
-	private static final String				WEAPONS_TAB_TITLE		= "Weapons Shop";		//$NON-NLS-1$
-	private static final String				ANIMALS_TAB_TITLE		= "Animals Shop";		//$NON-NLS-1$
-	private static final String				MAGIC_ITEMS_TAB_TITLE	= "Magic Items Shop";	//$NON-NLS-1$
+	static final String						EQUIPMENT_TAB_TITLE		= "Equipment Shop";		//$NON-NLS-1$
+	static final String						ARMOR_TAB_TITLE			= "Armor Shop";			//$NON-NLS-1$
+	static final String						WEAPONS_TAB_TITLE		= "Weapons Shop";		//$NON-NLS-1$
+	static final String						ANIMALS_TAB_TITLE		= "Animals Shop";		//$NON-NLS-1$
+	static final String						MAGIC_ITEMS_TAB_TITLE	= "Magic Items Shop";	//$NON-NLS-1$
 
 	// DW add something useful for the tooltips or remove them
-	private static final String				EQUIPMENT_TAB_TOOLTIP	= "Equipment Shop";		//$NON-NLS-1$
-	private static final String				ARMOR_TAB_TOOLTIP		= "Armor Shop";			//$NON-NLS-1$
-	private static final String				WEAPONS_TAB_TOOLTIP		= "Weapons Shop";		//$NON-NLS-1$
-	private static final String				ANIMALS_TAB_TOOLTIP		= "Animals Shop";		//$NON-NLS-1$
-	private static final String				MAGIC_ITEMS_TAB_TOOLTIP	= "Magic Items Shop";	//$NON-NLS-1$
+	static final String						EQUIPMENT_TAB_TOOLTIP	= "Equipment Shop";		//$NON-NLS-1$
+	static final String						ARMOR_TAB_TOOLTIP		= "Armor Shop";			//$NON-NLS-1$
+	static final String						WEAPONS_TAB_TOOLTIP		= "Weapons Shop";		//$NON-NLS-1$
+	static final String						ANIMALS_TAB_TOOLTIP		= "Animals Shop";		//$NON-NLS-1$
+	static final String						MAGIC_ITEMS_TAB_TOOLTIP	= "Magic Items Shop";	//$NON-NLS-1$
 
 	private static final String				AVAILABLE				= "Available: ";		//$NON-NLS-1$
 	private static final String				COST					= "Cost: ";				//$NON-NLS-1$
@@ -79,6 +81,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 	private static final String				mCopperTitle			= " Copper: ";			//$NON-NLS-1$
 
 	private static final String				SELL					= "Sell";				//$NON-NLS-1$
+	private static final String				CREATE					= "Create";				//$NON-NLS-1$
 	private static final String				CANCEL					= "Cancel";				//$NON-NLS-1$
 	private static final String				BUY						= "Buy";				//$NON-NLS-1$
 	private static final String				FREE					= "Free";				//$NON-NLS-1$
@@ -109,12 +112,13 @@ public class MarketPlace extends JDialog implements ActionListener {
 
 	private boolean							mIsCharacterBuying		= true;
 
-	JButton									mBuyButton;
-	JButton									mCancelButton;
 	JButton									mSellButton;
-	JCheckBox								mFreeCheckbox;
+	JButton									mCreateButton;
 	JLabel									mPercentLabel;
 	JTextField								mPercentField;
+	JCheckBox								mFreeCheckbox;
+	JButton									mBuyButton;
+	JButton									mCancelButton;
 
 	JLabel									mCost;
 	JLabel									mAvailable;
@@ -159,10 +163,10 @@ public class MarketPlace extends JDialog implements ActionListener {
 		mTabbedPane.addTab(MAGIC_ITEMS_TAB_TITLE, CharacterSheet.MERCHANT_ICON, magicItemsTab, MAGIC_ITEMS_TAB_TOOLTIP);
 
 		mTabbedPane.setMnemonicAt(0, KeyEvent.VK_E);
-		mTabbedPane.setMnemonicAt(1, KeyEvent.VK_R);
+		mTabbedPane.setMnemonicAt(1, KeyEvent.VK_A);
 		mTabbedPane.setMnemonicAt(2, KeyEvent.VK_W);
-		mTabbedPane.setMnemonicAt(3, KeyEvent.VK_A);
-		mTabbedPane.setMnemonicAt(3, KeyEvent.VK_M);
+		mTabbedPane.setMnemonicAt(3, KeyEvent.VK_N);
+		mTabbedPane.setMnemonicAt(4, KeyEvent.VK_M);
 
 		JPanel messagePanel = new JPanel(new FlowLayout());
 		JLabel money;
@@ -184,21 +188,24 @@ public class MarketPlace extends JDialog implements ActionListener {
 		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 
-		mBuyButton = TKComponentHelpers.createButton(BUY, this, false);
-		mCancelButton = TKComponentHelpers.createButton(CANCEL, this);
 		mSellButton = TKComponentHelpers.createButton(SELL_MERCHANT, this, false);
+		mCreateButton = TKComponentHelpers.createButton(CREATE, this, false);
+
+		mPercentLabel = TKComponentHelpers.createLabel(PERCENT_COST, SwingConstants.RIGHT);
+		TKIntegerFilter intFilter = TKIntegerFilter.getFilterInstance();
+		mPercentField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, null, intFilter);
+		mPercentField.setText("100"); //$NON-NLS-1$
 
 		mFreeCheckbox = TKComponentHelpers.createCheckBox(FREE, false, this);
 		mFreeCheckbox.setBorder(new EmptyBorder(getInsets()));
 		mFreeCheckbox.setFocusable(false);
 
-		mPercentLabel = TKComponentHelpers.createLabel(PERCENT_COST, SwingConstants.RIGHT);
-
-		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
-		mPercentField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, null, filter);
-		mPercentField.setText("100"); //$NON-NLS-1$
+		mBuyButton = TKComponentHelpers.createButton(BUY, this, false);
+		mCancelButton = TKComponentHelpers.createButton(CANCEL, this);
 
 		buttonPanel.add(mSellButton);
+		buttonPanel.add(Box.createHorizontalStrut(5));
+		buttonPanel.add(mCreateButton);
 		buttonPanel.add(Box.createHorizontalGlue());
 		buttonPanel.add(mPercentLabel);
 		buttonPanel.add(mPercentField);
@@ -275,7 +282,9 @@ public class MarketPlace extends JDialog implements ActionListener {
 	}
 
 	public void updateButtons(boolean canAfford) {
-		mSellButton.setEnabled(hasItemsToSell());
+		boolean sellable = hasItemsToSell();
+		mSellButton.setEnabled(sellable);
+		mCreateButton.setEnabled(!sellable);
 		mBuyButton.setEnabled(canAfford || mFreeCheckbox.isEnabled());
 	}
 
@@ -295,6 +304,8 @@ public class MarketPlace extends JDialog implements ActionListener {
 		Object source = e.getSource();
 		if (source.equals(mCancelButton)) {
 			dispose();
+		} else if (source.equals(mCreateButton)) {
+			createMarketPlaceItem();
 		} else if (source.equals(mBuyButton)) {
 			if (mBuyButton.getText().equals(BUY)) {
 				Component comp = ((JPanel) mTabbedPane.getSelectedComponent()).getComponent(1);
@@ -325,9 +336,14 @@ public class MarketPlace extends JDialog implements ActionListener {
 		}
 	}
 
-	/**
-	 *
+	/*
+	 * @param which 0=Animal, 1=Armor, 2=Equipment, 3=Magic Item, 4=Weapon
 	 */
+	private void createMarketPlaceItem() {
+		CreateDialog dialog = new CreateDialog(mFrame);
+
+	}
+
 	private void sellSelectedItems() {
 		Component comp = ((JPanel) mTabbedPane.getSelectedComponent()).getComponent(1);
 		if (comp instanceof EquipmentMarketPlaceDisplay) {

@@ -3,7 +3,7 @@
 package com.starfyre1.GUI.purchasedGear.armor;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.MarketPlace;
+import com.starfyre1.GUI.marketPlace.MarketPlace;
 import com.starfyre1.GUI.metal.MetalCellEditor;
 import com.starfyre1.GUI.metal.MetalCellRenderer;
 import com.starfyre1.GUI.metal.MetalTableModel;
