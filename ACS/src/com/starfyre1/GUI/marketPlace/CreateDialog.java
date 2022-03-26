@@ -4,12 +4,20 @@ package com.starfyre1.GUI.marketPlace;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.dataModel.AnimalRecord;
+import com.starfyre1.dataModel.ArmorRecord;
+import com.starfyre1.dataModel.EquipmentRecord;
+import com.starfyre1.dataModel.MagicItemRecord;
+import com.starfyre1.dataModel.WeaponRecord;
+import com.starfyre1.dataset.ArmorList;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -162,13 +170,44 @@ public class CreateDialog extends JDialog implements ActionListener {
 		return page;
 	}
 
-	private void updateButtons(boolean enable) {
+	void updateButtons(boolean enable) {
 		// DW validate that an item is fully described/filled out
 		mCreateButton.setEnabled(enable);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		if (obj instanceof JButton) {
+			if (mCreateButton.equals(obj)) {
+				// DW add record to database
+				Component comp = ((JPanel) mTabbedPane.getSelectedComponent()).getComponent(0);
+				if (comp instanceof EquipmentEntryDisplay) {
+					((EquipmentEntryDisplay) comp).finalizeSelections();
+					ArrayList<EquipmentRecord> recordsToAdd = ((EquipmentEntryDisplay) comp).getRecordsToAdd();
+				} else if (comp instanceof ArmorEntryDisplay) {
+					((ArmorEntryDisplay) comp).finalizeSelections();
+					ArrayList<ArmorRecord> recordsToAdd = ((ArmorEntryDisplay) comp).getRecordsToAdd();
+					ArmorList.addArmorToFile(recordsToAdd);
+				} else if (comp instanceof AnimalEntryDisplay) {
+					((AnimalEntryDisplay) comp).finalizeSelections();
+					ArrayList<AnimalRecord> recordsToAdd = ((AnimalEntryDisplay) comp).getRecordsToAdd();
+				} else if (comp instanceof MagicItemEntryDisplay) {
+					((MagicItemEntryDisplay) comp).finalizeSelections();
+					ArrayList<MagicItemRecord> recordsToAdd = ((MagicItemEntryDisplay) comp).getRecordsToAdd();
+				} else if (comp instanceof WeaponEntryDisplay) {
+					((WeaponEntryDisplay) comp).finalizeSelections();
+					ArrayList<WeaponRecord> recordsToAdd = ((WeaponEntryDisplay) comp).getRecordsToAdd();
+				}
+
+				saveCreatedItem();
+			} else if (mCancelButton.equals(obj)) {
+				dispose();
+			}
+		}
+	}
+
+	private void saveCreatedItem() {
 	}
 
 	/*****************************************************************************

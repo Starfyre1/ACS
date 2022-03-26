@@ -45,7 +45,7 @@ public class ArmorEquippedDisplay extends ArmorDisplay {
 		// This is loaded from Equipment Sheet
 		mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 0));
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.CHARACTER_TAB_TABLE_SIZE);
-		// remove in reverse order... as the column numbers will change
+		// remove in reverse order... as the column numbers will change (or you could probably get the columns from the model)
 		mTable.removeColumn(mTable.getColumnModel().getColumn(13));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(10));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(1));

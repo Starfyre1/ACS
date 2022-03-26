@@ -5,6 +5,7 @@ package com.starfyre1.dataModel;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTableRecord;
 import com.starfyre1.dataset.MetalList;
+import com.starfyre1.startup.SystemInfo;
 
 import java.util.Arrays;
 import java.util.Vector;
@@ -35,6 +36,24 @@ public class ArmorRecord extends TKTableRecord {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
+	// creates a new empty armor record
+	public ArmorRecord() {
+		mCount = 0;
+		mEquipped = false;
+		mName = new String();
+		mMetal = 1;
+		mProtectionType = new int[0];
+		mProtectionAmount = 0;
+		mEncumbrance = 0;
+		mAbsorption = 0;
+		mBonus = 0;
+		mMissileAbsorption = 0;
+		mStrengthRequirement = 0;
+		mParry = 0;
+		mBreak = 0;
+		mCost = 0;
+	}
+
 	public ArmorRecord(int count, boolean equipped, String name, int metal, int[] protectionType, int protectionAmount, float encumbrance, int absorption, int bonus, int missileAbsorption, int strengthRequirement, int parry, int breakage, float cost) {
 		mCount = count;
 		mEquipped = equipped;
@@ -58,15 +77,15 @@ public class ArmorRecord extends TKTableRecord {
 		mName = (String) obj.get(2);
 		mMetal = MetalList.getMetalID(obj.get(3) instanceof String ? (String) obj.get(3) : ((MetalRecord) obj.get(3)).getName());
 		mProtectionType = TKStringHelpers.getIntArray((String) obj.get(4), new int[0]);
-		mProtectionAmount = ((Integer) obj.get(5)).intValue();
-		mEncumbrance = ((Float) obj.get(6)).floatValue();
+		mProtectionAmount = obj.get(5) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(5), 0) : ((Integer) obj.get(5)).intValue();
+		mEncumbrance = obj.get(6) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(6), 0.0f) : ((Float) obj.get(6)).floatValue();
 		mAbsorption = obj.get(7) instanceof String ? 0 : ((Integer) obj.get(7)).intValue();
 		mBonus = obj.get(8) instanceof String ? 0 : ((Integer) obj.get(8)).intValue();
-		mMissileAbsorption = ((Integer) obj.get(9)).intValue();
-		mStrengthRequirement = ((Integer) obj.get(10)).intValue();
+		mMissileAbsorption = obj.get(9) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(9), 0) : ((Integer) obj.get(9)).intValue();
+		mStrengthRequirement = obj.get(10) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(10), 0) : ((Integer) obj.get(10)).intValue();
 		mParry = obj.get(11) instanceof String ? 0 : ((Integer) obj.get(11)).intValue();
 		mBreak = obj.get(12) instanceof String ? 0 : ((Integer) obj.get(12)).intValue();
-		mCost = ((Float) obj.get(13)).floatValue();
+		mCost = obj.get(13) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(13), 0.0f) : ((Float) obj.get(13)).floatValue();
 	}
 
 	/*****************************************************************************
@@ -139,6 +158,7 @@ public class ArmorRecord extends TKTableRecord {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
 	@Override
 	public Object[] getRecord() {
 		return new Object[] { mCount > 0 ? Integer.valueOf(mCount) : " ", Boolean.valueOf(mEquipped), mName, //$NON-NLS-1$
@@ -284,6 +304,17 @@ public class ArmorRecord extends TKTableRecord {
 	/** @return The break. */
 	public int getBreak() {
 		return mBreak;
+	}
+
+	/**
+	 * @return
+	 */
+	public String toRecordFile() {
+		return mCount + ", " + mEquipped + ", \"" + mName + "\", " + mMetal + ", " + mProtectionType + ", " + // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+						mProtectionAmount + ", " + mEncumbrance + ", " + mAbsorption + ", " + mBonus + ", " + // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						mMissileAbsorption + ", " + mStrengthRequirement + ", " + mParry + ", " + //  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						mBreak + ", " + mCost + SystemInfo.getLineSeparator(); //$NON-NLS-1$
+
 	}
 
 	/*****************************************************************************

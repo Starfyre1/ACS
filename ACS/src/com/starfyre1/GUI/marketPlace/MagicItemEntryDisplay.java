@@ -11,11 +11,13 @@ import com.starfyre1.dataset.MagicItemList;
 
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.TableCellEditor;
 
 public class MagicItemEntryDisplay extends MagicItemsDisplay implements TableModelListener {
 
@@ -49,6 +51,9 @@ public class MagicItemEntryDisplay extends MagicItemsDisplay implements TableMod
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
 		mTable.getModel().addTableModelListener(this);
 
+		mTable.removeColumn(mTable.getColumnModel().getColumn(1));
+		mTable.removeColumn(mTable.getColumnModel().getColumn(0));
+
 		JScrollPane scrollPane = new JScrollPane(mTable);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -69,6 +74,13 @@ public class MagicItemEntryDisplay extends MagicItemsDisplay implements TableMod
 		}
 	}
 
+	public void finalizeSelections() {
+		TableCellEditor editor = mTable.getCellEditor();
+		if (editor != null) {
+			editor.stopCellEditing();
+		}
+	}
+
 	@Override
 	public void tableChanged(TableModelEvent e) {
 	}
@@ -81,6 +93,22 @@ public class MagicItemEntryDisplay extends MagicItemsDisplay implements TableMod
 		return mTable;
 	}
 
+	ArrayList<MagicItemRecord> getRecordsToAdd() {
+		TKTableModel model = (TKTableModel) mTable.getModel();
+		@SuppressWarnings("rawtypes")
+		Vector<Vector> data = model.getDataVector();
+		int rows = model.getRowCount() - 1;
+		ArrayList<MagicItemRecord> records = new ArrayList<>(rows);
+		for (int i = 0; i < rows; i++) {
+			Vector<Object> row = data.get(i);
+			if (row != null) {
+				MagicItemRecord record = new MagicItemRecord(row);
+				records.add(record);
+			}
+		}
+
+		return records;
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

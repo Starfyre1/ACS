@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.TableCellEditor;
 
 public class WeaponEntryDisplay extends WeaponDisplay implements TableModelListener {
 
@@ -51,6 +52,9 @@ public class WeaponEntryDisplay extends WeaponDisplay implements TableModelListe
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
 		mTable.getModel().addTableModelListener(this);
 
+		mTable.removeColumn(mTable.getColumnModel().getColumn(1));
+		mTable.removeColumn(mTable.getColumnModel().getColumn(0));
+
 		JScrollPane scrollPane = new JScrollPane(mTable);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -72,6 +76,13 @@ public class WeaponEntryDisplay extends WeaponDisplay implements TableModelListe
 					model.addRow(record.getRecord());
 				}
 			}
+		}
+	}
+
+	public void finalizeSelections() {
+		TableCellEditor editor = mTable.getCellEditor();
+		if (editor != null) {
+			editor.stopCellEditing();
 		}
 	}
 
@@ -112,6 +123,22 @@ public class WeaponEntryDisplay extends WeaponDisplay implements TableModelListe
 		return mTable;
 	}
 
+	ArrayList<WeaponRecord> getRecordsToAdd() {
+		TKTableModel model = (TKTableModel) mTable.getModel();
+		@SuppressWarnings("rawtypes")
+		Vector<Vector> data = model.getDataVector();
+		int rows = model.getRowCount() - 1;
+		ArrayList<WeaponRecord> records = new ArrayList<>(rows);
+		for (int i = 0; i < rows; i++) {
+			Vector<Object> row = data.get(i);
+			if (row != null) {
+				WeaponRecord record = new WeaponRecord(row);
+				records.add(record);
+			}
+		}
+
+		return records;
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

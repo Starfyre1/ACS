@@ -6,11 +6,14 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.ArmorRecord;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
+import com.starfyre1.startup.SystemInfo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -125,6 +128,19 @@ public class ArmorList implements Savable {
 	/** @return The armorList. */
 	public ArrayList<ArmorRecord> getRecords() {
 		return mRecords;
+	}
+
+	public static void addArmorToFile(ArrayList<ArmorRecord> recordsToAdd) {
+		try (FileWriter fw = new FileWriter(SystemInfo.getArmorUserPath(), true);
+						BufferedWriter bw = new BufferedWriter(fw);
+						PrintWriter out = new PrintWriter(bw)) {
+			for (ArmorRecord record : recordsToAdd) {
+				out.println(record.toRecordFile());
+			}
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+
 	}
 
 	public static Object[] getArmorMasterList() {

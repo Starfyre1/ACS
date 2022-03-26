@@ -189,7 +189,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 
 		mSellButton = TKComponentHelpers.createButton(SELL_MERCHANT, this, false);
-		mCreateButton = TKComponentHelpers.createButton(CREATE, this, false);
+		mCreateButton = TKComponentHelpers.createButton(CREATE, this, true);
 
 		mPercentLabel = TKComponentHelpers.createLabel(PERCENT_COST, SwingConstants.RIGHT);
 		TKIntegerFilter intFilter = TKIntegerFilter.getFilterInstance();
@@ -284,7 +284,6 @@ public class MarketPlace extends JDialog implements ActionListener {
 	public void updateButtons(boolean canAfford) {
 		boolean sellable = hasItemsToSell();
 		mSellButton.setEnabled(sellable);
-		mCreateButton.setEnabled(!sellable);
 		mBuyButton.setEnabled(canAfford || mFreeCheckbox.isEnabled());
 	}
 

@@ -17,6 +17,31 @@ public class SystemInfo {
 	private static final String	GAME_PREFERENCE_PATH_SUFFIX		= PATH_SEPARATOR + ".ACS" + PATH_SEPARATOR + ".preferences";
 	private static final String	GAME_DATA_PATH_SUFFIX			= PATH_SEPARATOR + ".ACS" + PATH_SEPARATOR + ".data";
 	private static final String	GAME_LAUNCH_OPTIONS_PATH_SUFFIX	= PATH_SEPARATOR + ".ACS" + PATH_SEPARATOR + ".launch_options";
+	private static final String	ANIMAL_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Animal_User.txt";
+	private static final String	ARMOR_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Armor_User.txt";
+	private static final String	EQUIPMENT_DATA_PATH_SUFFIX		= PATH_SEPARATOR + "MagicItem_User.txt";
+	private static final String	MAGIC_ITEM_DATA_PATH_SUFFIX		= PATH_SEPARATOR + "Weapon_User.txt";
+	private static final String	WEAPON_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Equipment_User.txt";
+
+	public static String getAnimalUserPath() {
+		return getDataPath() + ANIMAL_DATA_PATH_SUFFIX;
+	}
+
+	public static String getArmorUserPath() {
+		return getDataPath() + ARMOR_DATA_PATH_SUFFIX;
+	}
+
+	public static String getEquipmentUserPath() {
+		return getDataPath() + EQUIPMENT_DATA_PATH_SUFFIX;
+	}
+
+	public static String getMagicItemUserPath() {
+		return getDataPath() + MAGIC_ITEM_DATA_PATH_SUFFIX;
+	}
+
+	public static String getWeaponUserPath() {
+		return getDataPath() + WEAPON_DATA_PATH_SUFFIX;
+	}
 
 	/**
 	 * Creates a new {@link SystemInfo}.

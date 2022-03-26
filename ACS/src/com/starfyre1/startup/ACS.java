@@ -13,6 +13,11 @@ import com.starfyre1.dataset.spells.SpellDescriptionList;
 
 import java.awt.Component;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
@@ -59,6 +64,7 @@ public class ACS {
 	 */
 	public static void main(String[] args) {
 		createTables();
+		createResouces();
 		new ACS();
 	}
 
@@ -106,6 +112,31 @@ public class ACS {
 		mMages.generateList();
 		mPriests = new PriestList();
 		mPriests.generateList();
+	}
+
+	private static void createResouces() {
+		Path path = Paths.get(SystemInfo.getDataPath());
+		Path animalFile = Paths.get(SystemInfo.getAnimalUserPath());
+		Path armorFile = Paths.get(SystemInfo.getArmorUserPath());
+		Path equipmentFile = Paths.get(SystemInfo.getEquipmentUserPath());
+		Path magicItemFile = Paths.get(SystemInfo.getMagicItemUserPath());
+		Path weaponFile = Paths.get(SystemInfo.getWeaponUserPath());
+		if (Files.notExists(path)) {
+			try {
+				Files.createDirectories(path);
+				Files.createFile(armorFile);
+				Files.createFile(animalFile);
+				Files.createFile(magicItemFile);
+				Files.createFile(weaponFile);
+				Files.createFile(equipmentFile);
+			} catch (IOException exception) {
+				exception.printStackTrace();
+			} catch (InvalidPathException ipe) {
+				System.err.println(ipe.getInput() + "\n" + ipe.getStackTrace()); //$NON-NLS-1$
+
+			}
+		}
+
 	}
 
 	/*****************************************************************************
