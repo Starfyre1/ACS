@@ -1326,15 +1326,8 @@ public class CharacterSheet implements ActionListener {
 					trans.delete();
 				}
 
-				boolean success = file.renameTo(trans);
-				if (!success) {
-					System.out.println("fail 1");
-				}
-				success = tempFile.renameTo(new File(originalFile));
-				if (!success) {
-					System.out.println("fail 2");
-				}
-
+				file.renameTo(trans);
+				tempFile.renameTo(new File(originalFile));
 			}
 		} finally {
 			try {
