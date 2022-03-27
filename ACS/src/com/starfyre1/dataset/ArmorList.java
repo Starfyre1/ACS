@@ -40,7 +40,7 @@ public class ArmorList implements Savable {
 	private static final String				PARRY_KEY				= "PARRY_KEY";					//$NON-NLS-1$
 	private static final String				BREAK_KEY				= "BREAK_KEY";					//$NON-NLS-1$
 	private static final String				COST_KEY				= "COST_KEY";					//$NON-NLS-1$
-	private static final int				ARRAY_SIZE				= 54;
+	private static final int				ARRAY_SIZE				= 62;
 
 	/*****************************************************************************
 	 * Member Variables
