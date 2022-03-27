@@ -75,14 +75,17 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 	private Integer getDamageBonus(WeaponRecord record) {
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		CombatInformationRecord cir = owner.getCombatInformationRecord();
-		int damage = cir.getDamageBonus();
+		int damage1 = cir.getDamageBonus();
+		int damage2 = cir.getDamageBonus();
 
 		// DW Fix - need to provide a way to select 1 or 2 handed
 		//		int damage1 = record.getDamageOneHanded();
 		//		int damage2 = record.getDamageTwoHanded();
-		damage += record.getDamageOneHanded();
+		damage1 += record.getDamageOneHanded();
+		damage2 += record.getDamageTwoHanded();
+		
 
-		return Integer.valueOf(damage);
+		return Integer.valueOf(damage1 > damage2 ? damage1 : damage2);
 	}
 
 	private Integer getHitBonus(WeaponRecord record) {
