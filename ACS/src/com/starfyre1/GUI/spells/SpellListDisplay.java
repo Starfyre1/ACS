@@ -49,8 +49,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	 ****************************************************************************/
 	private static final String	SPELL_LIST_TITLE						= "Spell List";								//$NON-NLS-1$
 
-	public static final String	FILE_SECTTION_START_KEY					= "SPELL_LIST_SECTTION_START";				//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY					= "SPELL_LIST_SECTTION_END";				//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY					= "SPELL_LIST_SECTION_START";				//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY					= "SPELL_LIST_SECTION_END";				//$NON-NLS-1$
 	public static final String	SELECTED_MAGICAL_AREA_KEY				= "SELECTED_MAGICAL_AREA_KEY";				//$NON-NLS-1$
 	public static final String	SELECTED_MAGICAL_AREA_EXPERIENCE_KEY	= "SELECTED_MAGICAL_AREA_EXPERIENCE_KEY";	//$NON-NLS-1$
 
@@ -314,9 +314,9 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
-					} else if (key.equals(SpellList.FILE_SECTTION_START_KEY)) {
+					} else if (key.equals(SpellList.FILE_SECTION_START_KEY)) {
 						//						swapPanels(mAreaPopup.getSelectedItem());
 						tokenizer = mCurrentList.readValues(br);
 						updateSpellList(mCurrentList.getName());
@@ -346,7 +346,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 
 		Component comp[] = mCards.getComponents();
 		for (Component element : comp) {
@@ -357,7 +357,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 			}
 		}
 
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override

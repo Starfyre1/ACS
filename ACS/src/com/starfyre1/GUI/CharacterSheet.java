@@ -1285,6 +1285,51 @@ public class CharacterSheet implements ActionListener {
 		return mIsCharacterLoaded;
 	}
 
+	private File verifyDataFileVersion(File file) throws IOException, FileNotFoundException {
+		BufferedReader br = null;
+		String in;
+
+		try {
+			br = new BufferedReader(new FileReader(file));
+			in = br.readLine();
+			if (in.equals(ACS.getDataFileVersion())) {
+				// file version up to date
+				return file;
+			}
+			if (in.startsWith(ACS.DATA_FILE_VERSION_TITLE)) {
+				// has file version -- not up to date
+				// not used yet.
+			} else {
+				// no file version -- fix SECTTION -> SECTION
+				String originalFile = file.getAbsolutePath();
+				File tempFile = new File(file.getParent() + SystemInfo.PATH_SEPARATOR + "temp.temp"); //$NON-NLS-1$
+				String transitionFile = originalFile + "-old"; //$NON-NLS-1$
+
+				BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
+				bw.write(ACS.getDataFileVersion() + SystemInfo.getLineSeparator());
+
+				bw.write(in.replace("SECTTION", "SECTION") + SystemInfo.getLineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+				while ((in = br.readLine()) != null) {
+					bw.write(in.replace("SECTTION", "SECTION") + SystemInfo.getLineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+				}
+				bw.close();
+				br.close();
+				file.renameTo(new File(transitionFile));
+				tempFile.renameTo(new File(originalFile));
+
+			}
+		} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+			} catch (IOException exception) {
+				// nothing we can do...
+			}
+		}
+		return file;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
@@ -1293,72 +1338,76 @@ public class CharacterSheet implements ActionListener {
 		String in;
 
 		try {
+			file = verifyDataFileVersion(file);
 			br = new BufferedReader(new FileReader(file));
 			while ((in = br.readLine()) != null) {
+				if (in.equals(ACS.getDataFileVersion())) {
+					in = br.readLine();
+				}
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					switch (in) {
-						case AttributesRecord.FILE_SECTTION_START_KEY: {
+						case AttributesRecord.FILE_SECTION_START_KEY: {
 							tokenizer = mAttributesRecord.readValues(br);
 							break;
 						}
-						case HeaderRecord.FILE_SECTTION_START_KEY: {
+						case HeaderRecord.FILE_SECTION_START_KEY: {
 							tokenizer = mHeaderRecord.readValues(br);
 							break;
 						}
-						case MoneyRecord.FILE_SECTTION_START_KEY: {
+						case MoneyRecord.FILE_SECTION_START_KEY: {
 							tokenizer = mMoneyRecord.readValues(br);
 							break;
 						}
-						case PersonalInformationRecord.FILE_SECTTION_START_KEY: {
+						case PersonalInformationRecord.FILE_SECTION_START_KEY: {
 							tokenizer = mPersonalInformationRecord.readValues(br);
 							break;
 						}
-						case SpellListDisplay.FILE_SECTTION_START_KEY: {
+						case SpellListDisplay.FILE_SECTION_START_KEY: {
 							tokenizer = mSpellTab.readValues(br);
 							break;
 						}
-						case CombatInformationRecord.FILE_SECTTION_START_KEY: {
+						case CombatInformationRecord.FILE_SECTION_START_KEY: {
 							tokenizer = mCombatInformationRecord.readValues(br);
 							break;
 						}
-						case DefenseInformationDisplay.FILE_SECTTION_START_KEY: {
+						case DefenseInformationDisplay.FILE_SECTION_START_KEY: {
 							tokenizer = mDefenseInformationDisplay.readValues(br);
 							break;
 						}
-						case SkillsRecord.FILE_SECTTION_START_KEY: {
+						case SkillsRecord.FILE_SECTION_START_KEY: {
 							tokenizer = mSkillsRecord.readValues(br);
 							break;
 						}
-						case ArmorList.FILE_SECTTION_START_KEY: {
+						case ArmorList.FILE_SECTION_START_KEY: {
 							tokenizer = mArmorList.readValues(br);
 							break;
 						}
-						case WeaponList.FILE_SECTTION_START_KEY: {
+						case WeaponList.FILE_SECTION_START_KEY: {
 							tokenizer = mWeaponList.readValues(br);
 							break;
 						}
-						case EquipmentList.FILE_SECTTION_START_KEY: {
+						case EquipmentList.FILE_SECTION_START_KEY: {
 							tokenizer = mEquipmentList.readValues(br);
 							break;
 						}
-						case MagicItemList.FILE_SECTTION_START_KEY: {
+						case MagicItemList.FILE_SECTION_START_KEY: {
 							tokenizer = mMagicItemList.readValues(br);
 							break;
 						}
-						case AnimalList.FILE_SECTTION_START_KEY: {
+						case AnimalList.FILE_SECTION_START_KEY: {
 							tokenizer = mAnimalList.readValues(br);
 							break;
 						}
-						case DeterminationList.FILE_SECTTION_START_KEY: {
+						case DeterminationList.FILE_SECTION_START_KEY: {
 							tokenizer = mDeterminationList.readValues(br);
 							break;
 						}
-						case JournalDisplay.FILE_SECTTION_START_KEY: {
+						case JournalDisplay.FILE_SECTION_START_KEY: {
 							tokenizer = mJournalTab.readValues(br);
 							break;
 						}
-						case HistoryManager.FILE_SECTTION_START_KEY: {
+						case HistoryManager.FILE_SECTION_START_KEY: {
 							HistoryManager historyManager = HistoryManager.getInstance();
 							tokenizer = historyManager.readValues(br);
 							mHeaderDisplay.setCurrentExperienceToolTip(historyManager.getTooltip(HistoryManager.EXPERIENCE_KEY));
@@ -1406,6 +1455,7 @@ public class CharacterSheet implements ActionListener {
 		BufferedWriter br = null;
 		try {
 			br = new BufferedWriter(new FileWriter(file));
+			br.write(ACS.getDataFileVersion() + SystemInfo.getLineSeparator());
 			mHeaderRecord.saveValues(br);
 			mAttributesRecord.saveValues(br);
 			mMoneyRecord.saveValues(br);

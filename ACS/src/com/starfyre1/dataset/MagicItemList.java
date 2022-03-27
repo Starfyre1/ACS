@@ -20,8 +20,8 @@ public class MagicItemList implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String			FILE_SECTTION_START_KEY	= "MAGIC_ITEMS_SECTTION_START";	//$NON-NLS-1$
-	public static final String			FILE_SECTTION_END_KEY	= "MAGIC_ITEMS_SECTTION_END";	//$NON-NLS-1$
+	public static final String			FILE_SECTION_START_KEY	= "MAGIC_ITEMS_SECTION_START";	//$NON-NLS-1$
+	public static final String			FILE_SECTION_END_KEY	= "MAGIC_ITEMS_SECTION_END";	//$NON-NLS-1$
 
 	private static final String			COUNT_KEY				= "COUNT_KEY";					//$NON-NLS-1$
 	private static final String			EQUIPPED_KEY			= "EQUIPPED_KEY";				//$NON-NLS-1$
@@ -182,7 +182,7 @@ public class MagicItemList implements Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in, ", ", false); //$NON-NLS-1$
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						String value = ""; //$NON-NLS-1$
@@ -210,7 +210,7 @@ public class MagicItemList implements Savable {
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		for (MagicItemRecord record : mRecords) {
 			br.write(COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
 			br.write(EQUIPPED_KEY + TKStringHelpers.SPACE + record.isEquipped() + System.lineSeparator());
@@ -218,7 +218,7 @@ public class MagicItemList implements Savable {
 			br.write(CHARGES_KEY + TKStringHelpers.SPACE + record.getCharges() + System.lineSeparator());
 			br.write(COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
 		}
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override

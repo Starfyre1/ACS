@@ -41,8 +41,8 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String		FILE_SECTTION_START_KEY	= "SPELL_LIST_START";												//$NON-NLS-1$
-	public static final String		FILE_SECTTION_END_KEY	= "SPELL_LIST_END";													//$NON-NLS-1$
+	public static final String		FILE_SECTION_START_KEY	= "SPELL_LIST_START";												//$NON-NLS-1$
+	public static final String		FILE_SECTION_END_KEY	= "SPELL_LIST_END";													//$NON-NLS-1$
 	public static final String		SPELL_KEY				= "SPELL_KEY";														//$NON-NLS-1$
 	public static final String		LEVEL_KEY				= "LEVEL_KEY";														//$NON-NLS-1$
 
@@ -215,7 +215,7 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						// key has no value
@@ -242,14 +242,14 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		for (SpellRecord record : mKnownSpells) {
 			if (record.getLevel() != -1) {
 				br.write(LEVEL_KEY + TKStringHelpers.SPACE + record.getLevel() + System.lineSeparator());
 				br.write(SPELL_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
 			}
 		}
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override

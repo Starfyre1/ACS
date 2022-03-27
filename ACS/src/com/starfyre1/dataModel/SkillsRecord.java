@@ -20,8 +20,8 @@ public class SkillsRecord implements LevelListener, Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY		= "SKILLS_SECTTION_START";							//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY		= "SKILLS_SECTTION_END";							//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY		= "SKILLS_SECTION_START";							//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY		= "SKILLS_SECTION_END";							//$NON-NLS-1$
 
 	public static final String	CONCEAL_LEVEL_BONUS_KEY		= "CONCEAL_LEVEL_BONUS_KEY";						//$NON-NLS-1$
 	public static final String	STEALTH_LEVEL_BONUS_KEY		= "STEALTH_LEVEL_BONUS_KEY";						//$NON-NLS-1$
@@ -1167,7 +1167,7 @@ public class SkillsRecord implements LevelListener, Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						generateUnallocatedSkills();
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
@@ -1194,7 +1194,7 @@ public class SkillsRecord implements LevelListener, Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		br.write(CONCEAL_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mConcealLevelBonus + System.lineSeparator());
 		br.write(STEALTH_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mStealthLevelBonus + System.lineSeparator());
 		br.write(HEAR_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mHearLevelBonus + System.lineSeparator());
@@ -1203,7 +1203,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		br.write(CLIMB_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mClimbLevelBonus + System.lineSeparator());
 		br.write(FIND_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mFindTrapLevelBonus + System.lineSeparator());
 		br.write(REMOVE_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mRemoveTrapLevelBonus + System.lineSeparator());
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override

@@ -40,8 +40,8 @@ public class AnimalList implements Savable {
 
 	*/
 
-	public static final String				FILE_SECTTION_START_KEY	= "ANIMAL_SECTTION_START";	//$NON-NLS-1$
-	public static final String				FILE_SECTTION_END_KEY	= "ANIMAL_SECTTION_END";	//$NON-NLS-1$
+	public static final String				FILE_SECTION_START_KEY	= "ANIMAL_SECTION_START";	//$NON-NLS-1$
+	public static final String				FILE_SECTION_END_KEY	= "ANIMAL_SECTION_END";	//$NON-NLS-1$
 
 	private static final String				COUNT_KEY				= "COUNT_KEY";				//$NON-NLS-1$
 	private static final String				NAME_KEY				= "NAME_KEY";				//$NON-NLS-1$
@@ -216,7 +216,7 @@ public class AnimalList implements Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						String value = ""; //$NON-NLS-1$
@@ -244,7 +244,7 @@ public class AnimalList implements Savable {
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		for (AnimalRecord record : mRecords) {
 			br.write(COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
 			br.write(NAME_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
@@ -258,7 +258,7 @@ public class AnimalList implements Savable {
 			br.write(COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
 			br.write(NOTES_KEY + TKStringHelpers.SPACE + record.getNotes() + System.lineSeparator());
 		}
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override

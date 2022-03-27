@@ -36,8 +36,8 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String			FILE_SECTTION_START_KEY	= "JOURNAL_SECTTION_START";		//$NON-NLS-1$
-	public static final String			FILE_SECTTION_END_KEY	= "JOURNAL_SECTTION_END";		//$NON-NLS-1$
+	public static final String			FILE_SECTION_START_KEY	= "JOURNAL_SECTION_START";		//$NON-NLS-1$
+	public static final String			FILE_SECTION_END_KEY	= "JOURNAL_SECTION_END";		//$NON-NLS-1$
 
 	private static final String			CAMPAIGN_KEY			= "CAMPAIGN_KEY";				//$NON-NLS-1$
 	private static final String			JOURNAL_KEY				= "JOURNAL_KEY";				//$NON-NLS-1$
@@ -196,7 +196,7 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						updatePreviewPanel();
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
@@ -225,13 +225,13 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		for (JournalRecord record : mEntries) {
 			br.write(CAMPAIGN_KEY + TKStringHelpers.SPACE + record.getCampaignDate() + System.lineSeparator());
 			br.write(JOURNAL_KEY + TKStringHelpers.SPACE + record.getJournalText().replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 			br.write(WORLD_KEY + TKStringHelpers.SPACE + record.getWorldDate() + System.lineSeparator());
 		}
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override

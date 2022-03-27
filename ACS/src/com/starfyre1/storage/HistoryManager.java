@@ -19,8 +19,8 @@ public class HistoryManager implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String						FILE_SECTTION_START_KEY	= "HISTORY_SECTTION_START";														//$NON-NLS-1$
-	public static final String						FILE_SECTTION_END_KEY	= "HISTORY_SECTTION_END";														//$NON-NLS-1$
+	public static final String						FILE_SECTION_START_KEY	= "HISTORY_SECTION_START";														//$NON-NLS-1$
+	public static final String						FILE_SECTION_END_KEY	= "HISTORY_SECTION_END";														//$NON-NLS-1$
 
 	public static final String						EXPERIENCE_KEY			= "EXPERIENCE_KEY";																//$NON-NLS-1$
 	public static final String						LEVEL_KEY				= "LEVEL_KEY";																	//$NON-NLS-1$
@@ -100,7 +100,7 @@ public class HistoryManager implements Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						break;
@@ -129,7 +129,7 @@ public class HistoryManager implements Savable {
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 
 		Enumeration<String> enu = mTable.keys();
 		while (enu.hasMoreElements()) {
@@ -140,7 +140,7 @@ public class HistoryManager implements Savable {
 			}
 		}
 
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	// DW need to add magic info to Armor

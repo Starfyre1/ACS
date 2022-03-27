@@ -24,8 +24,8 @@ public class PersonalInformationRecord implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY	= "PERSONAL_INFORMATNION_SECTTION_START";			//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY	= "PERSONAL_INFORMATNION_SECTTION_END";				//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY	= "PERSONAL_INFORMATNION_SECTION_START";			//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY	= "PERSONAL_INFORMATNION_SECTION_END";				//$NON-NLS-1$
 
 	public static final String	HEIGHT_KEY				= "HEIGHT_KEY";										//$NON-NLS-1$
 	public static final String	WEIGHT_KEY				= "WEIGHT_KEY";										//$NON-NLS-1$
@@ -509,7 +509,7 @@ public class PersonalInformationRecord implements Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						generateCarry();
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
@@ -539,7 +539,7 @@ public class PersonalInformationRecord implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		br.write(HEIGHT_KEY + TKStringHelpers.SPACE + mHeight + System.lineSeparator());
 		br.write(WEIGHT_KEY + TKStringHelpers.SPACE + mWeight + System.lineSeparator());
 		br.write(SEX_KEY + TKStringHelpers.SPACE + mSex + System.lineSeparator());
@@ -548,7 +548,7 @@ public class PersonalInformationRecord implements Savable {
 		br.write(AGE_KEY + TKStringHelpers.SPACE + mAge + System.lineSeparator());
 		br.write(SOCIAL_CLASS_KEY + TKStringHelpers.SPACE + mSocialClass.getSocialClass() + System.lineSeparator());
 		br.write(MORALS_KEY + TKStringHelpers.SPACE + mMorals + System.lineSeparator());
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}
 

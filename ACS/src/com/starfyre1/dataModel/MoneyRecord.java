@@ -16,8 +16,8 @@ public class MoneyRecord implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY	= "MONEY_SECTTION_START";		//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY	= "MONEY_SECTTION_END";			//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY	= "MONEY_SECTION_START";		//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY	= "MONEY_SECTION_END";			//$NON-NLS-1$
 
 	private static final String	GOLD_KEY				= "GOLD_KEY";					//$NON-NLS-1$
 	private static final String	SILVER_KEY				= "SILVER_KEY";					//$NON-NLS-1$
@@ -220,7 +220,7 @@ public class MoneyRecord implements Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						// key has no value
@@ -247,14 +247,14 @@ public class MoneyRecord implements Savable {
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		br.write(GOLD_KEY + TKStringHelpers.SPACE + mGold + System.lineSeparator());
 		br.write(SILVER_KEY + TKStringHelpers.SPACE + mSilver + System.lineSeparator());
 		br.write(COPPER_KEY + TKStringHelpers.SPACE + mCopper + System.lineSeparator());
 		br.write(GEMS_KEY + TKStringHelpers.SPACE + mGemsArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 		br.write(JEWELRY_KEY + TKStringHelpers.SPACE + mJewelryArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 		br.write(OTHER_KEY + TKStringHelpers.SPACE + mOtherArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}
 

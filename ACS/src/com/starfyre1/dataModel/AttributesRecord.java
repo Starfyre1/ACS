@@ -16,8 +16,8 @@ public class AttributesRecord implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY	= "ATTRIBUTES_SECTTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY	= "ATTRIBUTES_SECTTION_END";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY	= "ATTRIBUTES_SECTION_START";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY	= "ATTRIBUTES_SECTION_END";	//$NON-NLS-1$
 
 	public static final String	STRENGTH_KEY			= "STRENGTH_KEY";				//$NON-NLS-1$
 	public static final String	CONSTITUTION_KEY		= "CONSTITUTION_KEY";			//$NON-NLS-1$
@@ -241,7 +241,7 @@ public class AttributesRecord implements Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						// key has no value
@@ -266,7 +266,7 @@ public class AttributesRecord implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		br.write(STRENGTH_KEY + TKStringHelpers.SPACE + mStats[0] + System.lineSeparator());
 		br.write(CONSTITUTION_KEY + TKStringHelpers.SPACE + mStats[1] + System.lineSeparator());
 		br.write(INTELLIGENCE_KEY + TKStringHelpers.SPACE + mStats[2] + System.lineSeparator());
@@ -276,7 +276,7 @@ public class AttributesRecord implements Savable {
 		br.write(CHARISMA_KEY + TKStringHelpers.SPACE + mStats[6] + System.lineSeparator());
 		br.write(PERSONAL_APPEARANCE_KEY + TKStringHelpers.SPACE + mStats[7] + System.lineSeparator());
 		br.write(WILLPOWER_KEY + TKStringHelpers.SPACE + mStats[8] + System.lineSeparator());
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}
 

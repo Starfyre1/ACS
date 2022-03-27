@@ -14,8 +14,8 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY	= "TEACHER_DETERMINATION_SECTTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY	= "TEACHER_DETERMINATION_SECTTION_END";		//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY	= "TEACHER_DETERMINATION_SECTION_START";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY	= "TEACHER_DETERMINATION_SECTION_END";		//$NON-NLS-1$
 
 	private static final String	TEACHER_ID_KEY			= "TEACHER_ID_KEY";							//$NON-NLS-1$
 	private static final String	TEACHER_KEY				= "TEACHER_KEY";							//$NON-NLS-1$
@@ -90,7 +90,7 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						// key has no value
@@ -115,7 +115,7 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	// DW may need to save out a serial number for the teacher id so it remains consistent (right now they are saved and restored in the same order)
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 
 		br.write(TEACHER_ID_KEY + TKStringHelpers.SPACE + mID + System.lineSeparator());
 		br.write(TEACHER_KEY + TKStringHelpers.SPACE + mTeacher + System.lineSeparator());
@@ -123,7 +123,7 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 		br.write(COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());
 		br.write(BONUS_KEY + TKStringHelpers.SPACE + mBonus + System.lineSeparator());
 
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override

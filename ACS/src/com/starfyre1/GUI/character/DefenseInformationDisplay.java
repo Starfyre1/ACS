@@ -55,8 +55,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	
 	*/
 
-	public static final String	FILE_SECTTION_START_KEY		= "DEFENSE_INFORMATION_SECTTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY		= "DEFENSE_INFORMATION_SECTTION_END";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY		= "DEFENSE_INFORMATION_SECTION_START";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY		= "DEFENSE_INFORMATION_SECTION_END";	//$NON-NLS-1$
 
 	private static final String	STAMINA_LEFT_KEY			= "STAMINA_LEFT_KEY";					//$NON-NLS-1$
 	private static final String	HIT_POINTS_LEFT_KEY			= "HIT_POINTS_LEFT_KEY";				//$NON-NLS-1$
@@ -443,7 +443,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						String value = ""; //$NON-NLS-1$
@@ -471,12 +471,12 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		br.write(STAMINA_LEFT_KEY + TKStringHelpers.SPACE + mStaminaLeft + System.lineSeparator());
 		br.write(HIT_POINTS_LEFT_KEY + TKStringHelpers.SPACE + mHitPointsLeft + System.lineSeparator());
 		br.write(STAMINA_BALANCE_KEY + TKStringHelpers.SPACE + mStaminaBalance + System.lineSeparator());
 		br.write(HP_BALANCE_KEY + TKStringHelpers.SPACE + mHitPointsBalance + System.lineSeparator());
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override

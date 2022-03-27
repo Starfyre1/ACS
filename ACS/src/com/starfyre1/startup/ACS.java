@@ -29,17 +29,20 @@ public class ACS {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final int				DEBUG_LEVEL		= 0;
+	public static final int				DEBUG_LEVEL					= 0;
 
-	public static final String			TITLE			= "ACS (Athri Character Sheet)";										//$NON-NLS-1$
+	public static final String			TITLE						= "ACS (Athri Character Sheet)";										//$NON-NLS-1$
 
-	private static int					MAJOR			= 0;																	// Incompatible changes
-	private static int					MINOR			= 1;																	// Compatible changes
-	private static int					PATCH			= 6;																	// Bug fixes
+	private static int					MAJOR						= 0;																	// Incompatible changes
+	private static int					MINOR						= 1;																	// Compatible changes
+	private static int					PATCH						= 9;																	// Bug fixes
 
-	private static String				RELEASE_DATE	= "December 06, 2021";													//$NON-NLS-1$
-	private static String				RELEASE_TIME	= "8:42 UTC/GMT";														//$NON-NLS-1$
-	public static String				COPYRIGHT		= "Copyright:\t2021 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
+	public static String				DATA_FILE_VERSION_TITLE		= "Data file version: ";												//$NON-NLS-1$
+	public static int					DATA_FILE_VERSION_NUMBER	= 1;
+
+	private static String				RELEASE_DATE				= "December 06, 2021";													//$NON-NLS-1$
+	private static String				RELEASE_TIME				= "8:42 UTC/GMT";														//$NON-NLS-1$
+	public static String				COPYRIGHT					= "Copyright:\t2022 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
 
 	public static ImageIcon				IMAGE_PLUS_ICON;
 
@@ -185,6 +188,10 @@ public class ACS {
 	/** @return The UPDATE value. */
 	public static String getUpdate() {
 		return MAJOR + "." + MINOR + "." + PATCH; //$NON-NLS-1$//$NON-NLS-2$
+	}
+
+	public static final String getDataFileVersion() {
+		return DATA_FILE_VERSION_TITLE + DATA_FILE_VERSION_NUMBER;
 	}
 
 	/** @return The version. */

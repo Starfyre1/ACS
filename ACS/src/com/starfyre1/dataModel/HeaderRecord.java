@@ -18,8 +18,8 @@ public class HeaderRecord implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY		= "HEADER_SECTTION_START";		//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY		= "HEADER_SECTTION_END";		//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY		= "HEADER_SECTION_START";		//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY		= "HEADER_SECTION_END";		//$NON-NLS-1$
 
 	private static final String	PLAYER_NAME_KEY				= "PLAYER_NAME_KEY";			//$NON-NLS-1$
 	private static final String	CHARACTER_NAME_KEY			= "CHARACTER_NAME_KEY";			//$NON-NLS-1$
@@ -158,7 +158,7 @@ public class HeaderRecord implements Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						// key has no value
@@ -185,13 +185,13 @@ public class HeaderRecord implements Savable {
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		br.write(PLAYER_NAME_KEY + TKStringHelpers.SPACE + mPlayerName + System.lineSeparator());
 		br.write(CHARACTER_NAME_KEY + TKStringHelpers.SPACE + mCharacterName + System.lineSeparator());
 		br.write(CLASS_KEY + TKStringHelpers.SPACE + mClass + System.lineSeparator());
 		br.write(CURRENT_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperience + System.lineSeparator());
 		br.write(CURRENT_CAMPAIGN_DATE_KEY + TKStringHelpers.SPACE + CampaignDateChooser.getCampaignDate() + System.lineSeparator());
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}
 

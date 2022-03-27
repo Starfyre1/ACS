@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class CombatInformationRecord implements LevelListener, Savable {
-	public static final String	FILE_SECTTION_START_KEY			= "COMBAT_INFORMATION_SECTTION_START";													//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY			= "COMBAT_INFORMATION_SECTTION_END";													//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY			= "COMBAT_INFORMATION_SECTION_START";													//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY			= "COMBAT_INFORMATION_SECTION_END";													//$NON-NLS-1$
 
 	public static final String	HIT_LEVEL_BONUS_KEY				= "HIT_LEVEL_BONUS_KEY";																//$NON-NLS-1$
 	public static final String	BOW_LEVEL_BONUS_KEY				= "BOW_LEVEL_BONUS_KEY";																//$NON-NLS-1$
@@ -489,7 +489,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						generateUnallocated();
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
@@ -516,12 +516,12 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		br.write(HIT_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mHitLevelBonus + System.lineSeparator());
 		br.write(BOW_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mBowLevelBonus + System.lineSeparator());
 		br.write(CASTING_SPEED_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mCastingSpeedLevelBonus + System.lineSeparator());
 		br.write(FOCUS_KEY + TKStringHelpers.SPACE + mFocus + System.lineSeparator());
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override

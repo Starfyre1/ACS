@@ -23,8 +23,8 @@ public class ArmorList implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String				FILE_SECTTION_START_KEY	= "ARMOR_SECTTION_START";		//$NON-NLS-1$
-	public static final String				FILE_SECTTION_END_KEY	= "ARMOR_SECTTION_END";			//$NON-NLS-1$
+	public static final String				FILE_SECTION_START_KEY	= "ARMOR_SECTION_START";		//$NON-NLS-1$
+	public static final String				FILE_SECTION_END_KEY	= "ARMOR_SECTION_END";			//$NON-NLS-1$
 
 	private static final String				COUNT_KEY				= "COUNT_KEY";					//$NON-NLS-1$
 	private static final String				EQUIPPED_KEY			= "EQUIPPED_KEY";				//$NON-NLS-1$
@@ -220,7 +220,7 @@ public class ArmorList implements Savable {
 				StringTokenizer tokenizer = new StringTokenizer(in, " ", false); //$NON-NLS-1$
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						String value = ""; //$NON-NLS-1$
@@ -248,7 +248,7 @@ public class ArmorList implements Savable {
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 		for (ArmorRecord record : mRecords) {
 
 			int[] type = record.getProtectionType();
@@ -276,7 +276,7 @@ public class ArmorList implements Savable {
 			br.write(BREAK_KEY + TKStringHelpers.SPACE + record.getBreak() + System.lineSeparator());
 			br.write(COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
 		}
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	// DW need to add magic info to Armor

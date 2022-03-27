@@ -17,8 +17,8 @@ public class MetalList {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String		FILE_SECTTION_START_KEY	= "MAGIC_ITEMS_SECTTION_START";	//$NON-NLS-1$
-	public static final String		FILE_SECTTION_END_KEY	= "MAGIC_ITEMS_SECTTION_END";	//$NON-NLS-1$
+	public static final String		FILE_SECTION_START_KEY	= "MAGIC_ITEMS_SECTION_START";	//$NON-NLS-1$
+	public static final String		FILE_SECTION_END_KEY	= "MAGIC_ITEMS_SECTION_END";	//$NON-NLS-1$
 
 	private static MetalRecord[]	mMetalMasterList;
 

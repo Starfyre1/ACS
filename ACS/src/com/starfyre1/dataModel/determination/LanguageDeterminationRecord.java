@@ -14,8 +14,8 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTTION_START_KEY	= "LANGUAGE_DETERMINATION_SECTTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTTION_END_KEY	= "LANGUAGE_DETERMINATION_SECTTION_END";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY	= "LANGUAGE_DETERMINATION_SECTION_START";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY	= "LANGUAGE_DETERMINATION_SECTION_END";	//$NON-NLS-1$
 
 	private static final String	LANGUAGE_KEY			= "LANGUAGE_KEY";							//$NON-NLS-1$
 	private static final String	SOURCE_KEY				= "SOURCE_KEY";								//$NON-NLS-1$
@@ -90,7 +90,7 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
-					if (key.equals(FILE_SECTTION_END_KEY)) {
+					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						// key has no value
@@ -114,7 +114,7 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
-		br.write(FILE_SECTTION_START_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 
 		br.write(LANGUAGE_KEY + TKStringHelpers.SPACE + mLanguage + System.lineSeparator());
 		br.write(SOURCE_KEY + TKStringHelpers.SPACE + mSource + System.lineSeparator());
@@ -126,7 +126,7 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 		br.write(START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
 		br.write(COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
 
-		br.write(FILE_SECTTION_END_KEY + System.lineSeparator());
+		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
 	@Override
