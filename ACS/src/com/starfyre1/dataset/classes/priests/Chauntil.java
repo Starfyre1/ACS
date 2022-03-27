@@ -45,7 +45,7 @@ public class Chauntil extends PriestsBase {
 			or a two-handed sword / axe.
 	
 			Power Zero:						Power One:
-			1)Speak with  Animals (-1)			1)Calm Waters (-20)F
+			1)Speak with Animals (-1)			1)Calm Waters (-20)F
 			2)Heal Self (-20)				2)Sphere of Air I (-5)
 			3)Light (-3)					3)Alertness I (-20)F
 			4)Darkness (-3)					4)Freedom (-3)
@@ -107,7 +107,7 @@ public class Chauntil extends PriestsBase {
 
 		// Power Zero:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(0, "Speak with  Animals", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Speak with Animals", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Heal Self", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Light", 0, 3, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Darkness", 0, 3, 0), //$NON-NLS-1$

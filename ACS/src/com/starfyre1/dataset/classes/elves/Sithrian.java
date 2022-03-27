@@ -77,7 +77,7 @@ public class Sithrian extends ElvesBase {
 				5 minutes or more, as per spell, as a Innate Ability.
 			12)	They do Not require a Personal Focus, however, if a spell requires
 				a Special Focus, they are required to make it and use it.
-			13)	They may "Speak with  Animals" as the spell, as a Innate Ability.
+			13)	They may "Speak with Animals" as the spell, as a Innate Ability.
 			14)	They possess "Star Sight" as the spell, as a Innate Ability
 			15)	They are Immortal, although they can be slain in combat.
 			16)	They may "Detect Magic" as the spell, as a Innate Ability.  (50%+5%

@@ -40,7 +40,7 @@ public class NaturalLore extends MagesBase {
 			7)Knowledge (-1)				7)Protection : Animals (-4)
 			8)Light (-3)					8)Scattered Showers (-30)
 			9)Locate Living (-10)			9)Silence (-6)
-			10)Mage Wind (-1)				10)Speak with  Animals (-1)
+			10)Mage Wind (-1)				10)Speak with Animals (-1)
 			11)Darts (-2)					11)Star Sight (-12)
 			12)Produce Water (-8)			12)Stop Poison (-6)
 			13)Summon Flame (-1)F			13)Summon Fog (-4)
@@ -139,7 +139,7 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord(1, "Protection : Animals", 0, 4, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Scattered Showers", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Silence", 0, 6, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Speak with  Animals", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Speak with Animals", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Star Sight", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Stop Poison", 0, 6, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Summon Fog", 0, 4, 0), //$NON-NLS-1$

@@ -86,7 +86,7 @@ public class Earth extends MagesBase {
 						new SpellRecord(0, "Detect Gems", 0, 20, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Detect Metal", 0, 20, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Darts", 0, 3, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Speak with  Stones", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Speak with Stones", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Earth Womb", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Stone Staff", 0, 5, 0)))); //$NON-NLS-1$
 

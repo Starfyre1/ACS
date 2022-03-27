@@ -84,7 +84,7 @@ public class Tsiri extends ElvesBase {
 			12)	Tsiri do Not require a personal focus, however if a spell requires a
 				Special focus, they must manufacture one. (Any spell with a "F" after
 				the casting time requires a Special Focus).
-			13)	Tsiri may "Speak with  Animals", Or "Speak with Monster", depending
+			13)	Tsiri may "Speak with Animals", Or "Speak with Monster", depending
 				on which branch of the family you are in.  As the spell, as a Innate ability.
 			14)	The Tsiri possess "Night Sight" as the spell, as a Innate ability. They
 				also have a -10% to all Combat adds during Noon-time sun, and a -5%

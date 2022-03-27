@@ -41,7 +41,7 @@ public class Talon extends PriestsBase {
 			3)Star Sight (-12)               3)Tracking (-8)
 			4)Summon Animals I (-10)F       4)Protection : Fire (-3)
 			5)Alertness I (-30)F            5)Protection : Cold (-4)
-			6)Speak with  Animals (-1)         6)Healing (-60)F
+			6)Speak with Animals (-1)         6)Healing (-60)F
 
 			Power Two: 						Power Three:
 			1)Protection III (-3)F          1)Protection IV (-4)F
@@ -96,7 +96,7 @@ public class Talon extends PriestsBase {
 						new SpellRecord(0, "Star Sight", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Summon Animals I", 1, 10, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Alertness I", 1, 30, 1), //$NON-NLS-1$
-						new SpellRecord(0, "Speak with  Animals", 0, 1, 0)))); //$NON-NLS-1$
+						new SpellRecord(0, "Speak with Animals", 0, 1, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //

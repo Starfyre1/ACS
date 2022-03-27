@@ -44,7 +44,7 @@ public class Lorrell extends PriestsBase {
 			4)Clear Water (-2)				4)Stop Poison (-6)
 			5)Shield I (-25)				5)Cure Illness (animals) (-20)
 			6)Protection : Fire (-0)		6)Silence (-6)
-			7)Earth Womb (-5)				7)Speak with  Animals (-1)
+			7)Earth Womb (-5)				7)Speak with Animals (-1)
 			8)Protection : Animals (-4)		8)Star Sight (-12)
 			9)Locate Life : Animals (-15)	9)Web Stream (-5)
 			10)Temperate Earth (-10)		10)Scattered Showers (-30)
@@ -117,7 +117,7 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(1, "Stop Poison", 0, 6, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Cure Illness : Animals", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Silence", 0, 6, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Speak with  Animals", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Speak with Animals", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Star Sight", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Web Stream", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Scattered Showers", 0, 30, 0)))); //$NON-NLS-1$

@@ -35,7 +35,7 @@ public class Necromancer extends MagesBase {
 			8)Darts (-4)						8)Protection I (-5)F
 												9)Rune of Combat I (-260)
 			Power Two:							10)Sleep I (-3)F
-			1)Blindness (-5)F					11)Speak with  Dead (-90)
+			1)Blindness (-5)F					11)Speak with Dead (-90)
 			2)Charm I (-3)F
 			3)Charm Animals (-3)F 				Power Three:
 			4)Close (-1)						1)Acid Sphere (-7)F
@@ -113,7 +113,7 @@ public class Necromancer extends MagesBase {
 						new SpellRecord(1, "Protection I", 1, 5, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Rune of Combat I", 1, 260, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Sleep I", 1, 3, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Speak with  Dead", 0, 90, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Speak with Dead", 0, 90, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
