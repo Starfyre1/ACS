@@ -8,6 +8,7 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.MoneyRecord;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 
@@ -187,6 +188,8 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 			} else if (((JTextField) source).equals(mCopperField)) {
 				record.setCopper(TKStringHelpers.getIntValue(mCopperField.getText(), record.getCopperOld()));
 			}
+			ACS.getInstance().getCharacterSheet().updateForEncubrance();
+			ACS.getInstance().getCharacterSheet().getDefenseInformationDisplay().loadDisplay();
 		} else {
 			if (document.equals(mGemsArea.getDocument())) {
 				record.setGemsArea(mGemsArea.getText());

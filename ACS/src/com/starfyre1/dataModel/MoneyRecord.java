@@ -209,6 +209,19 @@ public class MoneyRecord implements Savable {
 		return mOtherAreaOld;
 	}
 
+	public float getEncumbrance() {
+		float encumbrance = 0f;
+
+		encumbrance += mGold * 0.0625;
+		encumbrance += mSilver * 0.03125;
+		encumbrance += mCopper * 0.015625;
+		//		encumbrance += mGemsArea * 0;
+		//		encumbrance += mJewelryArea * 0;
+		//		encumbrance += mOtherArea * 0;
+
+		return encumbrance;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

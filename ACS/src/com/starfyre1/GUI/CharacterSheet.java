@@ -690,8 +690,6 @@ public class CharacterSheet implements ActionListener {
 		mWeaponEquippedDisplay.loadDisplay();
 		mDefenseInformationDisplay.loadDisplay();
 		mAttackTotalsDisplay.loadDisplay();
-		mDefenseInformationDisplay.loadDisplay();
-		mAttackTotalsDisplay.loadDisplay();
 	}
 
 	@Override
@@ -1065,6 +1063,8 @@ public class CharacterSheet implements ActionListener {
 			}
 		}
 
+		encumbrance += mMoneyRecord.getEncumbrance();
+
 		mPersonalInformationRecord.setEncumbrance(encumbrance);
 		mPersonalInformationDisplay.loadDisplay();
 		return encumbrance;
@@ -1257,6 +1257,10 @@ public class CharacterSheet implements ActionListener {
 		return mMagicItemsOwnedDisplay.getTable();
 	}
 
+	public DefenseInformationDisplay getDefenseInformationDisplay() {
+		return mDefenseInformationDisplay;
+	}
+
 	/** @return The journalTab. */
 	public JournalDisplay getJournalTab() {
 		return mJournalTab;
@@ -1310,7 +1314,7 @@ public class CharacterSheet implements ActionListener {
 
 				bw.write(in.replace("SECTTION", "SECTION") + SystemInfo.getLineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 				while ((in = br.readLine()) != null) {
-					if (in.startsWith("DEATH_KEY")) {
+					if (in.startsWith("DEATH_KEY")) { //$NON-NLS-1$
 						continue;
 					}
 					bw.write(in.replace("SECTTION", "SECTION") + SystemInfo.getLineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
