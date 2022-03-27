@@ -1310,6 +1310,9 @@ public class CharacterSheet implements ActionListener {
 
 				bw.write(in.replace("SECTTION", "SECTION") + SystemInfo.getLineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 				while ((in = br.readLine()) != null) {
+					if (in.startsWith("DEATH_KEY")) {
+						continue;
+					}
 					bw.write(in.replace("SECTTION", "SECTION") + SystemInfo.getLineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 				bw.close();
