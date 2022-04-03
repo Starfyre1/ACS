@@ -58,7 +58,7 @@ public class EquipmentMarketPlaceDisplay extends EquipmentDisplay implements Tab
 	@Override
 	protected Component createDisplay() {
 		// This is the full equipment list in the Market Place
-		Object[] master = EquipmentList.getEquipmentMasterList();
+		Object[] master = EquipmentList.getEquipmentCombinedList();
 		Object[][] data = new Object[master.length][6];
 
 		for (int i = 0; i < master.length; i++) {
@@ -146,7 +146,7 @@ public class EquipmentMarketPlaceDisplay extends EquipmentDisplay implements Tab
 						count = ((Integer) element).intValue();
 					}
 					if (count > 0) {
-						EquipmentRecord record = EquipmentList.getMasterEquipmentRecord(i).clone();
+						EquipmentRecord record = EquipmentList.getEquipmentRecord(i).clone();
 						record.setCount(count);
 						record.setEquipped(((Boolean) row.get(1)).booleanValue());
 						records.add(record);

@@ -5,7 +5,6 @@ package com.starfyre1.dataModel;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTableRecord;
 import com.starfyre1.dataset.MetalList;
-import com.starfyre1.startup.SystemInfo;
 
 import java.util.Arrays;
 import java.util.Vector;
@@ -79,8 +78,8 @@ public class ArmorRecord extends TKTableRecord {
 		mProtectionType = TKStringHelpers.getIntArray((String) obj.get(4), new int[0]);
 		mProtectionAmount = obj.get(5) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(5), 0) : ((Integer) obj.get(5)).intValue();
 		mEncumbrance = obj.get(6) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(6), 0.0f) : ((Float) obj.get(6)).floatValue();
-		mAbsorption = obj.get(7) instanceof String ? 0 : ((Integer) obj.get(7)).intValue();
-		mBonus = obj.get(8) instanceof String ? 0 : ((Integer) obj.get(8)).intValue();
+		mAbsorption = obj.get(7) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(7), 0) : ((Integer) obj.get(7)).intValue();
+		mBonus = obj.get(8) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(8), 0) : ((Integer) obj.get(8)).intValue();
 		mMissileAbsorption = obj.get(9) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(9), 0) : ((Integer) obj.get(9)).intValue();
 		mStrengthRequirement = obj.get(10) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(10), 0) : ((Integer) obj.get(10)).intValue();
 		mParry = obj.get(11) instanceof String ? 0 : ((Integer) obj.get(11)).intValue();
@@ -306,14 +305,20 @@ public class ArmorRecord extends TKTableRecord {
 		return mBreak;
 	}
 
-	/**
-	 * @return
-	 */
+	public String getArrayString(int[] type) {
+		String out = new String("["); //$NON-NLS-1$
+		for (int i = 0; i < type.length - 1; i++) {
+			out += type[i] + ", "; //$NON-NLS-1$
+		}
+		out += type[type.length - 1] + " ]"; //$NON-NLS-1$
+		return out;
+	}
+
 	public String toRecordFile() {
-		return mCount + ", " + mEquipped + ", \"" + mName + "\", " + mMetal + ", " + mProtectionType + ", " + // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		return mCount + ", " + mEquipped + ", \"" + mName + "\", " + mMetal + ", " + getArrayString(mProtectionType) + ", " + // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 						mProtectionAmount + ", " + mEncumbrance + ", " + mAbsorption + ", " + mBonus + ", " + // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 						mMissileAbsorption + ", " + mStrengthRequirement + ", " + mParry + ", " + //  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						mBreak + ", " + mCost + SystemInfo.getLineSeparator(); //$NON-NLS-1$
+						mBreak + ", " + mCost; //$NON-NLS-1$
 
 	}
 

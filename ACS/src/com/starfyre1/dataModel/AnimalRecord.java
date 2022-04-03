@@ -54,7 +54,7 @@ public class AnimalRecord extends TKTableRecord {
 		mHitBonus = obj.get(6) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(6), 0) : ((Integer) obj.get(6)).intValue();
 		mKickDamage = obj.get(7) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(7), 0) : ((Integer) obj.get(7)).intValue();
 		mArmor = obj.get(8) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(8), 0) : ((Integer) obj.get(8)).intValue();
-		mCost = ((Float) obj.get(9)).floatValue();
+		mCost = obj.get(9) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(9), 0) : ((Float) obj.get(9)).floatValue();
 		mNotes = (String) obj.get(10);
 
 	}
@@ -226,6 +226,11 @@ public class AnimalRecord extends TKTableRecord {
 	/** @return The notes. */
 	public String getNotes() {
 		return mNotes;
+	}
+
+	public String toRecordFile() {
+		return mCount + ", \"" + mName + "\", " + mCarry + ", " + mMove + ", " + mTravel + ", \"" + mHits + "\", " + // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+						mHitBonus + ", " + mKickDamage + ", " + mArmor + ", " + mCost + ", \"" + mNotes + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	}
 
 	/*****************************************************************************

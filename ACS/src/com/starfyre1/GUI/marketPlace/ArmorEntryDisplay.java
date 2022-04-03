@@ -6,7 +6,6 @@ import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.metal.MetalCellEditor;
 import com.starfyre1.GUI.metal.MetalCellRenderer;
 import com.starfyre1.GUI.purchasedGear.armor.ArmorDisplay;
-import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.dataModel.ArmorRecord;
@@ -72,16 +71,16 @@ public class ArmorEntryDisplay extends ArmorDisplay implements TableModelListene
 		return scrollPane;
 	}
 
+	@Override
+	public void loadDisplay() {
+		// DW load the user created items
+	}
+
 	public void finalizeSelections() {
 		TableCellEditor editor = mTable.getCellEditor();
 		if (editor != null) {
 			editor.stopCellEditing();
 		}
-	}
-
-	@Override
-	public void loadDisplay() {
-		// Nothing to do
 	}
 
 	@Override
@@ -93,27 +92,23 @@ public class ArmorEntryDisplay extends ArmorDisplay implements TableModelListene
 			TKTableModel model = (TKTableModel) mTable.getModel();
 			model.removeTableModelListener(this);
 
-			int count = 0;
-			model.setValueAt(Integer.valueOf(count), row, 0);
-			boolean equipped = false;
-			model.setValueAt(equipped, row, 1);
-			String name = (String) model.getValueAt(row, 2);
-			int metal = TKStringHelpers.getIntValue((String) model.getValueAt(row, 3), 0);
-			int[] protectionType = TKStringHelpers.getIntArray((String) model.getValueAt(row, 4), new int[0]);
-			int protectionAmount = TKStringHelpers.getIntValue((String) model.getValueAt(row, 5), 0);
-			float encumbrance = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 6), 0.0f);
-			int absorption = TKStringHelpers.getIntValue((String) model.getValueAt(row, 7), 0);
-			int bonus = TKStringHelpers.getIntValue((String) model.getValueAt(row, 8), 0);
-			int missileAbsorption = TKStringHelpers.getIntValue((String) model.getValueAt(row, 9), 0);
-			int strengthRequirement = TKStringHelpers.getIntValue((String) model.getValueAt(row, 10), 0);
-			int parry = 0;
-			model.setValueAt(Integer.valueOf(parry), row, 11);
-			int breakage = 0;
-			model.setValueAt(Integer.valueOf(breakage), row, 12);
-			float cost = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 13), 0.0f);
+			model.setValueAt(Integer.valueOf(0), row, 0);
+			model.setValueAt(Boolean.valueOf(false), row, 1);
+			//			String name = (String) model.getValueAt(row, 2);
+			//			String metal = (String) model.getValueAt(row, 3);
+			//			int[] protectionType = TKStringHelpers.getIntArray((String) model.getValueAt(row, 4), new int[0]);
+			//			int protectionAmount = TKStringHelpers.getIntValue((String) model.getValueAt(row, 5), 0);
+			//			float encumbrance = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 6), 0.0f);
+			//			int absorption = TKStringHelpers.getIntValue((String) model.getValueAt(row, 7), 0);
+			//			int bonus = TKStringHelpers.getIntValue((String) model.getValueAt(row, 8), 0);
+			//			int missileAbsorption = TKStringHelpers.getIntValue((String) model.getValueAt(row, 9), 0);
+			//			int strengthRequirement = TKStringHelpers.getIntValue((String) model.getValueAt(row, 10), 0);
+			model.setValueAt(Integer.valueOf(0), row, 11);
+			model.setValueAt(Integer.valueOf(0), row, 12);
+			//			float cost = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 13), 0.0f);
 
-			ArmorRecord record = new ArmorRecord(count, equipped, name, metal, protectionType, protectionAmount, encumbrance, absorption, bonus, missileAbsorption, strengthRequirement, parry, breakage, cost);
-			System.out.println(row + " :: " + record);
+			//			ArmorRecord record = new ArmorRecord(0, false, name, MetalList.getMetalID(metal), protectionType, protectionAmount, encumbrance, absorption, bonus, missileAbsorption, strengthRequirement, 0, 0, cost);
+			// 			System.out.println(row + " :: " + record);
 			if (!hasEmptyRow()) {
 				model.addRow(new Object[6]);
 			}
@@ -182,20 +177,20 @@ public class ArmorEntryDisplay extends ArmorDisplay implements TableModelListene
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	private ArmorRecord getRecord(TableModelEvent e) {
-		int firstChangedRow = e.getFirstRow();
-		TKTableModel model = (TKTableModel) mTable.getModel();
-		@SuppressWarnings("rawtypes")
-		Vector<Vector> data = model.getDataVector();
-		if (!data.isEmpty() && model.getRowCount() > firstChangedRow) {
-			Vector<Object> row = data.get(firstChangedRow);
-			if (row != null) {
-				ArmorRecord record = new ArmorRecord(row);
-				return record;
-			}
-		}
-		return null;
-	}
+	//	private ArmorRecord getRecord(TableModelEvent e) {
+	//		int firstChangedRow = e.getFirstRow();
+	//		TKTableModel model = (TKTableModel) mTable.getModel();
+	//		@SuppressWarnings("rawtypes")
+	//		Vector<Vector> data = model.getDataVector();
+	//		if (!data.isEmpty() && model.getRowCount() > firstChangedRow) {
+	//			Vector<Object> row = data.get(firstChangedRow);
+	//			if (row != null) {
+	//				ArmorRecord record = new ArmorRecord(row);
+	//				return record;
+	//			}
+	//		}
+	//		return null;
+	//	}
 
 	/** @return The table. */
 	public TKTable getTable() {

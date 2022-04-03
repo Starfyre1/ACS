@@ -59,7 +59,7 @@ public class AnimalsMarketPlaceDisplay extends AnimalsDisplay implements TableMo
 		Vector<String> header = new Vector<String>(11);
 		header.copyInto(COLUMN_HEADER_NAMES);
 
-		Object[] master = AnimalList.getAnimalMasterList();
+		Object[] master = AnimalList.getAnimalCombinedList();
 		Object[][] data = new Object[master.length][11];
 
 		for (int i = 0; i < master.length; i++) {
@@ -148,7 +148,7 @@ public class AnimalsMarketPlaceDisplay extends AnimalsDisplay implements TableMo
 						count = ((Integer) element).intValue();
 					}
 					if (count > 0) {
-						AnimalRecord record = AnimalList.getMasterAnimalRecord(i).clone();
+						AnimalRecord record = AnimalList.getAnimalRecord(i).clone();
 						record.setCount(count);
 						records.add(record);
 					}

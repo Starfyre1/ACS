@@ -10,14 +10,18 @@ import com.starfyre1.startup.SystemInfo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 public class ArmorList implements Savable {
 	/*****************************************************************************
@@ -45,7 +49,9 @@ public class ArmorList implements Savable {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private static ArmorRecord[]			mArmorMasterList;
+	private static ArmorRecord[]			mArmorCombinedList		= null;
+	private static ArmorRecord[]			mArmorMasterList		= null;
+	private static ArmorRecord[]			mArmorUserList			= null;
 	private static ArrayList<ArmorRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
 
 	private int								mCount;
@@ -105,19 +111,19 @@ public class ArmorList implements Savable {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	public static ArmorRecord getMasterArmorRecord(int which) {
-		if (mArmorMasterList == null) {
-			getArmorMasterList();
+	public static ArmorRecord getArmorRecord(int which) {
+		if (mArmorCombinedList == null) {
+			getArmorCombinedList();
 		}
-		return mArmorMasterList[which];
+		return mArmorCombinedList[which];
 	}
 
-	public static ArmorRecord getMasterArmorRecord(String name) {
-		if (mArmorMasterList == null) {
-			getArmorMasterList();
+	public static ArmorRecord getArmorRecord(String name) {
+		if (mArmorCombinedList == null) {
+			getArmorCombinedList();
 		}
 
-		for (ArmorRecord record : mArmorMasterList) {
+		for (ArmorRecord record : mArmorCombinedList) {
 			if (record.getName().equals(name)) {
 				return record;
 			}
@@ -143,7 +149,83 @@ public class ArmorList implements Savable {
 
 	}
 
-	public static Object[] getArmorMasterList() {
+	private static void readArmor(Scanner scanner, ArmorRecord[] list) {
+		int count = 0;
+		for (String line; (line = scanner.nextLine()) != null;) {
+			line = line.trim();
+
+			if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
+				continue;
+			}
+
+			String[] splitLine = line.split(", "); //$NON-NLS-1$
+			//		System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			int arrayAdjustment = 0;
+			if (splitLine.length > 14) {
+				arrayAdjustment = splitLine.length - 14;
+				for (int i = 1; i <= arrayAdjustment; i++) {
+					splitLine[4] += ", " + splitLine[4 + i]; //$NON-NLS-1$
+				}
+				//						System.err.println(splitLine[1] + " :: " + splitLine[2 + arrayAdjustment]);
+			}
+			ArmorRecord record = new ArmorRecord(TKStringHelpers.getIntValue(splitLine[0], 0), //
+							TKStringHelpers.getBoolValue(splitLine[1], false), //
+							splitLine[2].replaceAll("\"", ""), // //$NON-NLS-1$ //$NON-NLS-2$
+							TKStringHelpers.getIntValue(splitLine[3], 0), //
+							TKStringHelpers.getIntArray(splitLine[4], new int[] {}), //
+							TKStringHelpers.getIntValue(splitLine[5 + arrayAdjustment], 0), //
+							TKStringHelpers.getFloatValue(splitLine[6 + arrayAdjustment], 0f), //
+							TKStringHelpers.getIntValue(splitLine[7 + arrayAdjustment], 0), //
+							TKStringHelpers.getIntValue(splitLine[8 + arrayAdjustment], 0), //
+							TKStringHelpers.getIntValue(splitLine[9 + arrayAdjustment], 0), //
+							TKStringHelpers.getIntValue(splitLine[10 + arrayAdjustment], 0), //
+							TKStringHelpers.getIntValue(splitLine[11 + arrayAdjustment], 0), //
+							TKStringHelpers.getIntValue(splitLine[12 + arrayAdjustment], 0), //
+							TKStringHelpers.getFloatValue(splitLine[13 + arrayAdjustment], 0f));
+
+			list[count++] = record;
+		}
+
+	}
+
+	public static ArmorRecord[] getArmorCombinedList() {
+		if (mArmorCombinedList == null) {
+			if (mArmorMasterList == null) {
+				getArmorMasterList();
+			}
+			if (mArmorUserList == null) {
+				getArmorUserList();
+			}
+			mArmorCombinedList = Stream.concat(Arrays.stream(mArmorMasterList), Arrays.stream(mArmorUserList)).toArray(ArmorRecord[]::new);
+		}
+		return mArmorCombinedList;
+	}
+
+	public static ArmorRecord[] getArmorUserList() {
+		if (mArmorUserList == null) {
+			mArmorUserList = new ArmorRecord[ARRAY_SIZE];
+
+			Scanner scanner = null;
+			try {
+				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getArmorUserPath());
+				scanner = new Scanner(new File(SystemInfo.getArmorUserPath()), "UTF-8"); //$NON-NLS-1$
+
+				readArmor(scanner, mArmorUserList);
+
+			} catch (NoSuchElementException nsee) {
+				// End of file, nothing to do except exit
+			} catch (FileNotFoundException exception) {
+				exception.printStackTrace();
+			}
+			if (scanner != null) {
+				scanner.close();
+			}
+
+		}
+		return mArmorUserList;
+	}
+
+	public static ArmorRecord[] getArmorMasterList() {
 		if (mArmorMasterList == null) {
 			mArmorMasterList = new ArmorRecord[ARRAY_SIZE];
 
@@ -152,41 +234,8 @@ public class ArmorList implements Savable {
 			try {
 				is = ACS.class.getModule().getResourceAsStream("resources/Armor.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
-				int count = 0;
-				for (String line; (line = scanner.nextLine()) != null;) {
-					line = line.trim();
 
-					if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
-						continue;
-					}
-
-					String[] splitLine = line.split(", "); //$NON-NLS-1$
-					//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					int arrayAdjustment = 0;
-					if (splitLine.length > 14) {
-						arrayAdjustment = splitLine.length - 14;
-						for (int i = 1; i <= arrayAdjustment; i++) {
-							splitLine[4] += ", " + splitLine[4 + i]; //$NON-NLS-1$
-						}
-						//						System.err.println(splitLine[1] + " :: " + splitLine[2 + arrayAdjustment]);
-					}
-					ArmorRecord record = new ArmorRecord(TKStringHelpers.getIntValue(splitLine[0], 0), //
-									TKStringHelpers.getBoolValue(splitLine[1], false), //
-									splitLine[2].replaceAll("\"", ""), // //$NON-NLS-1$ //$NON-NLS-2$
-									TKStringHelpers.getIntValue(splitLine[3], 0), //
-									TKStringHelpers.getIntArray(splitLine[4], new int[] {}), //
-									TKStringHelpers.getIntValue(splitLine[5 + arrayAdjustment], 0), //
-									TKStringHelpers.getFloatValue(splitLine[6 + arrayAdjustment], 0f), //
-									TKStringHelpers.getIntValue(splitLine[7 + arrayAdjustment], 0), //
-									TKStringHelpers.getIntValue(splitLine[8 + arrayAdjustment], 0), //
-									TKStringHelpers.getIntValue(splitLine[9 + arrayAdjustment], 0), //
-									TKStringHelpers.getIntValue(splitLine[10 + arrayAdjustment], 0), //
-									TKStringHelpers.getIntValue(splitLine[11 + arrayAdjustment], 0), //
-									TKStringHelpers.getIntValue(splitLine[12 + arrayAdjustment], 0), //
-									TKStringHelpers.getFloatValue(splitLine[13 + arrayAdjustment], 0f));
-
-					mArmorMasterList[count++] = record;
-				}
+				readArmor(scanner, mArmorMasterList);
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
@@ -204,7 +253,6 @@ public class ArmorList implements Savable {
 			if (scanner != null) {
 				scanner.close();
 			}
-
 		}
 		return mArmorMasterList;
 	}

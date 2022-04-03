@@ -6,59 +6,69 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.WeaponRecord;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
+import com.starfyre1.startup.SystemInfo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 public class WeaponList implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String				FILE_SECTION_START_KEY	= "WEAPONS_SECTION_START";	//$NON-NLS-1$
-	public static final String				FILE_SECTION_END_KEY	= "WEAPONS_SECTION_END";	//$NON-NLS-1$
+	public static final String				FILE_SECTION_START_KEY	= "WEAPONS_SECTION_START";		//$NON-NLS-1$
+	public static final String				FILE_SECTION_END_KEY	= "WEAPONS_SECTION_END";		//$NON-NLS-1$
 
-	private static final String				COUNT_KEY				= "COUNT_KEY";				//$NON-NLS-1$
-	private static final String				EQUIPPED_KEY			= "EQUIPPED_KEY";			//$NON-NLS-1$
-	private static final String				NAME_KEY				= "NAME_KEY";				//$NON-NLS-1$
-	private static final String				METAL_KEY				= "METAL_KEY";				//$NON-NLS-1$
-	private static final String				TYPE_KEY				= "TYPE_KEY";				//$NON-NLS-1$
-	private static final String				HANDED_KEY				= "HANDED_KEY";				//$NON-NLS-1$
-	private static final String				STR_KEY					= "STR_KEY";				//$NON-NLS-1$
-	private static final String				DEX_KEY					= "DEX_KEY";				//$NON-NLS-1$
-	private static final String				ENCUMBER_KEY			= "ENCUMBER_KEY";			//$NON-NLS-1$
-	private static final String				LENGTH_KEY				= "LENGTH_KEY";				//$NON-NLS-1$
-	private static final String				SPEED_KEY				= "SPEED_KEY";				//$NON-NLS-1$
-	private static final String				BREAK_KEY				= "BREAK_KEY";				//$NON-NLS-1$
-	private static final String				HIT_BONUS_KEY			= "HIT_BONUS_KEY";			//$NON-NLS-1$
-	private static final String				DAMAGE1_KEY				= "DAMAGE1_KEY";			//$NON-NLS-1$
-	private static final String				DAMAGE2_KEY				= "DAMAGE2_KEY";			//$NON-NLS-1$
-	private static final String				COST_KEY				= "COST_KEY";				//$NON-NLS-1$
+	private static final String				COUNT_KEY				= "COUNT_KEY";					//$NON-NLS-1$
+	private static final String				EQUIPPED_KEY			= "EQUIPPED_KEY";				//$NON-NLS-1$
+	private static final String				NAME_KEY				= "NAME_KEY";					//$NON-NLS-1$
+	private static final String				METAL_KEY				= "METAL_KEY";					//$NON-NLS-1$
+	private static final String				TYPE_KEY				= "TYPE_KEY";					//$NON-NLS-1$
+	private static final String				HANDED_KEY				= "HANDED_KEY";					//$NON-NLS-1$
+	private static final String				STR_KEY					= "STR_KEY";					//$NON-NLS-1$
+	private static final String				DEX_KEY					= "DEX_KEY";					//$NON-NLS-1$
+	private static final String				ENCUMBER_KEY			= "ENCUMBER_KEY";				//$NON-NLS-1$
+	private static final String				LENGTH_KEY				= "LENGTH_KEY";					//$NON-NLS-1$
+	private static final String				SPEED_KEY				= "SPEED_KEY";					//$NON-NLS-1$
+	private static final String				BREAK_KEY				= "BREAK_KEY";					//$NON-NLS-1$
+	private static final String				HIT_BONUS_KEY			= "HIT_BONUS_KEY";				//$NON-NLS-1$
+	private static final String				DAMAGE1_KEY				= "DAMAGE1_KEY";				//$NON-NLS-1$
+	private static final String				DAMAGE2_KEY				= "DAMAGE2_KEY";				//$NON-NLS-1$
+	private static final String				COST_KEY				= "COST_KEY";					//$NON-NLS-1$
+	private static final int				ARRAY_SIZE				= 50;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private static WeaponRecord[]			mWeaponCombinedList;
 	private static WeaponRecord[]			mWeaponMasterList;
+	private static WeaponRecord[]			mWeaponUserList;
 	private static String[]					mWeaponProficiencyList;
-	private static ArrayList<WeaponRecord>	mRecords				= new ArrayList<>(50);
+	private static ArrayList<WeaponRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
 
 	private int								mCount;
 	private boolean							mEquipped;
 	private String							mName;
-	private int								mMetal;												// 		[ Iron, Ang, Borang, Ardacer, Ethru, Ithilnur, Mithril, Laen, Eog, Tasarung ]
-	private int								mType;												// 0 = H2H Bladed, 1 = H2H Blunt, 2 = H2H Misc, 3 = Thrown, 4 = Bows
-	private int								mHanded;											// 0 = 1 handed only, 1 = either 1 or 2 handed, 2 = 2 handed only, 3 = mounted & charging only
+	private int								mMetal;													// 		[ Iron, Ang, Borang, Ardacer, Ethru, Ithilnur, Mithril, Laen, Eog, Tasarung ]
+	private int								mType;													// 0 = H2H Bladed, 1 = H2H Blunt, 2 = H2H Misc, 3 = Thrown, 4 = Bows
+	private int								mHanded;												// 0 = 1 handed only, 1 = either 1 or 2 handed, 2 = 2 handed only, 3 = mounted & charging only
 	private int								mStrength;
 	private int								mDexterity;
 	private float							mEncumbrance;
-	private int								mWeaponLength;										// -1 = N/A
+	private int								mWeaponLength;											// -1 = N/A
 	private int								mAttackSpeed;
-	private int								mWeaponBreak;										// -1 = N/A (doesn't break)
+	private int								mWeaponBreak;											// -1 = N/A (doesn't break)
 	private int								mHitBonus;
 	private int								mDamageOneHanded;
 	private int								mDamageTwoHanded;
@@ -100,25 +110,25 @@ public class WeaponList implements Savable {
 	}
 
 	public void clearRecords() {
-		mRecords = new ArrayList<>(50);
+		mRecords = new ArrayList<>(ARRAY_SIZE);
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	public static WeaponRecord getMasterWeaponRecord(int which) {
-		if (mWeaponMasterList == null) {
-			getWeaponMasterList();
+	public static WeaponRecord getWeaponRecord(int which) {
+		if (mWeaponCombinedList == null) {
+			getWeaponCombinedList();
 		}
-		return mWeaponMasterList[which];
+		return mWeaponCombinedList[which];
 	}
 
-	public static WeaponRecord getMasterWeaponRecord(String name) {
-		if (mWeaponMasterList == null) {
-			getWeaponMasterList();
+	public static WeaponRecord getWeaponRecord(String name) {
+		if (mWeaponCombinedList == null) {
+			getWeaponCombinedList();
 		}
 
-		for (WeaponRecord record : mWeaponMasterList) {
+		for (WeaponRecord record : mWeaponCombinedList) {
 			if (record.getName().equals(name)) {
 				return record;
 			}
@@ -131,6 +141,91 @@ public class WeaponList implements Savable {
 		return mRecords;
 	}
 
+	public static void addWeaponToFile(ArrayList<WeaponRecord> recordsToAdd) {
+		try (FileWriter fw = new FileWriter(SystemInfo.getWeaponUserPath(), true);
+						BufferedWriter bw = new BufferedWriter(fw);
+						PrintWriter out = new PrintWriter(bw)) {
+			for (WeaponRecord record : recordsToAdd) {
+				out.println(record.toRecordFile());
+			}
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+
+	}
+
+	private static void readWeapons(Scanner scanner, WeaponRecord[] list) {
+		int count = 0;
+		for (String line; (line = scanner.nextLine()) != null;) {
+			line = line.trim();
+
+			if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
+				continue;
+			}
+
+			String[] splitLine = line.split(", "); //$NON-NLS-1$
+			//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if (splitLine.length > 16) {
+				System.err.println(splitLine[2]);
+			}
+			WeaponRecord record = new WeaponRecord(TKStringHelpers.getIntValue(splitLine[0], 0), //
+							TKStringHelpers.getBoolValue(splitLine[1], false), //
+							splitLine[2].replaceAll("\"", ""), // //$NON-NLS-1$ //$NON-NLS-2$
+							TKStringHelpers.getIntValue(splitLine[3], 0), //
+							TKStringHelpers.getIntValue(splitLine[4], 0), //
+							TKStringHelpers.getIntValue(splitLine[5], 0), //
+							TKStringHelpers.getIntValue(splitLine[6], 0), //
+							TKStringHelpers.getIntValue(splitLine[7], 0), //
+							TKStringHelpers.getFloatValue(splitLine[8], 0f), //
+							TKStringHelpers.getIntValue(splitLine[9], 0), //
+							TKStringHelpers.getIntValue(splitLine[10], 0), //
+							TKStringHelpers.getIntValue(splitLine[11], 0), //
+							TKStringHelpers.getIntValue(splitLine[12], 0), //
+							TKStringHelpers.getIntValue(splitLine[13], 0), //
+							TKStringHelpers.getIntValue(splitLine[14], 0), //
+							TKStringHelpers.getFloatValue(splitLine[15], 0f));
+
+			list[count++] = record;
+		}
+	}
+
+	public static WeaponRecord[] getWeaponCombinedList() {
+		if (mWeaponCombinedList == null) {
+			if (mWeaponMasterList == null) {
+				getWeaponMasterList();
+			}
+			if (mWeaponUserList == null) {
+				getWeaponUserList();
+			}
+			mWeaponCombinedList = Stream.concat(Arrays.stream(mWeaponMasterList), Arrays.stream(mWeaponUserList)).toArray(WeaponRecord[]::new);
+		}
+		return mWeaponCombinedList;
+	}
+
+	public static WeaponRecord[] getWeaponUserList() {
+		if (mWeaponUserList == null) {
+			mWeaponUserList = new WeaponRecord[ARRAY_SIZE];
+
+			Scanner scanner = null;
+			try {
+				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getWeaponUserPath());
+				scanner = new Scanner(new File(SystemInfo.getWeaponUserPath()), "UTF-8"); //$NON-NLS-1$
+
+				readWeapons(scanner, mWeaponUserList);
+
+			} catch (NoSuchElementException nsee) {
+				// End of file, nothing to do except exit
+			} catch (FileNotFoundException exception) {
+				exception.printStackTrace();
+			}
+			if (scanner != null) {
+				scanner.close();
+			}
+
+		}
+		return mWeaponUserList;
+	}
+
 	public static Object[] getWeaponMasterList() {
 		if (mWeaponMasterList == null) {
 			mWeaponMasterList = new WeaponRecord[56];
@@ -141,42 +236,8 @@ public class WeaponList implements Savable {
 			try {
 				is = ACS.class.getModule().getResourceAsStream("resources/Weapon.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
-				int count = 0;
-				for (String line; (line = scanner.nextLine()) != null;) {
-					line = line.trim();
 
-					if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
-						continue;
-					}
-
-					String[] splitLine = line.split(", "); //$NON-NLS-1$
-					//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					if (splitLine.length > 16) {
-						System.err.println(splitLine[2]);
-					}
-					WeaponRecord record = new WeaponRecord(TKStringHelpers.getIntValue(splitLine[0], 0), //
-									TKStringHelpers.getBoolValue(splitLine[1], false), //
-									splitLine[2].replaceAll("\"", ""), // //$NON-NLS-1$ //$NON-NLS-2$
-									TKStringHelpers.getIntValue(splitLine[3], 0), //
-									TKStringHelpers.getIntValue(splitLine[4], 0), //
-									TKStringHelpers.getIntValue(splitLine[5], 0), //
-									TKStringHelpers.getIntValue(splitLine[6], 0), //
-									TKStringHelpers.getIntValue(splitLine[7], 0), //
-									TKStringHelpers.getFloatValue(splitLine[8], 0f), //
-									TKStringHelpers.getIntValue(splitLine[9], 0), //
-									TKStringHelpers.getIntValue(splitLine[10], 0), //
-									TKStringHelpers.getIntValue(splitLine[11], 0), //
-									TKStringHelpers.getIntValue(splitLine[12], 0), //
-									TKStringHelpers.getIntValue(splitLine[13], 0), //
-									TKStringHelpers.getIntValue(splitLine[14], 0), //
-									TKStringHelpers.getFloatValue(splitLine[15], 0f));
-					mWeaponMasterList[count] = record;
-					String name = mWeaponMasterList[count].getName();
-					if (!name.isBlank()) {
-						mWeaponProficiencyList[count] = name;
-					}
-					count++;
-				}
+				readWeapons(scanner, mWeaponMasterList);
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
@@ -197,13 +258,27 @@ public class WeaponList implements Savable {
 
 		}
 		return mWeaponMasterList;
+
 	}
 
 	public static String[] getProficiencyList() {
-		if (mWeaponMasterList == null) {
-			getWeaponMasterList();
+		if (mWeaponCombinedList == null) {
+			getWeaponCombinedList();
+		}
+		if (mWeaponProficiencyList == null) {
+			loadProficiencies();
 		}
 		return mWeaponProficiencyList;
+	}
+
+	private static void loadProficiencies() {
+		int count = 0;
+		for (WeaponRecord record : mWeaponCombinedList) {
+			String name = record.getName();
+			if (!name.isBlank()) {
+				mWeaponProficiencyList[count++] = name;
+			}
+		}
 	}
 
 	/*****************************************************************************

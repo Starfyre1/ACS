@@ -40,8 +40,8 @@ public class EquipmentRecord extends TKTableRecord {
 		mCount = obj.get(0) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(0), 0) : ((Integer) obj.get(0)).intValue();
 		mEquipped = ((Boolean) obj.get(1)).booleanValue();
 		mName = (String) obj.get(2);
-		mEncumbrance = ((Float) obj.get(3)).floatValue();
-		mCost = ((Float) obj.get(4)).floatValue();
+		mEncumbrance = obj.get(3) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(3), 0) : ((Float) obj.get(3)).floatValue();
+		mCost = obj.get(4) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(4), 0) : ((Float) obj.get(4)).floatValue();
 		mNotes = (String) obj.get(5);
 
 	}
@@ -165,6 +165,11 @@ public class EquipmentRecord extends TKTableRecord {
 	/** @return The notes. */
 	public String getNotes() {
 		return mNotes;
+	}
+
+	public String toRecordFile() {
+		return mCount + ", " + mEquipped + ", \"" + mName + "\", " + mEncumbrance + ", " + mCost + ", \"" + mNotes + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+
 	}
 
 	/*****************************************************************************

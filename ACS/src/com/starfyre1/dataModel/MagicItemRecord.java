@@ -37,7 +37,7 @@ public class MagicItemRecord extends TKTableRecord {
 		mEquipped = ((Boolean) obj.get(1)).booleanValue();
 		mName = (String) obj.get(2);
 		mCharges = obj.get(3) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(3), 0) : ((Integer) obj.get(3)).intValue();
-		mCost = ((Float) obj.get(4)).floatValue();
+		mCost = obj.get(4) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(4), 0) : ((Float) obj.get(4)).floatValue();
 	}
 
 	/*****************************************************************************
@@ -173,6 +173,10 @@ public class MagicItemRecord extends TKTableRecord {
 	// maybe get rid of MagicItems entirely and integrate it into the other records.
 	public float getEncumbrance() {
 		return 0;
+	}
+
+	public String toRecordFile() {
+		return mCount + ", " + mEquipped + ", \"" + mName + "\", " + mCharges + ", " + mCost; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 	/*****************************************************************************

@@ -9,7 +9,11 @@ import com.starfyre1.dataModel.ArmorRecord;
 import com.starfyre1.dataModel.EquipmentRecord;
 import com.starfyre1.dataModel.MagicItemRecord;
 import com.starfyre1.dataModel.WeaponRecord;
+import com.starfyre1.dataset.AnimalList;
 import com.starfyre1.dataset.ArmorList;
+import com.starfyre1.dataset.EquipmentList;
+import com.starfyre1.dataset.MagicItemList;
+import com.starfyre1.dataset.WeaponList;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -37,13 +41,12 @@ public class CreateDialog extends JDialog implements ActionListener {
 	 ****************************************************************************/
 	//	private static final String	TITLE[]	= { "Animal", "Armor", "Equipment", "Magic Item", "Weapon" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
-	private static final String		CREATE	= "Create ";	//$NON-NLS-1$
-	private static final String		CANCEL	= "Cancel";		//$NON-NLS-1$
+	private static final String		SAVE	= "Save";	//$NON-NLS-1$
+	private static final String		CANCEL	= "Cancel";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private static CreateDialog		mInstance;
 	private JFrame					mFrame;
 
 	private JTabbedPane				mTabbedPane;
@@ -54,16 +57,15 @@ public class CreateDialog extends JDialog implements ActionListener {
 	private AnimalEntryDisplay		mAnimalShop;
 	private MagicItemEntryDisplay	mMagicItemsShop;
 
-	JButton							mCreateButton;
+	JButton							mSaveButton;
 	JButton							mCancelButton;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
 	public CreateDialog(JFrame parent) {
-		super(parent, CREATE, true);
+		super(parent, SAVE, true);
 
-		mInstance = this;
 		mFrame = parent;
 
 		JPanel wrapper = new JPanel(new BorderLayout(10, 10));
@@ -103,10 +105,11 @@ public class CreateDialog extends JDialog implements ActionListener {
 		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 
-		mCreateButton = TKComponentHelpers.createButton(CREATE, this, false);
+		mSaveButton = TKComponentHelpers.createButton(SAVE, this, false);
 		mCancelButton = TKComponentHelpers.createButton(CANCEL, this);
 
-		buttonPanel.add(mCreateButton);
+		buttonPanel.add(Box.createHorizontalGlue());
+		buttonPanel.add(mSaveButton);
 		buttonPanel.add(Box.createHorizontalStrut(5));
 		buttonPanel.add(mCancelButton);
 
@@ -172,19 +175,20 @@ public class CreateDialog extends JDialog implements ActionListener {
 
 	void updateButtons(boolean enable) {
 		// DW validate that an item is fully described/filled out
-		mCreateButton.setEnabled(enable);
+		mSaveButton.setEnabled(enable);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if (obj instanceof JButton) {
-			if (mCreateButton.equals(obj)) {
+			if (mSaveButton.equals(obj)) {
 				// DW add record to database
 				Component comp = ((JPanel) mTabbedPane.getSelectedComponent()).getComponent(0);
 				if (comp instanceof EquipmentEntryDisplay) {
 					((EquipmentEntryDisplay) comp).finalizeSelections();
 					ArrayList<EquipmentRecord> recordsToAdd = ((EquipmentEntryDisplay) comp).getRecordsToAdd();
+					EquipmentList.addEquipmentToFile(recordsToAdd);
 				} else if (comp instanceof ArmorEntryDisplay) {
 					((ArmorEntryDisplay) comp).finalizeSelections();
 					ArrayList<ArmorRecord> recordsToAdd = ((ArmorEntryDisplay) comp).getRecordsToAdd();
@@ -192,22 +196,19 @@ public class CreateDialog extends JDialog implements ActionListener {
 				} else if (comp instanceof AnimalEntryDisplay) {
 					((AnimalEntryDisplay) comp).finalizeSelections();
 					ArrayList<AnimalRecord> recordsToAdd = ((AnimalEntryDisplay) comp).getRecordsToAdd();
+					AnimalList.addAnimalToFile(recordsToAdd);
 				} else if (comp instanceof MagicItemEntryDisplay) {
 					((MagicItemEntryDisplay) comp).finalizeSelections();
 					ArrayList<MagicItemRecord> recordsToAdd = ((MagicItemEntryDisplay) comp).getRecordsToAdd();
+					MagicItemList.addMagicItemToFile(recordsToAdd);
 				} else if (comp instanceof WeaponEntryDisplay) {
 					((WeaponEntryDisplay) comp).finalizeSelections();
 					ArrayList<WeaponRecord> recordsToAdd = ((WeaponEntryDisplay) comp).getRecordsToAdd();
+					WeaponList.addWeaponToFile(recordsToAdd);
 				}
-
-				saveCreatedItem();
-			} else if (mCancelButton.equals(obj)) {
-				dispose();
 			}
+			dispose();
 		}
-	}
-
-	private void saveCreatedItem() {
 	}
 
 	/*****************************************************************************

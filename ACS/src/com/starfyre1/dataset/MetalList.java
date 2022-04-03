@@ -109,7 +109,7 @@ public class MetalList {
 
 	public static int getMetalID(String which) {
 		for (int i = 0; i < mMetalMasterList.length; i++) {
-			if (mMetalMasterList[i].getName().equals(which)) {
+			if (mMetalMasterList[i].getName().equalsIgnoreCase(which)) {
 				return i;
 			}
 		}
@@ -118,7 +118,7 @@ public class MetalList {
 
 	public static MetalRecord getMetalRecord(String which) {
 		for (MetalRecord record : mMetalMasterList) {
-			if (record.getName().equals(which)) {
+			if (record.getName().equalsIgnoreCase(which)) {
 				return record;
 			}
 		}

@@ -7,7 +7,6 @@ import com.starfyre1.GUI.purchasedGear.animal.AnimalsDisplay;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.dataModel.AnimalRecord;
-import com.starfyre1.dataset.AnimalList;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableModel;
 
 public class AnimalEntryDisplay extends AnimalsDisplay implements TableModelListener {
 
@@ -60,6 +60,11 @@ public class AnimalEntryDisplay extends AnimalsDisplay implements TableModelList
 		return scrollPane;
 	}
 
+	@Override
+	public void loadDisplay() {
+		// DW load the user created items
+	}
+
 	public void finalizeSelections() {
 		TableCellEditor editor = mTable.getCellEditor();
 		if (editor != null) {
@@ -68,20 +73,88 @@ public class AnimalEntryDisplay extends AnimalsDisplay implements TableModelList
 	}
 
 	@Override
-	public void loadDisplay() {
-		AnimalList animals = ((CharacterSheet) getOwner()).getAnimalList();
-		if (animals != null) {
-			ArrayList<AnimalRecord> records = animals.getRecords();
+	public void tableChanged(TableModelEvent e) {
+		int row = e.getFirstRow();
+		boolean validRow = isRowValid(row);
+		((CreateDialog) getOwner()).updateButtons(validRow);
+		if (validRow) {
 			TKTableModel model = (TKTableModel) mTable.getModel();
-			model.setRowCount(0);
-			for (AnimalRecord record : records) {
-				model.addRow(record.getRecord());
+			model.removeTableModelListener(this);
+
+			model.setValueAt(Integer.valueOf(0), row, 0);
+			// DW this needs to be made to fit animal entry and not armor entry
+			//			String name = (String) model.getValueAt(row, 2);
+			//			String metal = (String) model.getValueAt(row, 3);
+			//			int[] protectionType = TKStringHelpers.getIntArray((String) model.getValueAt(row, 4), new int[0]);
+			//			int protectionAmount = TKStringHelpers.getIntValue((String) model.getValueAt(row, 5), 0);
+			//			float encumbrance = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 6), 0.0f);
+			//			int absorption = TKStringHelpers.getIntValue((String) model.getValueAt(row, 7), 0);
+			//			int bonus = TKStringHelpers.getIntValue((String) model.getValueAt(row, 8), 0);
+			//			int missileAbsorption = TKStringHelpers.getIntValue((String) model.getValueAt(row, 9), 0);
+			//			int strengthRequirement = TKStringHelpers.getIntValue((String) model.getValueAt(row, 10), 0);
+			//			float cost = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 13), 0.0f);
+
+			//			ArmorRecord record = new ArmorRecord(0, false, name, MetalList.getMetalID(metal), protectionType, protectionAmount, encumbrance, absorption, bonus, missileAbsorption, strengthRequirement, 0, 0, cost);
+			// 			System.out.println(row + " :: " + record);
+			if (!hasEmptyRow()) {
+				model.addRow(new Object[6]);
 			}
+
+			model.addTableModelListener(this);
+
 		}
 	}
 
-	@Override
-	public void tableChanged(TableModelEvent e) {
+	private boolean isNullOrEmpty(Object value) {
+		return value == null || ((String) value).isEmpty();
+	}
+
+	private boolean hasEmptyRow() {
+		TableModel model = mTable.getModel();
+		int rows = model.getRowCount();
+		for (int i = 0; i < rows; i++) {
+			if (isNullOrEmpty(model.getValueAt(i, 1)) || isNullOrEmpty(model.getValueAt(i, 2)) || isNullOrEmpty(model.getValueAt(i, 3)) || //
+							isNullOrEmpty(model.getValueAt(i, 4)) || isNullOrEmpty(model.getValueAt(i, 5)) || isNullOrEmpty(model.getValueAt(i, 6)) || //
+							isNullOrEmpty(model.getValueAt(i, 7)) || isNullOrEmpty(model.getValueAt(i, 8)) || isNullOrEmpty(model.getValueAt(i, 9))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param firstRow
+	 */
+	private boolean isRowValid(int firstRow) {
+		TableModel model = mTable.getModel();
+		if (isNullOrEmpty(model.getValueAt(firstRow, 1))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 2))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 3))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 4))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 5))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 6))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 7))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 8))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 9))) {
+			return false;
+		}
+		return true;
 	}
 
 	/*****************************************************************************

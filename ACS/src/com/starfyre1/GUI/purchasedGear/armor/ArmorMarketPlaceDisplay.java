@@ -63,7 +63,7 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 	@Override
 	protected Component createDisplay() {
 		// This is the full equipment list in the Market Place
-		Object[] master = ArmorList.getArmorMasterList();
+		Object[] master = ArmorList.getArmorCombinedList();
 		Object[][] data = new Object[master.length][14];
 
 		for (int i = 0; i < master.length; i++) {
@@ -107,8 +107,7 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 			editor.stopCellEditing();
 		}
 	}
-	
-	
+
 	public void swapTables() {
 
 		TKTableModel ownedModel = (TKTableModel) ACS.getInstance().getCharacterSheet().getArmorOwnedTable().getModel();
@@ -204,7 +203,7 @@ public class ArmorMarketPlaceDisplay extends ArmorDisplay implements TableModelL
 			TableModel model = mTable.getModel();
 			MetalRecord metal = (MetalRecord) model.getValueAt(row, e.getColumn());
 
-			record = ArmorList.getMasterArmorRecord(record.getName());
+			record = ArmorList.getArmorRecord(record.getName());
 
 			model.setValueAt(Integer.valueOf(record.getProtectionAmount() + metal.getARBonus()), row, 5); // ProtectionAmount
 			model.setValueAt(Float.valueOf(record.getEncumbrance() * metal.getEnumbrance()), row, 6); // Encumbrance

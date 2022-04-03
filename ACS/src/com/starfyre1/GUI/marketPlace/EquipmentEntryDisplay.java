@@ -4,7 +4,6 @@ package com.starfyre1.GUI.marketPlace;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.purchasedGear.equipment.EquipmentDisplay;
-import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.dataModel.EquipmentRecord;
@@ -65,7 +64,7 @@ public class EquipmentEntryDisplay extends EquipmentDisplay implements TableMode
 
 	@Override
 	public void loadDisplay() {
-		// Nothing to do
+		// DW load the user created items
 	}
 
 	public void finalizeSelections() {
@@ -82,18 +81,22 @@ public class EquipmentEntryDisplay extends EquipmentDisplay implements TableMode
 		((CreateDialog) getOwner()).updateButtons(validRow);
 		if (validRow) {
 			TKTableModel model = (TKTableModel) mTable.getModel();
+			model.removeTableModelListener(this);
 
-			int count = 0;
-			boolean equipped = false;
-			String name = (String) model.getValueAt(row, 2);
-			float encumbrance = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 3), 0.0f);
-			float cost = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 4), 0.0f);
-			String notes = (String) model.getValueAt(row, 5);
-			EquipmentRecord record = new EquipmentRecord(count, equipped, name, encumbrance, cost, notes);
-			System.out.println(row + " :: " + record);
+			model.setValueAt(Integer.valueOf(0), row, 0);
+			model.setValueAt(Boolean.valueOf(false), row, 1);
+
+			//			String name = (String) model.getValueAt(row, 2);
+			//			float encumbrance = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 3), 0.0f);
+			//			float cost = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 4), 0.0f);
+			//			String notes = (String) model.getValueAt(row, 5);
+			//			EquipmentRecord record = new EquipmentRecord(0, false, name, encumbrance, cost, notes);
+			//			System.out.println(row + " :: " + record);
 			if (!hasEmptyRow()) {
 				model.addRow(new Object[6]);
 			}
+
+			model.addTableModelListener(this);
 		}
 	}
 
@@ -105,7 +108,7 @@ public class EquipmentEntryDisplay extends EquipmentDisplay implements TableMode
 		TableModel model = mTable.getModel();
 		int rows = model.getRowCount();
 		for (int i = 0; i < rows; i++) {
-			if (isNullOrEmpty(model.getValueAt(i, 2)) || isNullOrEmpty(model.getValueAt(i, 3)) || isNullOrEmpty(model.getValueAt(i, 4))) {
+			if (isNullOrEmpty(model.getValueAt(i, 2)) || isNullOrEmpty(model.getValueAt(i, 3)) || isNullOrEmpty(model.getValueAt(i, 4)) || isNullOrEmpty(model.getValueAt(i, 5))) {
 				return true;
 			}
 		}
@@ -124,6 +127,9 @@ public class EquipmentEntryDisplay extends EquipmentDisplay implements TableMode
 			return false;
 		}
 		if (isNullOrEmpty(model.getValueAt(firstRow, 4))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 5))) {
 			return false;
 		}
 		return true;

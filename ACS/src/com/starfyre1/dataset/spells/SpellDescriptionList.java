@@ -667,7 +667,7 @@ public class SpellDescriptionList {
 		Integer index = mDescriptionMap.get(name);
 		if (index == null) {
 			if (!ignore.contains(name)) {
-				System.err.println("SpellDescription " + name);
+				System.err.println("SpellDescription " + name); //$NON-NLS-1$
 			}
 			return ""; //$NON-NLS-1$
 		}

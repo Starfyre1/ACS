@@ -339,7 +339,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 	 * @param which 0=Animal, 1=Armor, 2=Equipment, 3=Magic Item, 4=Weapon
 	 */
 	private void createMarketPlaceItem() {
-		CreateDialog dialog = new CreateDialog(mFrame);
+		new CreateDialog(mFrame);
 
 	}
 

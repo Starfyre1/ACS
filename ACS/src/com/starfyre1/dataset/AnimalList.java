@@ -6,15 +6,22 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AnimalRecord;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
+import com.starfyre1.startup.SystemInfo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 public class AnimalList implements Savable {
 	/*****************************************************************************
@@ -22,44 +29,47 @@ public class AnimalList implements Savable {
 	 ****************************************************************************/
 	/*
 		All War-horses have an ASP = +0 and a WL = 9.
-
+	
 		Carry =		Amount in Pounds including the rider, that the animal can
 				carry before reducing it's speed by 1/4.  An animal may not carry
 				more than twice it's allotted Carry.  Animals may drag a weight
 				equal to their Carry X 2, if the load is on wheels, increase it to
 				Carry X 5.
-
+	
 		Move =		Standard movement per round.
-
+	
 		Travel =	Number of miles that may be covered in clear terrain in one day.
 				in wilderness areas the maximum movement would be 25 miles
 				per day.
-
+	
 			All Horses and mules have an Armor Rating of 55% + whatever armor that you
 			buy for them.
-
+	
 	*/
 
-	public static final String				FILE_SECTION_START_KEY	= "ANIMAL_SECTION_START";	//$NON-NLS-1$
-	public static final String				FILE_SECTION_END_KEY	= "ANIMAL_SECTION_END";	//$NON-NLS-1$
+	public static final String				FILE_SECTION_START_KEY	= "ANIMAL_SECTION_START";		//$NON-NLS-1$
+	public static final String				FILE_SECTION_END_KEY	= "ANIMAL_SECTION_END";			//$NON-NLS-1$
 
-	private static final String				COUNT_KEY				= "COUNT_KEY";				//$NON-NLS-1$
-	private static final String				NAME_KEY				= "NAME_KEY";				//$NON-NLS-1$
-	private static final String				CARRY_KEY				= "CARRY_KEY";				//$NON-NLS-1$
-	private static final String				MOVE_KEY				= "MOVE_KEY";				//$NON-NLS-1$
-	private static final String				TRAVEL_KEY				= "TRAVEL_KEY";				//$NON-NLS-1$
-	private static final String				HITS_KEY				= "HITS_KEY";				//$NON-NLS-1$
-	private static final String				HIT_BONUS_KEY			= "HIT_BONUS_KEY";			//$NON-NLS-1$
-	private static final String				KICK_DAMAGE_KEY			= "KICK_DAMAGE_KEY";		//$NON-NLS-1$
-	private static final String				ARMOR_KEY				= "ARMOR_KEY";				//$NON-NLS-1$
-	private static final String				COST_KEY				= "COST_KEY";				//$NON-NLS-1$
-	private static final String				NOTES_KEY				= "NOTES_KEY";				//$NON-NLS-1$
+	private static final String				COUNT_KEY				= "COUNT_KEY";					//$NON-NLS-1$
+	private static final String				NAME_KEY				= "NAME_KEY";					//$NON-NLS-1$
+	private static final String				CARRY_KEY				= "CARRY_KEY";					//$NON-NLS-1$
+	private static final String				MOVE_KEY				= "MOVE_KEY";					//$NON-NLS-1$
+	private static final String				TRAVEL_KEY				= "TRAVEL_KEY";					//$NON-NLS-1$
+	private static final String				HITS_KEY				= "HITS_KEY";					//$NON-NLS-1$
+	private static final String				HIT_BONUS_KEY			= "HIT_BONUS_KEY";				//$NON-NLS-1$
+	private static final String				KICK_DAMAGE_KEY			= "KICK_DAMAGE_KEY";			//$NON-NLS-1$
+	private static final String				ARMOR_KEY				= "ARMOR_KEY";					//$NON-NLS-1$
+	private static final String				COST_KEY				= "COST_KEY";					//$NON-NLS-1$
+	private static final String				NOTES_KEY				= "NOTES_KEY";					//$NON-NLS-1$
+	private static final int				ARRAY_SIZE				= 26;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private static AnimalRecord[]			mAnimalCombinedList;
 	private static AnimalRecord[]			mAnimalMasterList;
-	private static ArrayList<AnimalRecord>	mRecords				= new ArrayList<>(26);
+	private static AnimalRecord[]			mAnimalUserList;
+	private static ArrayList<AnimalRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
 
 	private int								mCount;
 	private String							mName;
@@ -134,56 +144,125 @@ public class AnimalList implements Savable {
 	}
 
 	public void clearRecords() {
-		mRecords = new ArrayList<>(26);
+		mRecords = new ArrayList<>(ARRAY_SIZE);
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	public static AnimalRecord getMasterAnimalRecord(int which) {
+	public static AnimalRecord getAnimalRecord(int which) {
 		return mAnimalMasterList[which];
+	}
+
+	public static AnimalRecord getAnimalRecord(String name) {
+		if (mAnimalCombinedList == null) {
+			getAnimalCombinedList();
+		}
+
+		for (AnimalRecord record : mAnimalCombinedList) {
+			if (record.getName().equals(name)) {
+				return record;
+			}
+		}
+		return null;
 	}
 
 	public ArrayList<AnimalRecord> getRecords() {
 		return mRecords;
 	}
 
+	public static void addAnimalToFile(ArrayList<AnimalRecord> recordsToAdd) {
+		try (FileWriter fw = new FileWriter(SystemInfo.getAnimalUserPath(), true);
+						BufferedWriter bw = new BufferedWriter(fw);
+						PrintWriter out = new PrintWriter(bw)) {
+			for (AnimalRecord record : recordsToAdd) {
+				out.println(record.toRecordFile());
+			}
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+
+	}
+
+	private static void readAnimal(Scanner scanner, AnimalRecord[] list) {
+		int count = 0;
+		for (String line; (line = scanner.nextLine()) != null;) {
+			line = line.trim();
+
+			if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
+				continue;
+			}
+
+			String[] splitLine = line.split(", "); //$NON-NLS-1$
+			//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if (splitLine.length > 11) {
+				System.err.println(splitLine[1]);
+			}
+			AnimalRecord record = new AnimalRecord(TKStringHelpers.getIntValue(splitLine[0], 0), //
+							splitLine[1].replaceAll("\"", ""), // //$NON-NLS-1$ //$NON-NLS-2$
+							TKStringHelpers.getIntValue(splitLine[2], 0), //
+							TKStringHelpers.getIntValue(splitLine[3], 0), //
+							TKStringHelpers.getIntValue(splitLine[4], 0), //
+							splitLine[5].replaceAll("\"", ""), //, // //$NON-NLS-1$ //$NON-NLS-2$
+							TKStringHelpers.getIntValue(splitLine[6], 0), //
+							TKStringHelpers.getIntValue(splitLine[7], 0), //
+							TKStringHelpers.getIntValue(splitLine[8], 0), //
+							TKStringHelpers.getFloatValue(splitLine[9], 0f), //
+							splitLine[10].replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
+			list[count++] = record;
+		}
+
+	}
+
+	public static AnimalRecord[] getAnimalCombinedList() {
+		if (mAnimalCombinedList == null) {
+			if (mAnimalMasterList == null) {
+				getAnimalMasterList();
+			}
+			if (mAnimalUserList == null) {
+				getAnimalUserList();
+			}
+			mAnimalCombinedList = Stream.concat(Arrays.stream(mAnimalMasterList), Arrays.stream(mAnimalUserList)).toArray(AnimalRecord[]::new);
+		}
+		return mAnimalCombinedList;
+	}
+
+	public static AnimalRecord[] getAnimalUserList() {
+		if (mAnimalUserList == null) {
+			mAnimalUserList = new AnimalRecord[ARRAY_SIZE];
+
+			Scanner scanner = null;
+			try {
+				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getAnimalUserPath());
+				scanner = new Scanner(new File(SystemInfo.getAnimalUserPath()), "UTF-8"); //$NON-NLS-1$
+
+				readAnimal(scanner, mAnimalUserList);
+
+			} catch (NoSuchElementException nsee) {
+				// End of file, nothing to do except exit
+			} catch (FileNotFoundException exception) {
+				exception.printStackTrace();
+			}
+			if (scanner != null) {
+				scanner.close();
+			}
+
+		}
+		return mAnimalUserList;
+	}
+
 	public static Object[] getAnimalMasterList() {
 		// DW Implement 1D3 for kick damage bonus for falcon
 		if (mAnimalMasterList == null) {
-			mAnimalMasterList = new AnimalRecord[26];
+			mAnimalMasterList = new AnimalRecord[ARRAY_SIZE];
 
 			Scanner scanner = null;
 			InputStream is = null;
 			try {
 				is = ACS.class.getModule().getResourceAsStream("resources/Animal.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
-				int count = 0;
-				for (String line; (line = scanner.nextLine()) != null;) {
-					line = line.trim();
 
-					if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
-						continue;
-					}
-
-					String[] splitLine = line.split(", "); //$NON-NLS-1$
-					//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					if (splitLine.length > 11) {
-						System.err.println(splitLine[1]);
-					}
-					AnimalRecord record = new AnimalRecord(TKStringHelpers.getIntValue(splitLine[0], 0), //
-									splitLine[1].replaceAll("\"", ""), // //$NON-NLS-1$ //$NON-NLS-2$
-									TKStringHelpers.getIntValue(splitLine[2], 0), //
-									TKStringHelpers.getIntValue(splitLine[3], 0), //
-									TKStringHelpers.getIntValue(splitLine[4], 0), //
-									splitLine[5].replaceAll("\"", ""), //, // //$NON-NLS-1$ //$NON-NLS-2$
-									TKStringHelpers.getIntValue(splitLine[6], 0), //
-									TKStringHelpers.getIntValue(splitLine[7], 0), //
-									TKStringHelpers.getIntValue(splitLine[8], 0), //
-									TKStringHelpers.getFloatValue(splitLine[9], 0f), //
-									splitLine[10].replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
-					mAnimalMasterList[count++] = record;
-				}
+				readAnimal(scanner, mAnimalMasterList);
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
 			} catch (IOException ioe) {

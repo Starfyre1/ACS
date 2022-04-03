@@ -132,16 +132,16 @@ public class WeaponRecord extends TKTableRecord {
 		mType = TKStringHelpers.getIntValue((String) obj.get(4), 0);
 		String temp = (String) obj.get(5);
 		mHanded = temp.equals(mHandedLabel[0]) ? 0 : temp.equals(mHandedLabel[1]) ? 1 : temp.equals(mHandedLabel[2]) ? 2 : 3;
-		mStrength = ((Integer) obj.get(6)).intValue();
-		mDexterity = ((Integer) obj.get(7)).intValue();
-		mEncumbrance = ((Float) obj.get(8)).floatValue();
-		mWeaponLength = ((Integer) obj.get(9)).intValue();
-		mAttackSpeed = ((Integer) obj.get(10)).intValue();
-		mWeaponBreak = ((Integer) obj.get(11)).intValue();
-		mHitBonus = ((Integer) obj.get(12)).intValue();
+		mStrength = obj.get(6) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(6), 0) : ((Integer) obj.get(6)).intValue();
+		mDexterity = obj.get(7) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(7), 0) : ((Integer) obj.get(7)).intValue();
+		mEncumbrance = obj.get(8) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(8), 0) : ((Float) obj.get(8)).floatValue();
+		mWeaponLength = obj.get(9) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(9), 0) : ((Integer) obj.get(9)).intValue();
+		mAttackSpeed = obj.get(10) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(10), 0) : ((Integer) obj.get(10)).intValue();
+		mWeaponBreak = obj.get(11) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(11), 0) : ((Integer) obj.get(11)).intValue();
+		mHitBonus = obj.get(12) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(12), 0) : ((Integer) obj.get(12)).intValue();
 		mDamageOneHanded = obj.get(13) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(13), 0) : ((Integer) obj.get(13)).intValue();
 		mDamageTwoHanded = obj.get(14) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(14), 0) : ((Integer) obj.get(14)).intValue();
-		mCost = ((Float) obj.get(15)).floatValue();
+		mCost = obj.get(15) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(15), 0) : ((Float) obj.get(15)).floatValue();
 	}
 
 	/*****************************************************************************
@@ -324,6 +324,13 @@ public class WeaponRecord extends TKTableRecord {
 	/** @return The cost. */
 	public float getCost() {
 		return mCost;
+	}
+
+	public String toRecordFile() {
+		return mCount + ", " + mEquipped + ", \"" + mName + "\", " + mMetal + ", " + mType + ", " + mHanded + ", " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+						mStrength + ", " + mDexterity + ", " + mEncumbrance + ", " + mWeaponLength + ", " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						mAttackSpeed + ", " + mWeaponBreak + ", " + mHitBonus + ", " + mDamageOneHanded + ", " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						mDamageTwoHanded + ", " + mCost; //$NON-NLS-1$
 	}
 
 	/*****************************************************************************

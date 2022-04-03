@@ -6,15 +6,22 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.MagicItemRecord;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
+import com.starfyre1.startup.SystemInfo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 public class MagicItemList implements Savable {
 	/*****************************************************************************
@@ -28,12 +35,15 @@ public class MagicItemList implements Savable {
 	private static final String			NAME_KEY				= "NAME_KEY";					//$NON-NLS-1$
 	private static final String			CHARGES_KEY				= "CHARGES_KEY";				//$NON-NLS-1$
 	private static final String			COST_KEY				= "COST_KEY";					//$NON-NLS-1$
+	private static final int			ARRAY_SIZE				= 32;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private static MagicItemRecord[]	mMagicItemMasterList;
-	private ArrayList<MagicItemRecord>	mRecords				= new ArrayList<>(32);
+	private static MagicItemRecord[]	mMagicItemCombinedList	= null;
+	private static MagicItemRecord[]	mMagicItemMasterList	= null;
+	private static MagicItemRecord[]	mMagicItemUserList		= null;
+	private ArrayList<MagicItemRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
 
 	private int							mCount;
 	private boolean						mEquipped;
@@ -71,16 +81,6 @@ public class MagicItemList implements Savable {
 		return cost;
 	}
 
-	public void updateMagicItemRecord(MagicItemRecord record) {
-		for (int i = 0; i < mRecords.size(); i++) {
-			MagicItemRecord owned = mRecords.get(i);
-			if (owned.getName().equals(record.getName())) {
-				mRecords.set(i, record);
-				return;
-			}
-		}
-	}
-
 	/**
 	 * @param soldItems
 	 * @param calculateCost
@@ -110,21 +110,116 @@ public class MagicItemList implements Savable {
 	}
 
 	public void clearRecords() {
-		mRecords = new ArrayList<>(32);
+		mRecords = new ArrayList<>(ARRAY_SIZE);
+	}
+
+	public void updateMagicItemRecord(MagicItemRecord record) {
+		for (int i = 0; i < mRecords.size(); i++) {
+			MagicItemRecord owned = mRecords.get(i);
+			if (owned.getName().equals(record.getName())) {
+				mRecords.set(i, record);
+				return;
+			}
+		}
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	public static MagicItemRecord getMagicItemMasterList(int which) {
+	public static MagicItemRecord getMagicItemRecord(int which) {
+		if (mMagicItemCombinedList == null) {
+			getMagicItemCombinedList();
+		}
 		return mMagicItemMasterList[which];
+	}
+
+	public static MagicItemRecord getMagicItemRecord(String name) {
+		if (mMagicItemCombinedList == null) {
+			getMagicItemCombinedList();
+		}
+
+		for (MagicItemRecord record : mMagicItemCombinedList) {
+			if (record.getName().equals(name)) {
+				return record;
+			}
+		}
+		return null;
 	}
 
 	public ArrayList<MagicItemRecord> getRecords() {
 		return mRecords;
 	}
 
-	public static Object[] getMagicItemsMasterList() {
+	public static void addMagicItemToFile(ArrayList<MagicItemRecord> recordsToAdd) {
+		try (FileWriter fw = new FileWriter(SystemInfo.getMagicItemUserPath(), true);
+						BufferedWriter bw = new BufferedWriter(fw);
+						PrintWriter out = new PrintWriter(bw)) {
+			for (MagicItemRecord record : recordsToAdd) {
+				out.println(record.toRecordFile());
+			}
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+
+	}
+
+	private static void readMagicItems(Scanner scanner, MagicItemRecord[] list) {
+		int count = 0;
+		for (String line; (line = scanner.nextLine()) != null;) {
+			line = line.trim();
+
+			if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
+				continue;
+			}
+
+			String[] splitLine = line.split(", "); //$NON-NLS-1$
+			//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if (splitLine.length > 5) {
+				System.err.println(splitLine[2]);
+			}
+			MagicItemRecord record = new MagicItemRecord(TKStringHelpers.getIntValue(splitLine[0], 0), TKStringHelpers.getBoolValue(splitLine[1], false), splitLine[2], TKStringHelpers.getIntValue(splitLine[3], 0), TKStringHelpers.getFloatValue(splitLine[4], 0f));
+			list[count++] = record;
+		}
+	}
+
+	public static MagicItemRecord[] getMagicItemCombinedList() {
+		if (mMagicItemCombinedList == null) {
+			if (mMagicItemMasterList == null) {
+				getMagicItemMasterList();
+			}
+			if (mMagicItemUserList == null) {
+				getMagicItemUserList();
+			}
+			mMagicItemCombinedList = Stream.concat(Arrays.stream(mMagicItemMasterList), Arrays.stream(mMagicItemUserList)).toArray(MagicItemRecord[]::new);
+		}
+		return mMagicItemCombinedList;
+	}
+
+	public static MagicItemRecord[] getMagicItemUserList() {
+		if (mMagicItemUserList == null) {
+			mMagicItemUserList = new MagicItemRecord[ARRAY_SIZE];
+
+			Scanner scanner = null;
+			try {
+				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getMagicItemUserPath());
+				scanner = new Scanner(new File(SystemInfo.getMagicItemUserPath()), "UTF-8"); //$NON-NLS-1$
+
+				readMagicItems(scanner, mMagicItemUserList);
+
+			} catch (NoSuchElementException nsee) {
+				// End of file, nothing to do except exit
+			} catch (FileNotFoundException exception) {
+				exception.printStackTrace();
+			}
+			if (scanner != null) {
+				scanner.close();
+			}
+
+		}
+		return mMagicItemUserList;
+	}
+
+	public static Object[] getMagicItemMasterList() {
 		if (mMagicItemMasterList == null) {
 			mMagicItemMasterList = new MagicItemRecord[2];
 
@@ -133,22 +228,8 @@ public class MagicItemList implements Savable {
 			try {
 				is = ACS.class.getModule().getResourceAsStream("resources/MagicItem.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
-				int count = 0;
-				for (String line; (line = scanner.nextLine()) != null;) {
-					line = line.trim();
 
-					if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
-						continue;
-					}
-
-					String[] splitLine = line.split(", "); //$NON-NLS-1$
-					//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					if (splitLine.length > 5) {
-						System.err.println(splitLine[2]);
-					}
-					MagicItemRecord record = new MagicItemRecord(TKStringHelpers.getIntValue(splitLine[0], 0), TKStringHelpers.getBoolValue(splitLine[1], false), splitLine[2], TKStringHelpers.getIntValue(splitLine[3], 0), TKStringHelpers.getFloatValue(splitLine[4], 0f));
-					mMagicItemMasterList[count++] = record;
-				}
+				readMagicItems(scanner, mMagicItemMasterList);
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
@@ -169,6 +250,7 @@ public class MagicItemList implements Savable {
 
 		}
 		return mMagicItemMasterList;
+
 	}
 
 	/*****************************************************************************

@@ -15,7 +15,6 @@ import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -124,20 +123,29 @@ public class ACS {
 		Path equipmentFile = Paths.get(SystemInfo.getEquipmentUserPath());
 		Path magicItemFile = Paths.get(SystemInfo.getMagicItemUserPath());
 		Path weaponFile = Paths.get(SystemInfo.getWeaponUserPath());
-		if (Files.notExists(path)) {
-			try {
-				Files.createDirectories(path);
-				Files.createFile(armorFile);
-				Files.createFile(animalFile);
-				Files.createFile(magicItemFile);
-				Files.createFile(weaponFile);
-				Files.createFile(equipmentFile);
-			} catch (IOException exception) {
-				exception.printStackTrace();
-			} catch (InvalidPathException ipe) {
-				System.err.println(ipe.getInput() + "\n" + ipe.getStackTrace()); //$NON-NLS-1$
 
+		try {
+			if (Files.notExists(path)) {
+				Files.createDirectories(path);
 			}
+			if (Files.notExists(armorFile)) {
+				Files.createFile(armorFile);
+			}
+			if (Files.notExists(animalFile)) {
+				Files.createFile(animalFile);
+			}
+			if (Files.notExists(magicItemFile)) {
+				Files.createFile(magicItemFile);
+			}
+			if (Files.notExists(weaponFile)) {
+				Files.createFile(weaponFile);
+			}
+			if (Files.notExists(equipmentFile)) {
+				Files.createFile(equipmentFile);
+			}
+
+		} catch (IOException exception) {
+			exception.printStackTrace();
 		}
 
 	}

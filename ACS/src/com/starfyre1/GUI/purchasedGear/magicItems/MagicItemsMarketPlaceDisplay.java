@@ -59,7 +59,7 @@ public class MagicItemsMarketPlaceDisplay extends MagicItemsDisplay implements T
 		Vector<String> header = new Vector<String>(5);
 		header.copyInto(COLUMN_HEADER_NAMES);
 
-		Object[] master = MagicItemList.getMagicItemsMasterList();
+		Object[] master = MagicItemList.getMagicItemCombinedList();
 		Object[][] data = new Object[master.length][5];
 
 		for (int i = 0; i < master.length; i++) {
@@ -148,7 +148,7 @@ public class MagicItemsMarketPlaceDisplay extends MagicItemsDisplay implements T
 						count = ((Integer) element).intValue();
 					}
 					if (count > 0) {
-						MagicItemRecord record = MagicItemList.getMagicItemMasterList(i).clone();
+						MagicItemRecord record = MagicItemList.getMagicItemRecord(i).clone();
 						record.setCount(count);
 						record.setEquipped(((Boolean) row.get(1)).booleanValue());
 						records.add(record);

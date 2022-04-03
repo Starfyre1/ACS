@@ -62,7 +62,7 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 	@Override
 	protected Component createDisplay() {
 		// This is the full equipment list in the Market Place
-		Object[] master = WeaponList.getWeaponMasterList();
+		Object[] master = WeaponList.getWeaponCombinedList();
 		Object[][] data = new Object[master.length][16];
 
 		for (int i = 0; i < master.length; i++) {
@@ -132,8 +132,7 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 			editor.stopCellEditing();
 		}
 	}
-	
-	
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -204,7 +203,7 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 			TableModel model = mTable.getModel();
 			MetalRecord metal = (MetalRecord) model.getValueAt(row, e.getColumn());
 
-			record = WeaponList.getMasterWeaponRecord(record.getName());
+			record = WeaponList.getWeaponRecord(record.getName());
 
 			model.setValueAt(Float.valueOf(record.getEncumbrance() * metal.getEnumbrance()), row, 8); // Encumbrance
 			model.setValueAt(Integer.valueOf(record.getAttackSpeed() + metal.getASP()), row, 10); // Absorption

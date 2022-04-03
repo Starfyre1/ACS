@@ -7,7 +7,6 @@ import com.starfyre1.GUI.purchasedGear.magicItems.MagicItemsDisplay;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.dataModel.MagicItemRecord;
-import com.starfyre1.dataset.MagicItemList;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableModel;
 
 public class MagicItemEntryDisplay extends MagicItemsDisplay implements TableModelListener {
 
@@ -63,15 +63,7 @@ public class MagicItemEntryDisplay extends MagicItemsDisplay implements TableMod
 
 	@Override
 	public void loadDisplay() {
-		MagicItemList magicItems = ((CharacterSheet) getOwner()).getMagicItemList();
-		if (magicItems != null) {
-			ArrayList<MagicItemRecord> records = magicItems.getRecords();
-			TKTableModel model = (TKTableModel) mTable.getModel();
-			model.setRowCount(0);
-			for (MagicItemRecord record : records) {
-				model.addRow(record.getRecord());
-			}
-		}
+		// DW load the user created items
 	}
 
 	public void finalizeSelections() {
@@ -83,6 +75,60 @@ public class MagicItemEntryDisplay extends MagicItemsDisplay implements TableMod
 
 	@Override
 	public void tableChanged(TableModelEvent e) {
+		int row = e.getFirstRow();
+		boolean validRow = isRowValid(row);
+		((CreateDialog) getOwner()).updateButtons(validRow);
+		if (validRow) {
+			TKTableModel model = (TKTableModel) mTable.getModel();
+			model.removeTableModelListener(this);
+
+			model.setValueAt(Integer.valueOf(0), row, 0);
+			model.setValueAt(Boolean.valueOf(false), row, 1);
+			//			String name = (String) model.getValueAt(row, 2);
+			//			String charges = (String) model.getValueAt(row, 3);
+			//			float cost = TKStringHelpers.getFloatValue((String) model.getValueAt(row, 4), 0.0f);
+
+			//			ArmorRecord record = new ArmorRecord(0, false, name, MetalList.getMetalID(metal), protectionType, protectionAmount, encumbrance, absorption, bonus, missileAbsorption, strengthRequirement, 0, 0, cost);
+			// 			System.out.println(row + " :: " + record);
+			if (!hasEmptyRow()) {
+				model.addRow(new Object[6]);
+			}
+
+			model.addTableModelListener(this);
+
+		}
+	}
+
+	private boolean isNullOrEmpty(Object value) {
+		return value == null || ((String) value).isEmpty();
+	}
+
+	private boolean hasEmptyRow() {
+		TableModel model = mTable.getModel();
+		int rows = model.getRowCount();
+		for (int i = 0; i < rows; i++) {
+			if (isNullOrEmpty(model.getValueAt(i, 2)) || isNullOrEmpty(model.getValueAt(i, 3)) || isNullOrEmpty(model.getValueAt(i, 4))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * @param firstRow
+	 */
+	private boolean isRowValid(int firstRow) {
+		TableModel model = mTable.getModel();
+		if (isNullOrEmpty(model.getValueAt(firstRow, 2))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 3))) {
+			return false;
+		}
+		if (isNullOrEmpty(model.getValueAt(firstRow, 4))) {
+			return false;
+		}
+		return true;
 	}
 
 	/*****************************************************************************

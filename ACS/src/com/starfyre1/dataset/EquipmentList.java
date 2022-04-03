@@ -6,15 +6,22 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.EquipmentRecord;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
+import com.starfyre1.startup.SystemInfo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+import java.util.stream.Stream;
 
 public class EquipmentList implements Savable {
 	/*****************************************************************************
@@ -29,12 +36,15 @@ public class EquipmentList implements Savable {
 	private static final String			ENCUMBRANCE_KEY			= "ENCUMBRANCE_KEY";			//$NON-NLS-1$
 	private static final String			COST_KEY				= "COST_KEY";					//$NON-NLS-1$
 	private static final String			NOTES_KEY				= "NOTES_KEY";					//$NON-NLS-1$
+	private static final int			ARRAY_SIZE				= 132;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private static EquipmentRecord[]	mEquipmentMasterList;
-	private ArrayList<EquipmentRecord>	mRecords				= new ArrayList<>(132);
+	private static EquipmentRecord[]	mEquipmentCombinedList	= null;
+	private static EquipmentRecord[]	mEquipmentMasterList	= null;
+	private static EquipmentRecord[]	mEquipmentUserList		= null;
+	private ArrayList<EquipmentRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
 
 	private int							mCount;
 	private boolean						mEquipped;
@@ -73,16 +83,6 @@ public class EquipmentList implements Savable {
 		return cost;
 	}
 
-	public void updateEquipmentRecord(EquipmentRecord record) {
-		for (int i = 0; i < mRecords.size(); i++) {
-			EquipmentRecord owned = mRecords.get(i);
-			if (owned.getName().equals(record.getName())) {
-				mRecords.set(i, record);
-				return;
-			}
-		}
-	}
-
 	/**
 	 * @param soldItems
 	 * @param calculateCost
@@ -112,18 +112,118 @@ public class EquipmentList implements Savable {
 	}
 
 	public void clearRecords() {
-		mRecords = new ArrayList<>(132);
+		mRecords = new ArrayList<>(ARRAY_SIZE);
+	}
+
+	public void updateEquipmentRecord(EquipmentRecord record) {
+		for (int i = 0; i < mRecords.size(); i++) {
+			EquipmentRecord owned = mRecords.get(i);
+			if (owned.getName().equals(record.getName())) {
+				mRecords.set(i, record);
+				return;
+			}
+		}
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
-	public static EquipmentRecord getMasterEquipmentRecord(int which) {
+	public static EquipmentRecord getEquipmentRecord(int which) {
+		if (mEquipmentCombinedList == null) {
+			getEquipmentCombinedList();
+		}
 		return mEquipmentMasterList[which];
+	}
+
+	public static EquipmentRecord getEquipmentRecord(String name) {
+		if (mEquipmentCombinedList == null) {
+			getEquipmentCombinedList();
+		}
+
+		for (EquipmentRecord record : mEquipmentCombinedList) {
+			if (record.getName().equals(name)) {
+				return record;
+			}
+		}
+		return null;
 	}
 
 	public ArrayList<EquipmentRecord> getRecords() {
 		return mRecords;
+	}
+
+	public static void addEquipmentToFile(ArrayList<EquipmentRecord> recordsToAdd) {
+		try (FileWriter fw = new FileWriter(SystemInfo.getEquipmentUserPath(), true);
+						BufferedWriter bw = new BufferedWriter(fw);
+						PrintWriter out = new PrintWriter(bw)) {
+			for (EquipmentRecord record : recordsToAdd) {
+				out.println(record.toRecordFile());
+			}
+		} catch (IOException exception) {
+			exception.printStackTrace();
+		}
+
+	}
+
+	private static void readEquipment(Scanner scanner, EquipmentRecord[] list) {
+		int count = 0;
+		for (String line; (line = scanner.nextLine()) != null;) {
+			line = line.trim();
+
+			if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
+				continue;
+			}
+
+			String[] splitLine = line.split(", "); //$NON-NLS-1$
+			//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if (splitLine.length > 6) {
+				System.err.println(splitLine[2]);
+			}
+			EquipmentRecord record = new EquipmentRecord(TKStringHelpers.getIntValue(splitLine[0], 0), //
+							TKStringHelpers.getBoolValue(splitLine[1], false), //
+							splitLine[2].replaceAll("\"", ""), // //$NON-NLS-1$ //$NON-NLS-2$
+							TKStringHelpers.getFloatValue(splitLine[3], 0f), //
+							TKStringHelpers.getFloatValue(splitLine[4], 0f), //
+							splitLine[5].replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
+			list[count++] = record;
+		}
+	}
+
+	public static EquipmentRecord[] getEquipmentCombinedList() {
+		if (mEquipmentCombinedList == null) {
+			if (mEquipmentMasterList == null) {
+				getEquipmentMasterList();
+			}
+			if (mEquipmentUserList == null) {
+				getEquipmentUserList();
+			}
+			mEquipmentCombinedList = Stream.concat(Arrays.stream(mEquipmentMasterList), Arrays.stream(mEquipmentUserList)).toArray(EquipmentRecord[]::new);
+		}
+		return mEquipmentCombinedList;
+	}
+
+	public static EquipmentRecord[] getEquipmentUserList() {
+		if (mEquipmentUserList == null) {
+			mEquipmentUserList = new EquipmentRecord[ARRAY_SIZE];
+
+			Scanner scanner = null;
+			try {
+				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getEquipmentUserPath());
+				scanner = new Scanner(new File(SystemInfo.getEquipmentUserPath()), "UTF-8"); //$NON-NLS-1$
+
+				readEquipment(scanner, mEquipmentUserList);
+
+			} catch (NoSuchElementException nsee) {
+				// End of file, nothing to do except exit
+			} catch (FileNotFoundException exception) {
+				exception.printStackTrace();
+			}
+			if (scanner != null) {
+				scanner.close();
+			}
+
+		}
+		return mEquipmentUserList;
 	}
 
 	public static Object[] getEquipmentMasterList() {
@@ -135,27 +235,8 @@ public class EquipmentList implements Savable {
 			try {
 				is = ACS.class.getModule().getResourceAsStream("resources/Equipment.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
-				int count = 0;
-				for (String line; (line = scanner.nextLine()) != null;) {
-					line = line.trim();
 
-					if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
-						continue;
-					}
-
-					String[] splitLine = line.split(", "); //$NON-NLS-1$
-					//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					if (splitLine.length > 6) {
-						System.err.println(splitLine[2]);
-					}
-					EquipmentRecord record = new EquipmentRecord(TKStringHelpers.getIntValue(splitLine[0], 0), //
-									TKStringHelpers.getBoolValue(splitLine[1], false), //
-									splitLine[2].replaceAll("\"", ""), // //$NON-NLS-1$ //$NON-NLS-2$
-									TKStringHelpers.getFloatValue(splitLine[3], 0f), //
-									TKStringHelpers.getFloatValue(splitLine[4], 0f), //
-									splitLine[5].replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
-					mEquipmentMasterList[count++] = record;
-				}
+				readEquipment(scanner, mEquipmentMasterList);
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
@@ -176,6 +257,7 @@ public class EquipmentList implements Savable {
 
 		}
 		return mEquipmentMasterList;
+
 	}
 
 	/*****************************************************************************
