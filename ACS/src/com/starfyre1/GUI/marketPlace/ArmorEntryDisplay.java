@@ -81,13 +81,19 @@ public class ArmorEntryDisplay extends ArmorDisplay implements TableModelListene
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-		if (!hasEmptyRow()) {
-			TKTableModel model = (TKTableModel) mTable.getModel();
-			model.addRow(new Object[6]);
-		}
+		addEmptyRowIfNeeded();
 
 		mTable.getModel().addTableModelListener(this);
 		return scrollPane;
+	}
+
+	private void addEmptyRowIfNeeded() {
+		if (!hasEmptyRow()) {
+			TKTableModel model = (TKTableModel) mTable.getModel();
+			Object[] obj = new Object[14];
+			obj[3] = MetalList.getMetal(0);
+			model.addRow(obj);
+		}
 	}
 
 	@Override
@@ -128,9 +134,7 @@ public class ArmorEntryDisplay extends ArmorDisplay implements TableModelListene
 
 			//			ArmorRecord record = new ArmorRecord(0, false, name, MetalList.getMetalID(metal), protectionType, protectionAmount, encumbrance, absorption, bonus, missileAbsorption, strengthRequirement, 0, 0, cost);
 			// 			System.out.println(row + " :: " + record);
-			if (!hasEmptyRow()) {
-				model.addRow(new Object[6]);
-			}
+			addEmptyRowIfNeeded();
 
 			model.addTableModelListener(this);
 

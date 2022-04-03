@@ -79,13 +79,19 @@ public class WeaponEntryDisplay extends WeaponDisplay implements TableModelListe
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-		if (!hasEmptyRow()) {
-			TKTableModel model = (TKTableModel) mTable.getModel();
-			model.addRow(new Object[6]);
-		}
+		addEmptyRowIfNeeded();
 
 		mTable.getModel().addTableModelListener(this);
 		return scrollPane;
+	}
+
+	private void addEmptyRowIfNeeded() {
+		if (!hasEmptyRow()) {
+			TKTableModel model = (TKTableModel) mTable.getModel();
+			Object[] obj = new Object[16];
+			obj[3] = MetalList.getMetal(0);
+			model.addRow(obj);
+		}
 	}
 
 	@Override
@@ -127,9 +133,7 @@ public class WeaponEntryDisplay extends WeaponDisplay implements TableModelListe
 
 			//			WeaponRecord record = new WeaponRecord(count, equipped, name, MetalList.getMetalID(metal), type, protectionAmount, encumbrance, absorption, bonus, missileAbsorption, strengthRequirement, parry, breakage, cost);
 			// 			System.out.println(row + " :: " + record);
-			if (!hasEmptyRow()) {
-				model.addRow(new Object[6]);
-			}
+			addEmptyRowIfNeeded();
 
 			model.addTableModelListener(this);
 
