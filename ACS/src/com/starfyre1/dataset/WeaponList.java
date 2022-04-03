@@ -46,16 +46,16 @@ public class WeaponList implements Savable {
 	private static final String				DAMAGE1_KEY				= "DAMAGE1_KEY";				//$NON-NLS-1$
 	private static final String				DAMAGE2_KEY				= "DAMAGE2_KEY";				//$NON-NLS-1$
 	private static final String				COST_KEY				= "COST_KEY";					//$NON-NLS-1$
-	private static final int				ARRAY_SIZE				= 50;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private static int						mArraySize				= 50;
 	private static WeaponRecord[]			mWeaponCombinedList;
 	private static WeaponRecord[]			mWeaponMasterList;
 	private static WeaponRecord[]			mWeaponUserList;
 	private static String[]					mWeaponProficiencyList;
-	private static ArrayList<WeaponRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
+	private static ArrayList<WeaponRecord>	mRecords				= new ArrayList<>(mArraySize);
 
 	private int								mCount;
 	private boolean							mEquipped;
@@ -110,7 +110,7 @@ public class WeaponList implements Savable {
 	}
 
 	public void clearRecords() {
-		mRecords = new ArrayList<>(ARRAY_SIZE);
+		mRecords = new ArrayList<>(mArraySize);
 	}
 
 	/*****************************************************************************
@@ -154,10 +154,10 @@ public class WeaponList implements Savable {
 
 	}
 
-	private static void readWeapons(Scanner scanner, WeaponRecord[] list) {
-		int count = 0;
-		for (String line; (line = scanner.nextLine()) != null;) {
-			line = line.trim();
+	private static WeaponRecord[] readWeapons(Scanner scanner) {
+		ArrayList<WeaponRecord> list = new ArrayList<>();
+		while (scanner.hasNext()) {
+			String line = scanner.nextLine().trim();
 
 			if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
 				continue;
@@ -184,9 +184,10 @@ public class WeaponList implements Savable {
 							TKStringHelpers.getIntValue(splitLine[13], 0), //
 							TKStringHelpers.getIntValue(splitLine[14], 0), //
 							TKStringHelpers.getFloatValue(splitLine[15], 0f));
-
-			list[count++] = record;
+			list.add(record);
 		}
+
+		return list.toArray(new WeaponRecord[list.size()]);
 	}
 
 	public static WeaponRecord[] getWeaponCombinedList() {
@@ -204,14 +205,13 @@ public class WeaponList implements Savable {
 
 	public static WeaponRecord[] getWeaponUserList() {
 		if (mWeaponUserList == null) {
-			mWeaponUserList = new WeaponRecord[ARRAY_SIZE];
 
 			Scanner scanner = null;
 			try {
 				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getWeaponUserPath());
 				scanner = new Scanner(new File(SystemInfo.getWeaponUserPath()), "UTF-8"); //$NON-NLS-1$
 
-				readWeapons(scanner, mWeaponUserList);
+				mWeaponUserList = readWeapons(scanner);
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
@@ -226,10 +226,8 @@ public class WeaponList implements Savable {
 		return mWeaponUserList;
 	}
 
-	public static Object[] getWeaponMasterList() {
+	public static WeaponRecord[] getWeaponMasterList() {
 		if (mWeaponMasterList == null) {
-			mWeaponMasterList = new WeaponRecord[56];
-			mWeaponProficiencyList = new String[56];
 
 			Scanner scanner = null;
 			InputStream is = null;
@@ -237,7 +235,9 @@ public class WeaponList implements Savable {
 				is = ACS.class.getModule().getResourceAsStream("resources/Weapon.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 
-				readWeapons(scanner, mWeaponMasterList);
+				mWeaponMasterList = readWeapons(scanner);
+				mArraySize = mWeaponMasterList.length;
+				mWeaponProficiencyList = new String[mArraySize];
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit

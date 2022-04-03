@@ -29,22 +29,22 @@ public class AnimalList implements Savable {
 	 ****************************************************************************/
 	/*
 		All War-horses have an ASP = +0 and a WL = 9.
-	
+
 		Carry =		Amount in Pounds including the rider, that the animal can
 				carry before reducing it's speed by 1/4.  An animal may not carry
 				more than twice it's allotted Carry.  Animals may drag a weight
 				equal to their Carry X 2, if the load is on wheels, increase it to
 				Carry X 5.
-	
+
 		Move =		Standard movement per round.
-	
+
 		Travel =	Number of miles that may be covered in clear terrain in one day.
 				in wilderness areas the maximum movement would be 25 miles
 				per day.
-	
+
 			All Horses and mules have an Armor Rating of 55% + whatever armor that you
 			buy for them.
-	
+
 	*/
 
 	public static final String				FILE_SECTION_START_KEY	= "ANIMAL_SECTION_START";		//$NON-NLS-1$
@@ -61,15 +61,15 @@ public class AnimalList implements Savable {
 	private static final String				ARMOR_KEY				= "ARMOR_KEY";					//$NON-NLS-1$
 	private static final String				COST_KEY				= "COST_KEY";					//$NON-NLS-1$
 	private static final String				NOTES_KEY				= "NOTES_KEY";					//$NON-NLS-1$
-	private static final int				ARRAY_SIZE				= 26;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private static int						mArraySize				= 26;
 	private static AnimalRecord[]			mAnimalCombinedList;
 	private static AnimalRecord[]			mAnimalMasterList;
 	private static AnimalRecord[]			mAnimalUserList;
-	private static ArrayList<AnimalRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
+	private static ArrayList<AnimalRecord>	mRecords				= new ArrayList<>(mArraySize);
 
 	private int								mCount;
 	private String							mName;
@@ -144,7 +144,7 @@ public class AnimalList implements Savable {
 	}
 
 	public void clearRecords() {
-		mRecords = new ArrayList<>(ARRAY_SIZE);
+		mRecords = new ArrayList<>(mArraySize);
 	}
 
 	/*****************************************************************************
@@ -184,10 +184,10 @@ public class AnimalList implements Savable {
 
 	}
 
-	private static void readAnimal(Scanner scanner, AnimalRecord[] list) {
-		int count = 0;
-		for (String line; (line = scanner.nextLine()) != null;) {
-			line = line.trim();
+	private static AnimalRecord[] readAnimal(Scanner scanner) {
+		ArrayList<AnimalRecord> list = new ArrayList<>();
+		while (scanner.hasNext()) {
+			String line = scanner.nextLine().trim();
 
 			if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
 				continue;
@@ -209,9 +209,9 @@ public class AnimalList implements Savable {
 							TKStringHelpers.getIntValue(splitLine[8], 0), //
 							TKStringHelpers.getFloatValue(splitLine[9], 0f), //
 							splitLine[10].replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
-			list[count++] = record;
+			list.add(record);
 		}
-
+		return list.toArray(new AnimalRecord[list.size()]);
 	}
 
 	public static AnimalRecord[] getAnimalCombinedList() {
@@ -229,14 +229,13 @@ public class AnimalList implements Savable {
 
 	public static AnimalRecord[] getAnimalUserList() {
 		if (mAnimalUserList == null) {
-			mAnimalUserList = new AnimalRecord[ARRAY_SIZE];
 
 			Scanner scanner = null;
 			try {
 				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getAnimalUserPath());
 				scanner = new Scanner(new File(SystemInfo.getAnimalUserPath()), "UTF-8"); //$NON-NLS-1$
 
-				readAnimal(scanner, mAnimalUserList);
+				mAnimalUserList = readAnimal(scanner);
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
@@ -254,7 +253,6 @@ public class AnimalList implements Savable {
 	public static Object[] getAnimalMasterList() {
 		// DW Implement 1D3 for kick damage bonus for falcon
 		if (mAnimalMasterList == null) {
-			mAnimalMasterList = new AnimalRecord[ARRAY_SIZE];
 
 			Scanner scanner = null;
 			InputStream is = null;
@@ -262,7 +260,9 @@ public class AnimalList implements Savable {
 				is = ACS.class.getModule().getResourceAsStream("resources/Animal.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 
-				readAnimal(scanner, mAnimalMasterList);
+				mAnimalMasterList = readAnimal(scanner);
+				mArraySize = mAnimalMasterList.length;
+
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
 			} catch (IOException ioe) {

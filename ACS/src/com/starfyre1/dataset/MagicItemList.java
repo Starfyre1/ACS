@@ -35,15 +35,15 @@ public class MagicItemList implements Savable {
 	private static final String			NAME_KEY				= "NAME_KEY";					//$NON-NLS-1$
 	private static final String			CHARGES_KEY				= "CHARGES_KEY";				//$NON-NLS-1$
 	private static final String			COST_KEY				= "COST_KEY";					//$NON-NLS-1$
-	private static final int			ARRAY_SIZE				= 32;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private static int					mArraySize				= 32;
 	private static MagicItemRecord[]	mMagicItemCombinedList	= null;
 	private static MagicItemRecord[]	mMagicItemMasterList	= null;
 	private static MagicItemRecord[]	mMagicItemUserList		= null;
-	private ArrayList<MagicItemRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
+	private ArrayList<MagicItemRecord>	mRecords				= new ArrayList<>(mArraySize);
 
 	private int							mCount;
 	private boolean						mEquipped;
@@ -110,7 +110,7 @@ public class MagicItemList implements Savable {
 	}
 
 	public void clearRecords() {
-		mRecords = new ArrayList<>(ARRAY_SIZE);
+		mRecords = new ArrayList<>(mArraySize);
 	}
 
 	public void updateMagicItemRecord(MagicItemRecord record) {
@@ -163,10 +163,10 @@ public class MagicItemList implements Savable {
 
 	}
 
-	private static void readMagicItems(Scanner scanner, MagicItemRecord[] list) {
-		int count = 0;
-		for (String line; (line = scanner.nextLine()) != null;) {
-			line = line.trim();
+	private static MagicItemRecord[] readMagicItems(Scanner scanner) {
+		ArrayList<MagicItemRecord> list = new ArrayList<>();
+		while (scanner.hasNext()) {
+			String line = scanner.nextLine().trim();
 
 			if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
 				continue;
@@ -177,9 +177,10 @@ public class MagicItemList implements Savable {
 			if (splitLine.length > 5) {
 				System.err.println(splitLine[2]);
 			}
-			MagicItemRecord record = new MagicItemRecord(TKStringHelpers.getIntValue(splitLine[0], 0), TKStringHelpers.getBoolValue(splitLine[1], false), splitLine[2], TKStringHelpers.getIntValue(splitLine[3], 0), TKStringHelpers.getFloatValue(splitLine[4], 0f));
-			list[count++] = record;
+			MagicItemRecord record = new MagicItemRecord(TKStringHelpers.getIntValue(splitLine[0], 0), TKStringHelpers.getBoolValue(splitLine[1], false), splitLine[2].replaceAll("\"", ""), TKStringHelpers.getIntValue(splitLine[3], 0), TKStringHelpers.getFloatValue(splitLine[4], 0f)); //$NON-NLS-1$ //$NON-NLS-2$
+			list.add(record);
 		}
+		return list.toArray(new MagicItemRecord[list.size()]);
 	}
 
 	public static MagicItemRecord[] getMagicItemCombinedList() {
@@ -197,14 +198,13 @@ public class MagicItemList implements Savable {
 
 	public static MagicItemRecord[] getMagicItemUserList() {
 		if (mMagicItemUserList == null) {
-			mMagicItemUserList = new MagicItemRecord[ARRAY_SIZE];
 
 			Scanner scanner = null;
 			try {
 				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getMagicItemUserPath());
 				scanner = new Scanner(new File(SystemInfo.getMagicItemUserPath()), "UTF-8"); //$NON-NLS-1$
 
-				readMagicItems(scanner, mMagicItemUserList);
+				mMagicItemUserList = readMagicItems(scanner);
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
@@ -219,9 +219,8 @@ public class MagicItemList implements Savable {
 		return mMagicItemUserList;
 	}
 
-	public static Object[] getMagicItemMasterList() {
+	public static MagicItemRecord[] getMagicItemMasterList() {
 		if (mMagicItemMasterList == null) {
-			mMagicItemMasterList = new MagicItemRecord[2];
 
 			Scanner scanner = null;
 			InputStream is = null;
@@ -229,7 +228,8 @@ public class MagicItemList implements Savable {
 				is = ACS.class.getModule().getResourceAsStream("resources/MagicItem.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 
-				readMagicItems(scanner, mMagicItemMasterList);
+				mMagicItemMasterList = readMagicItems(scanner);
+				mArraySize = mMagicItemMasterList.length;
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit

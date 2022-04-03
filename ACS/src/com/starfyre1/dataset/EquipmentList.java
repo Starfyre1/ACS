@@ -36,15 +36,15 @@ public class EquipmentList implements Savable {
 	private static final String			ENCUMBRANCE_KEY			= "ENCUMBRANCE_KEY";			//$NON-NLS-1$
 	private static final String			COST_KEY				= "COST_KEY";					//$NON-NLS-1$
 	private static final String			NOTES_KEY				= "NOTES_KEY";					//$NON-NLS-1$
-	private static final int			ARRAY_SIZE				= 132;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private static int					mArraySize				= 132;
 	private static EquipmentRecord[]	mEquipmentCombinedList	= null;
 	private static EquipmentRecord[]	mEquipmentMasterList	= null;
 	private static EquipmentRecord[]	mEquipmentUserList		= null;
-	private ArrayList<EquipmentRecord>	mRecords				= new ArrayList<>(ARRAY_SIZE);
+	private ArrayList<EquipmentRecord>	mRecords				= new ArrayList<>(mArraySize);
 
 	private int							mCount;
 	private boolean						mEquipped;
@@ -112,7 +112,7 @@ public class EquipmentList implements Savable {
 	}
 
 	public void clearRecords() {
-		mRecords = new ArrayList<>(ARRAY_SIZE);
+		mRecords = new ArrayList<>(mArraySize);
 	}
 
 	public void updateEquipmentRecord(EquipmentRecord record) {
@@ -165,10 +165,10 @@ public class EquipmentList implements Savable {
 
 	}
 
-	private static void readEquipment(Scanner scanner, EquipmentRecord[] list) {
-		int count = 0;
-		for (String line; (line = scanner.nextLine()) != null;) {
-			line = line.trim();
+	private static EquipmentRecord[] readEquipment(Scanner scanner) {
+		ArrayList<EquipmentRecord> list = new ArrayList<>();
+		while (scanner.hasNext()) {
+			String line = scanner.nextLine().trim();
 
 			if (line.startsWith("//") || line.isBlank()) { //$NON-NLS-1$
 				continue;
@@ -185,8 +185,9 @@ public class EquipmentList implements Savable {
 							TKStringHelpers.getFloatValue(splitLine[3], 0f), //
 							TKStringHelpers.getFloatValue(splitLine[4], 0f), //
 							splitLine[5].replaceAll("\"", "")); //$NON-NLS-1$ //$NON-NLS-2$
-			list[count++] = record;
+			list.add(record);
 		}
+		return list.toArray(new EquipmentRecord[list.size()]);
 	}
 
 	public static EquipmentRecord[] getEquipmentCombinedList() {
@@ -204,14 +205,13 @@ public class EquipmentList implements Savable {
 
 	public static EquipmentRecord[] getEquipmentUserList() {
 		if (mEquipmentUserList == null) {
-			mEquipmentUserList = new EquipmentRecord[ARRAY_SIZE];
 
 			Scanner scanner = null;
 			try {
 				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getEquipmentUserPath());
 				scanner = new Scanner(new File(SystemInfo.getEquipmentUserPath()), "UTF-8"); //$NON-NLS-1$
 
-				readEquipment(scanner, mEquipmentUserList);
+				mEquipmentUserList = readEquipment(scanner);
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
@@ -226,9 +226,8 @@ public class EquipmentList implements Savable {
 		return mEquipmentUserList;
 	}
 
-	public static Object[] getEquipmentMasterList() {
+	public static EquipmentRecord[] getEquipmentMasterList() {
 		if (mEquipmentMasterList == null) {
-			mEquipmentMasterList = new EquipmentRecord[144];
 
 			Scanner scanner = null;
 			InputStream is = null;
@@ -236,7 +235,8 @@ public class EquipmentList implements Savable {
 				is = ACS.class.getModule().getResourceAsStream("resources/Equipment.txt"); //$NON-NLS-1$
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 
-				readEquipment(scanner, mEquipmentMasterList);
+				mEquipmentMasterList = readEquipment(scanner);
+				mArraySize = mEquipmentMasterList.length;
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
