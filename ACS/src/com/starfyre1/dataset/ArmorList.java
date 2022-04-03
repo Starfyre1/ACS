@@ -137,7 +137,7 @@ public class ArmorList implements Savable {
 	}
 
 	public static void addArmorToFile(ArrayList<ArmorRecord> recordsToAdd) {
-		try (FileWriter fw = new FileWriter(SystemInfo.getArmorUserPath(), true);
+		try (FileWriter fw = new FileWriter(SystemInfo.getArmorUserPath(), false);
 						BufferedWriter bw = new BufferedWriter(fw);
 						PrintWriter out = new PrintWriter(bw)) {
 			for (ArmorRecord record : recordsToAdd) {
@@ -201,12 +201,17 @@ public class ArmorList implements Savable {
 		return mArmorCombinedList;
 	}
 
+	public static void updateArmorUserList() {
+		mArmorUserList = null;
+		mArmorCombinedList = null;
+		getArmorCombinedList();
+	}
+
 	public static ArmorRecord[] getArmorUserList() {
 		if (mArmorUserList == null) {
 
 			Scanner scanner = null;
 			try {
-				//				is = new InputStream//ACS.class.getModule().getResourceAsStream(SystemInfo.getArmorUserPath());
 				scanner = new Scanner(new File(SystemInfo.getArmorUserPath()), "UTF-8"); //$NON-NLS-1$
 
 				mArmorUserList = readArmor(scanner);

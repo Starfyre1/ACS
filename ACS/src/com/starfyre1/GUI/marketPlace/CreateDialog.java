@@ -64,7 +64,7 @@ public class CreateDialog extends JDialog implements ActionListener {
 	 * Constructors
 	 ****************************************************************************/
 	public CreateDialog(JFrame parent) {
-		super(parent, SAVE, true);
+		super(parent, "Create", true); //$NON-NLS-1$
 
 		mFrame = parent;
 
@@ -189,22 +189,27 @@ public class CreateDialog extends JDialog implements ActionListener {
 					((EquipmentEntryDisplay) comp).finalizeSelections();
 					ArrayList<EquipmentRecord> recordsToAdd = ((EquipmentEntryDisplay) comp).getRecordsToAdd();
 					EquipmentList.addEquipmentToFile(recordsToAdd);
+					EquipmentList.updateEquipmentUserList();
 				} else if (comp instanceof ArmorEntryDisplay) {
 					((ArmorEntryDisplay) comp).finalizeSelections();
 					ArrayList<ArmorRecord> recordsToAdd = ((ArmorEntryDisplay) comp).getRecordsToAdd();
 					ArmorList.addArmorToFile(recordsToAdd);
+					ArmorList.updateArmorUserList();
 				} else if (comp instanceof AnimalEntryDisplay) {
 					((AnimalEntryDisplay) comp).finalizeSelections();
 					ArrayList<AnimalRecord> recordsToAdd = ((AnimalEntryDisplay) comp).getRecordsToAdd();
 					AnimalList.addAnimalToFile(recordsToAdd);
+					AnimalList.updateAnimalUserList();
 				} else if (comp instanceof MagicItemEntryDisplay) {
 					((MagicItemEntryDisplay) comp).finalizeSelections();
 					ArrayList<MagicItemRecord> recordsToAdd = ((MagicItemEntryDisplay) comp).getRecordsToAdd();
 					MagicItemList.addMagicItemToFile(recordsToAdd);
+					MagicItemList.updateMagicItemUserList();
 				} else if (comp instanceof WeaponEntryDisplay) {
 					((WeaponEntryDisplay) comp).finalizeSelections();
 					ArrayList<WeaponRecord> recordsToAdd = ((WeaponEntryDisplay) comp).getRecordsToAdd();
 					WeaponList.addWeaponToFile(recordsToAdd);
+					WeaponList.updateWeaponUserList();
 				}
 			}
 			dispose();

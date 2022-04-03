@@ -142,7 +142,7 @@ public class WeaponList implements Savable {
 	}
 
 	public static void addWeaponToFile(ArrayList<WeaponRecord> recordsToAdd) {
-		try (FileWriter fw = new FileWriter(SystemInfo.getWeaponUserPath(), true);
+		try (FileWriter fw = new FileWriter(SystemInfo.getWeaponUserPath(), false);
 						BufferedWriter bw = new BufferedWriter(fw);
 						PrintWriter out = new PrintWriter(bw)) {
 			for (WeaponRecord record : recordsToAdd) {
@@ -201,6 +201,12 @@ public class WeaponList implements Savable {
 			mWeaponCombinedList = Stream.concat(Arrays.stream(mWeaponMasterList), Arrays.stream(mWeaponUserList)).toArray(WeaponRecord[]::new);
 		}
 		return mWeaponCombinedList;
+	}
+
+	public static void updateWeaponUserList() {
+		mWeaponUserList = null;
+		mWeaponCombinedList = null;
+		getWeaponCombinedList();
 	}
 
 	public static WeaponRecord[] getWeaponUserList() {

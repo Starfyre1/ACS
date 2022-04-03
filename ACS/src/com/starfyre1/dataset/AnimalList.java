@@ -172,7 +172,7 @@ public class AnimalList implements Savable {
 	}
 
 	public static void addAnimalToFile(ArrayList<AnimalRecord> recordsToAdd) {
-		try (FileWriter fw = new FileWriter(SystemInfo.getAnimalUserPath(), true);
+		try (FileWriter fw = new FileWriter(SystemInfo.getAnimalUserPath(), false);
 						BufferedWriter bw = new BufferedWriter(fw);
 						PrintWriter out = new PrintWriter(bw)) {
 			for (AnimalRecord record : recordsToAdd) {
@@ -225,6 +225,12 @@ public class AnimalList implements Savable {
 			mAnimalCombinedList = Stream.concat(Arrays.stream(mAnimalMasterList), Arrays.stream(mAnimalUserList)).toArray(AnimalRecord[]::new);
 		}
 		return mAnimalCombinedList;
+	}
+
+	public static void updateAnimalUserList() {
+		mAnimalUserList = null;
+		mAnimalCombinedList = null;
+		getAnimalCombinedList();
 	}
 
 	public static AnimalRecord[] getAnimalUserList() {

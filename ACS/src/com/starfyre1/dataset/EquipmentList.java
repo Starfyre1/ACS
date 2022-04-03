@@ -153,7 +153,7 @@ public class EquipmentList implements Savable {
 	}
 
 	public static void addEquipmentToFile(ArrayList<EquipmentRecord> recordsToAdd) {
-		try (FileWriter fw = new FileWriter(SystemInfo.getEquipmentUserPath(), true);
+		try (FileWriter fw = new FileWriter(SystemInfo.getEquipmentUserPath(), false);
 						BufferedWriter bw = new BufferedWriter(fw);
 						PrintWriter out = new PrintWriter(bw)) {
 			for (EquipmentRecord record : recordsToAdd) {
@@ -201,6 +201,12 @@ public class EquipmentList implements Savable {
 			mEquipmentCombinedList = Stream.concat(Arrays.stream(mEquipmentMasterList), Arrays.stream(mEquipmentUserList)).toArray(EquipmentRecord[]::new);
 		}
 		return mEquipmentCombinedList;
+	}
+
+	public static void updateEquipmentUserList() {
+		mEquipmentUserList = null;
+		mEquipmentCombinedList = null;
+		getEquipmentCombinedList();
 	}
 
 	public static EquipmentRecord[] getEquipmentUserList() {

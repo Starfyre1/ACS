@@ -151,7 +151,7 @@ public class MagicItemList implements Savable {
 	}
 
 	public static void addMagicItemToFile(ArrayList<MagicItemRecord> recordsToAdd) {
-		try (FileWriter fw = new FileWriter(SystemInfo.getMagicItemUserPath(), true);
+		try (FileWriter fw = new FileWriter(SystemInfo.getMagicItemUserPath(), false);
 						BufferedWriter bw = new BufferedWriter(fw);
 						PrintWriter out = new PrintWriter(bw)) {
 			for (MagicItemRecord record : recordsToAdd) {
@@ -194,6 +194,12 @@ public class MagicItemList implements Savable {
 			mMagicItemCombinedList = Stream.concat(Arrays.stream(mMagicItemMasterList), Arrays.stream(mMagicItemUserList)).toArray(MagicItemRecord[]::new);
 		}
 		return mMagicItemCombinedList;
+	}
+
+	public static void updateMagicItemUserList() {
+		mMagicItemUserList = null;
+		mMagicItemCombinedList = null;
+		getMagicItemCombinedList();
 	}
 
 	public static MagicItemRecord[] getMagicItemUserList() {

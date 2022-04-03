@@ -7,6 +7,7 @@ import com.starfyre1.GUI.purchasedGear.animal.AnimalsDisplay;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.dataModel.AnimalRecord;
+import com.starfyre1.dataset.AnimalList;
 
 import java.awt.Component;
 import java.util.ArrayList;
@@ -47,9 +48,25 @@ public class AnimalEntryDisplay extends AnimalsDisplay implements TableModelList
 	 ****************************************************************************/
 	@Override
 	protected Component createDisplay() {
-		mTable = new TKTable(new MarketPlaceEntryTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 1));
-		mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
-		mTable.getModel().addTableModelListener(this);
+		// This is the user created equipment list in the create Animal dialog
+		Object[] master = AnimalList.getAnimalUserList();
+		Object[][] data = new Object[master.length][11];
+
+		for (int i = 0; i < master.length; i++) {
+			AnimalRecord record = (AnimalRecord) master[i];
+			if (record == null) {
+				continue;
+			}
+			for (int index = 0; index < data[i].length; index++) {
+				data[i][index] = record.getRecord(index);
+			}
+		}
+		mTable = new TKTable(new MarketPlaceEntryTableModel(data, COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS));
+		mTable.setPreferredScrollableViewportSize(CharacterSheet.MARKET_PLACE_TAB_TABLE_SIZE);
+		//		mTable.setDefaultRenderer(MetalRecord.class, new MetalCellRenderer());
+		//		mTable.setDefaultEditor(MetalRecord.class, new MetalCellEditor(MetalList.getRecords()));
+		mTable.setRowHeight(20);
+		mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
 
 		mTable.removeColumn(mTable.getColumnModel().getColumn(0));
 
@@ -57,6 +74,12 @@ public class AnimalEntryDisplay extends AnimalsDisplay implements TableModelList
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
+		if (!hasEmptyRow()) {
+			TKTableModel model = (TKTableModel) mTable.getModel();
+			model.addRow(new Object[6]);
+		}
+
+		mTable.getModel().addTableModelListener(this);
 		return scrollPane;
 	}
 
@@ -106,7 +129,13 @@ public class AnimalEntryDisplay extends AnimalsDisplay implements TableModelList
 	}
 
 	private boolean isNullOrEmpty(Object value) {
-		return value == null || ((String) value).isEmpty();
+		if (value == null) {
+			return true;
+		}
+		if (value instanceof String) {
+			return ((String) value).isEmpty();
+		}
+		return false;
 	}
 
 	private boolean hasEmptyRow() {
