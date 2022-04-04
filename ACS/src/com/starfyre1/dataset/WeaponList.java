@@ -199,6 +199,7 @@ public class WeaponList implements Savable {
 				getWeaponUserList();
 			}
 			mWeaponCombinedList = Stream.concat(Arrays.stream(mWeaponMasterList), Arrays.stream(mWeaponUserList)).toArray(WeaponRecord[]::new);
+			Arrays.sort(mWeaponCombinedList);
 		}
 		return mWeaponCombinedList;
 	}

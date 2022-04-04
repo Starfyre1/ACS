@@ -7,7 +7,7 @@ import com.starfyre1.ToolKit.TKTableRecord;
 
 import java.util.Vector;
 
-public class EquipmentRecord extends TKTableRecord {
+public class EquipmentRecord extends TKTableRecord implements Comparable<EquipmentRecord> {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -172,6 +172,17 @@ public class EquipmentRecord extends TKTableRecord {
 
 	}
 
+	@Override
+	public int compareTo(EquipmentRecord o) {
+		if (this == o) {
+			return 0;
+		}
+		if (equals(o)) {
+			return 0;
+		}
+		return mName.compareTo(o.mName);
+
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

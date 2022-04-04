@@ -7,7 +7,7 @@ import com.starfyre1.ToolKit.TKTableRecord;
 
 import java.util.Vector;
 
-public class MagicItemRecord extends TKTableRecord {
+public class MagicItemRecord extends TKTableRecord implements Comparable<MagicItemRecord> {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -179,6 +179,17 @@ public class MagicItemRecord extends TKTableRecord {
 		return mCount + ", " + mEquipped + ", \"" + mName + "\", " + mCharges + ", " + mCost; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
+	@Override
+	public int compareTo(MagicItemRecord o) {
+		if (this == o) {
+			return 0;
+		}
+		if (equals(o)) {
+			return 0;
+		}
+		return mName.compareTo(o.mName);
+
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

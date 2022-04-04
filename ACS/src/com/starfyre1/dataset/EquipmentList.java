@@ -199,6 +199,7 @@ public class EquipmentList implements Savable {
 				getEquipmentUserList();
 			}
 			mEquipmentCombinedList = Stream.concat(Arrays.stream(mEquipmentMasterList), Arrays.stream(mEquipmentUserList)).toArray(EquipmentRecord[]::new);
+			Arrays.sort(mEquipmentCombinedList);
 		}
 		return mEquipmentCombinedList;
 	}

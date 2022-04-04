@@ -7,7 +7,7 @@ import com.starfyre1.ToolKit.TKTableRecord;
 
 import java.util.Vector;
 
-public class AnimalRecord extends TKTableRecord {
+public class AnimalRecord extends TKTableRecord implements Comparable<AnimalRecord> {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -231,6 +231,18 @@ public class AnimalRecord extends TKTableRecord {
 	public String toRecordFile() {
 		return mCount + ", \"" + mName + "\", " + mCarry + ", " + mMove + ", " + mTravel + ", \"" + mHits + "\", " + // //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 						mHitBonus + ", " + mKickDamage + ", " + mArmor + ", " + mCost + ", \"" + mNotes + "\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+	}
+
+	@Override
+	public int compareTo(AnimalRecord o) {
+		if (this == o) {
+			return 0;
+		}
+		if (equals(o)) {
+			return 0;
+		}
+		return mName.compareTo(o.mName);
+
 	}
 
 	/*****************************************************************************

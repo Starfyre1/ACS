@@ -8,7 +8,7 @@ import com.starfyre1.dataset.MetalList;
 
 import java.util.Vector;
 
-public class WeaponRecord extends TKTableRecord {
+public class WeaponRecord extends TKTableRecord implements Comparable<WeaponRecord> {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -331,6 +331,24 @@ public class WeaponRecord extends TKTableRecord {
 						mStrength + ", " + mDexterity + ", " + mEncumbrance + ", " + mWeaponLength + ", " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 						mAttackSpeed + ", " + mWeaponBreak + ", " + mHitBonus + ", " + mDamageOneHanded + ", " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 						mDamageTwoHanded + ", " + mCost; //$NON-NLS-1$
+	}
+
+	@Override
+	public int compareTo(WeaponRecord o) {
+		if (this == o) {
+			return 0;
+		}
+		if (equals(o)) {
+			return 0;
+		}
+		if (mType < o.mType) {
+			return -1;
+		}
+		if (mType > o.mType) {
+			return 1;
+		}
+		return mName.compareTo(o.mName);
+
 	}
 
 	/*****************************************************************************

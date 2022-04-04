@@ -197,6 +197,7 @@ public class ArmorList implements Savable {
 				getArmorUserList();
 			}
 			mArmorCombinedList = Stream.concat(Arrays.stream(mArmorMasterList), Arrays.stream(mArmorUserList)).toArray(ArmorRecord[]::new);
+			Arrays.sort(mArmorCombinedList);
 		}
 		return mArmorCombinedList;
 	}

@@ -9,7 +9,7 @@ import com.starfyre1.dataset.MetalList;
 import java.util.Arrays;
 import java.util.Vector;
 
-public class ArmorRecord extends TKTableRecord {
+public class ArmorRecord extends TKTableRecord implements Comparable<ArmorRecord> {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -322,6 +322,17 @@ public class ArmorRecord extends TKTableRecord {
 
 	}
 
+	@Override
+	public int compareTo(ArmorRecord o) {
+		if (this == o) {
+			return 0;
+		}
+		if (equals(o)) {
+			return 0;
+		}
+		return mName.compareTo(o.mName);
+
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

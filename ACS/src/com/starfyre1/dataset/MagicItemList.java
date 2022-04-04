@@ -192,6 +192,7 @@ public class MagicItemList implements Savable {
 				getMagicItemUserList();
 			}
 			mMagicItemCombinedList = Stream.concat(Arrays.stream(mMagicItemMasterList), Arrays.stream(mMagicItemUserList)).toArray(MagicItemRecord[]::new);
+			Arrays.sort(mMagicItemCombinedList);
 		}
 		return mMagicItemCombinedList;
 	}
