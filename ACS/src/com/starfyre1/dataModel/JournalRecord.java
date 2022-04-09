@@ -373,7 +373,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 			String date = cal.getSelectedDate();
 			if (!date.isEmpty()) {
 				mCampaignDate = date;
-				mCampaignDateButton.setText(mCampaignDate);
+				mCampaignDateButton.setText(cal.getDisplayableDate());
 				mParent.updatePreviewPanel();
 			}
 		}

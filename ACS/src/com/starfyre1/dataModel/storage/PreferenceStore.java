@@ -41,6 +41,7 @@ public class PreferenceStore {
 	private static final String		USE_COMMON_DIE_KEY			= "USE_COMMON_DIE_KEY";					// use 1 common die //$NON-NLS-1$
 
 	private static final String		AUTO_LOAD_KEY				= "AUTO_LOAD_KEY";						// Auto load last character played  //$NON-NLS-1$
+	private static final String		CALENDAR_KEY				= "CALENDAR_KEY";						// AL vs AD Calendar  //$NON-NLS-1$
 
 	private static final String		SHOW_TOOLTIPS_KEY			= "SHOW_TOOLTIPS_KEY";					// Auto load last character played  //$NON-NLS-1$
 	private static final String		DETAILED_TOOLTIPS_KEY		= "DETAILED_TOOLTIPS_KEY";				// Auto load last character played  //$NON-NLS-1$
@@ -54,6 +55,7 @@ public class PreferenceStore {
 	private static final boolean	DEFAULT_USE_COMMON_DIE		= true;									// use 1 common die
 
 	private static final boolean	DEFAULT_AUTO_LOAD			= true;
+	private static final boolean	DEFAULT_CALENDAR			= true;
 
 	private static final boolean	DEFAULT_SHOW_TOOLTIPS		= true;
 	private static final boolean	DEFAULT_DETAILED_TOOLTIPS	= true;
@@ -93,6 +95,7 @@ public class PreferenceStore {
 	 */
 	private boolean					mUseCommonDie;
 	private boolean					mAutoLoad;
+	private boolean					mCalendarAL;
 	private boolean					mShowToolTips;
 	private boolean					mDetailedToolTips;
 
@@ -100,6 +103,7 @@ public class PreferenceStore {
 	private int						mSavedRerollLowest;
 	private boolean					mSavedUseCommonDie;
 	private boolean					mSavedAutoLoad;
+	private boolean					mSavedCalendarAL;
 	private boolean					mSavedShowToolTips;
 	private boolean					mSavedDetailedToolTips;
 
@@ -124,6 +128,7 @@ public class PreferenceStore {
 		mSavedRerollLowest = mRerollLowest;
 		mSavedUseCommonDie = mUseCommonDie;
 		mSavedAutoLoad = mAutoLoad;
+		mSavedCalendarAL = mCalendarAL;
 		mSavedShowToolTips = mShowToolTips;
 		mSavedDetailedToolTips = mDetailedToolTips;
 
@@ -139,6 +144,7 @@ public class PreferenceStore {
 		mUseCommonDie = DEFAULT_USE_COMMON_DIE;
 
 		mAutoLoad = DEFAULT_AUTO_LOAD;
+		mCalendarAL = DEFAULT_CALENDAR;
 		mShowToolTips = DEFAULT_SHOW_TOOLTIPS;
 		mDetailedToolTips = DEFAULT_DETAILED_TOOLTIPS;
 	}
@@ -151,6 +157,7 @@ public class PreferenceStore {
 						mRerollLowest == DEFAULT_REROLL_LOWEST && //
 						mUseCommonDie == DEFAULT_USE_COMMON_DIE && //
 						mAutoLoad == DEFAULT_AUTO_LOAD && //
+						mCalendarAL == DEFAULT_CALENDAR && //
 						mShowToolTips == DEFAULT_SHOW_TOOLTIPS && //
 						mDetailedToolTips == DEFAULT_DETAILED_TOOLTIPS) {
 			return true;
@@ -171,6 +178,7 @@ public class PreferenceStore {
 		mUseCommonDie = preferencesDisplay.useCommonDice();
 
 		mAutoLoad = preferencesDisplay.isAutoLoad();
+		mCalendarAL = preferencesDisplay.isCalendarAL();
 		mShowToolTips = preferencesDisplay.isShowToolTips();
 		mDetailedToolTips = preferencesDisplay.isDetailedToolTips();
 	}
@@ -365,6 +373,18 @@ public class PreferenceStore {
 		return DEFAULT_USE_COMMON_DIE;
 	}
 
+	public boolean isCalendarAL() {
+		return mCalendarAL;
+	}
+
+	public boolean isSavedCalendarAL() {
+		return mSavedCalendarAL;
+	}
+
+	public static boolean isDefaultCalendarAL() {
+		return DEFAULT_CALENDAR;
+	}
+
 	/*****************************************************************************
 	 * SERIALIZATION
 	 ****************************************************************************/
@@ -434,6 +454,7 @@ public class PreferenceStore {
 			br.write(USE_COMMON_DIE_KEY + TKStringHelpers.TAB + mUseCommonDie + System.lineSeparator());
 			br.write(WINDOW_BOUNDS_KEY + TKStringHelpers.TAB + mWindowBounds.x + "," + mWindowBounds.y + "," + mWindowBounds.width + "," + mWindowBounds.height + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			br.write(AUTO_LOAD_KEY + TKStringHelpers.TAB + mAutoLoad + System.lineSeparator());
+			br.write(CALENDAR_KEY + TKStringHelpers.TAB + mCalendarAL + System.lineSeparator());
 			br.write(SHOW_TOOLTIPS_KEY + TKStringHelpers.TAB + mShowToolTips + System.lineSeparator());
 			br.write(DETAILED_TOOLTIPS_KEY + TKStringHelpers.TAB + mDetailedToolTips + System.lineSeparator());
 			br.write(FILE_LOCATION_KEY + TKStringHelpers.TAB + mFileLocation + System.lineSeparator());
@@ -467,6 +488,8 @@ public class PreferenceStore {
 			mWindowBounds = TKStringHelpers.getRectangleValue(value, PreferenceStore.DEFAULT_WINDOW_BOUNDS);
 		} else if (key.equals(AUTO_LOAD_KEY)) {
 			mAutoLoad = TKStringHelpers.getBoolValue(value, DEFAULT_AUTO_LOAD);
+		} else if (key.equals(CALENDAR_KEY)) {
+			mCalendarAL = TKStringHelpers.getBoolValue(value, DEFAULT_CALENDAR);
 		} else if (key.equals(SHOW_TOOLTIPS_KEY)) {
 			mShowToolTips = TKStringHelpers.getBoolValue(value, DEFAULT_SHOW_TOOLTIPS);
 		} else if (key.equals(DETAILED_TOOLTIPS_KEY)) {

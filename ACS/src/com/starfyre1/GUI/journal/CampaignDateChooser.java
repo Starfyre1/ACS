@@ -3,6 +3,7 @@
 package com.starfyre1.GUI.journal;
 
 import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.dataModel.storage.PreferenceStore;
 
 import java.awt.Color;
 
@@ -76,8 +77,15 @@ public class CampaignDateChooser extends DateChooser {
 			}
 
 		}
-		mSpacer.setText(MONTHS[mMonth] + " " + String.format("%04d", Integer.valueOf(mYear))); //$NON-NLS-1$ //$NON-NLS-2$
+		mSpacer.setText(MONTHS[mMonth] + " " + String.format("%04d", Integer.valueOf(PreferenceStore.getInstance().isCalendarAL() ? mYear + 265 : mYear))); //$NON-NLS-1$ //$NON-NLS-2$
 		mSpacer.setBackground(Color.WHITE);
+	}
+
+	public String getDisplayableDate() {
+		if (mDay.equals("")) { //$NON-NLS-1$
+			return mDay;
+		}
+		return MONTHS_SHORT[mMonth] + " " + String.format("%02d", Integer.valueOf(mDay)) + ", " + String.format("%04d", Integer.valueOf(PreferenceStore.getInstance().isCalendarAL() ? mYear + 265 : mYear)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 	@Override
