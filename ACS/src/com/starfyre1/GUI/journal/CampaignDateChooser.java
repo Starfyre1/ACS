@@ -20,7 +20,7 @@ public class CampaignDateChooser extends DateChooser {
 	private static final String	MONTHS[]				= { "January", "February", "March", "Spring", "April", "May", "June", "Summer", "July", "August", "September", "Fall", "October", "November", "December", "Winter" };												//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$ //$NON-NLS-12$ //$NON-NLS-13$ //$NON-NLS-14$ //$NON-NLS-15$ //$NON-NLS-16$
 	private static final int	DATES[]					= { 28, 28, 28, 7, 28, 28, 28, 7, 28, 28, 28, 7, 28, 28, 28, 7 };
 
-	private static final int	YEAR_AL					= 615;																																																				// YEAR_AD			= YEAR_AL - 268;
+	private static final int	YEAR_AL					= 573;																																																				// YEAR_AD			= YEAR_AL - 268;
 	private static final int	DEFAULT_CAMPAIGN_YEAR	= YEAR_AL;
 	private static final int	DEFAULT_CAMPAIGN_MONTH	= 4;																																																				// 0=January... 15=Winter
 	private static final int	DEFAULT_CAMPAIGN_DAY	= 15;
@@ -77,7 +77,7 @@ public class CampaignDateChooser extends DateChooser {
 			}
 
 		}
-		mSpacer.setText(MONTHS[mMonth] + " " + String.format("%04d", Integer.valueOf(PreferenceStore.getInstance().isCalendarAL() ? mYear + 265 : mYear))); //$NON-NLS-1$ //$NON-NLS-2$
+		mSpacer.setText(MONTHS[mMonth] + " " + String.format("%04d", Integer.valueOf(PreferenceStore.getInstance().isCalendarAL() ? mYear - 265 : mYear))); //$NON-NLS-1$ //$NON-NLS-2$
 		mSpacer.setBackground(Color.WHITE);
 	}
 
@@ -85,7 +85,7 @@ public class CampaignDateChooser extends DateChooser {
 		if (mDay.equals("")) { //$NON-NLS-1$
 			return mDay;
 		}
-		return MONTHS_SHORT[mMonth] + " " + String.format("%02d", Integer.valueOf(mDay)) + ", " + String.format("%04d", Integer.valueOf(PreferenceStore.getInstance().isCalendarAL() ? mYear + 265 : mYear)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		return MONTHS_SHORT[mMonth] + " " + String.format("%02d", Integer.valueOf(mDay)) + ", " + String.format("%04d", Integer.valueOf(PreferenceStore.getInstance().isCalendarAL() ? mYear - 265 : mYear)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 	@Override

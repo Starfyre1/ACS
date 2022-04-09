@@ -79,8 +79,8 @@ public class ArmorEquippedDisplay extends ArmorDisplay {
 			for (ArmorRecord record : records) {
 				if (((Boolean) record.getRecord(1)).booleanValue()) {
 					mEquippedArmor.add(record);
-					model.addRow(record.getRecord());
 				}
+				model.addRow(record.getRecord());
 			}
 		}
 	}

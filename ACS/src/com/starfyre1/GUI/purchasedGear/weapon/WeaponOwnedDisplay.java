@@ -90,8 +90,8 @@ public class WeaponOwnedDisplay extends WeaponDisplay implements TableModelListe
 			for (WeaponRecord record : records) {
 				if (((Boolean) record.getRecord(1)).booleanValue()) {
 					ACS.getInstance().getCharacterSheet().equipWeapon(record, 0);
-					model.addRow(record.getRecord());
 				}
+				model.addRow(record.getRecord());
 			}
 		}
 	}

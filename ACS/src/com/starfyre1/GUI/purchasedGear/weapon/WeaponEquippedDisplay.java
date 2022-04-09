@@ -79,8 +79,8 @@ public class WeaponEquippedDisplay extends WeaponDisplay {
 			for (WeaponRecord record : records) {
 				if (((Boolean) record.getRecord(1)).booleanValue()) {
 					mEquippedWeapons.add(record);
-					model.addRow(record.getRecord());
 				}
+				model.addRow(record.getRecord());
 			}
 		}
 	}

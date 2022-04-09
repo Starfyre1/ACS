@@ -91,8 +91,8 @@ public class ArmorOwnedDisplay extends ArmorDisplay implements TableModelListene
 			for (ArmorRecord record : records) {
 				if (((Boolean) record.getRecord(1)).booleanValue()) {
 					ACS.getInstance().getCharacterSheet().equipArmor(record, 0);
-					model.addRow(record.getRecord());
 				}
+				model.addRow(record.getRecord());
 			}
 		}
 	}

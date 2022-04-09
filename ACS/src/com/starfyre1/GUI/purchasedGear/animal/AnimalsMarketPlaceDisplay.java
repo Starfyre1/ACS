@@ -154,7 +154,7 @@ public class AnimalsMarketPlaceDisplay extends AnimalsDisplay implements TableMo
 						count = ((Integer) element).intValue();
 					}
 					if (count > 0) {
-						AnimalRecord record = AnimalList.getAnimalRecord(i).clone();
+						AnimalRecord record = new AnimalRecord(row);
 						record.setCount(count);
 						records.add(record);
 					}

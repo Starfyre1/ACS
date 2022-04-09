@@ -153,7 +153,7 @@ public class EquipmentMarketPlaceDisplay extends EquipmentDisplay implements Tab
 						count = ((Integer) element).intValue();
 					}
 					if (count > 0) {
-						EquipmentRecord record = EquipmentList.getEquipmentRecord(i).clone();
+						EquipmentRecord record = new EquipmentRecord(row);
 						record.setCount(count);
 						record.setEquipped(((Boolean) row.get(1)).booleanValue());
 						records.add(record);

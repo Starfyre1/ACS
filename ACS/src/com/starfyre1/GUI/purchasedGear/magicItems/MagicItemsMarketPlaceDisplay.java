@@ -148,7 +148,7 @@ public class MagicItemsMarketPlaceDisplay extends MagicItemsDisplay implements T
 						count = ((Integer) element).intValue();
 					}
 					if (count > 0) {
-						MagicItemRecord record = MagicItemList.getMagicItemRecord(i).clone();
+						MagicItemRecord record = new MagicItemRecord(row);
 						record.setCount(count);
 						record.setEquipped(((Boolean) row.get(1)).booleanValue());
 						records.add(record);
