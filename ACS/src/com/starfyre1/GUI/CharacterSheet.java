@@ -1120,7 +1120,17 @@ public class CharacterSheet implements ActionListener {
 			cir.setMissileBonus((int) (cir.getMissileBonus() * .95));
 			cir.setBowSpeed(cir.getBowSpeed() - 1);
 			cir.setBowBonus((int) ((cir.getBowBonus() + cir.getBowLevelBonus()) * .95));
+		} else {
+			cir.updateRecord();
+//			cir.setMovement(cir);
+//				cir.setAttackSpeed(0);
+//				cir.setHitBonus(0);
+//				cir.setMissileSpeed(0);
+//				cir.setMissileBonus(0);
+//				cir.setBowSpeed(0);
+//				cir.setBowBonus(0);
 		}
+		mCombatInformationDisplay.loadDisplay();
 	}
 
 	/** @return The animalRecord. */

@@ -66,7 +66,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	// Creates a record from the character sheet and generates values if requested
 	public CombatInformationRecord(CharacterSheet sheet, boolean generate) {
 		mCharacterSheet = sheet;
-
 		if (generate) {
 			updateValues();
 		}
@@ -497,6 +496,9 @@ public class CombatInformationRecord implements LevelListener, Savable {
 						break;
 					}
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value = value + " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}
