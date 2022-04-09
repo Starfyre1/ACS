@@ -12,7 +12,7 @@ public abstract class AnimalsDisplay extends TKTitledDisplay {
 	 ****************************************************************************/
 	private static final String		ANIMALS_TITLE			= "Animals";																									//$NON-NLS-1$
 
-	protected static final String[]	COLUMN_HEADER_NAMES		= { "Count", "Animal", "Carry", "Move", "Travel", "Hits", "Hit Bonus", "Damage", "Armor", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
+	protected static final String[]	COLUMN_HEADER_NAMES		= { "#", "Animal", "Carry", "Move", "Travel", "Hits", "HB", "Dam", "Armor", "Cost", "Notes" };					//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
 	protected static final String[]	COLUMN_HEADER_TOOLTIPS	= { "Count", "Animal", "Carry", "Move", "Travel", "Hits", "Hit Bonus", "Damage", "Armor", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$ //$NON-NLS-11$
 
 	/*****************************************************************************

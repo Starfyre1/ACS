@@ -63,6 +63,14 @@ public class ArmorOwnedDisplay extends ArmorDisplay implements TableModelListene
 			mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 0));
 		}
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
+
+		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+		mTable.getColumnModel().getColumn(1).setMinWidth(55); // Equpped
+		mTable.getColumnModel().getColumn(2).setMinWidth(150); // Name
+		mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
+		mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
+		mTable.getColumnModel().getColumn(13).setMinWidth(50); // Cost
+
 		mTable.getModel().addTableModelListener(this);
 
 		JScrollPane scrollPane = new JScrollPane(mTable);

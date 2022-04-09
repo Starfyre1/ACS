@@ -73,6 +73,12 @@ public class AnimalsMarketPlaceDisplay extends AnimalsDisplay implements TableMo
 		}
 		mTable = new TKTable(new TKTableModel(data, COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS));
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.MARKET_PLACE_TAB_TABLE_SIZE);
+
+		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+		mTable.getColumnModel().getColumn(1).setMinWidth(150); // Name
+		mTable.getColumnModel().getColumn(5).setMinWidth(60); // Hits
+		mTable.getColumnModel().getColumn(10).setMinWidth(200); // Notes
+
 		mTable.getModel().addTableModelListener(this);
 
 		mFilterPanel = new JPanel();

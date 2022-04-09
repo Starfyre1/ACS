@@ -54,6 +54,13 @@ public class EquipmentOwnedDisplay extends EquipmentDisplay implements TableMode
 		}
 
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
+
+		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+		mTable.getColumnModel().getColumn(1).setMinWidth(55); // Equipped
+		mTable.getColumnModel().getColumn(2).setMinWidth(150); // Name
+		mTable.getColumnModel().getColumn(4).setMinWidth(50); // Cost
+		mTable.getColumnModel().getColumn(5).setMinWidth(350); // Notes
+
 		mTable.getModel().addTableModelListener(this);
 
 		JScrollPane scrollPane = new JScrollPane(mTable);

@@ -69,8 +69,13 @@ public class ArmorEntryDisplay extends ArmorDisplay implements TableModelListene
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.MARKET_PLACE_TAB_TABLE_SIZE);
 		mTable.setDefaultRenderer(MetalRecord.class, new MetalCellRenderer());
 		mTable.setDefaultEditor(MetalRecord.class, new MetalCellEditor(MetalList.getRecords()));
-		mTable.setRowHeight(20);
+
+		//		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+		//		mTable.getColumnModel().getColumn(1).setMinWidth(55); // Equpped
+		mTable.getColumnModel().getColumn(2).setMinWidth(150); // Name
 		mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
+		mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
+		mTable.getColumnModel().getColumn(13).setMinWidth(50); // Cost
 
 		mTable.removeColumn(mTable.getColumnModel().getColumn(12));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(11));
@@ -82,8 +87,8 @@ public class ArmorEntryDisplay extends ArmorDisplay implements TableModelListene
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 		addEmptyRowIfNeeded();
-
 		mTable.getModel().addTableModelListener(this);
+
 		return scrollPane;
 	}
 

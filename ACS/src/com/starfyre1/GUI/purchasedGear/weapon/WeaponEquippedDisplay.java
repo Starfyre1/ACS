@@ -44,6 +44,14 @@ public class WeaponEquippedDisplay extends WeaponDisplay {
 		// This is loaded from Equipment Sheet
 		mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 0));
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.CHARACTER_TAB_TABLE_SIZE);
+
+		//		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+		//		mTable.getColumnModel().getColumn(1).setMinWidth(55); // Equipped
+		mTable.getColumnModel().getColumn(2).setMinWidth(100); // Name
+		mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
+		mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
+		//		mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
+
 		// remove in reverse order... as the column numbers will change
 		mTable.removeColumn(mTable.getColumnModel().getColumn(15));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(7));

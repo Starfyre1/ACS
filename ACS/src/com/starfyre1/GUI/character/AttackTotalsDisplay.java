@@ -49,6 +49,14 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.CHARACTER_TAB_TABLE_SIZE);
 		//		table.setFillsViewportHeight(true);
 
+		//		mTable.setRowHeight(20);
+		mTable.getColumnModel().getColumn(0).setMinWidth(75);
+		mTable.getColumnModel().getColumn(1).setMinWidth(75);
+		//		mTable.getColumnModel().getColumn(2).setMinWidth(75);
+		mTable.getColumnModel().getColumn(0).setMaxWidth(75);
+		mTable.getColumnModel().getColumn(1).setMaxWidth(75);
+		//		mTable.getColumnModel().getColumn(2).setMaxWidth(75);
+
 		mTable.getModel().addTableModelListener(this);
 
 		JScrollPane scrollPane = new JScrollPane(mTable);
@@ -83,7 +91,6 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 		//		int damage2 = record.getDamageTwoHanded();
 		damage1 += record.getDamageOneHanded();
 		damage2 += record.getDamageTwoHanded();
-		
 
 		return Integer.valueOf(damage1 > damage2 ? damage1 : damage2);
 	}

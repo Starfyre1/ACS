@@ -63,10 +63,11 @@ public class AnimalEntryDisplay extends AnimalsDisplay implements TableModelList
 		}
 		mTable = new TKTable(new MarketPlaceEntryTableModel(data, COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS));
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.MARKET_PLACE_TAB_TABLE_SIZE);
-		//		mTable.setDefaultRenderer(MetalRecord.class, new MetalCellRenderer());
-		//		mTable.setDefaultEditor(MetalRecord.class, new MetalCellEditor(MetalList.getRecords()));
-		mTable.setRowHeight(20);
-		mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
+
+		//		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+		mTable.getColumnModel().getColumn(1).setMinWidth(150); // Name
+		mTable.getColumnModel().getColumn(5).setMinWidth(50); // Hits
+		mTable.getColumnModel().getColumn(10).setMinWidth(200); // Notes
 
 		mTable.removeColumn(mTable.getColumnModel().getColumn(0));
 

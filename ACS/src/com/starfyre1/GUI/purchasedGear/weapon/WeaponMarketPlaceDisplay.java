@@ -78,8 +78,13 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.MARKET_PLACE_TAB_TABLE_SIZE);
 		mTable.setDefaultRenderer(MetalRecord.class, new MetalCellRenderer());
 		mTable.setDefaultEditor(MetalRecord.class, new MetalCellEditor(MetalList.getRecords()));
-		mTable.setRowHeight(20);
+
+		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+		mTable.getColumnModel().getColumn(1).setMinWidth(55); // Equipped
+		mTable.getColumnModel().getColumn(2).setMinWidth(100); // Name
 		mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
+		mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
+		mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
 
 		mFilterPanel = new JPanel();
 		JTextField filterField = TKRowFilter.createRowFilter(mTable);

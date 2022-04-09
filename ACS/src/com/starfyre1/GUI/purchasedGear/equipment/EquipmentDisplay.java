@@ -13,7 +13,7 @@ public abstract class EquipmentDisplay extends TKTitledDisplay {
 	 ****************************************************************************/
 	private static final String		EQUIPMENT_TITLE			= "Equipment";														//$NON-NLS-1$
 
-	protected static final String[]	COLUMN_HEADER_NAMES		= { "Count", "Equipped", "Name", "Encumbrance", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+	protected static final String[]	COLUMN_HEADER_NAMES		= { "#", "Equipped", "Name", "lbs", "Cost", "Notes" };				//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 	protected static final String[]	COLUMN_HEADER_TOOLTIPS	= { "Count", "Equipped", "Name", "Encumbrance", "Cost", "Notes" };	//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
 	/*****************************************************************************

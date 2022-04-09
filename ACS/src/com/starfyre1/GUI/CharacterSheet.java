@@ -360,6 +360,11 @@ public class CharacterSheet implements ActionListener {
 		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
 
+		mInnateAbilitiesDisplay.setMaximumSize(new Dimension(250, wrapper4.getPreferredSize().height + 20));
+		mAttackTotalsDisplay.setMaximumSize(new Dimension(250, wrapper4.getPreferredSize().height + 20));
+		mInnateAbilitiesDisplay.setPreferredSize(new Dimension(250, wrapper4.getPreferredSize().height + 20));
+		mAttackTotalsDisplay.setPreferredSize(new Dimension(250, wrapper4.getPreferredSize().height + 20));
+
 		return scrollPane;
 	}
 

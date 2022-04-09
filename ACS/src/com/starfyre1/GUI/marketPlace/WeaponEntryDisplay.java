@@ -69,19 +69,29 @@ public class WeaponEntryDisplay extends WeaponDisplay implements TableModelListe
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.MARKET_PLACE_TAB_TABLE_SIZE);
 		mTable.setDefaultRenderer(MetalRecord.class, new MetalCellRenderer());
 		mTable.setDefaultEditor(MetalRecord.class, new MetalCellEditor(MetalList.getRecords()));
-		mTable.setRowHeight(20);
+
+		//		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+		//		mTable.getColumnModel().getColumn(1).setMinWidth(55); // Equipped
+		mTable.getColumnModel().getColumn(2).setMinWidth(100); // Name
 		mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
+		mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
+		mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
 
 		mTable.removeColumn(mTable.getColumnModel().getColumn(1));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(0));
+
+		mTable.getColumnModel().getColumn(0).setMinWidth(100); // Name
+		mTable.getColumnModel().getColumn(1).setMinWidth(70); // Metal - give it enough room for popup
+		mTable.getColumnModel().getColumn(2).setMinWidth(70); // Type
+		mTable.getColumnModel().getColumn(10).setMinWidth(50); // Cost
 
 		JScrollPane scrollPane = new JScrollPane(mTable);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 		addEmptyRowIfNeeded();
-
 		mTable.getModel().addTableModelListener(this);
+
 		return scrollPane;
 	}
 

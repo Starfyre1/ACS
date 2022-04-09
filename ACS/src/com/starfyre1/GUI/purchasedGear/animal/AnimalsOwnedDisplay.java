@@ -49,6 +49,11 @@ public class AnimalsOwnedDisplay extends AnimalsDisplay {
 			mTable.setPreferredScrollableViewportSize(CharacterSheet.EQUIPMENT_TAB_TABLE_SIZE);
 		}
 
+		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+		mTable.getColumnModel().getColumn(1).setMinWidth(150); // Name
+		mTable.getColumnModel().getColumn(5).setMinWidth(60); // Hits
+		mTable.getColumnModel().getColumn(10).setMinWidth(200); // Notes
+
 		JScrollPane scrollPane = new JScrollPane(mTable);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
