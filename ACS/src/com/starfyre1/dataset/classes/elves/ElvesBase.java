@@ -176,37 +176,6 @@ public abstract class ElvesBase extends BaseClass {
 		return 0;
 	}
 
-	// Defensive Information
-	@Override
-	public int getStamina() {
-		int stamina;
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
-		if (lvl <= 5) {
-			stamina = (lvl - 1) * 4;
-		} else {
-			stamina = 16 + (lvl - 5) * 2;
-		}
-
-		return stamina;
-
-	}
-
-	@Override
-	public int getHitPoints() {
-		int hp;
-		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
-
-		if (lvl <= 10) {
-			hp = lvl - 1;
-		} else {
-			// DW double check this one value (2-10, 13, 16 levels)
-			hp = 9 + (lvl - 10) / 3;
-		}
-
-		return hp;
-
-	}
-
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

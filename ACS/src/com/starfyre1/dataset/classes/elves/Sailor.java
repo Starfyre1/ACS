@@ -176,6 +176,39 @@ public class Sailor extends ElvesBase {
 		return value * 3;
 	}
 
+	// Defensive Information
+	@Override
+	public int getStamina() {
+		int stamina;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		if (lvl <= 12) {
+			stamina = (lvl - 1) * 4;
+		} else {
+			stamina = 44;
+		}
+
+		return stamina;
+
+	}
+
+	/*
+	 * They receive +4 stamina and +1 hit point per level past 1st, this will stop
+	 * after 12th level
+	 */	
+	@Override
+	public int getHitPoints() {
+		int hp;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+
+		if (lvl <= 12) {
+			hp = lvl - 1;
+		} else {
+			hp = 11;
+		}
+
+		return hp;
+
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

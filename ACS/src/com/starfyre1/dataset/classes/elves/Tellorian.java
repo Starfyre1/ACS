@@ -207,6 +207,40 @@ public class Tellorian extends ElvesBase {
 		return value * 3;
 	}
 
+	// Defensive Information
+	@Override
+	public int getStamina() {
+		int stamina;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		if (lvl <= 12) {
+			stamina = (lvl - 1) * 4;
+		} else {
+			stamina = 44 + (lvl-12) * 2;
+		}
+
+		return stamina;
+
+	}
+
+	/*
+	 * They receive +4 stamina per level past 1st and +1 Hit points. After 10th
+	 * level they stop adding +4 and start adding +2 to Stamina. After 15th level
+	 * they stop receiving the additional Hit points.
+	 */
+	@Override
+	public int getHitPoints() {
+		int hp;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+
+		if (lvl <= 15) {
+			hp = lvl - 1;
+		} else {
+			hp = 14;
+		}
+
+		return hp;
+
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

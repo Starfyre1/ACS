@@ -233,6 +233,40 @@ public class Tsiri extends ElvesBase {
 		return value * 4;
 	}
 
+	// Defensive Information
+	@Override
+	public int getStamina() {
+		int stamina;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		if (lvl <= 10) {
+			stamina = (lvl - 1) * 5;
+		} else {
+			stamina = 45 + (lvl-10) * 2;
+		}
+
+		return stamina;
+
+	}
+
+	/*
+	 * The Tsiri receive +5 Stamina and +1 Hit point past 1st level. After 10th
+	 * level they stop adding +5 to Stam and start adding +2 per level. After 16th
+	 * level, they stop adding +1 to Hit points.
+	 */	
+	@Override
+	public int getHitPoints() {
+		int hp;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+
+		if (lvl <= 16) {
+			hp = lvl - 1;
+		} else {
+			hp = 15;
+		}
+
+		return hp;
+
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

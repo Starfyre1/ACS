@@ -214,6 +214,40 @@ public class Sithrian extends ElvesBase {
 		return -1;
 	}
 
+	// Defensive Information
+	@Override
+	public int getStamina() {
+		int stamina;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+		if (lvl <= 12) {
+			stamina = (lvl - 1) * 4;
+		} else {
+			stamina = 36 + (lvl-12) * 2;
+		}
+
+		return stamina;
+
+	}
+
+	/*
+	 * TSith receive +4 per Stamina level past 1st, and +1 Hit point. After 12th
+	 * level, they stop adding +4 Stamina, instead they add +2 Stamina. After 15th
+	 * level they stop receiving additional Hit points. 
+	 */
+	@Override
+	public int getHitPoints() {
+		int hp;
+		int lvl = ACS.getInstance().getCharacterSheet().getHeaderRecord().getLevel();
+
+		if (lvl <= 15) {
+			hp = lvl - 1;
+		} else {
+			hp = 14;
+		}
+
+		return hp;
+
+	}
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
