@@ -158,8 +158,7 @@ public class AttributesTab extends DeterminationTab {
 			mDPPerWeekField[i].setEditable(false);
 			dpPerWeekPanel.add(mDPPerWeekField[i]);
 
-			Dimension checkBoxSize = new Dimension(mAttrCheckBox[i].getMinimumSize().width, TEXT_FIELD_HEIGHT);
-			mAttrCheckBox[i].setMaximumSize(new Dimension(checkBoxSize));
+			Dimension checkBoxSize = new Dimension(mAttrCheckBox[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mAttrCheckBox[i].setPreferredSize(checkBoxSize);
 
 			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
