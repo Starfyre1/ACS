@@ -892,7 +892,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param purchasedItems
 	 */
 	public void addEquipment(ArrayList<EquipmentRecord> purchasedItems) {
-		float cost = mEquipmentList.addEquipment(purchasedItems, true);
+		float cost = mEquipmentList.addEquipment(purchasedItems, !MarketPlace.getInstance().isFreeChecked());
 		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.spend(cost);
 		mEquipmentOwnedDisplay.loadDisplay();
@@ -903,7 +903,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param purchasedItems
 	 */
 	public void addAnimals(ArrayList<AnimalRecord> purchasedItems) {
-		float cost = mAnimalList.addAnimals(purchasedItems, true);
+		float cost = mAnimalList.addAnimals(purchasedItems, !MarketPlace.getInstance().isFreeChecked());
 		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.spend(cost);
 		mAnimalsOwnedDisplay.loadDisplay();
@@ -925,7 +925,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param purchasedItems
 	 */
 	public void addMagicItems(ArrayList<MagicItemRecord> purchasedItems) {
-		float cost = mMagicItemList.addMagicItems(purchasedItems, true);
+		float cost = mMagicItemList.addMagicItems(purchasedItems, !MarketPlace.getInstance().isFreeChecked());
 		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.spend(cost);
 		mMagicItemsOwnedDisplay.loadDisplay();
@@ -947,7 +947,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param soldItems
 	 */
 	public void removeEquipment(ArrayList<EquipmentRecord> soldItems) {
-		float cost = mEquipmentList.removeEquipment(soldItems, true);
+		float cost = mEquipmentList.removeEquipment(soldItems, !MarketPlace.getInstance().isFreeChecked());
 		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mEquipmentOwnedDisplay.loadDisplay();
@@ -958,7 +958,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param soldItems
 	 */
 	public void removeAnimals(ArrayList<AnimalRecord> soldItems) {
-		float cost = mAnimalList.removeAnimals(soldItems, true);
+		float cost = mAnimalList.removeAnimals(soldItems, !MarketPlace.getInstance().isFreeChecked());
 		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mAnimalsOwnedDisplay.loadDisplay();
@@ -969,7 +969,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param soldItems
 	 */
 	public void removeArmor(ArrayList<ArmorRecord> soldItems) {
-		float cost = mArmorList.removeArmor(soldItems, true);
+		float cost = mArmorList.removeArmor(soldItems, !MarketPlace.getInstance().isFreeChecked());
 		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mArmorOwnedDisplay.loadDisplay();
@@ -980,7 +980,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param soldItems
 	 */
 	public void removeMagicItems(ArrayList<MagicItemRecord> soldItems) {
-		float cost = mMagicItemList.removeMagicItems(soldItems, true);
+		float cost = mMagicItemList.removeMagicItems(soldItems, !MarketPlace.getInstance().isFreeChecked());
 		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mMagicItemsOwnedDisplay.loadDisplay();
@@ -991,7 +991,7 @@ public class CharacterSheet implements ActionListener {
 	 * @param soldItems
 	 */
 	public void removeWeapons(ArrayList<WeaponRecord> soldItems) {
-		float cost = mWeaponList.removeWeapons(soldItems, true);
+		float cost = mWeaponList.removeWeapons(soldItems, !MarketPlace.getInstance().isFreeChecked());
 		cost = cost * MarketPlace.getInstance().getPercentCost() / 100;
 		mMoneyRecord.receive(cost);
 		mWeaponOwnedDisplay.loadDisplay();
