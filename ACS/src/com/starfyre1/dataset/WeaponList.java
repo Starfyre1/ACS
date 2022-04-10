@@ -243,8 +243,6 @@ public class WeaponList implements Savable {
 				scanner = new Scanner(is, "UTF-8"); //$NON-NLS-1$
 
 				mWeaponMasterList = readWeapons(scanner);
-				mArraySize = mWeaponMasterList.length;
-				mWeaponProficiencyList = new String[mArraySize];
 
 			} catch (NoSuchElementException nsee) {
 				// End of file, nothing to do except exit
@@ -280,6 +278,9 @@ public class WeaponList implements Savable {
 
 	private static void loadProficiencies() {
 		int count = 0;
+		mArraySize = mWeaponMasterList.length;
+		mWeaponProficiencyList = new String[mArraySize];
+
 		for (WeaponRecord record : mWeaponCombinedList) {
 			String name = record.getName();
 			if (!name.isBlank()) {

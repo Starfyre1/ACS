@@ -104,7 +104,7 @@ public class TeacherTab extends DeterminationTab {
 
 	//	@Override
 	//	protected void updateDialogButtons() {
-	//		//		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
+	//		((DeterminationPointsDisplay) getOwner()).updateButtons(isAnyBoxChecked(), false);
 	//	}
 
 	private void updateEnabledState() {
