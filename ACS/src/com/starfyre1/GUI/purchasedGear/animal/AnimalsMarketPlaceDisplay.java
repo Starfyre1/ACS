@@ -108,8 +108,17 @@ public class AnimalsMarketPlaceDisplay extends AnimalsDisplay implements TableMo
 			mTable.setModel(mMarketModel);
 			ownedModel.removeTableModelListener(this);
 			mTable.getSelectionModel().removeListSelectionListener(this);
+			mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+			mTable.getColumnModel().getColumn(1).setMinWidth(150); // Name
+			mTable.getColumnModel().getColumn(5).setMinWidth(60); // Hits
+			mTable.getColumnModel().getColumn(10).setMinWidth(200); // Notes
 		} else {
 			mTable.setModel(ownedModel);
+			mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+			mTable.getColumnModel().getColumn(1).setMinWidth(150); // Name
+			mTable.getColumnModel().getColumn(5).setMinWidth(60); // Hits
+			mTable.getColumnModel().getColumn(10).setMinWidth(200); // Notes
+
 		}
 		mTable.invalidate();
 		mTable.revalidate();

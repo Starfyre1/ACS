@@ -115,8 +115,21 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 			mTable.setModel(mMarketModel);
 			ownedModel.removeTableModelListener(this);
 			mTable.getSelectionModel().removeListSelectionListener(this);
+			mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+			mTable.getColumnModel().getColumn(1).setMinWidth(55); // Equipped
+			mTable.getColumnModel().getColumn(2).setMinWidth(100); // Name
+			mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
+			mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
+			mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
 		} else {
 			mTable.setModel(ownedModel);
+			mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
+			mTable.getColumnModel().getColumn(1).setMinWidth(55); // Equipped
+			mTable.getColumnModel().getColumn(2).setMinWidth(100); // Name
+			mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
+			mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
+			mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
+
 		}
 		mTable.invalidate();
 		mTable.revalidate();
