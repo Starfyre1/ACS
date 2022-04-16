@@ -182,8 +182,31 @@ public class DeterminationList implements Savable {
 					if (key.equals(FILE_SECTION_END_KEY)) {
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
-						String value = ""; //$NON-NLS-1$
-						setKeyValuePair(key, value);
+						if (AttributeDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
+							AttributeDeterminationRecord record = new AttributeDeterminationRecord();
+							tokenizer = record.readValues(br);
+							addAttribRecord(record);
+						} else if (LanguageDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
+							LanguageDeterminationRecord record = new LanguageDeterminationRecord();
+							tokenizer = record.readValues(br);
+							addLanguageRecord(record);
+						} else if (MagicSpellDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
+							MagicSpellDeterminationRecord record = new MagicSpellDeterminationRecord();
+							tokenizer = record.readValues(br);
+							addMagicSpellRecord(record);
+						} else if (SkillDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
+							SkillDeterminationRecord record = new SkillDeterminationRecord();
+							tokenizer = record.readValues(br);
+							addSkillRecord(record);
+						} else if (WeaponProficiencyDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
+							WeaponProficiencyDeterminationRecord record = new WeaponProficiencyDeterminationRecord();
+							tokenizer = record.readValues(br);
+							addWeaponRecord(record);
+						} else if (TeacherDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
+							TeacherDeterminationRecord record = new TeacherDeterminationRecord();
+							tokenizer = record.readValues(br);
+							addTeacherRecord(record);
+						}
 					} else {
 						String value = tokenizer.nextToken();
 						while (tokenizer.hasMoreTokens()) {
@@ -227,6 +250,9 @@ public class DeterminationList implements Savable {
 		for (TeacherDeterminationRecord record : mSkillsTeachersRecords) {
 			record.saveValues(br);
 		}
+		for (TeacherDeterminationRecord record : mThiefTeachersRecords) {
+			record.saveValues(br);
+		}
 		for (TeacherDeterminationRecord record : mWeaponsTeachersRecords) {
 			record.saveValues(br);
 		}
@@ -236,7 +262,7 @@ public class DeterminationList implements Savable {
 
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
-		// DW to do
+		// not used here
 	}
 
 }

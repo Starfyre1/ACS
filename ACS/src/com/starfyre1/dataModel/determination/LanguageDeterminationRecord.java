@@ -15,7 +15,7 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	 * Constants
 	 ****************************************************************************/
 	public static final String	FILE_SECTION_START_KEY	= "LANGUAGE_DETERMINATION_SECTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY	= "LANGUAGE_DETERMINATION_SECTION_END";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY	= "LANGUAGE_DETERMINATION_SECTION_END";		//$NON-NLS-1$
 
 	private static final String	LANGUAGE_KEY			= "LANGUAGE_KEY";							//$NON-NLS-1$
 	private static final String	SOURCE_KEY				= "SOURCE_KEY";								//$NON-NLS-1$
@@ -43,6 +43,13 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
+	/**
+	 * Creates a new {@link LanguageDeterminationRecord}.
+	 */
+	public LanguageDeterminationRecord() {
+
+	}
+
 	/**
 	 * Creates a new {@link LanguageDeterminationRecord}.
 	 */
@@ -78,6 +85,51 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	/** @return The language. */
+	public String getLanguage() {
+		return mLanguage;
+	}
+
+	/** @return The source. */
+	public String getSource() {
+		return mSource;
+	}
+
+	/** @return The dPPerWeek. */
+	public int getDPPerWeek() {
+		return mDPPerWeek;
+	}
+
+	/** @return The dPTotalSpent. */
+	public int getDPTotalSpent() {
+		return mDPTotalSpent;
+	}
+
+	/** @return The dPCost. */
+	public int getDPCost() {
+		return mDPCost;
+	}
+
+	/** @return The maintainence. */
+	public boolean hasMaintainence() {
+		return mMaintainence;
+	}
+
+	/** @return The successful. */
+	public boolean isSuccessful() {
+		return mSuccessful;
+	}
+
+	/** @return The startDate. */
+	public String getStartDate() {
+		return mStartDate;
+	}
+
+	/** @return The completionDate. */
+	public String getCompletionDate() {
+		return mCompletionDate;
+	}
 
 	/*****************************************************************************
 	 * Serialization

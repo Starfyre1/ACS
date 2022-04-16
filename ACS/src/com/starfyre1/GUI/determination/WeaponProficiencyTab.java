@@ -55,6 +55,11 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	private TKPopupMenu[]		mWeaponPopup;
 	private JLabel[]			mTeacherLabel;
 	private JTextField[]		mDPPerWeekField;
+	private JLabel[]			mUsedLabel;
+	private JLabel[]			mBonusLabel;
+	private JLabel[]			mSuccessfulLabel;
+	private JLabel[]			mStartDateLabel;
+	private JLabel[]			mCompletionDateLabel;
 
 	/*****************************************************************************
 	 * Constructors
@@ -100,6 +105,23 @@ public class WeaponProficiencyTab extends DeterminationTab {
 
 	@Override
 	protected void loadDisplay() {
+		ArrayList<WeaponProficiencyDeterminationRecord> list = DeterminationList.getWeaponRecords();
+		if (list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				WeaponProficiencyDeterminationRecord record = list.get(i);
+
+				mWeaponPopup[i].selectPopupMenuItem(record.getWeapon());
+				mTeacherLabel[i].setText(String.valueOf(record.getTeacher()));
+				mBonusLabel[i].setText(String.valueOf(record.getBonus()));
+				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
+				mUsedLabel[i].setText(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
+				// DW _Count successful vs attempted
+				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
+				mStartDateLabel[i].setText(record.getStartDate());
+				mCompletionDateLabel[i].setText(record.getCompletionDate());
+
+			}
+		}
 		updateEnabledState();
 		super.loadDisplay();
 	}
@@ -110,6 +132,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	}
 
 	private JPanel createCenterPanel() {
+		// DW _add Start and Completion Date (popup?)
 		int completed = 0;
 		int attempted = 0;
 		int currentTeacher = 0;
@@ -121,9 +144,9 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mWeaponPopup = new TKPopupMenu[ROWS];
 		mTeacherLabel = new JLabel[ROWS];
 		mDPPerWeekField = new JTextField[ROWS];
-		JLabel[] usedLabel = new JLabel[ROWS];
-		JLabel[] bonusLabel = new JLabel[ROWS];
-		JLabel[] successfulLabel = new JLabel[ROWS];
+		mUsedLabel = new JLabel[ROWS];
+		mBonusLabel = new JLabel[ROWS];
+		mSuccessfulLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel weaponPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -155,23 +178,23 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			mTeacherLabel[i].setPreferredSize(size);
 			teacherPanel.add(mTeacherLabel[i]);
 
-			bonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));
-			bonusLabel[i].setMinimumSize(size);
-			bonusLabel[i].setPreferredSize(size);
-			bonusAmountPanel.add(bonusLabel[i]);
+			mBonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));
+			mBonusLabel[i].setMinimumSize(size);
+			mBonusLabel[i].setPreferredSize(size);
+			bonusAmountPanel.add(mBonusLabel[i]);
 
 			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
 			dpPerWeekPanel.add(mDPPerWeekField[i]);
 
-			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
-			usedLabel[i].setMinimumSize(size);
-			usedLabel[i].setPreferredSize(size);
-			dpSpentPanel.add(usedLabel[i]);
+			mUsedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
+			mUsedLabel[i].setMinimumSize(size);
+			mUsedLabel[i].setPreferredSize(size);
+			dpSpentPanel.add(mUsedLabel[i]);
 
-			successfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
-			successfulLabel[i].setMinimumSize(size);
-			successfulLabel[i].setPreferredSize(size);
-			successfulPanel.add(successfulLabel[i]);
+			mSuccessfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
+			mSuccessfulLabel[i].setMinimumSize(size);
+			mSuccessfulLabel[i].setPreferredSize(size);
+			successfulPanel.add(mSuccessfulLabel[i]);
 		}
 
 		teacherPanel.add(Box.createVerticalGlue());

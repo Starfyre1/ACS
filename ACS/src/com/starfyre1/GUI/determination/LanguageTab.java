@@ -91,6 +91,10 @@ public class LanguageTab extends DeterminationTab {
 	private JLabel[]				mUsedLabel;
 	private int[]					mCurrentlySpentLabel;
 	private int[]					mCostLabel;
+	private JLabel[]				mMaintLabel;
+	private JLabel[]				mSuccessfulLabel;
+	private JLabel[]				mStartDateLabel;
+	private JLabel[]				mCompletionDateLabel;
 
 	/*****************************************************************************
 	 * Constructors
@@ -184,6 +188,26 @@ public class LanguageTab extends DeterminationTab {
 
 	@Override
 	protected void loadDisplay() {
+		ArrayList<LanguageDeterminationRecord> list = DeterminationList.getLanguageRecords();
+		if (list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				LanguageDeterminationRecord record = list.get(i);
+
+				mLangPopup[i].selectPopupMenuItem(record.getLanguage());
+				mSourcePopup[i].selectPopupMenuItem(record.getSource());
+				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
+				mCurrentlySpentLabel[i] = record.getDPTotalSpent();
+				mCostLabel[i] = record.getDPCost();
+
+				mUsedLabel[i] = new JLabel(mCurrentlySpentLabel[i] + " / " + mCostLabel[i]); //$NON-NLS-1$
+				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));
+				// DW _Count successful vs attempted
+				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
+				mStartDateLabel[i].setText(record.getStartDate());
+				mCompletionDateLabel[i].setText(record.getCompletionDate());
+
+			}
+		}
 		updateEnabledState();
 		super.loadDisplay();
 	}
@@ -194,6 +218,7 @@ public class LanguageTab extends DeterminationTab {
 	}
 
 	private JPanel createCenterPanel() {
+		// DW _add Start and Completion Date (popup?)
 		int currentMaintenance = 0;
 		int completed = 0;
 		int attempted = 0;
@@ -206,9 +231,8 @@ public class LanguageTab extends DeterminationTab {
 		mUsedLabel = new JLabel[ROWS];
 		mCurrentlySpentLabel = new int[ROWS];
 		mCostLabel = new int[ROWS];
-
-		JLabel[] maintLabel = new JLabel[ROWS];
-		JLabel[] successfulLabel = new JLabel[ROWS];
+		mMaintLabel = new JLabel[ROWS];
+		mSuccessfulLabel = new JLabel[ROWS];
 
 		JPanel wrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel langPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -255,15 +279,15 @@ public class LanguageTab extends DeterminationTab {
 			mUsedLabel[i].setPreferredSize(size);
 			dpSpentPanel.add(mUsedLabel[i]);
 
-			maintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
-			maintLabel[i].setMinimumSize(size);
-			maintLabel[i].setPreferredSize(size);
-			maintPanel.add(maintLabel[i]);
+			mMaintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
+			mMaintLabel[i].setMinimumSize(size);
+			mMaintLabel[i].setPreferredSize(size);
+			maintPanel.add(mMaintLabel[i]);
 
-			successfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
-			successfulLabel[i].setMinimumSize(size);
-			successfulLabel[i].setPreferredSize(size);
-			successfulPanel.add(successfulLabel[i]);
+			mSuccessfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
+			mSuccessfulLabel[i].setMinimumSize(size);
+			mSuccessfulLabel[i].setPreferredSize(size);
+			successfulPanel.add(mSuccessfulLabel[i]);
 
 		}
 		dpSpentPanel.add(Box.createVerticalGlue());

@@ -278,7 +278,7 @@ public class WeaponList implements Savable {
 
 	private static void loadProficiencies() {
 		int count = 0;
-		mArraySize = mWeaponMasterList.length;
+		mArraySize = mWeaponCombinedList.length;
 		mWeaponProficiencyList = new String[mArraySize];
 
 		for (WeaponRecord record : mWeaponCombinedList) {

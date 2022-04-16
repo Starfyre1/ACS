@@ -57,6 +57,12 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	private TKPopupMenu[]		mSkillsPopup;
 	private JLabel[]			mTeacherLabel;
 	private JTextField[]		mDPPerWeekField;
+	private JLabel[]			mUsedLabel;
+	private JLabel[]			mBonusLabel;
+	private JLabel[]			mMaintLabel;
+	private JLabel[]			mSuccessfulLabel;
+	private JLabel[]			mStartDateLabel;
+	private JLabel[]			mCompletionDateLabel;
 
 	/*****************************************************************************
 	 * Constructors
@@ -103,6 +109,24 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 
 	@Override
 	protected void loadDisplay() {
+		ArrayList<SkillDeterminationRecord> list = DeterminationList.getSkillRecords();
+		if (list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				SkillDeterminationRecord record = list.get(i);
+
+				mSkillsPopup[i].selectPopupMenuItem(record.getSkill());
+				mTeacherLabel[i].setText(String.valueOf(record.getTeacher()));
+				mBonusLabel[i].setText(String.valueOf(record.getBonus()));
+				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
+				mUsedLabel[i].setText(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
+				// DW _Count successful vs attempted
+				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));
+				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
+				mStartDateLabel[i].setText(record.getStartDate());
+				mCompletionDateLabel[i].setText(record.getCompletionDate());
+
+			}
+		}
 		updateEnabledState();
 		super.loadDisplay();
 	}
@@ -113,6 +137,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	}
 
 	private JPanel createCenterPanel() {
+		// DW _add Start and Completion Date (popup?)
 		int currentTeacher = 0;
 		int currentBonus = 0;
 		int currentlySpent = 0;
@@ -125,10 +150,10 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		mSkillsPopup = new TKPopupMenu[ROWS];
 		mTeacherLabel = new JLabel[ROWS];
 		mDPPerWeekField = new JTextField[ROWS];
-		JLabel[] usedLabel = new JLabel[ROWS];
-		JLabel[] bonusLabel = new JLabel[ROWS];
-		JLabel[] maintLabel = new JLabel[ROWS];
-		JLabel[] successfulLabel = new JLabel[ROWS];
+		mUsedLabel = new JLabel[ROWS];
+		mBonusLabel = new JLabel[ROWS];
+		mMaintLabel = new JLabel[ROWS];
+		mSuccessfulLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel skillsPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -162,28 +187,28 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 			mTeacherLabel[i].setPreferredSize(size);
 			teacherPanel.add(mTeacherLabel[i]);
 
-			bonusLabel[i] = new JLabel(String.valueOf(currentBonus));
-			bonusLabel[i].setMinimumSize(size);
-			bonusLabel[i].setPreferredSize(size);
-			bonusAmountPanel.add(bonusLabel[i]);
+			mBonusLabel[i] = new JLabel(String.valueOf(currentBonus));
+			mBonusLabel[i].setMinimumSize(size);
+			mBonusLabel[i].setPreferredSize(size);
+			bonusAmountPanel.add(mBonusLabel[i]);
 
 			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
 			dpPerWeekPanel.add(mDPPerWeekField[i]);
 
-			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
-			usedLabel[i].setMinimumSize(size);
-			usedLabel[i].setPreferredSize(size);
-			dpSpentPanel.add(usedLabel[i]);
+			mUsedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
+			mUsedLabel[i].setMinimumSize(size);
+			mUsedLabel[i].setPreferredSize(size);
+			dpSpentPanel.add(mUsedLabel[i]);
 
-			maintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
-			maintLabel[i].setMinimumSize(size);
-			maintLabel[i].setPreferredSize(size);
-			maintPanel.add(maintLabel[i]);
+			mMaintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
+			mMaintLabel[i].setMinimumSize(size);
+			mMaintLabel[i].setPreferredSize(size);
+			maintPanel.add(mMaintLabel[i]);
 
-			successfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
-			successfulLabel[i].setMinimumSize(size);
-			successfulLabel[i].setPreferredSize(size);
-			successfulPanel.add(successfulLabel[i]);
+			mSuccessfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
+			mSuccessfulLabel[i].setMinimumSize(size);
+			mSuccessfulLabel[i].setPreferredSize(size);
+			successfulPanel.add(mSuccessfulLabel[i]);
 
 		}
 		teacherPanel.add(Box.createVerticalGlue());

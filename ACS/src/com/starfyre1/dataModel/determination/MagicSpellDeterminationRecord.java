@@ -46,6 +46,13 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/**
 	 * Creates a new {@link MagicSpellDeterminationRecord}.
 	 */
+	public MagicSpellDeterminationRecord() {
+
+	}
+
+	/**
+	 * Creates a new {@link MagicSpellDeterminationRecord}.
+	 */
 	public MagicSpellDeterminationRecord(String spell, String school, float cost, int dpPerWeek, int dpCost, String startDate) {
 		mSpell = spell;
 		mSchool = school;
@@ -81,6 +88,51 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	/** @return The spell. */
+	public String getSpell() {
+		return mSpell;
+	}
+
+	/** @return The school. */
+	public String getSchool() {
+		return mSchool;
+	}
+
+	/** @return The cost. */
+	public float getCost() {
+		return mCost;
+	}
+
+	/** @return The dPPerWeek. */
+	public int getDPPerWeek() {
+		return mDPPerWeek;
+	}
+
+	/** @return The dPTotalSpent. */
+	public int getDPTotalSpent() {
+		return mDPTotalSpent;
+	}
+
+	/** @return The dPCost. */
+	public int getDPCost() {
+		return mDPCost;
+	}
+
+	/** @return The successful. */
+	public boolean isSuccessful() {
+		return mSuccessful;
+	}
+
+	/** @return The startDate. */
+	public String getStartDate() {
+		return mStartDate;
+	}
+
+	/** @return The completionDate. */
+	public String getCompletionDate() {
+		return mCompletionDate;
+	}
 
 	/*****************************************************************************
 	 * Serialization

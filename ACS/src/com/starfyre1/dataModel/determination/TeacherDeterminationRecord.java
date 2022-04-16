@@ -41,6 +41,13 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	/**
 	 * Creates a new {@link TeacherDeterminationRecord}.
 	 */
+	public TeacherDeterminationRecord() {
+
+	}
+
+	/**
+	 * Creates a new {@link TeacherDeterminationRecord}.
+	 */
 	public TeacherDeterminationRecord(int id, String teacher, String expertise, float cost, int bonus) {
 		mID = id;
 		mTeacher = teacher;
@@ -76,6 +83,26 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 
 	public String getExpertise() {
 		return mExpertise;
+	}
+
+	/** @return The iD. */
+	public int getID() {
+		return mID;
+	}
+
+	/** @return The teacher. */
+	public String getTeacher() {
+		return mTeacher;
+	}
+
+	/** @return The cost. */
+	public float getCost() {
+		return mCost;
+	}
+
+	/** @return The bonus. */
+	public int getBonus() {
+		return mBonus;
 	}
 
 	/*****************************************************************************
@@ -129,7 +156,9 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
-		if (TEACHER_KEY.equals(key)) {
+		if (TEACHER_ID_KEY.equals(key)) {
+			mID = Integer.parseInt(value);
+		} else if (TEACHER_KEY.equals(key)) {
 			mTeacher = value;
 		} else if (EXPERTISE_KEY.equals(key)) {
 			mExpertise = value;

@@ -17,16 +17,16 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	 * Constants
 	 ****************************************************************************/
 	public static final String	FILE_SECTION_START_KEY			= "ATTRIBUTES_DETERMINATION_SECTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY			= "ATTRIBUTES_DETERMINATION_SECTION_END";		//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY			= "ATTRIBUTES_DETERMINATION_SECTION_END";	//$NON-NLS-1$
 
-	private static final String	ATTRIBUTE_KEY					= "ATTRIBUTE_KEY";								//$NON-NLS-1$
-	private static final String	DP_PER_WEEK_KEY					= "DP_PER_WEEK_KEY";							//$NON-NLS-1$
-	private static final String	DP_TOTAL_SPENT_KEY				= "DP_TOTAL_SPENT_KEY";							//$NON-NLS-1$
-	private static final String	DP_COST_KEY						= "DP_COST_KEY";								//$NON-NLS-1$
-	private static final String	MAINTAINENCE_KEY				= "MAINTAINENCE_KEY";							//$NON-NLS-1$
-	private static final String	SUCCESSFUL_KEY					= "SUCCESSFUL_KEY";								//$NON-NLS-1$
-	private static final String	START_DATE_KEY					= "START_DATE_KEY";								//$NON-NLS-1$
-	private static final String	COMPLETION_DATE_KEY				= "COMPLETION_DATE_KEY";						//$NON-NLS-1$
+	private static final String	ATTRIBUTE_KEY					= "ATTRIBUTE_KEY";							//$NON-NLS-1$
+	private static final String	DP_PER_WEEK_KEY					= "DP_PER_WEEK_KEY";						//$NON-NLS-1$
+	private static final String	DP_TOTAL_SPENT_KEY				= "DP_TOTAL_SPENT_KEY";						//$NON-NLS-1$
+	private static final String	DP_COST_KEY						= "DP_COST_KEY";							//$NON-NLS-1$
+	private static final String	MAINTAINENCE_KEY				= "MAINTAINENCE_KEY";						//$NON-NLS-1$
+	private static final String	SUCCESSFUL_KEY					= "SUCCESSFUL_KEY";							//$NON-NLS-1$
+	private static final String	START_DATE_KEY					= "START_DATE_KEY";							//$NON-NLS-1$
+	private static final String	COMPLETION_DATE_KEY				= "COMPLETION_DATE_KEY";					//$NON-NLS-1$
 
 	private static final int	MAX_STAT_VALUE					= 18;
 	private static final int	MAX_NUMBER_OF_IMPROVEMENTS		= 3;
@@ -40,8 +40,8 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	int							mDPCost							= 0;
 	boolean						mMaintainence					= false;
 	boolean						mSuccessful						= false;
-	String						mStartDate						= "";											//$NON-NLS-1$
-	String						mCompletionDate					= "";											//$NON-NLS-1$
+	String						mStartDate						= "";										//$NON-NLS-1$
+	String						mCompletionDate					= "";										//$NON-NLS-1$
 
 	private int					currentNumberOfImprovements[]	= new int[] { 0, 0, 0, 0, 0 };
 
@@ -51,8 +51,14 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	/**
 	 * Creates a new {@link AttributeDeterminationRecord}.
 	 */
-	public AttributeDeterminationRecord(int which, int dpPerWeek, int cost, String startDate) {
-		mAttribute = which;
+	public AttributeDeterminationRecord() {
+		/**
+		 * Creates a new {@link AttributeDeterminationRecord}.
+		 */
+	}
+
+	public AttributeDeterminationRecord(int attrib, int dpPerWeek, int cost, String startDate) {
+		mAttribute = attrib;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
 		mStartDate = startDate;
@@ -84,6 +90,46 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	 ****************************************************************************/
 	public boolean isStatMaxed(int which) {
 		return ACS.getInstance().getCharacterSheet().getAttributesRecord().getStat(which) >= MAX_STAT_VALUE || currentNumberOfImprovements[which] >= MAX_NUMBER_OF_IMPROVEMENTS;
+	}
+
+	/** @return The attribute. */
+	public int getAttribute() {
+		return mAttribute;
+	}
+
+	/** @return The dPPerWeek. */
+	public int getDPPerWeek() {
+		return mDPPerWeek;
+	}
+
+	/** @return The dPTotalSpent. */
+	public int getDPTotalSpent() {
+		return mDPTotalSpent;
+	}
+
+	/** @return The dPCost. */
+	public int getDPCost() {
+		return mDPCost;
+	}
+
+	/** @return The maintainence. */
+	public boolean hasMaintainence() {
+		return mMaintainence;
+	}
+
+	/** @return The successful. */
+	public boolean isSuccessful() {
+		return mSuccessful;
+	}
+
+	/** @return The startDate. */
+	public String getStartDate() {
+		return mStartDate;
+	}
+
+	/** @return The completionDate. */
+	public String getCompletionDate() {
+		return mCompletionDate;
 	}
 
 	/*****************************************************************************

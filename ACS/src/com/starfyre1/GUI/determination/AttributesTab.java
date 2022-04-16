@@ -54,6 +54,11 @@ public class AttributesTab extends DeterminationTab {
 	 ****************************************************************************/
 	private JCheckBox[]				mAttrCheckBox;
 	private JTextField[]			mDPPerWeekField;
+	private JLabel[]				mDPTotalSpentLabel;
+	private JLabel[]				mMaintLabel;
+	private JLabel[]				mSuccessfulLabel;
+	private JLabel[]				mStartDateLabel;
+	private JLabel[]				mCompletionDateLabel;
 
 	/*****************************************************************************
 	 * Constructors
@@ -110,6 +115,21 @@ public class AttributesTab extends DeterminationTab {
 
 	@Override
 	protected void loadDisplay() {
+		ArrayList<AttributeDeterminationRecord> list = DeterminationList.getAttribRecords();
+		if (list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				AttributeDeterminationRecord record = list.get(i);
+				// DW _Check appropriate attribute box
+				record.getAttribute();
+				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
+				mDPTotalSpentLabel[i].setText(String.valueOf(record.getDPTotalSpent()) + " / " + record.getDPCost()); //$NON-NLS-1$
+				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));
+				// DW _Count successful vs attempted
+				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
+				mStartDateLabel[i].setText(record.getStartDate());
+				mCompletionDateLabel[i].setText(record.getCompletionDate());
+			}
+		}
 		updateEnabledState();
 		super.loadDisplay();
 	}
@@ -120,6 +140,7 @@ public class AttributesTab extends DeterminationTab {
 	}
 
 	private JPanel createCenterPanel() {
+		// DW _add Start and Completion Date (popup?)
 		int currentlySpent = 0;
 		int currentMaintenance = 0;
 		int completed = 0;
@@ -129,14 +150,14 @@ public class AttributesTab extends DeterminationTab {
 
 		mAttrCheckBox = new JCheckBox[ROWS];
 		mDPPerWeekField = new JTextField[ROWS];
-		JLabel[] usedLabel = new JLabel[ROWS];
-		JLabel[] maintLabel = new JLabel[ROWS];
-		JLabel[] successfulLabel = new JLabel[ROWS];
+		mDPTotalSpentLabel = new JLabel[ROWS];
+		mMaintLabel = new JLabel[ROWS];
+		mSuccessfulLabel = new JLabel[ROWS];
 
 		JPanel wrapperPanel = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel attrPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel dpPerWeekPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel dpSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel dpTotalSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel maintPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 		JPanel successPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
@@ -144,7 +165,7 @@ public class AttributesTab extends DeterminationTab {
 		attrPanel.add(header);
 		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
 		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
-		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
+		dpTotalSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
 		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
 		successPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
@@ -161,30 +182,30 @@ public class AttributesTab extends DeterminationTab {
 			Dimension checkBoxSize = new Dimension(mAttrCheckBox[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mAttrCheckBox[i].setPreferredSize(checkBoxSize);
 
-			usedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
-			usedLabel[i].setMinimumSize(size);
-			usedLabel[i].setPreferredSize(size);
-			dpSpentPanel.add(usedLabel[i]);
+			mDPTotalSpentLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
+			mDPTotalSpentLabel[i].setMinimumSize(size);
+			mDPTotalSpentLabel[i].setPreferredSize(size);
+			dpTotalSpentPanel.add(mDPTotalSpentLabel[i]);
 
-			maintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
-			maintLabel[i].setMinimumSize(size);
-			maintLabel[i].setPreferredSize(size);
-			maintPanel.add(maintLabel[i]);
+			mMaintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
+			mMaintLabel[i].setMinimumSize(size);
+			mMaintLabel[i].setPreferredSize(size);
+			maintPanel.add(mMaintLabel[i]);
 
-			successfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
-			successfulLabel[i].setMinimumSize(size);
-			successfulLabel[i].setPreferredSize(size);
-			successPanel.add(successfulLabel[i]);
+			mSuccessfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
+			mSuccessfulLabel[i].setMinimumSize(size);
+			mSuccessfulLabel[i].setPreferredSize(size);
+			successPanel.add(mSuccessfulLabel[i]);
 
 		}
 
-		dpSpentPanel.add(Box.createVerticalGlue());
+		dpTotalSpentPanel.add(Box.createVerticalGlue());
 		maintPanel.add(Box.createVerticalGlue());
 		successPanel.add(Box.createVerticalGlue());
 
 		wrapperPanel.add(attrPanel);
 		wrapperPanel.add(dpPerWeekPanel);
-		wrapperPanel.add(dpSpentPanel);
+		wrapperPanel.add(dpTotalSpentPanel);
 		wrapperPanel.add(maintPanel);
 		wrapperPanel.add(successPanel);
 

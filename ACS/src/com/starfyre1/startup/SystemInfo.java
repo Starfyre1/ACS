@@ -57,7 +57,7 @@ public class SystemInfo {
 		} else if (isUnix()) {
 			return System.getProperty("user.home");
 		} else if (isSolaris()) {
-			// DW:: Find Solaris app data
+			// DW Find Solaris app data
 			return System.getProperty("user.dir");
 		} else {
 			return System.getProperty("user.dir");

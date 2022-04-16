@@ -15,17 +15,17 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	 * Constants
 	 ****************************************************************************/
 	public static final String	FILE_SECTION_START_KEY	= "WEAPON_PROFICIENCY_DETERMINATION_SECTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY	= "WEAPON_PROFICIENCY_DETERMINATION_SECTION_END";		//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY	= "WEAPON_PROFICIENCY_DETERMINATION_SECTION_END";	//$NON-NLS-1$
 
-	private static final String	WEAPON_KEY				= "WEAPON_KEY";											//$NON-NLS-1$
-	private static final String	TEACHER_KEY				= "TEACHER_KEY";										//$NON-NLS-1$
-	private static final String	BONUS_KEY				= "BONUS_KEY";											//$NON-NLS-1$
-	private static final String	DP_PER_WEEK_KEY			= "DP_PER_WEEK_KEY";									//$NON-NLS-1$
-	private static final String	DP_TOTAL_SPENT_KEY		= "DP_TOTAL_SPENT_KEY";									//$NON-NLS-1$
-	private static final String	DP_COST_KEY				= "DP_COST_KEY";										//$NON-NLS-1$
-	private static final String	SUCCESSFUL_KEY			= "SUCCESSFUL_KEY";										//$NON-NLS-1$
-	private static final String	START_DATE_KEY			= "START_DATE_KEY";										//$NON-NLS-1$
-	private static final String	COMPLETION_DATE_KEY		= "COMPLETION_DATE_KEY";								//$NON-NLS-1$
+	private static final String	WEAPON_KEY				= "WEAPON_KEY";										//$NON-NLS-1$
+	private static final String	TEACHER_KEY				= "TEACHER_KEY";									//$NON-NLS-1$
+	private static final String	BONUS_KEY				= "BONUS_KEY";										//$NON-NLS-1$
+	private static final String	DP_PER_WEEK_KEY			= "DP_PER_WEEK_KEY";								//$NON-NLS-1$
+	private static final String	DP_TOTAL_SPENT_KEY		= "DP_TOTAL_SPENT_KEY";								//$NON-NLS-1$
+	private static final String	DP_COST_KEY				= "DP_COST_KEY";									//$NON-NLS-1$
+	private static final String	SUCCESSFUL_KEY			= "SUCCESSFUL_KEY";									//$NON-NLS-1$
+	private static final String	START_DATE_KEY			= "START_DATE_KEY";									//$NON-NLS-1$
+	private static final String	COMPLETION_DATE_KEY		= "COMPLETION_DATE_KEY";							//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -37,12 +37,19 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	int							mDPTotalSpent			= 0;
 	int							mDPCost					= 0;
 	boolean						mSuccessful				= false;
-	String						mStartDate				= "";													//$NON-NLS-1$
-	String						mCompletionDate			= "";													//$NON-NLS-1$
+	String						mStartDate				= "";												//$NON-NLS-1$
+	String						mCompletionDate			= "";												//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
+	/**
+	 * Creates a new {@link WeaponProficiencyDeterminationRecord}.
+	 */
+	public WeaponProficiencyDeterminationRecord() {
+
+	}
+
 	/**
 	 * Creates a new {@link WeaponProficiencyDeterminationRecord}.
 	 */
@@ -78,6 +85,51 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	/** @return The weapon. */
+	public String getWeapon() {
+		return mWeapon;
+	}
+
+	/** @return The teacher. */
+	public int getTeacher() {
+		return mTeacher;
+	}
+
+	/** @return The bonus. */
+	public int getBonus() {
+		return mBonus;
+	}
+
+	/** @return The dPPerWeek. */
+	public int getDPPerWeek() {
+		return mDPPerWeek;
+	}
+
+	/** @return The dPTotalSpent. */
+	public int getDPTotalSpent() {
+		return mDPTotalSpent;
+	}
+
+	/** @return The dPCost. */
+	public int getDPCost() {
+		return mDPCost;
+	}
+
+	/** @return The successful. */
+	public boolean isSuccessful() {
+		return mSuccessful;
+	}
+
+	/** @return The startDate. */
+	public String getStartDate() {
+		return mStartDate;
+	}
+
+	/** @return The completionDate. */
+	public String getCompletionDate() {
+		return mCompletionDate;
+	}
 
 	/*****************************************************************************
 	 * Serialization

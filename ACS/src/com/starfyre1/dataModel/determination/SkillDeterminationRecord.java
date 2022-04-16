@@ -48,6 +48,13 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 	/**
 	 * Creates a new {@link SkillDeterminationRecord}.
 	 */
+	public SkillDeterminationRecord() {
+
+	}
+
+	/**
+	 * Creates a new {@link SkillDeterminationRecord}.
+	 */
 	public SkillDeterminationRecord(String skill, int teacher, int dpPerWeek, int cost, String startDate) {
 		mSkill = skill;
 		mTeacher = teacher;
@@ -80,6 +87,56 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	/** @return The skill. */
+	public String getSkill() {
+		return mSkill;
+	}
+
+	/** @return The teacher. */
+	public int getTeacher() {
+		return mTeacher;
+	}
+
+	/** @return The bonus. */
+	public int getBonus() {
+		return mBonus;
+	}
+
+	/** @return The dPPerWeek. */
+	public int getDPPerWeek() {
+		return mDPPerWeek;
+	}
+
+	/** @return The dPTotalSpent. */
+	public int getDPTotalSpent() {
+		return mDPTotalSpent;
+	}
+
+	/** @return The dPCost. */
+	public int getDPCost() {
+		return mDPCost;
+	}
+
+	/** @return The maintainence. */
+	public boolean hasMaintainence() {
+		return mMaintainence;
+	}
+
+	/** @return The successful. */
+	public boolean isSuccessful() {
+		return mSuccessful;
+	}
+
+	/** @return The startDate. */
+	public String getStartDate() {
+		return mStartDate;
+	}
+
+	/** @return The completionDate. */
+	public String getCompletionDate() {
+		return mCompletionDate;
+	}
 
 	/*****************************************************************************
 	 * Serialization

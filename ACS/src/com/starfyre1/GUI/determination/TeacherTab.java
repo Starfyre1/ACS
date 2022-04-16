@@ -126,6 +126,18 @@ public class TeacherTab extends DeterminationTab {
 
 	@Override
 	protected void loadDisplay() {
+		ArrayList<TeacherDeterminationRecord> list = DeterminationList.getTeachersRecords();
+		if (list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				TeacherDeterminationRecord record = list.get(i);
+
+				mIDLabel[i].setText(String.valueOf(record.getID()));
+				mTeacherNameField[i].setText(String.valueOf(record.getTeacher()));
+				mExpertisePopup[i].selectPopupMenuItem(record.getExpertise());
+				mBonusField[i].setText(String.valueOf(record.getBonus()));
+				mCostField[i].setText(String.valueOf(record.getCost()));
+			}
+		}
 		updateEnabledState();
 		super.loadDisplay();
 	}
@@ -136,6 +148,7 @@ public class TeacherTab extends DeterminationTab {
 	}
 
 	private JPanel createCenterPanel() {
+		// DW _add Start and Completion Date (popup?)
 		TKIntegerFilter intFilter = TKIntegerFilter.getFilterInstance();
 		TKFloatFilter floatFilter = TKFloatFilter.getFilterInstance();
 

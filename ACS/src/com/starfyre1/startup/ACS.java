@@ -34,7 +34,7 @@ public class ACS {
 
 	private static int					MAJOR						= 0;																	// Incompatible changes
 	private static int					MINOR						= 1;																	// Compatible changes
-	private static int					PATCH						= 9;																	// Bug fixes
+	private static int					PATCH						= 10;																	// Bug fixes
 
 	public static String				DATA_FILE_VERSION_TITLE		= "Data file version: ";												//$NON-NLS-1$
 	public static int					DATA_FILE_VERSION_NUMBER	= 1;
