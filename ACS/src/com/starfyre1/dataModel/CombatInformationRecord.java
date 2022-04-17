@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 
 public class CombatInformationRecord implements LevelListener, Savable {
 	public static final String	FILE_SECTION_START_KEY			= "COMBAT_INFORMATION_SECTION_START";													//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY			= "COMBAT_INFORMATION_SECTION_END";													//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY			= "COMBAT_INFORMATION_SECTION_END";														//$NON-NLS-1$
 
 	public static final String	HIT_LEVEL_BONUS_KEY				= "HIT_LEVEL_BONUS_KEY";																//$NON-NLS-1$
 	public static final String	BOW_LEVEL_BONUS_KEY				= "BOW_LEVEL_BONUS_KEY";																//$NON-NLS-1$
@@ -543,7 +543,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 			}
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

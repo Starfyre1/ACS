@@ -38,7 +38,6 @@ import com.starfyre1.dataModel.PersonalInformationRecord;
 import com.starfyre1.dataModel.SavingThrowsRecord;
 import com.starfyre1.dataModel.SkillsRecord;
 import com.starfyre1.dataModel.WeaponRecord;
-import com.starfyre1.dataModel.storage.PreferenceStore;
 import com.starfyre1.dataset.AnimalList;
 import com.starfyre1.dataset.ArmorList;
 import com.starfyre1.dataset.ClassList;
@@ -51,6 +50,7 @@ import com.starfyre1.dataset.WeaponList;
 import com.starfyre1.startup.ACS;
 import com.starfyre1.startup.SystemInfo;
 import com.starfyre1.storage.HistoryManager;
+import com.starfyre1.storage.PreferenceStore;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -117,8 +117,9 @@ public class CharacterSheet implements ActionListener {
 	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";												//$NON-NLS-1$
 	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";												//$NON-NLS-1$
 
-	private static final String				ABOUT						= "About";														//$NON-NLS-1$
-	private static final String				HELP						= "Help";														//$NON-NLS-1$
+	static final String						ABOUT						= "About";														//$NON-NLS-1$
+	static final String						LOG							= "Log File";													//$NON-NLS-1$
+	static final String						HELP						= "Help";														//$NON-NLS-1$
 	private static final String				PREFERENCES					= "Preferences";												//$NON-NLS-1$
 	private static final String				OPTIONS						= "Options";													//$NON-NLS-1$
 	private static final String				MARKET_PLACE				= "Market Place";												//$NON-NLS-1$
@@ -504,6 +505,8 @@ public class CharacterSheet implements ActionListener {
 		JMenu helpMenu = new JMenu(HELP);
 		helpMenu.add(TKComponentHelpers.createMenuItem(HELP, this));
 		helpMenu.addSeparator();
+		helpMenu.add(TKComponentHelpers.createMenuItem(LOG, this));
+		helpMenu.addSeparator();
 		helpMenu.add(TKComponentHelpers.createMenuItem(ABOUT, this));
 
 		bar.add(fileMenu);
@@ -733,6 +736,8 @@ public class CharacterSheet implements ActionListener {
 			new MarketPlace(mFrame);
 		} else if (cmd.equals(ABOUT)) {
 			new AboutDialog(mFrame);
+		} else if (cmd.equals(LOG)) {
+			new LogFileDialog(mFrame);
 		} else if (cmd.equals(HELP)) {
 			// DW open doc's
 			new HelpDialog(mFrame);
@@ -1122,13 +1127,13 @@ public class CharacterSheet implements ActionListener {
 			cir.setBowBonus((int) ((cir.getBowBonus() + cir.getBowLevelBonus()) * .95));
 		} else {
 			cir.updateRecord();
-//			cir.setMovement(cir);
-//				cir.setAttackSpeed(0);
-//				cir.setHitBonus(0);
-//				cir.setMissileSpeed(0);
-//				cir.setMissileBonus(0);
-//				cir.setBowSpeed(0);
-//				cir.setBowBonus(0);
+			//			cir.setMovement(cir);
+			//				cir.setAttackSpeed(0);
+			//				cir.setHitBonus(0);
+			//				cir.setMissileSpeed(0);
+			//				cir.setMissileBonus(0);
+			//				cir.setBowSpeed(0);
+			//				cir.setBowBonus(0);
 		}
 		mCombatInformationDisplay.loadDisplay();
 	}

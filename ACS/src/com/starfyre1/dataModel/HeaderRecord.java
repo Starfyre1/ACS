@@ -19,7 +19,7 @@ public class HeaderRecord implements Savable {
 	 * Constants
 	 ****************************************************************************/
 	public static final String	FILE_SECTION_START_KEY		= "HEADER_SECTION_START";		//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY		= "HEADER_SECTION_END";		//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY		= "HEADER_SECTION_END";			//$NON-NLS-1$
 
 	private static final String	PLAYER_NAME_KEY				= "PLAYER_NAME_KEY";			//$NON-NLS-1$
 	private static final String	CHARACTER_NAME_KEY			= "CHARACTER_NAME_KEY";			//$NON-NLS-1$
@@ -210,7 +210,7 @@ public class HeaderRecord implements Savable {
 			CampaignDateChooser.setCampaignDate(value);
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

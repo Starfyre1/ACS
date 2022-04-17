@@ -3,6 +3,7 @@
 package com.starfyre1.GUI.spells;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.component.JButtonRollover;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
@@ -16,7 +17,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -49,7 +49,6 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	private int						mSpellLevel				= 0;
 	private SpellRecord				mSpellToLearn			= null;
 
-	private Color					mOldColor				= null;
 	private Color					mOldSelectedColor		= null;
 	private JLabel					mOldLabel				= null;
 	private JButton					mLearnButton			= null;
@@ -247,39 +246,18 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	}
 
 	private JButton getButton(String name) {
-		JButton button = new JButton(name);
+		JButton button = new JButtonRollover(this, name, false);
 		button.setFocusable(false);
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent evt) {
-				mOldColor = button.getBackground();
-				button.setBackground(Color.GRAY);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent evt) {
-				if (mOldColor != null) {
-					button.setBackground(mOldColor);
-				}
-			}
-		});
-		button.addActionListener(new ActionListener() {
+		button.getModel().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object obj = e.getSource();
-				if (obj instanceof JButton) {
-					String buttonName = ((JButton) obj).getText();
-					if (CLOSE.equals(buttonName)) {
-						dispose();
-					} else if (LEARN.equals(buttonName)) {
-						mSpellToLearn = getSpellRecord(mOldLabel.getText());
-						dispose();
-					}
-
+				String buttonName = button.getText();
+				if (LEARN.equals(buttonName)) {
+					mSpellToLearn = getSpellRecord(mOldLabel.getText());
 				}
+				dispose();
 			}
-
 		});
 		return button;
 	}

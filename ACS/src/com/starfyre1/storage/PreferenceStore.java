@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2016. All rights reserved. */
 
-package com.starfyre1.dataModel.storage;
+package com.starfyre1.storage;
 
 import com.starfyre1.GUI.PreferencesDisplay;
 import com.starfyre1.ToolKit.TKStringHelpers;

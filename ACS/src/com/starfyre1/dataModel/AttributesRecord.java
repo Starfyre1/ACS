@@ -4,8 +4,8 @@ package com.starfyre1.dataModel;
 
 import com.starfyre1.ToolKit.TKDice;
 import com.starfyre1.ToolKit.TKStringHelpers;
-import com.starfyre1.dataModel.storage.PreferenceStore;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.storage.PreferenceStore;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,7 +17,7 @@ public class AttributesRecord implements Savable {
 	 * Constants
 	 ****************************************************************************/
 	public static final String	FILE_SECTION_START_KEY	= "ATTRIBUTES_SECTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY	= "ATTRIBUTES_SECTION_END";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY	= "ATTRIBUTES_SECTION_END";		//$NON-NLS-1$
 
 	public static final String	STRENGTH_KEY			= "STRENGTH_KEY";				//$NON-NLS-1$
 	public static final String	CONSTITUTION_KEY		= "CONSTITUTION_KEY";			//$NON-NLS-1$
@@ -248,6 +248,9 @@ public class AttributesRecord implements Savable {
 						break;
 					}
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value += " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}
@@ -304,7 +307,7 @@ public class AttributesRecord implements Savable {
 			mStats[8] = stat;
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

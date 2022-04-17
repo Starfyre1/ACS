@@ -21,6 +21,7 @@ import com.starfyre1.startup.ACS;
 import com.starfyre1.storage.HistoryManager;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -137,6 +138,9 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 				}
 			}
 		});
+
+		mCampaignButton.setPreferredSize(new Dimension(mCampaignButton.getPreferredSize().width, 20));
+		mClassPopup.setPreferredSize(new Dimension(mClassPopup.getPreferredSize().width, 20));
 
 		wrapper2.add(mCampaignButton);
 		wrapper2.add(classLabel);

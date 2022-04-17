@@ -1,35 +1,39 @@
-/* Copyright (C) Starfyre Enterprises 2020. All rights reserved. */
+/* Copyright (C) Starfyre Enterprises 2022. All rights reserved. */
 
 package com.starfyre1.GUI;
 
 import com.starfyre1.GUI.component.JButtonRollover;
+import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 
-public class AboutDialog extends JDialog {
+public class LogFileDialog extends JDialog {
+
 	/*****************************************************************************
-	 * CONSTANTS
+	 * Constants
 	 ****************************************************************************/
 
 	/*****************************************************************************
-	 * MEMBER VARIABLES
+	 * Member Variables
 	 ****************************************************************************/
 
 	/*****************************************************************************
-	 * CONSTRUCTORS
+	 * Constructors
 	 ****************************************************************************/
-
-	public AboutDialog(JFrame parent) {
+	public LogFileDialog(JFrame parent) {
 		super(parent, true);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -41,19 +45,27 @@ public class AboutDialog extends JDialog {
 		mMessageLabel.setOpaque(false);
 		mMessageLabel.setText(ACS.TITLE + "\n\n" + ACS.getVersion() + "\n" + ACS.getBuildDate() + "\n" + ACS.COPYRIGHT); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-		JButton okButton = new JButtonRollover(this, "OK", true); //$NON-NLS-1$
-		okButton.setFocusable(false);
+		JButton closeButton = new JButtonRollover(this, "Close", true); //$NON-NLS-1$
+		closeButton.setFocusable(false);
+
+		JButton clearButton = new JButtonRollover(this, "Clear", true); //$NON-NLS-1$
+		clearButton.setFocusable(false);
 
 		JPanel messagePanel = new JPanel();
 		messagePanel.add(mMessageLabel);
 
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(okButton);
+		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+
+		buttonPanel.add(clearButton);
+		buttonPanel.add(Box.createHorizontalGlue());
+		buttonPanel.add(closeButton);
 
 		JPanel wrapper = new JPanel(new BorderLayout());
 		wrapper.setBorder(new CompoundBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), new EtchedBorder(EtchedBorder.RAISED)), new EtchedBorder(EtchedBorder.LOWERED)));
 
-		wrapper.add(new TKPageTitleLabel(CharacterSheet.ABOUT), BorderLayout.PAGE_START);
+		wrapper.add(new TKPageTitleLabel(CharacterSheet.LOG), BorderLayout.PAGE_START);
 		wrapper.add(messagePanel, BorderLayout.CENTER);
 		wrapper.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -63,19 +75,16 @@ public class AboutDialog extends JDialog {
 		setLocationRelativeTo(parent);
 		setVisible(true);
 	}
+
 	/*****************************************************************************
-	 * METHODS
+	 * Methods
 	 ****************************************************************************/
 
 	/*****************************************************************************
-	 * INHERITED ABSTRACT METHODS
+	 * Setter's and Getter's
 	 ****************************************************************************/
 
 	/*****************************************************************************
-	 * ACCESSORS
-	 ****************************************************************************/
-
-	/*****************************************************************************
-	 * SERIALIZATION
+	 * Serialization
 	 ****************************************************************************/
 }

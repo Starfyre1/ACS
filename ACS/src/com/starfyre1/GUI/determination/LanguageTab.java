@@ -233,6 +233,8 @@ public class LanguageTab extends DeterminationTab {
 		mCostLabel = new int[ROWS];
 		mMaintLabel = new JLabel[ROWS];
 		mSuccessfulLabel = new JLabel[ROWS];
+		mStartDateLabel = new JLabel[ROWS];
+		mCompletionDateLabel = new JLabel[ROWS];
 
 		JPanel wrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel langPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -289,6 +291,8 @@ public class LanguageTab extends DeterminationTab {
 			mSuccessfulLabel[i].setPreferredSize(size);
 			successfulPanel.add(mSuccessfulLabel[i]);
 
+			mStartDateLabel[i] = new JLabel();
+			mCompletionDateLabel[i] = new JLabel();
 		}
 		dpSpentPanel.add(Box.createVerticalGlue());
 		maintPanel.add(Box.createVerticalGlue());

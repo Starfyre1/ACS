@@ -4,6 +4,7 @@
 package com.starfyre1.GUI.spells;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.component.JButtonRollover;
 import com.starfyre1.GUI.component.MagicAreaPopup;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
@@ -26,8 +27,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	private static final String	SPELL_LIST_TITLE						= "Spell List";								//$NON-NLS-1$
 
 	public static final String	FILE_SECTION_START_KEY					= "SPELL_LIST_SECTION_START";				//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY					= "SPELL_LIST_SECTION_END";				//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY					= "SPELL_LIST_SECTION_END";					//$NON-NLS-1$
 	public static final String	SELECTED_MAGICAL_AREA_KEY				= "SELECTED_MAGICAL_AREA_KEY";				//$NON-NLS-1$
 	public static final String	SELECTED_MAGICAL_AREA_EXPERIENCE_KEY	= "SELECTED_MAGICAL_AREA_EXPERIENCE_KEY";	//$NON-NLS-1$
 
@@ -64,7 +63,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	 ****************************************************************************/
 	private TKPopupMenu			mAreaPopup;
 	//	private JPanel					mFilterPanel;
-	private JButton				mNewSpellButton							= new JButton(ACS.IMAGE_PLUS_ICON);
+	private JButton				mNewSpellButton;
 
 	private JPanel				mCards;
 	private SpellList			mCurrentList;
@@ -106,30 +105,11 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		mLevelField.setEditable(false);
 
 		JLabel newSpell = new JLabel(LEARN_SPELL, SwingConstants.RIGHT);
+		mNewSpellButton = new JButtonRollover(this, ACS.IMAGE_PLUS_ICON, false);
 		mNewSpellButton.setOpaque(true);
 		mNewSpellButton.setPreferredSize(new Dimension(25, 25));
 		mNewSpellButton.setFocusable(false);
-		mNewSpellButton.addMouseListener(new MouseAdapter() {
-			private Color mOldColor = null;
-
-			@Override
-			public void mouseEntered(MouseEvent evt) {
-				if (mNewSpellButton.isEnabled()) {
-					mOldColor = mNewSpellButton.getBackground();
-					mNewSpellButton.setBackground(Color.GRAY);
-				}
-			}
-
-			@Override
-			public void mouseExited(MouseEvent evt) {
-				if (mNewSpellButton.isEnabled()) {
-					if (mOldColor != null) {
-						mNewSpellButton.setBackground(mOldColor);
-					}
-				}
-			}
-		});
-		mNewSpellButton.addActionListener(new ActionListener() {
+		mNewSpellButton.getModel().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -370,6 +350,9 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 			mExperienceField.setText(value);
 			mLevelField.setText(String.valueOf(ACS.getLevel(TKStringHelpers.getIntValue(value, 0))));
 			enableFields(!MagicAreaPopup.SELECT_MAGIC_AREA.equals(getMagicArea()));
+		} else {
+			//DW9:: log this
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 }

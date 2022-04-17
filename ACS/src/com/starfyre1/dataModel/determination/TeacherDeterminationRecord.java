@@ -124,6 +124,9 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 						break;
 					}
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value += " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}
@@ -168,7 +171,7 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 			mBonus = TKStringHelpers.getIntValue(value, 0);
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 }

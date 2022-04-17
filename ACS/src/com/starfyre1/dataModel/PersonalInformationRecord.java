@@ -573,7 +573,7 @@ public class PersonalInformationRecord implements Savable {
 			mMorals = TKStringHelpers.getIntValue(value, 0);
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 }

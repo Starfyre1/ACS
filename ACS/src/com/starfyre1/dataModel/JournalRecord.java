@@ -3,6 +3,7 @@
 package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.component.JButtonRollover;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.GUI.journal.WorldDateChooser;
@@ -280,29 +281,13 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	}
 
 	public static JButton getDateButton(String date, ActionListener listener) {
-		JButton dateButton = new JButton(date);
-		dateButton.setFont(CharacterSheet.MONOSPACED_FONT);
-		dateButton.setBorderPainted(false);
-		dateButton.setFocusPainted(false);
-		dateButton.addActionListener(listener);
+		JButtonRollover button = new JButtonRollover(null, date, false);
+		button.setFont(CharacterSheet.MONOSPACED_FONT);
+		button.setBorderPainted(false);
+		button.setFocusPainted(false);
+		button.addActionListener(listener);
 
-		dateButton.addMouseListener(new MouseAdapter() {
-			Color oldColor = null;
-
-			@Override
-			public void mouseEntered(MouseEvent evt) {
-				oldColor = dateButton.getBackground();
-				dateButton.setBackground(Color.GRAY);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent evt) {
-				if (oldColor != null) {
-					dateButton.setBackground(oldColor);
-				}
-			}
-		});
-		return dateButton;
+		return button;
 	}
 
 	private int getWorldYear() {

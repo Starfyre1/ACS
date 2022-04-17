@@ -153,6 +153,8 @@ public class AttributesTab extends DeterminationTab {
 		mDPTotalSpentLabel = new JLabel[ROWS];
 		mMaintLabel = new JLabel[ROWS];
 		mSuccessfulLabel = new JLabel[ROWS];
+		mStartDateLabel = new JLabel[ROWS];
+		mCompletionDateLabel = new JLabel[ROWS];
 
 		JPanel wrapperPanel = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel attrPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -196,6 +198,9 @@ public class AttributesTab extends DeterminationTab {
 			mSuccessfulLabel[i].setMinimumSize(size);
 			mSuccessfulLabel[i].setPreferredSize(size);
 			successPanel.add(mSuccessfulLabel[i]);
+
+			mStartDateLabel[i] = new JLabel();
+			mCompletionDateLabel[i] = new JLabel();
 
 		}
 

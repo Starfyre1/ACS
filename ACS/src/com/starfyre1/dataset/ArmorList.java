@@ -367,7 +367,7 @@ public class ArmorList implements Savable {
 			mRecords.add(new ArmorRecord(mCount, mEquipped, mName, mMetal, mProtectionType, mProtectionAmount, mEncumbrance, mAbsorption, mBonus, mMissileAbsorption, mStrengthRequirement, mParry, mBreak, mCost));
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + getClass() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

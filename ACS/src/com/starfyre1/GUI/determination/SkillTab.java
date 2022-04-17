@@ -154,6 +154,8 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		mBonusLabel = new JLabel[ROWS];
 		mMaintLabel = new JLabel[ROWS];
 		mSuccessfulLabel = new JLabel[ROWS];
+		mStartDateLabel = new JLabel[ROWS];
+		mCompletionDateLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel skillsPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -210,6 +212,8 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 			mSuccessfulLabel[i].setPreferredSize(size);
 			successfulPanel.add(mSuccessfulLabel[i]);
 
+			mStartDateLabel[i] = new JLabel();
+			mCompletionDateLabel[i] = new JLabel();
 		}
 		teacherPanel.add(Box.createVerticalGlue());
 		bonusAmountPanel.add(Box.createVerticalGlue());

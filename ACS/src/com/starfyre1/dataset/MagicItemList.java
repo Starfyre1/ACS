@@ -326,7 +326,7 @@ public class MagicItemList implements Savable {
 			mRecords.add(new MagicItemRecord(mCount, mEquipped, mName, mCharges, mCost));
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + getClass() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

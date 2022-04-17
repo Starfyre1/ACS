@@ -2,14 +2,14 @@
 
 package com.starfyre1.GUI.journal;
 
+import com.starfyre1.GUI.component.JButtonRollover;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -29,7 +29,6 @@ public abstract class DateChooser extends JDialog {
 	 * Member Variables
 	 ****************************************************************************/
 
-	private Color				mOldColor		= null;
 	protected int[]				mDateValues;
 	protected int				mYear;
 	protected int				mMonth;																	// 0=January... 15=Winter
@@ -101,25 +100,12 @@ public abstract class DateChooser extends JDialog {
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
 
-		JButton previous = new JButton("<<Prevous"); //$NON-NLS-1$
+		JButton previous = new JButtonRollover(this, "<<Prevous", false); //$NON-NLS-1$
 		previous.setFocusable(false);
-		previous.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent evt) {
-				mOldColor = previous.getBackground();
-				previous.setBackground(Color.GRAY);
-			}
+		previous.getModel().addActionListener(new ActionListener() {
 
 			@Override
-			public void mouseExited(MouseEvent evt) {
-				if (mOldColor != null) {
-					previous.setBackground(mOldColor);
-				}
-			}
-		});
-		previous.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
+			public void actionPerformed(ActionEvent e) {
 				if (mMonth > 0) {
 					mMonth--;
 				} else {
@@ -133,25 +119,12 @@ public abstract class DateChooser extends JDialog {
 			}
 		});
 
-		JButton next = new JButton("Next>>"); //$NON-NLS-1$
+		JButton next = new JButtonRollover(this, "Next>>", false); //$NON-NLS-1$
 		next.setFocusable(false);
-		next.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent evt) {
-				mOldColor = next.getBackground();
-				next.setBackground(Color.GRAY);
-			}
+		next.getModel().addActionListener(new ActionListener() {
 
 			@Override
-			public void mouseExited(MouseEvent evt) {
-				if (mOldColor != null) {
-					next.setBackground(mOldColor);
-				}
-			}
-		});
-		next.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
+			public void actionPerformed(ActionEvent e) {
 				if (mMonth < (isWorldCalendar() ? 12 : 16) - 1) {
 					mMonth++;
 				} else {

@@ -163,15 +163,12 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 			int modelRow = mTable.convertRowIndexToModel(viewRow);
 			String name = (String) mTable.getModel().getValueAt(modelRow, nameIndex);
 			mSpellDescriptionCard.setDescriptionText(name);
-			mSpellDescriptionCard.revalidate();
-			mSpellDescriptionCard.repaint();
-
 		} else {
 			mSpellDescriptionCard.setDescriptionText(null);
-			mSpellDescriptionCard.revalidate();
-			mSpellDescriptionCard.repaint();
-
 		}
+
+		mSpellDescriptionCard.revalidate();
+		mSpellDescriptionCard.repaint();
 	}
 
 	public void clearRecords() {
@@ -263,6 +260,9 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 			SpellRecord spell = spellUser.getSpellRecord(mLevel, value);
 
 			addToKnownSpells(spell);
+		} else {
+			//DW9:: log this
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

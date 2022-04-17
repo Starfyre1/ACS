@@ -6,8 +6,8 @@ import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKComponentTitledBorder;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
-import com.starfyre1.dataModel.storage.PreferenceStore;
 import com.starfyre1.startup.ACS;
+import com.starfyre1.storage.PreferenceStore;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

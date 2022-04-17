@@ -3,7 +3,7 @@
 package com.starfyre1.GUI.journal;
 
 import com.starfyre1.ToolKit.TKStringHelpers;
-import com.starfyre1.dataModel.storage.PreferenceStore;
+import com.starfyre1.storage.PreferenceStore;
 
 import java.awt.Color;
 

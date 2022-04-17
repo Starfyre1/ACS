@@ -21,7 +21,7 @@ public class SkillsRecord implements LevelListener, Savable {
 	 * Constants
 	 ****************************************************************************/
 	public static final String	FILE_SECTION_START_KEY		= "SKILLS_SECTION_START";							//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY		= "SKILLS_SECTION_END";							//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY		= "SKILLS_SECTION_END";								//$NON-NLS-1$
 
 	public static final String	CONCEAL_LEVEL_BONUS_KEY		= "CONCEAL_LEVEL_BONUS_KEY";						//$NON-NLS-1$
 	public static final String	STEALTH_LEVEL_BONUS_KEY		= "STEALTH_LEVEL_BONUS_KEY";						//$NON-NLS-1$
@@ -1175,6 +1175,9 @@ public class SkillsRecord implements LevelListener, Savable {
 						break;
 					}
 					String value = tokenizer.nextToken();
+					while (tokenizer.hasMoreTokens()) {
+						value += " " + tokenizer.nextToken(); //$NON-NLS-1$
+					}
 					setKeyValuePair(key, value);
 				}
 			}
@@ -1227,7 +1230,7 @@ public class SkillsRecord implements LevelListener, Savable {
 			mRemoveTrapLevelBonus = TKStringHelpers.getIntValue(value, 0);
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

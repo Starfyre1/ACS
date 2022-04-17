@@ -153,7 +153,7 @@ public class HistoryManager implements Savable {
 			addRecord(key, value);
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + getClass() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

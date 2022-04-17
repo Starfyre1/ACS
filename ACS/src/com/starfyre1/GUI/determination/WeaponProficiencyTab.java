@@ -147,6 +147,8 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mUsedLabel = new JLabel[ROWS];
 		mBonusLabel = new JLabel[ROWS];
 		mSuccessfulLabel = new JLabel[ROWS];
+		mStartDateLabel = new JLabel[ROWS];
+		mCompletionDateLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel weaponPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -195,6 +197,9 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			mSuccessfulLabel[i].setMinimumSize(size);
 			mSuccessfulLabel[i].setPreferredSize(size);
 			successfulPanel.add(mSuccessfulLabel[i]);
+
+			mStartDateLabel[i] = new JLabel();
+			mCompletionDateLabel[i] = new JLabel();
 		}
 
 		teacherPanel.add(Box.createVerticalGlue());

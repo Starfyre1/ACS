@@ -38,11 +38,11 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	/*
 		There are many ways to figure your characters Base Armor Rating,
 		the two that have worked best for me in my games are as follows:
-
+	
 		1)	Start your character at a base of 50%, then add the Protection
 			Percentage from the armor you are wearing, this will give you
 			your Armor Rating.
-
+	
 		2)	Start your character with (2 X Dex) + 50% = Base Armor Rating,
 			then add the Protection Percentage from the armor you are
 			wearing, this will give you your Armor Rating.  This rule heavily
@@ -52,7 +52,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			1/2 their allotted carry capacity, at the time of combat.
 			(Remember this is a Optional rule, this way they can't take
 			Total advantage of a 18 Dexterity, and wear Field Plate!)
-
+	
 	*/
 
 	public static final String	FILE_SECTION_START_KEY		= "DEFENSE_INFORMATION_SECTION_START";	//$NON-NLS-1$
@@ -493,7 +493,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			mHitPointsDamage = TKStringHelpers.getIntValue(value, 0);
 		} else {
 			//DW9:: log this
-			System.err.println("Unknown key read from file: " + getClass() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 

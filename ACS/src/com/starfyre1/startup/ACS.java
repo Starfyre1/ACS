@@ -4,12 +4,12 @@ package com.starfyre1.startup;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.HelpDialog;
-import com.starfyre1.dataModel.storage.PreferenceStore;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.MetalList;
 import com.starfyre1.dataset.PriestList;
 import com.starfyre1.dataset.spells.SpellDescriptionList;
+import com.starfyre1.storage.PreferenceStore;
 
 import java.awt.Component;
 import java.io.File;

@@ -285,6 +285,8 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		mCurrentlySpentLabel = new int[ROWS];
 		mDPCost = new int[ROWS];
 		mSuccessfulLabel = new JLabel[ROWS];
+		mStartDateLabel = new JLabel[ROWS];
+		mCompletionDateLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel schoolPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -334,6 +336,8 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 			mSuccessfulLabel[i].setPreferredSize(size);
 			successfulPanel.add(mSuccessfulLabel[i]);
 
+			mStartDateLabel[i] = new JLabel();
+			mCompletionDateLabel[i] = new JLabel();
 		}
 		spellPanel.add(Box.createVerticalGlue());
 		dpSpentPanel.add(Box.createVerticalGlue());
