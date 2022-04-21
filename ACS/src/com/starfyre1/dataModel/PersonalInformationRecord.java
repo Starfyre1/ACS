@@ -363,9 +363,6 @@ public class PersonalInformationRecord implements Savable {
 		if (iHeight == mOldHeight) {
 			return;
 		}
-		if (iHeight == 0) {
-			System.out.println("here"); //$NON-NLS-1$
-		}
 		mHeight = iHeight;
 	}
 

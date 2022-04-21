@@ -44,32 +44,26 @@ public class DeterminationList implements Savable {
 	 * Methods
 	 ****************************************************************************/
 	public static void addAttribRecord(AttributeDeterminationRecord record) {
-		System.out.println(record);
 		mAttribRecords.add(record);
 	}
 
 	public static void addLanguageRecord(LanguageDeterminationRecord record) {
-		System.out.println(record);
 		mLanguageRecords.add(record);
 	}
 
 	public static void addMagicSpellRecord(MagicSpellDeterminationRecord record) {
-		System.out.println(record);
 		mMagicSpellRecords.add(record);
 	}
 
 	public static void addSkillRecord(SkillDeterminationRecord record) {
-		System.out.println(record);
 		mSkillRecords.add(record);
 	}
 
 	public static void addWeaponRecord(WeaponProficiencyDeterminationRecord record) {
-		System.out.println(record);
 		mWeaponRecords.add(record);
 	}
 
 	public static void addTeacherRecord(TeacherDeterminationRecord record) {
-		System.out.println(record);
 		String weaponList[] = WeaponList.getProficiencyList();
 		String skillBasicList[] = SkillsDisplay.getBasicSkillsLabels();
 		String skillThiefList[] = SkillsDisplay.getThiefSkillsLabels();
