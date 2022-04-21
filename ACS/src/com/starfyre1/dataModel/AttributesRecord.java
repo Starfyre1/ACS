@@ -16,51 +16,81 @@ public class AttributesRecord implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTION_START_KEY	= "ATTRIBUTES_SECTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY	= "ATTRIBUTES_SECTION_END";		//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY			= "ATTRIBUTES_SECTION_START";																		//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY			= "ATTRIBUTES_SECTION_END";																			//$NON-NLS-1$
 
-	public static final String	STRENGTH_KEY			= "STRENGTH_KEY";				//$NON-NLS-1$
-	public static final String	CONSTITUTION_KEY		= "CONSTITUTION_KEY";			//$NON-NLS-1$
-	public static final String	INTELLIGENCE_KEY		= "INTELLIGENCE_KEY";			//$NON-NLS-1$
-	public static final String	WISDOM_KEY				= "WISDOM_KEY";					//$NON-NLS-1$
-	public static final String	DEXTERITY_KEY			= "DEXTERITY_KEY";				//$NON-NLS-1$
-	public static final String	BOW_SKILL_KEY			= "BOW_SKILL_KEY";				//$NON-NLS-1$
-	public static final String	CHARISMA_KEY			= "CHARISMA_KEY";				//$NON-NLS-1$
-	public static final String	PERSONAL_APPEARANCE_KEY	= "PERSONAL_APPEARANCE_KEY";	//$NON-NLS-1$
-	public static final String	WILLPOWER_KEY			= "WILLPOWER_KEY";				//$NON-NLS-1$
+	public static final String	STRENGTH_KEY					= "STRENGTH_KEY";																					//$NON-NLS-1$
+	public static final String	CONSTITUTION_KEY				= "CONSTITUTION_KEY";																				//$NON-NLS-1$
+	public static final String	INTELLIGENCE_KEY				= "INTELLIGENCE_KEY";																				//$NON-NLS-1$
+	public static final String	WISDOM_KEY						= "WISDOM_KEY";																						//$NON-NLS-1$
+	public static final String	DEXTERITY_KEY					= "DEXTERITY_KEY";																					//$NON-NLS-1$
+	public static final String	BOW_SKILL_KEY					= "BOW_SKILL_KEY";																					//$NON-NLS-1$
+	public static final String	CHARISMA_KEY					= "CHARISMA_KEY";																					//$NON-NLS-1$
+	public static final String	PERSONAL_APPEARANCE_KEY			= "PERSONAL_APPEARANCE_KEY";																		//$NON-NLS-1$
+	public static final String	WILLPOWER_KEY					= "WILLPOWER_KEY";																					//$NON-NLS-1$
 
-	public static final String	STRENGTH				= "Strength";					//$NON-NLS-1$
-	public static final String	CONSTITUTION			= "Constitution";				//$NON-NLS-1$
-	public static final String	INTELLIGENCE			= "Intelligence";				//$NON-NLS-1$
-	public static final String	WISDOM					= "Wisdom";						//$NON-NLS-1$
-	public static final String	DEXTERITY				= "Dexterity";					//$NON-NLS-1$
-	public static final String	BOW_SKILL				= "Bow Skill";					//$NON-NLS-1$
-	public static final String	CHARISMA				= "Charisma";					//$NON-NLS-1$
-	public static final String	PERSONAL_APPEARANCE		= "Appearance";					//$NON-NLS-1$
-	public static final String	WILLPOWER				= "Willpower";					//$NON-NLS-1$
+	public static final String	STRENGTH						= "Strength";																						//$NON-NLS-1$
+	public static final String	CONSTITUTION					= "Constitution";																					//$NON-NLS-1$
+	public static final String	INTELLIGENCE					= "Intelligence";																					//$NON-NLS-1$
+	public static final String	WISDOM							= "Wisdom";																							//$NON-NLS-1$
+	public static final String	DEXTERITY						= "Dexterity";																						//$NON-NLS-1$
+	public static final String	BOW_SKILL						= "Bow Skill";																						//$NON-NLS-1$
+	public static final String	CHARISMA						= "Charisma";																						//$NON-NLS-1$
+	public static final String	PERSONAL_APPEARANCE				= "Appearance";																						//$NON-NLS-1$
+	public static final String	WILLPOWER						= "Willpower";																						//$NON-NLS-1$
 
-	public static final int		STR						= 0;
-	public static final int		CON						= 1;
-	public static final int		INT						= 2;
-	public static final int		WIS						= 3;
-	public static final int		DEX						= 4;
-	public static final int		BOW						= 5;
-	public static final int		CHA						= 6;
-	public static final int		PA						= 7;
-	public static final int		WP						= 8;
+	public static final String	STRENGTH_DESCRIPTION			= "<html>Strength is the measure of your characters physical power. It tells<br>"					// //$NON-NLS-1$
+					+ "you whether or not you do additional damage during a fight or if<br>"																		// //$NON-NLS-1$
+					+ "you can breakdown a door to save a friend. It also helps tell you<br>"																		// //$NON-NLS-1$
+					+ "how much you can carry. \"ST\"</html>";																										//$NON-NLS-1$
+	public static final String	CONSTITUTION_DESCRIPTION		= "<html>Constitution measures the health of you character also his<br>"							// //$NON-NLS-1$
+					+ "resistance to disease, poisons and some spells. \"CON\"</html>";																				//$NON-NLS-1$
+	public static final String	INTELLIGENCE_DESCRIPTION		= "<html>Intelligence measures you Intellect, and in a Mage's case how<br>"							// //$NON-NLS-1$
+					+ "many mana points they will start with, and how many they will<br>"																			// //$NON-NLS-1$
+					+ "receive as they gain levels. \"INT\"</html>";																								//$NON-NLS-1$
+	public static final String	WISDOM_DESCRIPTION				= "<html>Wisdom stands for your memory, it helps you remember things<br>"							// //$NON-NLS-1$
+					+ "that as a player you may not know, but that your character should<br>"																		// //$NON-NLS-1$
+					+ "know. It also helps decide how many spells you start with and how<br>"																		// //$NON-NLS-1$
+					+ "many you can remember at one time. \"WIS\"</html>";																							//$NON-NLS-1$
+	public static final String	DEXTERITY_DESCRIPTION			= "<html>Dexterity measures your actual agility, and manual dexterity, it is<br>"					// //$NON-NLS-1$
+					+ "not only used by thieves to pick pockets, but by fighters to dodge<br>"																		// //$NON-NLS-1$
+					+ "blows. It also helps you hit the targets that you are aiming at.<br>"																		// //$NON-NLS-1$
+					+ "\"DEX\"</html>";																																//$NON-NLS-1$
+	public static final String	BOW_SKILL_DESCRIPTION			= "<html>Bow skill is self-explanatory, it measures your natural skill with a<br>"					// //$NON-NLS-1$
+					+ "Bow. Some people can use them very well naturally, while some<br>"																			// //$NON-NLS-1$
+					+ "must go through extensive training. \"BS\"</html>";																							//$NON-NLS-1$
+	public static final String	CHARISMA_DESCRIPTION			= "<html>This statistic is underrated, this measures the physical presence of<br>"					// //$NON-NLS-1$
+					+ "a person, their ability to instill confidence and trust blindly. It allows<br>"																// //$NON-NLS-1$
+					+ "you to get someone's attention or make someone believe you without<br>"																		// //$NON-NLS-1$
+					+ "any evidence to support you. \"CH\"</html>";																									//$NON-NLS-1$
+	public static final String	PERSONAL_APPEARANCE_DESCRIPTION	= "<html>This measures your actual physical appearance.\"PA\"</html>";								//$NON-NLS-1$
+	public static final String	WILLPOWER_DESCRIPTION			= "<html>Willpower measures how Tenacious your character is, or can be, and<br>"					// //$NON-NLS-1$
+					+ "how strong your convictions are. It is Very important to most of your<br>"																	// //$NON-NLS-1$
+					+ "saving throws and in some of the magic areas where you must maintain<br>"																	// //$NON-NLS-1$
+					+ "control of creatures that you summon. \"WP\"</html>";																						//$NON-NLS-1$
+
+	public static final int		STR								= 0;
+	public static final int		CON								= 1;
+	public static final int		INT								= 2;
+	public static final int		WIS								= 3;
+	public static final int		DEX								= 4;
+	public static final int		BOW								= 5;
+	public static final int		CHA								= 6;
+	public static final int		PA								= 7;
+	public static final int		WP								= 8;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	public static final String	mStatNames[]			= new String[] {				//
-					STRENGTH,															//
-					CONSTITUTION,														//
-					INTELLIGENCE,														//
-					WISDOM,																//
-					DEXTERITY,															//
-					BOW_SKILL,															//
-					CHARISMA,															//
-					PERSONAL_APPEARANCE,												//
+	public static final String	mStatNames[]					= new String[] {																					//
+					STRENGTH,																																		//
+					CONSTITUTION,																																	//
+					INTELLIGENCE,																																	//
+					WISDOM,																																			//
+					DEXTERITY,																																		//
+					BOW_SKILL,																																		//
+					CHARISMA,																																		//
+					PERSONAL_APPEARANCE,																															//
 					WILLPOWER };
 
 	// mStats[0] -> Strength
@@ -72,11 +102,11 @@ public class AttributesRecord implements Savable {
 	// mStats[6] -> Charisma
 	// mStats[7] -> Personal Appearance
 	// mStats[8] -> Willpower};
-	private int					mStats[]				= new int[9];
-	private int					mStatsOld[]				= new int[9];
-	private int					mModifiedStats[]		= new int[9];
-	private int					mModifiedStatsOld[]		= new int[9];
-	private boolean				mGenerateOwnStats		= true;
+	private int					mStats[]						= new int[9];
+	private int					mStatsOld[]						= new int[9];
+	private int					mModifiedStats[]				= new int[9];
+	private int					mModifiedStatsOld[]				= new int[9];
+	private boolean				mGenerateOwnStats				= true;
 
 	/*****************************************************************************
 	 * Constructors

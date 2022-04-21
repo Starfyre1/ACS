@@ -25,17 +25,7 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	ATTRIBUTES_TITLE			= "Attributes";							//$NON-NLS-1$
-
-	private static final String	STRENGTH_TOOLTIP			= AttributesRecord.STRENGTH;
-	private static final String	CONSTITUTION_TOOLTIP		= AttributesRecord.CONSTITUTION;
-	private static final String	INTELLIGENCE_TOOLTIP		= AttributesRecord.INTELLIGENCE;
-	private static final String	WISDOM_TOOLTIP				= AttributesRecord.WISDOM;
-	private static final String	DEXTERITY_TOOLTIP			= AttributesRecord.DEXTERITY;
-	private static final String	BOW_SKILL_TOOLTIP			= AttributesRecord.BOW_SKILL;
-	private static final String	CHARISMA_TOOLTIP			= AttributesRecord.CHARISMA;
-	private static final String	PERSONAL_APPERANCE_TOOLTIP	= AttributesRecord.PERSONAL_APPEARANCE;
-	private static final String	WILLPOWER_TOOLTIP			= AttributesRecord.WILLPOWER;
+	private static final String	ATTRIBUTES_TITLE	= "Attributes";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -79,63 +69,63 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
 		JLabel strLabel = new JLabel(AttributesRecord.STRENGTH, SwingConstants.RIGHT);
-		strLabel.setToolTipText(STRENGTH_TOOLTIP);
+		strLabel.setToolTipText(AttributesRecord.STRENGTH_DESCRIPTION);
 		mStrField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mStrField.setEditable(false);
 		mStrField.setFocusable(false);
 		mModStrField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel conLabel = new JLabel(AttributesRecord.CONSTITUTION, SwingConstants.RIGHT);
-		conLabel.setToolTipText(CONSTITUTION_TOOLTIP);
+		conLabel.setToolTipText(AttributesRecord.CONSTITUTION_DESCRIPTION);
 		mConField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mConField.setEditable(false);
 		mConField.setFocusable(false);
 		mModConField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel intLabel = new JLabel(AttributesRecord.INTELLIGENCE, SwingConstants.RIGHT);
-		intLabel.setToolTipText(INTELLIGENCE_TOOLTIP);
+		intLabel.setToolTipText(AttributesRecord.INTELLIGENCE_DESCRIPTION);
 		mIntField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mIntField.setEditable(false);
 		mIntField.setFocusable(false);
 		mModIntField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel wisLabel = new JLabel(AttributesRecord.WISDOM, SwingConstants.RIGHT);
-		wisLabel.setToolTipText(WISDOM_TOOLTIP);
+		wisLabel.setToolTipText(AttributesRecord.WISDOM_DESCRIPTION);
 		mWisField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mWisField.setEditable(false);
 		mWisField.setFocusable(false);
 		mModWisField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel dexLabel = new JLabel(AttributesRecord.DEXTERITY, SwingConstants.RIGHT);
-		dexLabel.setToolTipText(DEXTERITY_TOOLTIP);
+		dexLabel.setToolTipText(AttributesRecord.DEXTERITY_DESCRIPTION);
 		mDexField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mDexField.setEditable(false);
 		mDexField.setFocusable(false);
 		mModDexField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel bsLabel = new JLabel(AttributesRecord.BOW_SKILL, SwingConstants.RIGHT);
-		bsLabel.setToolTipText(BOW_SKILL_TOOLTIP);
+		bsLabel.setToolTipText(AttributesRecord.BOW_SKILL_DESCRIPTION);
 		mBSField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mBSField.setEditable(false);
 		mBSField.setFocusable(false);
 		mModBSField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel chaLabel = new JLabel(AttributesRecord.CHARISMA, SwingConstants.RIGHT);
-		chaLabel.setToolTipText(CHARISMA_TOOLTIP);
+		chaLabel.setToolTipText(AttributesRecord.CHARISMA_DESCRIPTION);
 		mChaField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mChaField.setEditable(false);
 		mChaField.setFocusable(false);
 		mModChaField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel paLabel = new JLabel(AttributesRecord.PERSONAL_APPEARANCE, SwingConstants.RIGHT);
-		paLabel.setToolTipText(PERSONAL_APPERANCE_TOOLTIP);
+		paLabel.setToolTipText(AttributesRecord.PERSONAL_APPEARANCE_DESCRIPTION);
 		mPAField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mPAField.setEditable(false);
 		mPAField.setFocusable(false);
 		mModPAField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		JLabel wpLabel = new JLabel(AttributesRecord.WILLPOWER, SwingConstants.RIGHT);
-		wpLabel.setToolTipText(WILLPOWER_TOOLTIP);
+		wpLabel.setToolTipText(AttributesRecord.WILLPOWER_DESCRIPTION);
 		mWPField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20);
 		mWPField.setEditable(false);
 		mWPField.setFocusable(false);

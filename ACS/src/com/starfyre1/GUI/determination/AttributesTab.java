@@ -6,6 +6,8 @@ import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
+import com.starfyre1.ToolKit.TKPopupMenu;
+import com.starfyre1.ToolKit.TKPopupMenu.ComboMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
@@ -21,9 +23,11 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -32,19 +36,21 @@ public class AttributesTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		PHYSICAL_DESCRIPTION	= "A stat cannot be raised more than (3) points, or above (18).";																								//$NON-NLS-1$
+	private static final String		PHYSICAL_DESCRIPTION	= "A stat cannot be raised more than (3) points, or above (18).";																																							//$NON-NLS-1$
 
-	static final String				PHYSICAL_TAB_TITLE		= "Attributes";																																					//$NON-NLS-1$
-	static final String				PHYSICAL_TAB_TOOLTIP	= "To raise your physical attributes:";																															//$NON-NLS-1$
-	private static final String		COST_TEXT				= "Cost: 50";																																					//$NON-NLS-1$
-	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week";																																		//$NON-NLS-1$
+	static final String				PHYSICAL_TAB_TITLE		= "Attributes";																																																				//$NON-NLS-1$
+	static final String				PHYSICAL_TAB_TOOLTIP	= "To raise your physical attributes:";																																														//$NON-NLS-1$
+	private static final String		CHOOSE_ATTRIBUTE		= "Choose Attribute";																																																		//$NON-NLS-1$
+	private static final String		COST_TEXT				= "Cost: 50";																																																				//$NON-NLS-1$
+	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week";																																																	//$NON-NLS-1$
 	private static final String		PHYSICAL_TEXT			= PHYSICAL_TAB_TOOLTIP;
-	private static final String		SUCCESS_TOOLTIP			= "1D20 + 1/2 level >= stat";																																	//$NON-NLS-1$
-	private static final String		SUCCESS_TEXT1			= "Success: (1D20 + ";																																			//$NON-NLS-1$
-	private static final String		SUCCESS_TEXT2			= ") >= ";																																						//$NON-NLS-1$
+	private static final String		SUCCESS_TOOLTIP			= "1D20 + 1/2 level >= stat";																																																//$NON-NLS-1$
+	private static final String		SUCCESS_TEXT1			= "Success: (1D20 + ";																																																		//$NON-NLS-1$
+	private static final String		SUCCESS_TEXT2			= ") >= ";																																																					//$NON-NLS-1$
 
 	public static final String[]	ATTRIBUTE_NAMES			= new String[] { AttributesRecord.STRENGTH, AttributesRecord.CONSTITUTION, AttributesRecord.WISDOM, AttributesRecord.DEXTERITY, AttributesRecord.BOW_SKILL };
 	private static final int[]		ATTRIBUTE_NUMBERS		= new int[] { AttributesRecord.STR, AttributesRecord.CON, AttributesRecord.WIS, AttributesRecord.DEX, AttributesRecord.BOW };
+	private static final String[]	ATTRIBUTE_DESCRIPTIONS	= new String[] { AttributesRecord.STRENGTH_DESCRIPTION, AttributesRecord.CONSTITUTION_DESCRIPTION, AttributesRecord.WISDOM_DESCRIPTION, AttributesRecord.DEXTERITY_DESCRIPTION, AttributesRecord.BOW_SKILL_DESCRIPTION };
 
 	private static final int		ROWS					= 5;
 	private static final int		COST					= 50;
@@ -52,7 +58,7 @@ public class AttributesTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private JCheckBox[]				mAttrCheckBox;
+	private TKPopupMenu[]			mAttrPopup;
 	private JTextField[]			mDPPerWeekField;
 	private JLabel[]				mDPTotalSpentLabel;
 	private JLabel[]				mMaintLabel;
@@ -76,26 +82,43 @@ public class AttributesTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
+	private int getPanelIndex(JMenuItem menuItem) {
+
+		JPopupMenu popup = (JPopupMenu) menuItem.getParent();
+		JMenu menu = (JMenu) popup.getInvoker();
+		TKPopupMenu popup3;
+		if (menu.getParent() instanceof TKPopupMenu) {
+			popup3 = (TKPopupMenu) menu.getParent();
+		} else {
+			JPopupMenu popup2 = (JPopupMenu) menu.getParent();
+			ComboMenu menu2 = (ComboMenu) popup2.getInvoker();
+			popup3 = (TKPopupMenu) menu2.getParent();
+		}
+
+		return getIndexInPanel((JPanel) popup3.getParent(), popup3);
+	}
+
+	private int getIndexInPanel(JPanel panel, Object which) {
+		for (int i = 0; i < panel.getComponentCount(); i++) {
+			Component comp = panel.getComponent(i);
+			if (comp == which) {
+				// i == 0 is label;
+				return i - 1;
+			}
+		}
+		return -1;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if (source instanceof JCheckBox) {
-			JCheckBox checkBox = (JCheckBox) source;
-			if (source.equals(mAttrCheckBox[0])) {
-				mDPPerWeekField[0].setEnabled(checkBox.isSelected());
-				mDPPerWeekField[0].setEditable(checkBox.isSelected());
-			} else if (source.equals(mAttrCheckBox[1])) {
-				mDPPerWeekField[1].setEnabled(checkBox.isSelected());
-				mDPPerWeekField[1].setEditable(checkBox.isSelected());
-			} else if (source.equals(mAttrCheckBox[2])) {
-				mDPPerWeekField[2].setEnabled(checkBox.isSelected());
-				mDPPerWeekField[2].setEditable(checkBox.isSelected());
-			} else if (source.equals(mAttrCheckBox[3])) {
-				mDPPerWeekField[3].setEnabled(checkBox.isSelected());
-				mDPPerWeekField[3].setEditable(checkBox.isSelected());
-			} else if (source.equals(mAttrCheckBox[4])) {
-				mDPPerWeekField[4].setEnabled(checkBox.isSelected());
-				mDPPerWeekField[4].setEditable(checkBox.isSelected());
+		if (source instanceof JMenuItem) {
+			int i = getPanelIndex((JMenuItem) source);
+			JPopupMenu popup = (JPopupMenu) ((JMenuItem) source).getParent();
+			if (popup.getInvoker().equals(mAttrPopup[i].getMenu())) {
+				boolean enable = !mAttrPopup[i].getSelectedItem().equals(CHOOSE_ATTRIBUTE);
+				mDPPerWeekField[i].setEnabled(enable);
+				mDPPerWeekField[i].setEditable(enable);
 			}
 			updateDialogButtons();
 		} else if (source instanceof JButton) {
@@ -119,8 +142,7 @@ public class AttributesTab extends DeterminationTab {
 		if (list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
 				AttributeDeterminationRecord record = list.get(i);
-				// DW _Check appropriate attribute box
-				record.getAttribute();
+				mAttrPopup[i].selectPopupMenuItem(AttributesTab.ATTRIBUTE_NAMES[record.getAttribute()]);
 				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
 				mDPTotalSpentLabel[i].setText(String.valueOf(record.getDPTotalSpent()) + " / " + record.getDPCost()); //$NON-NLS-1$
 				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));
@@ -148,7 +170,7 @@ public class AttributesTab extends DeterminationTab {
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		mAttrCheckBox = new JCheckBox[ROWS];
+		mAttrPopup = new TKPopupMenu[ROWS];
 		mDPPerWeekField = new JTextField[ROWS];
 		mDPTotalSpentLabel = new JLabel[ROWS];
 		mMaintLabel = new JLabel[ROWS];
@@ -172,17 +194,19 @@ public class AttributesTab extends DeterminationTab {
 		successPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
-			mAttrCheckBox[i] = TKComponentHelpers.createCheckBox(ATTRIBUTE_NAMES[i], false, this);
-			attrPanel.add(mAttrCheckBox[i]);
+			mAttrPopup[i] = new TKPopupMenu(getAttrPopup());
+			mAttrPopup[i].setAlignmentX(Component.LEFT_ALIGNMENT);
+			Dimension size2 = new Dimension(mAttrPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
+			mAttrPopup[i].setMinimumSize(size2);
+			mAttrPopup[i].setPreferredSize(size2);
+			mAttrPopup[i].getMenu().setEnabled(false);
+			attrPanel.add(mAttrPopup[i]);
 
 			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
 			mDPPerWeekField[i].getDocument().addDocumentListener(this);
 			mDPPerWeekField[i].setEnabled(false);
 			mDPPerWeekField[i].setEditable(false);
 			dpPerWeekPanel.add(mDPPerWeekField[i]);
-
-			Dimension checkBoxSize = new Dimension(mAttrCheckBox[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
-			mAttrCheckBox[i].setPreferredSize(checkBoxSize);
 
 			mDPTotalSpentLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			mDPTotalSpentLabel[i].setMinimumSize(size);
@@ -222,20 +246,42 @@ public class AttributesTab extends DeterminationTab {
 	private void updateEnabledState() {
 		AttributesRecord attribs = ACS.getInstance().getCharacterSheet().getAttributesRecord();
 		// DW Also need to make sure we can't increase it more than 3 times... will need to check against DeterminationPointsRecord when created
-
 		for (int i = 0; i < ROWS; i++) {
-			mAttrCheckBox[i].setEnabled(attribs == null ? false : attribs.getModifiedStat(ATTRIBUTE_NUMBERS[i]) < 18);
-			mDPPerWeekField[i].setEnabled(mAttrCheckBox[i].isEnabled());
+			mAttrPopup[i].getMenu().setEnabled(attribs != null);
+			boolean enable = attribs != null && !mAttrPopup[i].getSelectedItem().equals(CHOOSE_ATTRIBUTE) && attribs.getModifiedStat(getAttributeNumber(mAttrPopup[i].getSelectedItem())) < 18;
+			mDPPerWeekField[i].setEnabled(enable);
+			mDPPerWeekField[i].setEditable(enable);
 		}
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	private JMenu getAttrPopup() {
+		JMenu popupMenu = TKPopupMenu.createMenu(CHOOSE_ATTRIBUTE);
+
+		popupMenu.addSeparator();
+		for (int i = 0; i < ATTRIBUTE_NAMES.length; i++) {
+			String name = ATTRIBUTE_NAMES[i];
+			if (name != null) {
+				JMenuItem menuItem = new JMenuItem(name);
+				menuItem.setToolTipText(ATTRIBUTE_DESCRIPTIONS[i]);
+				menuItem.addActionListener(this);
+				popupMenu.add(menuItem);
+			}
+		}
+
+		JMenuItem menuItem = new JMenuItem(CHOOSE_ATTRIBUTE);
+		menuItem.addActionListener(this);
+		popupMenu.add(menuItem, 0);
+
+		return popupMenu;
+	}
+
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (mAttrCheckBox[i].isSelected() && mAttrCheckBox[i].isEnabled() && !mDPPerWeekField[i].getText().isBlank()) {
+			if (!mAttrPopup[i].getSelectedItem().equals(CHOOSE_ATTRIBUTE) && mAttrPopup[i].isEnabled() && !mDPPerWeekField[i].getText().isBlank()) {
 				return true;
 			}
 		}
@@ -245,12 +291,31 @@ public class AttributesTab extends DeterminationTab {
 	public ArrayList<AttributeDeterminationRecord> getRecordsToLearn() {
 		ArrayList<AttributeDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (mAttrCheckBox[i].isSelected() && !mDPPerWeekField[i].getText().isBlank()) {
+			if (!(mAttrPopup[i].getSelectedItem().equals(CHOOSE_ATTRIBUTE) || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new AttributeDeterminationRecord(i, TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
+				list.add(new AttributeDeterminationRecord(getAttributeNumber(mAttrPopup[i].getSelectedItem()), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
 			}
 		}
 		return list;
+	}
+
+	private int getAttributeNumber(String name) {
+		int value = switch (name) {
+			case AttributesRecord.STRENGTH:
+				yield 0;
+			case AttributesRecord.CONSTITUTION:
+				yield 1;
+			case AttributesRecord.WISDOM:
+				yield 2;
+			case AttributesRecord.DEXTERITY:
+				yield 3;
+			case AttributesRecord.BOW_SKILL:
+				yield 4;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + getClass() + name); //$NON-NLS-1$
+		};
+
+		return value;
 	}
 
 	@Override
