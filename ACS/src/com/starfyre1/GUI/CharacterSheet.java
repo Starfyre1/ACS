@@ -1175,6 +1175,10 @@ public class CharacterSheet implements ActionListener {
 		return mAttributesRecord;
 	}
 
+	public AttackTotalsDisplay getAttackTotalsDisplay() {
+		return mAttackTotalsDisplay;
+	}
+
 	/** @return The combatInformationRecord. */
 	public CombatInformationRecord getCombatInformationRecord() {
 		return mCombatInformationRecord;

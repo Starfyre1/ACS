@@ -74,7 +74,9 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 			TKTableModel model = (TKTableModel) mTable.getModel();
 			model.setRowCount(0);
 			for (WeaponRecord record : weapons) {
-				model.addRow(new Object[] { getSpeed(record), getHitBonus(record), getDamageBonus(record) });
+				if (record.isEquipped()) {
+					model.addRow(new Object[] { getSpeed(record), getHitBonus(record), getDamageBonus(record) });
+				}
 			}
 		}
 
