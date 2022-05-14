@@ -89,11 +89,11 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		JPanel wrapper = new JPanel();
 
 		JLabel characterNameLabel = new JLabel(CHARACTER_NAME_LABEL, SwingConstants.RIGHT);
-		mCharacterNameField = new JTextField(CharacterSheet.FIELD_SIZE_EXLARGE);
+		mCharacterNameField = new JTextField(CharacterSheet.FIELD_SIZE_EXLARGE1);
 		mCharacterNameField.addFocusListener(this);
 
 		JLabel playerNameLabel = new JLabel(PLAYER_NAME_LABEL, SwingConstants.RIGHT);
-		mPlayerNameField = new JTextField(CharacterSheet.FIELD_SIZE_LARGE);
+		mPlayerNameField = new JTextField(CharacterSheet.FIELD_SIZE_EXLARGE1);
 		mPlayerNameField.addFocusListener(this);
 
 		JLabel classLabel = new JLabel(CLASS_LABEL, SwingConstants.RIGHT);

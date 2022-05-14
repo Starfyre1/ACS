@@ -37,7 +37,6 @@ public class WeaponEquippedDisplay extends WeaponDisplay {
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-
 	@Override
 	protected Component createDisplay() {
 		// This is the equipped weapons in the information section on the main page
@@ -79,8 +78,8 @@ public class WeaponEquippedDisplay extends WeaponDisplay {
 			for (WeaponRecord record : records) {
 				if (((Boolean) record.getRecord(1)).booleanValue()) {
 					mEquippedWeapons.add(record);
+					model.addRow(record.getRecord());
 				}
-				model.addRow(record.getRecord());
 			}
 		}
 	}

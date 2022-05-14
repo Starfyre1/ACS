@@ -124,7 +124,7 @@ public class WeaponOwnedDisplay extends WeaponDisplay implements TableModelListe
 			if (equipped) {
 				characterSheet.equipWeapon(record, row);
 			} else {
-				characterSheet.unEquipWeapon(record);
+				characterSheet.unEquipWeapon(record, row);
 			}
 			characterSheet.updateForEncubrance();
 			characterSheet.getAttackTotalsDisplay().loadDisplay();

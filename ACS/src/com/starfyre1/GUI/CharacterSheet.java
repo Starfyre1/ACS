@@ -143,6 +143,7 @@ public class CharacterSheet implements ActionListener {
 	public static final int					FIELD_SIZE_MEDIUM_LARGE		= 10;
 	public static final int					FIELD_SIZE_LARGE			= 14;
 	public static final int					FIELD_SIZE_EXLARGE			= 50;
+	public static final int					FIELD_SIZE_EXLARGE1			= 25;
 	public static final int					CELL_SMALL_MAX_WIDTH		= 45;
 	public static final int					CELL_LARGE_MAX_WIDTH		= 75;
 
@@ -1232,10 +1233,17 @@ public class CharacterSheet implements ActionListener {
 
 	public void equipWeapon(WeaponRecord equipment, int index) {
 		mWeaponEquippedDisplay.equipWeapon(equipment, index);
+//		if (!mIsLoadingData) {
+//			mWeaponList.updateWeapon(equipment, index);
+//		}
 	}
 
-	public void unEquipWeapon(WeaponRecord equipment) {
+	public void unEquipWeapon(WeaponRecord equipment, int index) {
 		mWeaponEquippedDisplay.unEquipWeapon(equipment);
+//		if (!mIsLoadingData) {
+//			mWeaponList.updateWeapon(equipment, index);
+//		}
+
 	}
 
 	public ClassList getClasses() {
