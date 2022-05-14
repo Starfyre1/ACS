@@ -283,6 +283,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	public static JButton getDateButton(String date, ActionListener listener) {
 		JButtonRollover button = new JButtonRollover(null, date, false);
 		button.setFont(CharacterSheet.MONOSPACED_FONT);
+		button.setAlignmentX(LEFT_ALIGNMENT);
 		button.setBorderPainted(false);
 		button.setFocusPainted(false);
 		button.addActionListener(listener);

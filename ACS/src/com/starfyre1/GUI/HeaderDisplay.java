@@ -124,7 +124,6 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 
 		JPanel wrapper2 = new JPanel();
 
-		wrapper2.add(new JLabel(JournalDisplay.CAMPAIGN_DATE_LABEL, SwingConstants.LEADING));
 		mCampaignButton = JournalRecord.getDateButton(CampaignDateChooser.getCampaignDate(), new ActionListener() {
 
 			@Override
@@ -139,9 +138,10 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 			}
 		});
 
-		mCampaignButton.setPreferredSize(new Dimension(mCampaignButton.getPreferredSize().width, 20));
+		mCampaignButton.setPreferredSize(new Dimension(mCampaignButton.getMinimumSize().width + 5, 20));
 		mClassPopup.setPreferredSize(new Dimension(mClassPopup.getPreferredSize().width, 20));
 
+		wrapper2.add(new JLabel(JournalDisplay.CAMPAIGN_DATE_LABEL, SwingConstants.LEADING));
 		wrapper2.add(mCampaignButton);
 		wrapper2.add(classLabel);
 		wrapper2.add(mClassPopup);
