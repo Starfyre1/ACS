@@ -120,11 +120,13 @@ public class WeaponOwnedDisplay extends WeaponDisplay implements TableModelListe
 		WeaponRecord record = getRecord(e);
 		if (e.getColumn() == 1) {
 			boolean equipped = ((Boolean) mTable.getValueAt(row, e.getColumn())).booleanValue();
+			CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
 			if (equipped) {
-				ACS.getInstance().getCharacterSheet().equipWeapon(record, row);
+				characterSheet.equipWeapon(record, row);
 			} else {
-				ACS.getInstance().getCharacterSheet().unEquipWeapon(record);
+				characterSheet.unEquipWeapon(record);
 			}
+			characterSheet.updateForEncubrance();
 		}
 	}
 

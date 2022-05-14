@@ -1047,13 +1047,17 @@ public class CharacterSheet implements ActionListener {
 
 		if (armors != null) {
 			for (ArmorRecord armor : armors) {
-				encumbrance += armor.getEncumbrance();
+				if (armor.isEquipped()) {
+					encumbrance += armor.getEncumbrance();
+				}
 			}
 		}
 
 		if (weapons != null) {
 			for (WeaponRecord weapon : weapons) {
-				encumbrance += weapon.getEncumbrance();
+				if (weapon.isEquipped()) {
+					encumbrance += weapon.getEncumbrance();
+				}
 			}
 		}
 
