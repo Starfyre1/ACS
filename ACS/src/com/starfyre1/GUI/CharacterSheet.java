@@ -653,7 +653,7 @@ public class CharacterSheet implements ActionListener {
 				PreferenceStore.getInstance().setCurrentFileLocation(file.getParentFile());
 				mCharacterFile = file.getAbsolutePath();
 				PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
-				mFrame.setTitle(ACS.TITLE + " " + file); //$NON-NLS-1$
+				mFrame.setTitle(ACS.TITLE + " " + file.getName()); //$NON-NLS-1$
 			}
 		} else {
 			final JFileChooser fc = new JFileChooser();
@@ -1456,6 +1456,7 @@ public class CharacterSheet implements ActionListener {
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		} finally {
+			mFrame.setTitle(ACS.TITLE + " " + file.getName()); //$NON-NLS-1$
 			try {
 				if (br != null) {
 					br.close();
