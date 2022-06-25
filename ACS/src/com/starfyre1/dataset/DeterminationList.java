@@ -118,6 +118,41 @@ public class DeterminationList implements Savable {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public static int[] getTeachersIdByExpertise(String expertise) {
+		ArrayList<TeacherDeterminationRecord> allTeachers = getTeachersRecords();
+		ArrayList<TeacherDeterminationRecord> returnTeachers = new ArrayList<TeacherDeterminationRecord>();
+		for (TeacherDeterminationRecord record : allTeachers) {
+			if (record.getExpertise().equals(expertise)) {
+				returnTeachers.add(record);
+			}
+		}
+		int[] returnList = new int[returnTeachers.size()];
+		int i = 0;
+		for (TeacherDeterminationRecord record : returnTeachers) {
+			returnList[i++] = record.getID();
+		}
+		return returnList;
+	}
+
+	public static TeacherDeterminationRecord getTeacher(int id) {
+		ArrayList<TeacherDeterminationRecord> allTeachers = getTeachersRecords();
+		for (TeacherDeterminationRecord record : allTeachers) {
+			if (record.getID() == id) {
+				return record;
+			}
+		}
+		return null;
+	}
+
+	public static int getTeacherIdByName(String name) {
+		ArrayList<TeacherDeterminationRecord> allTeachers = getTeachersRecords();
+		for (TeacherDeterminationRecord record : allTeachers) {
+			if (record.getTeacher() == name) {
+				return record.getID();
+			}
+		}
+		return 0;
+	}
 
 	/** @return The mAttribRecords. */
 	public static ArrayList<AttributeDeterminationRecord> getAttribRecords() {
@@ -150,14 +185,42 @@ public class DeterminationList implements Savable {
 	}
 
 	/** @return The mTeachersRecords. */
+	public static ArrayList<TeacherDeterminationRecord> getTheifTeachersRecords() {
+		return mThiefTeachersRecords;
+	}
+
+	/** @return The mTeachersRecords. */
 	public static ArrayList<TeacherDeterminationRecord> getWeaponsTeachersRecords() {
 		return mWeaponsTeachersRecords;
+	}
+
+	/** @return The mTeachersRecords. */
+	public static ArrayList<String> getWeaponsTeachersNames() {
+		ArrayList<String> teacherNames = new ArrayList<>();
+
+		for (TeacherDeterminationRecord record : mWeaponsTeachersRecords) {
+			teacherNames.add(record.getTeacher());
+		}
+
+		return teacherNames;
+	}
+
+	/** @return The mTeachersRecords. */
+	public static TeacherDeterminationRecord getWeaponsTeacherRecord(String name) {
+		for (TeacherDeterminationRecord record : mWeaponsTeachersRecords) {
+			if (record.getTeacher().equals(name)) {
+				return record;
+			}
+		}
+		// This shouldn't be able to happen since the parameter name is passed in from a known list
+		return null;
 	}
 
 	/** @return The mTeachersRecords. */
 	public static ArrayList<TeacherDeterminationRecord> getTeachersRecords() {
 		ArrayList<TeacherDeterminationRecord> list = new ArrayList<>();
 		list.addAll(mSkillsTeachersRecords);
+		list.addAll(mThiefTeachersRecords);
 		list.addAll(mWeaponsTeachersRecords);
 		return list;
 	}

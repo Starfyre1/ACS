@@ -7,9 +7,11 @@ import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
+import com.starfyre1.ToolKit.TKPopupMenu.ComboMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
+import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.dataset.WeaponList;
@@ -27,6 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -53,13 +56,15 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	 * Member Variables
 	 ****************************************************************************/
 	private TKPopupMenu[]		mWeaponPopup;
-	private JLabel[]			mTeacherLabel;
+	private TKPopupMenu[]		mTeacherPopup;
 	private JTextField[]		mDPPerWeekField;
 	private JLabel[]			mUsedLabel;
 	private JLabel[]			mBonusLabel;
 	private JLabel[]			mSuccessfulLabel;
 	private JLabel[]			mStartDateLabel;
 	private JLabel[]			mCompletionDateLabel;
+
+	JPanel						mTeacherColumn;
 
 	/*****************************************************************************
 	 * Constructors
@@ -89,7 +94,79 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			} else if (source.equals(mGiveUpButton)) {
 				// DW Added game date to record
 			}
+		} else if (source instanceof JMenuItem) {
+			JMenuItem menuItem = (JMenuItem) source;
+			if (mTeacherColumn == getPopup(menuItem).getParent()) {
+				updateBonusValueFromTeacher(menuItem);
+			} else {
+				updateTeacherPopup(menuItem);
+			}
 		}
+	}
+
+	// This is if the Proficiency has just been set
+	private void updateTeacherPopup(JMenuItem menuItem) {
+		if (!menuItem.getText().equals(SELECT_WEAPON)) {
+			int index = getPanelIndex(menuItem);
+			// DW probably should remove ActionListener from JMenuItem's in mTeacherPopup's
+			mTeacherColumn.remove(mTeacherPopup[index]);
+			mTeacherPopup[index] = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+			Dimension size3 = new Dimension(mTeacherPopup[index].getPreferredSize().width, TEXT_FIELD_HEIGHT);
+			mTeacherPopup[index].setMinimumSize(size3);
+			mTeacherPopup[index].setPreferredSize(size3);
+			mTeacherColumn.add(mTeacherPopup[index], index + 1);
+		}
+	}
+
+	// This is if the teacher has just been set
+	private void updateBonusValueFromTeacher(JMenuItem menuItem) {
+		if (!menuItem.getText().equals(TeacherTab.SELECT_TEACHER)) {
+			int index = getPanelIndex(menuItem);
+			TeacherDeterminationRecord teacherRecord = DeterminationList.getWeaponsTeacherRecord(menuItem.getText());
+			if (teacherRecord != null) {
+				String bonus;
+				if (teacherRecord.getExpertise().equals(mWeaponPopup[index].getSelectedItem())) {
+					bonus = String.valueOf(teacherRecord.getBonus());
+				} else {
+					bonus = "0"; //$NON-NLS-1$
+				}
+				mBonusLabel[index].setText(bonus);
+				// DW update Bonus
+			}
+		}
+	}
+
+	private TKPopupMenu getPopup(JMenuItem menuItem) {
+
+		JPopupMenu popup = (JPopupMenu) menuItem.getParent();
+		JMenu menu = (JMenu) popup.getInvoker();
+		TKPopupMenu popup3;
+		if (menu.getParent() instanceof TKPopupMenu) {
+			popup3 = (TKPopupMenu) menu.getParent();
+		} else {
+			JPopupMenu popup2 = (JPopupMenu) menu.getParent();
+			ComboMenu menu2 = (ComboMenu) popup2.getInvoker();
+			popup3 = (TKPopupMenu) menu2.getParent();
+		}
+
+		return popup3;
+	}
+
+	private int getPanelIndex(JMenuItem menuItem) {
+
+		TKPopupMenu popup3 = getPopup(menuItem);
+		return getIndexInPanel((JPanel) popup3.getParent(), popup3);
+	}
+
+	private int getIndexInPanel(JPanel panel, Object which) {
+		for (int i = 0; i < panel.getComponentCount(); i++) {
+			Component comp = panel.getComponent(i);
+			if (comp == which) {
+				// i == 0 is label;
+				return i - 1;
+			}
+		}
+		return -1;
 	}
 
 	private void updateEnabledState() {
@@ -111,7 +188,17 @@ public class WeaponProficiencyTab extends DeterminationTab {
 				WeaponProficiencyDeterminationRecord record = list.get(i);
 
 				mWeaponPopup[i].selectPopupMenuItem(record.getWeapon());
-				mTeacherLabel[i].setText(String.valueOf(record.getTeacher()));
+
+				// DW probably should remove ActionListener from JMenuItem's in mTeacherPopup's
+				mTeacherColumn.remove(mTeacherPopup[i]);
+				mTeacherPopup[i] = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+				TeacherDeterminationRecord teacherRecord = DeterminationList.getTeacher(record.getTeacher());
+				mTeacherPopup[i].selectPopupMenuItem(teacherRecord == null ? TeacherTab.SELECT_TEACHER : teacherRecord.getTeacher());
+				Dimension size3 = new Dimension(mTeacherPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
+				mTeacherPopup[i].setMinimumSize(size3);
+				mTeacherPopup[i].setPreferredSize(size3);
+				mTeacherColumn.add(mTeacherPopup[i], i + 1);
+
 				mBonusLabel[i].setText(String.valueOf(record.getBonus()));
 				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
 				mUsedLabel[i].setText(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
@@ -121,6 +208,9 @@ public class WeaponProficiencyTab extends DeterminationTab {
 				mCompletionDateLabel[i].setText(record.getCompletionDate());
 
 			}
+			mTeacherColumn.revalidate();
+			mTeacherColumn.repaint();
+
 		}
 		updateEnabledState();
 		super.loadDisplay();
@@ -142,7 +232,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
 		mWeaponPopup = new TKPopupMenu[ROWS];
-		mTeacherLabel = new JLabel[ROWS];
+		mTeacherPopup = new TKPopupMenu[ROWS];
 		mDPPerWeekField = new JTextField[ROWS];
 		mUsedLabel = new JLabel[ROWS];
 		mBonusLabel = new JLabel[ROWS];
@@ -151,22 +241,22 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mCompletionDateLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
-		JPanel weaponPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel teacherPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel dpPerWeekPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
-		JPanel dpSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel bonusAmountPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel successfulPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		JPanel weaponColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mTeacherColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel dpPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		JPanel dpSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel bonusAmountColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel successfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
 		JLabel label = new JLabel(PROFICIENCY_TITLE);
-		weaponPanel.add(label);
+		weaponColumn.add(label);
 		JLabel header = new JLabel("Teacher"); //$NON-NLS-1$
-		teacherPanel.add(header);
+		mTeacherColumn.add(header);
 		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
-		dpPerWeekPanel.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		dpSpentPanel.add(new JLabel("Used:")); //$NON-NLS-1$
-		bonusAmountPanel.add(new JLabel("Bonus")); //$NON-NLS-1$
-		successfulPanel.add(new JLabel("Successful:")); //$NON-NLS-1$
+		dpPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
+		dpSpentColumn.add(new JLabel("Used:")); //$NON-NLS-1$
+		bonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
+		successfulColumn.add(new JLabel("Successful:")); //$NON-NLS-1$
 
 		for (int i = 0; i < ROWS; i++) {
 			mWeaponPopup[i] = new TKPopupMenu(getWeaponsMenu());
@@ -174,45 +264,47 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			Dimension size2 = new Dimension(mWeaponPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mWeaponPopup[i].setMinimumSize(size2);
 			mWeaponPopup[i].setPreferredSize(size2);
-			weaponPanel.add(mWeaponPopup[i]);
-			mTeacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
-			mTeacherLabel[i].setMinimumSize(size);
-			mTeacherLabel[i].setPreferredSize(size);
-			teacherPanel.add(mTeacherLabel[i]);
+			weaponColumn.add(mWeaponPopup[i]);
+
+			mTeacherPopup[i] = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+			Dimension size3 = new Dimension(mTeacherPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
+			mTeacherPopup[i].setMinimumSize(size3);
+			mTeacherPopup[i].setPreferredSize(size3);
+			mTeacherColumn.add(mTeacherPopup[i]);
 
 			mBonusLabel[i] = new JLabel(String.valueOf(currentMaintenance));
 			mBonusLabel[i].setMinimumSize(size);
 			mBonusLabel[i].setPreferredSize(size);
-			bonusAmountPanel.add(mBonusLabel[i]);
+			bonusAmountColumn.add(mBonusLabel[i]);
 
 			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
-			dpPerWeekPanel.add(mDPPerWeekField[i]);
+			dpPerWeekColumn.add(mDPPerWeekField[i]);
 
 			mUsedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
 			mUsedLabel[i].setMinimumSize(size);
 			mUsedLabel[i].setPreferredSize(size);
-			dpSpentPanel.add(mUsedLabel[i]);
+			dpSpentColumn.add(mUsedLabel[i]);
 
 			mSuccessfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
 			mSuccessfulLabel[i].setMinimumSize(size);
 			mSuccessfulLabel[i].setPreferredSize(size);
-			successfulPanel.add(mSuccessfulLabel[i]);
+			successfulColumn.add(mSuccessfulLabel[i]);
 
 			mStartDateLabel[i] = new JLabel();
 			mCompletionDateLabel[i] = new JLabel();
 		}
 
-		teacherPanel.add(Box.createVerticalGlue());
-		dpSpentPanel.add(Box.createVerticalGlue());
-		bonusAmountPanel.add(Box.createVerticalGlue());
-		successfulPanel.add(Box.createVerticalGlue());
+		mTeacherColumn.add(Box.createVerticalGlue());
+		dpSpentColumn.add(Box.createVerticalGlue());
+		bonusAmountColumn.add(Box.createVerticalGlue());
+		successfulColumn.add(Box.createVerticalGlue());
 
-		outerWrapper.add(weaponPanel);
-		outerWrapper.add(teacherPanel);
-		outerWrapper.add(bonusAmountPanel);
-		outerWrapper.add(dpPerWeekPanel);
-		outerWrapper.add(dpSpentPanel);
-		outerWrapper.add(successfulPanel);
+		outerWrapper.add(weaponColumn);
+		outerWrapper.add(mTeacherColumn);
+		outerWrapper.add(bonusAmountColumn);
+		outerWrapper.add(dpPerWeekColumn);
+		outerWrapper.add(dpSpentColumn);
+		outerWrapper.add(successfulColumn);
 
 		updateEnabledState();
 
@@ -239,7 +331,6 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		JMenuItem menuItem = new JMenuItem(SELECT_WEAPON);
 		menuItem.addActionListener(this);
 		weaponPopupMenu.add(menuItem, 0);
-		//		expertisePopupMenu.addItemListener(this);
 
 		return weaponPopupMenu;
 	}
@@ -247,7 +338,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherPopup[i].getSelectedItem().equals(TeacherTab.SELECT_TEACHER) || mDPPerWeekField[i].getText().isBlank())) {
 				return true;
 			}
 		}
@@ -257,9 +348,9 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	public ArrayList<WeaponProficiencyDeterminationRecord> getRecordsToLearn() {
 		ArrayList<WeaponProficiencyDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherPopup[i].getSelectedItem().equals(TeacherTab.SELECT_TEACHER) || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new WeaponProficiencyDeterminationRecord(mWeaponPopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText(), 0), COST, campaignDate));
+				list.add(new WeaponProficiencyDeterminationRecord(mWeaponPopup[i].getSelectedItem(), DeterminationList.getTeacherIdByName(mTeacherPopup[i].getSelectedItem()), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText(), 0), COST, campaignDate));
 			}
 		}
 		return list;

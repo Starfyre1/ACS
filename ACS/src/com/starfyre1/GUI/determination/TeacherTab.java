@@ -18,6 +18,7 @@ import com.starfyre1.startup.ACS;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -41,7 +42,7 @@ public class TeacherTab extends DeterminationTab {
 	static final String			TEACHER_TAB_TOOLTIP		= "A record of teachers used, for what, and how much";														//$NON-NLS-1$
 	static final String			TEACHER_TITLE			= "Teacher's Name";																							//$NON-NLS-1$
 	static final String			CHOOSE_EXPERTISE		= "Choose Expertise";																						//$NON-NLS-1$
-	static final String			CHOOSE_TEACHER			= "Choose Teacher  ";																						//$NON-NLS-1$
+	static final String			SELECT_TEACHER			= "Select Teacher";																							//$NON-NLS-1$
 
 	private static final String	ID						= "ID:";																									//$NON-NLS-1$
 	private static final String	BONUS					= "Bonus:";																									//$NON-NLS-1$
@@ -265,6 +266,27 @@ public class TeacherTab extends DeterminationTab {
 		//		expertisePopupMenu.addItemListener(this);
 
 		return expertisePopupMenu;
+	}
+
+	public static JMenu getTeacherPopup(ActionListener listener) {
+		JMenu teacherPopupMenu = TKPopupMenu.createMenu(SELECT_TEACHER);
+
+		ArrayList<String> teacherList = DeterminationList.getWeaponsTeachersNames();
+
+		teacherPopupMenu.addSeparator();
+		for (String name : teacherList) {
+			if (name != null) {
+				JMenuItem menuItem = new JMenuItem(name);
+				menuItem.addActionListener(listener);
+				teacherPopupMenu.add(menuItem);
+			}
+		}
+
+		JMenuItem menuItem = new JMenuItem(SELECT_TEACHER);
+		menuItem.addActionListener(listener);
+		teacherPopupMenu.add(menuItem, 0);
+
+		return teacherPopupMenu;
 	}
 
 	public ArrayList<TeacherDeterminationRecord> getRecordsToLearn() {
