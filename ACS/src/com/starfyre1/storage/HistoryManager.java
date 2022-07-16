@@ -79,6 +79,13 @@ public class HistoryManager implements Savable {
 		return sb.toString();
 	}
 
+	/**
+	 *
+	 */
+	public void clearRecords() {
+		mTable.clear();
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/

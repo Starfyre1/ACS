@@ -804,6 +804,10 @@ public class CharacterSheet implements ActionListener {
 		mSpellTab.clearRecords();
 		mJournalTab.clearRecords();
 		mDefenseInformationDisplay.clearRecords();
+		HistoryManager historyManager = HistoryManager.getInstance();
+		historyManager.clearRecords();
+		mHeaderDisplay.setCurrentExperienceToolTip(null);
+		mHeaderDisplay.setLevelToolTip(null);
 		mCharacterFile = null;
 		mFrame.setTitle(ACS.TITLE);
 	}
@@ -1233,16 +1237,16 @@ public class CharacterSheet implements ActionListener {
 
 	public void equipWeapon(WeaponRecord equipment, int index) {
 		mWeaponEquippedDisplay.equipWeapon(equipment, index);
-//		if (!mIsLoadingData) {
-//			mWeaponList.updateWeapon(equipment, index);
-//		}
+		//		if (!mIsLoadingData) {
+		//			mWeaponList.updateWeapon(equipment, index);
+		//		}
 	}
 
 	public void unEquipWeapon(WeaponRecord equipment, int index) {
 		mWeaponEquippedDisplay.unEquipWeapon(equipment);
-//		if (!mIsLoadingData) {
-//			mWeaponList.updateWeapon(equipment, index);
-//		}
+		//		if (!mIsLoadingData) {
+		//			mWeaponList.updateWeapon(equipment, index);
+		//		}
 
 	}
 
