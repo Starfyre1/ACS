@@ -641,8 +641,8 @@ public class CharacterSheet implements ActionListener {
 	private File getCharacterFile() {
 		File file = null;
 		String os = System.getProperty("os.name"); //$NON-NLS-1$
-		boolean test = os.contains("Mac"); //$NON-NLS-1$
-		if (test) {
+		boolean osIsMac = os.contains("Mac"); //$NON-NLS-1$
+		if (osIsMac) {
 			FileDialog fd = new FileDialog(mFrame, "Choose Character", FileDialog.LOAD); //$NON-NLS-1$
 			fd.setDirectory(PreferenceStore.getInstance().getCurrentFileLocation());
 			fd.setFile("*.acs"); //$NON-NLS-1$
