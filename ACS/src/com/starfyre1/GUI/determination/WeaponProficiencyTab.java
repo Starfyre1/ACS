@@ -228,7 +228,6 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		// DW _add Start and Completion Date (popup?)
 		int completed = 0;
 		int attempted = 0;
-		int currentTeacher = 0;
 		int currentMaintenance = 0;
 		int currentlySpent = 0;
 

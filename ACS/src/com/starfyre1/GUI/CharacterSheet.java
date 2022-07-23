@@ -1237,17 +1237,10 @@ public class CharacterSheet implements ActionListener {
 
 	public void equipWeapon(WeaponRecord equipment, int index) {
 		mWeaponEquippedDisplay.equipWeapon(equipment, index);
-		//		if (!mIsLoadingData) {
-		//			mWeaponList.updateWeapon(equipment, index);
-		//		}
 	}
 
-	public void unEquipWeapon(WeaponRecord equipment, int index) {
+	public void unEquipWeapon(WeaponRecord equipment) {
 		mWeaponEquippedDisplay.unEquipWeapon(equipment);
-		//		if (!mIsLoadingData) {
-		//			mWeaponList.updateWeapon(equipment, index);
-		//		}
-
 	}
 
 	public ClassList getClasses() {
