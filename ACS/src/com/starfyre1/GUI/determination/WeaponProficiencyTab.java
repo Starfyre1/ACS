@@ -101,6 +101,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			} else {
 				updateTeacherPopup(menuItem);
 			}
+			updateEnabledState();
 		}
 	}
 
@@ -171,12 +172,14 @@ public class WeaponProficiencyTab extends DeterminationTab {
 
 	private void updateEnabledState() {
 		HeaderRecord headerRecord = ACS.getInstance().getCharacterSheet().getHeaderRecord();
-		boolean enable = headerRecord == null ? false : headerRecord.getCharacterClass() != null;
 		for (int i = 0; i < ROWS; i++) {
-			mWeaponPopup[i].getMenu().setEnabled(enable);
+			mWeaponPopup[i].getMenu().setEnabled(headerRecord == null ? false : headerRecord.getCharacterClass() != null);
 
-			mDPPerWeekField[i].setEnabled(enable);
-			mDPPerWeekField[i].setEditable(enable);
+			boolean enable = mWeaponPopup[i].getMenu().isEnabled() && mWeaponPopup[i].getSelectedItem() != SELECT_WEAPON;
+			mTeacherPopup[i].getMenu().setEnabled(enable);
+
+			mDPPerWeekField[i].setEnabled(mTeacherPopup[i].getSelectedItem() != TeacherTab.SELECT_TEACHER);
+			mDPPerWeekField[i].setEditable(mTeacherPopup[i].getSelectedItem() != TeacherTab.SELECT_TEACHER);
 		}
 	}
 
