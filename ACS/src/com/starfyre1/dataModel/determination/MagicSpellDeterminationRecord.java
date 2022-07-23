@@ -141,7 +141,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -174,15 +174,15 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 
-		br.write(SCHOOL_KEY + TKStringHelpers.SPACE + mSchool + System.lineSeparator());
-		br.write(SPELL_KEY + TKStringHelpers.SPACE + mSpell + System.lineSeparator());
-		br.write(COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());
-		br.write(DP_PER_WEEK_KEY + TKStringHelpers.SPACE + mDPPerWeek + System.lineSeparator());
-		br.write(DP_TOTAL_SPENT_KEY + TKStringHelpers.SPACE + mDPTotalSpent + System.lineSeparator());
-		br.write(DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
-		br.write(SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
-		br.write(START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
-		br.write(COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + SCHOOL_KEY + TKStringHelpers.SPACE + mSchool + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + SPELL_KEY + TKStringHelpers.SPACE + mSpell + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DP_PER_WEEK_KEY + TKStringHelpers.SPACE + mDPPerWeek + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DP_TOTAL_SPENT_KEY + TKStringHelpers.SPACE + mDPTotalSpent + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
 
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}

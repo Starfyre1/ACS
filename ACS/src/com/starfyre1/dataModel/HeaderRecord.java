@@ -154,7 +154,7 @@ public class HeaderRecord implements Savable {
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -186,11 +186,13 @@ public class HeaderRecord implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
-		br.write(PLAYER_NAME_KEY + TKStringHelpers.SPACE + mPlayerName + System.lineSeparator());
-		br.write(CHARACTER_NAME_KEY + TKStringHelpers.SPACE + mCharacterName + System.lineSeparator());
-		br.write(CLASS_KEY + TKStringHelpers.SPACE + mClass + System.lineSeparator());
-		br.write(CURRENT_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperience + System.lineSeparator());
-		br.write(CURRENT_CAMPAIGN_DATE_KEY + TKStringHelpers.SPACE + CampaignDateChooser.getCampaignDate() + System.lineSeparator());
+
+		br.write(TKStringHelpers.TAB + PLAYER_NAME_KEY + TKStringHelpers.SPACE + mPlayerName + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CHARACTER_NAME_KEY + TKStringHelpers.SPACE + mCharacterName + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CLASS_KEY + TKStringHelpers.SPACE + mClass + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CURRENT_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperience + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CURRENT_CAMPAIGN_DATE_KEY + TKStringHelpers.SPACE + CampaignDateChooser.getCampaignDate() + System.lineSeparator());
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}

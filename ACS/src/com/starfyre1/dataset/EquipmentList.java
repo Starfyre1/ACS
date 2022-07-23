@@ -274,7 +274,7 @@ public class EquipmentList implements Savable {
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in, ", ", false); //$NON-NLS-1$
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -307,14 +307,16 @@ public class EquipmentList implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
+
 		for (EquipmentRecord record : mRecords) {
-			br.write(COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
-			br.write(EQUIPPED_KEY + TKStringHelpers.SPACE + record.isEquipped() + System.lineSeparator());
-			br.write(NAME_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
-			br.write(ENCUMBRANCE_KEY + TKStringHelpers.SPACE + record.getEncumbrance() + System.lineSeparator());
-			br.write(COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
-			br.write(NOTES_KEY + TKStringHelpers.SPACE + record.getNotes() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + EQUIPPED_KEY + TKStringHelpers.SPACE + record.isEquipped() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + NAME_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + ENCUMBRANCE_KEY + TKStringHelpers.SPACE + record.getEncumbrance() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + NOTES_KEY + TKStringHelpers.SPACE + record.getNotes() + System.lineSeparator());
 		}
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 

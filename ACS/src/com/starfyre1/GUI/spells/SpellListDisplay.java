@@ -290,7 +290,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -331,8 +331,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		Component comp[] = mCards.getComponents();
 		for (Component element : comp) {
 			if (element instanceof SpellList) {
-				br.write(SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + ((SpellList) element).getName() + System.lineSeparator());
-				br.write(SELECTED_MAGICAL_AREA_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperienceField.getText() + System.lineSeparator());
+				br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + ((SpellList) element).getName() + System.lineSeparator());
+				br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperienceField.getText() + System.lineSeparator());
 				((SpellList) element).saveValues(br);
 			}
 		}

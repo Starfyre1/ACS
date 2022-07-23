@@ -1163,7 +1163,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		String in;
 
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -1198,14 +1198,16 @@ public class SkillsRecord implements LevelListener, Savable {
 	public void writeValues(BufferedWriter br) throws IOException {
 
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
-		br.write(CONCEAL_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mConcealLevelBonus + System.lineSeparator());
-		br.write(STEALTH_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mStealthLevelBonus + System.lineSeparator());
-		br.write(HEAR_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mHearLevelBonus + System.lineSeparator());
-		br.write(LOCK_PICK_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mLockPickLevelBonus + System.lineSeparator());
-		br.write(POCKET_PICK_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mPickPocketLevelBonus + System.lineSeparator());
-		br.write(CLIMB_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mClimbLevelBonus + System.lineSeparator());
-		br.write(FIND_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mFindTrapLevelBonus + System.lineSeparator());
-		br.write(REMOVE_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mRemoveTrapLevelBonus + System.lineSeparator());
+
+		br.write(TKStringHelpers.TAB + CONCEAL_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mConcealLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + STEALTH_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mStealthLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + HEAR_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mHearLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + LOCK_PICK_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mLockPickLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + POCKET_PICK_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mPickPocketLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CLIMB_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mClimbLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + FIND_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mFindTrapLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + REMOVE_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mRemoveTrapLevelBonus + System.lineSeparator());
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 

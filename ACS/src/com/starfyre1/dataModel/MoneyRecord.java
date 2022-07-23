@@ -229,7 +229,7 @@ public class MoneyRecord implements Savable {
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -261,12 +261,14 @@ public class MoneyRecord implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
-		br.write(GOLD_KEY + TKStringHelpers.SPACE + mGold + System.lineSeparator());
-		br.write(SILVER_KEY + TKStringHelpers.SPACE + mSilver + System.lineSeparator());
-		br.write(COPPER_KEY + TKStringHelpers.SPACE + mCopper + System.lineSeparator());
-		br.write(GEMS_KEY + TKStringHelpers.SPACE + mGemsArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
-		br.write(JEWELRY_KEY + TKStringHelpers.SPACE + mJewelryArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
-		br.write(OTHER_KEY + TKStringHelpers.SPACE + mOtherArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+
+		br.write(TKStringHelpers.TAB + GOLD_KEY + TKStringHelpers.SPACE + mGold + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + SILVER_KEY + TKStringHelpers.SPACE + mSilver + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + COPPER_KEY + TKStringHelpers.SPACE + mCopper + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + GEMS_KEY + TKStringHelpers.SPACE + mGemsArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+		br.write(TKStringHelpers.TAB + JEWELRY_KEY + TKStringHelpers.SPACE + mJewelryArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+		br.write(TKStringHelpers.TAB + OTHER_KEY + TKStringHelpers.SPACE + mOtherArea.replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}

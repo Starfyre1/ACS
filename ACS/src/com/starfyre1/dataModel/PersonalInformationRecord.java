@@ -502,7 +502,7 @@ public class PersonalInformationRecord implements Savable {
 		String in;
 
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -537,14 +537,16 @@ public class PersonalInformationRecord implements Savable {
 	public void writeValues(BufferedWriter br) throws IOException {
 
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
-		br.write(HEIGHT_KEY + TKStringHelpers.SPACE + mHeight + System.lineSeparator());
-		br.write(WEIGHT_KEY + TKStringHelpers.SPACE + mWeight + System.lineSeparator());
-		br.write(SEX_KEY + TKStringHelpers.SPACE + mSex + System.lineSeparator());
-		br.write(HAIR_KEY + TKStringHelpers.SPACE + mHair + System.lineSeparator());
-		br.write(EYES_KEY + TKStringHelpers.SPACE + mEyes + System.lineSeparator());
-		br.write(AGE_KEY + TKStringHelpers.SPACE + mAge + System.lineSeparator());
-		br.write(SOCIAL_CLASS_KEY + TKStringHelpers.SPACE + mSocialClass.getSocialClass() + System.lineSeparator());
-		br.write(MORALS_KEY + TKStringHelpers.SPACE + mMorals + System.lineSeparator());
+
+		br.write(TKStringHelpers.TAB + HEIGHT_KEY + TKStringHelpers.SPACE + mHeight + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WEIGHT_KEY + TKStringHelpers.SPACE + mWeight + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + SEX_KEY + TKStringHelpers.SPACE + mSex + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + HAIR_KEY + TKStringHelpers.SPACE + mHair + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + EYES_KEY + TKStringHelpers.SPACE + mEyes + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + AGE_KEY + TKStringHelpers.SPACE + mAge + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + SOCIAL_CLASS_KEY + TKStringHelpers.SPACE + mSocialClass.getSocialClass() + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + MORALS_KEY + TKStringHelpers.SPACE + mMorals + System.lineSeparator());
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}

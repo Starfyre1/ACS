@@ -296,7 +296,7 @@ public class WeaponList implements Savable {
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -328,24 +328,26 @@ public class WeaponList implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
+
 		for (WeaponRecord record : mRecords) {
-			br.write(COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
-			br.write(EQUIPPED_KEY + TKStringHelpers.SPACE + record.isEquipped() + System.lineSeparator());
-			br.write(NAME_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
-			br.write(METAL_KEY + TKStringHelpers.SPACE + record.getMetalID() + System.lineSeparator());
-			br.write(TYPE_KEY + TKStringHelpers.SPACE + record.getType() + System.lineSeparator());
-			br.write(HANDED_KEY + TKStringHelpers.SPACE + record.getHanded() + System.lineSeparator());
-			br.write(STR_KEY + TKStringHelpers.SPACE + record.getStrength() + System.lineSeparator());
-			br.write(DEX_KEY + TKStringHelpers.SPACE + record.getDexterity() + System.lineSeparator());
-			br.write(ENCUMBER_KEY + TKStringHelpers.SPACE + record.getEncumbrance() + System.lineSeparator());
-			br.write(LENGTH_KEY + TKStringHelpers.SPACE + record.getWeaponLength() + System.lineSeparator());
-			br.write(SPEED_KEY + TKStringHelpers.SPACE + record.getAttackSpeed() + System.lineSeparator());
-			br.write(BREAK_KEY + TKStringHelpers.SPACE + record.getWeaponBreak() + System.lineSeparator());
-			br.write(HIT_BONUS_KEY + TKStringHelpers.SPACE + record.getHitBonus() + System.lineSeparator());
-			br.write(DAMAGE1_KEY + TKStringHelpers.SPACE + record.getDamageOneHanded() + System.lineSeparator());
-			br.write(DAMAGE2_KEY + TKStringHelpers.SPACE + record.getDamageTwoHanded() + System.lineSeparator());
-			br.write(COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + EQUIPPED_KEY + TKStringHelpers.SPACE + record.isEquipped() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + NAME_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + METAL_KEY + TKStringHelpers.SPACE + record.getMetalID() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + TYPE_KEY + TKStringHelpers.SPACE + record.getType() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + HANDED_KEY + TKStringHelpers.SPACE + record.getHanded() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + STR_KEY + TKStringHelpers.SPACE + record.getStrength() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + DEX_KEY + TKStringHelpers.SPACE + record.getDexterity() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + ENCUMBER_KEY + TKStringHelpers.SPACE + record.getEncumbrance() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + LENGTH_KEY + TKStringHelpers.SPACE + record.getWeaponLength() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + SPEED_KEY + TKStringHelpers.SPACE + record.getAttackSpeed() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + BREAK_KEY + TKStringHelpers.SPACE + record.getWeaponBreak() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + HIT_BONUS_KEY + TKStringHelpers.SPACE + record.getHitBonus() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + DAMAGE1_KEY + TKStringHelpers.SPACE + record.getDamageOneHanded() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + DAMAGE2_KEY + TKStringHelpers.SPACE + record.getDamageTwoHanded() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
 		}
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 

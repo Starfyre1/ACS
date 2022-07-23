@@ -103,7 +103,7 @@ public class HistoryManager implements Savable {
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -143,7 +143,7 @@ public class HistoryManager implements Savable {
 			String test = enu.nextElement();
 			List<HistoryRecord> list = mTable.get(test);
 			for (HistoryRecord record : list) {
-				br.write(test + TKStringHelpers.TAB + record.getWorldDate() + TKStringHelpers.TAB + record.getCampaignDate() + TKStringHelpers.TAB + record.getNewValue() + System.lineSeparator());
+				br.write(TKStringHelpers.TAB + test + TKStringHelpers.TAB + record.getWorldDate() + TKStringHelpers.TAB + record.getCampaignDate() + TKStringHelpers.TAB + record.getNewValue() + System.lineSeparator());
 			}
 		}
 

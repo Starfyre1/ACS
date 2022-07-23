@@ -192,7 +192,7 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -226,11 +226,13 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
+
 		for (JournalRecord record : mEntries) {
-			br.write(CAMPAIGN_KEY + TKStringHelpers.SPACE + record.getCampaignDate() + System.lineSeparator());
-			br.write(JOURNAL_KEY + TKStringHelpers.SPACE + record.getJournalText().replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
-			br.write(WORLD_KEY + TKStringHelpers.SPACE + record.getWorldDate() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + CAMPAIGN_KEY + TKStringHelpers.SPACE + record.getCampaignDate() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + JOURNAL_KEY + TKStringHelpers.SPACE + record.getJournalText().replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
+			br.write(TKStringHelpers.TAB + WORLD_KEY + TKStringHelpers.SPACE + record.getWorldDate() + System.lineSeparator());
 		}
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 

@@ -269,7 +269,7 @@ public class ArmorList implements Savable {
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in, " ", false); //$NON-NLS-1$
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -302,6 +302,7 @@ public class ArmorList implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
+
 		for (ArmorRecord record : mRecords) {
 
 			int[] type = record.getProtectionType();
@@ -314,21 +315,22 @@ public class ArmorList implements Savable {
 			}
 			typeString.append(" }"); //$NON-NLS-1$
 
-			br.write(COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
-			br.write(EQUIPPED_KEY + TKStringHelpers.SPACE + record.isEquipped() + System.lineSeparator());
-			br.write(NAME_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
-			br.write(METAL_KEY + TKStringHelpers.SPACE + record.getMetalID() + System.lineSeparator());
-			br.write(TYPE_KEY + TKStringHelpers.SPACE + typeString + System.lineSeparator());
-			br.write(PROT_KEY + TKStringHelpers.SPACE + record.getProtectionAmount() + System.lineSeparator());
-			br.write(ENCUM_KEY + TKStringHelpers.SPACE + record.getEncumbrance() + System.lineSeparator());
-			br.write(ABSORB_KEY + TKStringHelpers.SPACE + record.getAbsorption() + System.lineSeparator());
-			br.write(BONUS_KEY + TKStringHelpers.SPACE + record.getBonus() + System.lineSeparator());
-			br.write(MISSILE_KEY + TKStringHelpers.SPACE + record.getMissileAbsorption() + System.lineSeparator());
-			br.write(STR_KEY + TKStringHelpers.SPACE + record.getStrengthRequirement() + System.lineSeparator());
-			br.write(PARRY_KEY + TKStringHelpers.SPACE + record.getParry() + System.lineSeparator());
-			br.write(BREAK_KEY + TKStringHelpers.SPACE + record.getBreak() + System.lineSeparator());
-			br.write(COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + EQUIPPED_KEY + TKStringHelpers.SPACE + record.isEquipped() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + NAME_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + METAL_KEY + TKStringHelpers.SPACE + record.getMetalID() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + TYPE_KEY + TKStringHelpers.SPACE + typeString + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + PROT_KEY + TKStringHelpers.SPACE + record.getProtectionAmount() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + ENCUM_KEY + TKStringHelpers.SPACE + record.getEncumbrance() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + ABSORB_KEY + TKStringHelpers.SPACE + record.getAbsorption() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + BONUS_KEY + TKStringHelpers.SPACE + record.getBonus() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + MISSILE_KEY + TKStringHelpers.SPACE + record.getMissileAbsorption() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + STR_KEY + TKStringHelpers.SPACE + record.getStrengthRequirement() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + PARRY_KEY + TKStringHelpers.SPACE + record.getParry() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + BREAK_KEY + TKStringHelpers.SPACE + record.getBreak() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
 		}
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 

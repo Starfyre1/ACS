@@ -446,7 +446,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -479,8 +479,10 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
-		br.write(STAMINA_LEFT_KEY + TKStringHelpers.SPACE + mStaminaDamage + System.lineSeparator());
-		br.write(HIT_POINTS_LEFT_KEY + TKStringHelpers.SPACE + mHitPointsDamage + System.lineSeparator());
+
+		br.write(TKStringHelpers.TAB + STAMINA_LEFT_KEY + TKStringHelpers.SPACE + mStaminaDamage + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + HIT_POINTS_LEFT_KEY + TKStringHelpers.SPACE + mHitPointsDamage + System.lineSeparator());
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 

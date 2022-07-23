@@ -208,7 +208,7 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -240,12 +240,14 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
+
 		for (SpellRecord record : mKnownSpells) {
 			if (record.getLevel() != -1) {
-				br.write(LEVEL_KEY + TKStringHelpers.SPACE + record.getLevel() + System.lineSeparator());
-				br.write(SPELL_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
+				br.write(TKStringHelpers.TAB + LEVEL_KEY + TKStringHelpers.SPACE + record.getLevel() + System.lineSeparator());
+				br.write(TKStringHelpers.TAB + SPELL_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
 			}
 		}
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 

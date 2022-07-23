@@ -298,7 +298,7 @@ public class AnimalList implements Savable {
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -331,19 +331,21 @@ public class AnimalList implements Savable {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
+
 		for (AnimalRecord record : mRecords) {
-			br.write(COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
-			br.write(NAME_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
-			br.write(CARRY_KEY + TKStringHelpers.SPACE + record.getCarry() + System.lineSeparator());
-			br.write(MOVE_KEY + TKStringHelpers.SPACE + record.getMove() + System.lineSeparator());
-			br.write(TRAVEL_KEY + TKStringHelpers.SPACE + record.getTravel() + System.lineSeparator());
-			br.write(HITS_KEY + TKStringHelpers.SPACE + record.getHits() + System.lineSeparator());
-			br.write(HIT_BONUS_KEY + TKStringHelpers.SPACE + record.getHitBonus() + System.lineSeparator());
-			br.write(KICK_DAMAGE_KEY + TKStringHelpers.SPACE + record.getKickDamage() + System.lineSeparator());
-			br.write(ARMOR_KEY + TKStringHelpers.SPACE + record.getArmor() + System.lineSeparator());
-			br.write(COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
-			br.write(NOTES_KEY + TKStringHelpers.SPACE + record.getNotes() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + COUNT_KEY + TKStringHelpers.SPACE + record.getCount() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + NAME_KEY + TKStringHelpers.SPACE + record.getName() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + CARRY_KEY + TKStringHelpers.SPACE + record.getCarry() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + MOVE_KEY + TKStringHelpers.SPACE + record.getMove() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + TRAVEL_KEY + TKStringHelpers.SPACE + record.getTravel() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + HITS_KEY + TKStringHelpers.SPACE + record.getHits() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + HIT_BONUS_KEY + TKStringHelpers.SPACE + record.getHitBonus() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + KICK_DAMAGE_KEY + TKStringHelpers.SPACE + record.getKickDamage() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + ARMOR_KEY + TKStringHelpers.SPACE + record.getArmor() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + NOTES_KEY + TKStringHelpers.SPACE + record.getNotes() + System.lineSeparator());
 		}
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 

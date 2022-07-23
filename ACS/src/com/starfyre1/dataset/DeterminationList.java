@@ -3,6 +3,7 @@
 package com.starfyre1.dataset;
 
 import com.starfyre1.GUI.character.SkillsDisplay;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
 import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
 import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
@@ -232,7 +233,7 @@ public class DeterminationList implements Savable {
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in, " ", false); //$NON-NLS-1$
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -242,27 +243,39 @@ public class DeterminationList implements Savable {
 						if (AttributeDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							AttributeDeterminationRecord record = new AttributeDeterminationRecord();
 							tokenizer = record.readValues(br);
-							addAttribRecord(record);
+							if (record.getAttribute() != 0) {
+								addAttribRecord(record);
+							}
 						} else if (LanguageDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							LanguageDeterminationRecord record = new LanguageDeterminationRecord();
 							tokenizer = record.readValues(br);
-							addLanguageRecord(record);
+							if (record.getLanguage() != TKStringHelpers.EMPTY_STRING) {
+								addLanguageRecord(record);
+							}
 						} else if (MagicSpellDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							MagicSpellDeterminationRecord record = new MagicSpellDeterminationRecord();
 							tokenizer = record.readValues(br);
-							addMagicSpellRecord(record);
+							if (record.getSpell() != TKStringHelpers.EMPTY_STRING) {
+								addMagicSpellRecord(record);
+							}
 						} else if (SkillDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							SkillDeterminationRecord record = new SkillDeterminationRecord();
 							tokenizer = record.readValues(br);
-							addSkillRecord(record);
+							if (record.getSkill() != TKStringHelpers.EMPTY_STRING) {
+								addSkillRecord(record);
+							}
 						} else if (WeaponProficiencyDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							WeaponProficiencyDeterminationRecord record = new WeaponProficiencyDeterminationRecord();
 							tokenizer = record.readValues(br);
-							addWeaponRecord(record);
+							if (record.getWeapon() != TKStringHelpers.EMPTY_STRING) {
+								addWeaponRecord(record);
+							}
 						} else if (TeacherDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							TeacherDeterminationRecord record = new TeacherDeterminationRecord();
 							tokenizer = record.readValues(br);
-							addTeacherRecord(record);
+							if (record.getTeacher() != TKStringHelpers.EMPTY_STRING) {
+								addTeacherRecord(record);
+							}
 						}
 					} else {
 						String value = tokenizer.nextToken();

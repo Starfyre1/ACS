@@ -484,7 +484,7 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		String in;
 
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -519,10 +519,12 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	public void writeValues(BufferedWriter br) throws IOException {
 
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
-		br.write(HIT_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mHitLevelBonus + System.lineSeparator());
-		br.write(BOW_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mBowLevelBonus + System.lineSeparator());
-		br.write(CASTING_SPEED_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mCastingSpeedLevelBonus + System.lineSeparator());
-		br.write(FOCUS_KEY + TKStringHelpers.SPACE + mFocus + System.lineSeparator());
+
+		br.write(TKStringHelpers.TAB + HIT_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mHitLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + BOW_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mBowLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CASTING_SPEED_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mCastingSpeedLevelBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + FOCUS_KEY + TKStringHelpers.SPACE + mFocus + System.lineSeparator());
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 

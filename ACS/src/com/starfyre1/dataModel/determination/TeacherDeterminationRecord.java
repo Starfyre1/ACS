@@ -113,7 +113,7 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
 		try {
-			while ((in = br.readLine()) != null) {
+			while ((in = br.readLine().trim()) != null) {
 				StringTokenizer tokenizer = new StringTokenizer(in);
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
@@ -147,11 +147,11 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 
-		br.write(TEACHER_ID_KEY + TKStringHelpers.SPACE + mID + System.lineSeparator());
-		br.write(TEACHER_KEY + TKStringHelpers.SPACE + mTeacher + System.lineSeparator());
-		br.write(EXPERTISE_KEY + TKStringHelpers.SPACE + mExpertise + System.lineSeparator());
-		br.write(COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());
-		br.write(BONUS_KEY + TKStringHelpers.SPACE + mBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + TEACHER_ID_KEY + TKStringHelpers.SPACE + mID + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + TEACHER_KEY + TKStringHelpers.SPACE + mTeacher + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + EXPERTISE_KEY + TKStringHelpers.SPACE + mExpertise + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + BONUS_KEY + TKStringHelpers.SPACE + mBonus + System.lineSeparator());
 
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
