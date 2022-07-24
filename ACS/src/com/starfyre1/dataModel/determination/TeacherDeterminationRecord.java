@@ -21,7 +21,6 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	private static final String	TEACHER_KEY				= "TEACHER_KEY";							//$NON-NLS-1$
 	private static final String	EXPERTISE_KEY			= "EXPERTISE_KEY";							//$NON-NLS-1$
 	private static final String	COST_KEY				= "COST_KEY";								//$NON-NLS-1$
-	private static final String	BONUS_KEY				= "BONUS_KEY";								//$NON-NLS-1$
 
 	// DW still need to save out and restore the static ID_NUMBER;
 	public static int			ID_NUMBER				= 0;
@@ -33,7 +32,6 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	String						mTeacher				= TKStringHelpers.EMPTY_STRING;
 	String						mExpertise				= TKStringHelpers.EMPTY_STRING;
 	float						mCost					= 0;
-	int							mBonus					= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -74,6 +72,12 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 		return sb.toString();
 	}
 
+	@Override
+	public boolean successRoll() {
+		// there is no success roll for teachers
+		return false;
+	}
+
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -98,11 +102,6 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	/** @return The cost. */
 	public float getCost() {
 		return mCost;
-	}
-
-	/** @return The bonus. */
-	public int getBonus() {
-		return mBonus;
 	}
 
 	/*****************************************************************************

@@ -36,6 +36,7 @@ public class PreferenceStore {
 	private static final String		FILE_LOCATION_KEY			= "FILE_LOCATION_KEY";					//$NON-NLS-1$
 	private static final String		LAST_CHARACTER_KEY			= "LAST_CHARACTER_KEY";					//$NON-NLS-1$
 
+	private static final String		APP_ROLLS_DICE_KEY			= "APP_ROLLS_DICE_KEY";					// Allow ACS to roll you dice; //$NON-NLS-1$
 	private static final String		NUM_DICE_KEY				= "NUMBER_OF_DICE_KEY";					// 4 Dice drop lowest; use 3 dice; Manual entry; //$NON-NLS-1$
 	private static final String		REROLL_LOWEST_KEY			= "REROLL_LOWEST_KEY";					// Reroll 1's & 2's //$NON-NLS-1$
 	private static final String		USE_COMMON_DIE_KEY			= "USE_COMMON_DIE_KEY";					// use 1 common die //$NON-NLS-1$
@@ -50,6 +51,7 @@ public class PreferenceStore {
 	//DW change this to installation directory
 	private static final String		DEFAULT_FILE_LOCATION		= SystemInfo.getApplicationLocalPath();
 
+	private static final boolean	DEFAULT_APP_ROLLS_DICE		= false;								// true - ACS rolls: false - Manual Entry
 	private static final int		DEFAULT_NUM_DICE			= 4;									// 4 Dice drop lowest; use 3 dice; Manual entry;
 	private static final int		DEFAULT_REROLL_LOWEST		= 2;									// Reroll 1's & 2's
 	private static final boolean	DEFAULT_USE_COMMON_DIE		= true;									// use 1 common die
@@ -68,6 +70,12 @@ public class PreferenceStore {
 	Rectangle						mWindowBounds;
 	String							mFileLocation;
 	String							mLastCharacter;
+
+	/*
+	 * true = ACS rolls all dice
+	 * false = Player enters all dice
+	 */
+	private boolean					mAppRollsDice;
 
 	/*
 	 * 0 = player entered
@@ -99,6 +107,7 @@ public class PreferenceStore {
 	private boolean					mShowToolTips;
 	private boolean					mDetailedToolTips;
 
+	private boolean					mSavedAppRollsDice;
 	private int						mSavedNumDice;
 	private int						mSavedRerollLowest;
 	private boolean					mSavedUseCommonDie;
@@ -124,6 +133,7 @@ public class PreferenceStore {
 	 *
 	 */
 	private void setSavedValues() {
+		mSavedAppRollsDice = mAppRollsDice;
 		mSavedNumDice = mNumDice;
 		mSavedRerollLowest = mRerollLowest;
 		mSavedUseCommonDie = mUseCommonDie;
@@ -139,6 +149,7 @@ public class PreferenceStore {
 		mFileLocation = DEFAULT_FILE_LOCATION;
 		mLastCharacter = null;
 
+		mAppRollsDice = DEFAULT_APP_ROLLS_DICE;
 		mNumDice = DEFAULT_NUM_DICE;
 		mRerollLowest = DEFAULT_REROLL_LOWEST;
 		mUseCommonDie = DEFAULT_USE_COMMON_DIE;
@@ -154,6 +165,7 @@ public class PreferenceStore {
 	 */
 	public boolean isDefaults() {
 		if (mNumDice == DEFAULT_NUM_DICE && //
+						mAppRollsDice == DEFAULT_APP_ROLLS_DICE && //
 						mRerollLowest == DEFAULT_REROLL_LOWEST && //
 						mUseCommonDie == DEFAULT_USE_COMMON_DIE && //
 						mAutoLoad == DEFAULT_AUTO_LOAD && //
@@ -173,6 +185,7 @@ public class PreferenceStore {
 		mFileLocation = DEFAULT_FILE_LOCATION;
 		mLastCharacter = null;
 
+		mAppRollsDice = preferencesDisplay.getAppRollsDice();
 		mNumDice = preferencesDisplay.getNumDice();
 		mRerollLowest = preferencesDisplay.getReRollLowest();
 		mUseCommonDie = preferencesDisplay.useCommonDice();
@@ -195,6 +208,16 @@ public class PreferenceStore {
 			sInstance = new PreferenceStore();
 		}
 		return sInstance;
+	}
+
+	/** @return The appRollsDice. */
+	public boolean isAppRollsDice() {
+		return mAppRollsDice;
+	}
+
+	/** @param appRollsDice The value to set for appRollsDice. */
+	public void setAppRollsDice(boolean appRollsDice) {
+		mAppRollsDice = appRollsDice;
 	}
 
 	/** @return The numDice. */
@@ -343,6 +366,16 @@ public class PreferenceStore {
 		mLastCharacter = lastCharacter;
 	}
 
+	/** @return The savedAppRollsDice. */
+	public boolean isSavedAppRollsDice() {
+		return mSavedAppRollsDice;
+	}
+
+	/** @param savedAppRollsDice The value to set for savedAppRollsDice. */
+	public void setSavedAppRollsDice(boolean savedAppRollsDice) {
+		mSavedAppRollsDice = savedAppRollsDice;
+	}
+
 	/** @return The savedNumDice. */
 	public int getSavedNumDice() {
 		return mSavedNumDice;
@@ -361,6 +394,11 @@ public class PreferenceStore {
 	/** @return The defaultNumDice. */
 	public static int getDefaultNumDice() {
 		return DEFAULT_NUM_DICE;
+	}
+
+	/** @return The defaultAppRollsDice. */
+	public static boolean getDefaultAppRollsDice() {
+		return DEFAULT_APP_ROLLS_DICE;
 	}
 
 	/** @return The defaultRerollLowest. */
@@ -449,6 +487,7 @@ public class PreferenceStore {
 		BufferedWriter br = null;
 		try {
 			br = new BufferedWriter(new FileWriter(file));
+			br.write(APP_ROLLS_DICE_KEY + TKStringHelpers.TAB + mAppRollsDice + System.lineSeparator());
 			br.write(NUM_DICE_KEY + TKStringHelpers.TAB + mNumDice + System.lineSeparator());
 			br.write(REROLL_LOWEST_KEY + TKStringHelpers.TAB + mRerollLowest + System.lineSeparator());
 			br.write(USE_COMMON_DIE_KEY + TKStringHelpers.TAB + mUseCommonDie + System.lineSeparator());
@@ -478,7 +517,9 @@ public class PreferenceStore {
 	}
 
 	private void setKeyValuePair(String key, String value) {
-		if (key.equals(NUM_DICE_KEY)) {
+		if (key.equals(APP_ROLLS_DICE_KEY)) {
+			mAppRollsDice = TKStringHelpers.getBoolValue(value, DEFAULT_APP_ROLLS_DICE);
+		} else if (key.equals(NUM_DICE_KEY)) {
 			mNumDice = TKStringHelpers.getIntValue(value, DEFAULT_NUM_DICE);
 		} else if (key.equals(REROLL_LOWEST_KEY)) {
 			mRerollLowest = TKStringHelpers.getIntValue(value, DEFAULT_REROLL_LOWEST);

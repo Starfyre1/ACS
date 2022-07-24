@@ -36,9 +36,9 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	DICE							= "Dice";																						//$NON-NLS-1$
 	private static final String	MISCELLANEOUS					= "Miscellaneous";																				//$NON-NLS-1$
 	private static final String	TOOLTIPS						= "Tooltips";																					//$NON-NLS-1$
+	private static final String	APP_ROLLS_DICE					= "App Rolls Dice";																				//$NON-NLS-1$
 	private static final String	USE_1_COMMON_DICE				= "Use 1 common dice";																			//$NON-NLS-1$
 	private static final String	AUTO_LOAD						= "Auto load last character";																	//$NON-NLS-1$
 	private static final String	CALENDAR_AL_SYSTEM				= "AL calendar system";																			//$NON-NLS-1$
@@ -63,6 +63,7 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	private JButton				mCancelButton;
 	private JButton				mDefaultsButton;
 
+	private JCheckBox			mAppRollsDiceCheckBox;
 	private TKPopupMenu			mNumDicePopup;
 	private TKPopupMenu			mReRollLowestPopup;
 	private JCheckBox			mUseCommonDiceCheckBox;
@@ -139,20 +140,26 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		JPanel numDiceWrapper = new JPanel();
 		BoxLayout layout = new BoxLayout(numDiceWrapper, BoxLayout.Y_AXIS);
 		numDiceWrapper.setLayout(layout);
-		JLabel title = new JLabel(DICE);
-		title.setOpaque(true);
-		numDiceWrapper.setBorder(new TKComponentTitledBorder(title, numDiceWrapper, new EtchedBorder()));
+
+		boolean enabled = prefs.isAppRollsDice();
+		mAppRollsDiceCheckBox = new JCheckBox(APP_ROLLS_DICE, enabled);
+		mAppRollsDiceCheckBox.addActionListener(this);
+
+		numDiceWrapper.setBorder(new TKComponentTitledBorder(mAppRollsDiceCheckBox, numDiceWrapper, new EtchedBorder()));
 
 		JLabel numDiceLabel = new JLabel(NUMBER_OF_DICE_TO_USE);
 		mNumDicePopup = new TKPopupMenu(generateNumberDicePopup());
 		mNumDicePopup.selectPopupMenuItem(TKStringHelpers.EMPTY_STRING + prefs.getNumDice());
+		mNumDicePopup.getMenu().setEnabled(enabled);
 
 		JLabel reRollLowestLabel = new JLabel(REROLL_DICE_BELOW_THIS_NUMBER);
 		mReRollLowestPopup = new TKPopupMenu(generateRerollDicePopup());
 		mReRollLowestPopup.selectPopupMenuItem(TKStringHelpers.EMPTY_STRING + prefs.getRerollLowest());
+		mReRollLowestPopup.getMenu().setEnabled(enabled);
 
 		mUseCommonDiceCheckBox = new JCheckBox(USE_1_COMMON_DICE, prefs.useCommonDie());
 		mUseCommonDiceCheckBox.setToolTipText(COMMON_DIE_TOOLTIP);
+		mUseCommonDiceCheckBox.setEnabled(enabled);
 		mUseCommonDiceCheckBox.addActionListener(this);
 		mUseCommonDiceCheckBox.setAlignmentX(LEFT_ALIGNMENT);
 
@@ -270,7 +277,9 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	 * Methods
 	 ****************************************************************************/
 	private void loadDefaultsToDialog() {
+		// prefs already has defaults set
 		PreferenceStore prefs = PreferenceStore.getInstance();
+		mAppRollsDiceCheckBox.setSelected(prefs.isAppRollsDice());
 		mNumDicePopup.selectPopupMenuItem(TKStringHelpers.EMPTY_STRING + prefs.getNumDice());
 		mReRollLowestPopup.selectPopupMenuItem(TKStringHelpers.EMPTY_STRING + prefs.getRerollLowest());
 		mUseCommonDiceCheckBox.setSelected(prefs.useCommonDie());
@@ -287,13 +296,15 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	}
 
 	private boolean areValuesSaved() {
-		if (getNumDice() == PreferenceStore.getInstance().getSavedNumDice() && //
-						getReRollLowest() == PreferenceStore.getInstance().getSavedRerollLowest() && //
-						useCommonDice() == PreferenceStore.getInstance().isSavedUseCommonDie() && //
-						isAutoLoad() == PreferenceStore.getInstance().isSavedAutoLoad() && //
-						isCalendarAL() == PreferenceStore.getInstance().isSavedCalendarAL() && //
-						isShowToolTips() == PreferenceStore.getInstance().isShowToolTips() && //
-						isDetailedToolTips() == PreferenceStore.getInstance().isDetailedToolTips()) {
+		PreferenceStore instance = PreferenceStore.getInstance();
+		if (getAppRollsDice() == instance.isSavedAppRollsDice() && //
+						getNumDice() == instance.getSavedNumDice() && //
+						getReRollLowest() == instance.getSavedRerollLowest() && //
+						useCommonDice() == instance.isSavedUseCommonDie() && //
+						isAutoLoad() == instance.isSavedAutoLoad() && //
+						isCalendarAL() == instance.isSavedCalendarAL() && //
+						isShowToolTips() == instance.isShowToolTips() && //
+						isDetailedToolTips() == instance.isDetailedToolTips()) {
 			return true;
 		}
 		return false;
@@ -304,7 +315,8 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	 * until the ok button is pressed
 	 */
 	private boolean areDefaultsSet() {
-		if (getNumDice() == PreferenceStore.getDefaultNumDice() && //
+		if (getAppRollsDice() == PreferenceStore.getDefaultAppRollsDice() && //
+						getNumDice() == PreferenceStore.getDefaultNumDice() && //
 						getReRollLowest() == PreferenceStore.getDefaultRerollLowest() && //
 						useCommonDice() == PreferenceStore.isDefaultUseCommonDie() && //
 						isAutoLoad() == PreferenceStore.isDefaultAutoLoad() && //
@@ -322,7 +334,13 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if (source.equals(mCancelButton)) {
+		if (source.equals(mAppRollsDiceCheckBox)) {
+			boolean enable = mAppRollsDiceCheckBox.isSelected();
+			mNumDicePopup.getMenu().setEnabled(enable);
+			mReRollLowestPopup.getMenu().setEnabled(enable);
+			mUseCommonDiceCheckBox.setEnabled(enable);
+			updateButtons();
+		} else if (source.equals(mCancelButton)) {
 			dispose();
 		} else if (source.equals(mOKButton)) {
 			PreferenceStore.getInstance().updateValuesInPreferenceStore(this);
@@ -333,6 +351,13 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		} else if (source.equals(mDefaultsButton)) {
 			PreferenceStore.getInstance().setDefaults();
 			loadDefaultsToDialog();
+			boolean enable = mAppRollsDiceCheckBox.isSelected();
+			mNumDicePopup.getMenu().setEnabled(enable);
+			mReRollLowestPopup.getMenu().setEnabled(enable);
+			mUseCommonDiceCheckBox.setEnabled(enable);
+			// DW fix this... checkbox display not changing state
+			mAppRollsDiceCheckBox.getParent().getParent().revalidate();
+			mAppRollsDiceCheckBox.getParent().getParent().repaint();
 			updateButtons();
 		} else if (source instanceof JMenuItem) {
 			updateButtons();
@@ -407,6 +432,10 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 
 	public void setDetailedToolTips(boolean detailedToolTips) {
 		mDetailedToolTipsCheckBox.setSelected(detailedToolTips);
+	}
+
+	public boolean getAppRollsDice() {
+		return mAppRollsDiceCheckBox.isSelected();
 	}
 
 	/*****************************************************************************

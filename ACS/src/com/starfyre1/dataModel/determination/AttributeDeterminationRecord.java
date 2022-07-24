@@ -2,10 +2,12 @@
 
 package com.starfyre1.dataModel.determination;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.determination.AttributesTab;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
+import com.starfyre1.storage.PreferenceStore;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,13 +22,6 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	public static final String	FILE_SECTION_END_KEY			= "ATTRIBUTES_DETERMINATION_SECTION_END";	//$NON-NLS-1$
 
 	private static final String	ATTRIBUTE_KEY					= "ATTRIBUTE_KEY";							//$NON-NLS-1$
-	private static final String	DP_PER_WEEK_KEY					= "DP_PER_WEEK_KEY";						//$NON-NLS-1$
-	private static final String	DP_TOTAL_SPENT_KEY				= "DP_TOTAL_SPENT_KEY";						//$NON-NLS-1$
-	private static final String	DP_COST_KEY						= "DP_COST_KEY";							//$NON-NLS-1$
-	private static final String	MAINTAINENCE_KEY				= "MAINTAINENCE_KEY";						//$NON-NLS-1$
-	private static final String	SUCCESSFUL_KEY					= "SUCCESSFUL_KEY";							//$NON-NLS-1$
-	private static final String	START_DATE_KEY					= "START_DATE_KEY";							//$NON-NLS-1$
-	private static final String	COMPLETION_DATE_KEY				= "COMPLETION_DATE_KEY";					//$NON-NLS-1$
 
 	private static final int	MAX_STAT_VALUE					= 18;
 	private static final int	MAX_NUMBER_OF_IMPROVEMENTS		= 3;
@@ -35,13 +30,6 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	 * Member Variables
 	 ****************************************************************************/
 	int							mAttribute						= 0;
-	int							mDPPerWeek						= 0;
-	int							mDPTotalSpent					= 0;
-	int							mDPCost							= 0;
-	boolean						mMaintainence					= false;
-	boolean						mSuccessful						= false;
-	String						mStartDate						= "";										//$NON-NLS-1$
-	String						mCompletionDate					= "";										//$NON-NLS-1$
 
 	private int					currentNumberOfImprovements[]	= new int[] { 0, 0, 0, 0, 0 };
 
@@ -57,11 +45,12 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 		 */
 	}
 
-	public AttributeDeterminationRecord(int attrib, int dpPerWeek, int cost, String startDate) {
+	public AttributeDeterminationRecord(int attrib, int dpPerWeek, int cost, String startDate, String lastUpdate) {
 		mAttribute = attrib;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
 		mStartDate = startDate;
+		setLastUpdate(lastUpdate);
 	}
 
 	/*****************************************************************************
@@ -79,10 +68,24 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 		sb.append("\nMaintainence cost: " + (mMaintainence ? 1 : 0)); //$NON-NLS-1$
 		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
 		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
+		sb.append("\nLast Update: " + mLastUpdate); //$NON-NLS-1$
 		sb.append("\nCompletion Date: " + (mCompletionDate.isBlank() ? "Not Complete" : mCompletionDate)); //$NON-NLS-1$ //$NON-NLS-2$
 		sb.append("\n"); //$NON-NLS-1$
 
 		return sb.toString();
+	}
+
+	@Override
+	public boolean successRoll() {
+		// success roll
+		// "1D20 + 1/2 level >= stat"
+
+		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
+		int level = characterSheet.getHeaderRecord().getLevel();
+		int stat = characterSheet.getAttributesRecord().getModifiedStat(mAttribute);
+		boolean appRolls = PreferenceStore.getInstance().isAppRollsDice();
+
+		return false;
 	}
 
 	/*****************************************************************************
@@ -95,41 +98,6 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	/** @return The attribute. */
 	public int getAttribute() {
 		return mAttribute;
-	}
-
-	/** @return The dPPerWeek. */
-	public int getDPPerWeek() {
-		return mDPPerWeek;
-	}
-
-	/** @return The dPTotalSpent. */
-	public int getDPTotalSpent() {
-		return mDPTotalSpent;
-	}
-
-	/** @return The dPCost. */
-	public int getDPCost() {
-		return mDPCost;
-	}
-
-	/** @return The maintainence. */
-	public boolean hasMaintainence() {
-		return mMaintainence;
-	}
-
-	/** @return The successful. */
-	public boolean isSuccessful() {
-		return mSuccessful;
-	}
-
-	/** @return The startDate. */
-	public String getStartDate() {
-		return mStartDate;
-	}
-
-	/** @return The completionDate. */
-	public String getCompletionDate() {
-		return mCompletionDate;
 	}
 
 	/*****************************************************************************
@@ -179,6 +147,7 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 		br.write(TKStringHelpers.TAB + MAINTAINENCE_KEY + TKStringHelpers.SPACE + mMaintainence + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + LAST_UPDATE_KEY + TKStringHelpers.SPACE + mLastUpdate + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
 
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
@@ -201,6 +170,8 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 			mSuccessful = TKStringHelpers.getBoolValue(value, false);
 		} else if (START_DATE_KEY.equals(key)) {
 			mStartDate = value;
+		} else if (LAST_UPDATE_KEY.equals(key)) {
+			setLastUpdate(value);
 		} else if (COMPLETION_DATE_KEY.equals(key)) {
 			mCompletionDate = value;
 		} else {

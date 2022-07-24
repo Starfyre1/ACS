@@ -47,6 +47,7 @@ import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.MagicItemList;
 import com.starfyre1.dataset.PriestList;
 import com.starfyre1.dataset.WeaponList;
+import com.starfyre1.interfaces.CampaignDateListener;
 import com.starfyre1.startup.ACS;
 import com.starfyre1.startup.SystemInfo;
 import com.starfyre1.storage.HistoryManager;
@@ -175,6 +176,8 @@ public class CharacterSheet implements ActionListener {
 
 	private JMenuItem						mMarketPlaceMenuItem;
 
+	private ArrayList<CampaignDateListener>	mCampaignDateListeners;
+
 	// Data Files
 	private AttributesRecord				mAttributesRecord;
 	private CombatInformationRecord			mCombatInformationRecord;
@@ -254,6 +257,8 @@ public class CharacterSheet implements ActionListener {
 				saveOption(true);
 			}
 		});
+
+		mCampaignDateListeners = new ArrayList<CampaignDateListener>();
 
 		createMainMenu();
 
@@ -589,7 +594,7 @@ public class CharacterSheet implements ActionListener {
 		mWeaponList = new WeaponList();
 		mAnimalList = new AnimalList();
 		mMagicItemList = new MagicItemList();
-		mDeterminationList = new DeterminationList();
+		mDeterminationList = new DeterminationList(this);
 
 		loadDisplay();
 		mJournalTab.characterCreated();
@@ -620,7 +625,7 @@ public class CharacterSheet implements ActionListener {
 		mWeaponList = new WeaponList();
 		mAnimalList = new AnimalList();
 		mMagicItemList = new MagicItemList();
-		mDeterminationList = new DeterminationList();
+		mDeterminationList = new DeterminationList(this);
 
 		openFile(file);
 
@@ -898,6 +903,31 @@ public class CharacterSheet implements ActionListener {
 		}
 	}
 
+	public void updateAttributeRecords(boolean generate) {
+		if (mSavingThrowsRecord != null) {
+			mSavingThrowsRecord.updateRecord();
+			mCombatInformationRecord.updateRecord();
+			mSkillsRecord.updateRecord();
+			if (generate) {
+				mPersonalInformationRecord.generate();
+			} else {
+				mPersonalInformationRecord.generateCarry();
+			}
+
+			// DW this is probably loading the display twice on character load.
+			mSavingThrowsDisplay.loadDisplay();
+			//mDeterminationPointsDisplay.loadDisplay();
+			mDefenseInformationDisplay.loadDisplay();
+			mSkillsDisplay.loadDisplay();
+
+			updateForEncubrance();
+			mCombatInformationDisplay.loadDisplay();
+			//mHeaderDisplay.updateClassPopup();
+			//mInnateAbilitiesDisplay.loadDisplay();
+			mPersonalInformationDisplay.loadDisplay();
+		}
+	}
+
 	/**
 	 * @param purchasedItems
 	 */
@@ -1006,6 +1036,29 @@ public class CharacterSheet implements ActionListener {
 		mMoneyRecord.receive(cost);
 		mWeaponOwnedDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
+	}
+
+	/**
+	 * Calls all who want to know when the campaign date has changed.
+	 */
+	public void fireDateUpdated(String date) {
+		for (CampaignDateListener listener : mCampaignDateListeners) {
+			listener.dateUpdated(date);
+		}
+	}
+
+	/**
+	 * add listener to list.
+	 */
+	public void addCampaignDateListener(CampaignDateListener listener) {
+		mCampaignDateListeners.add(listener);
+	}
+
+	/**
+	 * remove listener from list.
+	 */
+	public void remvoeCampaignDateListener(CampaignDateListener listener) {
+		mCampaignDateListeners.remove(listener);
 	}
 
 	/*****************************************************************************
@@ -1543,4 +1596,5 @@ public class CharacterSheet implements ActionListener {
 			mCombatInformationDisplay.updateToolTips();
 		}
 	}
+
 }

@@ -2,14 +2,18 @@
 
 package com.starfyre1.dataset;
 
+import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.character.SkillsDisplay;
+import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
+import com.starfyre1.dataModel.determination.DeterminationRecord;
 import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
 import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
 import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
 import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
+import com.starfyre1.interfaces.CampaignDateListener;
 import com.starfyre1.interfaces.Savable;
 
 import java.io.BufferedReader;
@@ -18,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class DeterminationList implements Savable {
+public class DeterminationList implements Savable, CampaignDateListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -40,6 +44,12 @@ public class DeterminationList implements Savable {
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
+	/**
+	 * Creates a new {@link DeterminationList}.
+	 */
+	public DeterminationList(CharacterSheet owner) {
+		owner.addCampaignDateListener(this);
+	}
 
 	/*****************************************************************************
 	 * Methods
@@ -114,6 +124,64 @@ public class DeterminationList implements Savable {
 		mWeaponsTeachersRecords = new ArrayList<>(16);
 		mSkillsTeachersRecords = new ArrayList<>(16);
 		mThiefTeachersRecords = new ArrayList<>(16);
+	}
+
+	@Override
+	public void dateUpdated(String date) {
+		for (AttributeDeterminationRecord record : mAttribRecords) {
+			if (weekUp(record, date)) {
+				updateRecord(record, date);
+			}
+			System.out.println(record.toString());
+		}
+		for (LanguageDeterminationRecord record : mLanguageRecords) {
+			if (weekUp(record, date)) {
+				updateRecord(record, date);
+			}
+			System.out.println(record.toString());
+		}
+		for (MagicSpellDeterminationRecord record : mMagicSpellRecords) {
+			if (weekUp(record, date)) {
+				updateRecord(record, date);
+			}
+			System.out.println(record.toString());
+		}
+		for (SkillDeterminationRecord record : mSkillRecords) {
+			if (weekUp(record, date)) {
+				updateRecord(record, date);
+			}
+			System.out.println(record.toString());
+		}
+		for (WeaponProficiencyDeterminationRecord record : mWeaponRecords) {
+			if (weekUp(record, date)) {
+				updateRecord(record, date);
+			}
+			System.out.println(record.toString());
+		}
+	}
+
+	private void updateRecord(DeterminationRecord record, String date) {
+		record.setLastUpdate(date);
+		record.setDPTotalSpent(record.getDPTotalSpent() + record.getDPPerWeek());
+		if (record.getDPTotalSpent() >= record.getDPCost()) {
+			record.setCompletionDate(date);
+			determinationComplete(record);
+		} else {
+			// is dp/week > dpCost ... reduce dp/week to what's left
+			// notify player of any changes
+		}
+	}
+
+	private void determinationComplete(DeterminationRecord record) {
+		record.setSuccessful(record.successRoll());
+		// update affected areas
+	}
+
+	private boolean weekUp(DeterminationRecord record, String date) {
+		if (CampaignDateChooser.getCampaignDateIndex(date) - CampaignDateChooser.getCampaignDateIndex(record.getStartDate()) > 6) {
+			return true;
+		}
+		return false;
 	}
 
 	/*****************************************************************************

@@ -376,7 +376,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		for (int i = 0; i < ROWS; i++) {
 			if (!(mSpellLabel[i].getText().isBlank() || mSchoolPopup[i].getSelectedItem().equals(MagicAreaPopup.SELECT_MAGIC_AREA) || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new MagicSpellDeterminationRecord(mSpellLabel[i].getText().trim(), mSchoolPopup[i].getSelectedItem(), TKStringHelpers.getFloatValue(mCostField[i].getText().trim(), 0f), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), mDPCost[i], campaignDate));
+				list.add(new MagicSpellDeterminationRecord(mSpellLabel[i].getText().trim(), mSchoolPopup[i].getSelectedItem(), TKStringHelpers.getFloatValue(mCostField[i].getText().trim(), 0f), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), mDPCost[i], campaignDate, campaignDate));
 			}
 		}
 		return list;

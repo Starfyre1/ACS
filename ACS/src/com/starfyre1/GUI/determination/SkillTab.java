@@ -288,7 +288,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		for (int i = 0; i < ROWS; i++) {
 			if (!(mSkillsPopup[i].getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new SkillDeterminationRecord(mSkillsPopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
+				list.add(new SkillDeterminationRecord(mSkillsPopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate, campaignDate));
 			}
 		}
 		return list;

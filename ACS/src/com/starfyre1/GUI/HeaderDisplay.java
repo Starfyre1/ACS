@@ -128,12 +128,14 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				CampaignDateChooser cal = new CampaignDateChooser(((CharacterSheet) getOwner()).getFrame(), CampaignDateChooser.parseCampaignDate(CampaignDateChooser.getCampaignDate()));
+				CharacterSheet characterSheet = (CharacterSheet) getOwner();
+				CampaignDateChooser cal = new CampaignDateChooser(characterSheet.getFrame(), CampaignDateChooser.parseCampaignDate(CampaignDateChooser.getCampaignDate()));
 				String date = cal.getSelectedDate();
-				if (!date.isEmpty()) {
+				if (!(date.isEmpty() || date.equals(CampaignDateChooser.getCampaignDate()))) {
 					CampaignDateChooser.setCampaignDate(date);
 					mCampaignButton.setText(cal.getDisplayableDate());
-					((CharacterSheet) getOwner()).getJournalTab().gameDayStartQuestion();
+					characterSheet.getJournalTab().gameDayStartQuestion();
+					characterSheet.fireDateUpdated(date);
 				}
 			}
 		});

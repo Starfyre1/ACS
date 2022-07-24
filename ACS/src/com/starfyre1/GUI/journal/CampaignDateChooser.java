@@ -37,6 +37,18 @@ public class CampaignDateChooser extends DateChooser {
 	private static int			mButtonCampaignMonth;																																																						// 0=January... 15=Winter
 	private static int			mButtonCampaignDay;
 
+	public static int getCampaignDateIndex(String date) {
+		int dates[] = parseCampaignDate(date);
+		int monthDays = 0;
+		for (int i = 0; i < dates[0] + 1; i++) {
+			monthDays += DATES[i];
+		}
+
+		int index = monthDays + dates[1] + dates[2] * 364;
+
+		return index;
+	}
+
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/

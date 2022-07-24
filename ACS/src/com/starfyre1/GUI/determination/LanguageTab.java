@@ -372,7 +372,7 @@ public class LanguageTab extends DeterminationTab {
 		for (int i = 0; i < ROWS; i++) {
 			if (!(mLangPopup[i].getSelectedItem().equals(CHOOSE_LANGUAGE) || mDPPerWeekField[i].getText().isBlank() || mSourcePopup[i].getSelectedItem().equals(CHOOSE_SOURCE))) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new LanguageDeterminationRecord(mLangPopup[i].getSelectedItem(), mSourcePopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), mCostLabel[i], campaignDate));
+				list.add(new LanguageDeterminationRecord(mLangPopup[i].getSelectedItem(), mSourcePopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), mCostLabel[i], campaignDate, campaignDate));
 			}
 		}
 		return list;

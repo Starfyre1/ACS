@@ -293,7 +293,7 @@ public class AttributesTab extends DeterminationTab {
 		for (int i = 0; i < ROWS; i++) {
 			if (!(mAttrPopup[i].getSelectedItem().equals(CHOOSE_ATTRIBUTE) || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new AttributeDeterminationRecord(getAttributeNumber(mAttrPopup[i].getSelectedItem()), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate));
+				list.add(new AttributeDeterminationRecord(getAttributeNumber(mAttrPopup[i].getSelectedItem()), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate, campaignDate));
 			}
 		}
 		return list;

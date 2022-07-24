@@ -19,26 +19,12 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 
 	private static final String	WEAPON_KEY				= "WEAPON_KEY";										//$NON-NLS-1$
 	private static final String	TEACHER_KEY				= "TEACHER_KEY";									//$NON-NLS-1$
-	private static final String	BONUS_KEY				= "BONUS_KEY";										//$NON-NLS-1$
-	private static final String	DP_PER_WEEK_KEY			= "DP_PER_WEEK_KEY";								//$NON-NLS-1$
-	private static final String	DP_TOTAL_SPENT_KEY		= "DP_TOTAL_SPENT_KEY";								//$NON-NLS-1$
-	private static final String	DP_COST_KEY				= "DP_COST_KEY";									//$NON-NLS-1$
-	private static final String	SUCCESSFUL_KEY			= "SUCCESSFUL_KEY";									//$NON-NLS-1$
-	private static final String	START_DATE_KEY			= "START_DATE_KEY";									//$NON-NLS-1$
-	private static final String	COMPLETION_DATE_KEY		= "COMPLETION_DATE_KEY";							//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	String						mWeapon					= TKStringHelpers.EMPTY_STRING;
 	int							mTeacher				= 0;
-	int							mBonus					= 0;
-	int							mDPPerWeek				= 0;
-	int							mDPTotalSpent			= 0;
-	int							mDPCost					= 0;
-	boolean						mSuccessful				= false;
-	String						mStartDate				= "";												//$NON-NLS-1$
-	String						mCompletionDate			= "";												//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -53,12 +39,14 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	/**
 	 * Creates a new {@link WeaponProficiencyDeterminationRecord}.
 	 */
-	public WeaponProficiencyDeterminationRecord(String weapon, int teacher, int dpPerWeek, int cost, String startDate) {
+	public WeaponProficiencyDeterminationRecord(String weapon, int teacher, int bonus, int dpPerWeek, int cost, String startDate, String lastUpdate) {
 		mWeapon = weapon;
 		mTeacher = teacher;
+		mBonus = bonus;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
 		mStartDate = startDate;
+		setLastUpdate(lastUpdate);
 	}
 
 	/*****************************************************************************
@@ -76,10 +64,18 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost); //$NON-NLS-1$ //$NON-NLS-2$
 		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
 		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
+		sb.append("\nLast Update: " + mLastUpdate); //$NON-NLS-1$
 		sb.append("\nCompletion Date: " + (mCompletionDate.isBlank() ? "Not Complete" : mCompletionDate)); //$NON-NLS-1$ //$NON-NLS-2$
 		sb.append("\n"); //$NON-NLS-1$
 
 		return sb.toString();
+	}
+
+	@Override
+	public boolean successRoll() {
+		// success roll
+		// "1D20 < (Dexerity)"
+		return false;
 	}
 
 	/*****************************************************************************
@@ -94,41 +90,6 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	/** @return The teacher. */
 	public int getTeacher() {
 		return mTeacher;
-	}
-
-	/** @return The bonus. */
-	public int getBonus() {
-		return mBonus;
-	}
-
-	/** @return The dPPerWeek. */
-	public int getDPPerWeek() {
-		return mDPPerWeek;
-	}
-
-	/** @return The dPTotalSpent. */
-	public int getDPTotalSpent() {
-		return mDPTotalSpent;
-	}
-
-	/** @return The dPCost. */
-	public int getDPCost() {
-		return mDPCost;
-	}
-
-	/** @return The successful. */
-	public boolean isSuccessful() {
-		return mSuccessful;
-	}
-
-	/** @return The startDate. */
-	public String getStartDate() {
-		return mStartDate;
-	}
-
-	/** @return The completionDate. */
-	public String getCompletionDate() {
-		return mCompletionDate;
 	}
 
 	/*****************************************************************************
@@ -179,6 +140,7 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 		br.write(TKStringHelpers.TAB + DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + LAST_UPDATE_KEY + TKStringHelpers.SPACE + mLastUpdate + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
 
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
@@ -203,6 +165,8 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 			mSuccessful = TKStringHelpers.getBoolValue(value, false);
 		} else if (START_DATE_KEY.equals(key)) {
 			mStartDate = value;
+		} else if (LAST_UPDATE_KEY.equals(key)) {
+			setLastUpdate(value);
 		} else if (COMPLETION_DATE_KEY.equals(key)) {
 			mCompletionDate = value;
 		} else {

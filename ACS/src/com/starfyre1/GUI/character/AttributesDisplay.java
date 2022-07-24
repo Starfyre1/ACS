@@ -212,7 +212,7 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 				@Override
 				public void run() {
 					try {
-						((CharacterSheet) getOwner()).updateRecords();
+						((CharacterSheet) getOwner()).updateAttributeRecords(false);
 					} catch (Exception ex) {
 						System.err.println(ex);
 					}

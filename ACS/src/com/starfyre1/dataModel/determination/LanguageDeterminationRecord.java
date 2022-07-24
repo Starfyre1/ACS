@@ -19,26 +19,12 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 
 	private static final String	LANGUAGE_KEY			= "LANGUAGE_KEY";							//$NON-NLS-1$
 	private static final String	SOURCE_KEY				= "SOURCE_KEY";								//$NON-NLS-1$
-	private static final String	DP_PER_WEEK_KEY			= "DP_PER_WEEK_KEY";						//$NON-NLS-1$
-	private static final String	DP_TOTAL_SPENT_KEY		= "DP_TOTAL_SPENT_KEY";						//$NON-NLS-1$
-	private static final String	DP_COST_KEY				= "DP_COST_KEY";							//$NON-NLS-1$
-	private static final String	MAINTAINENCE_KEY		= "MAINTAINENCE_KEY";						//$NON-NLS-1$
-	private static final String	SUCCESSFUL_KEY			= "SUCCESSFUL_KEY";							//$NON-NLS-1$
-	private static final String	START_DATE_KEY			= "START_DATE_KEY";							//$NON-NLS-1$
-	private static final String	COMPLETION_DATE_KEY		= "COMPLETION_DATE_KEY";					//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	String						mLanguage				= TKStringHelpers.EMPTY_STRING;
 	String						mSource					= TKStringHelpers.EMPTY_STRING;
-	int							mDPPerWeek				= 0;
-	int							mDPTotalSpent			= 0;
-	int							mDPCost					= 0;
-	boolean						mMaintainence			= false;
-	boolean						mSuccessful				= false;
-	String						mStartDate				= "";										//$NON-NLS-1$
-	String						mCompletionDate			= "";										//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -53,12 +39,13 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	/**
 	 * Creates a new {@link LanguageDeterminationRecord}.
 	 */
-	public LanguageDeterminationRecord(String language, String source, int dpPerWeek, int cost, String startDate) {
+	public LanguageDeterminationRecord(String language, String source, int dpPerWeek, int cost, String startDate, String lastUpdate) {
 		mLanguage = language;
 		mSource = source;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
 		mStartDate = startDate;
+		setLastUpdate(lastUpdate);
 	}
 
 	/*****************************************************************************
@@ -76,10 +63,18 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 		sb.append("\nMaintainence cost: " + (mMaintainence ? 1 : 0)); //$NON-NLS-1$
 		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
 		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
+		sb.append("\nLast Update: " + mLastUpdate); //$NON-NLS-1$
 		sb.append("\nCompletion Date: " + (mCompletionDate.isBlank() ? "Not Complete" : mCompletionDate)); //$NON-NLS-1$ //$NON-NLS-2$
 		sb.append("\n"); //$NON-NLS-1$
 
 		return sb.toString();
+	}
+
+	@Override
+	public boolean successRoll() {
+		// success roll
+		// "1D20 - (1/4 level) < (Wisdom)"
+		return false;
 	}
 
 	/*****************************************************************************
@@ -94,41 +89,6 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 	/** @return The source. */
 	public String getSource() {
 		return mSource;
-	}
-
-	/** @return The dPPerWeek. */
-	public int getDPPerWeek() {
-		return mDPPerWeek;
-	}
-
-	/** @return The dPTotalSpent. */
-	public int getDPTotalSpent() {
-		return mDPTotalSpent;
-	}
-
-	/** @return The dPCost. */
-	public int getDPCost() {
-		return mDPCost;
-	}
-
-	/** @return The maintainence. */
-	public boolean hasMaintainence() {
-		return mMaintainence;
-	}
-
-	/** @return The successful. */
-	public boolean isSuccessful() {
-		return mSuccessful;
-	}
-
-	/** @return The startDate. */
-	public String getStartDate() {
-		return mStartDate;
-	}
-
-	/** @return The completionDate. */
-	public String getCompletionDate() {
-		return mCompletionDate;
 	}
 
 	/*****************************************************************************
@@ -179,6 +139,7 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 		br.write(TKStringHelpers.TAB + MAINTAINENCE_KEY + TKStringHelpers.SPACE + mMaintainence + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + LAST_UPDATE_KEY + TKStringHelpers.SPACE + mLastUpdate + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
 
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
@@ -203,6 +164,8 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 			mSuccessful = TKStringHelpers.getBoolValue(value, false);
 		} else if (START_DATE_KEY.equals(key)) {
 			mStartDate = value;
+		} else if (LAST_UPDATE_KEY.equals(key)) {
+			setLastUpdate(value);
 		} else if (COMPLETION_DATE_KEY.equals(key)) {
 			mCompletionDate = value;
 		} else {
