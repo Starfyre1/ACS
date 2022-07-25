@@ -4,6 +4,7 @@ package com.starfyre1.dataModel.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.determination.AttributesTab;
+import com.starfyre1.ToolKit.TKDice;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
@@ -13,6 +14,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
+
+import javax.swing.JOptionPane;
 
 public class AttributeDeterminationRecord extends DeterminationRecord implements Savable {
 	/*****************************************************************************
@@ -81,11 +84,19 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 		// "1D20 + 1/2 level >= stat"
 
 		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
-		int level = characterSheet.getHeaderRecord().getLevel();
-		int stat = characterSheet.getAttributesRecord().getModifiedStat(mAttribute);
-		boolean appRolls = PreferenceStore.getInstance().isAppRollsDice();
+		int roll;
 
-		return false;
+		if (PreferenceStore.getInstance().isAppRollsDice()) {
+			roll = TKDice.roll(20);
+		} else {
+			do {
+				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D20 roll", "Roll for Determination Success", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
+				roll = TKStringHelpers.getIntValue(result, 0);
+			} while (roll == 0);
+		}
+		roll += characterSheet.getHeaderRecord().getLevel() / 2;
+		System.out.println(roll);
+		return roll >= characterSheet.getAttributesRecord().getModifiedStat(mAttribute);
 	}
 
 	/*****************************************************************************
