@@ -82,6 +82,19 @@ public class MageList extends ClassList {
 		};
 	}
 
+	/**
+	 * @param stats (Intelligence + Wisdom) / 2
+	 * @param spellPower The Spells Power Level (0-8)
+	 * @param charLevel The Characters Level
+	 * @return The percentage chance of success
+	 */
+	public static int spellResearchChance(int stats, int spellPower, int charLevel) {
+		int chance = (stats - 10) * 5 + 35;
+		chance -= spellPower * 20;
+		chance += 10 * charLevel;
+		return chance;
+	}
+
 	public ClassesRecord getRecord(String name) {
 		for (ClassesRecord element : mMagesList) {
 			if (element.getName().equals(name)) {
