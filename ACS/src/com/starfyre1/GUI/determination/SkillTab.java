@@ -119,8 +119,8 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 				mBonusLabel[i].setText(String.valueOf(record.getBonus()));
 				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
 				mUsedLabel[i].setText(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
-				// DW _Count successful vs attempted
 				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));
+				// DW _Count successful vs attempted
 				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 				mStartDateLabel[i].setText(record.getStartDate());
 				mCompletionDateLabel[i].setText(record.getCompletionDate());

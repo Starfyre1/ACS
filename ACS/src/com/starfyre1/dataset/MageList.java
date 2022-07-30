@@ -92,6 +92,10 @@ public class MageList extends ClassList {
 		int chance = (stats - 10) * 5 + 35;
 		chance -= spellPower * 20;
 		chance += 10 * charLevel;
+		// 96-100 always fails
+		if (chance > 95) {
+			chance = 95;
+		}
 		return chance;
 	}
 

@@ -90,7 +90,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		return wrapper;
 	}
 
-	private void updateValues() {
+	public void updateValues() {
 		mPointsPerWeekLabel.setText(TKStringHelpers.EMPTY_STRING + (getDeterminationPoints() - getDeterminationPointsSpent()));
 
 		int count = mTabbedPane.getTabCount();

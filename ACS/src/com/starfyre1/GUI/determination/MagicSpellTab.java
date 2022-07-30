@@ -12,9 +12,11 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKPopupMenu.ComboMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
 import com.starfyre1.dataset.DeterminationList;
+import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.startup.ACS;
 
@@ -47,6 +49,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	private static final String	COST_LABEL				= "$ Cost:";														//$NON-NLS-1$
 	private static final String	SPELL_LABEL				= "Spell:";															//$NON-NLS-1$
 	private static final String	SCHOOL_LABEL			= "School:";														//$NON-NLS-1$
+	private static final String	RESEARCH_CHANCE			= "Chance:";														//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constants
@@ -75,6 +78,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	private JLabel[]			mUsedLabel;
 	private int[]				mDPCost;
 	private int[]				mCurrentlySpentLabel;
+	private JLabel[]			mResearchChanceLabel;
 	private JLabel[]			mSuccessfulLabel;
 	private JLabel[]			mStartDateLabel;
 	private JLabel[]			mCompletionDateLabel;
@@ -144,8 +148,15 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 					mSpellLabel[index].setForeground(getOldColor(index));
 					setOldColor(index, null);
 					mDPCost[index] = getDPCost(record);
-					//					mUsedLabel[index].setText(mCurrentlySpentLabel[index] + " / " + mDPCost[index]); //$NON-NLS-1$
-					mUsedLabel[index].setText("384 / " + mDPCost[index]); //$NON-NLS-1$
+					mUsedLabel[index].setText(mCurrentlySpentLabel[index] + " / " + mDPCost[index]); //$NON-NLS-1$
+
+					CharacterSheet owner = ACS.getInstance().getCharacterSheet();
+					AttributesRecord attr = owner.getAttributesRecord();
+					int stats = (attr.getModifiedStat(AttributesRecord.INT) + attr.getModifiedStat(AttributesRecord.WIS)) / 2;
+					int spellPower = record.getLevel();
+					int charLevel = owner.getHeaderRecord().getLevel();
+					mResearchChanceLabel[index].setText(String.valueOf(MageList.spellResearchChance(stats, spellPower, charLevel)));
+					mResearchChanceLabel[index].revalidate();
 				}
 			} else {
 				mSpellLabel[index].removeMouseListener(this);
@@ -243,6 +254,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	@Override
 	protected void loadDisplay() {
 		ArrayList<MagicSpellDeterminationRecord> list = DeterminationList.getMagicSpellRecords();
+		CharacterSheet owner = ACS.getInstance().getCharacterSheet();
 		if (list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
 				MagicSpellDeterminationRecord record = list.get(i);
@@ -253,6 +265,11 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 				mDPCost[i] = record.getDPCost();
 				mCurrentlySpentLabel[i] = record.getDPTotalSpent();
 				mUsedLabel[i].setText(mCurrentlySpentLabel[i] + " / " + mDPCost[i]); //$NON-NLS-1$
+				AttributesRecord attr = owner.getAttributesRecord();
+				int stats = (attr.getModifiedStat(AttributesRecord.INT) + attr.getModifiedStat(AttributesRecord.WIS)) / 2;
+				int spellPower = 0;
+				int charLevel = owner.getHeaderRecord().getLevel();
+				mResearchChanceLabel[i].setText(String.valueOf(MageList.spellResearchChance(stats, spellPower, charLevel)));
 				// DW _Count successful vs attempted
 				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 				mStartDateLabel[i].setText(record.getStartDate());
@@ -284,6 +301,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		mUsedLabel = new JLabel[ROWS];
 		mCurrentlySpentLabel = new int[ROWS];
 		mDPCost = new int[ROWS];
+		mResearchChanceLabel = new JLabel[ROWS];
 		mSuccessfulLabel = new JLabel[ROWS];
 		mStartDateLabel = new JLabel[ROWS];
 		mCompletionDateLabel = new JLabel[ROWS];
@@ -294,6 +312,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		JPanel costPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel dpPerWeekPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
 		JPanel dpSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel researchChancePanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 		JPanel successfulPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
 		schoolPanel.add(new JLabel(SCHOOL_LABEL, SwingConstants.CENTER));
@@ -301,6 +320,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		costPanel.add(new JLabel(COST_LABEL, SwingConstants.CENTER));
 		dpPerWeekPanel.add(new JLabel(DP_WEEK_LABEL, SwingConstants.CENTER));
 		dpSpentPanel.add(new JLabel(USED_LABEL, SwingConstants.CENTER));
+		researchChancePanel.add(new JLabel(RESEARCH_CHANCE, SwingConstants.CENTER));
 		successfulPanel.add(new JLabel(SUCCESSFUL_LABEL, SwingConstants.CENTER));
 
 		Dimension size = new Dimension(CharacterSheet.FIELD_SIZE_MEDIUM, TEXT_FIELD_HEIGHT);
@@ -331,6 +351,12 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 			mUsedLabel[i].setSize(size);
 			dpSpentPanel.add(mUsedLabel[i]);
 
+			mResearchChanceLabel[i] = new JLabel(SUCCESS_TOOLTIP);
+			mResearchChanceLabel[i].setMinimumSize(size);
+			mResearchChanceLabel[i].setPreferredSize(size);
+			mResearchChanceLabel[i].setSize(size);
+			researchChancePanel.add(mResearchChanceLabel[i]);
+
 			mSuccessfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
 			mSuccessfulLabel[i].setMinimumSize(size);
 			mSuccessfulLabel[i].setPreferredSize(size);
@@ -341,6 +367,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		}
 		spellPanel.add(Box.createVerticalGlue());
 		dpSpentPanel.add(Box.createVerticalGlue());
+		researchChancePanel.add(Box.createVerticalGlue());
 		successfulPanel.add(Box.createVerticalGlue());
 
 		Dimension size1 = new Dimension(100, 200);
@@ -351,6 +378,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		outerWrapper.add(costPanel);
 		outerWrapper.add(dpPerWeekPanel);
 		outerWrapper.add(dpSpentPanel);
+		outerWrapper.add(researchChancePanel);
 		outerWrapper.add(successfulPanel);
 
 		updateEnabledState();

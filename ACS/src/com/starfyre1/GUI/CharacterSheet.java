@@ -1323,6 +1323,10 @@ public class CharacterSheet implements ActionListener {
 		return true;
 	}
 
+	public DeterminationPointsDisplay getDeterminationPointsDisplay() {
+		return mDeterminationPointsDisplay;
+	}
+
 	public TKTable getArmorOwnedTable() {
 		return mArmorOwnedDisplay.getTable();
 	}

@@ -61,6 +61,11 @@ public class DeterminationRecord {
 		return mDPPerWeek;
 	}
 
+	/** @param dPPerWeek The value to set for dPPerWeek. */
+	public void setDPPerWeek(int dPPerWeek) {
+		mDPPerWeek = dPPerWeek;
+	}
+
 	/** @return The dPTotalSpent. */
 	public int getDPTotalSpent() {
 		return mDPTotalSpent;

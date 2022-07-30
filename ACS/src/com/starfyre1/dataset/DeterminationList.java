@@ -15,6 +15,7 @@ import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.interfaces.CampaignDateListener;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.startup.ACS;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -158,17 +159,24 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			}
 			System.out.println(record.toString());
 		}
+		ACS.getInstance().getCharacterSheet().getDeterminationPointsDisplay().updateValues();
 	}
 
 	private void updateRecord(DeterminationRecord record, String date) {
 		record.setLastUpdate(date);
 		record.setDPTotalSpent(record.getDPTotalSpent() + record.getDPPerWeek());
+		// update UI is done from calling method - dateUpdated(String date)
 		if (record.getDPTotalSpent() >= record.getDPCost()) {
 			record.setCompletionDate(date);
+			record.setDPPerWeek(0);
 			determinationComplete(record);
 		} else {
 			// is dp/week > dpCost ... reduce dp/week to what's left
-			// notify player of any changes
+			if (record.getDPCost() - (record.getDPTotalSpent() + record.getDPPerWeek()) < 0) {
+				record.setDPPerWeek(record.getDPCost() - record.getDPTotalSpent());
+				// notify player of any changes
+			}
+
 		}
 	}
 
