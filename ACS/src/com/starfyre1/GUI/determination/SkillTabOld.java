@@ -33,7 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class SkillTab extends DeterminationTab implements ItemListener {
+public class SkillTabOld extends DeterminationTab implements ItemListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -69,11 +69,11 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	 ****************************************************************************/
 
 	/**
-	 * Creates a new {@link SkillTab}.
+	 * Creates a new {@link SkillTabOld}.
 	 *
 	 * @param owner
 	 */
-	public SkillTab(Object owner) {
+	public SkillTabOld(Object owner) {
 		super(owner, SKILL_TAB_TITLE);
 	}
 
@@ -273,6 +273,15 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public int getDPPerWeekTabTotal() {
+		int pointsSpent = 0;
+		for (int i = 0; i < ROWS; i++) {
+			pointsSpent += TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0);
+		}
+		return pointsSpent;
+	}
+
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {

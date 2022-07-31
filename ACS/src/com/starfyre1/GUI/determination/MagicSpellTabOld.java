@@ -42,7 +42,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class MagicSpellTab extends DeterminationTab implements ItemListener, MouseListener {
+public class MagicSpellTabOld extends DeterminationTab implements ItemListener, MouseListener {
 	private static final String	SUCCESSFUL_LABEL		= "Successful:";													//$NON-NLS-1$
 	private static final String	USED_LABEL				= "   Used:    ";													//$NON-NLS-1$
 	private static final String	DP_WEEK_LABEL			= "DP/Week";														//$NON-NLS-1$
@@ -89,11 +89,11 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link MagicSpellTab}.
+	 * Creates a new {@link MagicSpellTabOld}.
 	 *
 	 * @param owner
 	 */
-	public MagicSpellTab(Object owner) {
+	public MagicSpellTabOld(Object owner) {
 		super(owner, MAGIC_SPELL_TAB_TITLE);
 	}
 
@@ -389,6 +389,15 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public int getDPPerWeekTabTotal() {
+		int pointsSpent = 0;
+		for (int i = 0; i < ROWS; i++) {
+			pointsSpent += TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0);
+		}
+		return pointsSpent;
+	}
+
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {

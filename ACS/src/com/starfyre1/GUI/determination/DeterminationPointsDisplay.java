@@ -29,6 +29,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	private static final String		DETERMINATION_POINTS_TITLE	= "Determination Points";		//$NON-NLS-1$
 
 	private static final String		POINTS_WEEK_LABEL			= "Remaining Points this Week";	//$NON-NLS-1$
+	private static final String		USED_POINTS_WEEK_LABEL		= "Used Points this Week";		//$NON-NLS-1$
 
 	//	private static final String		ASSIGN_POINTS				= "Assign Points";				//$NON-NLS-1$
 
@@ -38,6 +39,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	 * Member Variables
 	 ****************************************************************************/
 	private JLabel					mPointsPerWeekLabel;
+	private int						mDeterminationPointsSpent;
 	private JTabbedPane				mTabbedPane;
 
 	/*****************************************************************************
@@ -61,19 +63,19 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	private JPanel getDeterminationDisplay() {
 		mTabbedPane = new JTabbedPane();
 
-		JComponent attributesTab = new AttributesTab(this);
-		JComponent languageTab = new LanguageTab(this);
-		JComponent magicSpellTab = new MagicSpellTab(this);
-		JComponent weaponProficiencyTab = new WeaponProficiencyTab(this);
-		JComponent skillTab = new SkillTab(this);
-		JComponent teacherTab = new TeacherTab(this);
+		JComponent attributesTab = new AttributesTabOld(this);
+		JComponent languageTab = new LanguageTabOld(this);
+		JComponent magicSpellTab = new MagicSpellTabOld(this);
+		JComponent weaponProficiencyTab = new WeaponProficiencyTabOld(this);
+		JComponent skillTab = new SkillTabOld(this);
+		JComponent teacherTab = new TeacherTabOld(this);
 
-		mTabbedPane.addTab(AttributesTab.PHYSICAL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, attributesTab, AttributesTab.PHYSICAL_TAB_TOOLTIP);
-		mTabbedPane.addTab(LanguageTab.LANGUAGE_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, languageTab, LanguageTab.LANGUAGE_TAB_TOOLTIP);
-		mTabbedPane.addTab(MagicSpellTab.MAGIC_SPELL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, magicSpellTab, MagicSpellTab.MAGIC_SPELL_TAB_TOOLTIP);
-		mTabbedPane.addTab(WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, weaponProficiencyTab, WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TOOLTIP);
-		mTabbedPane.addTab(SkillTab.SKILL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, skillTab, SkillTab.SKILL_TAB_TOOLTIP);
-		mTabbedPane.addTab(TeacherTab.TEACHER_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, teacherTab, TeacherTab.TEACHER_TAB_TOOLTIP);
+		mTabbedPane.addTab(AttributesTabOld.PHYSICAL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, attributesTab, AttributesTabOld.PHYSICAL_TAB_TOOLTIP);
+		mTabbedPane.addTab(LanguageTabOld.LANGUAGE_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, languageTab, LanguageTabOld.LANGUAGE_TAB_TOOLTIP);
+		mTabbedPane.addTab(MagicSpellTabOld.MAGIC_SPELL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, magicSpellTab, MagicSpellTabOld.MAGIC_SPELL_TAB_TOOLTIP);
+		mTabbedPane.addTab(WeaponProficiencyTabOld.WEAPON_PROFICIENCY_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, weaponProficiencyTab, WeaponProficiencyTabOld.WEAPON_PROFICIENCY_TAB_TOOLTIP);
+		mTabbedPane.addTab(SkillTabOld.SKILL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, skillTab, SkillTabOld.SKILL_TAB_TOOLTIP);
+		mTabbedPane.addTab(TeacherTabOld.TEACHER_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, teacherTab, TeacherTabOld.TEACHER_TAB_TOOLTIP);
 
 		mTabbedPane.setMnemonicAt(0, KeyEvent.VK_A);
 		mTabbedPane.setMnemonicAt(1, KeyEvent.VK_L);
@@ -91,20 +93,24 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	}
 
 	public void updateValues() {
-		mPointsPerWeekLabel.setText(TKStringHelpers.EMPTY_STRING + (getDeterminationPoints() - getDeterminationPointsSpent()));
 
 		int count = mTabbedPane.getTabCount();
+		int pointsSpent = 0;
 
 		for (int i = 0; i < count; i++) {
 			Component comp = mTabbedPane.getComponent(i);
 			if (comp != null) {
-				((DeterminationTab) comp).loadDisplay();
+				DeterminationTab tab = (DeterminationTab) comp;
+				tab.loadDisplay();
+				pointsSpent += tab.getDPPerWeekTabTotal();
 			}
 		}
+		mDeterminationPointsSpent = pointsSpent;
+		mPointsPerWeekLabel.setText(TKStringHelpers.EMPTY_STRING + (getDeterminationPoints() - getDeterminationPointsSpent()));
 	}
 
 	private int getDeterminationPointsSpent() {
-		return 0;
+		return mDeterminationPointsSpent;
 	}
 
 	public int getDeterminationPoints() {

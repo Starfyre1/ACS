@@ -33,7 +33,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class WeaponProficiencyTab extends DeterminationTab {
+public class WeaponProficiencyTabOld extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -70,11 +70,11 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link WeaponProficiencyTab}.
+	 * Creates a new {@link WeaponProficiencyTabOld}.
 	 *
 	 * @param owner
 	 */
-	public WeaponProficiencyTab(Object owner) {
+	public WeaponProficiencyTabOld(Object owner) {
 		super(owner, WEAPON_PROFICIENCY_TAB_TITLE);
 	}
 
@@ -111,7 +111,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			int index = getPanelIndex(menuItem);
 			// DW probably should remove ActionListener from JMenuItem's in mTeacherPopup's
 			mTeacherColumn.remove(mTeacherPopup[index]);
-			mTeacherPopup[index] = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+			mTeacherPopup[index] = new TKPopupMenu(TeacherTabOld.getTeacherPopup(this));
 			Dimension size3 = new Dimension(mTeacherPopup[index].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mTeacherPopup[index].setMinimumSize(size3);
 			mTeacherPopup[index].setPreferredSize(size3);
@@ -121,7 +121,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 
 	// This is if the teacher has just been set
 	private void updateBonusValueFromTeacher(JMenuItem menuItem) {
-		if (!menuItem.getText().equals(TeacherTab.SELECT_TEACHER)) {
+		if (!menuItem.getText().equals(TeacherTabOld.SELECT_TEACHER)) {
 			int index = getPanelIndex(menuItem);
 			TeacherDeterminationRecord teacherRecord = DeterminationList.getWeaponsTeacherRecord(menuItem.getText());
 			if (teacherRecord != null) {
@@ -178,8 +178,8 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			boolean enable = mWeaponPopup[i].getMenu().isEnabled() && mWeaponPopup[i].getSelectedItem() != SELECT_WEAPON;
 			mTeacherPopup[i].getMenu().setEnabled(enable);
 
-			mDPPerWeekField[i].setEnabled(mTeacherPopup[i].getSelectedItem() != TeacherTab.SELECT_TEACHER);
-			mDPPerWeekField[i].setEditable(mTeacherPopup[i].getSelectedItem() != TeacherTab.SELECT_TEACHER);
+			mDPPerWeekField[i].setEnabled(mTeacherPopup[i].getSelectedItem() != TeacherTabOld.SELECT_TEACHER);
+			mDPPerWeekField[i].setEditable(mTeacherPopup[i].getSelectedItem() != TeacherTabOld.SELECT_TEACHER);
 		}
 	}
 
@@ -194,9 +194,9 @@ public class WeaponProficiencyTab extends DeterminationTab {
 
 				// DW probably should remove ActionListener from JMenuItem's in mTeacherPopup's
 				mTeacherColumn.remove(mTeacherPopup[i]);
-				mTeacherPopup[i] = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+				mTeacherPopup[i] = new TKPopupMenu(TeacherTabOld.getTeacherPopup(this));
 				TeacherDeterminationRecord teacherRecord = DeterminationList.getTeacher(record.getTeacher());
-				mTeacherPopup[i].selectPopupMenuItem(teacherRecord == null ? TeacherTab.SELECT_TEACHER : teacherRecord.getTeacher());
+				mTeacherPopup[i].selectPopupMenuItem(teacherRecord == null ? TeacherTabOld.SELECT_TEACHER : teacherRecord.getTeacher());
 				Dimension size3 = new Dimension(mTeacherPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 				mTeacherPopup[i].setMinimumSize(size3);
 				mTeacherPopup[i].setPreferredSize(size3);
@@ -268,7 +268,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			mWeaponPopup[i].setPreferredSize(size2);
 			weaponColumn.add(mWeaponPopup[i]);
 
-			mTeacherPopup[i] = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+			mTeacherPopup[i] = new TKPopupMenu(TeacherTabOld.getTeacherPopup(this));
 			Dimension size3 = new Dimension(mTeacherPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
 			mTeacherPopup[i].setMinimumSize(size3);
 			mTeacherPopup[i].setPreferredSize(size3);
@@ -316,6 +316,15 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public int getDPPerWeekTabTotal() {
+		int pointsSpent = 0;
+		for (int i = 0; i < ROWS; i++) {
+			pointsSpent += TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0);
+		}
+		return pointsSpent;
+	}
+
 	private JMenu getWeaponsMenu() {
 		JMenu weaponPopupMenu = TKPopupMenu.createMenu(SELECT_WEAPON);
 
@@ -340,7 +349,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	@Override
 	protected boolean hasValidEntriesToLearn() {
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherPopup[i].getSelectedItem().equals(TeacherTab.SELECT_TEACHER) || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherPopup[i].getSelectedItem().equals(TeacherTabOld.SELECT_TEACHER) || mDPPerWeekField[i].getText().isBlank())) {
 				return true;
 			}
 		}
@@ -350,7 +359,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	public ArrayList<WeaponProficiencyDeterminationRecord> getRecordsToLearn() {
 		ArrayList<WeaponProficiencyDeterminationRecord> list = new ArrayList<>();
 		for (int i = 0; i < ROWS; i++) {
-			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherPopup[i].getSelectedItem().equals(TeacherTab.SELECT_TEACHER) || mDPPerWeekField[i].getText().isBlank())) {
+			if (!(mWeaponPopup[i].getSelectedItem().equals(SELECT_WEAPON) || mTeacherPopup[i].getSelectedItem().equals(TeacherTabOld.SELECT_TEACHER) || mDPPerWeekField[i].getText().isBlank())) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
 				list.add(new WeaponProficiencyDeterminationRecord(mWeaponPopup[i].getSelectedItem(), DeterminationList.getTeacherIdByName(mTeacherPopup[i].getSelectedItem()), TKStringHelpers.getIntValue(mBonusLabel[i].getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText(), 0), COST, campaignDate, campaignDate));
 			}

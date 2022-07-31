@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class LanguageTab extends DeterminationTab {
+public class LanguageTabOld extends DeterminationTab {
 
 	/*****************************************************************************
 	 * Constants
@@ -101,11 +101,11 @@ public class LanguageTab extends DeterminationTab {
 	 ****************************************************************************/
 
 	/**
-	 * Creates a new {@link LanguageTab}.
+	 * Creates a new {@link LanguageTabOld}.
 	 *
 	 * @param owner
 	 */
-	public LanguageTab(Object owner) {
+	public LanguageTabOld(Object owner) {
 		super(owner, LANGUAGE_TAB_TITLE);
 	}
 
@@ -313,6 +313,15 @@ public class LanguageTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public int getDPPerWeekTabTotal() {
+		int pointsSpent = 0;
+		for (int i = 0; i < ROWS; i++) {
+			pointsSpent += TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0);
+		}
+		return pointsSpent;
+	}
+
 	private JMenu getLanguagePopup() {
 		JMenu popupMenu = TKPopupMenu.createMenu(CHOOSE_LANGUAGE);
 

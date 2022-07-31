@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 
-public class TeacherTab extends DeterminationTab {
+public class TeacherTabOld extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -66,11 +66,11 @@ public class TeacherTab extends DeterminationTab {
 	 ****************************************************************************/
 
 	/**
-	 * Creates a new {@link TeacherTab}.
+	 * Creates a new {@link TeacherTabOld}.
 	 *
 	 * @param owner
 	 */
-	public TeacherTab(Object owner) {
+	public TeacherTabOld(Object owner) {
 		super(owner, TEACHER_TAB_TITLE);
 	}
 
@@ -223,6 +223,11 @@ public class TeacherTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public int getDPPerWeekTabTotal() {
+		return 0;
+	}
+
 	private JMenu getExpertisePopup() {
 		JMenu expertisePopupMenu = TKPopupMenu.createMenu(CHOOSE_EXPERTISE);
 

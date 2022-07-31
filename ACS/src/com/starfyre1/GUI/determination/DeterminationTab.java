@@ -4,7 +4,9 @@ package com.starfyre1.GUI.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
+import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,6 +26,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 public abstract class DeterminationTab extends TKTitledDisplay implements DocumentListener, ActionListener {
 
@@ -40,6 +44,7 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 	private JLabel				mSuccessLabel;
 	protected JButton			mLearnButton;
 	protected JButton			mGiveUpButton;
+	private boolean				mDPPerWeekError		= false;
 
 	/*****************************************************************************
 	 * Constructors
@@ -140,18 +145,41 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 	}
 
 	@Override
+	public void changedUpdate(DocumentEvent e) {
+		// no need
+	}
+
+	@Override
 	public void insertUpdate(DocumentEvent e) {
-		changedUpdate(e);
+		if (validateDPPerWeekInput(e)) {
+			DPPerWeekError(false);
+			updateDialogButtons();
+		} else {
+			DPPerWeekError(true);
+		}
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-		changedUpdate(e);
+		if (validateDPPerWeekInput(e)) {
+			updateDialogButtons();
+		}
 	}
 
-	@Override
-	public void changedUpdate(DocumentEvent e) {
-		updateDialogButtons();
+	private boolean validateDPPerWeekInput(DocumentEvent e) {
+		String text = null;
+		Document doc = e.getDocument();
+		try {
+			text = doc.getText(0, doc.getLength());
+		} catch (BadLocationException exception) {
+			exception.printStackTrace();
+		}
+
+		return getDPPerWeekTabTotal() + TKStringHelpers.getIntValue(text, 0) <= ACS.getInstance().getCharacterSheet().getDeterminationPointsDisplay().getDeterminationPoints();
+	}
+
+	private void DPPerWeekError(boolean isTrue) {
+		mDPPerWeekError = isTrue;
 	}
 
 	void updateButtons(boolean hasSelection, boolean hasPointsInvested) {
@@ -168,6 +196,7 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public abstract int getDPPerWeekTabTotal();
 
 	/*****************************************************************************
 	 * Serialization

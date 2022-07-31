@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class AttributesTab extends DeterminationTab {
+public class AttributesTabOld extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -71,11 +71,11 @@ public class AttributesTab extends DeterminationTab {
 	 ****************************************************************************/
 
 	/**
-	 * Creates a new {@link AttributesTab}.
+	 * Creates a new {@link AttributesTabOld}.
 	 *
 	 * @param owner
 	 */
-	public AttributesTab(Object owner) {
+	public AttributesTabOld(Object owner) {
 		super(owner, PHYSICAL_TAB_TITLE);
 	}
 
@@ -142,7 +142,7 @@ public class AttributesTab extends DeterminationTab {
 		if (list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
 				AttributeDeterminationRecord record = list.get(i);
-				mAttrPopup[i].selectPopupMenuItem(AttributesTab.ATTRIBUTE_NAMES[record.getAttribute()]);
+				mAttrPopup[i].selectPopupMenuItem(AttributesTabOld.ATTRIBUTE_NAMES[record.getAttribute()]);
 				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
 				mDPTotalSpentLabel[i].setText(String.valueOf(record.getDPTotalSpent()) + " / " + record.getDPCost()); //$NON-NLS-1$
 				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));
@@ -257,6 +257,15 @@ public class AttributesTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	@Override
+	public int getDPPerWeekTabTotal() {
+		int pointsSpent = 0;
+		for (int i = 0; i < ROWS; i++) {
+			pointsSpent += TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0);
+		}
+		return pointsSpent;
+	}
+
 	private JMenu getAttrPopup() {
 		JMenu popupMenu = TKPopupMenu.createMenu(CHOOSE_ATTRIBUTE);
 
