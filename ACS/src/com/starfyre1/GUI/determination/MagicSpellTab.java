@@ -42,7 +42,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class MagicSpellTabOld extends DeterminationTab implements ItemListener, MouseListener {
+public class MagicSpellTab extends DeterminationTab implements ItemListener, MouseListener {
 	private static final String	SUCCESSFUL_LABEL		= "Successful:";													//$NON-NLS-1$
 	private static final String	USED_LABEL				= "   Used:    ";													//$NON-NLS-1$
 	private static final String	DP_WEEK_LABEL			= "DP/Week";														//$NON-NLS-1$
@@ -89,11 +89,11 @@ public class MagicSpellTabOld extends DeterminationTab implements ItemListener, 
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link MagicSpellTabOld}.
+	 * Creates a new {@link MagicSpellTab}.
 	 *
 	 * @param owner
 	 */
-	public MagicSpellTabOld(Object owner) {
+	public MagicSpellTab(Object owner) {
 		super(owner, MAGIC_SPELL_TAB_TITLE);
 	}
 
@@ -165,7 +165,7 @@ public class MagicSpellTabOld extends DeterminationTab implements ItemListener, 
 				setOldColor(index, null);
 			}
 		} else if (source instanceof JButton) {
-			if (source.equals(mLearnButton)) {
+			if (source.equals(mNewButton)) {
 				ArrayList<MagicSpellDeterminationRecord> list = getRecordsToLearn();
 				for (MagicSpellDeterminationRecord record : list) {
 					DeterminationList.addMagicSpellRecord(record);

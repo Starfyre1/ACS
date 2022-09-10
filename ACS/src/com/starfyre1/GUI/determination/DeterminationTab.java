@@ -35,14 +35,17 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 	 * Constants
 	 ****************************************************************************/
 	protected static final int	TEXT_FIELD_HEIGHT	= 20;
+	protected static final int	POPUP_HEIGHT		= 24;
 	private static final String	GIVE_UP				= "Give Up";	//$NON-NLS-1$
-	private static final String	LEARN				= "Learn";		//$NON-NLS-1$
+	private static final String	OK					= "OK";			//$NON-NLS-1$
+	private static final String	NEW					= "New";		//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	private JLabel				mSuccessLabel;
-	protected JButton			mLearnButton;
+	protected JButton			mNewButton;
+	protected JButton			mOKButton;
 	protected JButton			mGiveUpButton;
 	private boolean				mDPPerWeekError		= false;
 
@@ -109,12 +112,12 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 
-		mLearnButton = TKComponentHelpers.createButton(LEARN, this, false);
+		mNewButton = TKComponentHelpers.createButton(NEW, this, false);
 		mGiveUpButton = TKComponentHelpers.createButton(GIVE_UP, this, false);
 
 		buttonPanel.add(mGiveUpButton);
 		buttonPanel.add(Box.createHorizontalGlue());
-		buttonPanel.add(mLearnButton);
+		buttonPanel.add(mNewButton);
 
 		page.add(buttonPanel, BorderLayout.SOUTH);
 		return page;
@@ -182,8 +185,9 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 		mDPPerWeekError = isTrue;
 	}
 
-	void updateButtons(boolean hasSelection, boolean hasPointsInvested) {
-		mLearnButton.setEnabled(hasSelection && !hasPointsInvested);
+	private void updateButtons(boolean hasSelection, boolean hasPointsInvested) {
+		//		mNewButton.setEnabled(hasSelection && !hasPointsInvested);
+		mNewButton.setEnabled(true);
 		mGiveUpButton.setEnabled(hasSelection && hasPointsInvested);
 	}
 

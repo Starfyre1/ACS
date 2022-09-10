@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class AttributesTabOld extends DeterminationTab {
+public class AttributesTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -71,11 +71,11 @@ public class AttributesTabOld extends DeterminationTab {
 	 ****************************************************************************/
 
 	/**
-	 * Creates a new {@link AttributesTabOld}.
+	 * Creates a new {@link AttributesTab}.
 	 *
 	 * @param owner
 	 */
-	public AttributesTabOld(Object owner) {
+	public AttributesTab(Object owner) {
 		super(owner, PHYSICAL_TAB_TITLE);
 	}
 
@@ -122,7 +122,7 @@ public class AttributesTabOld extends DeterminationTab {
 			}
 			updateDialogButtons();
 		} else if (source instanceof JButton) {
-			if (source.equals(mLearnButton)) {
+			if (source.equals(mNewButton)) {
 				ArrayList<AttributeDeterminationRecord> list = getRecordsToLearn();
 				for (AttributeDeterminationRecord record : list) {
 					DeterminationList.addAttribRecord(record);
@@ -142,7 +142,7 @@ public class AttributesTabOld extends DeterminationTab {
 		if (list.size() > 0) {
 			for (int i = 0; i < list.size(); i++) {
 				AttributeDeterminationRecord record = list.get(i);
-				mAttrPopup[i].selectPopupMenuItem(AttributesTabOld.ATTRIBUTE_NAMES[record.getAttribute()]);
+				mAttrPopup[i].selectPopupMenuItem(AttributesTab.ATTRIBUTE_NAMES[record.getAttribute()]);
 				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
 				mDPTotalSpentLabel[i].setText(String.valueOf(record.getDPTotalSpent()) + " / " + record.getDPCost()); //$NON-NLS-1$
 				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));

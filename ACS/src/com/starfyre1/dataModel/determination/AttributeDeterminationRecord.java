@@ -3,7 +3,7 @@
 package com.starfyre1.dataModel.determination;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.determination.AttributesTabOld;
+import com.starfyre1.GUI.determination.AttributesTab;
 import com.starfyre1.ToolKit.TKDice;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.interfaces.Savable;
@@ -65,7 +65,7 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("Attribute: " + AttributesTabOld.ATTRIBUTE_NAMES[mAttribute]); //$NON-NLS-1$
+		sb.append("Attribute: " + AttributesTab.ATTRIBUTE_NAMES[mAttribute]); //$NON-NLS-1$
 		sb.append("\nDP Per Week: " + mDPPerWeek); //$NON-NLS-1$
 		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost); //$NON-NLS-1$ //$NON-NLS-2$
 		sb.append("\nMaintainence cost: " + (mMaintainence ? 1 : 0)); //$NON-NLS-1$

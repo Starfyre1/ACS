@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class LanguageTabOld extends DeterminationTab {
+public class LanguageTab extends DeterminationTab {
 
 	/*****************************************************************************
 	 * Constants
@@ -101,11 +101,11 @@ public class LanguageTabOld extends DeterminationTab {
 	 ****************************************************************************/
 
 	/**
-	 * Creates a new {@link LanguageTabOld}.
+	 * Creates a new {@link LanguageTab}.
 	 *
 	 * @param owner
 	 */
-	public LanguageTabOld(Object owner) {
+	public LanguageTab(Object owner) {
 		super(owner, LANGUAGE_TAB_TITLE);
 	}
 
@@ -162,7 +162,7 @@ public class LanguageTabOld extends DeterminationTab {
 				}
 			}
 		} else if (source instanceof JButton) {
-			if (source.equals(mLearnButton)) {
+			if (source.equals(mNewButton)) {
 				ArrayList<LanguageDeterminationRecord> list = getRecordsToLearn();
 				for (LanguageDeterminationRecord record : list) {
 					DeterminationList.addLanguageRecord(record);

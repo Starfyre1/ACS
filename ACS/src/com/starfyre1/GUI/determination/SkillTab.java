@@ -33,7 +33,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class SkillTabOld extends DeterminationTab implements ItemListener {
+public class SkillTab extends DeterminationTab implements ItemListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -69,11 +69,11 @@ public class SkillTabOld extends DeterminationTab implements ItemListener {
 	 ****************************************************************************/
 
 	/**
-	 * Creates a new {@link SkillTabOld}.
+	 * Creates a new {@link SkillTab}.
 	 *
 	 * @param owner
 	 */
-	public SkillTabOld(Object owner) {
+	public SkillTab(Object owner) {
 		super(owner, SKILL_TAB_TITLE);
 	}
 
@@ -84,7 +84,7 @@ public class SkillTabOld extends DeterminationTab implements ItemListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JButton) {
-			if (source.equals(mLearnButton)) {
+			if (source.equals(mNewButton)) {
 				ArrayList<SkillDeterminationRecord> list = getRecordsToLearn();
 				for (SkillDeterminationRecord record : list) {
 					DeterminationList.addSkillRecord(record);

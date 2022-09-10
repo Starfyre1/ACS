@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 
-public class TeacherTabOld extends DeterminationTab {
+public class TeacherTab extends DeterminationTab {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -66,11 +66,11 @@ public class TeacherTabOld extends DeterminationTab {
 	 ****************************************************************************/
 
 	/**
-	 * Creates a new {@link TeacherTabOld}.
+	 * Creates a new {@link TeacherTab}.
 	 *
 	 * @param owner
 	 */
-	public TeacherTabOld(Object owner) {
+	public TeacherTab(Object owner) {
 		super(owner, TEACHER_TAB_TITLE);
 	}
 
@@ -91,7 +91,7 @@ public class TeacherTabOld extends DeterminationTab {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JButton) {
-			if (source.equals(mLearnButton)) {
+			if (source.equals(mNewButton)) {
 				ArrayList<TeacherDeterminationRecord> list = getRecordsToLearn();
 				for (TeacherDeterminationRecord record : list) {
 					DeterminationList.addTeacherRecord(record);
