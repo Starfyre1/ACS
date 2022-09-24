@@ -43,7 +43,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private static final String	MISSILE_SPEED_LABEL			= "Missile";			//$NON-NLS-1$
 	private static final String	BOW_SPEED_LABEL				= "Bow";				//$NON-NLS-1$
 	private static final String	CASTING_SPEED_LABEL			= "Casting";			//$NON-NLS-1$
-	private static final String	MANA_LABEL					= "Mana";				//$NON-NLS-1$
 	private static final String	FOCUS_LABEL					= "Focus";				//$NON-NLS-1$
 
 	private static final String	BONUS_HEADER_LABEL			= "Bonus";				//$NON-NLS-1$
@@ -140,9 +139,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		JLabel defenseLabel = new JLabel(DEFENSE_LABEL, SwingConstants.RIGHT);
 		mDefenseField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mDefenseField.setEditable(false);
-		JLabel manaLabel = new JLabel(MANA_LABEL, SwingConstants.RIGHT);
-		mManaField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
-		mManaField.setEditable(false);
 
 		JLabel freeLabel = new JLabel(FREE_ATTACK_LABEL, SwingConstants.RIGHT);
 		mFreeField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
@@ -204,15 +200,15 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
-		wrapper.add(new JLabel(CASTING_HEADER_LABEL, SwingConstants.CENTER));
+		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 
 		wrapper.add(freeLabel);
 		wrapper.add(mFreeField);
 		wrapper.add(new JLabel(UNALLOCATED_HEADER_LABEL, SwingConstants.CENTER));
 		wrapper.add(new JLabel());
-		wrapper.add(manaLabel);
-		wrapper.add(mManaField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel(CASTING_HEADER_LABEL, SwingConstants.CENTER));
 		wrapper.add(new JLabel());
 
 		wrapper.add(movementLabel);
@@ -265,7 +261,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 				mDamageBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getDamageBonus());
 
 				mCastingSpeedField.setText(TKStringHelpers.EMPTY_STRING + (record.getCastingSpeed() + record.getCastingLevelBonus() / 4));
-				mManaField.setText(TKStringHelpers.EMPTY_STRING + record.getMana());
 				mFocusField.setText(record.getFocus());
 
 				mDefenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDefense());
