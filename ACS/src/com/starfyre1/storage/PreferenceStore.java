@@ -42,7 +42,6 @@ public class PreferenceStore {
 	private static final String		USE_COMMON_DIE_KEY			= "USE_COMMON_DIE_KEY";					// use 1 common die //$NON-NLS-1$
 
 	private static final String		AUTO_LOAD_KEY				= "AUTO_LOAD_KEY";						// Auto load last character played  //$NON-NLS-1$
-	private static final String		APP_ROLLS_DICE_KEY			= "APP_ROLLS_DICE_KEY";					// Auto load last character played  //$NON-NLS-1$
 	private static final String		CALENDAR_KEY				= "CALENDAR_KEY";						// AL vs AD Calendar  //$NON-NLS-1$
 
 	private static final String		SHOW_TOOLTIPS_KEY			= "SHOW_TOOLTIPS_KEY";					// Auto load last character played  //$NON-NLS-1$
@@ -52,7 +51,6 @@ public class PreferenceStore {
 	//DW change this to installation directory
 	private static final String		DEFAULT_FILE_LOCATION		= SystemInfo.getApplicationLocalPath();
 
-	private static final boolean	DEFAULT_APP_ROLLS_DICE		= false;								// true - ACS rolls: false - Manual Entry
 	private static final int		DEFAULT_NUM_DICE			= 4;									// 4 Dice drop lowest; use 3 dice; Manual entry;
 	private static final int		DEFAULT_REROLL_LOWEST		= 2;									// Reroll 1's & 2's
 	private static final boolean	DEFAULT_USE_COMMON_DIE		= true;									// use 1 common die
@@ -118,7 +116,6 @@ public class PreferenceStore {
 	private boolean					mSavedCalendarAL;
 	private boolean					mSavedShowToolTips;
 	private boolean					mSavedDetailedToolTips;
-	private boolean					mSavedAppRollsDice;
 
 	/*****************************************************************************
 	 * CONSTRUCTORS
@@ -158,7 +155,6 @@ public class PreferenceStore {
 		mRerollLowest = DEFAULT_REROLL_LOWEST;
 		mUseCommonDie = DEFAULT_USE_COMMON_DIE;
 
-		mAppRollsDice = DEFAULT_APP_ROLLS_DICE;
 		mAutoLoad = DEFAULT_AUTO_LOAD;
 		mCalendarAL = DEFAULT_CALENDAR;
 		mShowToolTips = DEFAULT_SHOW_TOOLTIPS;
@@ -195,7 +191,6 @@ public class PreferenceStore {
 		mRerollLowest = preferencesDisplay.getReRollLowest();
 		mUseCommonDie = preferencesDisplay.useCommonDice();
 
-		mAppRollsDice = preferencesDisplay.isAppRollsDice();
 		mAutoLoad = preferencesDisplay.isAutoLoad();
 		mCalendarAL = preferencesDisplay.isCalendarAL();
 		mShowToolTips = preferencesDisplay.isShowToolTips();
@@ -264,18 +259,6 @@ public class PreferenceStore {
 	/** @param autoLoad The value to set for autoLoad. */
 	public void setAutoLoad(boolean autoLoad) {
 		mAutoLoad = autoLoad;
-	}
-	
-	public boolean isAppRollsDice() {
-		return mAppRollsDice;
-	}
-	
-	public boolean isSavedAppRollsDice() {
-		return mSavedAppRollsDice;
-	}
-	
-	public static boolean getDefaultAppRollsDice() {
-		return DEFAULT_APP_ROLLS_DICE;
 	}
 	
 	/** @return The savedAutoLoad. */
