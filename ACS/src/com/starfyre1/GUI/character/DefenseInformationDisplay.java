@@ -55,34 +55,42 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	
 	*/
 
-	public static final String	FILE_SECTION_START_KEY		= "DEFENSE_INFORMATION_SECTION_START";	//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY		= "DEFENSE_INFORMATION_SECTION_END";	//$NON-NLS-1$
+	private int					manaValues[][]				= { { 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 50 },		//
+					{ 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 100 },												//
+					{ 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024, 200 },											//
+					{ 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024, 1536, 300 },											//
+					{ 5, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024, 1536, 2048, 400 } };
 
-	private static final String	STAMINA_LEFT_KEY			= "STAMINA_LEFT_KEY";					//$NON-NLS-1$
-	private static final String	HIT_POINTS_LEFT_KEY			= "HIT_POINTS_LEFT_KEY";				//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY		= "DEFENSE_INFORMATION_SECTION_START";													//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY		= "DEFENSE_INFORMATION_SECTION_END";													//$NON-NLS-1$
 
-	private static final String	DEFENSE_INFORMATION_TITLE	= "Defense Information";				//$NON-NLS-1$
-	private static final String	ABSORBS_TITLE				= "Absorbs";							//$NON-NLS-1$
+	private static final String	STAMINA_LEFT_KEY			= "STAMINA_LEFT_KEY";																	//$NON-NLS-1$
+	private static final String	HIT_POINTS_LEFT_KEY			= "HIT_POINTS_LEFT_KEY";																//$NON-NLS-1$
+	private static final String	MANA_LEFT_KEY				= "MANA_LEFT_KEY";																		//$NON-NLS-1$
+
+	private static final String	DEFENSE_INFORMATION_TITLE	= "Defense Information";																//$NON-NLS-1$
+	private static final String	ABSORBS_TITLE				= "Absorbs";																			//$NON-NLS-1$
 
 	//DW need to add "Max allowable for spells"
-	private static final String	WITH_ARMOR_LABEL			= "With Armor";							//$NON-NLS-1$
-	private static final String	WITHOUT_ARMOR_LABEL			= "Without Armor";						//$NON-NLS-1$
-	private static final String	ARMOR_RATIMG_LABEL			= "Armor Rating";						//$NON-NLS-1$
-	private static final String	HEAD_LABEL					= "Head";								//$NON-NLS-1$
-	private static final String	TOP_LABEL					= "Top";								//$NON-NLS-1$
-	private static final String	SIDE_LABEL					= "Side";								//$NON-NLS-1$
-	private static final String	FACE_LABEL					= "Face";								//$NON-NLS-1$
-	private static final String	NECK_LABEL					= "Neck";								//$NON-NLS-1$
-	private static final String	TORSO_LABEL					= "Torso";								//$NON-NLS-1$
-	private static final String	ARMS_LABEL					= "Arms";								//$NON-NLS-1$
-	private static final String	HANDS_LABEL					= "Hands";								//$NON-NLS-1$
-	private static final String	LEGS_LABEL					= "Legs";								//$NON-NLS-1$
-	private static final String	FEET_LABEL					= "Feet";								//$NON-NLS-1$
-	private static final String	STAMINA_LABEL				= "Stamina";							//$NON-NLS-1$
-	private static final String	HIT_POINTS_LABEL			= "Hit Points";							//$NON-NLS-1$
-	private static final String	FULL_LABEL					= "Full";								//$NON-NLS-1$
-	private static final String	DAMAGE_LABEL				= "Damage";								//$NON-NLS-1$
-	private static final String	BALANCE_LABEL				= "Balance";							//$NON-NLS-1$
+	private static final String	WITH_ARMOR_LABEL			= "With Armor";																			//$NON-NLS-1$
+	private static final String	WITHOUT_ARMOR_LABEL			= "Without Armor";																		//$NON-NLS-1$
+	private static final String	ARMOR_RATIMG_LABEL			= "Armor Rating";																		//$NON-NLS-1$
+	private static final String	HEAD_LABEL					= "Head";																				//$NON-NLS-1$
+	private static final String	TOP_LABEL					= "Top";																				//$NON-NLS-1$
+	private static final String	SIDE_LABEL					= "Side";																				//$NON-NLS-1$
+	private static final String	FACE_LABEL					= "Face";																				//$NON-NLS-1$
+	private static final String	NECK_LABEL					= "Neck";																				//$NON-NLS-1$
+	private static final String	TORSO_LABEL					= "Torso";																				//$NON-NLS-1$
+	private static final String	ARMS_LABEL					= "Arms";																				//$NON-NLS-1$
+	private static final String	HANDS_LABEL					= "Hands";																				//$NON-NLS-1$
+	private static final String	LEGS_LABEL					= "Legs";																				//$NON-NLS-1$
+	private static final String	FEET_LABEL					= "Feet";																				//$NON-NLS-1$
+	private static final String	STAMINA_LABEL				= "Stamina";																			//$NON-NLS-1$
+	private static final String	HIT_POINTS_LABEL			= "Hit Points";																			//$NON-NLS-1$
+	private static final String	MANA_LABEL					= "Mana";																				//$NON-NLS-1$
+	private static final String	FULL_LABEL					= "Full";																				//$NON-NLS-1$
+	private static final String	DAMAGE_LABEL				= "Damage";																				//$NON-NLS-1$
+	private static final String	BALANCE_LABEL				= "Balance";																			//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -106,17 +114,23 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 
 	private JTextField			mStaminaFullField;
 	private JTextField			mHitPointsFullField;
+	private JTextField			mManaFullField;
 	private JTextField			mStaminaDamageField;
 	private JTextField			mHitPointsDamageField;
-	private JTextField			mHitPointsBalanceField;
+	private JTextField			mManaDamageField;
 	private JTextField			mStaminaBalanceField;
+	private JTextField			mHitPointsBalanceField;
+	private JTextField			mManaBalanceField;
 
 	private int					mStaminaFull				= 0;
 	private int					mHitPointsFull				= 0;
+	private int					mManaFull					= 0;
 	private int					mStaminaDamage				= 0;
 	private int					mHitPointsDamage			= 0;
-	private int					mHitPointsBalance			= 0;
+	private int					mManaDamage					= 0;
 	private int					mStaminaBalance				= 0;
+	private int					mHitPointsBalance			= 0;
+	private int					mManaBalance				= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -195,16 +209,21 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mStaminaFullField.setEditable(false);
 		mHitPointsFullField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		mHitPointsFullField.setEditable(false);
+		mManaFullField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
+		mManaFullField.setEditable(false);
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
 		mStaminaDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 		mHitPointsDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
+		mManaDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
-		mHitPointsBalanceField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
-		mHitPointsBalanceField.setEditable(false);
 		mStaminaBalanceField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		mStaminaBalanceField.setEditable(false);
+		mHitPointsBalanceField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
+		mHitPointsBalanceField.setEditable(false);
+		mManaBalanceField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
+		mManaBalanceField.setEditable(false);
 
 		JPanel wrapper = new JPanel(new GridLayout(2, 4, 5, 0));
 
@@ -259,28 +278,28 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		wrapper2.add(new JLabel());
 		wrapper2.add(new JLabel(HIT_POINTS_LABEL, SwingConstants.CENTER));
 		wrapper2.add(new JLabel());
-		wrapper2.add(new JLabel());
+		wrapper2.add(new JLabel(MANA_LABEL, SwingConstants.CENTER));
 
 		wrapper2.add(new JLabel(FULL_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mStaminaFullField);
 		wrapper2.add(new JLabel(FULL_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mHitPointsFullField);
-		wrapper2.add(new JLabel());
-		wrapper2.add(new JLabel());
+		wrapper2.add(new JLabel(FULL_LABEL, SwingConstants.RIGHT));
+		wrapper2.add(mManaFullField);
 
 		wrapper2.add(new JLabel(DAMAGE_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mStaminaDamageField);
 		wrapper2.add(new JLabel(DAMAGE_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mHitPointsDamageField);
-		wrapper2.add(new JLabel());
-		wrapper2.add(new JLabel());
+		wrapper2.add(new JLabel(DAMAGE_LABEL, SwingConstants.RIGHT));
+		wrapper2.add(mManaDamageField);
 
 		wrapper2.add(new JLabel(BALANCE_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mStaminaBalanceField);
 		wrapper2.add(new JLabel(BALANCE_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mHitPointsBalanceField);
-		wrapper2.add(new JLabel());
-		wrapper2.add(new JLabel());
+		wrapper2.add(new JLabel(BALANCE_LABEL, SwingConstants.RIGHT));
+		wrapper2.add(mManaBalanceField);
 
 		outerWrapper.add(wrapper);
 		outerWrapper.add(Box.createVerticalStrut(20));
@@ -292,8 +311,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	@Override
 	public void loadDisplay() {
 
-		mArmorField.setText(TKStringHelpers.EMPTY_STRING + generateArmorRating(true));
-		mArmorField2.setText(TKStringHelpers.EMPTY_STRING + generateArmorRating(false));
+		mArmorField.setText(String.valueOf(generateArmorRating(true)));
+		mArmorField2.setText(String.valueOf(generateArmorRating(false)));
 
 		generateArmorCoverage();
 		mHeadTopField.setText(mArmorCoverage[0] + " / " + mArmorBonusCoverage[0] + " (" + mArmorMissileCoverage[0] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -306,19 +325,24 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mLegsField.setText(mArmorCoverage[7] + " / " + mArmorBonusCoverage[7] + " (" + mArmorMissileCoverage[7] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		mFeetField.setText(mArmorCoverage[8] + " / " + mArmorBonusCoverage[8] + " (" + mArmorMissileCoverage[8] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-		mHitPointsFull = generateFullHitPoints();
 		mStaminaFull = generateFullStamina();
+		mHitPointsFull = generateFullHitPoints();
+		mManaFull = generateFullMana();
 
-		mHitPointsFullField.setText(TKStringHelpers.EMPTY_STRING + mHitPointsFull);
-		mStaminaFullField.setText(TKStringHelpers.EMPTY_STRING + mStaminaFull);
-		mHitPointsBalance = mHitPointsFull - mHitPointsDamage;
+		mStaminaFullField.setText(String.valueOf(mStaminaFull));
+		mHitPointsFullField.setText(String.valueOf(mHitPointsFull));
+		mManaFullField.setText(String.valueOf(mManaFull));
 		mStaminaBalance = mStaminaFull - mStaminaDamage;
+		mHitPointsBalance = mHitPointsFull - mHitPointsDamage;
+		mManaBalance = mManaFull - mManaDamage;
 
 		// loaded from file
-		mStaminaDamageField.setText(TKStringHelpers.EMPTY_STRING + mStaminaDamage);
-		mHitPointsDamageField.setText(TKStringHelpers.EMPTY_STRING + mHitPointsDamage);
-		mHitPointsBalanceField.setText(TKStringHelpers.EMPTY_STRING + mHitPointsBalance);
-		mStaminaBalanceField.setText(TKStringHelpers.EMPTY_STRING + mStaminaBalance);
+		mStaminaDamageField.setText(String.valueOf(mStaminaDamage));
+		mHitPointsDamageField.setText(String.valueOf(mHitPointsDamage));
+		mManaDamageField.setText(String.valueOf(mManaDamage));
+		mStaminaBalanceField.setText(String.valueOf(mStaminaBalance));
+		mHitPointsBalanceField.setText(String.valueOf(mHitPointsBalance));
+		mManaBalanceField.setText(String.valueOf(mManaBalance));
 	}
 
 	private int generateArmorRating(boolean withArmor) {
@@ -390,7 +414,6 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		int stamina = 1 + characterClass.getStamina() + getAttributeBonus(owner.getAttributesRecord().getModifiedStat(AttributesRecord.STR));
 
 		return stamina < 1 ? 1 : stamina;
-
 	}
 
 	private int generateFullHitPoints() {
@@ -405,7 +428,23 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		int hp = 7 + characterClass.getHitPoints() + getAttributeBonus(owner.getAttributesRecord().getModifiedStat(AttributesRecord.CON));
 
 		return hp;
+	}
 
+	private int generateFullMana() {
+		CharacterSheet owner = (CharacterSheet) getOwner();
+		int level = owner.getHeaderRecord().getLevel();
+		int bonusMana = 0;
+		int intValue = owner.getAttributesRecord().getModifiedStat(AttributesRecord.INT);
+		intValue = (intValue - 10) / 3;
+
+		if (level > 18) {
+			bonusMana = manaValues[intValue][18] * (level - 18);
+			level = 18;
+		}
+
+		int mana = manaValues[intValue][level - 1] + bonusMana;
+
+		return mana;
 	}
 
 	@Override
@@ -426,11 +465,15 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			if (((JTextField) source).equals(mStaminaDamageField)) {
 				mStaminaDamage = TKStringHelpers.getIntValue(mStaminaDamageField.getText(), 0);
 				mStaminaBalance = mStaminaFull - mStaminaDamage;
-				mStaminaBalanceField.setText(TKStringHelpers.EMPTY_STRING + mStaminaBalance);
+				mStaminaBalanceField.setText(String.valueOf(mStaminaBalance));
 			} else if (((JTextField) source).equals(mHitPointsDamageField)) {
 				mHitPointsDamage = TKStringHelpers.getIntValue(mHitPointsDamageField.getText(), 0);
 				mHitPointsBalance = mHitPointsFull - mHitPointsDamage;
-				mHitPointsBalanceField.setText(TKStringHelpers.EMPTY_STRING + mHitPointsBalance);
+				mHitPointsBalanceField.setText(String.valueOf(mHitPointsBalance));
+			} else if (((JTextField) source).equals(mManaDamageField)) {
+				mManaDamage = TKStringHelpers.getIntValue(mManaDamageField.getText(), 0);
+				mManaBalance = mManaFull - mManaDamage;
+				mManaBalanceField.setText(String.valueOf(mManaBalance));
 			}
 		}
 	}
@@ -482,6 +525,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 
 		br.write(TKStringHelpers.TAB + STAMINA_LEFT_KEY + TKStringHelpers.SPACE + mStaminaDamage + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + HIT_POINTS_LEFT_KEY + TKStringHelpers.SPACE + mHitPointsDamage + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + MANA_LEFT_KEY + TKStringHelpers.SPACE + mManaDamage + System.lineSeparator());
 
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
@@ -493,6 +537,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			mStaminaDamage = TKStringHelpers.getIntValue(value, 0);
 		} else if (HIT_POINTS_LEFT_KEY.equals(key)) {
 			mHitPointsDamage = TKStringHelpers.getIntValue(value, 0);
+		} else if (MANA_LEFT_KEY.equals(key)) {
+			mManaDamage = TKStringHelpers.getIntValue(value, 0);
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
@@ -502,8 +548,10 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	public void clearRecords() {
 		mStaminaDamage = 0;
 		mHitPointsDamage = 0;
-		mHitPointsBalance = 0;
+		mManaDamage = 0;
 		mStaminaBalance = 0;
+		mHitPointsBalance = 0;
+		mManaBalance = 0;
 		mArmorField.setText(TKStringHelpers.EMPTY_STRING);
 		mArmorField2.setText(TKStringHelpers.EMPTY_STRING);
 

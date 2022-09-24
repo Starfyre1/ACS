@@ -16,22 +16,17 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 public class CombatInformationRecord implements LevelListener, Savable {
-	public static final String	FILE_SECTION_START_KEY			= "COMBAT_INFORMATION_SECTION_START";													//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY			= "COMBAT_INFORMATION_SECTION_END";														//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY			= "COMBAT_INFORMATION_SECTION_START";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY			= "COMBAT_INFORMATION_SECTION_END";		//$NON-NLS-1$
 
-	public static final String	HIT_LEVEL_BONUS_KEY				= "HIT_LEVEL_BONUS_KEY";																//$NON-NLS-1$
-	public static final String	BOW_LEVEL_BONUS_KEY				= "BOW_LEVEL_BONUS_KEY";																//$NON-NLS-1$
-	public static final String	CASTING_SPEED_LEVEL_BONUS_KEY	= "CASTING_SPEED_LEVEL_BONUS_KEY";														//$NON-NLS-1$
-	public static final String	FOCUS_KEY						= "FOCUS_KEY";																			//$NON-NLS-1$
+	public static final String	HIT_LEVEL_BONUS_KEY				= "HIT_LEVEL_BONUS_KEY";				//$NON-NLS-1$
+	public static final String	BOW_LEVEL_BONUS_KEY				= "BOW_LEVEL_BONUS_KEY";				//$NON-NLS-1$
+	public static final String	CASTING_SPEED_LEVEL_BONUS_KEY	= "CASTING_SPEED_LEVEL_BONUS_KEY";		//$NON-NLS-1$
+	public static final String	FOCUS_KEY						= "FOCUS_KEY";							//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private int					manaValues[][]					= { { 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 50 },		//
-					{ 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 100 },													//
-					{ 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024, 200 },												//
-					{ 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024, 1536, 300 },												//
-					{ 5, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024, 1536, 2048, 400 } };
 
 	/*****************************************************************************
 	 * Member Variables
@@ -53,9 +48,8 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	private int					mCastingSpeed					= 0;
 	private int					mCastingSpeedLevelBonus			= 0;
 	private int					mDefense						= 0;
-	private int					mMana							= 0;
 	private int					mFreeAttack						= 0;
-	private String				mFocus							= "";																					//$NON-NLS-1$
+	private String				mFocus							= "";									//$NON-NLS-1$
 	private int					mMovement						= 0;
 	private int					mUnallocated					= 0;
 	private boolean				mUserFocus						= false;
@@ -97,7 +91,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 			generateMissileSpeed();
 			generateBowSpeed();
 			generateCastingSpeed();
-			generateMana();
 			generateFocus();
 		} else {
 			clearRecords();
@@ -110,20 +103,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 			mFocus = charClass.getFocus();
 			mCharacterSheet.updateToolTips();
 		}
-	}
-
-	private void generateMana() {
-		int level = mCharacterSheet.getHeaderRecord().getLevel();
-		int bonusMana = 0;
-		int intValue = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.INT);
-		intValue = (intValue - 10) / 3;
-
-		if (level > 18) {
-			bonusMana = manaValues[intValue][18] * (level - 18);
-			level = 18;
-		}
-
-		mMana = manaValues[intValue][level - 1] + bonusMana;
 	}
 
 	private void generateHitBonus() {
@@ -426,16 +405,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mDefense = defense;
 	}
 
-	/** @return The mana. */
-	public int getMana() {
-		return mMana;
-	}
-
-	/** @param mana The value to set for mana. */
-	public void setMana(int mana) {
-		mMana = mana;
-	}
-
 	/** @return The free. */
 	public int getFree() {
 		return mFreeAttack;
@@ -568,7 +537,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mCastingSpeed = 0;
 		mCastingSpeedLevelBonus = 0;
 		mDefense = 0;
-		mMana = 0;
 		mFreeAttack = 0;
 		mFocus = TKStringHelpers.EMPTY_STRING;
 		mMovement = 0;
