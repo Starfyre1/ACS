@@ -106,7 +106,6 @@ public class PreferenceStore {
 	private boolean					mCalendarAL;
 	private boolean					mShowToolTips;
 	private boolean					mDetailedToolTips;
-	private boolean					mAppRollsDice;
 
 	private boolean					mSavedAppRollsDice;
 	private int						mSavedNumDice;
