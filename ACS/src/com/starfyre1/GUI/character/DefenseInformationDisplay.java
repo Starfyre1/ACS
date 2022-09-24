@@ -81,7 +81,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	private static final String	FACE_LABEL					= "Face";																				//$NON-NLS-1$
 	private static final String	NECK_LABEL					= "Neck";																				//$NON-NLS-1$
 	private static final String	TORSO_LABEL					= "Torso";																				//$NON-NLS-1$
-	private static final String	ARMS_LABEL					= "Arms";																				//$NON-NLS-1$
+	private static final String	UPPER_ARMS_LABEL			= "U. Arms";																			//$NON-NLS-1$
+	private static final String	LOWER_ARMS_LABEL			= "L. Arms";																			//$NON-NLS-1$
 	private static final String	HANDS_LABEL					= "Hands";																				//$NON-NLS-1$
 	private static final String	LEGS_LABEL					= "Legs";																				//$NON-NLS-1$
 	private static final String	FEET_LABEL					= "Feet";																				//$NON-NLS-1$
@@ -107,7 +108,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	private JTextField			mHeadFaceField;
 	private JTextField			mNeckField;
 	private JTextField			mTorsoField;
-	private JTextField			mArmsField;
+	private JTextField			mUpperArmsField;
+	private JTextField			mLowerArmsField;
 	private JTextField			mHandsField;
 	private JTextField			mLegsField;
 	private JTextField			mFeetField;
@@ -189,9 +191,13 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mTorsoField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		mTorsoField.setEditable(false);
 
-		JLabel armsLabel = new JLabel(ARMS_LABEL, SwingConstants.RIGHT);
-		mArmsField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
-		mArmsField.setEditable(false);
+		JLabel upperArmsLabel = new JLabel(UPPER_ARMS_LABEL, SwingConstants.RIGHT);
+		mUpperArmsField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
+		mUpperArmsField.setEditable(false);
+
+		JLabel lowerArmsLabel = new JLabel(LOWER_ARMS_LABEL, SwingConstants.RIGHT);
+		mLowerArmsField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
+		mLowerArmsField.setEditable(false);
 
 		JLabel handsLabel = new JLabel(HANDS_LABEL, SwingConstants.RIGHT);
 		mHandsField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
@@ -236,7 +242,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		wrapper.add(mArmorField);
 		wrapper.add(mArmorField2);
 
-		JPanel wrapper2 = new JPanel(new GridLayout(9, 6, 5, 0));
+		JPanel wrapper2 = new JPanel(new GridLayout(10, 6, 5, 0));
 
 		wrapper2.add(headLabel);
 		wrapper2.add(new JLabel(ABSORBS_TITLE, SwingConstants.CENTER));
@@ -247,24 +253,31 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 
 		wrapper2.add(topLabel);
 		wrapper2.add(mHeadTopField);
-		wrapper2.add(neckLabel);
-		wrapper2.add(mNeckField);
+		wrapper2.add(torsoLabel);
+		wrapper2.add(mTorsoField);
 		wrapper2.add(handsLabel);
 		wrapper2.add(mHandsField);
 
 		wrapper2.add(sideLabel);
 		wrapper2.add(mHeadSideField);
-		wrapper2.add(torsoLabel);
-		wrapper2.add(mTorsoField);
+		wrapper2.add(upperArmsLabel);
+		wrapper2.add(mUpperArmsField);
 		wrapper2.add(legsLabel);
 		wrapper2.add(mLegsField);
 
 		wrapper2.add(faceLabel);
 		wrapper2.add(mHeadFaceField);
-		wrapper2.add(armsLabel);
-		wrapper2.add(mArmsField);
+		wrapper2.add(lowerArmsLabel);
+		wrapper2.add(mLowerArmsField);
 		wrapper2.add(feetLabel);
 		wrapper2.add(mFeetField);
+
+		wrapper2.add(neckLabel);
+		wrapper2.add(mNeckField);
+		wrapper2.add(new JLabel());
+		wrapper2.add(new JLabel());
+		wrapper2.add(new JLabel());
+		wrapper2.add(new JLabel());
 
 		wrapper2.add(new JLabel());
 		wrapper2.add(new JLabel());
@@ -320,7 +333,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mHeadFaceField.setText(mArmorCoverage[2] + " / " + mArmorBonusCoverage[2] + " (" + mArmorMissileCoverage[2] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		mNeckField.setText(mArmorCoverage[3] + " / " + mArmorBonusCoverage[3] + " (" + mArmorMissileCoverage[3] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		mTorsoField.setText(mArmorCoverage[4] + " / " + mArmorBonusCoverage[4] + " (" + mArmorMissileCoverage[4] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		mArmsField.setText(mArmorCoverage[5] + " / " + mArmorBonusCoverage[5] + " (" + mArmorMissileCoverage[5] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mUpperArmsField.setText(mArmorCoverage[5] + " / " + mArmorBonusCoverage[5] + " (" + mArmorMissileCoverage[5] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mLowerArmsField.setText(mArmorCoverage[10] + " / " + mArmorBonusCoverage[10] + " (" + mArmorMissileCoverage[10] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		mHandsField.setText(mArmorCoverage[6] + " / " + mArmorBonusCoverage[6] + " (" + mArmorMissileCoverage[6] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		mLegsField.setText(mArmorCoverage[7] + " / " + mArmorBonusCoverage[7] + " (" + mArmorMissileCoverage[7] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		mFeetField.setText(mArmorCoverage[8] + " / " + mArmorBonusCoverage[8] + " (" + mArmorMissileCoverage[8] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -370,12 +384,12 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 
 	/**
 	 * An array of the amount of absorption for each location (0=Head-Top, 1=Head-Side, 2=Head-Face,
-	 * 3=Neck, 4=Torso, 5=Arms, 6=Hands, 7=Legs, 8=Feet, 9=Shield)
+	 * 3=Neck, 4=Torso, 5=U. Arms, 6=Hands, 7=Legs, 8=Feet, 9=Shield, 10=L. Arms)
 	 */
 	private void generateArmorCoverage() {
-		mArmorCoverage = new int[9];
-		mArmorBonusCoverage = new int[9];
-		mArmorMissileCoverage = new int[9];
+		mArmorCoverage = new int[11];
+		mArmorBonusCoverage = new int[11];
+		mArmorMissileCoverage = new int[11];
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		ArrayList<ArmorRecord> records = owner.getEquippedArmorRecords();
 		if (records != null) {
