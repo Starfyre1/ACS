@@ -159,6 +159,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			if (weekUp(record, date)) {
 				updateRecord(record, date);
 			}
+			mOwner.getDeterminationPointsDisplay().addRecords(true);
 			System.out.println(record.toString());
 		}
 		mOwner.getDeterminationPointsDisplay().updateValues();
@@ -197,6 +198,16 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public static int getCompletedWeaponBonus(String weapon) {
+		int total = 0;
+		for (WeaponProficiencyDeterminationRecord record : mWeaponRecords) {
+			if (weapon.equals(record.getWeapon()) && record.isSuccessful()) {
+				total += record.getBonus();
+			}
+		}
+		return total;
+	}
+
 	public static int[] getTeachersIdByExpertise(String expertise) {
 		ArrayList<TeacherDeterminationRecord> allTeachers = getTeachersRecords();
 		ArrayList<TeacherDeterminationRecord> returnTeachers = new ArrayList<TeacherDeterminationRecord>();

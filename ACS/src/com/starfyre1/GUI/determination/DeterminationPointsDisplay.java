@@ -153,7 +153,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	public void loadDisplay() {
 
 		updateValues();
-		updateRecords();
+		addRecords(false);
 		// DW load used points from file
 
 	}
@@ -181,7 +181,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 	}
 
-	public void updateRecords() {
+	public void addRecords(boolean clear) {
 		for (AttributeDeterminationRecord record : DeterminationList.getAttribRecords()) {
 			AttributesTab tab = (AttributesTab) mTabbedPane.getComponent(0);
 		}
@@ -195,7 +195,12 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		}
 
 		for (WeaponProficiencyDeterminationRecord record : DeterminationList.getWeaponRecords()) {
-			((WeaponProficiencyTab) mTabbedPane.getComponent(3)).addRecord(record);
+			WeaponProficiencyTab tab = (WeaponProficiencyTab) mTabbedPane.getComponent(3);
+			if (clear) {
+				clear = false;
+				tab.clearTab();
+			}
+			tab.addRecord(record);
 		}
 
 		for (SkillDeterminationRecord record : DeterminationList.getSkillRecords()) {

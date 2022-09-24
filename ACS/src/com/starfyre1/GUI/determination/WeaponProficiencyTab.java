@@ -188,6 +188,11 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mDPPerWeekField.setEditable(mTeacherPopup.getSelectedItem() != TeacherTab.SELECT_TEACHER);
 	}
 
+	public void updateDisplay() {
+
+		loadDisplay();
+	}
+
 	@Override
 	protected void loadDisplay() {
 		ArrayList<WeaponProficiencyDeterminationRecord> list = DeterminationList.getWeaponRecords();
@@ -236,16 +241,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mStartDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 		mCompletionDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		JLabel label = new JLabel(PROFICIENCY_TITLE);
-		mWeaponColumn.add(label);
-		JLabel header = new JLabel("Teacher"); //$NON-NLS-1$
-		mTeacherColumn.add(header);
-		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		mDPSpentColumn.add(new JLabel("Used:")); //$NON-NLS-1$
-		mBonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
-		mSuccessfulColumn.add(new JLabel("Successful:")); //$NON-NLS-1$
-		mStartDateColumn.add(new JLabel("Start Date:")); //$NON-NLS-1$
-		mCompletionDateColumn.add(new JLabel("Completion Date:")); //$NON-NLS-1$
+		generateHeaders();
 
 		outerWrapper.add(mWeaponColumn);
 		outerWrapper.add(mTeacherColumn);
@@ -259,6 +255,32 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		//		updateEnabledState();
 		//		updateDialogButtons();
 		return outerWrapper;
+	}
+
+	private void generateHeaders() {
+		JLabel label = new JLabel(PROFICIENCY_TITLE);
+		mWeaponColumn.add(label);
+		JLabel header = new JLabel("Teacher"); //$NON-NLS-1$
+		mTeacherColumn.add(header);
+		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
+		mDPSpentColumn.add(new JLabel("Used:")); //$NON-NLS-1$
+		mBonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
+		mSuccessfulColumn.add(new JLabel("Successful:")); //$NON-NLS-1$
+		mStartDateColumn.add(new JLabel("Start Date:")); //$NON-NLS-1$
+		mCompletionDateColumn.add(new JLabel("Completion Date:")); //$NON-NLS-1$
+	}
+
+	void clearTab() {
+		mWeaponColumn.removeAll();
+		mTeacherColumn.removeAll();
+		mBonusAmountColumn.removeAll();
+		mDPPerWeekColumn.removeAll();
+		mDPSpentColumn.removeAll();
+		mSuccessfulColumn.removeAll();
+		mStartDateColumn.removeAll();
+		mCompletionDateColumn.removeAll();
+		generateHeaders();
+
 	}
 
 	void addRecord(WeaponProficiencyDeterminationRecord record) {
