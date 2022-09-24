@@ -10,6 +10,7 @@ import com.starfyre1.startup.ACS;
 import com.starfyre1.storage.PreferenceStore;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -55,6 +56,7 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	private static final String	AUTO_LOAD_TOOLTIP				= "<html>Reload last character used on startup</html>";											//$NON-NLS-1$
 	private static final String	SHOW_TOOLTIPS_TOOLTIP			= "<html>Enable tooltips.</html>";																//$NON-NLS-1$
 	private static final String	DETAILED_TOOLTIPS_TOOLTIP		= "<html>Enable detailed tooltips.<br>(show calculations in saving Throws and Skills) </html>";	//$NON-NLS-1$
+	private static final String DICE = "Dice";
 
 	/*****************************************************************************
 	 * Member Variables
@@ -114,6 +116,7 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		BoxLayout layout = new BoxLayout(wrapper, BoxLayout.Y_AXIS);
 		wrapper.setLayout(layout);
 		JLabel title = new JLabel(MISCELLANEOUS);
+		title.setPreferredSize(new Dimension(title.getPreferredSize().width + 5, 20));
 		title.setOpaque(true);
 		wrapper.setBorder(new TKComponentTitledBorder(title, wrapper, new EtchedBorder()));
 
@@ -140,6 +143,11 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		JPanel numDiceWrapper = new JPanel();
 		BoxLayout layout = new BoxLayout(numDiceWrapper, BoxLayout.Y_AXIS);
 		numDiceWrapper.setLayout(layout);
+
+		JLabel title = new JLabel(DICE);
+		title.setPreferredSize(new Dimension(title.getPreferredSize().width + 5, 20));
+		title.setOpaque(true);
+		numDiceWrapper.setBorder(new TKComponentTitledBorder(title, numDiceWrapper, new EtchedBorder()));
 
 		boolean enabled = prefs.isAppRollsDice();
 		mAppRollsDiceCheckBox = new JCheckBox(APP_ROLLS_DICE, enabled);
@@ -185,11 +193,12 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		PreferenceStore prefs = PreferenceStore.getInstance();
 
 		JPanel tooltipWrapper = new JPanel();
-		BoxLayout layout2 = new BoxLayout(tooltipWrapper, BoxLayout.Y_AXIS);
-		tooltipWrapper.setLayout(layout2);
-		JLabel title2 = new JLabel(TOOLTIPS);
-		title2.setOpaque(true);
-		tooltipWrapper.setBorder(new TKComponentTitledBorder(title2, tooltipWrapper, new EtchedBorder()));
+		BoxLayout layout = new BoxLayout(tooltipWrapper, BoxLayout.Y_AXIS);
+		tooltipWrapper.setLayout(layout);
+		JLabel title = new JLabel(TOOLTIPS);
+		title.setPreferredSize(new Dimension(title.getPreferredSize().width + 5, 20));
+		title.setOpaque(true);
+		tooltipWrapper.setBorder(new TKComponentTitledBorder(title, tooltipWrapper, new EtchedBorder()));
 
 		mShowToolTipsCheckBox = new JCheckBox(SHOW_TOOLTIPS, prefs.isShowToolTips());
 		mShowToolTipsCheckBox.setToolTipText(SHOW_TOOLTIPS_TOOLTIP);
@@ -401,6 +410,10 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 		mUseCommonDiceCheckBox.setSelected(useCommonDice);
 	}
 
+	public boolean isAppRollsDice() {
+		return mAppRollsDiceCheckBox.isSelected();
+	}
+	
 	public boolean isAutoLoad() {
 		return mAutoLoadCheckBox.isSelected();
 	}

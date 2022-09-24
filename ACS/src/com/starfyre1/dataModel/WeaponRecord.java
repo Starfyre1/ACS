@@ -69,6 +69,46 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 
 	}
 
+	// DW find out why some are Strings and some are Integers or Boolean?
+	// see where we update the values because of the selected metal
+	public WeaponRecord(Vector<Object> obj) {
+		mCount = obj.get(0) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(0), 0) : ((Integer) obj.get(0)).intValue();
+		mEquipped = ((Boolean) obj.get(1)).booleanValue();
+		mName = (String) obj.get(2);
+		mMetal = MetalList.getMetalID(obj.get(3) instanceof String ? (String) obj.get(3) : ((MetalRecord) obj.get(3)).getName());
+		mType = TKStringHelpers.getIntValue((String) obj.get(4), 0);
+		String temp = (String) obj.get(5);
+		mHanded = temp.equals(mHandedLabel[0]) ? 0 : temp.equals(mHandedLabel[1]) ? 1 : temp.equals(mHandedLabel[2]) ? 2 : 3;
+		mStrength = obj.get(6) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(6), 0) : ((Integer) obj.get(6)).intValue();
+		mDexterity = obj.get(7) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(7), 0) : ((Integer) obj.get(7)).intValue();
+		mEncumbrance = obj.get(8) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(8), 0) : ((Float) obj.get(8)).floatValue();
+		mWeaponLength = obj.get(9) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(9), 0) : ((Integer) obj.get(9)).intValue();
+		mAttackSpeed = obj.get(10) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(10), 0) : ((Integer) obj.get(10)).intValue();
+		mWeaponBreak = obj.get(11) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(11), 0) : ((Integer) obj.get(11)).intValue();
+		mHitBonus = obj.get(12) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(12), 0) : ((Integer) obj.get(12)).intValue();
+		mDamageOneHanded = obj.get(13) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(13), 0) : ((Integer) obj.get(13)).intValue();
+		mDamageTwoHanded = obj.get(14) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(14), 0) : ((Integer) obj.get(14)).intValue();
+		mCost = obj.get(15) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(15), 0) : ((Float) obj.get(15)).floatValue();
+	}
+
+	/*****************************************************************************
+	 * Methods
+	 ****************************************************************************/
+	@Override
+	public String toString() {
+		return mCount + " " + mEquipped + " " + mName + " " + mMetal + " " + mType + " " + mHanded + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+						mStrength + " " + mDexterity + " " + mEncumbrance + " " + mWeaponLength + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						mAttackSpeed + " " + mWeaponBreak + " " + mHitBonus + " " + mDamageOneHanded + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						mDamageTwoHanded + " " + mCost; //$NON-NLS-1$
+	}
+
+	@Override
+	public WeaponRecord clone() {
+		return new WeaponRecord(mCount, mEquipped, mName, mMetal, mType, mHanded, mStrength, mDexterity, //
+						mEncumbrance, mWeaponLength, mAttackSpeed, mWeaponBreak, mHitBonus, mDamageOneHanded, //
+						mDamageTwoHanded, mCost);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -122,49 +162,30 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 		return result;
 	}
 
-	// DW find out why some are Strings and some are Integers or Boolean?
-	// see where we update the values because of the selected metal
-	public WeaponRecord(Vector<Object> obj) {
-		mCount = obj.get(0) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(0), 0) : ((Integer) obj.get(0)).intValue();
-		mEquipped = ((Boolean) obj.get(1)).booleanValue();
-		mName = (String) obj.get(2);
-		mMetal = MetalList.getMetalID(obj.get(3) instanceof String ? (String) obj.get(3) : ((MetalRecord) obj.get(3)).getName());
-		mType = TKStringHelpers.getIntValue((String) obj.get(4), 0);
-		String temp = (String) obj.get(5);
-		mHanded = temp.equals(mHandedLabel[0]) ? 0 : temp.equals(mHandedLabel[1]) ? 1 : temp.equals(mHandedLabel[2]) ? 2 : 3;
-		mStrength = obj.get(6) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(6), 0) : ((Integer) obj.get(6)).intValue();
-		mDexterity = obj.get(7) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(7), 0) : ((Integer) obj.get(7)).intValue();
-		mEncumbrance = obj.get(8) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(8), 0) : ((Float) obj.get(8)).floatValue();
-		mWeaponLength = obj.get(9) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(9), 0) : ((Integer) obj.get(9)).intValue();
-		mAttackSpeed = obj.get(10) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(10), 0) : ((Integer) obj.get(10)).intValue();
-		mWeaponBreak = obj.get(11) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(11), 0) : ((Integer) obj.get(11)).intValue();
-		mHitBonus = obj.get(12) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(12), 0) : ((Integer) obj.get(12)).intValue();
-		mDamageOneHanded = obj.get(13) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(13), 0) : ((Integer) obj.get(13)).intValue();
-		mDamageTwoHanded = obj.get(14) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(14), 0) : ((Integer) obj.get(14)).intValue();
-		mCost = obj.get(15) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(15), 0) : ((Float) obj.get(15)).floatValue();
-	}
-
-	/*****************************************************************************
-	 * Methods
-	 ****************************************************************************/
-	@Override
-	public String toString() {
-		return mCount + " " + mEquipped + " " + mName + " " + mMetal + " " + mType + " " + mHanded + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-						mStrength + " " + mDexterity + " " + mEncumbrance + " " + mWeaponLength + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-						mAttackSpeed + " " + mWeaponBreak + " " + mHitBonus + " " + mDamageOneHanded + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-						mDamageTwoHanded + " " + mCost; //$NON-NLS-1$
-	}
-
-	@Override
-	public WeaponRecord clone() {
-		return new WeaponRecord(mCount, mEquipped, mName, mMetal, mType, mHanded, mStrength, mDexterity, //
-						mEncumbrance, mWeaponLength, mAttackSpeed, mWeaponBreak, mHitBonus, mDamageOneHanded, //
-						mDamageTwoHanded, mCost);
-	}
-
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public void update(WeaponRecord record) {
+
+		mCount = record.getCount();
+		mEquipped = record.isEquipped();
+		mName = record.getName();
+		mMetal = record.getMetalID();
+		mType = record.getType();
+		mHanded = record.getHanded();
+		mStrength = record.getStrength();
+		mDexterity = record.getDexterity();
+		mEncumbrance = record.getEncumbrance();
+		mWeaponLength = record.getWeaponLength();
+		mAttackSpeed = record.getAttackSpeed();
+		mWeaponBreak = record.getWeaponBreak();
+		mHitBonus = record.getHitBonus();
+		mDamageOneHanded = record.getDamageOneHanded();
+		mDamageTwoHanded = record.getDamageTwoHanded();
+		mCost = record.getCost();
+
+	}
+
 	@Override
 	public Object[] getRecord() {
 		return new Object[] { mCount > 0 ? Integer.valueOf(mCount) : Integer.valueOf(0), Boolean.valueOf(mEquipped), //

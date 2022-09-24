@@ -96,6 +96,13 @@ public class WeaponList implements Savable {
 		return cost;
 	}
 
+	public void updateWeapon(WeaponRecord record, int index) {
+		WeaponRecord original = mRecords.get(index);
+		if (original != null && original.equals(record)) {
+			original.update(record);
+		}
+	}
+	
 	public float removeWeapons(ArrayList<WeaponRecord> items, boolean calculateCost) {
 		float cost = 0f;
 		// DW Think about stacking and unstacking like items

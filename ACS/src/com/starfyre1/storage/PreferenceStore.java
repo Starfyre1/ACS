@@ -42,6 +42,7 @@ public class PreferenceStore {
 	private static final String		USE_COMMON_DIE_KEY			= "USE_COMMON_DIE_KEY";					// use 1 common die //$NON-NLS-1$
 
 	private static final String		AUTO_LOAD_KEY				= "AUTO_LOAD_KEY";						// Auto load last character played  //$NON-NLS-1$
+	private static final String		APP_ROLLS_DICE_KEY			= "APP_ROLLS_DICE_KEY";					// Auto load last character played  //$NON-NLS-1$
 	private static final String		CALENDAR_KEY				= "CALENDAR_KEY";						// AL vs AD Calendar  //$NON-NLS-1$
 
 	private static final String		SHOW_TOOLTIPS_KEY			= "SHOW_TOOLTIPS_KEY";					// Auto load last character played  //$NON-NLS-1$
@@ -61,6 +62,7 @@ public class PreferenceStore {
 
 	private static final boolean	DEFAULT_SHOW_TOOLTIPS		= true;
 	private static final boolean	DEFAULT_DETAILED_TOOLTIPS	= true;
+	private static final boolean	DEFAULT_APP_ROLLS_DICE		= false;
 
 	/*****************************************************************************
 	 * MEMBER VARIABLES
@@ -106,6 +108,7 @@ public class PreferenceStore {
 	private boolean					mCalendarAL;
 	private boolean					mShowToolTips;
 	private boolean					mDetailedToolTips;
+	private boolean					mAppRollsDice;
 
 	private boolean					mSavedAppRollsDice;
 	private int						mSavedNumDice;
@@ -115,6 +118,7 @@ public class PreferenceStore {
 	private boolean					mSavedCalendarAL;
 	private boolean					mSavedShowToolTips;
 	private boolean					mSavedDetailedToolTips;
+	private boolean					mSavedAppRollsDice;
 
 	/*****************************************************************************
 	 * CONSTRUCTORS
@@ -154,6 +158,7 @@ public class PreferenceStore {
 		mRerollLowest = DEFAULT_REROLL_LOWEST;
 		mUseCommonDie = DEFAULT_USE_COMMON_DIE;
 
+		mAppRollsDice = DEFAULT_APP_ROLLS_DICE;
 		mAutoLoad = DEFAULT_AUTO_LOAD;
 		mCalendarAL = DEFAULT_CALENDAR;
 		mShowToolTips = DEFAULT_SHOW_TOOLTIPS;
@@ -165,7 +170,7 @@ public class PreferenceStore {
 	 */
 	public boolean isDefaults() {
 		if (mNumDice == DEFAULT_NUM_DICE && //
-						mAppRollsDice == DEFAULT_APP_ROLLS_DICE && //
+						mAppRollsDice == DEFAULT_APP_ROLLS_DICE && // 
 						mRerollLowest == DEFAULT_REROLL_LOWEST && //
 						mUseCommonDie == DEFAULT_USE_COMMON_DIE && //
 						mAutoLoad == DEFAULT_AUTO_LOAD && //
@@ -190,6 +195,7 @@ public class PreferenceStore {
 		mRerollLowest = preferencesDisplay.getReRollLowest();
 		mUseCommonDie = preferencesDisplay.useCommonDice();
 
+		mAppRollsDice = preferencesDisplay.isAppRollsDice();
 		mAutoLoad = preferencesDisplay.isAutoLoad();
 		mCalendarAL = preferencesDisplay.isCalendarAL();
 		mShowToolTips = preferencesDisplay.isShowToolTips();
@@ -259,7 +265,19 @@ public class PreferenceStore {
 	public void setAutoLoad(boolean autoLoad) {
 		mAutoLoad = autoLoad;
 	}
-
+	
+	public boolean isAppRollsDice() {
+		return mAppRollsDice;
+	}
+	
+	public boolean isSavedAppRollsDice() {
+		return mSavedAppRollsDice;
+	}
+	
+	public static boolean getDefaultAppRollsDice() {
+		return DEFAULT_APP_ROLLS_DICE;
+	}
+	
 	/** @return The savedAutoLoad. */
 	public boolean isSavedAutoLoad() {
 		return mSavedAutoLoad;
@@ -521,6 +539,8 @@ public class PreferenceStore {
 			mAppRollsDice = TKStringHelpers.getBoolValue(value, DEFAULT_APP_ROLLS_DICE);
 		} else if (key.equals(NUM_DICE_KEY)) {
 			mNumDice = TKStringHelpers.getIntValue(value, DEFAULT_NUM_DICE);
+		} else if (key.equals(APP_ROLLS_DICE_KEY)) {
+			mAppRollsDice = TKStringHelpers.getBoolValue(value, DEFAULT_APP_ROLLS_DICE);
 		} else if (key.equals(REROLL_LOWEST_KEY)) {
 			mRerollLowest = TKStringHelpers.getIntValue(value, DEFAULT_REROLL_LOWEST);
 		} else if (key.equals(USE_COMMON_DIE_KEY)) {
