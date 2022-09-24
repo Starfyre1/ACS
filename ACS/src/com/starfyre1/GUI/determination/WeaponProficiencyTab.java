@@ -194,8 +194,6 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		JPanel wrapper = new JPanel();
 		if (list.size() > 0) {
 			for (WeaponProficiencyDeterminationRecord record : list) {
-				System.out.println(record.toString());
-
 				JLabel weaponLabel = new JLabel(record.getWeapon());
 				JLabel teacherLabel = new JLabel(DeterminationList.getTeacher(record.getTeacher()).getTeacher());
 				JLabel bonusLabel = new JLabel(String.valueOf(record.getBonus()));

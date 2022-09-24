@@ -15,7 +15,6 @@ import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.interfaces.CampaignDateListener;
 import com.starfyre1.interfaces.Savable;
-import com.starfyre1.startup.ACS;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,6 +32,8 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	private static CharacterSheet									mOwner;
+
 	private static ArrayList<AttributeDeterminationRecord>			mAttribRecords			= new ArrayList<>(16);
 	private static ArrayList<LanguageDeterminationRecord>			mLanguageRecords		= new ArrayList<>(16);
 	private static ArrayList<MagicSpellDeterminationRecord>			mMagicSpellRecords		= new ArrayList<>(64);
@@ -49,6 +50,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	 * Creates a new {@link DeterminationList}.
 	 */
 	public DeterminationList(CharacterSheet owner) {
+		mOwner = owner;
 		owner.addCampaignDateListener(this);
 	}
 
@@ -159,7 +161,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			}
 			System.out.println(record.toString());
 		}
-		ACS.getInstance().getCharacterSheet().getDeterminationPointsDisplay().updateValues();
+		mOwner.getDeterminationPointsDisplay().updateValues();
 	}
 
 	private void updateRecord(DeterminationRecord record, String date) {

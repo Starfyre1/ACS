@@ -184,23 +184,24 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	public void updateRecords() {
 		for (AttributeDeterminationRecord record : DeterminationList.getAttribRecords()) {
 			AttributesTab tab = (AttributesTab) mTabbedPane.getComponent(0);
-
 		}
+
 		for (LanguageDeterminationRecord record : DeterminationList.getLanguageRecords()) {
 			LanguageTab tab = (LanguageTab) mTabbedPane.getComponent(1);
-
 		}
+
 		for (MagicSpellDeterminationRecord record : DeterminationList.getMagicSpellRecords()) {
 			MagicSpellTab tab = (MagicSpellTab) mTabbedPane.getComponent(2);
-
 		}
+
 		for (WeaponProficiencyDeterminationRecord record : DeterminationList.getWeaponRecords()) {
 			((WeaponProficiencyTab) mTabbedPane.getComponent(3)).addRecord(record);
 		}
+
 		for (SkillDeterminationRecord record : DeterminationList.getSkillRecords()) {
 			SkillTab tab = (SkillTab) mTabbedPane.getComponent(4);
-
 		}
+
 		ACS.getInstance().getCharacterSheet().getDeterminationPointsDisplay().updateValues();
 
 	}
