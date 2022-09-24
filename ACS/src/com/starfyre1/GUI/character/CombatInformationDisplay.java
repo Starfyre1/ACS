@@ -74,7 +74,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private JTextField			mCastingSpeedLevelBonusField;
 	private JTextField			mCastingSpeedField;
 	private JTextField			mDefenseField;
-	private JTextField			mManaField;
 	private JTextField			mFreeField;
 	private JTextField			mUnallocatedField;
 	private JTextField			mFocusField;
@@ -286,7 +285,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 				mDamageBonusField.setText(TKStringHelpers.EMPTY_STRING);
 
 				mCastingSpeedField.setText(TKStringHelpers.EMPTY_STRING);
-				mManaField.setText(TKStringHelpers.EMPTY_STRING);
 				mFocusField.setText(TKStringHelpers.EMPTY_STRING);
 
 				mDefenseField.setText(TKStringHelpers.EMPTY_STRING);
