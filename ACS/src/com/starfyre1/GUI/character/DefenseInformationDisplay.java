@@ -38,11 +38,11 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	/*
 		There are many ways to figure your characters Base Armor Rating,
 		the two that have worked best for me in my games are as follows:
-	
+
 		1)	Start your character at a base of 50%, then add the Protection
 			Percentage from the armor you are wearing, this will give you
 			your Armor Rating.
-	
+
 		2)	Start your character with (2 X Dex) + 50% = Base Armor Rating,
 			then add the Protection Percentage from the armor you are
 			wearing, this will give you your Armor Rating.  This rule heavily
@@ -52,7 +52,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			1/2 their allotted carry capacity, at the time of combat.
 			(Remember this is a Optional rule, this way they can't take
 			Total advantage of a 18 Dexterity, and wear Field Plate!)
-	
+
 	*/
 
 	private int					manaValues[][]				= { { 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 50 },		//
@@ -334,10 +334,10 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mNeckField.setText(mArmorCoverage[3] + " / " + mArmorBonusCoverage[3] + " (" + mArmorMissileCoverage[3] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		mTorsoField.setText(mArmorCoverage[4] + " / " + mArmorBonusCoverage[4] + " (" + mArmorMissileCoverage[4] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		mUpperArmsField.setText(mArmorCoverage[5] + " / " + mArmorBonusCoverage[5] + " (" + mArmorMissileCoverage[5] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		mLowerArmsField.setText(mArmorCoverage[10] + " / " + mArmorBonusCoverage[10] + " (" + mArmorMissileCoverage[10] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		mHandsField.setText(mArmorCoverage[6] + " / " + mArmorBonusCoverage[6] + " (" + mArmorMissileCoverage[6] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		mLegsField.setText(mArmorCoverage[7] + " / " + mArmorBonusCoverage[7] + " (" + mArmorMissileCoverage[7] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		mFeetField.setText(mArmorCoverage[8] + " / " + mArmorBonusCoverage[8] + " (" + mArmorMissileCoverage[8] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mLowerArmsField.setText(mArmorCoverage[6] + " / " + mArmorBonusCoverage[6] + " (" + mArmorMissileCoverage[6] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mHandsField.setText(mArmorCoverage[7] + " / " + mArmorBonusCoverage[7] + " (" + mArmorMissileCoverage[7] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mLegsField.setText(mArmorCoverage[8] + " / " + mArmorBonusCoverage[8] + " (" + mArmorMissileCoverage[8] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mFeetField.setText(mArmorCoverage[9] + " / " + mArmorBonusCoverage[9] + " (" + mArmorMissileCoverage[9] + ")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 		mStaminaFull = generateFullStamina();
 		mHitPointsFull = generateFullHitPoints();

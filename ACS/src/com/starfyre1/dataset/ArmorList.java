@@ -58,7 +58,7 @@ public class ArmorList implements Savable {
 	private boolean							mEquipped;
 	private String							mName;
 	private int								mMetal;													// 		[ Iron, Ang, Borang, Ardacer, Ethru, Ithilnur, Mithril, Laen, Eog, Tasarung ]
-	private int[]							mProtectionType;										// 0=Head-Top, 1=Head-Side, 2=Head-Face, 3=Neck, 4=Torso, 5=Arms, 6=Hands, 7=Legs, 8=Feet, 9=Shield
+	private int[]							mProtectionType;										// 0=Head-Top, 1=Head-Side, 2=Head-Face, 3=Neck, 4=Torso, 5=U. Arms, 6=L. Arms, 7=Hands, 8=Legs, 9=Feet, 10=Shield
 	private int								mProtectionAmount;
 	private float							mEncumbrance;
 	private int								mAbsorption;

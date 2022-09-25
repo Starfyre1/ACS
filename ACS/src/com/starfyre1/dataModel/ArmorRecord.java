@@ -21,7 +21,7 @@ public class ArmorRecord extends TKTableRecord implements Comparable<ArmorRecord
 	private boolean	mEquipped;				// id 1
 	private String	mName;					// id 2
 	private int		mMetal;					// id 3
-	private int[]	mProtectionType;		// id 4 // 0=Head-Top, 1=Head-Side, 2=Head-Face, 3=Neck, 4=Torso, 5=U. Arms, 6=Hands, 7=Legs, 8=Feet/Calves, 9=Shield, 10=L. Arms
+	private int[]	mProtectionType;		// id 4 // 0=Head-Top, 1=Head-Side, 2=Head-Face, 3=Neck, 4=Torso, 5=U. Arms, , 6=L. Arms, 7=Hands, 8=Legs, 9=Feet/Calves, 10=Shield
 	private int		mProtectionAmount;		// id 5
 	private float	mEncumbrance;			// id 6
 	private int		mAbsorption;			// id 7
