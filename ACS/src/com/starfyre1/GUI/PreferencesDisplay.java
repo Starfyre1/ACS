@@ -56,7 +56,7 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	private static final String	AUTO_LOAD_TOOLTIP				= "<html>Reload last character used on startup</html>";											//$NON-NLS-1$
 	private static final String	SHOW_TOOLTIPS_TOOLTIP			= "<html>Enable tooltips.</html>";																//$NON-NLS-1$
 	private static final String	DETAILED_TOOLTIPS_TOOLTIP		= "<html>Enable detailed tooltips.<br>(show calculations in saving Throws and Skills) </html>";	//$NON-NLS-1$
-	private static final String DICE = "Dice";
+	private static final String	DICE							= "Dice";																						//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -413,7 +413,7 @@ public class PreferencesDisplay extends JDialog implements ActionListener {
 	public boolean isAppRollsDice() {
 		return mAppRollsDiceCheckBox.isSelected();
 	}
-	
+
 	public boolean isAutoLoad() {
 		return mAutoLoadCheckBox.isSelected();
 	}

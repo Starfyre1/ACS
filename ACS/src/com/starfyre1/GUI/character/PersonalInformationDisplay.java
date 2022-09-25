@@ -177,7 +177,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 					String carryTooltip = record.getCarryTooltip();
 					mCarryField.setText(TKStringHelpers.EMPTY_STRING + record.getCarry());
 					mCarryField.setToolTipText(carryTooltip);
-					mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING + record.getEncumbrance() + " (" + (float)((int)(record.getEncumbrance() * 1000 / record.getCarry())) / 10 + "%)");
+					mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING + record.getEncumbrance() + " (" + (float) (int) (record.getEncumbrance() * 1000 / record.getCarry()) / 10 + "%)"); //$NON-NLS-1$ //$NON-NLS-2$
 					mEncumbranceField.setToolTipText(carryTooltip);
 				} else {
 					record.clearRecords();
