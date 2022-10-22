@@ -80,18 +80,22 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 
 	@Override
 	public boolean successRoll() {
+		// DW This should move to the AttributesTab
 		// success roll
 		// "1D20 + 1/2 level >= stat"
 
 		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
-		int roll;
+		int roll = 0;
 
 		if (PreferenceStore.getInstance().isAppRollsDice()) {
 			roll = TKDice.roll(20);
 		} else {
 			do {
-				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D20 roll", "Roll for Determination Success", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-				roll = TKStringHelpers.getIntValue(result, 0);
+				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D20 roll", "Roll for " + AttributesTab.ATTRIBUTE_NAMES[getAttribute()] + " Determination Success", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				System.out.println("result = " + result);
+				if (result != null) {
+					roll = TKStringHelpers.getIntValue(result, 0);
+				}
 			} while (roll == 0);
 		}
 		roll += characterSheet.getHeaderRecord().getLevel() / 2;

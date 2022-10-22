@@ -15,6 +15,7 @@ import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
 import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.startup.ACS;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -23,13 +24,13 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class AttributesTab extends DeterminationTab {
@@ -38,12 +39,11 @@ public class AttributesTab extends DeterminationTab {
 	 ****************************************************************************/
 	private static final String		PHYSICAL_DESCRIPTION	= "A stat cannot be raised more than (3) points, or above (18).";																																							//$NON-NLS-1$
 
-	static final String				PHYSICAL_TAB_TITLE		= "Attributes";																																																				//$NON-NLS-1$
-	static final String				PHYSICAL_TAB_TOOLTIP	= "To raise your physical attributes:";																																														//$NON-NLS-1$
+	static final String				ATTRIBUTES_TAB_TITLE	= "Attributes";																																																				//$NON-NLS-1$
+	static final String				ATTRIBUTES_TAB_TOOLTIP	= "To raise your physical attributes:";																																														//$NON-NLS-1$
 	private static final String		CHOOSE_ATTRIBUTE		= "Choose Attribute";																																																		//$NON-NLS-1$
 	private static final String		COST_TEXT				= "Cost: 50";																																																				//$NON-NLS-1$
 	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week";																																																	//$NON-NLS-1$
-	private static final String		PHYSICAL_TEXT			= PHYSICAL_TAB_TOOLTIP;
 	private static final String		SUCCESS_TOOLTIP			= "1D20 + 1/2 level >= stat";																																																//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT1			= "Success: (1D20 + ";																																																		//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT2			= ") >= ";																																																					//$NON-NLS-1$
@@ -52,19 +52,34 @@ public class AttributesTab extends DeterminationTab {
 	private static final int[]		ATTRIBUTE_NUMBERS		= new int[] { AttributesRecord.STR, AttributesRecord.CON, AttributesRecord.WIS, AttributesRecord.DEX, AttributesRecord.BOW };
 	private static final String[]	ATTRIBUTE_DESCRIPTIONS	= new String[] { AttributesRecord.STRENGTH_DESCRIPTION, AttributesRecord.CONSTITUTION_DESCRIPTION, AttributesRecord.WISDOM_DESCRIPTION, AttributesRecord.DEXTERITY_DESCRIPTION, AttributesRecord.BOW_SKILL_DESCRIPTION };
 
-	private static final int		ROWS					= 5;
 	private static final int		COST					= 50;
+
+	private static final String		SAVE					= "Save";																																																					//$NON-NLS-1$
+	private static final String		CANCEL					= "Cancel";																																																					//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private TKPopupMenu[]			mAttrPopup;
-	private JTextField[]			mDPPerWeekField;
-	private JLabel[]				mDPTotalSpentLabel;
-	private JLabel[]				mMaintLabel;
-	private JLabel[]				mSuccessfulLabel;
-	private JLabel[]				mStartDateLabel;
-	private JLabel[]				mCompletionDateLabel;
+	private JButton					mOkButton;
+	private JButton					mCancelButton;
+
+	private TKPopupMenu				mAttrPopup;
+	private JTextField				mDPPerWeekField;
+	private JLabel					mDPSpentLabel;
+	private JLabel					mMaintLabel;
+	private JLabel					mSuccessfulLabel;
+	private JLabel					mStartDateLabel;
+	private JLabel					mCompletionDateLabel;
+
+	private JPanel					mAttrColumn;
+	private JPanel					mDPPerWeekColumn;
+	private JPanel					mDPSpentColumn;
+	private JPanel					mMaintColumn;
+	private JPanel					mSuccessfulColumn;
+	private JPanel					mStartDateColumn;
+	private JPanel					mCompletionDateColumn;
+
+	private JDialog					mNewEntryDialog;
 
 	/*****************************************************************************
 	 * Constructors
@@ -76,13 +91,66 @@ public class AttributesTab extends DeterminationTab {
 	 * @param owner
 	 */
 	public AttributesTab(Object owner) {
-		super(owner, PHYSICAL_TAB_TITLE);
+		super(owner, ATTRIBUTES_TAB_TITLE);
 	}
 
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	private int getPanelIndex(JMenuItem menuItem) {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object source = e.getSource();
+		if (source instanceof JButton) {
+			if (source.equals(mNewButton)) {
+				mNewEntryDialog = new JDialog(ACS.getInstance().getCharacterSheet().getFrame(), CHOOSE_ATTRIBUTE, true);
+				mNewEntryDialog.setSize(800, 400);
+
+				mNewEntryDialog.add(createDialogPanel());
+				mNewEntryDialog.setVisible(true);
+			} else if (source.equals(mGiveUpButton)) {
+				// DW Added game date to record
+			} else if (source.equals(mOkButton)) {
+				AttributeDeterminationRecord record = new AttributeDeterminationRecord(getAttributeNumber(mAttrPopup.getSelectedItem()), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), COST, CampaignDateChooser.getCampaignDate(), null);
+				DeterminationList.addAttribRecord(record);
+				((DeterminationPointsDisplay) getOwner()).addRecords(true);
+				mNewEntryDialog.dispose();
+			} else if (source.equals(mCancelButton)) {
+				mNewEntryDialog.dispose();
+			}
+		} else if (source instanceof JMenuItem) {
+			JPopupMenu popup = (JPopupMenu) ((JMenuItem) source).getParent();
+			if (popup.getInvoker().equals(mAttrPopup.getMenu())) {
+				boolean enable = !mAttrPopup.getSelectedItem().equals(CHOOSE_ATTRIBUTE);
+				mDPPerWeekField.setEnabled(enable);
+				mDPPerWeekField.setEditable(enable);
+			}
+			updateDialogButtons();
+		}
+
+	}
+
+	private JPanel createButtonPanel() {
+		JPanel panel = new JPanel();
+		mOkButton = TKComponentHelpers.createButton(SAVE, this);
+		mCancelButton = TKComponentHelpers.createButton(CANCEL, this);
+
+		panel.add(mOkButton);
+		panel.add(mCancelButton);
+
+		return panel;
+	}
+
+	private void updateEnabledState() {
+		HeaderRecord headerRecord = ACS.getInstance().getCharacterSheet().getHeaderRecord();
+		mAttrPopup.getMenu().setEnabled(headerRecord == null ? false : headerRecord.getCharacterClass() != null);
+
+		boolean enable = mAttrPopup.getMenu().isEnabled() && mAttrPopup.getSelectedItem() != CHOOSE_ATTRIBUTE;
+
+		mDPPerWeekField.setEnabled(enable);
+		mDPPerWeekField.setEditable(enable);
+	}
+
+	private TKPopupMenu getPopup(JMenuItem menuItem) {
 
 		JPopupMenu popup = (JPopupMenu) menuItem.getParent();
 		JMenu menu = (JMenu) popup.getInvoker();
@@ -95,163 +163,190 @@ public class AttributesTab extends DeterminationTab {
 			popup3 = (TKPopupMenu) menu2.getParent();
 		}
 
-		return getIndexInPanel((JPanel) popup3.getParent(), popup3);
+		return popup3;
 	}
 
-	private int getIndexInPanel(JPanel panel, Object which) {
-		for (int i = 0; i < panel.getComponentCount(); i++) {
-			Component comp = panel.getComponent(i);
-			if (comp == which) {
-				// i == 0 is label;
-				return i - 1;
-			}
-		}
-		return -1;
-	}
+	public void updateDisplay() {
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object source = e.getSource();
-		if (source instanceof JMenuItem) {
-			int i = getPanelIndex((JMenuItem) source);
-			JPopupMenu popup = (JPopupMenu) ((JMenuItem) source).getParent();
-			if (popup.getInvoker().equals(mAttrPopup[i].getMenu())) {
-				boolean enable = !mAttrPopup[i].getSelectedItem().equals(CHOOSE_ATTRIBUTE);
-				mDPPerWeekField[i].setEnabled(enable);
-				mDPPerWeekField[i].setEditable(enable);
-			}
-			updateDialogButtons();
-		} else if (source instanceof JButton) {
-			if (source.equals(mNewButton)) {
-				ArrayList<AttributeDeterminationRecord> list = getRecordsToLearn();
-				for (AttributeDeterminationRecord record : list) {
-					DeterminationList.addAttribRecord(record);
-				}
-
-				// DW Create Record
-			} else if (source.equals(mGiveUpButton)) {
-				// DW Added game date to record
-			}
-		}
-
+		loadDisplay();
 	}
 
 	@Override
 	protected void loadDisplay() {
 		ArrayList<AttributeDeterminationRecord> list = DeterminationList.getAttribRecords();
+		JPanel wrapper = new JPanel();
 		if (list.size() > 0) {
-			for (int i = 0; i < list.size(); i++) {
-				AttributeDeterminationRecord record = list.get(i);
-				mAttrPopup[i].selectPopupMenuItem(AttributesTab.ATTRIBUTE_NAMES[record.getAttribute()]);
-				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
-				mDPTotalSpentLabel[i].setText(String.valueOf(record.getDPTotalSpent()) + " / " + record.getDPCost()); //$NON-NLS-1$
-				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));
+			for (AttributeDeterminationRecord record : list) {
+				JLabel attrLabel = new JLabel(AttributesTab.ATTRIBUTE_NAMES[record.getAttribute()]);
+				JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
+				JLabel usedLabel = new JLabel(String.valueOf(record.getDPTotalSpent()) + " / " + record.getDPCost()); //$NON-NLS-1$
+				JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintainence()));
 				// DW _Count successful vs attempted
-				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
-				mStartDateLabel[i].setText(record.getStartDate());
-				mCompletionDateLabel[i].setText(record.getCompletionDate());
+				JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
+				JLabel startDateLabel = new JLabel(record.getStartDate());
+				JLabel completionDateLabel = new JLabel(record.getCompletionDate());
+
+				wrapper.add(attrLabel);
+				wrapper.add(DPPerWeekLabel);
+				wrapper.add(usedLabel);
+				wrapper.add(maintLabel);
+				wrapper.add(successLabel);
+				wrapper.add(startDateLabel);
+				wrapper.add(completionDateLabel);
 			}
 		}
-		updateEnabledState();
+		//		updateEnabledState();
 		super.loadDisplay();
 	}
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), PHYSICAL_DESCRIPTION, PHYSICAL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+		return createPage(createCenterPanel(), PHYSICAL_DESCRIPTION, ATTRIBUTES_TAB_TOOLTIP, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
 	}
 
 	private JPanel createCenterPanel() {
 		// DW _add Start and Completion Date (popup?)
-		int currentlySpent = 0;
-		int currentMaintenance = 0;
+		//		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
+
+		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
+		mAttrColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mDPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		mDPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mMaintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mSuccessfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mStartDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mCompletionDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+
+		generateHeaders();
+
+		outerWrapper.add(mAttrColumn);
+		outerWrapper.add(mDPPerWeekColumn);
+		outerWrapper.add(mDPSpentColumn);
+		outerWrapper.add(mMaintColumn);
+		outerWrapper.add(mSuccessfulColumn);
+		outerWrapper.add(mStartDateColumn);
+		outerWrapper.add(mCompletionDateColumn);
+
+		//		updateEnabledState();
+		//		updateDialogButtons();
+		return outerWrapper;
+	}
+
+	private void generateHeaders() {
+		mAttrColumn.add(new JLabel(ATTRIBUTES_TAB_TITLE));
+		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
+		mDPSpentColumn.add(new JLabel("Used:")); //$NON-NLS-1$
+		mMaintColumn.add(new JLabel("Maint:")); //$NON-NLS-1$
+		mSuccessfulColumn.add(new JLabel("Successful:")); //$NON-NLS-1$
+		mStartDateColumn.add(new JLabel("Start Date:")); //$NON-NLS-1$
+		mCompletionDateColumn.add(new JLabel("Completion Date:")); //$NON-NLS-1$
+	}
+
+	void clearTab() {
+		mAttrColumn.removeAll();
+		mDPPerWeekColumn.removeAll();
+		mDPSpentColumn.removeAll();
+		mMaintColumn.removeAll();
+		mSuccessfulColumn.removeAll();
+		mStartDateColumn.removeAll();
+		mCompletionDateColumn.removeAll();
+		generateHeaders();
+
+	}
+
+	void addRecord(AttributeDeterminationRecord record) {
+		if (record != null) {
+			JLabel attrLabel = new JLabel(AttributesTab.ATTRIBUTE_NAMES[record.getAttribute()]);
+			JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
+			JLabel usedLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
+			JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintainence()));
+			JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
+			JLabel startDateLabel = new JLabel(record.getStartDate());
+			JLabel completionDateLabel = new JLabel(record.getCompletionDate());
+
+			mAttrColumn.add(attrLabel);
+			mDPPerWeekColumn.add(DPPerWeekLabel);
+			mDPSpentColumn.add(usedLabel);
+			mMaintColumn.add(maintLabel);
+			mSuccessfulColumn.add(successLabel);
+			mStartDateColumn.add(startDateLabel);
+			mCompletionDateColumn.add(completionDateLabel);
+		}
+	}
+
+	private JPanel createDialogPanel() {
+		// DW _add Start and Completion Date (popup?)
 		int completed = 0;
 		int attempted = 0;
+		boolean currentMaintenance = false;
+		int currentlySpent = 0;
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		mAttrPopup = new TKPopupMenu[ROWS];
-		mDPPerWeekField = new JTextField[ROWS];
-		mDPTotalSpentLabel = new JLabel[ROWS];
-		mMaintLabel = new JLabel[ROWS];
-		mSuccessfulLabel = new JLabel[ROWS];
-		mStartDateLabel = new JLabel[ROWS];
-		mCompletionDateLabel = new JLabel[ROWS];
+		JPanel buttonWrapper = new JPanel();
+		buttonWrapper.setBorder(new EmptyBorder(5, 15, 5, 5));
+		buttonWrapper.setLayout(new BorderLayout());
 
-		JPanel wrapperPanel = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
-		JPanel attrPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel dpPerWeekPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel dpTotalSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel maintPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		JPanel successPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
+		JPanel attrColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel dPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		JPanel dPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel maintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel successfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		JLabel header = new JLabel("Attributes:", SwingConstants.CENTER); //$NON-NLS-1$
-		attrPanel.add(header);
-		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
-		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
-		dpTotalSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
-		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
-		successPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
+		JLabel label = new JLabel(ATTRIBUTES_TAB_TITLE);
+		attrColumn.add(label);
 
-		for (int i = 0; i < ROWS; i++) {
-			mAttrPopup[i] = new TKPopupMenu(getAttrPopup());
-			mAttrPopup[i].setAlignmentX(Component.LEFT_ALIGNMENT);
-			Dimension size2 = new Dimension(mAttrPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
-			mAttrPopup[i].setMinimumSize(size2);
-			mAttrPopup[i].setPreferredSize(size2);
-			mAttrPopup[i].getMenu().setEnabled(false);
-			attrPanel.add(mAttrPopup[i]);
+		Dimension size = new Dimension(label.getPreferredSize().width, TEXT_FIELD_HEIGHT);
+		dPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
+		dPSpentColumn.add(new JLabel("Used:")); //$NON-NLS-1$
+		maintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
+		successfulColumn.add(new JLabel("Successful:")); //$NON-NLS-1$
 
-			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
-			mDPPerWeekField[i].getDocument().addDocumentListener(this);
-			mDPPerWeekField[i].setEnabled(false);
-			mDPPerWeekField[i].setEditable(false);
-			dpPerWeekPanel.add(mDPPerWeekField[i]);
+		mAttrPopup = new TKPopupMenu(getAttrPopup());
+		mAttrPopup.setAlignmentX(Component.LEFT_ALIGNMENT);
+		mAttrPopup.getMenu().addActionListener(this);
+		Dimension size2 = new Dimension(mAttrPopup.getPreferredSize().width, POPUP_HEIGHT);
+		mAttrPopup.setMaximumSize(size2);
+		attrColumn.add(mAttrPopup);
 
-			mDPTotalSpentLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
-			mDPTotalSpentLabel[i].setMinimumSize(size);
-			mDPTotalSpentLabel[i].setPreferredSize(size);
-			dpTotalSpentPanel.add(mDPTotalSpentLabel[i]);
+		mDPPerWeekField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+		dPPerWeekColumn.add(mDPPerWeekField);
 
-			mMaintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
-			mMaintLabel[i].setMinimumSize(size);
-			mMaintLabel[i].setPreferredSize(size);
-			maintPanel.add(mMaintLabel[i]);
+		mDPSpentLabel = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
+		mDPSpentLabel.setMinimumSize(size);
+		mDPSpentLabel.setPreferredSize(size);
+		dPSpentColumn.add(mDPSpentLabel);
 
-			mSuccessfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
-			mSuccessfulLabel[i].setMinimumSize(size);
-			mSuccessfulLabel[i].setPreferredSize(size);
-			successPanel.add(mSuccessfulLabel[i]);
+		mMaintLabel = new JLabel(String.valueOf(currentMaintenance));
+		mMaintLabel.setMinimumSize(size);
+		mMaintLabel.setPreferredSize(size);
+		maintColumn.add(mMaintLabel);
 
-			mStartDateLabel[i] = new JLabel();
-			mCompletionDateLabel[i] = new JLabel();
+		mSuccessfulLabel = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
+		mSuccessfulLabel.setMinimumSize(size);
+		mSuccessfulLabel.setPreferredSize(size);
+		successfulColumn.add(mSuccessfulLabel);
 
-		}
+		mStartDateLabel = new JLabel();
+		mCompletionDateLabel = new JLabel();
 
-		dpTotalSpentPanel.add(Box.createVerticalGlue());
-		maintPanel.add(Box.createVerticalGlue());
-		successPanel.add(Box.createVerticalGlue());
+		dPSpentColumn.add(Box.createVerticalGlue());
+		maintColumn.add(Box.createVerticalGlue());
+		successfulColumn.add(Box.createVerticalGlue());
 
-		wrapperPanel.add(attrPanel);
-		wrapperPanel.add(dpPerWeekPanel);
-		wrapperPanel.add(dpTotalSpentPanel);
-		wrapperPanel.add(maintPanel);
-		wrapperPanel.add(successPanel);
+		outerWrapper.add(attrColumn);
+		outerWrapper.add(maintColumn);
+		outerWrapper.add(dPPerWeekColumn);
+		outerWrapper.add(dPSpentColumn);
+		outerWrapper.add(successfulColumn);
 
 		updateEnabledState();
 
-		return wrapperPanel;
-	}
+		buttonWrapper.add(outerWrapper, BorderLayout.NORTH);
+		buttonWrapper.add(createButtonPanel(), BorderLayout.SOUTH);
 
-	private void updateEnabledState() {
-		AttributesRecord attribs = ACS.getInstance().getCharacterSheet().getAttributesRecord();
-		// DW Also need to make sure we can't increase it more than 3 times... will need to check against DeterminationPointsRecord when created
-		for (int i = 0; i < ROWS; i++) {
-			mAttrPopup[i].getMenu().setEnabled(attribs != null);
-			boolean enable = attribs != null && !mAttrPopup[i].getSelectedItem().equals(CHOOSE_ATTRIBUTE) && attribs.getModifiedStat(getAttributeNumber(mAttrPopup[i].getSelectedItem())) < 18;
-			mDPPerWeekField[i].setEnabled(enable);
-			mDPPerWeekField[i].setEditable(enable);
-		}
+		return buttonWrapper;
 	}
 
 	/*****************************************************************************
@@ -260,10 +355,42 @@ public class AttributesTab extends DeterminationTab {
 	@Override
 	public int getDPPerWeekTabTotal() {
 		int pointsSpent = 0;
-		for (int i = 0; i < ROWS; i++) {
-			pointsSpent += TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0);
+		ArrayList<AttributeDeterminationRecord> list = DeterminationList.getAttribRecords();
+		if (list.size() > 0) {
+			for (AttributeDeterminationRecord record : list) {
+				pointsSpent += record.getDPPerWeek();
+			}
 		}
 		return pointsSpent;
+	}
+
+	@Override
+	protected boolean hasValidEntriesToLearn() {
+		//		for (int i = 0; i < ROWS; i++) {
+		//			if (!mAttrPopup.getSelectedItem().equals(CHOOSE_ATTRIBUTE) && mAttrPopup.isEnabled() && !mDPPerWeekField.getText().isBlank()) {
+		return true;
+		//			}
+		//		}
+		//		return false;
+	}
+
+	private int getAttributeNumber(String name) {
+		int value = switch (name) {
+			case AttributesRecord.STRENGTH:
+				yield 0;
+			case AttributesRecord.CONSTITUTION:
+				yield 1;
+			case AttributesRecord.WISDOM:
+				yield 2;
+			case AttributesRecord.DEXTERITY:
+				yield 3;
+			case AttributesRecord.BOW_SKILL:
+				yield 4;
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + getClass() + name); //$NON-NLS-1$
+		};
+
+		return value;
 	}
 
 	private JMenu getAttrPopup() {
@@ -285,46 +412,6 @@ public class AttributesTab extends DeterminationTab {
 		popupMenu.add(menuItem, 0);
 
 		return popupMenu;
-	}
-
-	@Override
-	protected boolean hasValidEntriesToLearn() {
-		for (int i = 0; i < ROWS; i++) {
-			if (!mAttrPopup[i].getSelectedItem().equals(CHOOSE_ATTRIBUTE) && mAttrPopup[i].isEnabled() && !mDPPerWeekField[i].getText().isBlank()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public ArrayList<AttributeDeterminationRecord> getRecordsToLearn() {
-		ArrayList<AttributeDeterminationRecord> list = new ArrayList<>();
-		for (int i = 0; i < ROWS; i++) {
-			if (!(mAttrPopup[i].getSelectedItem().equals(CHOOSE_ATTRIBUTE) || mDPPerWeekField[i].getText().isBlank())) {
-				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new AttributeDeterminationRecord(getAttributeNumber(mAttrPopup[i].getSelectedItem()), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate, campaignDate));
-			}
-		}
-		return list;
-	}
-
-	private int getAttributeNumber(String name) {
-		int value = switch (name) {
-			case AttributesRecord.STRENGTH:
-				yield 0;
-			case AttributesRecord.CONSTITUTION:
-				yield 1;
-			case AttributesRecord.WISDOM:
-				yield 2;
-			case AttributesRecord.DEXTERITY:
-				yield 3;
-			case AttributesRecord.BOW_SKILL:
-				yield 4;
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + getClass() + name); //$NON-NLS-1$
-		};
-
-		return value;
 	}
 
 	@Override

@@ -80,18 +80,22 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 
 	@Override
 	public boolean successRoll() {
+		// DW This should move to the WeaponProficiencyTab
 		// success roll
 		// "1D20 < (Dexerity)"
 
 		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
-		int roll;
+		int roll = 0;
 
 		if (PreferenceStore.getInstance().isAppRollsDice()) {
 			roll = TKDice.roll(20);
 		} else {
 			do {
-				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D20 roll", "Roll for Determination Success", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-				roll = TKStringHelpers.getIntValue(result, 0);
+				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D20 roll", "Roll for " + getWeapon() + " Determination Success", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				System.out.println("result = " + result);
+				if (result != null) {
+					roll = TKStringHelpers.getIntValue(result, 0);
+				}
 			} while (roll == 0);
 		}
 		System.out.println(roll);

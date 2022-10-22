@@ -122,7 +122,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		JComponent skillTab = new SkillTab(this);
 		JComponent teacherTab = new TeacherTab(this);
 
-		mTabbedPane.addTab(AttributesTab.PHYSICAL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, attributesTab, AttributesTab.PHYSICAL_TAB_TOOLTIP);
+		mTabbedPane.addTab(AttributesTab.ATTRIBUTES_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, attributesTab, AttributesTab.ATTRIBUTES_TAB_TOOLTIP);
 		mTabbedPane.addTab(LanguageTab.LANGUAGE_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, languageTab, LanguageTab.LANGUAGE_TAB_TOOLTIP);
 		mTabbedPane.addTab(MagicSpellTab.MAGIC_SPELL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, magicSpellTab, MagicSpellTab.MAGIC_SPELL_TAB_TOOLTIP);
 		mTabbedPane.addTab(WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, weaponProficiencyTab, WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TOOLTIP);
@@ -184,14 +184,29 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	public void addRecords(boolean clear) {
 		for (AttributeDeterminationRecord record : DeterminationList.getAttribRecords()) {
 			AttributesTab tab = (AttributesTab) mTabbedPane.getComponent(0);
+			if (clear) {
+				clear = false;
+				tab.clearTab();
+			}
+			tab.addRecord(record);
 		}
 
 		for (LanguageDeterminationRecord record : DeterminationList.getLanguageRecords()) {
-			LanguageTab tab = (LanguageTab) mTabbedPane.getComponent(1);
+			//			LanguageTab tab = (LanguageTab) mTabbedPane.getComponent(1);
+			//			if (clear) {
+			//				clear = false;
+			//				tab.clearTab();
+			//			}
+			//			tab.addRecord(record);
 		}
 
 		for (MagicSpellDeterminationRecord record : DeterminationList.getMagicSpellRecords()) {
-			MagicSpellTab tab = (MagicSpellTab) mTabbedPane.getComponent(2);
+			//			MagicSpellTab tab = (MagicSpellTab) mTabbedPane.getComponent(2);
+			//			if (clear) {
+			//				clear = false;
+			//				tab.clearTab();
+			//			}
+			//			tab.addRecord(record);
 		}
 
 		for (WeaponProficiencyDeterminationRecord record : DeterminationList.getWeaponRecords()) {
@@ -204,7 +219,12 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		}
 
 		for (SkillDeterminationRecord record : DeterminationList.getSkillRecords()) {
-			SkillTab tab = (SkillTab) mTabbedPane.getComponent(4);
+			//			SkillTab tab = (SkillTab) mTabbedPane.getComponent(4);
+			//			if (clear) {
+			//				clear = false;
+			//				tab.clearTab();
+			//			}
+			//			tab.addRecord(record);
 		}
 
 		ACS.getInstance().getCharacterSheet().getDeterminationPointsDisplay().updateValues();

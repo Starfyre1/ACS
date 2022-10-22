@@ -156,6 +156,16 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 		return outer;
 	}
 
+	public String getEncumbrancePercentage(PersonalInformationRecord record) {
+		return " (" + (float) (int) (record.getEncumbrance() * 1000 / record.getCarry()) / 10 + "%)"; //$NON-NLS-1$ //$NON-NLS-2$
+	}
+
+	public String getEncumbranceDisplay(float encumbrance) {
+		int value = (int) (encumbrance * 100);
+		encumbrance = (float) value / 100;
+		return String.valueOf(encumbrance);
+	}
+
 	@Override
 	public void loadDisplay() {
 		CharacterSheet characterSheet = (CharacterSheet) getOwner();
@@ -167,17 +177,17 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 				BaseClass classInfo = header.getCharacterClass();
 				if (classInfo != null) {
 					mHeightField.setText(record.getHeight());
-					mWeightField.setText(TKStringHelpers.EMPTY_STRING + record.getWeight());
+					mWeightField.setText(String.valueOf(record.getWeight()));
 					mSexField.setText(record.getSex());
 					mHairField.setText(record.getHair());
 					mEyesField.setText(record.getEyes());
-					mAgeField.setText(TKStringHelpers.EMPTY_STRING + record.getAge());
+					mAgeField.setText(String.valueOf(record.getAge()));
 					mSocialClassField.setText(record.getSocialClassTitle());
-					mMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getMorals());
+					mMoralsField.setText(String.valueOf(record.getMorals()));
 					String carryTooltip = record.getCarryTooltip();
-					mCarryField.setText(TKStringHelpers.EMPTY_STRING + record.getCarry());
+					mCarryField.setText(String.valueOf(record.getCarry()));
 					mCarryField.setToolTipText(carryTooltip);
-					mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING + record.getEncumbrance() + " (" + (float) (int) (record.getEncumbrance() * 1000 / record.getCarry()) / 10 + "%)"); //$NON-NLS-1$ //$NON-NLS-2$
+					mEncumbranceField.setText(getEncumbranceDisplay(record.getEncumbrance()) + getEncumbrancePercentage(record));
 					mEncumbranceField.setToolTipText(carryTooltip);
 				} else {
 					record.clearRecords();
