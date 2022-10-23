@@ -44,13 +44,13 @@ public class Orn extends PriestsBase {
 			8)Freeze Water (-7)F			8)Sphere of Air I (-5)
 	
 			Power Two:						Power Three:
-			1)Summon Water Monster I (-3)	1)Summon Water Monster II (-6)
+			1)Summon Water Beast I (-3)		1)Summon Water Beast II (-6)
 			2)Protection III (-12)F			2)Protection IV (-14)F
 			3)Control Waterbeast  (-3)		3)Sphere of Air II (-100)
 			4)Calm Wind (-15)				4)Ice Storm I (-6)F
 	
 			Power Four:						Power Five:
-			1)Summon Water Monster III (-9)	1)Summon Water Monster IV (-12)
+			1)Summon Water Beast III (-9)	1)Summon Water Beast IV (-12)
 			2)Summon Storm (-30)			2)Tidal Wave (-300)
 			3)Control Currents (-50)		3)Protection VI (-18)f
 			4)Protection V (-16)F			4)Ice Storm II (-9)F
@@ -92,7 +92,8 @@ public class Orn extends PriestsBase {
 						new SpellRecord(0, "Control Element", 0, 25, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Summon Fog", 0, 4, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Melt Ice", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Freeze Water", 0, 7, 1)))); //$NON-NLS-1$
+						new SpellRecord(0, "Freeze Water", 0, 7, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Absorb I", 1, 20, 1)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -103,26 +104,28 @@ public class Orn extends PriestsBase {
 						new SpellRecord(1, "Area of Gloom", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Summon Shower", 0, 8, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Sphere of Air I", 1, 5, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Sphere of Air I", 1, 5, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Dryness", 0, 5, 1)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(2, "Summon Water Monster I", 1, 3, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Summon Water Beast I", 1, 3, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Protection III", 3, 12, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Control Water Beasts", 0, 3, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Calm Wind", 0, 15, 0)))); //$NON-NLS-1$
-		// DW Verify Summon/Control Water Monster or Water Beast
+						new SpellRecord(2, "Calm Wind", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Absorb II", 2, 20, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Propel : Orn", 0, 10, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(3, "Summon Water Monster II", 2, 6, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Summon Water Beast II", 2, 6, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Protection IV", 4, 14, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Sphere of Air II", 2, 100, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Ice Storm I", 1, 6, 1)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(4, "Summon Water Monster III", 3, 9, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Summon Water Beast III", 3, 9, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Summon Storm", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Control Currents", 0, 50, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Protection V", 5, 16, 1), //$NON-NLS-1$
@@ -130,7 +133,7 @@ public class Orn extends PriestsBase {
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(5, "Summon Water Monster IV", 4, 12, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Summon Water Beast IV", 4, 12, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Tidal Wave", 0, 300, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Protection VI", 6, 18, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Ice Storm II", 2, 9, 1)))); //$NON-NLS-1$
@@ -142,6 +145,15 @@ public class Orn extends PriestsBase {
 						new SpellRecord(6, "Pressure", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Protection VII", 7, 20, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Control Weather", 0, 350, 0)))); //$NON-NLS-1$
+
+		// Power Seven:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(7, "Protection VIII", 8, 25, 1), //$NON-NLS-1$
+						new SpellRecord(7, "ReBirth", 0, 80, 1)))); //$NON-NLS-1$
+
+		// Power Eight:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(8, "Maelstrom", 0, 35, 1)))); //$NON-NLS-1$
 
 	}
 

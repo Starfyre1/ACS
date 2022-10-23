@@ -17,17 +17,17 @@ public class Fire extends MagesBase {
 	/*
 	The Elements
 	Second Requisite = Willpower
-
+	
 		There are Four distinct areas in the Elemental Magic, Earth, Air, Fire and
 		Water.  Each will have a small explanation of the area and a spell list as
 		follows:
-
+	
 		Fire Elementalist use the Forces of Heat to create great walls of flame,
 		turn solid rock to molten lava, and to launch mighty fireballs at enemies.
 		They are usually a quick-tempered person of any physical type.  Their
 		Focus is usually a Red Gem of some sort, either by itself or set into some
 		sort of jewelry.
-
+	
 		Power Zero:					Power One:
 		1)Control Cloud (-1)		1)Fireworks (-4)
 		2)Control Element (-20)F	2)Flaming Circle (-6)
@@ -80,7 +80,7 @@ public class Fire extends MagesBase {
 						new SpellRecord(0, "Control Element", 0, 20, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Detect Heat", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Firebolt", 0, 6, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Fire Darts", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Darts", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Summon Flame", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Summon Heat", 0, 8, 0), //$NON-NLS-1$
@@ -93,25 +93,32 @@ public class Fire extends MagesBase {
 						new SpellRecord(1, "Increase Fire", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Melt Ice", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Cold", 0, 0, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Summon Fire", 0, 6, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Summon Fire", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Watchfire", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Thermal Lining", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Fire Hands", 0, 6, 1)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(2, "Dancing Fire", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Fire Rune", 0, -1, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Fireball I", 1, 4, 1), //$NON-NLS-1$
-						new SpellRecord(2, "Touch of Fire", 0, 5, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Forge I", 1, -1, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Touch of Fire", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Hearth", 0, 30, 1)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(3, "Fire Shield", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Fireball II", 2, 5, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Fire Shield", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Firestorm I", 1, 6, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Forge II", 2, -1, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Wall of Fire I", 1, 6, 0)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(4, "Fireball III", 3, 6, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Forge III", 3, -1, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Smoke Servant", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Wall of Fire II", 2, 30, 0)))); //$NON-NLS-1$
 
@@ -144,36 +151,36 @@ public class Fire extends MagesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Mages / Priests:
-
+		
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-
+		
 			4)	Add +1 Hit Point per level till the 10th level.
-
+		
 			5)	Add +1% per level to their Save Vs. Surprise.
-
+		
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

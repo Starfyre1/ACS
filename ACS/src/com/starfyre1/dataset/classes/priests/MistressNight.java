@@ -59,7 +59,7 @@ public class MistressNight extends PriestsBase {
 			6)Stamina II (-20)F				6)Stamina III (-25)F
 			7)Haste (-7)H					7)Star Ritual (-lots)
 			8)Rune of Combat III (-lots)	8)Mana Pool (-lots)
-			9)Silence (-8)					9)Glittershield (-1)F
+			9)Silence (-8)					9)Glitter shield (-1)F
 
 			Power Four:						Power Five:
 			1)Cold Spell III (-8)F			1)Magic Detonation (-10)F
@@ -113,78 +113,88 @@ public class MistressNight extends PriestsBase {
 						new SpellRecord(0, "Alertness I", 0, 30, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Stamina I", 0, 15, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Hiding", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Vault", 0, 1, 1)))); //$NON-NLS-1$
+						new SpellRecord(0, "Vault", 0, 1, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Conceal", 0, 1, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(1, "Area of Gloom", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Neutralize Poison", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Shadow Climb", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Heal Self", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Absorb I", 1, 15, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Locate Living", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Hide Location", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Strength", 0, 150, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Rune of Combat II", 2, -1, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Rune of Combat II", 2, -1, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Night Sight", 0, 15, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(2, "Shadow Hold", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Cold Spell I", 1, 5, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Familiar", 0, -1, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Telepathy", 0, 5, 1), //$NON-NLS-1$
-						new SpellRecord(2, "Mage Wind", 0, -15, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Stamina II", 2, 20, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Haste", 0, 7, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Mage Wind", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Rune of Combat III", 3, -1, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Silence", 0, 8, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Shadow Hold", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Silence", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Stamina II", 2, 20, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Telepathy", 0, 5, 1)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(3, "Magic Siphon", 0, 25, 0), //$NON-NLS-1$
-						new SpellRecord(3, "Cold Spell II", 2, -6, 1), //$NON-NLS-1$
-						new SpellRecord(3, "Transform", 0, 35, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Absorb II", 2, 20, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Alter Shape", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Cold Spell II", 2, 6, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Forge I", 1, -1, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Glitter Shield", 0, 1, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Magic Siphon", 0, 25, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Stamina III", 3, 25, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Star Ritual", 0, -1, 0), //$NON-NLS-1$
-						new SpellRecord(3, "Mana Pool", 0, -1, 0), //$NON-NLS-1$
-						new SpellRecord(3, "Glittershield", 0, 1, 1)))); //$NON-NLS-1$
+						new SpellRecord(3, "Transform", 0, 35, 1)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(4, "Cold Spell III", 3, 8, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Absorb III", 3, 25, 1), //$NON-NLS-1$
-						new SpellRecord(4, "Damnation", 0, -1, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Rune of Combat IV", 4, -1, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Absorb Magic", 0, 6, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Cold Spell III", 3, 8, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Magic Detonation", 0, 10, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Forge II", 2, -1, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Mind Wipe", 0, 7, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Absorb Magic", 0, 6, 1)))); //$NON-NLS-1$
+						new SpellRecord(4, "Rune of Combat IV", 4, -1, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Blend with Shadows", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Whispers I", 1, 35, 0)))); //$NON-NLS-1$
 		// DW Verify : Absorb Magic MistressNight Power 4... no description
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(5, "Magic Detonation", 0, 10, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Cold Spell IV", 4, 10, 1), //$NON-NLS-1$
-						new SpellRecord(5, "Rune of Combat V", 5, -1, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Escape", 0, 0, 1), //$NON-NLS-1$
-						new SpellRecord(5, "Soul Store", 0, 300, 1)))); //$NON-NLS-1$
+						new SpellRecord(5, "Forge III", 0, -1, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Mana Pool", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Rune of Combat V", 5, -1, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Soul Store", 0, 300, 1), //$NON-NLS-1$
+						new SpellRecord(5, "ReBirth", 0, 80, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Shadow Warning", 0, 125, 0)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(6, "Return", 0, 30, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Resurrection", 0, 30, 1), //$NON-NLS-1$
-						new SpellRecord(6, "Realm of Darkness", 0, 150, 1)))); //$NON-NLS-1$
+						new SpellRecord(6, "Realm of Darkness", 0, 150, 1), //$NON-NLS-1$
+						new SpellRecord(6, "Whispers II", 2, 65, 0)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(7, "The Mottled Hand", 0, 4, 0), //$NON-NLS-1$
 						new SpellRecord(7, "Call to Chaos", 0, 9, 0), //$NON-NLS-1$
-						new SpellRecord(7, "Zen-Carla", 0, -1, 5)))); //$NON-NLS-1$
-		// DW Verify : Zen-Carla MistressNight Power 7... no description
+						new SpellRecord(7, "The Mottled Hand", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Walk in Shadows", 0, 15, 0)))); //$NON-NLS-1$
+		// DW Verify : Zen-Carla MistressNight Power 7... no description -- Removed???
 
 		// Power Eight:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(8, "Gift of the Gods", 0, 150, 0), //$NON-NLS-1$
-						new SpellRecord(8, "Sleep Eternal", 0, 10, 0)))); //$NON-NLS-1$
+						new SpellRecord(8, "Sleep Eternal", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(8, "Castle of Shadows", 0, -1, 0)))); //$NON-NLS-1$
 
 	}
 

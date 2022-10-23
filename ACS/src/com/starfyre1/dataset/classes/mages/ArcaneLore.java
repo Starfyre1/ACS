@@ -106,7 +106,10 @@ public class ArcaneLore extends MagesBase {
 						new SpellRecord(0, "Rune of Combat I", 1, -1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Staff I", 1, 1, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Summons I", 1, 1, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Translate", 0, 1, 0)))); //$NON-NLS-1$
+						new SpellRecord(0, "Translate", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Image I", 1, 3, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Detect Illusion", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Simple Sounds", 0, 2, 1)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -126,7 +129,7 @@ public class ArcaneLore extends MagesBase {
 						new SpellRecord(1, "Protection : Fear", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(1, "See Invisibility", 0, 6, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Staff II", 2, 2, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Turn Curse", 0, 0, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Dispel Illusion I", 1, 3, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -139,37 +142,48 @@ public class ArcaneLore extends MagesBase {
 						new SpellRecord(2, "Rune of Combat II", 2, -1, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Staff III", 3, 3, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Summons II", 2, 1, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Telepathy", 0, 10, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Telepathy", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Thermal Lining", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Multiple Images", 0, 5, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Turn Curse", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Image II", 2, 4, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Dispel Illusion II", 2, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Create Magic Item I", 1, -1, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(3, "Deflection", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Farsee", 0, 10, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Forge I", 1, -1, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Force III", 3, 5, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Protection : Undead", 0, 6, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Teleport I", 1, 3, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Wall of Force", 0, 3, 1), //$NON-NLS-1$
-						new SpellRecord(3, "Stone Meld", 0, -1, 0)))); //$NON-NLS-1$
+						new SpellRecord(3, "Dispel Illusion III", 3, 5, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Gather Power", 0, 120, 0)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(4, "Astral Aid", 0, 120, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Exorcism", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Forge II", 2, -1, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Force IV", 4, 6, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Protection IV", 4, 6, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Rune of Combat III", 3, -1, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Telekinesis", 0, 5, 1), //$NON-NLS-1$
-						new SpellRecord(4, "Teleport II", 2, 6, 1)))); //$NON-NLS-1$
+						new SpellRecord(4, "Teleport II", 2, 6, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Polymorph I", 1, 8, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Create Magic Item II", 2, -1, 0)))); //$NON-NLS-1$
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(5, "Disintegrate", 0, 10, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Forge III", 3, -1, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Escape", 0, 1, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Legend Lore", 0, -1, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Force V", 5, 7, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Protection V", 5, 5, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Rune of Protection : Magic", 0, -1, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Safe Teleport", 0, 120, 1)))); //$NON-NLS-1$
+						new SpellRecord(5, "Safe Teleport", 0, 120, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Dispel Illusion IV", 4, 6, 0)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -178,7 +192,10 @@ public class ArcaneLore extends MagesBase {
 						new SpellRecord(6, "Rune of Combat IV", 4, -1, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Staff IV", 4, 4, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Symbol I", 1, 90, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Know History", 0, -1, 0)))); //$NON-NLS-1$
+						new SpellRecord(6, "Know History", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Golem", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Polymorph II", 2, 10, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Create Magic Item III", 3, -1, 0)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -195,7 +212,9 @@ public class ArcaneLore extends MagesBase {
 						new SpellRecord(8, "Force VIII", 8, 10, 1), //$NON-NLS-1$
 						new SpellRecord(8, "Gate", 0, 90, 1), //$NON-NLS-1$
 						new SpellRecord(8, "Rune of Combat V", 5, -1, 0), //$NON-NLS-1$
-						new SpellRecord(8, "Symbol III", 3, 360, 0)))); //$NON-NLS-1$
+						new SpellRecord(8, "Symbol III", 3, 360, 0), //$NON-NLS-1$
+						new SpellRecord(8, "Permanent Illusion", 0, 60, 0), //$NON-NLS-1$
+						new SpellRecord(8, "Polymorph III", 3, 10, 0)))); //$NON-NLS-1$
 
 	}
 

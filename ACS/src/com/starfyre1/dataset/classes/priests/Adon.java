@@ -123,14 +123,15 @@ public class Adon extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(0, "Bless Blade I", 1, 10, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Call to Courage", 0, 3, 0), //$NON-NLS-1$
-						new SpellRecord(0, "False Fire", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Neutralize Poison", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Flaming Circle", 0, 6, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Protection I", 1, 5, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Missiles", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Sheath", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Shield I", 1, 15, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Turn Demons", 0, 3, 1)))); //$NON-NLS-1$
+						new SpellRecord(0, "Turn Demons", 0, 3, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Stamina I", 1, 15, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -144,9 +145,7 @@ public class Adon extends PriestsBase {
 						new SpellRecord(1, "Protection II", 2, 15, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Demons", 0, 15, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Speed I", 1, 10, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Stamina I", 1, 15, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Strength", 0, 120, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Touch of Fire", 0, 5, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Strength", 0, 120, 1)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -158,7 +157,10 @@ public class Adon extends PriestsBase {
 						new SpellRecord(2, "Shield II", 2, 30, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Speed II", 2, 30, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Stamina II", 2, 20, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Turn Undead", 0, 6, 1)))); //$NON-NLS-1$
+						new SpellRecord(2, "Turn Undead", 0, 6, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Touch of Fire", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Watchfire", 0, 15, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Flash Healing", 0, 9, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -181,11 +183,11 @@ public class Adon extends PriestsBase {
 						new SpellRecord(4, "Protection V", 5, 45, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Quest", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Regeneration", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Resurrection", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Vengeance", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Shield III", 3, 30, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Speed IV", 4, 25, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Stamina IV", 4, 30, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Vengeance", 0, 5, 0)))); //$NON-NLS-1$
+						new SpellRecord(4, "Moderate Healing", 0, 12, 0)))); //$NON-NLS-1$
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -196,7 +198,9 @@ public class Adon extends PriestsBase {
 						new SpellRecord(5, "Protection VI", 6, 55, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Raise Army", 0, 600, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Speed V", 5, 30, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Vitality", 0, 30, 1)))); //$NON-NLS-1$
+						new SpellRecord(5, "Vitality", 0, 30, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Rune : Slay Lycanthropes", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(5, "ReBirth", 0, -1, 0)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -204,24 +208,24 @@ public class Adon extends PriestsBase {
 						new SpellRecord(6, "Holy Quest", 0, 300, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Opening the Way", 0, 60, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Protection VII", 7, 65, 1), //$NON-NLS-1$
-						new SpellRecord(6, "Shield IV", 4, 45, 0)))); //$NON-NLS-1$
+						new SpellRecord(6, "Shield IV", 4, 45, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Rune : Slay Undead", 0, -1, 0)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(7, "Call from Beyond", 0, 240, 0), //$NON-NLS-1$
 						new SpellRecord(7, "Holy Sword", 0, -1, 0), //$NON-NLS-1$
 						new SpellRecord(7, "Protection : Magic", 0, 20, 1), //$NON-NLS-1$
-						new SpellRecord(7, "Rune : Slay Lycanthropes", 0, -1, 0), //$NON-NLS-1$
-						new SpellRecord(7, "Rune : Slay Undead", 0, -1, 0), //$NON-NLS-1$
-						new SpellRecord(7, "Wrath of Adon", 0, 6, 1)))); //$NON-NLS-1$
+						new SpellRecord(7, "Wrath of Adon", 0, 6, 1), //$NON-NLS-1$
+						new SpellRecord(7, "Shield V", 5, 60, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Resurrection", 0, -1, 0)))); //$NON-NLS-1$
 		// DW Verify does "Wrath of Adon" replace "Wrath of Exonerous" and "Wrath of Thanatos" Adon Power 7
 
 		// Power Eight:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(8, "Call to Law", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(8, "Gate", 0, 30, 1), //$NON-NLS-1$
-						new SpellRecord(8, "Gift of the Gods", 0, 60, 1), //$NON-NLS-1$
-						new SpellRecord(8, "Shield V", 5, 60, 0)))); //$NON-NLS-1$
+						new SpellRecord(8, "Gift of the Gods", 0, 60, 1)))); //$NON-NLS-1$
 
 	}
 

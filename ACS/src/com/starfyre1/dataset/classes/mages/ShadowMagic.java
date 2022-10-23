@@ -27,7 +27,7 @@ public class ShadowMagic extends MagesBase {
 
 			Power Zero:						Power One:
 			1)Alertness I (-30)F			1)Alertness II (-60)F
-			2)Conceal (-1)					2)Breakfall (-0)
+			2)Conceal (-1)					2)Break Fall (-0)
 			3)Hiding (-15)					3)Detect Traps (-5)
 			4)Open Locks I (-15)			4)Enchant Locks (-30)
 			5)Rune of Combat I (-lots)		5)Location (-15)
@@ -96,12 +96,17 @@ public class ShadowMagic extends MagesBase {
 						new SpellRecord(0, "Sleight of Hand", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Summon Fog", 0, 15, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Vault", 0, 1, 1), //$NON-NLS-1$
-						new SpellRecord(0, "Darts", 0, 4, 0)))); //$NON-NLS-1$
+						new SpellRecord(0, "Darts", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Open", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Close", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Detect Illusion", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Image I", 1, 3, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Slight Odors", 0, 2, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(1, "Alertness II", 2, 60, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Breakfall", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Break Fall", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Detect Traps", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Enchant Locks", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Location", 0, 15, 0), //$NON-NLS-1$
@@ -111,8 +116,10 @@ public class ShadowMagic extends MagesBase {
 						new SpellRecord(1, "Perpetual Shade", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Shadow Climb", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Shadow Cure", 0, 60, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Shadow Images", 0, 5, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Translate", 0, 1, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Neutralize Poison", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Translate", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Hover", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Image II", 2, 4, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -128,7 +135,9 @@ public class ShadowMagic extends MagesBase {
 						new SpellRecord(2, "Shadow Hold", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Silence", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Sleep I", 1, 5, 1), //$NON-NLS-1$
-						new SpellRecord(2, "Trail of Trickery", 0, 15, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Trail of Trickery", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Glide", 0, 3, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Blindness", 0, 8, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -146,12 +155,14 @@ public class ShadowMagic extends MagesBase {
 						new SpellRecord(4, "Blend with Shadows", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Day of Fog", 0, 120, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Phantasm", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Sleep II", 2, 5, 1)))); //$NON-NLS-1$
+						new SpellRecord(4, "Sleep II", 2, 5, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Rune of Combat III", 3, -1, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Anarchy I", 1, 5, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Polymorph I", 1, 8, 0)))); //$NON-NLS-1$
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(5, "Hidden Path", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Rune of Combat III", 3, -1, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Shadow Animation", 0, 60, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Shadow Warning", 0, 120, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Summon Shadows", 0, 10, 1)))); //$NON-NLS-1$

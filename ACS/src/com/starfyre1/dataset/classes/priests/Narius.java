@@ -38,7 +38,7 @@ public class Narius extends PriestsBase {
 			Power zero:					Power one:
 			1)Read  (-1)				1)Copy (-50)
 			2)Write (-10)				2)Silence (-20)
-			3)Breakfall (-0)			3)Create Magic Item I(-lots)
+			3)Break Fall (-0)			3)Create Magic Item I(-lots)
 			4)Protection I (-5)			4)Protection II (-10)
 			5)Protection : Fire (-0)		5)Vault (-2)
 			6)Heal Self (-20)			6)Stone Darts (-5)
@@ -115,7 +115,7 @@ public class Narius extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(0, "Read", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Write", 0, 10, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Breakfall", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Break Fall", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection I", 1, 5, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Heal Self", 0, 20, 0), //$NON-NLS-1$
@@ -151,7 +151,7 @@ public class Narius extends PriestsBase {
 		// Power Two
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(2, "Restore", 0, 300, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Suggestion", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Forge I", 1, -1, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Protection III", 3, 25, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Shield II", 2, 20, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Mind Link", 0, 5, 1), //$NON-NLS-1$
@@ -162,7 +162,8 @@ public class Narius extends PriestsBase {
 						new SpellRecord(2, "Remove Curse", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Staff II", 2, 2, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Protection : Undead", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Word of Warning II", 2, 40, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Word of Warning II", 2, 40, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Gather Power", 0, 120, 0)))); //$NON-NLS-1$
 
 		// Power Three
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -170,7 +171,7 @@ public class Narius extends PriestsBase {
 						new SpellRecord(3, "Protection IV", 4, 30, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Shield III", 3, 25, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Sleep II", 2, 6, 1), //$NON-NLS-1$
-						new SpellRecord(3, "Strength", 0, 120, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Forge II", 2, -1, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Farsee", 0, 10, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Group Link", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Invisibility II", 2, 15, 1), //$NON-NLS-1$
@@ -195,7 +196,7 @@ public class Narius extends PriestsBase {
 						new SpellRecord(5, "Know History", 0, 300, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Secret Room", 0, 500, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Protection VI", 6, 30, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Wall of Force", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Forge III", 3, -1, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Create Magic Item III", 3, -1, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Legend Lore", 0, 300, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Safe Teleport", 0, 120, 1), //$NON-NLS-1$
@@ -206,7 +207,8 @@ public class Narius extends PriestsBase {
 						new SpellRecord(6, "Geas", 0, 3, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Symbol I", 1, 90, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Staff IV", 4, 4, 1), //$NON-NLS-1$
-						new SpellRecord(6, "Commune", 0, 30, 0)))); //$NON-NLS-1$
+						new SpellRecord(6, "Commune", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(6, "ReBirth", 0, 65, 1)))); //$NON-NLS-1$
 
 		// Power Seven
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //

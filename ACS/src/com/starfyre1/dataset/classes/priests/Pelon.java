@@ -100,7 +100,11 @@ public class Pelon extends PriestsBase {
 						new SpellRecord(0, "Light", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection I", 1, 3, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Dark", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Turn Undead", 0, 3, 1)))); //$NON-NLS-1$
+						new SpellRecord(0, "Turn Undead", 0, 3, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Neutralize Poison", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Star Sight", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Fire Hands", 0, 6, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Flash Healing", 0, 7, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -111,8 +115,9 @@ public class Pelon extends PriestsBase {
 						new SpellRecord(1, "Protection : Undead", 0, 3, 1), //$NON-NLS-1$
 						new SpellRecord(1, "See Invisibility", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Shield of Light", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Star Sight", 0, 10, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Turn Curse", 0, 0, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Turn Curse", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Thermal Lining", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Moderate Healing", 0, 9, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -123,7 +128,8 @@ public class Pelon extends PriestsBase {
 						new SpellRecord(2, "Light Flash", 0, 3, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Protection III", 3, 9, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Remove Curse", 0, 30, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Turn Demons", 0, 6, 1)))); //$NON-NLS-1$
+						new SpellRecord(2, "Turn Demons", 0, 6, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Hearth", 0, 35, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -131,7 +137,8 @@ public class Pelon extends PriestsBase {
 						new SpellRecord(3, "Illusions", 0, 30, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Night Sight", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Protection IV", 4, 12, 0), //$NON-NLS-1$
-						new SpellRecord(3, "Spears of Light I", 1, 3, 1)))); //$NON-NLS-1$
+						new SpellRecord(3, "Spears of Light I", 1, 3, 1), //$NON-NLS-1$
+						new SpellRecord(3, "Protection Aura", 0, 30, 0)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -140,7 +147,6 @@ public class Pelon extends PriestsBase {
 						new SpellRecord(4, "Healing Rays", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Pass Darkness", 0, 6, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Protection V", 5, 15, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Protection Aura", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Vitality", 0, 30, 1)))); //$NON-NLS-1$
 
 		// Power Five:
@@ -149,23 +155,31 @@ public class Pelon extends PriestsBase {
 						new SpellRecord(5, "Protection VI", 6, 18, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Spears of Light II", 2, 4, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Temple of Light", 0, 120, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Wall of Brilliance", 0, 10, 0)))); //$NON-NLS-1$
+						new SpellRecord(5, "Wall of Brilliance", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(5, "ReBirth", 0, -1, 0)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(6, "Aura of Sautarius", 0, 360, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Gift of Sautarius", 0, 120, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Hold Sun", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Aura of Pelon", 0, 360, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Gift of Pelon", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Regeneration", 0, 200, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Holy Sword", 0, -1, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Protection VII", 7, 21, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Raise Army", 0, -1, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Rune : Slay Undead", 0, -1, 0)))); //$NON-NLS-1$
+						new SpellRecord(6, "Rune : Slay Undead", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Vitality", 0, 30, 1)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(7, "Call Daylight", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Resurrection", 0, 30, 1), //$NON-NLS-1$
+						new SpellRecord(7, "Hold Sun", 0, 120, 0), //$NON-NLS-1$
 						new SpellRecord(7, "Call to Law", 0, 30, 0), //$NON-NLS-1$
-						new SpellRecord(7, "Transformation", 0, -1, 0)))); //$NON-NLS-1$
+						new SpellRecord(7, "Call Daylight", 0, 6, 0)))); //$NON-NLS-1$
+
+		// Power Eight:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(8, "Gift of the Gods", 0, 60, 1), //$NON-NLS-1$
+						new SpellRecord(8, "Transformation", 0, -1, 0)))); //$NON-NLS-1$
 
 	}
 

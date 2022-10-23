@@ -106,8 +106,12 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(0, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Earth Womb", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Animals", 0, 4, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Locate Life : Animals", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Temperate Earth", 0, 10, 0)))); //$NON-NLS-1$
+						new SpellRecord(0, "Neutralize Poison", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Temperate Earth", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Fire Hands", 0, 7, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Resuscitate", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Produce Water", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Flash Healing", 0, 5, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -120,7 +124,10 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(1, "Speak with Animals", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Star Sight", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Web Stream", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Scattered Showers", 0, 30, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Scattered Showers", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Staff I", 1, 2, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Healing : Animals", 0, 40, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Golden Touch", 0, 5, 1)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -132,7 +139,11 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(2, "Vengeance", 0, 2, 1), //$NON-NLS-1$
 						new SpellRecord(2, "ESP", 0, 6, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Protection : Dark", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Harvest Ritual", 0, 500, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Harvest Ritual", 0, 500, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Hearth", 0, 30, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Find Water", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Staff II", 2, 3, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Moderate Healing", 0, 7, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -144,7 +155,8 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(3, "Detect Morals II", 2, 15, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Water Breathing", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Cure Illness", 0, 20, 0), //$NON-NLS-1$
-						new SpellRecord(3, "Alter Shape", 0, 3, 0)))); //$NON-NLS-1$
+						new SpellRecord(3, "Draw Water", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Salve of Healing", 0, -1, 0)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -154,7 +166,10 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(4, "Summon Animals II", 2, 9, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Lightning Storm I", 1, 6, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Liquefy Earth", 0, 10, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Part Water", 0, 20, 0)))); //$NON-NLS-1$
+						new SpellRecord(4, "Part Water", 0, 20, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Anoint", 0, 60, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Alter Shape", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Staff III", 3, 4, 1)))); //$NON-NLS-1$
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -164,20 +179,29 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(5, "Control Weather", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Commune", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Part Rock I", 1, 20, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Escape", 0, 1, 0)))); //$NON-NLS-1$
+						new SpellRecord(5, "Escape", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(5, "ReBirth", 0, 65, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Gift of Sight", 0, 35, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Gather Power", 0, 120, 0)))); //$NON-NLS-1$
 		// DW Verify "Circle of Light" is supposed to be 'Circle of Life' Lorrell Power 5
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(6, "Command Insects", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Lightning Storm II", 2, 6, 1), //$NON-NLS-1$
-						new SpellRecord(6, "Call to Law", 0, 8, 0)))); //$NON-NLS-1$
+						new SpellRecord(6, "Call to Law", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Vitality", 0, 35, 1)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(7, "Regeneration", 0, 200, 0), //$NON-NLS-1$
 						new SpellRecord(7, "Resurrection", 0, 30, 1), //$NON-NLS-1$
-						new SpellRecord(7, "The Mottled Hand", 0, 4, 0)))); //$NON-NLS-1$
+						new SpellRecord(7, "The Mottled Hand", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Shield V", 0, 65, 0)))); //$NON-NLS-1$
+
+		// Power Eight:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(8, "Gift of the Gods", 0, 65, 1)))); //$NON-NLS-1$
 
 	}
 

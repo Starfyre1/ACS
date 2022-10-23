@@ -57,13 +57,13 @@ public class Talon extends PriestsBase {
 			Power Four:  					Power Five:
 			1)Command Insects (-10)         1)Blend with Shadows (-5)
 			2)Protection V (-4)F            2)Commune (-30)
-			3)Speed III (-25)               3)Deathword I (-0)
+			3)Speed III (-25)               3)Death Word I (-0)
 			4)Talons IV (-4)F               4)Fly (-1)
 			5)Protection : Lycanthrope 		5)Summon Storm (-30)
 
 			Power Six:
 			1)The Hunt (-300)
-			2)Deathword II (-0)
+			2)Death Word II (-0)
 			3)Return (-30)F
 	
 	*/
@@ -96,16 +96,20 @@ public class Talon extends PriestsBase {
 						new SpellRecord(0, "Star Sight", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Summon Animals I", 1, 10, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Alertness I", 1, 30, 1), //$NON-NLS-1$
-						new SpellRecord(0, "Speak with Animals", 0, 1, 0)))); //$NON-NLS-1$
+						new SpellRecord(0, "Speak with Animals", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Command Insects", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Shield I", 1, 5, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(1, "Protection II", 2, 10, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Talons I", 1, 1, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Tracking", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Familiar", 0, -1, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Fire", 0, 3, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Cold", 0, 4, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Healing", 0, 60, 1)))); //$NON-NLS-1$
+						new SpellRecord(1, "Healing", 0, 60, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Cure Illness", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Glide", 0, 4, 1)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -116,8 +120,8 @@ public class Talon extends PriestsBase {
 						new SpellRecord(2, "Protection : Lightning", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Alertness II", 2, 60, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Speed I", 1, 15, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Protection : Lycanthrope", 0, 5, 1), //$NON-NLS-1$
-						new SpellRecord(2, "Healing : Animals", 0, 100, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Healing : Animals", 0, 100, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Shield II", 2, 20, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -125,36 +129,44 @@ public class Talon extends PriestsBase {
 						new SpellRecord(3, "Alter Shape", 0, 3, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Talons III", 3, 3, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Summon Animals II", 2, 9, 1), //$NON-NLS-1$
-						new SpellRecord(3, "Protection : Undead", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Vengeance", 0, 5, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Speed II", 2, 20, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Alertness III", 3, 75, 1), //$NON-NLS-1$
-						new SpellRecord(3, "Cure Illness", 0, 120, 0), //$NON-NLS-1$
-						new SpellRecord(3, "Gaze of Fear", 0, 2, 0)))); //$NON-NLS-1$
-		// DW Verify "Alertness III" doesn't exist Sarn Power 3 & Tarn Power 3
-		// DW Verify "Gaze of Fear" doesn't exist
+						new SpellRecord(3, "Shield III", 3, 35, 0)))); //$NON-NLS-1$
+		// DW Verify "Alertness III" doesn't exist Sarn Power 3 & Talon Power 3
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(4, "Command Insects", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Protection : Undead", 0, 6, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Protection V", 5, 4, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Speed III", 3, 25, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Talons IV", 4, 4, 1), //$NON-NLS-1$
-						new SpellRecord(4, "Slow", 0, 6, 1)))); //$NON-NLS-1$
+						new SpellRecord(4, "Slow", 0, 6, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Summon Storm", 0, 30, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Gaze of Fear", 0, 2, 0)))); //$NON-NLS-1$
+		// DW Verify "Gaze of Fear" doesn't exist
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(5, "Blend with Shadows", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Commune", 0, 30, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Deathword I", 1, 0, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Death Word I", 1, 0, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Fly", 0, 1, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Summon Storm", 0, 30, 0)))); //$NON-NLS-1$
+						new SpellRecord(5, "Protection : Lycanthrope", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Thornwall", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Shield IV", 4, 60, 0)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(6, "The Hunt", 0, 300, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Deathword II", 2, 0, 0), //$NON-NLS-1$
+						new SpellRecord(6, "ReBirth", 0, 70, 1), //$NON-NLS-1$
+						new SpellRecord(6, "Death Word II", 2, 0, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Return", 0, 30, 1)))); //$NON-NLS-1$
-		// DW Verify "The Hunt" doesn't exist
+
+		// Power Seven:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(7, "The Hunt", 0, 300, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Sentience", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Shield V", 5, 65, 0)))); //$NON-NLS-1$
 
 	}
 

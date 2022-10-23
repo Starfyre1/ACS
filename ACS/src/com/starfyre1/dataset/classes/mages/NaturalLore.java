@@ -135,7 +135,7 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord(1, "Familiar", 0, 600, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Growth : Plant", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Healing", 0, 60, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Increase Fire", 0, 4, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Neutralize Poison", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Animals", 0, 4, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Scattered Showers", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Silence", 0, 6, 0), //$NON-NLS-1$
@@ -160,7 +160,9 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord(2, "Salve of Healing", 0, -1, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Vengeance", 0, 2, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Protection : Dark", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Earth Womb", 0, 5, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Earth Womb", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Thermal Lining", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Flash Healing", 0, 7, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -175,7 +177,8 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord(3, "Rune of Protection : Animals", 0, 60, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Summon Animals I", 1, 10, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Summon Fire", 0, 3, 1), //$NON-NLS-1$
-						new SpellRecord(3, "Water Breathing", 0, 10, 0)))); //$NON-NLS-1$
+						new SpellRecord(3, "Water Breathing", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Gather Power", 0, 120, 0)))); //$NON-NLS-1$
 
 		// Power Four:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -190,7 +193,8 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord(4, "Summon Animals II", 2, 9, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Wall of Lightning I", 1, 4, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Wall of Ice", 0, 4, 1), //$NON-NLS-1$
-						new SpellRecord(4, "Wall of Stone", 0, 15, 1)))); //$NON-NLS-1$
+						new SpellRecord(4, "Wall of Stone", 0, 15, 1), //$NON-NLS-1$
+						new SpellRecord(4, "Moderate Healing", 0, 9, 0)))); //$NON-NLS-1$
 		// DW Verify Wall of Ligntning I & II don't exist and Wall of Fire is missing here (Natural Lore Power 4 & 5)
 
 		// Power Five:
@@ -205,21 +209,23 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord(5, "Part Water", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Smoke Servant", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Summon Storm", 0, 30, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Wall of Lightning II", 2, 30, 0)))); //$NON-NLS-1$
+						new SpellRecord(5, "Wall of Lightning II", 2, 30, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Golem", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Thornwall", 0, -1, 0)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(6, "Alter Terrain", 0, 60, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Animate Rock", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Command Insects", 0, 10, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Lightning Storm II", 2, 6, 1), //$NON-NLS-1$
-						new SpellRecord(6, "Symbol I", 1, 60, 0)))); //$NON-NLS-1$
+						new SpellRecord(6, "Lightning Storm II", 2, 6, 1)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(7, "Call to Law", 0, 8, 0), //$NON-NLS-1$
 						new SpellRecord(7, "Resurrection", 0, 30, 1), //$NON-NLS-1$
-						new SpellRecord(7, "The Mottled Hand", 0, 4, 0)))); //$NON-NLS-1$
+						new SpellRecord(7, "The Mottled Hand", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Symbol I", 1, 60, 0)))); //$NON-NLS-1$
 
 	}
 
