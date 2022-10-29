@@ -78,9 +78,9 @@ public class Fire extends MagesBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(0, "Control Cloud", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Control Element", 0, 20, 1), //$NON-NLS-1$
-						new SpellRecord(0, "Detect Heat", 0, 10, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Firebolt", 0, 6, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Darts", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Detect Heat", 0, 10, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Fire Bolt", 0, 6, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Summon Flame", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Summon Heat", 0, 8, 0), //$NON-NLS-1$
@@ -88,15 +88,15 @@ public class Fire extends MagesBase {
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(1, "Fire Hands", 0, 6, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Fireworks", 0, 4, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Flaming Circle", 0, 6, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Increase Fire", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Melt Ice", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Cold", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Summon Fire", 0, 6, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Watchfire", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Thermal Lining", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Fire Hands", 0, 6, 1)))); //$NON-NLS-1$
+						new SpellRecord(1, "Watchfire", 0, 15, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -104,13 +104,13 @@ public class Fire extends MagesBase {
 						new SpellRecord(2, "Fire Rune", 0, -1, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Fireball I", 1, 4, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Forge I", 1, -1, 1), //$NON-NLS-1$
-						new SpellRecord(2, "Touch of Fire", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Hearth", 0, 30, 1)))); //$NON-NLS-1$
+						new SpellRecord(2, "Hearth", 0, 30, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Touch of Fire", 0, 5, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(3, "Fireball II", 2, 5, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Fire Shield", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Fireball II", 2, 5, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Firestorm I", 1, 6, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Forge II", 2, -1, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Wall of Fire I", 1, 6, 0)))); //$NON-NLS-1$
@@ -132,15 +132,18 @@ public class Fire extends MagesBase {
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(6, "Burning Plane", 0, 10, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Fireball V", 5, 8, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Firestorm II", 2, 30, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Melt Rock", 0, 10, 0)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(7, "Fireball VI", 6, 9, 1), //$NON-NLS-1$
-						new SpellRecord(7, "Meteors", 0, 6, 1)))); //$NON-NLS-1$
+						new SpellRecord(7, "Burning Plane", 0, 10, 1), //$NON-NLS-1$
+						new SpellRecord(7, "Fireball VI", 6, 9, 1)))); //$NON-NLS-1$
+
+		// Power Eight:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(8, "Meteors", 0, 6, 1)))); //$NON-NLS-1$
 
 	}
 

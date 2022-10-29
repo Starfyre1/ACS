@@ -91,83 +91,81 @@ public class Thaer extends PriestsBase {
 
 		// Power Zero
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(0, "Flaming Circle", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Protection I", 1, 5, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Cleanliness", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Light", 0, 1, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Golden Touch", 0, 3, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Dryness", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Protection : Dark", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Flaming Circle", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Golden Touch", 0, 3, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Heal Self", 0, 20, 1), //$NON-NLS-1$
+						new SpellRecord(0, "Light", 0, 1, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Protection I", 1, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Protection : Dark", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Summon Fog", 0, 4, 0)))); //$NON-NLS-1$
 
 		// Power One
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(1, "Comeliness", 0, 120, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Protection II", 2, 10, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Sleep I", 0, 3, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Shield I", 1, 15, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Silence", 0, 6, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Continual Light", 0, 10, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Stamina I", 1, 15, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Protection II", 2, 10, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Remove Scar", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Sheath", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Shield I", 1, 15, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Silence", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Sleep I", 0, 3, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Stamina I", 1, 15, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Thermal Lining", 0, 10, 0)))); //$NON-NLS-1$
 		// DW Verify "Continual Light" doesn't exist Thaer Power 1
 
 		// Power Two
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(2, "Love Potion", 0, 300, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Protection III", 3, 15, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Shield II", 2, 30, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Images", 0, 25, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Spears of Light I", 0, 3, 1), //$NON-NLS-1$
-						new SpellRecord(2, "Healing", 0, 120, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Cure Illness", 0, 20, 0), //$NON-NLS-1$
-						new SpellRecord(2, "See Invisibility", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Flash Heal", 0, 8, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Healing", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Image I", 1, 25, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Love Potion", 0, 300, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Pleasure", 0, 10, 1), //$NON-NLS-1$
-						new SpellRecord(2, "Flash Healing", 0, 8, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Protection III", 3, 15, 0), //$NON-NLS-1$
+						new SpellRecord(2, "See Invisibility", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Shield II", 2, 30, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Spears of Light I", 0, 3, 1)))); //$NON-NLS-1$
 		// DW Verify "Images" doesn't exist while Image I - Image V does Sarn Power 1 & Thaer Power 2
-		// DW Verify "Spear of Light" doesn't exist while "Spears of Light I (& II) does Thaer Power 2
 
 		// Power Three
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(3, "Emotion Control", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Pheromones", 0, 20, 0), //$NON-NLS-1$
-						new SpellRecord(3, "Shield III", 3, 35, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Protection IV", 4, 20, 0), //$NON-NLS-1$
-						new SpellRecord(3, "Strength", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Protection : Lightning", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Shield III", 3, 35, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Stamina II", 2, 20, 1), //$NON-NLS-1$
-						new SpellRecord(3, "Protection : Lightning", 0, 0, 0)))); //$NON-NLS-1$
+						new SpellRecord(3, "Strength", 0, 120, 0)))); //$NON-NLS-1$
 
 		// Power Four
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(4, "Protection IV", 4, 25, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Bless Journey", 0, 3, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Regeneration", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Moderate Heal", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Protection : Lightning", 0, 0, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Moderate Healing", 0, 12, 0)))); //$NON-NLS-1$
+						new SpellRecord(4, "Regeneration", 0, 15, 0)))); //$NON-NLS-1$
 
 		// Power Five
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(5, "Protection V", 5, 30, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Holy Quest", 0, 300, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Haste", 0, 4, 1), //$NON-NLS-1$
-						new SpellRecord(5, "Sleep II", 2, 6, 1), //$NON-NLS-1$
-						new SpellRecord(5, "ReBirth", 0, 75, 1)))); //$NON-NLS-1$
+						new SpellRecord(5, "Holy Quest", 0, 300, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Protection V", 5, 30, 0), //$NON-NLS-1$
+						new SpellRecord(5, "ReBirth", 0, 75, 1), //$NON-NLS-1$
+						new SpellRecord(5, "Sleep II", 2, 6, 1)))); //$NON-NLS-1$
 
 		// Power Six
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(6, "Protection VI", 6, 35, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Holy Sword", 0, 600, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Protection VI", 6, 35, 0), //$NON-NLS-1$
 						new SpellRecord(6, "Wall of Brilliance", 0, 10, 0)))); //$NON-NLS-1$
 
 		// Power Seven
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(7, "Transformation", 0, 60, 0), //$NON-NLS-1$
 						new SpellRecord(7, "Call Daylight", 0, 6, 0), //$NON-NLS-1$
-						new SpellRecord(7, "Rune : Slay Undead", 0, -1, 0)))); //$NON-NLS-1$
+						new SpellRecord(7, "Rune : Slay Undead", 0, -1, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Transformation", 0, 60, 0)))); //$NON-NLS-1$
 
 	}
 

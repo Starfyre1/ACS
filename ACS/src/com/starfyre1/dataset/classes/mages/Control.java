@@ -16,7 +16,7 @@ public class Control extends MagesBase {
 	/*
 		Control
 		Second Requisite = Charisma
-	
+
 			Sorcerers use the spells of Control to Hypnotize and Control people and
 				creatures.  Causing them to do things that they would not normally do.
 			Masters of Control are rumored to know Words that can Stun or even Kill you.
@@ -25,7 +25,7 @@ public class Control extends MagesBase {
 			for that spell.  Make sure that all the spells restrictions are followed, this is a
 				very tough area to play, but Masters of Control are Very Powerful Mages.
 			Here are their Spells:
-	
+
 			Power Zero:					Power Two:
 			1)Area of Fear (-5)			1)Agility (-10)H
 			2)Binding Spell I (-3)		2)Alertness II (-60)H
@@ -42,7 +42,7 @@ public class Control extends MagesBase {
 										13)Stamina II (-20)HF
 										14)Stun (-2)
 										15)Telepathy (-15)
-
+	
 			Power One:					Power Three:
 			1)Alertness I (-30)H		1)Anarchy I (-5)
 			2)Alter Memory (-5)H		2)Dancing Fire (-5)
@@ -54,7 +54,7 @@ public class Control extends MagesBase {
 			8)Protection : Fear (-0)	8)Slow (-4)HF
 			9)Strength (-15)H			9)Stutter (-5)
 			10)Translate (-1)
-
+	
 			Power Four:
 			1)Anarchy II (-10)			Power Six:
 			2)Charm Monsters (-5)		1)Call to Chaos (-15)F
@@ -68,7 +68,7 @@ public class Control extends MagesBase {
 			1)Charm Plant (-10)			2)Mass Hypnotism II (-8)
 			2)Geas (-6)					3)Wake (-1)
 			3)Rally (-10
-	
+
 	*/
 
 	/*****************************************************************************
@@ -95,6 +95,7 @@ public class Control extends MagesBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(0, "Area of Fear", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Binding Spell I", 1, 3, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Detect Illusion", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Detect Lie", 0, 2, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Detect Morals I", 1, 10, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Forget", 0, 1, 1), //$NON-NLS-1$
@@ -102,12 +103,11 @@ public class Control extends MagesBase {
 						new SpellRecord(0, "Mind Stray", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Charm", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Sleep", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Reflection", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(0, "See Invisibility", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Sleep I", 1, 3, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Stamina I", 1, 15, 5), //$NON-NLS-1$
-						new SpellRecord(0, "Suggestion", 0, 1, 1), //$NON-NLS-1$
-						new SpellRecord(0, "Detect Illusion", 0, 1, 0), //$NON-NLS-1$
-						new SpellRecord(0, "See Invisibility", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Reflection", 0, 3, 0)))); //$NON-NLS-1$
+						new SpellRecord(0, "Suggestion", 0, 1, 1)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -116,17 +116,17 @@ public class Control extends MagesBase {
 						new SpellRecord(1, "Charm I", 1, 4, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Curse", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Deafness", 0, 4, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Disguise", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Dispel Illusion I", 1, 1, 0), //$NON-NLS-1$
 						new SpellRecord(1, "ESP", 0, 15, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Image I", 1, 3, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Locate Life", 0, 15, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Multiple Images", 0, 2, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Pain I", 1, 3, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Fear", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Strength", 0, 15, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Translate", 0, 1, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Pain I", 1, 3, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Image I", 1, 3, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Multiple Images", 0, 2, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Dispel Illusion I", 1, 1, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Disguise", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Stutter", 0, 5, 0)))); //$NON-NLS-1$
+						new SpellRecord(1, "Stutter", 0, 5, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Translate", 0, 1, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -142,10 +142,10 @@ public class Control extends MagesBase {
 						new SpellRecord(2, "Haste", 0, 4, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Madness", 0, 1, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Mind Link", 0, 5, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Pain II", 2, 4, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Stamina II", 2, 20, 5), //$NON-NLS-1$
 						new SpellRecord(2, "Stun", 0, 2, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Telepathy", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Pain II", 2, 4, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Telepathy", 0, 15, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -166,36 +166,36 @@ public class Control extends MagesBase {
 						new SpellRecord(4, "Invulnerability", 0, 10, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Mass Hypnotism I", 1, 5, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Mind Wipe", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Stamina III", 3, 25, 5), //$NON-NLS-1$
-						new SpellRecord(4, "Pain III", 3, 5, 0)))); //$NON-NLS-1$
+						new SpellRecord(4, "Pain III", 3, 5, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Stamina III", 3, 25, 5)))); //$NON-NLS-1$
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(5, "Charm Plants", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Geas", 0, 6, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Pain IV", 4, 8, 5), //$NON-NLS-1$
+						new SpellRecord(5, "Polymorph I", 1, 8, 5), //$NON-NLS-1$
 						new SpellRecord(5, "Rally", 0, 10, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Stamina IV", 4, 30, 5), //$NON-NLS-1$
-						new SpellRecord(6, "Pain IV", 4, 8, 5), //$NON-NLS-1$
-						new SpellRecord(6, "Polymorph I", 1, 8, 5)))); //$NON-NLS-1$
+						new SpellRecord(5, "Stamina IV", 4, 30, 5)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(6, "Call to Chaos", 0, 15, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Call to Law", 0, 15, 1), //$NON-NLS-1$
 						new SpellRecord(6, "Death Word I", 1, 0, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Sleep Eternal", 0, 10, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Pain V", 5, 7, 0)))); //$NON-NLS-1$
+						new SpellRecord(6, "Pain V", 5, 7, 0), //$NON-NLS-1$
+						new SpellRecord(6, "Sleep Eternal", 0, 10, 0)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(7, "Death Word II", 2, 0, 0), //$NON-NLS-1$
 						new SpellRecord(7, "Mass Hypnotism II", 2, 8, 0), //$NON-NLS-1$
-						new SpellRecord(7, "Wake", 0, 1, 0), //$NON-NLS-1$
-						new SpellRecord(7, "Pain VI", 6, 8, 0)))); //$NON-NLS-1$
+						new SpellRecord(7, "Pain VI", 6, 8, 0), //$NON-NLS-1$
+						new SpellRecord(7, "Wake", 0, 1, 0)))); //$NON-NLS-1$
 
 		// Power Eight:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(7, "Pain VII", 6, 9, 0)))); //$NON-NLS-1$
+						new SpellRecord(8, "Pain VII", 6, 9, 0)))); //$NON-NLS-1$
 
 	}
 
@@ -206,36 +206,36 @@ public class Control extends MagesBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Mages / Priests:
-
+		
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-
+		
 			4)	Add +1 Hit Point per level till the 10th level.
-
+		
 			5)	Add +1% per level to their Save Vs. Surprise.
-
+		
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

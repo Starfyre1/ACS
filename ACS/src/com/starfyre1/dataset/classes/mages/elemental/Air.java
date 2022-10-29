@@ -81,33 +81,33 @@ public class Air extends MagesBase {
 						new SpellRecord(0, "Control Cloud", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Control Element", 0, 20, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Darkness", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Darts", 0, 2, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Light", 0, 3, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Mage Wind", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Darts", 0, 2, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Summon Vapors", 0, 8, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Resuscitate", 0, 2, 0)))); //$NON-NLS-1$
+						new SpellRecord(0, "Resuscitate", 0, 2, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Summon Vapors", 0, 8, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(1, "Break Fall", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Hover", 0, 6, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Increase Fire", 0, 2, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Perpetual Dark", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Perpetual Light", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Remove Air I", 1, 4, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Slight Odors", 0, 3, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Wind Bolt", 0, 3, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Hover", 0, 6, 1)))); //$NON-NLS-1$
+						new SpellRecord(1, "Wind Bolt", 0, 3, 0)))); //$NON-NLS-1$
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(2, "Calm Wind", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Deflection", 0, 0, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Glide", 0, 2, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Lightning I", 1, 4, 1), //$NON-NLS-1$
+						new SpellRecord(2, "Propel : Air", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Protection : Lightning", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Remove Air II", 2, 4, 1), //$NON-NLS-1$
-						new SpellRecord(2, "Sphere of Air I", 1, 5, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Glide", 0, 2, 1), //$NON-NLS-1$
-						new SpellRecord(2, "Propel : Air", 0, 12, 0)))); //$NON-NLS-1$
+						new SpellRecord(2, "Sphere of Air I", 1, 5, 0)))); //$NON-NLS-1$
 
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -128,22 +128,25 @@ public class Air extends MagesBase {
 
 		// Power Five:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(5, "Glitter Shield", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Increase Winds", 0, 30, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Lightning IV", 4, 7, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Sphere of Air II", 2, 100, 1), //$NON-NLS-1$
-						new SpellRecord(5, "Wall of Brilliance", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(5, "Glitter Shield", 0, 1, 0)))); //$NON-NLS-1$
+						new SpellRecord(5, "Wall of Brilliance", 0, 5, 0)))); //$NON-NLS-1$
 
 		// Power Six:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(6, "Lightning V", 5, 8, 1), //$NON-NLS-1$
-						new SpellRecord(6, "Remove Air IV", 4, 6, 0), //$NON-NLS-1$
-						new SpellRecord(6, "Summon Twister", 0, 30, 0)))); //$NON-NLS-1$
+						new SpellRecord(6, "Remove Air IV", 4, 6, 0)))); //$NON-NLS-1$
 
 		// Power Seven:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(7, "Lightning VI", 6, 8, 1), //$NON-NLS-1$
 						new SpellRecord(7, "Suffocation", 0, 4, 0)))); //$NON-NLS-1$
+
+		// Power Eight:
+		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
+						new SpellRecord(8, "Summon Cyclone", 0, 30, 0)))); //$NON-NLS-1$
 
 	}
 
