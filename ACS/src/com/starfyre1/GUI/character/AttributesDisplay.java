@@ -272,15 +272,15 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 			mPAField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(7));
 			mWPField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(8));
 
-			mModStrField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(0));
-			mModConField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(1));
-			mModIntField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(2));
-			mModWisField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(3));
-			mModDexField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(4));
-			mModBSField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(5));
-			mModChaField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(6));
-			mModPAField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(7));
-			mModWPField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(8));
+			mModStrField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(0));
+			mModConField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(1));
+			mModIntField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(2));
+			mModWisField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(3));
+			mModDexField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(4));
+			mModBSField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(5));
+			mModChaField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(6));
+			mModPAField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(7));
+			mModWPField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(8));
 		} else {
 			enableFields(false);
 

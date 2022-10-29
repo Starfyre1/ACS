@@ -29,6 +29,16 @@ public class AttributesRecord implements Savable {
 	public static final String	PERSONAL_APPEARANCE_KEY			= "PERSONAL_APPEARANCE_KEY";																		//$NON-NLS-1$
 	public static final String	WILLPOWER_KEY					= "WILLPOWER_KEY";																					//$NON-NLS-1$
 
+	public static final String	STRENGTH_MOD_KEY					= "STRENGTH_MOD_KEY";																					//$NON-NLS-1$
+	public static final String	CONSTITUTION_MOD_KEY				= "CONSTITUTION_MOD_KEY";																				//$NON-NLS-1$
+	public static final String	INTELLIGENCE_MOD_KEY				= "INTELLIGENCE_MOD_KEY";																				//$NON-NLS-1$
+	public static final String	WISDOM_MOD_KEY						= "WISDOM_MOD_KEY";																						//$NON-NLS-1$
+	public static final String	DEXTERITY_MOD_KEY					= "DEXTERITY_MOD_KEY";																					//$NON-NLS-1$
+	public static final String	BOW_SKILL_MOD_KEY					= "BOW_SKILL_MOD_KEY";																					//$NON-NLS-1$
+	public static final String	CHARISMA_MOD_KEY					= "CHARISMA_MOD_KEY";																					//$NON-NLS-1$
+	public static final String	PERSONAL_APPEARANCE_MOD_KEY			= "PERSONAL_APPEARANCE_MOD_KEY";																		//$NON-NLS-1$
+	public static final String	WILLPOWER_MOD_KEY					= "WILLPOWER_MOD_KEY";																					//$NON-NLS-1$
+
 	public static final String	STRENGTH						= "Strength";																						//$NON-NLS-1$
 	public static final String	CONSTITUTION					= "Constitution";																					//$NON-NLS-1$
 	public static final String	INTELLIGENCE					= "Intelligence";																					//$NON-NLS-1$
@@ -311,6 +321,16 @@ public class AttributesRecord implements Savable {
 		br.write(TKStringHelpers.TAB + PERSONAL_APPEARANCE_KEY + TKStringHelpers.SPACE + mStats[7] + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + WILLPOWER_KEY + TKStringHelpers.SPACE + mStats[8] + System.lineSeparator());
 
+		br.write(TKStringHelpers.TAB + STRENGTH_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[0] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CONSTITUTION_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[1] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + INTELLIGENCE_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[2] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WISDOM_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[3] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DEXTERITY_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[4] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + BOW_SKILL_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[5] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CHARISMA_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[6] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + PERSONAL_APPEARANCE_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[7] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WILLPOWER_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[8] + System.lineSeparator());
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 		updateOldRecords();
 	}
@@ -337,6 +357,24 @@ public class AttributesRecord implements Savable {
 			mStats[7] = stat;
 		} else if (key.equals(WILLPOWER_KEY)) {
 			mStats[8] = stat;
+		} else if (key.equals(STRENGTH_MOD_KEY)) {
+			mModifiedStats[0] = stat;
+		} else if (key.equals(CONSTITUTION_MOD_KEY)) {
+			mModifiedStats[1] = stat;
+		} else if (key.equals(INTELLIGENCE_MOD_KEY)) {
+			mModifiedStats[2] = stat;
+		} else if (key.equals(WISDOM_MOD_KEY)) {
+			mModifiedStats[3] = stat;
+		} else if (key.equals(DEXTERITY_MOD_KEY)) {
+			mModifiedStats[4] = stat;
+		} else if (key.equals(BOW_SKILL_MOD_KEY)) {
+			mModifiedStats[5] = stat;
+		} else if (key.equals(CHARISMA_MOD_KEY)) {
+			mModifiedStats[6] = stat;
+		} else if (key.equals(PERSONAL_APPEARANCE_MOD_KEY)) {
+			mModifiedStats[7] = stat;
+		} else if (key.equals(WILLPOWER_MOD_KEY)) {
+			mModifiedStats[8] = stat;
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
@@ -349,8 +387,8 @@ public class AttributesRecord implements Savable {
 	public void finalizeCreation(boolean manual) {
 		if (manual) {
 			mStats = mModifiedStats.clone();
-		} else {
-			mModifiedStats = mStats.clone();
+//		} else {
+//			mModifiedStats = mStats.clone();
 		}
 		mStatsOld = mModifiedStats.clone();
 		mModifiedStatsOld = mModifiedStats.clone();
