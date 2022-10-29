@@ -44,11 +44,11 @@ public class MistressNight extends PriestsBase {
 			1)Darkness (-1)					1)Area of Gloom (-30)
 			2)Darts (-4)					2)Shadow Climb (-10)
 			3)Night Sight (-3)				3)Heal Self(-20)
-			4)Rune of Combat I (-lots)		4)Absorb I (-15)f
+			4)Rune : Combat I (-lots)		4)Absorb I (-15)f
 			5)Alertness I (-30)F			5)Locate Living (-15)
 			6)Stamina I (-15)F				6)Hide Location (-20)
 			7)Hiding (-15)					7)Strength (-150)
-			8)Vault (-1)F					8)Rune of Combat II (-lots)
+			8)Vault (-1)F					8)Rune : Combat II (-lots)
 	
 			Power Two:						Power Three:
 			1)Shadow Hold (-5)				1)Magic Siphon (-25)
@@ -58,14 +58,14 @@ public class MistressNight extends PriestsBase {
 			5)Mage Wind (15)				5)Alter Shape (-5)
 			6)Stamina II (-20)F				6)Stamina III (-25)F
 			7)Haste (-7)H					7)Star Ritual (-lots)
-			8)Rune of Combat III (-lots)	8)Mana Pool (-lots)
+			8)Rune : Combat III (-lots)	8)Mana Pool (-lots)
 			9)Silence (-8)					9)Glitter shield (-1)F
 	
 			Power Four:						Power Five:
 			1)Cold Spell III (-8)F			1)Magic Detonation (-10)F
 			2)Absorb III (-25)F				2)Cold Spell IV (-10)f
-			3)Damnation (-lots)				3)Rune of Combat V (-lots)
-			4)Rune of Combat IV (-lots)		4)Escape (-0)F
+			3)Damnation (-lots)				3)Rune : Combat V (-lots)
+			4)Rune : Combat IV (-lots)		4)Escape (-0)F
 			5)Mind Wipe (-7)				5)Soul Store (-300)F
 			6)Absorb Magic (-6)F
 	

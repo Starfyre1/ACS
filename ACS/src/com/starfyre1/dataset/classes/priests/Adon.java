@@ -47,7 +47,7 @@ public class Adon extends PriestsBase {
 			3)False Fire (-10)				3)Detect Enemies (-15)
 			4)Flaming Circle (-6)F			4)Endurance (-15)
 			5)Protection I (-5)F			5)Fearless Steed (-30)
-			6)Protection : Fire (-0)		6)Healing (-30)F
+			6)Protection : Fire (-0)		6)Heal (-30)F
 			7)Protection / Missiles (-0)	7)Increase Fire (-10)
 			8)Sheath (-1)					8)Protection II (-15)F
 			9)Shield I (-15)				9)Protection : Demons (-15)F
@@ -140,7 +140,7 @@ public class Adon extends PriestsBase {
 						new SpellRecord(1, "Detect Enemies", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Endurance", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Fearless Steed", 0, 30, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Healing", 0, 30, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Heal", 0, 30, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Increase Fire", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection II", 2, 15, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Demons", 0, 15, 1), //$NON-NLS-1$
@@ -150,7 +150,7 @@ public class Adon extends PriestsBase {
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(2, "Familiar", 0, 600, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Flash Healing", 0, 9, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Flash Heal", 0, 9, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Parry", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Protect Steed", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Protection III", 3, 25, 1), //$NON-NLS-1$
@@ -180,7 +180,7 @@ public class Adon extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(4, "Alertness II", 2, 20, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Champion", 0, 10, 1), //$NON-NLS-1$
-						new SpellRecord(4, "Moderate Healing", 0, 12, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Moderate Heal", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Protection V", 5, 45, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Quest", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Regeneration", 0, 15, 0), //$NON-NLS-1$

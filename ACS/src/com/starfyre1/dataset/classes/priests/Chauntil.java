@@ -121,7 +121,7 @@ public class Chauntil extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(1, "Alertness I", 1, 20, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Calm Waters", 0, 20, 1), //$NON-NLS-1$
-						new SpellRecord(0, "Flash Healing", 0, 7, 0), //$NON-NLS-1$
+						new SpellRecord(0, "Flash Heal", 0, 7, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Freedom", 0, 3, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Shield I", 1, 15, 0), //$NON-NLS-1$
@@ -144,7 +144,7 @@ public class Chauntil extends PriestsBase {
 		// Power Three:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(3, "Cold Spell II", 2, 5, 1), //$NON-NLS-1$
-						new SpellRecord(3, "Control Water Beast", 0, 3, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Control Water Beasts", 0, 3, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Control Winds", 0, 12, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Cure Illness", 0, 120, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Shield III", 3, 35, 0), //$NON-NLS-1$

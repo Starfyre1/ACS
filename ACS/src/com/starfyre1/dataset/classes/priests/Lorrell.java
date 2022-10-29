@@ -39,7 +39,7 @@ public class Lorrell extends PriestsBase {
 	
 			Power Zero:						Power One:
 			1) Darts (-5)					1)Growth (plant) (-15)
-			2)Heal Self (-20)				2)Healing (-120)
+			2)Heal Self (-20)				2)Heal (-120)
 			3)Detect Morals 1 (-10)			3)Bless Fields (-300)
 			4)Clear Water (-2)				4)Stop Poison (-6)
 			5)Shield I (-25)				5)Cure Illness (animals) (-20)
@@ -119,8 +119,8 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(1, "Cure Illness : Animals", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Golden Touch", 0, 5, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Growth : Plant", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Healing", 0, 120, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Healing : Animals", 0, 40, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Heal", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Heal : Animals", 0, 40, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Scattered Showers", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Silence", 0, 6, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Speak with Animals", 0, 1, 0), //$NON-NLS-1$

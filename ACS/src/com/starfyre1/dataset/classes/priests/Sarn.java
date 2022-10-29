@@ -42,8 +42,8 @@ public class Sarn extends PriestsBase {
 			2)Heal Self (-60)				2)Alertness II (-60)F
 			3)Vault (-0)					3)Images (-50)F
 			4)Sheath (-60)					4)Sphere of Air I (-6)
-			5)Rune of Combat I (-lots)		5)Freedom (-8)
-			6)Protection I (-6)F			6)Rune of Combat II (-lots)
+			5)Rune : Combat I (-lots)		5)Freedom (-8)
+			6)Protection I (-6)F			6)Rune : Combat II (-lots)
 			7)Star Sight (-8)				7)Protection II (-8)f
 			8)Darkness (-6)					8)Climb (-10)
 	                      					9)Area of Gloom (-30)
@@ -52,7 +52,7 @@ public class Sarn extends PriestsBase {
 			1)Haste (-6)H					1)Protection IV (-12)f
 			2)Protection III (-10)F			2)Familiar (-300)f
 			3)Invisibility I (-17)			3)Agility (-5)
-			4)Rune of Combat III (-lots)	4)Stop Poison (-15)
+			4)Rune : Combat III (-lots)	4)Stop Poison (-15)
 			5)Night Sight (-15)				5)Alertness III (-90)F
 	
 			Power Four:						Power Five:

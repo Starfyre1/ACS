@@ -39,7 +39,7 @@ public class Sailor extends ElvesBase {
 					In = 23-24	Maximum level of Magic	 = 16th
 					In =    25	Maximum level of Magic	 = 18th
 			5)	They receive +4 stamina ad +1 hit point per level past 1st, this will stop after 12th level.
-			6)	They may make (1) Magic Sword or (3) Magic Knives (see Rune of Combat I),
+			6)	They may make (1) Magic Sword or (3) Magic Knives (see Rune : Combat I),
 				This Bonus will be in effect as long as its’s a Elf that’s wielding the weapon.  This
 				will cost the character 800 exp and take approximately 6 weeks to finish.  The
 				character will not lose or use any Mana in there construction.

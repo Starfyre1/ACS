@@ -42,7 +42,7 @@ public class Tarot extends PriestsBase {
 			8)Protection : Charm (-5)     8)Speed I (-10)F
 
 			Power Two: 					Power Three:
-			1)Healing (-120)            1)Agility (-5)
+			1)Heal (-120)            1)Agility (-5)
 			2)Protection III (-15)      2)Protection IV (-20)
 			3)Silence (-6)              3)Invisibility II (-30)F
 			4)Know Direction (-1)       4)Charm I (-5)F
@@ -103,7 +103,7 @@ public class Tarot extends PriestsBase {
 
 		// Power Two:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
-						new SpellRecord(2, "Healing", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Heal", 0, 120, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Know Direction", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Pleasure", 0, 12, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Protection III", 3, 15, 0), //$NON-NLS-1$

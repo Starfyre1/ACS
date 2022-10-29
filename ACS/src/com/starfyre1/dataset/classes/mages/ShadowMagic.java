@@ -30,7 +30,7 @@ public class ShadowMagic extends MagesBase {
 			2)Conceal (-1)					2)Break Fall (-0)
 			3)Hiding (-15)					3)Detect Traps (-5)
 			4)Open Locks I (-15)			4)Enchant Locks (-30)
-			5)Rune of Combat I (-lots)		5)Location (-15)
+			5)Rune : Combat I (-lots)		5)Location (-15)
 			6)See Invisibility (-15)F		6)Locate Object (-15)F
 			7)Sleight of Hand (-1)			7)Mind Stray (-1)
 			8)Summon Fog (-15)F				8)Night Sight (-10)
@@ -44,7 +44,7 @@ public class ShadowMagic extends MagesBase {
 			4)Disguise (-15)				1)Agility (-5)
 			5)Dodge (-0)					2)Know Direction (-1)
 			6)Familiar (-600)				3)Muteness (-3)F
-			7)Hide Location (-15)			4)Rune of Combat II (-lots)
+			7)Hide Location (-15)			4)Rune : Combat II (-lots)
 			8)Open Locks II (-15)			5)Shadow Eye I (-10)
 			9)Protection : Traps (-5)		6)Snatch (-1)
 			10)Shadow Hold (-5)				7)Stop Poison (-15)
@@ -52,7 +52,7 @@ public class ShadowMagic extends MagesBase {
 			12)Sleep I (-5)F
 			13)Trail of Trickery (-15)		Power Five:
 											1)Hidden Path (-5)
-			Power Four:						2)Rune of Combat III (-lots)
+			Power Four:						2)Rune : Combat III (-lots)
 			1)Blend with  Shadows (-5)			3)Shadow Animation (-60)
 			2)Day of Fog (-120)F			4)Shadow Warning (-120)
 			3)Phantasm (-15)				5)Summon Shadows (-10)F

@@ -260,8 +260,9 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 			mAreaName = ACS.getInstance().getCharacterSheet().getSpellListDisplay().getMagicArea();
 			SpellUser spellUser = (SpellUser) ClassList.getCharacterClass(mAreaName);
 			SpellRecord spell = spellUser.getSpellRecord(mLevel, value);
-
-			addToKnownSpells(spell);
+			if (spell != null) {
+				addToKnownSpells(spell);
+			}
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$

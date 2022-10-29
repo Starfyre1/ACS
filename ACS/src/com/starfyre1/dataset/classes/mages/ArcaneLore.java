@@ -33,7 +33,7 @@ public class ArcaneLore extends MagesBase {
 			8)Light (-2)					8)Invisibility I (-10)F
 			9)Dart (-3)						9)Locate Life (10)
 			10)Protection I (-1)F			10)Locate Object (-10)
-			11)Rune of Combat I (-lots)		11)Night Sight (-30)
+			11)Rune : Combat I (-lots)		11)Night Sight (-30)
 			12)Staff I (-1)F				12)Open (-6
 			13)Summons I (-1)				13)Protection II (-2)F
 			14)Translate (-1)				14)Protection : Fear (-0)
@@ -42,10 +42,10 @@ public class ArcaneLore extends MagesBase {
 			1)Diminution (-3)				17)Turn Curse (-0)
 			2)Force II (-4)F
 			3)Growth (-6)					Power Three:
-			4)Healing (-60)					1)Deflection (-0)
+			4)Heal (-60)					1)Deflection (-0)
 			5)Protection III (-3)F			2)Farsee (-10)F
 			6)Remove Curse (-30)			3)Force III (-5)F
-			7)Rune of Combat II (-lots)		4)Protection : Undead (6)
+			7)Rune : Combat II (-lots)		4)Protection : Undead (6)
 			8)Staff III (-3)F				5)Teleport I (-3)F
 			9)Summons II (-1)				6)Wall of Force (-3)F
 			10)Telepathy (-10)				7)Stone Meld ( -15 )
@@ -55,14 +55,14 @@ public class ArcaneLore extends MagesBase {
 			2)Exorcism (-120)				2)Escape (-1)F
 			3)Force IV (-6)F				3)Legend Lore (-lots)
 			4)Protection IV (-6)F			4)Force V (-7)F
-			5)Rune of Combat III (-lots)	5)Protection V (-5)F
+			5)Rune : Combat III (-lots)	5)Protection V (-5)F
 			6)Telekinesis (-5)F				6)Rune of Protection : Magic (-lots)
 			7)Teleport II (-6)F				7)Safe Teleport (-120)F
 	
 			Power Six:						Power Seven:
 			1)Force VI (-8)F				1)Force VII (-9)F
 			2)Geas (-3)						2)Protection VI (-6)F
-			3)Rune of Combat IV (-lots)		3)Protection : Teleport (-100)
+			3)Rune : Combat IV (-lots)		3)Protection : Teleport (-100)
 			4)Staff IV (-4)F				4)Rune : Slay Lycanthropes (-lots)
 			5)Symbol I (-90)				5)Rune : Slay Undead (-lots)
 			6)Know History (-lots)			6)Symbol II (-180)
@@ -70,7 +70,7 @@ public class ArcaneLore extends MagesBase {
 			Power Eight:
 			1)Force VIII (-10)F
 			2)Gate (-90)F
-			3)Rune of Combat V (-lots)
+			3)Rune : Combat V (-lots)
 			4)Symbol III (-360)
 	
 	*/
@@ -137,7 +137,7 @@ public class ArcaneLore extends MagesBase {
 						new SpellRecord(2, "Dispel Illusion II", 2, 5, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Force II", 2, 4, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Growth", 0, 6, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Healing", 0, 60, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Heal", 0, 60, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Image I", 1, 4, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Multiple Images", 0, 5, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Protection III", 3, 3, 1), //$NON-NLS-1$

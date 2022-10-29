@@ -33,7 +33,7 @@ public class Necromancer extends MagesBase {
 			6)Night Sight (-1)					6)Locate Living (-15)
 			7)Protection : Undead (-0)			7)Perpetual Dark (-15)
 			8)Darts (-4)						8)Protection I (-5)F
-												9)Rune of Combat I (-260)
+												9)Rune : Combat I (-260)
 			Power Two:							10)Sleep I (-3)F
 			1)Blindness (-5)F					11)Speak with Dead (-90)
 			2)Charm I (-3)F
@@ -43,7 +43,7 @@ public class Necromancer extends MagesBase {
 			6)Locate Life (-10)					3)Leveloss I (-1)F
 			7)Madness (-3)						4)Protection III (-15)F
 			8)Muteness (-5)F					5)Rule Undead (-5)
-			9)Open (-3)							6)Rune of Combat II (-lots)
+			9)Open (-3)							6)Rune : Combat II (-lots)
 			10)Protection II (-10)				7)Summon Wraith II (-180)
 			11)Protection : Fear (-0)			8)Touch of Death (-4)F
 			12)Seance (-600)					9)Withering (-1)F
@@ -55,7 +55,7 @@ public class Necromancer extends MagesBase {
 			1)Damnation (-120)					4)Geas (-6)F
 			2)Death Ray (-5)F					5)Leveloss II (-2)
 			3)Protection IV (-20)F				6)Protection V (-25)F
-			4)Soul Store (-300)					7)Rune of Combat III (-lots)
+			4)Soul Store (-300)					7)Rune : Combat III (-lots)
 			5)Summon Specter (-240)				8)Sleep II (-6)F
 			6)Warriors of the Damned (-90)F		9)Unholy Strength (-30)F
 												10)Venom Vapors (-6)
@@ -101,7 +101,7 @@ public class Necromancer extends MagesBase {
 						new SpellRecord(0, "Night Sight", 0, 1, 0), //$NON-NLS-1$
 						new SpellRecord(0, "Protection I", 1, 5, 1), //$NON-NLS-1$
 						new SpellRecord(0, "Protection : Undead", 0, 0, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Rune of Combat I", 1, 260, 0)))); //$NON-NLS-1$
+						new SpellRecord(0, "Rune : Combat I", 1, 260, 0)))); //$NON-NLS-1$
 
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
@@ -139,7 +139,7 @@ public class Necromancer extends MagesBase {
 						new SpellRecord(3, "Madness", 0, 3, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Protection III", 3, 15, 1), //$NON-NLS-1$
 						new SpellRecord(3, "Rule Undead", 0, 5, 0), //$NON-NLS-1$
-						new SpellRecord(3, "Rune of Combat II", 2, -1, 0), //$NON-NLS-1$
+						new SpellRecord(3, "Rune : Combat II", 2, -1, 0), //$NON-NLS-1$
 						new SpellRecord(3, "Summon Wraith II", 2, 180, 0), //$NON-NLS-1$
 						new SpellRecord(3, "The Black Mass", 0, -1, 0)))); //$NON-NLS-1$
 
@@ -164,7 +164,7 @@ public class Necromancer extends MagesBase {
 						new SpellRecord(5, "Golem", 0, -1, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Level Loss II", 2, 2, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Protection V", 5, 25, 1), //$NON-NLS-1$
-						new SpellRecord(5, "Rune of Combat III", 3, -1, 0), //$NON-NLS-1$
+						new SpellRecord(5, "Rune : Combat III", 3, -1, 0), //$NON-NLS-1$
 						new SpellRecord(5, "Sleep II", 2, 6, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Unholy Strength", 0, 30, 1), //$NON-NLS-1$
 						new SpellRecord(5, "Venom Vapors", 0, 6, 0)))); //$NON-NLS-1$

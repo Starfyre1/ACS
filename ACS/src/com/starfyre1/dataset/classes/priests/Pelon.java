@@ -37,7 +37,7 @@ public class Pelon extends PriestsBase {
 
 			Power Zero:						Power One:
 			1)Golden Touch (-3)F			1)Blinding Eyes (-1)
-			2)Judgment  (-5)				2)Healing (-15)F
+			2)Judgment  (-5)				2)Heal (-15)F
 			3)Light (-1)					3)Perpetual Light (-5)
 			4)Protection I (-3)				4)Protection II (-6)
 			5)Protection : Dark (-5)		5)Protection : Undead (-3)F
@@ -109,7 +109,7 @@ public class Pelon extends PriestsBase {
 		// Power One:
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(1, "Blinding Eyes", 0, 1, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Healing", 0, 15, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Heal", 0, 15, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Moderate Heal", 0, 9, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Perpetual Light", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection II", 2, 6, 0), //$NON-NLS-1$

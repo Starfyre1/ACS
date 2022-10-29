@@ -53,7 +53,7 @@ public class Tellorian extends ElvesBase {
 			2)	As shown above they gain a +5% with Longswords & Broadswords.
 			3)	They receive a +5% to their Defense and their Save Vs. Magic
 			4)	They may make (1) Magic Sword or (5) Magic Knives of +1
-				(see Rune of Combat I), the bonus' will only be applicable if they
+				(see Rune : Combat I), the bonus' will only be applicable if they
 				are being used by a Elf.  Either 1 sword or 5 knives takes approximately
 				3 weeks and cost's the Tellorian 700 Experience points.  They do NOT
 				lose any Mana when making these weapons, but remember this is a

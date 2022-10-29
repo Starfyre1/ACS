@@ -54,7 +54,7 @@ public class Sithrian extends ElvesBase {
 			3)	Sithrian Elves have a +5% to their Defense and +5% to fighting with
 				Swords or knives.
 			4)	Sithrian Elves may make ( 1) Magic Sword, ( 10 ) Magic Arrows, or ( 5 )
-				Magic Knives at a +1 bonus.  (See Rune of Combat I)  The Bonus only
+				Magic Knives at a +1 bonus.  (See Rune : Combat I)  The Bonus only
 				works when used by an Elf.  Any of the Three choices will take the Elf
 				(3) weeks to complete and cost him 700 Experience points.  They will
 				Not cost them any Mana points when making these weapons.

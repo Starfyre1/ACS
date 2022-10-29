@@ -62,7 +62,7 @@ public class Narius extends PriestsBase {
 			6)Protection : Fire/Item (-0)	6)Farsee (-10)F
 			7)Protection : Lightning(-0)	7)Group Link (-15)
 			8)Turn Curse (-1)			8)Invisibility II (-15)F
-			9)Healing (-120)			9)Clairaudience (-10)
+			9)Heal (-120)			9)Clairaudience (-10)
 			10)Remove Curse (-30)		10)Teleport I (-3)F
 			11)Staff II (-2)F			11)Word of Warning III (-45)
 			12)Protection : Undead (-5)
@@ -152,7 +152,7 @@ public class Narius extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(2, "Forge I", 1, -1, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Gather Power", 0, 120, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Healing", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Heal", 0, 120, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Mind Link", 0, 5, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Protection III", 3, 25, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Protection : Fire : Item", 0, 0, 0), //$NON-NLS-1$

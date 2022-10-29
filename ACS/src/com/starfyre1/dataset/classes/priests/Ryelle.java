@@ -44,7 +44,7 @@ public class Ryelle extends PriestsBase {
 			4)Flaming Circle (-0)				4)Firebolt (-3)
 			5)Invisible Aid (-1)				5)Protection : Fire (-0)
 			6)Protection : Demons (-15)			6)Heal Self (-10)F
-			7)Rune of Combat I (-lots)			7)Summon Fire (-0)
+			7)Rune : Combat I (-lots)			7)Summon Fire (-0)
 			8)Summon Flame (-5)					8)Summon Smoke (-5)
 			9)Summon Imps (-60)F				9)The Black Mass (-lots)
 			10)Protection I (-3) 				10)Touch of Fire (-1)
@@ -56,7 +56,7 @@ public class Ryelle extends PriestsBase {
 			4)Fearful Gloom (-10)				3)Day of Gloom (-90)
 			5)Protection : Lycanthrope (-5)	4)Demonic Portal (-15)F
 			6)Invoke Spirit (-120)				5)Entity of Evil (-300)
-			7)Rune of Combat II (-lots)			6)Firestorm I (-6)F
+			7)Rune : Combat II (-lots)			6)Firestorm I (-6)F
 			8)Protection III (-9)				7)Gaze of Command (-2)
 												8)Protection IV (-12)
 			Power Four:							9)Summon Demon I (-120)F
@@ -64,7 +64,7 @@ public class Ryelle extends PriestsBase {
 			2)Damnation (-120)
 			3)Dome of Fire (-5)					Power Five:
 			4)Hellfire (-5)						1)Burning Winds (-5)F
-			5)Rune of Combat III (-lots)		2)Command Chaos (-7)F
+			5)Rune : Combat III (-lots)		2)Command Chaos (-7)F
 			6)Summon Demon II (-360)F			3)Eternal Flame (-5)
 			7)Protection V (-15)				4)Fire Shield (-0)
 												5)Protection VI (-18)
@@ -75,7 +75,7 @@ public class Ryelle extends PriestsBase {
 			4)Firestorm II (-20)F				10)Warriors of the Damned (-100)F
 			5)Legions of the Damned (-300)F
 			6)Protection VII (-21)				Power Seven:
-			7)Rune of Combat IV (-lots)			1)Demon Guard (-1)F
+			7)Rune : Combat IV (-lots)			1)Demon Guard (-1)F
 			8)Summon Demon IV (-900)F			2)Gateway to Gorth (-120)
 												3)UnHoly Sword (-lots)
 												4)Protection VIII (-27)

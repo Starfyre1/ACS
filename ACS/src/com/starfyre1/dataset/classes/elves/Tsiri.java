@@ -59,10 +59,10 @@ public class Tsiri extends ElvesBase {
 			3)	The Tsiri Elves add +5% to their Defense and have a additional +5% when
 				they are using Swords & Knives (as shown above).
 			4)	The Tsiri may make ( 1 ) Magic Sword or ( 2 ) Magic Knives of a +2 (See
-				Rune of Combat II) Once in their lives.  Their Magic has a limitation
+				Rune : Combat II) Once in their lives.  Their Magic has a limitation
 				on it however.  These Weapons only react magically when wielded by a
 				Elf, and only act as a +2 at night or under-ground.  Otherwise it will react
-				as a +1 weapon in an Elvish hand.  (See Rune of Combat I).
+				as a +1 weapon in an Elvish hand.  (See Rune : Combat I).
 			5)	Elves do Not need books to either cast or remember their spells.
 			6)	The Tsiri, like their cousins spend Experience to research their spells.
 				They spend time outside at night under the sky, or if your the Underground branch

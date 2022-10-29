@@ -41,7 +41,7 @@ public class Talon extends PriestsBase {
 			3)Star Sight (-12)               3)Tracking (-8)
 			4)Summon Animals I (-10)F       4)Protection : Fire (-3)
 			5)Alertness I (-30)F            5)Protection : Cold (-4)
-			6)Speak with Animals (-1)         6)Healing (-60)F
+			6)Speak with Animals (-1)         6)Heal (-60)F
 	
 			Power Two: 						Power Three:
 			1)Protection III (-3)F          1)Protection IV (-4)F
@@ -105,7 +105,7 @@ public class Talon extends PriestsBase {
 						new SpellRecord(1, "Cure Illness", 0, 120, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Familiar", 0, -1, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Glide", 0, 4, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Healing", 0, 60, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Heal", 0, 60, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Protection II", 2, 10, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Cold", 0, 4, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Fire", 0, 3, 0), //$NON-NLS-1$

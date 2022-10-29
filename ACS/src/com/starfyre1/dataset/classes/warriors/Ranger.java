@@ -58,7 +58,7 @@ public class Ranger extends Warrior {
 				8)	They receive +1D6 Stamina at first level.
 				9)	They have the skill "Herb Lore", this adds to the food supply
 					and gives the possibility of finding different useful Herbs,
-					Healing and otherwise.
+					Heal and otherwise.
 				10)	In all other aspects they are rated as Warriors (I.E. when
 					figuring out their Hit Bonus add +5% to their Hit Bonus).
 				11)	They add +3% to their Perception skill.

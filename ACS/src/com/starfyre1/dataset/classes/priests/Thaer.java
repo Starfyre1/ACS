@@ -53,7 +53,7 @@ public class Thaer extends PriestsBase {
 			3)Shield II (-30)               3)Shield III (-35)
 			4)Images (-25)                  4)Protection IV (-20)
 			5)Spear of Light (-3)F          5)Strength (-120)
-			6)Healing (-120)                6)Stamina II (-20)F
+			6)Heal (-120)                6)Stamina II (-20)F
 			7)Cure Illness (-20)			7)Protection : Lightning(-0)
 
 			Power Four						Power Five
@@ -120,7 +120,7 @@ public class Thaer extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(2, "Cure Illness", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Flash Heal", 0, 8, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Healing", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Heal", 0, 120, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Image I", 1, 25, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Love Potion", 0, 300, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Pleasure", 0, 10, 1), //$NON-NLS-1$

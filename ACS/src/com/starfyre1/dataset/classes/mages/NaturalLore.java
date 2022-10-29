@@ -35,7 +35,7 @@ public class NaturalLore extends MagesBase {
 			2)Detect Morals I (-10)F		2)Charm I (-6)F
 			3)Detect Traps (-10)			3)Familiar (-600)
 			4)Forecast (-10)				4)Growth (Plant) (-15)
-			5)Heal Self (-30)				5)Healing (-60)F
+			5)Heal Self (-30)				5)Heal (-60)F
 			6)Know Direction (-10)			6)Increase Fire (-4)F
 			7)Knowledge (-1)				7)Protection : Animals (-4)
 			8)Light (-3)					8)Scattered Showers (-30)
@@ -45,7 +45,7 @@ public class NaturalLore extends MagesBase {
 			12)Produce Water (-8)			12)Stop Poison (-6)
 			13)Summon Flame (-1)F			13)Summon Fog (-4)
 			14)Tracking (-8)				14)Web Stream (-3)F
-			15)Translate (-1)				15)Healing (Animal) (-40)F
+			15)Translate (-1)				15)Heal (Animal) (-40)F
 			16)Locate Life (Animal) (-15)	16)Cure Illness (Animals) (-20)
 
 			Power Two:						Power Three:
@@ -57,7 +57,7 @@ public class NaturalLore extends MagesBase {
 			6)Mind Link (-15)				6)Detect Morals II (-15)F
 			7)Night Sight (-12)				7)Passage (-4)
 			8)Protection : Fire (-0)		8)Protection : Lightning (-0)
-			9)Salve of Healing (-1 Day)		9)Rune of Protection : Animals (-60)
+			9)Salve of Heal (-1 Day)		9)Rune of Protection : Animals (-60)
 			10)Vengeance (-2)F				10)Summon Animals I (-10)F
 			11)Protection : Dark (-5)		11)Summon Fire (-3)F
 			12)Earth Womb (-5)				12)Water Breathing (-10)
@@ -135,8 +135,8 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord(1, "Cure Illness : Animals", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Familiar", 0, 600, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Growth : Plant", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Healing", 0, 60, 1), //$NON-NLS-1$
-						new SpellRecord(1, "Healing : Animals", 0, 40, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Heal", 0, 60, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Heal : Animals", 0, 40, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Neutralize Poison", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Animals", 0, 4, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Scattered Showers", 0, 30, 0), //$NON-NLS-1$
@@ -188,7 +188,7 @@ public class NaturalLore extends MagesBase {
 						new SpellRecord(4, "Lightning Storm I", 1, 6, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Growth", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Liquefy Earth", 0, 10, 0), //$NON-NLS-1$
-						new SpellRecord(4, "Moderate Healing", 0, 9, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Moderate Heal", 0, 9, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Paralyzation Touch", 0, 4, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Protection : Lycanthrope", 0, 4, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Summon Animals II", 2, 9, 1), //$NON-NLS-1$
