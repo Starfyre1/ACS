@@ -59,7 +59,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	static final String			MAGIC_SPELL_TAB_TITLE	= "Magic Spells";													//$NON-NLS-1$
 	static final String			MAGIC_SPELL_TAB_TOOLTIP	= "To research a new magical spell:";								//$NON-NLS-1$
 	private static final String	COST_TEXT				= "Cost: 6 X (spell power + 1/squared)";							//$NON-NLS-1$
-	private static final String	MAINTAINENCE_TEXT		= "";																//$NON-NLS-1$
+	private static final String	MAINTENANCE_TEXT		= "";																//$NON-NLS-1$
 	private static final String	MAGIC_SPELL_TEXT		= MAGIC_SPELL_TAB_TOOLTIP;
 	private static final String	SUCCESS_TOOLTIP			= "TBD";															//$NON-NLS-1$
 	private static final String	SUCCESS_TEXT			= "Success: TBD";													//$NON-NLS-1$
@@ -81,7 +81,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	private JLabel[]			mResearchChanceLabel;
 	private JLabel[]			mSuccessfulLabel;
 	private JLabel[]			mStartDateLabel;
-	private JLabel[]			mCompletionDateLabel;
+	private JLabel[]			mEndDateLabel;
 
 	private Color[]				mOldColor;
 
@@ -273,7 +273,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 				// DW _Count successful vs attempted
 				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 				mStartDateLabel[i].setText(record.getStartDate());
-				mCompletionDateLabel[i].setText(record.getCompletionDate());
+				mEndDateLabel[i].setText(record.getEndDate());
 			}
 		}
 		updateEnabledState();
@@ -282,11 +282,11 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TEXT, SUCCESS_TEXT, SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+		return createPage(createCenterPanel(), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TEXT, SUCCESS_TEXT, SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
 	private JPanel createCenterPanel() {
-		// DW _add Start and Completion Date (popup?)
+		// DW _add Start and End Date (popup?)
 		int completed = 0;
 		int attempted = 0;
 
@@ -304,7 +304,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		mResearchChanceLabel = new JLabel[ROWS];
 		mSuccessfulLabel = new JLabel[ROWS];
 		mStartDateLabel = new JLabel[ROWS];
-		mCompletionDateLabel = new JLabel[ROWS];
+		mEndDateLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel schoolPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -363,7 +363,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 			successfulPanel.add(mSuccessfulLabel[i]);
 
 			mStartDateLabel[i] = new JLabel();
-			mCompletionDateLabel[i] = new JLabel();
+			mEndDateLabel[i] = new JLabel();
 		}
 		spellPanel.add(Box.createVerticalGlue());
 		dpSpentPanel.add(Box.createVerticalGlue());

@@ -42,7 +42,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	static final String			SKILL_TAB_TITLE		= "Skills";																					//$NON-NLS-1$
 	static final String			SKILL_TAB_TOOLTIP	= "To learn or improve a skill:";															//$NON-NLS-1$
 	private static final String	COST_TEXT			= "Cost: 40-60";																			//$NON-NLS-1$
-	private static final String	MAINTAINENCE_TEXT	= "Maintain: 1 DP / week";																	//$NON-NLS-1$
+	private static final String	MAINTENANCE_TEXT	= "Maintain: 1 DP / week";																	//$NON-NLS-1$
 	private static final String	SKILL_TEXT			= SKILL_TAB_TOOLTIP;
 	private static final String	SUCCESS_TOOLTIP		= "1D20 < (Intelligence)";																	//$NON-NLS-1$
 	private static final String	SUCCESS_TEXT1		= "Success: 1D20 < ";																		//$NON-NLS-1$
@@ -62,7 +62,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	private JLabel[]			mMaintLabel;
 	private JLabel[]			mSuccessfulLabel;
 	private JLabel[]			mStartDateLabel;
-	private JLabel[]			mCompletionDateLabel;
+	private JLabel[]			mEndDateLabel;
 
 	/*****************************************************************************
 	 * Constructors
@@ -119,11 +119,11 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 				mBonusLabel[i].setText(String.valueOf(record.getBonus()));
 				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
 				mUsedLabel[i].setText(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
-				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));
+				mMaintLabel[i].setText(String.valueOf(record.hasMaintenance()));
 				// DW _Count successful vs attempted
 				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 				mStartDateLabel[i].setText(record.getStartDate());
-				mCompletionDateLabel[i].setText(record.getCompletionDate());
+				mEndDateLabel[i].setText(record.getEndDate());
 
 			}
 		}
@@ -133,11 +133,11 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), SKILLS_DESCRIPTION, SKILL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+		return createPage(createCenterPanel(), SKILLS_DESCRIPTION, SKILL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
 	private JPanel createCenterPanel() {
-		// DW _add Start and Completion Date (popup?)
+		// DW _add Start and End Date (popup?)
 		int currentTeacher = 0;
 		int currentBonus = 0;
 		int currentlySpent = 0;
@@ -155,7 +155,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		mMaintLabel = new JLabel[ROWS];
 		mSuccessfulLabel = new JLabel[ROWS];
 		mStartDateLabel = new JLabel[ROWS];
-		mCompletionDateLabel = new JLabel[ROWS];
+		mEndDateLabel = new JLabel[ROWS];
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel skillsPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -213,7 +213,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 			successfulPanel.add(mSuccessfulLabel[i]);
 
 			mStartDateLabel[i] = new JLabel();
-			mCompletionDateLabel[i] = new JLabel();
+			mEndDateLabel[i] = new JLabel();
 		}
 		teacherPanel.add(Box.createVerticalGlue());
 		bonusAmountPanel.add(Box.createVerticalGlue());

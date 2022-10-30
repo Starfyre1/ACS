@@ -10,11 +10,11 @@ public class DeterminationRecord {
 	static final String	DP_PER_WEEK_KEY		= "DP_PER_WEEK_KEY";		//$NON-NLS-1$
 	static final String	DP_TOTAL_SPENT_KEY	= "DP_TOTAL_SPENT_KEY";		//$NON-NLS-1$
 	static final String	DP_COST_KEY			= "DP_COST_KEY";			//$NON-NLS-1$
-	static final String	MAINTAINENCE_KEY	= "MAINTAINENCE_KEY";		//$NON-NLS-1$
+	static final String	MAINTENANCE_KEY		= "MAINTENANCE_KEY";		//$NON-NLS-1$
 	static final String	SUCCESSFUL_KEY		= "SUCCESSFUL_KEY";			//$NON-NLS-1$
 	static final String	START_DATE_KEY		= "START_DATE_KEY";			//$NON-NLS-1$
 	static final String	LAST_UPDATE_KEY		= "LAST_UPDATE_KEY";		//$NON-NLS-1$
-	static final String	COMPLETION_DATE_KEY	= "COMPLETION_DATE_KEY";	//$NON-NLS-1$
+	static final String	END_DATE_KEY		= "COMPLETION_DATE_KEY";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -23,11 +23,11 @@ public class DeterminationRecord {
 	int					mDPPerWeek			= 0;
 	int					mDPTotalSpent		= 0;
 	int					mDPCost				= 0;
-	boolean				mMaintainence		= false;
+	boolean				mMaintenance		= false;
 	boolean				mSuccessful			= false;
 	String				mStartDate			= "";						//$NON-NLS-1$
 	String				mLastUpdate			= "";						//$NON-NLS-1$
-	String				mCompletionDate		= "";						//$NON-NLS-1$
+	String				mEndDate			= "";						//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constructors
@@ -81,9 +81,9 @@ public class DeterminationRecord {
 		return mDPCost;
 	}
 
-	/** @return The maintainence. */
-	public boolean hasMaintainence() {
-		return mMaintainence;
+	/** @return The maintenance. */
+	public boolean hasMaintenance() {
+		return mMaintenance;
 	}
 
 	/** @return The successful. */
@@ -111,14 +111,14 @@ public class DeterminationRecord {
 		mLastUpdate = lastUpdate;
 	}
 
-	/** @return The completionDate. */
-	public String getCompletionDate() {
-		return mCompletionDate;
+	/** @return The endDate. */
+	public String getEndDate() {
+		return mEndDate;
 	}
 
-	/** @param completionDate The value to set for completionDate. */
-	public void setCompletionDate(String completionDate) {
-		mCompletionDate = completionDate;
+	/** @param endDate The value to set for endDate. */
+	public void setEndDate(String endDate) {
+		mEndDate = endDate;
 	}
 
 	/*****************************************************************************

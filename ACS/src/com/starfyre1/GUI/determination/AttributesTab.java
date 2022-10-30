@@ -43,7 +43,7 @@ public class AttributesTab extends DeterminationTab {
 	static final String				ATTRIBUTES_TAB_TOOLTIP	= "To raise your physical attributes:";																																														//$NON-NLS-1$
 	private static final String		CHOOSE_ATTRIBUTE		= "Choose Attribute";																																																		//$NON-NLS-1$
 	private static final String		COST_TEXT				= "Cost: 50";																																																				//$NON-NLS-1$
-	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week";																																																	//$NON-NLS-1$
+	private static final String		MAINTENANCE_TEXT		= "Maintain: 1 DP / week";																																																	//$NON-NLS-1$
 	private static final String		SUCCESS_TOOLTIP			= "1D20 + 1/2 level >= stat";																																																//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT1			= "Success: (1D20 + ";																																																		//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT2			= ") >= ";																																																					//$NON-NLS-1$
@@ -69,7 +69,7 @@ public class AttributesTab extends DeterminationTab {
 	private JLabel					mMaintLabel;
 	private JLabel					mSuccessfulLabel;
 	private JLabel					mStartDateLabel;
-	private JLabel					mCompletionDateLabel;
+	private JLabel					mEndDateLabel;
 
 	private JPanel					mAttrColumn;
 	private JPanel					mDPPerWeekColumn;
@@ -77,7 +77,7 @@ public class AttributesTab extends DeterminationTab {
 	private JPanel					mMaintColumn;
 	private JPanel					mSuccessfulColumn;
 	private JPanel					mStartDateColumn;
-	private JPanel					mCompletionDateColumn;
+	private JPanel					mEndDateColumn;
 
 	private JDialog					mNewEntryDialog;
 
@@ -180,11 +180,11 @@ public class AttributesTab extends DeterminationTab {
 				JLabel attrLabel = new JLabel(AttributesTab.ATTRIBUTE_NAMES[record.getAttribute()]);
 				JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
 				JLabel usedLabel = new JLabel(String.valueOf(record.getDPTotalSpent()) + " / " + record.getDPCost()); //$NON-NLS-1$
-				JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintainence()));
+				JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
 				// DW _Count successful vs attempted
 				JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 				JLabel startDateLabel = new JLabel(record.getStartDate());
-				JLabel completionDateLabel = new JLabel(record.getCompletionDate());
+				JLabel endDateLabel = new JLabel(record.getEndDate());
 
 				wrapper.add(attrLabel);
 				wrapper.add(DPPerWeekLabel);
@@ -192,7 +192,7 @@ public class AttributesTab extends DeterminationTab {
 				wrapper.add(maintLabel);
 				wrapper.add(successLabel);
 				wrapper.add(startDateLabel);
-				wrapper.add(completionDateLabel);
+				wrapper.add(endDateLabel);
 			}
 		}
 		//		updateEnabledState();
@@ -201,11 +201,11 @@ public class AttributesTab extends DeterminationTab {
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), PHYSICAL_DESCRIPTION, ATTRIBUTES_TAB_TOOLTIP, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+		return createPage(createCenterPanel(), PHYSICAL_DESCRIPTION, ATTRIBUTES_TAB_TOOLTIP, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
 	private JPanel createCenterPanel() {
-		// DW _add Start and Completion Date (popup?)
+		// DW _add Start and End Date (popup?)
 		//		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
@@ -215,7 +215,7 @@ public class AttributesTab extends DeterminationTab {
 		mMaintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mSuccessfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 		mStartDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		mCompletionDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mEndDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
 		generateHeaders();
 
@@ -225,7 +225,7 @@ public class AttributesTab extends DeterminationTab {
 		outerWrapper.add(mMaintColumn);
 		outerWrapper.add(mSuccessfulColumn);
 		outerWrapper.add(mStartDateColumn);
-		outerWrapper.add(mCompletionDateColumn);
+		outerWrapper.add(mEndDateColumn);
 
 		//		updateEnabledState();
 		//		updateDialogButtons();
@@ -239,7 +239,7 @@ public class AttributesTab extends DeterminationTab {
 		mMaintColumn.add(new JLabel("Maint:")); //$NON-NLS-1$
 		mSuccessfulColumn.add(new JLabel("Successful:")); //$NON-NLS-1$
 		mStartDateColumn.add(new JLabel("Start Date:")); //$NON-NLS-1$
-		mCompletionDateColumn.add(new JLabel("Completion Date:")); //$NON-NLS-1$
+		mEndDateColumn.add(new JLabel("End Date:")); //$NON-NLS-1$
 	}
 
 	void clearTab() {
@@ -249,7 +249,7 @@ public class AttributesTab extends DeterminationTab {
 		mMaintColumn.removeAll();
 		mSuccessfulColumn.removeAll();
 		mStartDateColumn.removeAll();
-		mCompletionDateColumn.removeAll();
+		mEndDateColumn.removeAll();
 		generateHeaders();
 
 	}
@@ -259,10 +259,10 @@ public class AttributesTab extends DeterminationTab {
 			JLabel attrLabel = new JLabel(AttributesTab.ATTRIBUTE_NAMES[record.getAttribute()]);
 			JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
 			JLabel usedLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
-			JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintainence()));
+			JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
 			JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 			JLabel startDateLabel = new JLabel(record.getStartDate());
-			JLabel completionDateLabel = new JLabel(record.getCompletionDate());
+			JLabel endDateLabel = new JLabel(record.getEndDate());
 
 			mAttrColumn.add(attrLabel);
 			mDPPerWeekColumn.add(DPPerWeekLabel);
@@ -270,12 +270,12 @@ public class AttributesTab extends DeterminationTab {
 			mMaintColumn.add(maintLabel);
 			mSuccessfulColumn.add(successLabel);
 			mStartDateColumn.add(startDateLabel);
-			mCompletionDateColumn.add(completionDateLabel);
+			mEndDateColumn.add(endDateLabel);
 		}
 	}
 
 	private JPanel createDialogPanel() {
-		// DW _add Start and Completion Date (popup?)
+		// DW _add Start and End Date (popup?)
 		int completed = 0;
 		int attempted = 0;
 		boolean currentMaintenance = false;
@@ -329,7 +329,7 @@ public class AttributesTab extends DeterminationTab {
 		successfulColumn.add(mSuccessfulLabel);
 
 		mStartDateLabel = new JLabel();
-		mCompletionDateLabel = new JLabel();
+		mEndDateLabel = new JLabel();
 
 		dPSpentColumn.add(Box.createVerticalGlue());
 		maintColumn.add(Box.createVerticalGlue());

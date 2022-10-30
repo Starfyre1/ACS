@@ -149,7 +149,7 @@ public class TeacherTab extends DeterminationTab {
 	}
 
 	private JPanel createCenterPanel() {
-		// DW _add Start and Completion Date (popup?)
+		// DW _add Start and End Date (popup?)
 		TKIntegerFilter intFilter = TKIntegerFilter.getFilterInstance();
 		TKFloatFilter floatFilter = TKFloatFilter.getFilterInstance();
 

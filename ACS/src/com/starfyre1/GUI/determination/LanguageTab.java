@@ -47,7 +47,7 @@ public class LanguageTab extends DeterminationTab {
 	private static final String		IMMERSIVE				= "Immersive";																												//$NON-NLS-1$
 	private static final String		TUTOR					= "Tutor";																													//$NON-NLS-1$
 	private static final String		COST_TEXT				= "Cost: 40, 60, 80 (Immersive, Tutor, Book)";																				//$NON-NLS-1$
-	private static final String		MAINTAINENCE_TEXT		= "Maintain: 1 DP / week for Fluent";																						//$NON-NLS-1$
+	private static final String		MAINTENANCE_TEXT		= "Maintain: 1 DP / week for Fluent";																						//$NON-NLS-1$
 	private static final String		LANGUAGE_TEXT			= LANGUAGE_TAB_TOOLTIP;
 	private static final String		SUCCESS_TOOLTIP			= "1D20 - (1/4 level) < (Wisdom)";																							//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT1			= "Success: (1D20 - ";																										//$NON-NLS-1$
@@ -94,7 +94,7 @@ public class LanguageTab extends DeterminationTab {
 	private JLabel[]				mMaintLabel;
 	private JLabel[]				mSuccessfulLabel;
 	private JLabel[]				mStartDateLabel;
-	private JLabel[]				mCompletionDateLabel;
+	private JLabel[]				mEndDateLabel;
 
 	/*****************************************************************************
 	 * Constructors
@@ -200,11 +200,11 @@ public class LanguageTab extends DeterminationTab {
 				mCostLabel[i] = record.getDPCost();
 
 				mUsedLabel[i] = new JLabel(mCurrentlySpentLabel[i] + " / " + mCostLabel[i]); //$NON-NLS-1$
-				mMaintLabel[i].setText(String.valueOf(record.hasMaintainence()));
+				mMaintLabel[i].setText(String.valueOf(record.hasMaintenance()));
 				// DW _Count successful vs attempted
 				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 				mStartDateLabel[i].setText(record.getStartDate());
-				mCompletionDateLabel[i].setText(record.getCompletionDate());
+				mEndDateLabel[i].setText(record.getEndDate());
 
 			}
 		}
@@ -214,11 +214,11 @@ public class LanguageTab extends DeterminationTab {
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), LANGUAGE_DESCRIPTION, LANGUAGE_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+		return createPage(createCenterPanel(), LANGUAGE_DESCRIPTION, LANGUAGE_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
 	private JPanel createCenterPanel() {
-		// DW _add Start and Completion Date (popup?)
+		// DW _add Start and End Date (popup?)
 		int currentMaintenance = 0;
 		int completed = 0;
 		int attempted = 0;
@@ -234,7 +234,7 @@ public class LanguageTab extends DeterminationTab {
 		mMaintLabel = new JLabel[ROWS];
 		mSuccessfulLabel = new JLabel[ROWS];
 		mStartDateLabel = new JLabel[ROWS];
-		mCompletionDateLabel = new JLabel[ROWS];
+		mEndDateLabel = new JLabel[ROWS];
 
 		JPanel wrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		JPanel langPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -292,7 +292,7 @@ public class LanguageTab extends DeterminationTab {
 			successfulPanel.add(mSuccessfulLabel[i]);
 
 			mStartDateLabel[i] = new JLabel();
-			mCompletionDateLabel[i] = new JLabel();
+			mEndDateLabel[i] = new JLabel();
 		}
 		dpSpentPanel.add(Box.createVerticalGlue());
 		maintPanel.add(Box.createVerticalGlue());

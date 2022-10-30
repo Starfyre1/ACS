@@ -170,7 +170,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 		record.setDPTotalSpent(record.getDPTotalSpent() + record.getDPPerWeek());
 		// update UI is done from calling method - dateUpdated(String date)
 		if (record.getDPTotalSpent() >= record.getDPCost()) {
-			record.setCompletionDate(date);
+			record.setEndDate(date);
 			record.setDPPerWeek(0);
 			determinationComplete(record);
 		} else {

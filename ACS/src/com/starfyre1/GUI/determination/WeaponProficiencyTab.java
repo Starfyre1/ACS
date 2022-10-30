@@ -46,12 +46,12 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	static final String			WEAPON_PROFICIENCY_TAB_TOOLTIP	= "To learn or improve a weapon proficiency:";												//$NON-NLS-1$
 	private static final String	SELECT_WEAPON_PROFICIENCY		= "Select Weapon Proficiency";																//$NON-NLS-1$
 	private static final String	COST_TEXT						= "Cost: 40";																				//$NON-NLS-1$
-	private static final String	MAINTAINENCE_TEXT				= "";																						//$NON-NLS-1$
+	private static final String	MAINTENANCE_TEXT				= "Maintain: 1 DP / week";																	//$NON-NLS-1$
 	private static final String	WEAPON_PROFICIENCY_TEXT			= WEAPON_PROFICIENCY_TAB_TOOLTIP;
 	private static final String	SUCCESS_TOOLTIP					= "1D20 < (Dexerity)";																		//$NON-NLS-1$
 	private static final String	SUCCESS_TEXT1					= "Success: 1D20 < ";																		//$NON-NLS-1$
 
-	static final String			PROFICIENCY_TITLE				= "Weapon:";																				//$NON-NLS-1$
+	static final String			PROFICIENCY_TITLE				= "Weapon";																					//$NON-NLS-1$
 	private static final String	SELECT_WEAPON					= "Select Weapon";																			//$NON-NLS-1$
 	private static final int	COST							= 40;
 
@@ -69,18 +69,20 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	private JTextField			mDPPerWeekField;
 	private JLabel				mDPSpentLabel;
 	private JLabel				mBonusLabel;
+	private JLabel				mMaintLabel;
 	private JLabel				mSuccessfulLabel;
 	private JLabel				mStartDateLabel;
-	private JLabel				mCompletionDateLabel;
+	private JLabel				mEndDateLabel;
 
 	private JPanel				mWeaponColumn;
 	private JPanel				mTeacherColumn;
 	private JPanel				mDPPerWeekColumn;
 	private JPanel				mDPSpentColumn;
 	private JPanel				mBonusAmountColumn;
+	private JPanel				mMaintColumn;
 	private JPanel				mSuccessfulColumn;
 	private JPanel				mStartDateColumn;
-	private JPanel				mCompletionDateColumn;
+	private JPanel				mEndDateColumn;
 
 	private JDialog				mNewEntryDialog;
 
@@ -219,18 +221,20 @@ public class WeaponProficiencyTab extends DeterminationTab {
 				JLabel bonusLabel = new JLabel(String.valueOf(record.getBonus()));
 				JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
 				JLabel usedLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
+				JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
 				JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 				JLabel startDateLabel = new JLabel(record.getStartDate());
-				JLabel completionDateLabel = new JLabel(record.getCompletionDate());
+				JLabel endDateLabel = new JLabel(record.getEndDate());
 
 				wrapper.add(weaponLabel);
 				wrapper.add(teacherLabel);
 				wrapper.add(bonusLabel);
 				wrapper.add(DPPerWeekLabel);
 				wrapper.add(usedLabel);
+				wrapper.add(maintLabel);
 				wrapper.add(successLabel);
 				wrapper.add(startDateLabel);
-				wrapper.add(completionDateLabel);
+				wrapper.add(endDateLabel);
 			}
 		}
 		//		updateEnabledState();
@@ -239,11 +243,11 @@ public class WeaponProficiencyTab extends DeterminationTab {
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTAINENCE_TEXT);
+		return createPage(createCenterPanel(), WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
 	private JPanel createCenterPanel() {
-		// DW _add Start and Completion Date (popup?)
+		// DW _add Start and End Date (popup?)
 		//		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
@@ -252,9 +256,10 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mDPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
 		mDPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mBonusAmountColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mMaintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mSuccessfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 		mStartDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		mCompletionDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mEndDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
 		generateHeaders();
 
@@ -263,9 +268,10 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		outerWrapper.add(mBonusAmountColumn);
 		outerWrapper.add(mDPPerWeekColumn);
 		outerWrapper.add(mDPSpentColumn);
+		outerWrapper.add(mMaintColumn);
 		outerWrapper.add(mSuccessfulColumn);
 		outerWrapper.add(mStartDateColumn);
-		outerWrapper.add(mCompletionDateColumn);
+		outerWrapper.add(mEndDateColumn);
 
 		//		updateEnabledState();
 		//		updateDialogButtons();
@@ -276,11 +282,12 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mWeaponColumn.add(new JLabel(PROFICIENCY_TITLE));
 		mTeacherColumn.add(new JLabel("Teacher")); //$NON-NLS-1$
 		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		mDPSpentColumn.add(new JLabel("Used:")); //$NON-NLS-1$
+		mDPSpentColumn.add(new JLabel("Used")); //$NON-NLS-1$
 		mBonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
-		mSuccessfulColumn.add(new JLabel("Successful:")); //$NON-NLS-1$
-		mStartDateColumn.add(new JLabel("Start Date:")); //$NON-NLS-1$
-		mCompletionDateColumn.add(new JLabel("Completion Date:")); //$NON-NLS-1$
+		mMaintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
+		mSuccessfulColumn.add(new JLabel("Success")); //$NON-NLS-1$
+		mStartDateColumn.add(new JLabel("Start Date")); //$NON-NLS-1$
+		mEndDateColumn.add(new JLabel("End Date")); //$NON-NLS-1$
 	}
 
 	void clearTab() {
@@ -290,8 +297,9 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mDPPerWeekColumn.removeAll();
 		mDPSpentColumn.removeAll();
 		mSuccessfulColumn.removeAll();
+		mMaintColumn.removeAll();
 		mStartDateColumn.removeAll();
-		mCompletionDateColumn.removeAll();
+		mEndDateColumn.removeAll();
 		generateHeaders();
 
 	}
@@ -304,22 +312,24 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
 			JLabel usedLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
 			JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
+			JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
 			JLabel startDateLabel = new JLabel(record.getStartDate());
-			JLabel completionDateLabel = new JLabel(record.getCompletionDate());
+			JLabel endDateLabel = new JLabel(record.getEndDate());
 
 			mWeaponColumn.add(weaponLabel);
 			mTeacherColumn.add(teacherLabel);
 			mBonusAmountColumn.add(bonusLabel);
 			mDPPerWeekColumn.add(DPPerWeekLabel);
 			mDPSpentColumn.add(usedLabel);
+			mMaintColumn.add(maintLabel);
 			mSuccessfulColumn.add(successLabel);
 			mStartDateColumn.add(startDateLabel);
-			mCompletionDateColumn.add(completionDateLabel);
+			mEndDateColumn.add(endDateLabel);
 		}
 	}
 
 	private JPanel createDialogPanel() {
-		// DW _add Start and Completion Date (popup?)
+		// DW _add Start and End Date (popup?)
 		int completed = 0;
 		int attempted = 0;
 		int currentMaintenance = 0;
@@ -337,6 +347,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		JPanel dPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
 		JPanel dPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel bonusAmountColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel maintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel successfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
 		JLabel label = new JLabel(PROFICIENCY_TITLE);
@@ -345,9 +356,10 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		teacherColumn.add(header);
 		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
 		dPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		dPSpentColumn.add(new JLabel("Used:")); //$NON-NLS-1$
+		dPSpentColumn.add(new JLabel("Used")); //$NON-NLS-1$
 		bonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
-		successfulColumn.add(new JLabel("Successful:")); //$NON-NLS-1$
+		maintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
+		successfulColumn.add(new JLabel("Successful")); //$NON-NLS-1$
 
 		mWeaponPopup = new TKPopupMenu(getWeaponsMenu());
 		mWeaponPopup.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -374,17 +386,23 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mDPSpentLabel.setPreferredSize(size);
 		dPSpentColumn.add(mDPSpentLabel);
 
+		mMaintLabel = new JLabel(String.valueOf(currentMaintenance));
+		mMaintLabel.setMinimumSize(size);
+		mMaintLabel.setPreferredSize(size);
+		maintColumn.add(mMaintLabel);
+
 		mSuccessfulLabel = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
 		mSuccessfulLabel.setMinimumSize(size);
 		mSuccessfulLabel.setPreferredSize(size);
 		successfulColumn.add(mSuccessfulLabel);
 
 		mStartDateLabel = new JLabel();
-		mCompletionDateLabel = new JLabel();
+		mEndDateLabel = new JLabel();
 
 		teacherColumn.add(Box.createVerticalGlue());
 		dPSpentColumn.add(Box.createVerticalGlue());
 		bonusAmountColumn.add(Box.createVerticalGlue());
+		maintColumn.add(Box.createVerticalGlue());
 		successfulColumn.add(Box.createVerticalGlue());
 
 		outerWrapper.add(weaponColumn);
@@ -392,6 +410,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		outerWrapper.add(bonusAmountColumn);
 		outerWrapper.add(dPPerWeekColumn);
 		outerWrapper.add(dPSpentColumn);
+		outerWrapper.add(maintColumn);
 		outerWrapper.add(successfulColumn);
 
 		updateEnabledState();

@@ -69,7 +69,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
 		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
 		sb.append("\nLast Update: " + mLastUpdate); //$NON-NLS-1$
-		sb.append("\nCompletion Date: " + (mCompletionDate.isBlank() ? "Not Complete" : mCompletionDate)); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\nEnd Date: " + (mEndDate.isBlank() ? "Not Complete" : mEndDate)); //$NON-NLS-1$ //$NON-NLS-2$
 		sb.append("\n"); //$NON-NLS-1$
 
 		return sb.toString();
@@ -149,7 +149,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 		br.write(TKStringHelpers.TAB + SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + LAST_UPDATE_KEY + TKStringHelpers.SPACE + mLastUpdate + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + COMPLETION_DATE_KEY + TKStringHelpers.SPACE + mCompletionDate + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + END_DATE_KEY + TKStringHelpers.SPACE + mEndDate + System.lineSeparator());
 
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
@@ -175,8 +175,8 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 			mStartDate = value;
 		} else if (LAST_UPDATE_KEY.equals(key)) {
 			setLastUpdate(value);
-		} else if (COMPLETION_DATE_KEY.equals(key)) {
-			mCompletionDate = value;
+		} else if (END_DATE_KEY.equals(key)) {
+			mEndDate = value;
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
