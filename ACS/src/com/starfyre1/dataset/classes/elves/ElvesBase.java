@@ -76,7 +76,7 @@ public abstract class ElvesBase extends BaseClass {
 
 	@Override
 	public int getHerbalLore() {
-		// DW Verify - herbal healling says all elves, elf type says only sailor and sithrian
+		// DW Verify - herbal healing says all elves, elf type says only sailor and sithrian
 		return 15;
 	}
 

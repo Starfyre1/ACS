@@ -20,23 +20,23 @@ public class Lorrell extends PriestsBase {
 		in their own ways.  Some factions are intolerant of other's like Narese the
 		Goddess of Pain, or very tolerant like the Priest's of Narius the God of
 		Knowledge.  Here are the Gods and their Priest's Spells.
-	
+
 		Lorrell
 		Second Requisite - Wisdom
-	
+
 			Lorrell is the Goddess of the Harvest and of all cultivated things.  Her clerics are
 			welcomed into any farming community.  She protects all who ask it of her, with-
 			out question, and is especially fond of midwifes and birthing women.
-	
+
 			Her clerics rarely wear armor, but when they do have a maximum armor of 40%.
 			Their weapons are limited to blunt objects or farming instruments, but they mostly
 			carry a staff or cudgel.  Some are proficient with bows, but these are a rarity.
 			Lorrell has no enemies in the pantheon of Gods, however she frowns on the
 			clerics of Narese.
-	
+
 			Most of Lorrell's clerics and priests settle down in small towns and farming communities,
 			helping the people tame the land and seeking to set their lives to peace.
-	
+
 			Power Zero:						Power One:
 			1) Darts (-5)					1)Growth (plant) (-15)
 			2)Heal Self (-20)				2)Heal (-120)
@@ -48,7 +48,7 @@ public class Lorrell extends PriestsBase {
 			8)Protection : Animals (-4)		8)Star Sight (-12)
 			9)Locate Life : Animals (-15)	9)Web Stream (-5)
 			10)Temperate Earth (-10)		10)Scattered Showers (-30)
-
+	
 			Power Two:						Power Three:
 			1)Shield II (-30)				1)Shield III (-35)
 			2)Protection : Lightning (-0)	2)Weight (-6)F
@@ -59,7 +59,7 @@ public class Lorrell extends PriestsBase {
 			7)ESP (-6)F						7)Water Breathing (-10)
 			8)Protection : Dark (-5)		8)Cure Illness (-20)
 			9)Harvest Ritual (-500)			9)Alter Shape (-3)
-
+	
 			Power Four:						Power Five:
 			1)Shield IV (-40)				1)Fly (-1)
 			2)Control Winds (-12)			2)Summon Storm (-30)
@@ -68,7 +68,7 @@ public class Lorrell extends PriestsBase {
 			5)Lightning Storm I (-6)F		5)Commune (-30)
 			6)Liquefy Earth (-10)			6)Part Rock I (-20)
 			7)Part Water (-20)				7)Escape (-1)
-
+	
 			Power Six:						Power Seven:
 			1)Command Insects (-10)			1)Regeneration (-200)
 			2)Lightning Storm II (-6)F		2)Resurrection (-30)F
@@ -119,7 +119,7 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(1, "Cure Illness : Animals", 0, 20, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Golden Touch", 0, 5, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Growth : Plant", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Heal", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Heal I", 1, 120, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Heal : Animals", 0, 40, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Scattered Showers", 0, 30, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Silence", 0, 6, 0), //$NON-NLS-1$
@@ -137,7 +137,7 @@ public class Lorrell extends PriestsBase {
 						new SpellRecord(2, "Harvest Ritual", 0, 500, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Hearth", 0, 30, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Hide", 0, 15, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Moderate Heal", 0, 7, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Heal II", 2, 7, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Protection : Dark", 0, 5, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Protection : Lightning", 0, 0, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Protection : Lycanthrope", 0, 5, 0), //$NON-NLS-1$
@@ -212,36 +212,36 @@ public class Lorrell extends PriestsBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Mages / Priests:
-
+		
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-
+		
 			4)	Add +1 Hit Point per level till the 10th level.
-
+		
 			5)	Add +1% per level to their Save Vs. Surprise.
-
+		
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

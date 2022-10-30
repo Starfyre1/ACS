@@ -20,27 +20,27 @@ public class Adon extends PriestsBase {
 			in their own ways.  Some factions are intolerant of other's like Narese the
 			Goddess of Pain, or very tolerant like the Priest's of Narius the God of
 			Knowledge.  Here are the Gods and their Priest's Spells.
-
+	
 		Thantos
 		Second Requisite – Strength
-	
+
 			Thantos is the Father of the Gods, as Mistress Night is their Mother.
 			He lives on the plane Stratos, presiding over the other Gods of Law and Order.
 			Thantos is the Lord of Courage and Chivalry.  He stands Second only to
 			Mistress Night in power among the Gods of Athri.
-	
+
 			Followers of Thantos believe in the clean killing of all things Evil, such
 			as Trolls, Goblins, Vampires or Priest's of any of the Evil Gods -Rysh, Graun,
 			Narese to name a Few.  In combat a Priest of Thantos will not yield to any Evil
 			foe as long as he/she still breaths.  Yielding to save another life, is a possibility,
 			but not very likely, when playing a Priest of Thantos, don't forget their Chivalry or the
 			Laws by which they live, Nothing is beyond the Law.
-	
+
 			A Priest of Thantos begins play with a Morals rating of no lower than "0".
 			They must gain +2 per level to gain their new levels spells.  The focus for this
 			priest is the symbol of Thantos (really imaginative, I know) a Circle of Silver
 			with a Sword upraised in the center on a medallion.
-	
+
 			Power Zero:						Power One:
 			1)Bless Blade I (-10)			1)Alertness I (-20)F
 			2)Call to Courage (-3)			2)Bless Journey (-3)
@@ -88,7 +88,7 @@ public class Adon extends PriestsBase {
 			2)Gate (-30)F					6)Wrath of Exonerous (-6)F
 			3)Gift of the Gods (-60)F
 			4)Shield V (-60)
-	
+
 	*/
 
 	/*****************************************************************************
@@ -140,7 +140,7 @@ public class Adon extends PriestsBase {
 						new SpellRecord(1, "Detect Enemies", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Endurance", 0, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Fearless Steed", 0, 30, 0), //$NON-NLS-1$
-						new SpellRecord(1, "Heal", 0, 30, 1), //$NON-NLS-1$
+						new SpellRecord(1, "Heal I", 1, 30, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Increase Fire", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection II", 2, 15, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Demons", 0, 15, 1), //$NON-NLS-1$
@@ -180,7 +180,7 @@ public class Adon extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(4, "Alertness II", 2, 20, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Champion", 0, 10, 1), //$NON-NLS-1$
-						new SpellRecord(4, "Moderate Heal", 0, 12, 0), //$NON-NLS-1$
+						new SpellRecord(4, "Heal II", 2, 12, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Protection V", 5, 45, 1), //$NON-NLS-1$
 						new SpellRecord(4, "Quest", 0, 10, 0), //$NON-NLS-1$
 						new SpellRecord(4, "Regeneration", 0, 15, 0), //$NON-NLS-1$
@@ -235,36 +235,36 @@ public class Adon extends PriestsBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Mages / Priests:
-
+		
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-
+		
 			4)	Add +1 Hit Point per level till the 10th level.
-
+		
 			5)	Add +1% per level to their Save Vs. Surprise.
-
+		
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

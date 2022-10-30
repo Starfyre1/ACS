@@ -20,21 +20,21 @@ public class Narius extends PriestsBase {
 		in their own ways.  Some factions are intolerant of other's like Narese the
 		Goddess of Pain, or very tolerant like the Priest's of Narius the God of
 		Knowledge.  Here are the Gods and their Priest's Spells.
-	
+
 		Narius
 		Second Requisite = Intelligence
-
+	
 			The Priests of Narius gather knowledge and preserve it, that is their sacred
 			calling.  However, they also serve as a check to the priests of Sarn & Narese,
 			who destroy most everything that they cannot use to cause pain, suffering or
 			death to others.  They are also on the most effective groups of people striving
 			for good in all of Athri.
-
+	
 			They are limited to 40% armor if any spells are to be cast, 30% if anything
 			above a third level spell are to be cast.  They are also limited on the weapons
 			that they can use, their selection are as follows :  Crossbows, Long & Short Bows,
 			Short swords, Maces, Clubs, Staff, Rod, Scepters are their choices.
-
+	
 			Power zero:					Power one:
 			1)Read  (-1)				1)Copy (-50)
 			2)Write (-10)				2)Silence (-20)
@@ -52,7 +52,7 @@ public class Narius extends PriestsBase {
 			14)Protection : Fear (-0)		14)Sleep I (-3)F
 			15)Antidote (-lots)			15)See Invisibility (-6)
 			16)Invisibility I (-10)F
-	
+
 			Power Two					Power Three
 			1)Restore (-300)			1)Create Magic Item II (-lots)
 			2)Suggestion (-1)			2)Protection IV (-30)
@@ -67,7 +67,7 @@ public class Narius extends PriestsBase {
 			11)Staff II (-2)F			11)Word of Warning III (-45)
 			12)Protection : Undead (-5)
 			13)Word of Warning II (-40)
-
+	
 			Power Four					Power Five
 			1)Protection V (-25)		1)Know History (-300)
 			2)Stamina III (-25)			2)Secret Room (-500)
@@ -78,17 +78,17 @@ public class Narius extends PriestsBase {
 			7)Teleport II (-6)F			7)Safe Teleport (-120)F
 			8)Escape (-1)F				8)Staff III (-3)F
 			9)Word of Warning IV (-50)
-	
+
 			Power Six					Power Seven
 			1)Geas (-3)					1)Rune : Slay Undead (-lots)
 			2)Symbol I (-90)			2)Symbol II (-180)
 			3)Staff IV (-4)F			3)Rune : Slay Lycanthropes (-lots)
 			4)Commune (-30)				4)The Mottled Hand (-4)
-	
+
 			Power Eight
 			1)Gate (-90)F
 			2)Gift of the Gods (-120)
-
+	
 	*/
 
 	/*****************************************************************************
@@ -152,7 +152,7 @@ public class Narius extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(2, "Forge I", 1, -1, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Gather Power", 0, 120, 0), //$NON-NLS-1$
-						new SpellRecord(2, "Heal", 0, 120, 0), //$NON-NLS-1$
+						new SpellRecord(2, "Heal I", 1, 120, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Mind Link", 0, 5, 1), //$NON-NLS-1$
 						new SpellRecord(2, "Protection III", 3, 25, 0), //$NON-NLS-1$
 						new SpellRecord(2, "Protection : Fire : Item", 0, 0, 0), //$NON-NLS-1$
@@ -231,36 +231,36 @@ public class Narius extends PriestsBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-
+		
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-
+		
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-
+		
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-
+		
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-
+		
 			4)	Add +3 Determination points per level past (1st).
-
+		
 			5)	Add +2% to Perception every level past (1st).
-
+		
 		Mages / Priests:
-
+		
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-
+		
 			2)	Add +2% to their Missile Bonus.
-
+		
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-
+		
 			4)	Add +1 Hit Point per level till the 10th level.
-
+		
 			5)	Add +1% per level to their Save Vs. Surprise.
-
+		
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/
