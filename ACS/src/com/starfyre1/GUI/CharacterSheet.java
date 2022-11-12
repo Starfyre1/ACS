@@ -111,12 +111,14 @@ public class CharacterSheet implements ActionListener {
 	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment";													//$NON-NLS-1$
 	private static final String				SPELL_SHEET_TITLE			= "Spells";														//$NON-NLS-1$
 	private static final String				JOURNAL_SHEET_TITLE			= "Journal";													//$NON-NLS-1$
+	private static final String				TREASURE_SHEET_TITLE		= "Treasure";													//$NON-NLS-1$
 
 	// DW add something useful for the tooltips or remove them
 	private static final String				CHARACTER_SHEET_TOOLTIP		= "Character Sheet";											//$NON-NLS-1$
 	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";											//$NON-NLS-1$
 	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";												//$NON-NLS-1$
 	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";												//$NON-NLS-1$
+	private static final String				TREASURE_SHEET_TOOLTIP		= "Treasure Sheet";												//$NON-NLS-1$
 
 	static final String						ABOUT						= "About";														//$NON-NLS-1$
 	static final String						LOG							= "Log File";													//$NON-NLS-1$
@@ -230,6 +232,9 @@ public class CharacterSheet implements ActionListener {
 	// Journal Tab
 	private JournalDisplay					mJournalTab;
 
+	// Treasure Tab
+	private TreasureDisplay					mTreasureTab;
+
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
@@ -270,16 +275,19 @@ public class CharacterSheet implements ActionListener {
 		JComponent equipmentTab = makeEquipmentTab();
 		mSpellTab = new SpellListDisplay(this);
 		mJournalTab = new JournalDisplay(this);
+		//		mTreasureTab = new TreasureDisplay(this);
 
 		tabbedPane.addTab(CHARACTER_SHEET_TITLE, CHARACTER_ICON, characterTab, CHARACTER_SHEET_TOOLTIP);
 		tabbedPane.addTab(EQUIPMENT_SHEET_TITLE, CHARACTER_ICON, equipmentTab, EQUIPMENT_SHEET_TOOLTIP);
 		tabbedPane.addTab(SPELL_SHEET_TITLE, CHARACTER_ICON, mSpellTab, SPELL_SHEET_TOOLTIP);
 		tabbedPane.addTab(JOURNAL_SHEET_TITLE, CHARACTER_ICON, mJournalTab, JOURNAL_SHEET_TOOLTIP);
+		//		tabbedPane.addTab(TREASURE_SHEET_TITLE, CHARACTER_ICON, mTreasureTab, TREASURE_SHEET_TOOLTIP);
 
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_C);
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_E);
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_S);
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_J);
+		//		tabbedPane.setMnemonicAt(4, KeyEvent.VK_T);
 
 		JPanel wrapper = new JPanel(new BorderLayout());
 		wrapper.add(mHeaderDisplay, BorderLayout.NORTH);
@@ -808,6 +816,7 @@ public class CharacterSheet implements ActionListener {
 		mInnateAbilitiesDisplay.clearRecords();
 		mSpellTab.clearRecords();
 		mJournalTab.clearRecords();
+		//		mTreasureTab.clearRecords();
 		mDefenseInformationDisplay.clearRecords();
 		HistoryManager historyManager = HistoryManager.getInstance();
 		historyManager.clearRecords();
