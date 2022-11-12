@@ -8,6 +8,7 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.CombatInformationRecord;
+import com.starfyre1.dataModel.SavingThrowsRecord;
 import com.starfyre1.dataset.classes.elves.Sailor;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.dataset.common.SpellUser;
@@ -54,6 +55,37 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private static final String	SPEED_HEADER_LABEL			= "Speed";				//$NON-NLS-1$
 	private static final String	CASTING_HEADER_LABEL		= "Casting";			//$NON-NLS-1$
 
+	public static final String	HIT_BONUS_TOOLTIP		= "(Str - 10) + (Dex - 10) + Class Bonus";						//$NON-NLS-1$
+	public static final String  MISSILE_BONUS_TOOLTIP = ""; //$NON-NLS-1$
+	public static final String  BOW_BONUS_TOOLTIP = ""; //$NON-NLS-1$
+	public static final String  DAMAGE_BONUS_TOOLTIP = ""; //$NON-NLS-1$
+	public static final String  DEFENSE_BONUS_TOOLTIP = ""; //$NON-NLS-1$
+	public static final String  FREE_ATTACK_BONUS_TOOLTIP = ""; //$NON-NLS-1$
+	public static final String  MOVEMENT_BONUS_TOOLTIP = ""; //$NON-NLS-1$
+
+	public static final String	HIT_DESCRIPTION			= "<html>Hit bonus represents your hand - to - hand combat ability, this percentage is modified by both the Strength<br>" //
+			+ "and Dexterity stat. Usually, Fighters will have the highest hit bonus, but you will find some thieves that<br>" //
+			+ "will also score quite high here, Dexterity is quite important. If both your race and your class give’s you a<br>" //
+			+ "bonus here you should just take the highest of the two.</html>";																										//$NON-NLS-1$
+	public static final String	MISSILE_DESCRIPTION			= "<html>Missile Bonus represents your accuracy with thrown weapons, such as knives, shuriken, darts, rocks, oil<br>" //
+			+ "flasks, etc. This is also modified by your Strength and Dexterity statistics, along with your class.</html>";																										//$NON-NLS-1$
+	public static final String	BOW_DESCRIPTION			= "<html>Bow Bonus is a very easy one to figure out, this relates only to your innate ability, if you have any, to the<br>" //
+			+ "use of a Bow of any type. Some races have great innate ability with these awesome weapons, and some<br>" //
+			+ "don't.</html>";																										//$NON-NLS-1$
+	public static final String	DAMAGE_DESCRIPTION			= "<html>Like it sounds this is pure muscle power aimed at doing nothing but damage! The stronger you are the<br>"  //
+			+ "harder you swing + the larger the weapon that can be used = More damage.</html>";																										//$NON-NLS-1$
+	public static final String	DEFENSE_DESCRIPTION			= "<html>Defense is used when a character wants to protect himself from being attacked. A player using the<br>" //
+			+ "defense option has a chance to attack after his defensive move, called a Free Attack. To learn more<br>" //
+			+ "about Defense and Free Attack read the section on combat.</html>";																										//$NON-NLS-1$
+	public static final String	FREE_ATTACK_DESCRIPTION			= "<html>Defense is used when a character wants to protect himself from being attacked. A player using the<br>" //
+			+ "defense option has a chance to attack after his defensive move, called a Free Attack. To learn more<br>" //
+			+ "about Defense and Free Attack read the section on combat.</html>";																										//$NON-NLS-1$
+	public static final String	MOVEMENT_DESCRIPTION			= "<html>A character can move up to his standard movement rate, while attempting to fire a bow/crossbow,<br>" //
+			+ "or cast a spell. They may move up to Twice their movement rate while attempting to Attack or<br>" //
+			+ "Throw. They may move up to Eight Times their movement rate and Defend. Characters may<br>" //
+			+ "move up to Eight Times their movement rate for up to One Hour, after which they must take at<br>" //
+			+ "least a 10 minute rest.</html>";																										//$NON-NLS-1$
+
 	// May create speed label and bonus label and make them headers to column
 
 	/*****************************************************************************
@@ -99,8 +131,10 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		wrapper.setBorder(new EmptyBorder(0, 0, 5, 10));
 
 		JLabel hitBonusLabel = new JLabel(HIT_BONUS_LABEL, SwingConstants.RIGHT);
+		hitBonusLabel.setToolTipText(HIT_DESCRIPTION);
 		mHitBonusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mHitBonusField.setEditable(false);
+		mHitBonusField.setToolTipText(HIT_BONUS_TOOLTIP);
 		mHitLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
 		mHitBonusMaxField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mHitBonusMaxField.setEditable(false);
@@ -109,6 +143,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mAttackSpeedField.setEditable(false);
 
 		JLabel missileLabel = new JLabel(MISSILE_BONUS_LABEL, SwingConstants.RIGHT);
+		missileLabel.setToolTipText(MISSILE_DESCRIPTION);
 		mMissileBonusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mMissileBonusField.setEditable(false);
 		mCastingSpeedLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
@@ -119,6 +154,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mMissileSpeedField.setEditable(false);
 
 		JLabel bowLabel = new JLabel(BOW_BONUS_LABEL, SwingConstants.RIGHT);
+		bowLabel.setToolTipText(BOW_DESCRIPTION);
 		mBowBonusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mBowBonusField.setEditable(false);
 		mBowLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
@@ -129,6 +165,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mBowSpeedField.setEditable(false);
 
 		JLabel damageBonusLabel = new JLabel(DAMAGE_BONUS_LABEL, SwingConstants.RIGHT);
+		damageBonusLabel.setToolTipText(DAMAGE_DESCRIPTION);
 		mDamageBonusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mDamageBonusField.setEditable(false);
 		JLabel castingSpeedLabel = new JLabel(CASTING_SPEED_LABEL, SwingConstants.RIGHT);
@@ -136,10 +173,12 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mCastingSpeedField.setEditable(false);
 
 		JLabel defenseLabel = new JLabel(DEFENSE_LABEL, SwingConstants.RIGHT);
+		defenseLabel.setToolTipText(DEFENSE_DESCRIPTION);
 		mDefenseField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mDefenseField.setEditable(false);
 
 		JLabel freeLabel = new JLabel(FREE_ATTACK_LABEL, SwingConstants.RIGHT);
+		freeLabel.setToolTipText(FREE_ATTACK_DESCRIPTION);
 		mFreeField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mFreeField.setEditable(false);
 		JLabel focusLabel = new JLabel(FOCUS_LABEL, SwingConstants.RIGHT);
@@ -147,6 +186,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mFocusField.setEditable(false);
 
 		JLabel movementLabel = new JLabel(MOVEMENT_LABEL, SwingConstants.RIGHT);
+		movementLabel.setToolTipText(MOVEMENT_DESCRIPTION);
 		mMovementField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mMovementField.setEditable(false);
 		mUnallocatedField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
@@ -370,6 +410,15 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	public void updateToolTips() {
 		BaseClass charClass = ((CharacterSheet) getOwner()).getHeaderRecord().getCharacterClass();
 		mFocusField.setToolTipText(charClass.getFocusToolTip());
+		
+		CharacterSheet owner = (CharacterSheet) getOwner();
+		CombatInformationRecord record = owner.getCombatInformationRecord();
+		BaseClass base = owner.getHeaderRecord().getCharacterClass();
+		String zero = "0"; //$NON-NLS-1$
+
+		if (record != null) {
+			mHitBonusField.setToolTipText(base == null ? zero : record.getHitBonusToolTip());
+		}	
 	}
 
 	/*****************************************************************************

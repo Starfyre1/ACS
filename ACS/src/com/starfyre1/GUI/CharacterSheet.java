@@ -139,6 +139,8 @@ public class CharacterSheet implements ActionListener {
 
 	public static final Dimension			CHARACTER_TAB_TABLE_SIZE	= new Dimension(375, 75);
 	public static final Dimension			EQUIPMENT_TAB_TABLE_SIZE	= new Dimension(750, 150);
+	public static final Dimension			ARMOR_TAB_TABLE_SIZE	= new Dimension(750, 175);
+	public static final Dimension			WEAPONS_TAB_TABLE_SIZE	= new Dimension(750, 75);
 	public static final Dimension			MARKET_PLACE_TAB_TABLE_SIZE	= new Dimension(750, 750);
 	public static final Insets				BORDER_INSETS				= new Insets(5, 5, 5, 5);
 	public static final int					FIELD_SIZE_SMALL			= 2;
@@ -329,7 +331,6 @@ public class CharacterSheet implements ActionListener {
 		JPanel wrapper1 = new JPanel();
 		BoxLayout blw = new BoxLayout(wrapper1, BoxLayout.X_AXIS);
 		wrapper1.setLayout(blw);
-
 		wrapper1.add(mAttributesDisplay);
 		wrapper1.add(mSavingThrowsDisplay);
 		wrapper1.add(mCombatInformationDisplay);
@@ -337,14 +338,12 @@ public class CharacterSheet implements ActionListener {
 		JPanel wrapper2 = new JPanel();
 		BoxLayout blw2 = new BoxLayout(wrapper2, BoxLayout.X_AXIS);
 		wrapper2.setLayout(blw2);
-
 		wrapper2.add(mSkillsDisplay);
 		wrapper2.add(mDefenseInformationDisplay);
 
 		JPanel wrapper3 = new JPanel();
 		BoxLayout blw3 = new BoxLayout(wrapper3, BoxLayout.X_AXIS);
 		wrapper3.setLayout(blw3);
-
 		wrapper3.add(mMoneyDisplay);
 		wrapper3.add(mPersonalInformationDisplay);
 		wrapper3.add(mDeterminationPointsDisplay);
@@ -352,14 +351,12 @@ public class CharacterSheet implements ActionListener {
 		JPanel wrapper4 = new JPanel();
 		BoxLayout blw4 = new BoxLayout(wrapper4, BoxLayout.X_AXIS);
 		wrapper4.setLayout(blw4);
-
 		wrapper4.add(mArmorEquippedDisplay);
 		wrapper4.add(mInnateAbilitiesDisplay);
 
 		JPanel wrapper5 = new JPanel();
 		BoxLayout blw5 = new BoxLayout(wrapper5, BoxLayout.X_AXIS);
 		wrapper5.setLayout(blw5);
-
 		wrapper5.add(mWeaponEquippedDisplay);
 		wrapper5.add(mAttackTotalsDisplay);
 

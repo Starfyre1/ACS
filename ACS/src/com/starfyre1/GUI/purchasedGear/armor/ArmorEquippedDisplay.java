@@ -44,7 +44,7 @@ public class ArmorEquippedDisplay extends ArmorDisplay {
 		// This is the equipped weapons in the information section on the main page
 		// This is loaded from Equipment Sheet
 		mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 0));
-		mTable.setPreferredScrollableViewportSize(CharacterSheet.CHARACTER_TAB_TABLE_SIZE);
+		mTable.setPreferredScrollableViewportSize(CharacterSheet.ARMOR_TAB_TABLE_SIZE);
 
 		//		mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
 		//		mTable.getColumnModel().getColumn(1).setMinWidth(55); // Equpped

@@ -241,15 +241,15 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 		SavingThrowsRecord record = sheet.getSavingThrowsRecord();
 
 		if (!(record == null)) {
-			mAgilityField.setText(TKStringHelpers.EMPTY_STRING + record.getAgility());
-			mBleedingField.setText(TKStringHelpers.EMPTY_STRING + record.getBleeding());
-			mMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getMagic());
-			mPoisonField.setText(TKStringHelpers.EMPTY_STRING + record.getPoison());
-			mShockField.setText(TKStringHelpers.EMPTY_STRING + record.getShock());
-			mStressField.setText(TKStringHelpers.EMPTY_STRING + record.getStress());
-			mUnconciousField.setText(TKStringHelpers.EMPTY_STRING + record.getUnconscious());
-			mSurpriseField.setText(TKStringHelpers.EMPTY_STRING + record.getSurprise());
-			mBeliefField.setText(TKStringHelpers.EMPTY_STRING + record.getBelief());
+			mAgilityField.setText(String.valueOf(record.getAgility()));
+			mBleedingField.setText(String.valueOf(record.getBleeding()));
+			mMagicField.setText(String.valueOf(record.getMagic()));
+			mPoisonField.setText(String.valueOf(record.getPoison()));
+			mShockField.setText(String.valueOf(record.getShock()));
+			mStressField.setText(String.valueOf(record.getStress()));
+			mUnconciousField.setText(String.valueOf(record.getUnconscious()));
+			mSurpriseField.setText(String.valueOf(record.getSurprise()));
+			mBeliefField.setText(String.valueOf(record.getBelief()));
 
 			updateToolTips();
 		} else {

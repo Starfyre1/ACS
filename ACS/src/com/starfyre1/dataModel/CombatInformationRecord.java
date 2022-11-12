@@ -3,12 +3,14 @@
 package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.GUI.character.CombatInformationDisplay;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.dataset.common.SpellUser;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.startup.ACS;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -444,6 +446,22 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	public void setUnallocated(int unallocated) {
 		mUnallocated = unallocated;
 	}
+
+	/** @return The agility. */
+	public String getHitBonusToolTip() {
+		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
+		AttributesRecord attr = mCharacterSheet.getAttributesRecord();
+		int level = mCharacterSheet.getHeaderRecord().getLevel();
+
+		if (ACS.showCalculations()) {
+			sb.append(CombatInformationDisplay.HIT_BONUS_TOOLTIP);
+			sb.append("<br>(" + attr.getModifiedStat(AttributesRecord.DEX) + " * 3) + 10 + (" + (level - 1) + " * 4) = " + getHitBonus() + "<br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		}
+		sb.append("(" + attr.getModifiedStat(AttributesRecord.DEX) * 3 + ") + 10 + (" + (level - 1) * 4 + ") = " + getHitBonus() + "</html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+		return sb.toString();
+	}
+
 
 	/*****************************************************************************
 	 * Serialization
