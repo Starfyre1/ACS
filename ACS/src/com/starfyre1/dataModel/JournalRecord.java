@@ -387,14 +387,14 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	// DW may want to reverse this so we sort by campaign calendar first
 	@Override
 	public int compareTo(JournalRecord o) {
-		if (mWorldDate.equals(o.mWorldDate)) {
+		if (o.mWorldDate.equals(mWorldDate)) {
 			int year = getCampaignYear();
 			int mth = getCampaignMonth();
 			int date = getCampaignDay();
 			int oYear = o.getCampaignYear();
 			int oMth = o.getCampaignMonth();
 			int oDate = o.getCampaignDay();
-			return year == oYear ? mth == oMth ? date - oDate : mth - oMth : year - oYear;
+			return oYear == year ? oMth == mth ? oDate - date : oMth - mth : oYear - year;
 		}
 		int year = getWorldYear();
 		int mth = getWorldMonth();
@@ -402,6 +402,6 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 		int oYear = o.getWorldYear();
 		int oMth = o.getWorldMonth();
 		int oDate = o.getWorldDay();
-		return year == oYear ? mth == oMth ? date - oDate : mth - oMth : year - oYear;
+		return oYear == year ? oMth == mth ? oDate - date : oMth - mth : oYear - year;
 	}
 }

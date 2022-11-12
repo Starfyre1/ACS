@@ -80,7 +80,7 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		record.append("\n     This is the beginning of a new campaign day"); //$NON-NLS-1$
 		record.setHeaderText();
 
-		mEntries.add(record);
+		mEntries.add(0, record);
 		updatePreviewPanel();
 	}
 
@@ -89,7 +89,7 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		record.append("\n     You have become level " + level); //$NON-NLS-1$
 		record.setHeaderText();
 
-		mEntries.add(record);
+		mEntries.add(0, record);
 		updatePreviewPanel();
 	}
 
@@ -98,7 +98,7 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		record.append("\n     You have started your adventure! "); //$NON-NLS-1$
 		record.setHeaderText();
 
-		mEntries.add(record);
+		mEntries.add(0, record);
 		updatePreviewPanel();
 	}
 
@@ -151,7 +151,7 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 
 		if (!(record.isRecordCancelled() || record.isRecordDeleted())) {
 			record.setHeaderText();
-			mEntries.add(record);
+			mEntries.add(0, record);
 			updatePreviewPanel();
 		}
 	}
