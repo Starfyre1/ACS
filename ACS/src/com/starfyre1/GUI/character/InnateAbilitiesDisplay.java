@@ -45,6 +45,7 @@ public class InnateAbilitiesDisplay extends TKTitledDisplay {
 	protected Component createDisplay() {
 		mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 0));
 		mTable.setPreferredScrollableViewportSize(CharacterSheet.ARMOR_TAB_TABLE_SIZE);
+
 		mTable.removeColumn(mTable.getColumnModel().getColumn(0));
 
 		JScrollPane scrollPane = new JScrollPane(mTable);

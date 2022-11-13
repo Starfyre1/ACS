@@ -29,7 +29,7 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		SKILLS_TITLE				= "Skills";																													//$NON-NLS-1$
+	private static final String		SKILLS_TITLE				= "Skills                    Thieves";																						//$NON-NLS-1$
 
 	private static final String		LEVEL_BONUS_LABEL			= "Level Bonus";																											//$NON-NLS-1$
 	private static final String		UNALLOCATED_LABEL			= "Unallocated";																											//$NON-NLS-1$
@@ -236,8 +236,6 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 		outer.setBorder(new EmptyBorder(0, 5, 5, 10));
 		outer.setLayout(new BoxLayout(outer, BoxLayout.Y_AXIS));
 
-		JPanel wrapper = new JPanel(new GridLayout(11, 7, 5, 0));
-
 		JLabel appraiseLabel = new JLabel(APPRAISE_LABEL, SwingConstants.RIGHT);
 		appraiseLabel.setToolTipText(APPRAISE_TOOLTIP);
 		mAppraiseField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
@@ -354,8 +352,8 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 
 		enableFields(false);
 
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
+		JPanel wrapper = new JPanel(new GridLayout(13, 5, 5, 0));
+
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
@@ -364,83 +362,75 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 
 		wrapper.add(appraiseLabel);
 		wrapper.add(mAppraiseField);
-		wrapper.add(detectTrapsLabel);
-		wrapper.add(mDetectTrapsField);
 		wrapper.add(climbLabel);
 		wrapper.add(mClimbField);
 		wrapper.add(mClimbLevelBonusField);
 
 		wrapper.add(bandagingLabel);
 		wrapper.add(mBandagingField);
-		wrapper.add(herbalLoreLabel);
-		wrapper.add(mHerbalLoreField);
 		wrapper.add(concealLabel);
 		wrapper.add(mConcealField);
 		wrapper.add(mConcealLevelBonusField);
 
 		wrapper.add(depthSenseLabel);
 		wrapper.add(mDepthSenseField);
-		wrapper.add(huntingLabel);
-		wrapper.add(mHuntingField);
 		wrapper.add(findTrapLabel);
 		wrapper.add(mFindTrapField);
 		wrapper.add(mFindTrapLevelBonusField);
 
 		wrapper.add(detectMagicLabel);
 		wrapper.add(mDetectMagicField);
-		wrapper.add(perceptionLabel);
-		wrapper.add(mPerceptionField);
 		wrapper.add(hearLabel);
 		wrapper.add(mHearField);
 		wrapper.add(mHearLevelBonusField);
 
 		wrapper.add(detectMetalsLabel);
 		wrapper.add(mDetectMetalsField);
-		wrapper.add(detectSecretDoorsLabel);
-		wrapper.add(mDetectSecretDoorsField);
 		wrapper.add(lockPickLabel);
 		wrapper.add(mLockPickField);
 		wrapper.add(mLockPickLevelBonusField);
 
 		wrapper.add(detectMoralsLabel);
 		wrapper.add(mDetectMoralsField);
-		wrapper.add(trackingLabel);
-		wrapper.add(mTrackingField);
 		wrapper.add(pickPocketLabel);
 		wrapper.add(mPickPocketField);
 		wrapper.add(mPickPocketLevelBonusField);
 
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
+		wrapper.add(detectTrapsLabel);
+		wrapper.add(mDetectTrapsField);
 		wrapper.add(removeTrapLabel);
 		wrapper.add(mRemoveTrapField);
 		wrapper.add(mRemoveTrapLevelBonusField);
 
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
+		wrapper.add(herbalLoreLabel);
+		wrapper.add(mHerbalLoreField);
 		wrapper.add(stealthLabel);
 		wrapper.add(mStealthField);
 		wrapper.add(mStealthLevelBonusField);
 
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
+		wrapper.add(huntingLabel);
+		wrapper.add(mHuntingField);
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(unallocatedLabel);
 
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
+		wrapper.add(perceptionLabel);
+		wrapper.add(mPerceptionField);
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(mUnallocatedField);
+
+		wrapper.add(detectSecretDoorsLabel);
+		wrapper.add(mDetectSecretDoorsField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+
+		wrapper.add(trackingLabel);
+		wrapper.add(mTrackingField);
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
+		wrapper.add(new JLabel());
 
 		outer.add(wrapper);
 		return outer;

@@ -46,7 +46,7 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 	protected Component createDisplay() {
 		// This is loaded from the equipped weapons in the information section on the main page
 		mTable = new TKTable(new TKTableModel(COLUMN_HEADER_NAMES, COLUMN_HEADER_TOOLTIPS, 0));
-		mTable.setPreferredScrollableViewportSize(CharacterSheet.CHARACTER_TAB_TABLE_SIZE);
+		mTable.setPreferredScrollableViewportSize(CharacterSheet.WEAPONS_TAB_TABLE_SIZE);
 		//		table.setFillsViewportHeight(true);
 
 		//		mTable.setRowHeight(20);

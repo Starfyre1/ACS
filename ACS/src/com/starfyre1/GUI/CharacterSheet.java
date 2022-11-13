@@ -139,8 +139,8 @@ public class CharacterSheet implements ActionListener {
 
 	public static final Dimension			CHARACTER_TAB_TABLE_SIZE	= new Dimension(375, 75);
 	public static final Dimension			EQUIPMENT_TAB_TABLE_SIZE	= new Dimension(750, 150);
-	public static final Dimension			ARMOR_TAB_TABLE_SIZE		= new Dimension(750, 175);
-	public static final Dimension			WEAPONS_TAB_TABLE_SIZE		= new Dimension(750, 75);
+	public static final Dimension			ARMOR_TAB_TABLE_SIZE		= new Dimension(750, 160);
+	public static final Dimension			WEAPONS_TAB_TABLE_SIZE		= new Dimension(750, 50);
 	public static final Dimension			MARKET_PLACE_TAB_TABLE_SIZE	= new Dimension(750, 750);
 	public static final Insets				BORDER_INSETS				= new Insets(5, 5, 5, 5);
 	public static final int					FIELD_SIZE_SMALL			= 2;
@@ -374,8 +374,6 @@ public class CharacterSheet implements ActionListener {
 		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
 
-		mInnateAbilitiesDisplay.setMaximumSize(new Dimension(250, wrapper4.getPreferredSize().height + 20));
-		mAttackTotalsDisplay.setMaximumSize(new Dimension(250, wrapper4.getPreferredSize().height + 20));
 		mInnateAbilitiesDisplay.setPreferredSize(new Dimension(250, wrapper4.getPreferredSize().height + 20));
 		mAttackTotalsDisplay.setPreferredSize(new Dimension(250, wrapper4.getPreferredSize().height + 20));
 

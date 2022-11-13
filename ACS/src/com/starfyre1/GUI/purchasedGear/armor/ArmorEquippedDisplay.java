@@ -53,7 +53,7 @@ public class ArmorEquippedDisplay extends ArmorDisplay {
 		mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
 		//		mTable.getColumnModel().getColumn(13).setMinWidth(50); // Cost
 
-		// remove in reverse order... as the column numbers will change (or you could probably get the columns from the model)
+		// remove in reverse order... as the column numbers will change (you should probably get the columns from the model)
 		mTable.removeColumn(mTable.getColumnModel().getColumn(13));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(10));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(1));
