@@ -67,6 +67,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	private static final String	STAMINA_LEFT_KEY			= "STAMINA_LEFT_KEY";																	//$NON-NLS-1$
 	private static final String	HIT_POINTS_LEFT_KEY			= "HIT_POINTS_LEFT_KEY";																//$NON-NLS-1$
 	private static final String	MANA_LEFT_KEY				= "MANA_LEFT_KEY";																		//$NON-NLS-1$
+	private static final String	MANA_PERM_KEY				= "MANA_PERM_KEY";																		//$NON-NLS-1$
 
 	private static final String	DEFENSE_INFORMATION_TITLE	= "Defense Information";																//$NON-NLS-1$
 	private static final String	ABSORBS_TITLE				= "Absorbs";																			//$NON-NLS-1$
@@ -89,6 +90,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	private static final String	STAMINA_LABEL				= "Stamina";																			//$NON-NLS-1$
 	private static final String	HIT_POINTS_LABEL			= "Hit Points";																			//$NON-NLS-1$
 	private static final String	MANA_LABEL					= "Mana";																				//$NON-NLS-1$
+	private static final String	USED_LABEL					= "Used";																				//$NON-NLS-1$
+	private static final String	PERM_LABEL					= "Perm";																				//$NON-NLS-1$
 	private static final String	FULL_LABEL					= "Full";																				//$NON-NLS-1$
 	private static final String	DAMAGE_LABEL				= "Damage";																				//$NON-NLS-1$
 	private static final String	BALANCE_LABEL				= "Balance";																			//$NON-NLS-1$
@@ -117,6 +120,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	private JTextField			mStaminaFullField;
 	private JTextField			mHitPointsFullField;
 	private JTextField			mManaFullField;
+	private JTextField			mManaPermField;
 	private JTextField			mStaminaDamageField;
 	private JTextField			mHitPointsDamageField;
 	private JTextField			mManaDamageField;
@@ -127,6 +131,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	private int					mStaminaFull				= 0;
 	private int					mHitPointsFull				= 0;
 	private int					mManaFull					= 0;
+	private int					mManaPerm					= 0;
 	private int					mStaminaDamage				= 0;
 	private int					mHitPointsDamage			= 0;
 	private int					mManaDamage					= 0;
@@ -223,6 +228,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mStaminaDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 		mHitPointsDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 		mManaDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
+		mManaPermField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
 
 		mStaminaBalanceField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		mStaminaBalanceField.setEditable(false);
@@ -284,27 +290,27 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		wrapper2.add(new JLabel());
 		wrapper2.add(new JLabel());
 		wrapper2.add(new JLabel());
-		wrapper2.add(new JLabel());
+		wrapper2.add(new JLabel(MANA_LABEL, SwingConstants.CENTER));
 
 		wrapper2.add(new JLabel());
 		wrapper2.add(new JLabel(STAMINA_LABEL, SwingConstants.CENTER));
 		wrapper2.add(new JLabel());
 		wrapper2.add(new JLabel(HIT_POINTS_LABEL, SwingConstants.CENTER));
-		wrapper2.add(new JLabel());
-		wrapper2.add(new JLabel(MANA_LABEL, SwingConstants.CENTER));
+		wrapper2.add(new JLabel(FULL_LABEL, SwingConstants.RIGHT));
+		wrapper2.add(mManaFullField);
 
 		wrapper2.add(new JLabel(FULL_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mStaminaFullField);
 		wrapper2.add(new JLabel(FULL_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mHitPointsFullField);
-		wrapper2.add(new JLabel(FULL_LABEL, SwingConstants.RIGHT));
-		wrapper2.add(mManaFullField);
+		wrapper2.add(new JLabel(PERM_LABEL, SwingConstants.RIGHT));
+		wrapper2.add(mManaPermField);
 
 		wrapper2.add(new JLabel(DAMAGE_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mStaminaDamageField);
 		wrapper2.add(new JLabel(DAMAGE_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mHitPointsDamageField);
-		wrapper2.add(new JLabel(DAMAGE_LABEL, SwingConstants.RIGHT));
+		wrapper2.add(new JLabel(USED_LABEL, SwingConstants.RIGHT));
 		wrapper2.add(mManaDamageField);
 
 		wrapper2.add(new JLabel(BALANCE_LABEL, SwingConstants.RIGHT));
@@ -348,11 +354,12 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mManaFullField.setText(String.valueOf(mManaFull));
 		mStaminaBalance = mStaminaFull - mStaminaDamage;
 		mHitPointsBalance = mHitPointsFull - mHitPointsDamage;
-		mManaBalance = mManaFull - mManaDamage;
+		mManaBalance = mManaFull - mManaPerm - mManaDamage;
 
 		// loaded from file
 		mStaminaDamageField.setText(String.valueOf(mStaminaDamage));
 		mHitPointsDamageField.setText(String.valueOf(mHitPointsDamage));
+		mManaPermField.setText(String.valueOf(mManaPerm));
 		mManaDamageField.setText(String.valueOf(mManaDamage));
 		mStaminaBalanceField.setText(String.valueOf(mStaminaBalance));
 		mHitPointsBalanceField.setText(String.valueOf(mHitPointsBalance));
@@ -484,9 +491,10 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 				mHitPointsDamage = TKStringHelpers.getIntValue(mHitPointsDamageField.getText(), 0);
 				mHitPointsBalance = mHitPointsFull - mHitPointsDamage;
 				mHitPointsBalanceField.setText(String.valueOf(mHitPointsBalance));
-			} else if (((JTextField) source).equals(mManaDamageField)) {
+			} else if (((JTextField) source).equals(mManaDamageField) || ((JTextField) source).equals(mManaPermField)) {
 				mManaDamage = TKStringHelpers.getIntValue(mManaDamageField.getText(), 0);
-				mManaBalance = mManaFull - mManaDamage;
+				mManaPerm = TKStringHelpers.getIntValue(mManaPermField.getText(), 0);
+				mManaBalance = mManaFull - mManaPerm - mManaDamage;
 				mManaBalanceField.setText(String.valueOf(mManaBalance));
 			}
 		}
@@ -539,6 +547,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 
 		br.write(TKStringHelpers.TAB + STAMINA_LEFT_KEY + TKStringHelpers.SPACE + mStaminaDamage + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + HIT_POINTS_LEFT_KEY + TKStringHelpers.SPACE + mHitPointsDamage + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + MANA_PERM_KEY + TKStringHelpers.SPACE + mManaPerm + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + MANA_LEFT_KEY + TKStringHelpers.SPACE + mManaDamage + System.lineSeparator());
 
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
@@ -551,6 +560,8 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			mStaminaDamage = TKStringHelpers.getIntValue(value, 0);
 		} else if (HIT_POINTS_LEFT_KEY.equals(key)) {
 			mHitPointsDamage = TKStringHelpers.getIntValue(value, 0);
+		} else if (MANA_PERM_KEY.equals(key)) {
+			mManaPerm = TKStringHelpers.getIntValue(value, 0);
 		} else if (MANA_LEFT_KEY.equals(key)) {
 			mManaDamage = TKStringHelpers.getIntValue(value, 0);
 		} else {
@@ -562,6 +573,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	public void clearRecords() {
 		mStaminaDamage = 0;
 		mHitPointsDamage = 0;
+		mManaPerm = 0;
 		mManaDamage = 0;
 		mStaminaBalance = 0;
 		mHitPointsBalance = 0;
