@@ -47,7 +47,7 @@ public class LanguageTab extends DeterminationTab {
 	private static final String		IMMERSIVE				= "Immersive";																												//$NON-NLS-1$
 	private static final String		TUTOR					= "Tutor";																													//$NON-NLS-1$
 	private static final String		COST_TEXT				= "Cost: 40, 60, 80 (Immersive, Tutor, Book)";																				//$NON-NLS-1$
-	private static final String		MAINTENANCE_TEXT		= "Maintain: 1 DP / week for Fluent";																						//$NON-NLS-1$
+	private static final String		MAINTENANCE_TEXT		= "Maintain: 1 DP for Fluent";																								//$NON-NLS-1$
 	private static final String		LANGUAGE_TEXT			= LANGUAGE_TAB_TOOLTIP;
 	private static final String		SUCCESS_TOOLTIP			= "1D20 - (1/4 level) < (Wisdom)";																							//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT1			= "Success: (1D20 - ";																										//$NON-NLS-1$

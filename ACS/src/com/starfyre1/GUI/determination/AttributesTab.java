@@ -43,7 +43,7 @@ public class AttributesTab extends DeterminationTab {
 	static final String				ATTRIBUTES_TAB_TOOLTIP	= "To raise your physical attributes:";																																														//$NON-NLS-1$
 	private static final String		CHOOSE_ATTRIBUTE		= "Choose Attribute";																																																		//$NON-NLS-1$
 	private static final String		COST_TEXT				= "Cost: 50";																																																				//$NON-NLS-1$
-	private static final String		MAINTENANCE_TEXT		= "Maintain: 1 DP / week";																																																	//$NON-NLS-1$
+	private static final String		MAINTENANCE_TEXT		= "Maintain: 1 DP";																																																			//$NON-NLS-1$
 	private static final String		SUCCESS_TOOLTIP			= "1D20 + 1/2 level >= stat";																																																//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT1			= "Success: (1D20 + ";																																																		//$NON-NLS-1$
 	private static final String		SUCCESS_TEXT2			= ") >= ";																																																					//$NON-NLS-1$

@@ -46,7 +46,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	static final String			WEAPON_PROFICIENCY_TAB_TOOLTIP	= "To learn or improve a weapon proficiency:";												//$NON-NLS-1$
 	private static final String	SELECT_WEAPON_PROFICIENCY		= "Select Weapon Proficiency";																//$NON-NLS-1$
 	private static final String	COST_TEXT						= "Cost: 40";																				//$NON-NLS-1$
-	private static final String	MAINTENANCE_TEXT				= "Maintain: 1 DP / week";																	//$NON-NLS-1$
+	private static final String	MAINTENANCE_TEXT				= "Maintain: 1 DP";																			//$NON-NLS-1$
 	private static final String	WEAPON_PROFICIENCY_TEXT			= WEAPON_PROFICIENCY_TAB_TOOLTIP;
 	private static final String	SUCCESS_TOOLTIP					= "1D20 < (Dexerity)";																		//$NON-NLS-1$
 	private static final String	SUCCESS_TEXT1					= "Success: 1D20 < ";																		//$NON-NLS-1$

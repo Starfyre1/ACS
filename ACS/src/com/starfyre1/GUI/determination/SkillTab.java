@@ -42,7 +42,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	static final String			SKILL_TAB_TITLE		= "Skills";																					//$NON-NLS-1$
 	static final String			SKILL_TAB_TOOLTIP	= "To learn or improve a skill:";															//$NON-NLS-1$
 	private static final String	COST_TEXT			= "Cost: 40-60";																			//$NON-NLS-1$
-	private static final String	MAINTENANCE_TEXT	= "Maintain: 1 DP / week";																	//$NON-NLS-1$
+	private static final String	MAINTENANCE_TEXT	= "Maintain: 1 DP";																			//$NON-NLS-1$
 	private static final String	SKILL_TEXT			= SKILL_TAB_TOOLTIP;
 	private static final String	SUCCESS_TOOLTIP		= "1D20 < (Intelligence)";																	//$NON-NLS-1$
 	private static final String	SUCCESS_TEXT1		= "Success: 1D20 < ";																		//$NON-NLS-1$
