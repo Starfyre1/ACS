@@ -46,7 +46,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 	private static final String	BONUS_HEADER_LABEL			= "Bonus";																																	//$NON-NLS-1$
 	private static final String	LEVEL_BONUS_HEADER_LABEL	= "Level Bonus";																															//$NON-NLS-1$
-	private static final String	LEVEL_BONUSES_HEADER_LABEL	= "Level Bonuses";																															//$NON-NLS-1$
 	private static final String	UNALLOCATED_HEADER_LABEL	= "Unallocated";																															//$NON-NLS-1$
 	private static final String	MAXIMUM_BONUS_HEADER_LABEL	= "Maximum";																																//$NON-NLS-1$
 	private static final String	NO_MAX						= "No Max";																																	//$NON-NLS-1$

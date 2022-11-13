@@ -149,6 +149,7 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 			mGemsArea.setText(record.getGemsArea());
 			mJewelryArea.setText(record.getJewelryArea());
 			mOtherArea.setText(record.getOtherArea());
+			mOtherArea.setCaretPosition(0);
 		} else {
 			mGoldField.setText(TKStringHelpers.EMPTY_STRING);
 			mSilverField.setText(TKStringHelpers.EMPTY_STRING);
