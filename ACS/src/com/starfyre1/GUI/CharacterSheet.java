@@ -139,8 +139,8 @@ public class CharacterSheet implements ActionListener {
 
 	public static final Dimension			CHARACTER_TAB_TABLE_SIZE	= new Dimension(375, 75);
 	public static final Dimension			EQUIPMENT_TAB_TABLE_SIZE	= new Dimension(750, 150);
-	public static final Dimension			ARMOR_TAB_TABLE_SIZE	= new Dimension(750, 175);
-	public static final Dimension			WEAPONS_TAB_TABLE_SIZE	= new Dimension(750, 75);
+	public static final Dimension			ARMOR_TAB_TABLE_SIZE		= new Dimension(750, 175);
+	public static final Dimension			WEAPONS_TAB_TABLE_SIZE		= new Dimension(750, 75);
 	public static final Dimension			MARKET_PLACE_TAB_TABLE_SIZE	= new Dimension(750, 750);
 	public static final Insets				BORDER_INSETS				= new Insets(5, 5, 5, 5);
 	public static final int					FIELD_SIZE_SMALL			= 2;
@@ -362,9 +362,11 @@ public class CharacterSheet implements ActionListener {
 
 		page.add(wrapper1);
 		page.add(wrapper2);
-		page.add(wrapper4);
 		page.add(wrapper5);
+		page.add(wrapper4);
 		page.add(wrapper3);
+
+		wrapper5.setPreferredSize(new Dimension(wrapper4.getParent().getSize().width, wrapper5.getPreferredSize().height));
 
 		JScrollPane scrollPane = new JScrollPane(page);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -827,7 +829,7 @@ public class CharacterSheet implements ActionListener {
 		if (mIsCharacterLoaded) {
 			Object[] options = { SAVE, SAVE_AS, DONT_SAVE };
 			int results = JOptionPane.showOptionDialog(mFrame, //
-							"Do you want to save?", "Save Character?", // //$NON-NLS-1$ //$NON-NLS-2$
+							"Do you want to save?", "Save Character?", //$NON-NLS-1$ //$NON-NLS-2$
 							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, //
 							null, options, options[2]);
 			if (results == JOptionPane.YES_OPTION) {
