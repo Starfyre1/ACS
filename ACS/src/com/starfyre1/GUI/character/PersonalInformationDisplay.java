@@ -25,18 +25,27 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	static final String			PERSONAL_INFORMATION_TITLE	= "<html>Personal<br>Information</html>";	//$NON-NLS-1$
+	static final String			PERSONAL_INFORMATION_TITLE	= "<html>Personal<br>Information</html>";																					//$NON-NLS-1$
 
-	private static final String	HEIGHT_LABEL				= "Height";									//$NON-NLS-1$
-	private static final String	WEIGHT_LABEL				= "Weight";									//$NON-NLS-1$
-	private static final String	SEX_LABEL					= "Sex";									//$NON-NLS-1$
-	private static final String	HAIR_LABEL					= "Hair";									//$NON-NLS-1$
-	private static final String	EYES_LABEL					= "Eyes";									//$NON-NLS-1$
-	private static final String	AGE_LABEL					= "Age";									//$NON-NLS-1$
-	private static final String	SOCIAL_CLASS_LABEL			= "Social Class";							//$NON-NLS-1$
-	private static final String	MORALS_LABEL				= "Morals";									//$NON-NLS-1$
-	private static final String	CARRY_LABEL					= "Carry";									//$NON-NLS-1$
-	private static final String	ENCUMBRANCE_LABEL			= "Encumbrance";							//$NON-NLS-1$
+	private static final String	HEIGHT_LABEL				= "Height";																													//$NON-NLS-1$
+	private static final String	WEIGHT_LABEL				= "Weight";																													//$NON-NLS-1$
+	private static final String	SEX_LABEL					= "Sex";																													//$NON-NLS-1$
+	private static final String	HAIR_LABEL					= "Hair";																													//$NON-NLS-1$
+	private static final String	EYES_LABEL					= "Eyes";																													//$NON-NLS-1$
+	private static final String	AGE_LABEL					= "Age";																													//$NON-NLS-1$
+	private static final String	SOCIAL_CLASS_LABEL			= "Social Class";																											//$NON-NLS-1$
+	private static final String	MORALS_LABEL				= "Morals";																													//$NON-NLS-1$
+	private static final String	MOVEMENT_LABEL				= "Movement";																												//$NON-NLS-1$
+	private static final String	CARRY_LABEL					= "Carry";																													//$NON-NLS-1$
+	private static final String	ENCUMBRANCE_LABEL			= "Encumbrance";																											//$NON-NLS-1$
+
+	public static final String	MOVEMENT_BONUS_TOOLTIP		= "Class Bonus";																											//$NON-NLS-1$
+
+	public static final String	MOVEMENT_DESCRIPTION		= "<html>A character can move up to his standard movement rate, while attempting to fire a bow/crossbow,<br>"				//$NON-NLS-1$
+					+ "or cast a spell. They may move up to Twice their movement rate while attempting to Attack or<br>"																//$NON-NLS-1$
+					+ "Throw. They may move up to Eight Times their movement rate and Defend. Characters may<br>"																		//$NON-NLS-1$
+					+ "move up to Eight Times their movement rate for up to One Hour, after which they must take at<br>"																//$NON-NLS-1$
+					+ "least a 10 minute rest.</html>";																																	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -49,6 +58,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 	private JTextField			mAgeField;
 	private JTextField			mSocialClassField;
 	private JTextField			mMoralsField;
+	private JTextField			mMovementField;
 	private JTextField			mCarryField;
 	private JTextField			mEncumbranceField;
 
@@ -67,7 +77,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 	protected Component createDisplay() {
 		JPanel outer = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
-		JPanel wrapper = new JPanel(new GridLayout(10, 1, 5, 3));
+		JPanel wrapper = new JPanel(new GridLayout(11, 1, 5, 3));
 		//		wrapper.setBorder(new EmptyBorder(0, 0, 0, 10));
 
 		JLabel heightLabel = new JLabel(HEIGHT_LABEL, SwingConstants.RIGHT);
@@ -93,6 +103,10 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 
 		JLabel moralsLabel = new JLabel(MORALS_LABEL, SwingConstants.RIGHT);
 		mMoralsField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
+
+		JLabel movementLabel = new JLabel(MOVEMENT_LABEL, SwingConstants.RIGHT);
+		movementLabel.setToolTipText(MOVEMENT_DESCRIPTION);
+		mMovementField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20, this);
 
 		JLabel carryLabel = new JLabel(CARRY_LABEL, SwingConstants.RIGHT);
 		mCarryField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM_LARGE, 20);
@@ -143,6 +157,11 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 		wrapper.add(temp);
 
 		temp = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
+		temp.add(movementLabel);
+		temp.add(mMovementField);
+		wrapper.add(temp);
+
+		temp = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
 		temp.add(carryLabel);
 		temp.add(mCarryField);
 		wrapper.add(temp);
@@ -184,6 +203,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 					mAgeField.setText(String.valueOf(record.getAge()));
 					mSocialClassField.setText(record.getSocialClassTitle());
 					mMoralsField.setText(String.valueOf(record.getMorals()));
+					mMovementField.setText(String.valueOf(record.getMovement()));
 					String carryTooltip = record.getCarryTooltip();
 					mCarryField.setText(String.valueOf(record.getCarry()));
 					mCarryField.setToolTipText(carryTooltip);
@@ -191,34 +211,28 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 					mEncumbranceField.setToolTipText(carryTooltip);
 				} else {
 					record.clearRecords();
-					mHeightField.setText(TKStringHelpers.EMPTY_STRING);
-					mWeightField.setText(TKStringHelpers.EMPTY_STRING);
-					mSexField.setText(TKStringHelpers.EMPTY_STRING);
-					mHairField.setText(TKStringHelpers.EMPTY_STRING);
-					mEyesField.setText(TKStringHelpers.EMPTY_STRING);
-					mAgeField.setText(TKStringHelpers.EMPTY_STRING);
-					mSocialClassField.setText(TKStringHelpers.EMPTY_STRING);
-					mMoralsField.setText(TKStringHelpers.EMPTY_STRING);
-					mCarryField.setText(TKStringHelpers.EMPTY_STRING);
-					mCarryField.setToolTipText(TKStringHelpers.EMPTY_STRING);
-					mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING);
-					mEncumbranceField.setToolTipText(TKStringHelpers.EMPTY_STRING);
+					clearFields();
 				}
 			}
 		} else {
-			mHeightField.setText(TKStringHelpers.EMPTY_STRING);
-			mWeightField.setText(TKStringHelpers.EMPTY_STRING);
-			mSexField.setText(TKStringHelpers.EMPTY_STRING);
-			mHairField.setText(TKStringHelpers.EMPTY_STRING);
-			mEyesField.setText(TKStringHelpers.EMPTY_STRING);
-			mAgeField.setText(TKStringHelpers.EMPTY_STRING);
-			mSocialClassField.setText(TKStringHelpers.EMPTY_STRING);
-			mMoralsField.setText(TKStringHelpers.EMPTY_STRING);
-			mCarryField.setText(TKStringHelpers.EMPTY_STRING);
-			mCarryField.setToolTipText(TKStringHelpers.EMPTY_STRING);
-			mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING);
-			mEncumbranceField.setToolTipText(TKStringHelpers.EMPTY_STRING);
+			clearFields();
 		}
+	}
+
+	private void clearFields() {
+		mHeightField.setText(TKStringHelpers.EMPTY_STRING);
+		mWeightField.setText(TKStringHelpers.EMPTY_STRING);
+		mSexField.setText(TKStringHelpers.EMPTY_STRING);
+		mHairField.setText(TKStringHelpers.EMPTY_STRING);
+		mEyesField.setText(TKStringHelpers.EMPTY_STRING);
+		mAgeField.setText(TKStringHelpers.EMPTY_STRING);
+		mSocialClassField.setText(TKStringHelpers.EMPTY_STRING);
+		mMoralsField.setText(TKStringHelpers.EMPTY_STRING);
+		mMovementField.setText(TKStringHelpers.EMPTY_STRING);
+		mCarryField.setText(TKStringHelpers.EMPTY_STRING);
+		mCarryField.setToolTipText(TKStringHelpers.EMPTY_STRING);
+		mEncumbranceField.setText(TKStringHelpers.EMPTY_STRING);
+		mEncumbranceField.setToolTipText(TKStringHelpers.EMPTY_STRING);
 	}
 
 	@Override

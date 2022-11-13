@@ -37,7 +37,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private static final String	DAMAGE_BONUS_LABEL			= "Damage";																																	//$NON-NLS-1$
 	private static final String	DEFENSE_LABEL				= "Defense";																																//$NON-NLS-1$
 	private static final String	FREE_ATTACK_LABEL			= "Free Attack";																															//$NON-NLS-1$
-	private static final String	MOVEMENT_LABEL				= "Movement";																																//$NON-NLS-1$
 
 	private static final String	ATTACK_SPEED_LABEL			= "Attack";																																	//$NON-NLS-1$
 	private static final String	MISSILE_SPEED_LABEL			= "Missile";																																//$NON-NLS-1$
@@ -60,7 +59,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	public static final String	DAMAGE_BONUS_TOOLTIP		= "(Str Modifier)";																															//$NON-NLS-1$
 	public static final String	DEFENSE_BONUS_TOOLTIP		= "Hit Bonus + 30 + (Dex modifier)";																										//$NON-NLS-1$
 	public static final String	FREE_ATTACK_BONUS_TOOLTIP	= "Level + 30 + (Dex Modifier)";																											//$NON-NLS-1$
-	public static final String	MOVEMENT_BONUS_TOOLTIP		= "Class Bonus";																															//$NON-NLS-1$
 
 	public static final String	HIT_DESCRIPTION				= "<html>Hit bonus represents your hand - to - hand combat ability, this percentage is modified by both the Strength<br>"					//$NON-NLS-1$
 					+ "and Dexterity stat. Usually, Fighters will have the highest hit bonus, but you will find some thieves that<br>"																	//$NON-NLS-1$
@@ -79,11 +77,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	public static final String	FREE_ATTACK_DESCRIPTION		= "<html>Defense is used when a character wants to protect himself from being attacked. A player using the<br>"								//$NON-NLS-1$
 					+ "defense option has a chance to attack after his defensive move, called a Free Attack. To learn more<br>"																			//$NON-NLS-1$
 					+ "about Defense and Free Attack read the section on combat.</html>";																												//$NON-NLS-1$
-	public static final String	MOVEMENT_DESCRIPTION		= "<html>A character can move up to his standard movement rate, while attempting to fire a bow/crossbow,<br>"								//$NON-NLS-1$
-					+ "or cast a spell. They may move up to Twice their movement rate while attempting to Attack or<br>"																				//$NON-NLS-1$
-					+ "Throw. They may move up to Eight Times their movement rate and Defend. Characters may<br>"																						//$NON-NLS-1$
-					+ "move up to Eight Times their movement rate for up to One Hour, after which they must take at<br>"																				//$NON-NLS-1$
-					+ "least a 10 minute rest.</html>";																																					//$NON-NLS-1$
 
 	// May create speed label and bonus label and make them headers to column
 
@@ -108,7 +101,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	private JTextField			mFreeField;
 	private JTextField			mUnallocatedField;
 	private JTextField			mFocusField;
-	private JTextField			mMovementField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -126,7 +118,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		JPanel wrapper = new JPanel(new GridLayout(9, 7, 5, 0));
+		JPanel wrapper = new JPanel(new GridLayout(8, 7, 5, 0));
 		wrapper.setBorder(new EmptyBorder(0, 0, 5, 10));
 
 		JLabel hitBonusLabel = new JLabel(HIT_BONUS_LABEL, SwingConstants.RIGHT);
@@ -184,10 +176,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mFocusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this);
 		mFocusField.setEditable(false);
 
-		JLabel movementLabel = new JLabel(MOVEMENT_LABEL, SwingConstants.RIGHT);
-		movementLabel.setToolTipText(MOVEMENT_DESCRIPTION);
-		mMovementField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
-		mMovementField.setEditable(false);
 		mUnallocatedField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mUnallocatedField.setEditable(false);
 
@@ -249,20 +237,12 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		wrapper.add(new JLabel(CASTING_HEADER_LABEL, SwingConstants.CENTER));
 		wrapper.add(new JLabel());
 
-		wrapper.add(movementLabel);
-		wrapper.add(mMovementField);
-		wrapper.add(new JLabel(LEVEL_BONUSES_HEADER_LABEL, SwingConstants.CENTER));
-		wrapper.add(new JLabel());
-		wrapper.add(focusLabel);
-		wrapper.add(mFocusField);
-		wrapper.add(new JLabel());
-
 		wrapper.add(new JLabel());
 		wrapper.add(new JLabel());
 		wrapper.add(mUnallocatedField);
 		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
-		wrapper.add(new JLabel());
+		wrapper.add(focusLabel);
+		wrapper.add(mFocusField);
 		wrapper.add(new JLabel());
 
 		return wrapper;
@@ -304,7 +284,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 				mDefenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDefense());
 				mFreeField.setText(TKStringHelpers.EMPTY_STRING + record.getFree());
 
-				mMovementField.setText(TKStringHelpers.EMPTY_STRING + record.getMovement());
 				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocated());
 			} else {
 				enableFields(false);
@@ -329,7 +308,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 				mDefenseField.setText(TKStringHelpers.EMPTY_STRING);
 				mFreeField.setText(TKStringHelpers.EMPTY_STRING);
 
-				mMovementField.setText(TKStringHelpers.EMPTY_STRING);
 				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING);
 			}
 		}

@@ -52,7 +52,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 	private int					mDefense						= 0;
 	private int					mFreeAttack						= 0;
 	private String				mFocus							= "";									//$NON-NLS-1$
-	private int					mMovement						= 0;
 	private int					mUnallocated					= 0;
 	private boolean				mUserFocus						= false;
 
@@ -86,7 +85,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 			generateBowBonusMax();
 			generateDamageBonus();
 			generateDefenseAndFreeAttack();
-			generateMovement();
 			generateUnallocated();
 
 			generateAttackSpeed();
@@ -236,10 +234,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 			int value = record.getModifiedStat(record.getArrayPosition(secondary));
 			mCastingSpeed = speedTable(value);
 		}
-	}
-
-	private void generateMovement() {
-		mMovement = mCharacterSheet.getHeaderRecord().getCharacterClass().getMovement();
 	}
 
 	public void generateUnallocated() {
@@ -427,16 +421,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mFocus = focus;
 	}
 
-	/** @return The movement. */
-	public int getMovement() {
-		return mMovement;
-	}
-
-	/** @param movement The value to set for movement. */
-	public void setMovement(int movement) {
-		mMovement = movement;
-	}
-
 	/** @return The unallocated points. */
 	public int getUnallocated() {
 		return mUnallocated;
@@ -461,7 +445,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 
 		return sb.toString();
 	}
-
 
 	/*****************************************************************************
 	 * Serialization
@@ -557,7 +540,6 @@ public class CombatInformationRecord implements LevelListener, Savable {
 		mDefense = 0;
 		mFreeAttack = 0;
 		mFocus = TKStringHelpers.EMPTY_STRING;
-		mMovement = 0;
 		mUnallocated = 0;
 		mUserFocus = false;
 	}

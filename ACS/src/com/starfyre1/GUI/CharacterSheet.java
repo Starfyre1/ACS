@@ -1162,7 +1162,7 @@ public class CharacterSheet implements ActionListener {
 
 		// DW fix - the LevelBonuses need to be modified but not here... this should all be done on the display and not on the records
 		if (value >= 4) {
-			cir.setMovement(0);
+			pir.setMovement(0);
 			cir.setAttackSpeed(0);
 			cir.setHitBonus(0);
 			cir.setMissileSpeed(0);
@@ -1170,7 +1170,7 @@ public class CharacterSheet implements ActionListener {
 			cir.setBowSpeed(0);
 			cir.setBowBonus(0);
 		} else if (value == 3) {
-			cir.setMovement((int) (cir.getMovement() * .25));
+			pir.setMovement((int) (pir.getMovement() * .25));
 			cir.setAttackSpeed(cir.getAttackSpeed() - 5);
 			cir.setHitBonus((int) ((cir.getHitBonus() + cir.getHitLevelBonus()) * .75));
 			cir.setMissileSpeed(cir.getMissileSpeed() - 5);
@@ -1179,7 +1179,7 @@ public class CharacterSheet implements ActionListener {
 			cir.setBowBonus((int) ((cir.getBowBonus() + cir.getBowLevelBonus()) * .75));
 			str.setSurprise(str.getSurprise() - 20);
 		} else if (value == 2) {
-			cir.setMovement((int) (cir.getMovement() * .50));
+			pir.setMovement((int) (pir.getMovement() * .50));
 			cir.setAttackSpeed(cir.getAttackSpeed() - 3);
 			cir.setHitBonus((int) ((cir.getHitBonus() + cir.getHitLevelBonus()) * .85));
 			cir.setMissileSpeed(cir.getMissileSpeed() - 3);
@@ -1188,7 +1188,7 @@ public class CharacterSheet implements ActionListener {
 			cir.setBowBonus((int) ((cir.getBowBonus() + cir.getBowLevelBonus()) * .85));
 			str.setSurprise(str.getSurprise() - 10);
 		} else if (value == 1) {
-			cir.setMovement((int) (cir.getMovement() * .75));
+			pir.setMovement((int) (pir.getMovement() * .75));
 			cir.setAttackSpeed(cir.getAttackSpeed() - 1);
 			cir.setHitBonus((int) ((cir.getHitBonus() + cir.getHitLevelBonus()) * .95));
 			cir.setMissileSpeed(cir.getMissileSpeed() - 1);
@@ -1206,6 +1206,7 @@ public class CharacterSheet implements ActionListener {
 			//				cir.setBowBonus(0);
 		}
 		mCombatInformationDisplay.loadDisplay();
+		mPersonalInformationDisplay.loadDisplay();
 	}
 
 	/** @return The animalRecord. */

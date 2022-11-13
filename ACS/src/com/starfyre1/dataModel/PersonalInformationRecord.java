@@ -56,6 +56,7 @@ public class PersonalInformationRecord implements Savable {
 	int							mAge					= 0;
 	SocialClassRecord			mSocialClass;
 	int							mMorals					= 0;
+	private int					mMovement				= 0;
 	int							mCarry					= 0;
 	float						mEncumbrance			= 0f;
 
@@ -93,6 +94,10 @@ public class PersonalInformationRecord implements Savable {
 		updateOldRecords();
 	}
 
+	private void generateMovement() {
+		setMovement(mCharacterSheet.getHeaderRecord().getCharacterClass().getMovement());
+	}
+
 	private void updateOldRecords() {
 		mOldHeight = mHeight;
 		mOldWeight = mWeight;
@@ -113,6 +118,7 @@ public class PersonalInformationRecord implements Savable {
 		//			System.out.println(i + " = " + ((i - 12) / 2 * 5 + 35));
 		//		}
 		mCarry = (stats.getModifiedStat(AttributesRecord.STR) + stats.getModifiedStat(AttributesRecord.CON) - 12) / 2 * 5 + 35;
+		generateMovement();
 	}
 
 	private void generateHeightAndWeight() {
@@ -344,6 +350,7 @@ public class PersonalInformationRecord implements Savable {
 		mAge = 0;
 		mSocialClass = null;
 		mMorals = 0;
+		mMovement = 0;
 		mCarry = 0;
 		mEncumbrance = 0f;
 	}
@@ -441,6 +448,16 @@ public class PersonalInformationRecord implements Savable {
 	/** @param morals The value to set for morals. */
 	public void setMorals(int morals) {
 		mMorals = morals;
+	}
+
+	/** @return The movement. */
+	public int getMovement() {
+		return mMovement;
+	}
+
+	/** @param movement The value to set for movement. */
+	public void setMovement(int movement) {
+		mMovement = movement;
 	}
 
 	/** @return The carry. */
