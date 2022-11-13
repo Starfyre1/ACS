@@ -142,23 +142,13 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 	public void loadDisplay() {
 		MoneyRecord record = ((CharacterSheet) getOwner()).getMoneyRecord();
 
-		if (record != null) {
-			mGoldField.setText(TKStringHelpers.EMPTY_STRING + record.getGold());
-			mSilverField.setText(TKStringHelpers.EMPTY_STRING + record.getSilver());
-			mCopperField.setText(TKStringHelpers.EMPTY_STRING + record.getCopper());
-			mGemsArea.setText(record.getGemsArea());
-			mJewelryArea.setText(record.getJewelryArea());
-			mOtherArea.setText(record.getOtherArea());
-			mOtherArea.setCaretPosition(0);
-		} else {
-			mGoldField.setText(TKStringHelpers.EMPTY_STRING);
-			mSilverField.setText(TKStringHelpers.EMPTY_STRING);
-			mCopperField.setText(TKStringHelpers.EMPTY_STRING);
-			mGemsArea.setText(TKStringHelpers.EMPTY_STRING);
-			mJewelryArea.setText(TKStringHelpers.EMPTY_STRING);
-			mOtherArea.setText(TKStringHelpers.EMPTY_STRING);
-
-		}
+		mGoldField.setText(record == null ? null : String.valueOf(record.getGold()));
+		mSilverField.setText(record == null ? null : String.valueOf(record.getSilver()));
+		mCopperField.setText(record == null ? null : String.valueOf(record.getCopper()));
+		mGemsArea.setText(record == null ? null : record.getGemsArea());
+		mJewelryArea.setText(record == null ? null : record.getJewelryArea());
+		mOtherArea.setText(record == null ? null : record.getOtherArea());
+		mOtherArea.setCaretPosition(0);
 	}
 
 	@Override
