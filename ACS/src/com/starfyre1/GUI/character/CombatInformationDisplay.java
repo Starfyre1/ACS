@@ -8,7 +8,6 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.CombatInformationRecord;
-import com.starfyre1.dataModel.SavingThrowsRecord;
 import com.starfyre1.dataset.classes.elves.Sailor;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.dataset.common.SpellUser;
@@ -30,61 +29,61 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	COMBAT_INFORMATION_TITLE	= "Combat Information";	//$NON-NLS-1$
+	private static final String	COMBAT_INFORMATION_TITLE	= "Combat Information";																														//$NON-NLS-1$
 
-	private static final String	HIT_BONUS_LABEL				= "Hit";				//$NON-NLS-1$
-	private static final String	MISSILE_BONUS_LABEL			= "Missile";			//$NON-NLS-1$
-	private static final String	BOW_BONUS_LABEL				= "Bow";				//$NON-NLS-1$
-	private static final String	DAMAGE_BONUS_LABEL			= "Damage";				//$NON-NLS-1$
-	private static final String	DEFENSE_LABEL				= "Defense";			//$NON-NLS-1$
-	private static final String	FREE_ATTACK_LABEL			= "Free Attack";		//$NON-NLS-1$
-	private static final String	MOVEMENT_LABEL				= "Movement";			//$NON-NLS-1$
+	private static final String	HIT_BONUS_LABEL				= "Hit";																																	//$NON-NLS-1$
+	private static final String	MISSILE_BONUS_LABEL			= "Missile";																																//$NON-NLS-1$
+	private static final String	BOW_BONUS_LABEL				= "Bow";																																	//$NON-NLS-1$
+	private static final String	DAMAGE_BONUS_LABEL			= "Damage";																																	//$NON-NLS-1$
+	private static final String	DEFENSE_LABEL				= "Defense";																																//$NON-NLS-1$
+	private static final String	FREE_ATTACK_LABEL			= "Free Attack";																															//$NON-NLS-1$
+	private static final String	MOVEMENT_LABEL				= "Movement";																																//$NON-NLS-1$
 
-	private static final String	ATTACK_SPEED_LABEL			= "Attack";				//$NON-NLS-1$
-	private static final String	MISSILE_SPEED_LABEL			= "Missile";			//$NON-NLS-1$
-	private static final String	BOW_SPEED_LABEL				= "Bow";				//$NON-NLS-1$
-	private static final String	CASTING_SPEED_LABEL			= "Casting";			//$NON-NLS-1$
-	private static final String	FOCUS_LABEL					= "Focus";				//$NON-NLS-1$
+	private static final String	ATTACK_SPEED_LABEL			= "Attack";																																	//$NON-NLS-1$
+	private static final String	MISSILE_SPEED_LABEL			= "Missile";																																//$NON-NLS-1$
+	private static final String	BOW_SPEED_LABEL				= "Bow";																																	//$NON-NLS-1$
+	private static final String	CASTING_SPEED_LABEL			= "Casting";																																//$NON-NLS-1$
+	private static final String	FOCUS_LABEL					= "Focus";																																	//$NON-NLS-1$
 
-	private static final String	BONUS_HEADER_LABEL			= "Bonus";				//$NON-NLS-1$
-	private static final String	LEVEL_BONUS_HEADER_LABEL	= "Level Bonus";		//$NON-NLS-1$
-	private static final String	LEVEL_BONUSES_HEADER_LABEL	= "Level Bonuses";		//$NON-NLS-1$
-	private static final String	UNALLOCATED_HEADER_LABEL	= "Unallocated";		//$NON-NLS-1$
-	private static final String	MAXIMUM_BONUS_HEADER_LABEL	= "Maximum";			//$NON-NLS-1$
-	private static final String	NO_MAX						= "No Max";				//$NON-NLS-1$
-	private static final String	SPEED_HEADER_LABEL			= "Speed";				//$NON-NLS-1$
-	private static final String	CASTING_HEADER_LABEL		= "Casting";			//$NON-NLS-1$
+	private static final String	BONUS_HEADER_LABEL			= "Bonus";																																	//$NON-NLS-1$
+	private static final String	LEVEL_BONUS_HEADER_LABEL	= "Level Bonus";																															//$NON-NLS-1$
+	private static final String	LEVEL_BONUSES_HEADER_LABEL	= "Level Bonuses";																															//$NON-NLS-1$
+	private static final String	UNALLOCATED_HEADER_LABEL	= "Unallocated";																															//$NON-NLS-1$
+	private static final String	MAXIMUM_BONUS_HEADER_LABEL	= "Maximum";																																//$NON-NLS-1$
+	private static final String	NO_MAX						= "No Max";																																	//$NON-NLS-1$
+	private static final String	SPEED_HEADER_LABEL			= "Speed";																																	//$NON-NLS-1$
+	private static final String	CASTING_HEADER_LABEL		= "Casting";																																//$NON-NLS-1$
 
-	public static final String	HIT_BONUS_TOOLTIP		= "(Str - 10) + (Dex - 10) + Class Bonus";						//$NON-NLS-1$
-	public static final String  MISSILE_BONUS_TOOLTIP = ""; //$NON-NLS-1$
-	public static final String  BOW_BONUS_TOOLTIP = ""; //$NON-NLS-1$
-	public static final String  DAMAGE_BONUS_TOOLTIP = ""; //$NON-NLS-1$
-	public static final String  DEFENSE_BONUS_TOOLTIP = ""; //$NON-NLS-1$
-	public static final String  FREE_ATTACK_BONUS_TOOLTIP = ""; //$NON-NLS-1$
-	public static final String  MOVEMENT_BONUS_TOOLTIP = ""; //$NON-NLS-1$
+	public static final String	HIT_BONUS_TOOLTIP			= "(Str Modifier) + (Dex Modifier) + Class Bonus + Level Bonus";																			//$NON-NLS-1$
+	public static final String	MISSILE_BONUS_TOOLTIP		= "(Str Modifier) + (Dex Modifier) + Class Bonus + Level Bonus";																			//$NON-NLS-1$
+	public static final String	BOW_BONUS_TOOLTIP			= "(Bow Skill Modifier) + Class Bonus + Level Bonus";																						//$NON-NLS-1$
+	public static final String	DAMAGE_BONUS_TOOLTIP		= "(Str Modifier)";																															//$NON-NLS-1$
+	public static final String	DEFENSE_BONUS_TOOLTIP		= "Hit Bonus + 30 + (Dex modifier)";																										//$NON-NLS-1$
+	public static final String	FREE_ATTACK_BONUS_TOOLTIP	= "Level + 30 + (Dex Modifier)";																											//$NON-NLS-1$
+	public static final String	MOVEMENT_BONUS_TOOLTIP		= "Class Bonus";																															//$NON-NLS-1$
 
-	public static final String	HIT_DESCRIPTION			= "<html>Hit bonus represents your hand - to - hand combat ability, this percentage is modified by both the Strength<br>" //
-			+ "and Dexterity stat. Usually, Fighters will have the highest hit bonus, but you will find some thieves that<br>" //
-			+ "will also score quite high here, Dexterity is quite important. If both your race and your class give’s you a<br>" //
-			+ "bonus here you should just take the highest of the two.</html>";																										//$NON-NLS-1$
-	public static final String	MISSILE_DESCRIPTION			= "<html>Missile Bonus represents your accuracy with thrown weapons, such as knives, shuriken, darts, rocks, oil<br>" //
-			+ "flasks, etc. This is also modified by your Strength and Dexterity statistics, along with your class.</html>";																										//$NON-NLS-1$
-	public static final String	BOW_DESCRIPTION			= "<html>Bow Bonus is a very easy one to figure out, this relates only to your innate ability, if you have any, to the<br>" //
-			+ "use of a Bow of any type. Some races have great innate ability with these awesome weapons, and some<br>" //
-			+ "don't.</html>";																										//$NON-NLS-1$
-	public static final String	DAMAGE_DESCRIPTION			= "<html>Like it sounds this is pure muscle power aimed at doing nothing but damage! The stronger you are the<br>"  //
-			+ "harder you swing + the larger the weapon that can be used = More damage.</html>";																										//$NON-NLS-1$
-	public static final String	DEFENSE_DESCRIPTION			= "<html>Defense is used when a character wants to protect himself from being attacked. A player using the<br>" //
-			+ "defense option has a chance to attack after his defensive move, called a Free Attack. To learn more<br>" //
-			+ "about Defense and Free Attack read the section on combat.</html>";																										//$NON-NLS-1$
-	public static final String	FREE_ATTACK_DESCRIPTION			= "<html>Defense is used when a character wants to protect himself from being attacked. A player using the<br>" //
-			+ "defense option has a chance to attack after his defensive move, called a Free Attack. To learn more<br>" //
-			+ "about Defense and Free Attack read the section on combat.</html>";																										//$NON-NLS-1$
-	public static final String	MOVEMENT_DESCRIPTION			= "<html>A character can move up to his standard movement rate, while attempting to fire a bow/crossbow,<br>" //
-			+ "or cast a spell. They may move up to Twice their movement rate while attempting to Attack or<br>" //
-			+ "Throw. They may move up to Eight Times their movement rate and Defend. Characters may<br>" //
-			+ "move up to Eight Times their movement rate for up to One Hour, after which they must take at<br>" //
-			+ "least a 10 minute rest.</html>";																										//$NON-NLS-1$
+	public static final String	HIT_DESCRIPTION				= "<html>Hit bonus represents your hand - to - hand combat ability, this percentage is modified by both the Strength<br>"					//$NON-NLS-1$
+					+ "and Dexterity stat. Usually, Fighters will have the highest hit bonus, but you will find some thieves that<br>"																	//$NON-NLS-1$
+					+ "will also score quite high here, Dexterity is quite important. If both your race and your class give’s you a<br>"																//$NON-NLS-1$
+					+ "bonus here you should just take the highest of the two.</html>";																													//$NON-NLS-1$
+	public static final String	MISSILE_DESCRIPTION			= "<html>Missile Bonus represents your accuracy with thrown weapons, such as knives, shuriken, darts, rocks, oil<br>"						//$NON-NLS-1$
+					+ "flasks, etc. This is also modified by your Strength and Dexterity statistics, along with your class.</html>";																	//$NON-NLS-1$
+	public static final String	BOW_DESCRIPTION				= "<html>Bow Bonus is a very easy one to figure out, this relates only to your innate ability, if you have any, to the<br>"					//$NON-NLS-1$
+					+ "use of a Bow of any type. Some races have great innate ability with these awesome weapons, and some<br>"																			//$NON-NLS-1$
+					+ "don't.</html>";																																									//$NON-NLS-1$
+	public static final String	DAMAGE_DESCRIPTION			= "<html>Like it sounds this is pure muscle power aimed at doing nothing but damage! The stronger you are the<br>"							//$NON-NLS-1$
+					+ "harder you swing + the larger the weapon that can be used = More damage.</html>";																								//$NON-NLS-1$
+	public static final String	DEFENSE_DESCRIPTION			= "<html>Defense is used when a character wants to protect himself from being attacked. A player using the<br>"								//$NON-NLS-1$
+					+ "defense option has a chance to attack after his defensive move, called a Free Attack. To learn more<br>"																			//$NON-NLS-1$
+					+ "about Defense and Free Attack read the section on combat.</html>";																												//$NON-NLS-1$
+	public static final String	FREE_ATTACK_DESCRIPTION		= "<html>Defense is used when a character wants to protect himself from being attacked. A player using the<br>"								//$NON-NLS-1$
+					+ "defense option has a chance to attack after his defensive move, called a Free Attack. To learn more<br>"																			//$NON-NLS-1$
+					+ "about Defense and Free Attack read the section on combat.</html>";																												//$NON-NLS-1$
+	public static final String	MOVEMENT_DESCRIPTION		= "<html>A character can move up to his standard movement rate, while attempting to fire a bow/crossbow,<br>"								//$NON-NLS-1$
+					+ "or cast a spell. They may move up to Twice their movement rate while attempting to Attack or<br>"																				//$NON-NLS-1$
+					+ "Throw. They may move up to Eight Times their movement rate and Defend. Characters may<br>"																						//$NON-NLS-1$
+					+ "move up to Eight Times their movement rate for up to One Hour, after which they must take at<br>"																				//$NON-NLS-1$
+					+ "least a 10 minute rest.</html>";																																					//$NON-NLS-1$
 
 	// May create speed label and bonus label and make them headers to column
 
@@ -410,7 +409,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	public void updateToolTips() {
 		BaseClass charClass = ((CharacterSheet) getOwner()).getHeaderRecord().getCharacterClass();
 		mFocusField.setToolTipText(charClass.getFocusToolTip());
-		
+
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		CombatInformationRecord record = owner.getCombatInformationRecord();
 		BaseClass base = owner.getHeaderRecord().getCharacterClass();
@@ -418,7 +417,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 		if (record != null) {
 			mHitBonusField.setToolTipText(base == null ? zero : record.getHitBonusToolTip());
-		}	
+		}
 	}
 
 	/*****************************************************************************
