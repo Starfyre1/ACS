@@ -206,7 +206,6 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	}
 
 	public void updateDisplay() {
-
 		loadDisplay();
 	}
 
@@ -246,9 +245,6 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	}
 
 	private JPanel createCenterPanel() {
-		// DW _add Start and End Date (popup?)
-		//		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
-
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 		mWeaponColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mTeacherColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));

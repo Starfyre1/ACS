@@ -12,9 +12,12 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
+import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
+import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.startup.ACS;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -25,12 +28,12 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class SkillTab extends DeterminationTab implements ItemListener {
@@ -51,18 +54,36 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	private static final int	ROWS				= 5;
 	private static final int	COST				= 40;
 
+	private static final String	SAVE				= "Save";																					//$NON-NLS-1$
+	private static final String	CANCEL				= "Cancel";																					//$NON-NLS-1$
+
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private TKPopupMenu[]		mSkillsPopup;
-	private JLabel[]			mTeacherLabel;
-	private JTextField[]		mDPPerWeekField;
-	private JLabel[]			mUsedLabel;
-	private JLabel[]			mBonusLabel;
-	private JLabel[]			mMaintLabel;
-	private JLabel[]			mSuccessfulLabel;
-	private JLabel[]			mStartDateLabel;
-	private JLabel[]			mEndDateLabel;
+	private JButton				mOkButton;
+	private JButton				mCancelButton;
+
+	private TKPopupMenu			mSkillsPopup;
+	private TKPopupMenu			mTeacherPopup;
+	private JTextField			mDPPerWeekField;
+	private JLabel				mDPSpentLabel;
+	private JLabel				mBonusLabel;
+	private JLabel				mMaintLabel;
+	private JLabel				mSuccessfulLabel;
+	private JLabel				mStartDateLabel;
+	private JLabel				mEndDateLabel;
+
+	private JPanel				mSkillsColumn;
+	private JPanel				mTeacherColumn;
+	private JPanel				mDPPerWeekColumn;
+	private JPanel				mDPSpentColumn;
+	private JPanel				mBonusAmountColumn;
+	private JPanel				mMaintColumn;
+	private JPanel				mSuccessfulColumn;
+	private JPanel				mStartDateColumn;
+	private JPanel				mEndDateColumn;
+
+	private JDialog				mNewEntryDialog;
 
 	/*****************************************************************************
 	 * Constructors
@@ -84,50 +105,90 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JButton) {
+			//			if (source.equals(mNewButton)) {
+			//				ArrayList<SkillDeterminationRecord> list = getRecordsToLearn();
+			//				for (SkillDeterminationRecord record : list) {
+			//					DeterminationList.addSkillRecord(record);
+			//				}
+			// DW Create Record
 			if (source.equals(mNewButton)) {
-				ArrayList<SkillDeterminationRecord> list = getRecordsToLearn();
-				for (SkillDeterminationRecord record : list) {
-					DeterminationList.addSkillRecord(record);
-				}
-				// DW Create Record
+				mNewEntryDialog = new JDialog(ACS.getInstance().getCharacterSheet().getFrame(), SELECT_SKILL, true);
+				mNewEntryDialog.setSize(800, 400);
+
+				mNewEntryDialog.add(createDialogPanel());
+				mNewEntryDialog.setVisible(true);
 			} else if (source.equals(mGiveUpButton)) {
 				// DW Added game date to record
+			} else if (source.equals(mOkButton)) {
+				TeacherDeterminationRecord teacherRecord = DeterminationList.getWeaponsTeacherRecord(mTeacherPopup.getSelectedItem());
+				int teacherID = 0;
+				if (teacherRecord != null) {
+					teacherID = teacherRecord.getID();
+				}
+
+				WeaponProficiencyDeterminationRecord record = new WeaponProficiencyDeterminationRecord(mSkillsPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), TKStringHelpers.getIntValue(mDPSpentLabel.getText(), 0), CampaignDateChooser.getCampaignDate(), null);
+				DeterminationList.addWeaponRecord(record);
+				((DeterminationPointsDisplay) getOwner()).addRecords(true);
+				mNewEntryDialog.dispose();
+			} else if (source.equals(mCancelButton)) {
+				mNewEntryDialog.dispose();
 			}
 		}
+	}
+
+	private JPanel createButtonPanel() {
+		JPanel panel = new JPanel();
+		mOkButton = TKComponentHelpers.createButton(SAVE, this);
+		mCancelButton = TKComponentHelpers.createButton(CANCEL, this);
+
+		panel.add(mOkButton);
+		panel.add(mCancelButton);
+
+		return panel;
 	}
 
 	private void updateEnabledState() {
 		HeaderRecord headerRecord = ACS.getInstance().getCharacterSheet().getHeaderRecord();
 		boolean enable = headerRecord == null ? false : headerRecord.getCharacterClass() != null;
 		for (int i = 0; i < ROWS; i++) {
-			mSkillsPopup[i].getMenu().setEnabled(enable);
+			mSkillsPopup.getMenu().setEnabled(enable);
 
-			mDPPerWeekField[i].setEnabled(enable);
-			mDPPerWeekField[i].setEditable(enable);
+			mDPPerWeekField.setEnabled(enable);
+			mDPPerWeekField.setEditable(enable);
 		}
+	}
+
+	public void updateDisplay() {
+		loadDisplay();
 	}
 
 	@Override
 	protected void loadDisplay() {
 		ArrayList<SkillDeterminationRecord> list = DeterminationList.getSkillRecords();
+		JPanel wrapper = new JPanel();
 		if (list.size() > 0) {
-			for (int i = 0; i < list.size(); i++) {
-				SkillDeterminationRecord record = list.get(i);
+			for (SkillDeterminationRecord record : list) {
+				JLabel skillsLabel = new JLabel(record.getSkill());
+				JLabel teacherLabel = new JLabel(String.valueOf(record.getTeacher()));
+				JLabel bonusLabel = new JLabel(String.valueOf(record.getBonus()));
+				JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
+				JLabel DPSpentLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
+				JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
+				JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
+				JLabel startDateLabel = new JLabel(record.getStartDate());
+				JLabel endDateLabel = new JLabel(record.getEndDate());
 
-				mSkillsPopup[i].selectPopupMenuItem(record.getSkill());
-				mTeacherLabel[i].setText(String.valueOf(record.getTeacher()));
-				mBonusLabel[i].setText(String.valueOf(record.getBonus()));
-				mDPPerWeekField[i].setText(String.valueOf(record.getDPPerWeek()));
-				mUsedLabel[i].setText(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
-				mMaintLabel[i].setText(String.valueOf(record.hasMaintenance()));
-				// DW _Count successful vs attempted
-				mSuccessfulLabel[i].setText(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
-				mStartDateLabel[i].setText(record.getStartDate());
-				mEndDateLabel[i].setText(record.getEndDate());
-
+				wrapper.add(skillsLabel);
+				wrapper.add(teacherLabel);
+				wrapper.add(bonusLabel);
+				wrapper.add(DPPerWeekLabel);
+				wrapper.add(DPSpentLabel);
+				wrapper.add(maintLabel);
+				wrapper.add(successLabel);
+				wrapper.add(startDateLabel);
+				wrapper.add(endDateLabel);
 			}
 		}
-		updateEnabledState();
 		super.loadDisplay();
 	}
 
@@ -137,101 +198,200 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	}
 
 	private JPanel createCenterPanel() {
+		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
+		mSkillsColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mTeacherColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mDPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		mDPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mBonusAmountColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mMaintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mSuccessfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mStartDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mEndDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+
+		generateHeaders();
+
+		outerWrapper.add(mSkillsColumn);
+		outerWrapper.add(mTeacherColumn);
+		outerWrapper.add(mBonusAmountColumn);
+		outerWrapper.add(mDPPerWeekColumn);
+		outerWrapper.add(mDPSpentColumn);
+		outerWrapper.add(mMaintColumn);
+		outerWrapper.add(mSuccessfulColumn);
+		outerWrapper.add(mStartDateColumn);
+		outerWrapper.add(mEndDateColumn);
+
+		//		updateEnabledState();
+		//		updateDialogButtons();
+		return outerWrapper;
+	}
+
+	private void generateHeaders() {
+		mSkillsColumn.add(new JLabel(SKILL_TAB_TITLE));
+		mTeacherColumn.add(new JLabel("Teacher")); //$NON-NLS-1$
+		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
+		mDPSpentColumn.add(new JLabel("Used")); //$NON-NLS-1$
+		mBonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
+		mMaintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
+		mSuccessfulColumn.add(new JLabel("Success")); //$NON-NLS-1$
+		mStartDateColumn.add(new JLabel("Start Date")); //$NON-NLS-1$
+		mEndDateColumn.add(new JLabel("End Date")); //$NON-NLS-1$
+	}
+
+	void clearTab() {
+		mSkillsColumn.removeAll();
+		mTeacherColumn.removeAll();
+		mBonusAmountColumn.removeAll();
+		mDPPerWeekColumn.removeAll();
+		mDPSpentColumn.removeAll();
+		mSuccessfulColumn.removeAll();
+		mMaintColumn.removeAll();
+		mStartDateColumn.removeAll();
+		mEndDateColumn.removeAll();
+		generateHeaders();
+
+	}
+
+	void addRecord(WeaponProficiencyDeterminationRecord record) {
+		if (record != null) {
+			JLabel weaponLabel = new JLabel(record.getWeapon());
+			JLabel teacherLabel = new JLabel(DeterminationList.getTeacher(record.getTeacher()).getTeacher());
+			JLabel bonusLabel = new JLabel(String.valueOf(record.getBonus()));
+			JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
+			JLabel usedLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
+			JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
+			JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
+			JLabel startDateLabel = new JLabel(record.getStartDate());
+			JLabel endDateLabel = new JLabel(record.getEndDate());
+
+			mSkillsColumn.add(weaponLabel);
+			mTeacherColumn.add(teacherLabel);
+			mBonusAmountColumn.add(bonusLabel);
+			mDPPerWeekColumn.add(DPPerWeekLabel);
+			mDPSpentColumn.add(usedLabel);
+			mMaintColumn.add(maintLabel);
+			mSuccessfulColumn.add(successLabel);
+			mStartDateColumn.add(startDateLabel);
+			mEndDateColumn.add(endDateLabel);
+		}
+	}
+
+	private JPanel createDialogPanel() {
 		// DW _add Start and End Date (popup?)
-		int currentTeacher = 0;
-		int currentBonus = 0;
-		int currentlySpent = 0;
-		int currentMaintenance = 0;
 		int completed = 0;
 		int attempted = 0;
+		int currentMaintenance = 0;
+		int currentlySpent = 0;
 
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		mSkillsPopup = new TKPopupMenu[ROWS];
-		mTeacherLabel = new JLabel[ROWS];
-		mDPPerWeekField = new JTextField[ROWS];
-		mUsedLabel = new JLabel[ROWS];
-		mBonusLabel = new JLabel[ROWS];
-		mMaintLabel = new JLabel[ROWS];
-		mSuccessfulLabel = new JLabel[ROWS];
-		mStartDateLabel = new JLabel[ROWS];
-		mEndDateLabel = new JLabel[ROWS];
+		JPanel buttonWrapper = new JPanel();
+		buttonWrapper.setBorder(new EmptyBorder(5, 15, 5, 5));
+		buttonWrapper.setLayout(new BorderLayout());
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
-		JPanel skillsPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel teacherPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel dpPerWeekPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
-		JPanel dpSpentPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel bonusAmountPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel maintPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		JPanel successfulPanel = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		JPanel weaponColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel teacherColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel dPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		JPanel dPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel bonusAmountColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel maintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel successfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		skillsPanel.add(new JLabel(SKILL_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
-		JLabel header = new JLabel("Teacher", SwingConstants.CENTER); //$NON-NLS-1$
-		teacherPanel.add(header);
+		JLabel label = new JLabel(SKILL_TAB_TITLE);
+		weaponColumn.add(label);
+		JLabel header = new JLabel("Teacher"); //$NON-NLS-1$
+		teacherColumn.add(header);
 		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
-		dpPerWeekPanel.add(new JLabel("DP/Week", SwingConstants.CENTER)); //$NON-NLS-1$
-		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
-		bonusAmountPanel.add(new JLabel("Bonus", SwingConstants.CENTER)); //$NON-NLS-1$
-		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
-		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
+		dPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
+		dPSpentColumn.add(new JLabel("Used")); //$NON-NLS-1$
+		bonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
+		maintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
+		successfulColumn.add(new JLabel("Successful")); //$NON-NLS-1$
 
-		for (int i = 0; i < ROWS; i++) {
-			mSkillsPopup[i] = new TKPopupMenu(getSkillsMenu());
-			mSkillsPopup[i].setAlignmentX(Component.LEFT_ALIGNMENT);
-			Dimension size2 = new Dimension(mSkillsPopup[i].getPreferredSize().width, TEXT_FIELD_HEIGHT);
-			mSkillsPopup[i].setMinimumSize(size2);
-			mSkillsPopup[i].setPreferredSize(size2);
-			skillsPanel.add(mSkillsPopup[i]);
+		mSkillsPopup = new TKPopupMenu(getSkillsMenu());
+		mSkillsPopup.setAlignmentX(Component.LEFT_ALIGNMENT);
+		mSkillsPopup.getMenu().addActionListener(this);
+		Dimension size2 = new Dimension(mSkillsPopup.getPreferredSize().width, POPUP_HEIGHT);
+		mSkillsPopup.setMaximumSize(size2);
+		weaponColumn.add(mSkillsPopup);
 
-			mTeacherLabel[i] = new JLabel(String.valueOf(currentTeacher));
-			mTeacherLabel[i].setMinimumSize(size);
-			mTeacherLabel[i].setPreferredSize(size);
-			teacherPanel.add(mTeacherLabel[i]);
+		mTeacherPopup = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+		Dimension size3 = new Dimension(mTeacherPopup.getPreferredSize().width, POPUP_HEIGHT);
+		mTeacherPopup.setMaximumSize(size3);
+		teacherColumn.add(mTeacherPopup);
 
-			mBonusLabel[i] = new JLabel(String.valueOf(currentBonus));
-			mBonusLabel[i].setMinimumSize(size);
-			mBonusLabel[i].setPreferredSize(size);
-			bonusAmountPanel.add(mBonusLabel[i]);
+		mBonusLabel = new JLabel(String.valueOf(currentMaintenance));
+		mBonusLabel.setMinimumSize(size);
+		mBonusLabel.setPreferredSize(size);
+		bonusAmountColumn.add(mBonusLabel);
 
-			mDPPerWeekField[i] = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
-			dpPerWeekPanel.add(mDPPerWeekField[i]);
+		mDPPerWeekField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+		dPPerWeekColumn.add(mDPPerWeekField);
 
-			mUsedLabel[i] = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
-			mUsedLabel[i].setMinimumSize(size);
-			mUsedLabel[i].setPreferredSize(size);
-			dpSpentPanel.add(mUsedLabel[i]);
+		mDPSpentLabel = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
+		mDPSpentLabel.setMinimumSize(size);
+		mDPSpentLabel.setPreferredSize(size);
+		dPSpentColumn.add(mDPSpentLabel);
 
-			mMaintLabel[i] = new JLabel(String.valueOf(currentMaintenance));
-			mMaintLabel[i].setMinimumSize(size);
-			mMaintLabel[i].setPreferredSize(size);
-			maintPanel.add(mMaintLabel[i]);
+		mMaintLabel = new JLabel(String.valueOf(currentMaintenance));
+		mMaintLabel.setMinimumSize(size);
+		mMaintLabel.setPreferredSize(size);
+		maintColumn.add(mMaintLabel);
 
-			mSuccessfulLabel[i] = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
-			mSuccessfulLabel[i].setMinimumSize(size);
-			mSuccessfulLabel[i].setPreferredSize(size);
-			successfulPanel.add(mSuccessfulLabel[i]);
+		mSuccessfulLabel = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
+		mSuccessfulLabel.setMinimumSize(size);
+		mSuccessfulLabel.setPreferredSize(size);
+		successfulColumn.add(mSuccessfulLabel);
 
-			mStartDateLabel[i] = new JLabel();
-			mEndDateLabel[i] = new JLabel();
-		}
-		teacherPanel.add(Box.createVerticalGlue());
-		bonusAmountPanel.add(Box.createVerticalGlue());
-		dpSpentPanel.add(Box.createVerticalGlue());
-		maintPanel.add(Box.createVerticalGlue());
-		successfulPanel.add(Box.createVerticalGlue());
+		mStartDateLabel = new JLabel();
+		mEndDateLabel = new JLabel();
 
-		outerWrapper.add(skillsPanel);
-		outerWrapper.add(teacherPanel);
-		outerWrapper.add(bonusAmountPanel);
-		outerWrapper.add(dpPerWeekPanel);
-		outerWrapper.add(dpSpentPanel);
-		outerWrapper.add(maintPanel);
-		outerWrapper.add(successfulPanel);
+		teacherColumn.add(Box.createVerticalGlue());
+		dPSpentColumn.add(Box.createVerticalGlue());
+		bonusAmountColumn.add(Box.createVerticalGlue());
+		maintColumn.add(Box.createVerticalGlue());
+		successfulColumn.add(Box.createVerticalGlue());
+
+		outerWrapper.add(weaponColumn);
+		outerWrapper.add(teacherColumn);
+		outerWrapper.add(bonusAmountColumn);
+		outerWrapper.add(dPPerWeekColumn);
+		outerWrapper.add(dPSpentColumn);
+		outerWrapper.add(maintColumn);
+		outerWrapper.add(successfulColumn);
 
 		updateEnabledState();
 
-		return outerWrapper;
+		buttonWrapper.add(outerWrapper, BorderLayout.NORTH);
+		buttonWrapper.add(createButtonPanel(), BorderLayout.SOUTH);
+
+		return buttonWrapper;
+	}
+
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
+	@Override
+	public int getDPPerWeekTabTotal() {
+		int pointsSpent = 0;
+		ArrayList<SkillDeterminationRecord> list = DeterminationList.getSkillRecords();
+		if (list.size() > 0) {
+			for (SkillDeterminationRecord record : list) {
+				pointsSpent += record.getDPPerWeek();
+			}
+		}
+		return pointsSpent;
+	}
+
+	@Override
+	protected boolean hasValidEntriesToLearn() {
+		//		for (int i = 0; i < ROWS; i++) {
+		//			if (!(mSkillsPopup.getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel.getText().isBlank() || mDPPerWeekField.getText().isBlank())) {
+		return true;
+		//			}
+		//		}
+		//		return false;
 	}
 
 	private JMenu getSkillsMenu() {
@@ -268,39 +428,6 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		popupMenu.addItemListener(this);
 
 		return popupMenu;
-	}
-
-	/*****************************************************************************
-	 * Setter's and Getter's
-	 ****************************************************************************/
-	@Override
-	public int getDPPerWeekTabTotal() {
-		int pointsSpent = 0;
-		for (int i = 0; i < ROWS; i++) {
-			pointsSpent += TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0);
-		}
-		return pointsSpent;
-	}
-
-	@Override
-	protected boolean hasValidEntriesToLearn() {
-		for (int i = 0; i < ROWS; i++) {
-			if (!(mSkillsPopup[i].getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public ArrayList<SkillDeterminationRecord> getRecordsToLearn() {
-		ArrayList<SkillDeterminationRecord> list = new ArrayList<>();
-		for (int i = 0; i < ROWS; i++) {
-			if (!(mSkillsPopup[i].getSelectedItem().equals(SELECT_SKILL) || mTeacherLabel[i].getText().isBlank() || mDPPerWeekField[i].getText().isBlank())) {
-				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new SkillDeterminationRecord(mSkillsPopup[i].getSelectedItem(), TKStringHelpers.getIntValue(mTeacherLabel[i].getText().trim(), 0), TKStringHelpers.getIntValue(mDPPerWeekField[i].getText().trim(), 0), COST, campaignDate, campaignDate));
-			}
-		}
-		return list;
 	}
 
 	@Override
