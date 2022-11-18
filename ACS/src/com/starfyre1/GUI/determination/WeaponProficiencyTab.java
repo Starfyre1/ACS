@@ -237,7 +237,6 @@ public class WeaponProficiencyTab extends DeterminationTab {
 				wrapper.add(endDateLabel);
 			}
 		}
-		//		updateEnabledState();
 		super.loadDisplay();
 	}
 
