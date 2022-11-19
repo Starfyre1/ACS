@@ -132,32 +132,37 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	@Override
 	public void dateUpdated(String date) {
 		for (AttributeDeterminationRecord record : mAttribRecords) {
-			if (weekUp(record, date)) {
-				updateRecord(record, date);
+			int numOfWeeks = weekUp(record, date);
+			if (numOfWeeks > 0) {
+				updateRecord(record, date, numOfWeeks);
 			}
 			System.out.println(record.toString());
 		}
 		for (LanguageDeterminationRecord record : mLanguageRecords) {
-			if (weekUp(record, date)) {
-				updateRecord(record, date);
+			int numOfWeeks = weekUp(record, date);
+			if (numOfWeeks > 0) {
+				updateRecord(record, date, numOfWeeks);
 			}
 			System.out.println(record.toString());
 		}
 		for (MagicSpellDeterminationRecord record : mMagicSpellRecords) {
-			if (weekUp(record, date)) {
-				updateRecord(record, date);
+			int numOfWeeks = weekUp(record, date);
+			if (numOfWeeks > 0) {
+				updateRecord(record, date, numOfWeeks);
 			}
 			System.out.println(record.toString());
 		}
 		for (SkillDeterminationRecord record : mSkillRecords) {
-			if (weekUp(record, date)) {
-				updateRecord(record, date);
+			int numOfWeeks = weekUp(record, date);
+			if (numOfWeeks > 0) {
+				updateRecord(record, date, numOfWeeks);
 			}
 			System.out.println(record.toString());
 		}
 		for (WeaponProficiencyDeterminationRecord record : mWeaponRecords) {
-			if (weekUp(record, date)) {
-				updateRecord(record, date);
+			int numOfWeeks = weekUp(record, date);
+			if (numOfWeeks > 0) {
+				updateRecord(record, date, numOfWeeks);
 			}
 			mOwner.getDeterminationPointsDisplay().addRecords(true);
 			System.out.println(record.toString());
@@ -165,21 +170,22 @@ public class DeterminationList implements Savable, CampaignDateListener {
 		mOwner.getDeterminationPointsDisplay().updateValues();
 	}
 
-	private void updateRecord(DeterminationRecord record, String date) {
+	private void updateRecord(DeterminationRecord record, String date, int numOfWeeks) {
 		record.setLastUpdate(date);
-		record.setDPTotalSpent(record.getDPTotalSpent() + record.getDPPerWeek());
-		// update UI is done from calling method - dateUpdated(String date)
-		if (record.getDPTotalSpent() >= record.getDPCost()) {
-			record.setEndDate(date);
-			record.setDPPerWeek(0);
-			determinationComplete(record);
-		} else {
+		for (int i = 0; i < numOfWeeks; i++) {
+			record.setDPTotalSpent(record.getDPTotalSpent() + record.getDPPerWeek());
+			// update UI is done from calling method - dateUpdated(String date)
+			if (record.getDPTotalSpent() >= record.getDPCost()) {
+				record.setEndDate(date);
+				record.setDPPerWeek(0);
+				determinationComplete(record);
+				break;
+			}
 			// is dp/week > dpCost ... reduce dp/week to what's left
 			if (record.getDPCost() - (record.getDPTotalSpent() + record.getDPPerWeek()) < 0) {
 				record.setDPPerWeek(record.getDPCost() - record.getDPTotalSpent());
 				// notify player of any changes
 			}
-
 		}
 	}
 
@@ -188,11 +194,13 @@ public class DeterminationList implements Savable, CampaignDateListener {
 		// update affected areas
 	}
 
-	private boolean weekUp(DeterminationRecord record, String date) {
-		if (CampaignDateChooser.getCampaignDateIndex(date) - CampaignDateChooser.getCampaignDateIndex(record.getStartDate()) > 6) {
-			return true;
+	private int weekUp(DeterminationRecord record, String date) {
+		int currentIndex = CampaignDateChooser.getCampaignDateIndex(date);
+		int startIndex = CampaignDateChooser.getCampaignDateIndex(record.getStartDate());
+		if (currentIndex - startIndex > 6) {
+			return (currentIndex - startIndex) / 7;
 		}
-		return false;
+		return 0;
 	}
 
 	/*****************************************************************************
@@ -361,7 +369,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 						if (AttributeDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							AttributeDeterminationRecord record = new AttributeDeterminationRecord();
 							tokenizer = record.readValues(br);
-							if (record.getAttribute() != 0) {
+							if (record.getAttribute() >= 0) {
 								addAttribRecord(record);
 							}
 						} else if (LanguageDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {

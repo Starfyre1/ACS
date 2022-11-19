@@ -2,13 +2,18 @@
 
 package com.starfyre1.dataModel.determination;
 
+import com.starfyre1.ToolKit.TKDice;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.startup.ACS;
+import com.starfyre1.storage.PreferenceStore;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
+
+import javax.swing.JOptionPane;
 
 public class MagicSpellDeterminationRecord extends DeterminationRecord implements Savable {
 	/*****************************************************************************
@@ -20,12 +25,14 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	private static final String	SPELL_KEY				= "SPELL_KEY";									//$NON-NLS-1$
 	private static final String	SCHOOL_KEY				= "SCHOOL_KEY";									//$NON-NLS-1$
 	private static final String	COST_KEY				= "COST_KEY";									//$NON-NLS-1$
+	private static final String	CHANCE_KEY				= "CHANCE_KEY";									//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	String						mSpell					= TKStringHelpers.EMPTY_STRING;
 	String						mSchool					= TKStringHelpers.EMPTY_STRING;
+	int							mChance					= 0;
 	float						mCost					= 0;
 
 	/*****************************************************************************
@@ -41,10 +48,11 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/**
 	 * Creates a new {@link MagicSpellDeterminationRecord}.
 	 */
-	public MagicSpellDeterminationRecord(String spell, String school, float cost, int dpPerWeek, int dpCost, String startDate, String lastUpdate) {
+	public MagicSpellDeterminationRecord(String spell, String school, float cost, int chance, int dpPerWeek, int dpCost, String startDate, String lastUpdate) {
 		mSpell = spell;
 		mSchool = school;
 		mCost = cost;
+		mChance = chance;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = dpCost;
 		mStartDate = startDate;
@@ -66,6 +74,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 		sb.append("\nCost: " + mCost); //$NON-NLS-1$
 		sb.append("\nDP Per Week: " + mDPPerWeek); //$NON-NLS-1$
 		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("\nChance of Success: " + mChance); //$NON-NLS-1$
 		sb.append("\nSuccessful: " + mSuccessful); //$NON-NLS-1$
 		sb.append("\nStart Date: " + mStartDate); //$NON-NLS-1$
 		sb.append("\nLast Update: " + mLastUpdate); //$NON-NLS-1$
@@ -77,8 +86,21 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 
 	@Override
 	public boolean successRoll() {
-		// success roll TBD
-		return false;
+		int roll = 0;
+
+		if (PreferenceStore.getInstance().isAppRollsDice()) {
+			roll = TKDice.roll(100);
+		} else {
+			do {
+				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D100 roll", "Roll for " + getSpell() + " Determination Success (roll < " + getChance(), JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				System.out.println("result = " + result); //$NON-NLS-1$
+				if (result != null) {
+					roll = TKStringHelpers.getIntValue(result, 0);
+				}
+			} while (roll == 0);
+		}
+		System.out.println(roll);
+		return roll <= getChance();
 	}
 
 	/*****************************************************************************
@@ -93,6 +115,11 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/** @return The school. */
 	public String getSchool() {
 		return mSchool;
+	}
+
+	/** @return The chance. */
+	public float getChance() {
+		return mChance;
 	}
 
 	/** @return The cost. */
@@ -146,6 +173,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 		br.write(TKStringHelpers.TAB + DP_PER_WEEK_KEY + TKStringHelpers.SPACE + mDPPerWeek + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + DP_TOTAL_SPENT_KEY + TKStringHelpers.SPACE + mDPTotalSpent + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + DP_COST_KEY + TKStringHelpers.SPACE + mDPCost + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CHANCE_KEY + TKStringHelpers.SPACE + mChance + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + SUCCESSFUL_KEY + TKStringHelpers.SPACE + mSuccessful + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + START_DATE_KEY + TKStringHelpers.SPACE + mStartDate + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + LAST_UPDATE_KEY + TKStringHelpers.SPACE + mLastUpdate + System.lineSeparator());
@@ -169,6 +197,8 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 			mDPTotalSpent = TKStringHelpers.getIntValue(value, 0);
 		} else if (DP_COST_KEY.equals(key)) {
 			mDPCost = TKStringHelpers.getIntValue(value, 0);
+		} else if (CHANCE_KEY.equals(key)) {
+			mChance = TKStringHelpers.getIntValue(value, 0);
 		} else if (SUCCESSFUL_KEY.equals(key)) {
 			mSuccessful = TKStringHelpers.getBoolValue(value, false);
 		} else if (START_DATE_KEY.equals(key)) {

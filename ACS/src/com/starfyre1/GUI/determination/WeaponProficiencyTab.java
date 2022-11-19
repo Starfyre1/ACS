@@ -120,7 +120,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 					teacherID = teacherRecord.getID();
 				}
 
-				WeaponProficiencyDeterminationRecord record = new WeaponProficiencyDeterminationRecord(mWeaponPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), TKStringHelpers.getIntValue(mDPSpentLabel.getText(), 0), CampaignDateChooser.getCampaignDate(), null);
+				WeaponProficiencyDeterminationRecord record = new WeaponProficiencyDeterminationRecord(mWeaponPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), COST, CampaignDateChooser.getCampaignDate(), null);
 				DeterminationList.addWeaponRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
@@ -277,7 +277,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mWeaponColumn.add(new JLabel(PROFICIENCY_TITLE));
 		mTeacherColumn.add(new JLabel("Teacher")); //$NON-NLS-1$
 		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		mDPSpentColumn.add(new JLabel("Used")); //$NON-NLS-1$
+		mDPSpentColumn.add(new JLabel("DP Spent")); //$NON-NLS-1$
 		mBonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
 		mMaintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
 		mSuccessfulColumn.add(new JLabel("Success")); //$NON-NLS-1$

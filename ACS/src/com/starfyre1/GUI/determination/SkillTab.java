@@ -53,7 +53,6 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	private static final String	SELECT_SKILL		= "Select Skill";																			//$NON-NLS-1$
 
 	private static final int	ROWS				= 5;
-	private static final int	COST				= 40;
 
 	private static final String	SAVE				= "Save";																					//$NON-NLS-1$
 	private static final String	CANCEL				= "Cancel";																					//$NON-NLS-1$
@@ -68,6 +67,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	private TKPopupMenu			mTeacherPopup;
 	private JTextField			mDPPerWeekField;
 	private JLabel				mDPSpentLabel;
+	private int					mDPCost;
 	private JLabel				mBonusLabel;
 	private JLabel				mMaintLabel;
 	private JLabel				mSuccessfulLabel;
@@ -120,8 +120,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 				if (teacherRecord != null) {
 					teacherID = teacherRecord.getID();
 				}
-
-				SkillDeterminationRecord record = new SkillDeterminationRecord(mSkillsPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), TKStringHelpers.getIntValue(mDPSpentLabel.getText(), 0), CampaignDateChooser.getCampaignDate(), null);
+				SkillDeterminationRecord record = new SkillDeterminationRecord(mSkillsPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, CampaignDateChooser.getCampaignDate(), null);
 				DeterminationList.addSkillRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
@@ -129,8 +128,10 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 				mNewEntryDialog.dispose();
 			}
 		} else if (source instanceof JMenuItem) {
+			// DW update mDPCost value here when skill is selected
+			mDPCost = 40;
 			JMenuItem menuItem = (JMenuItem) source;
-			if (mTeacherPopup == getPopup(menuItem)) { //.getParent()) {
+			if (mTeacherPopup == getPopup(menuItem)) {
 				updateBonusValueFromTeacher(menuItem);
 			} else {
 				updateTeacherPopup(menuItem);
@@ -278,7 +279,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		mSkillsColumn.add(new JLabel(SKILL_TAB_TITLE));
 		mTeacherColumn.add(new JLabel("Teacher")); //$NON-NLS-1$
 		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		mDPSpentColumn.add(new JLabel("Used")); //$NON-NLS-1$
+		mDPSpentColumn.add(new JLabel("DP Spent")); //$NON-NLS-1$
 		mBonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
 		mMaintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
 		mSuccessfulColumn.add(new JLabel("Success")); //$NON-NLS-1$
@@ -377,7 +378,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		mDPPerWeekField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
 		dPPerWeekColumn.add(mDPPerWeekField);
 
-		mDPSpentLabel = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$
+		mDPSpentLabel = new JLabel(currentlySpent + " / " + mDPCost); //$NON-NLS-1$
 		mDPSpentLabel.setMinimumSize(size);
 		mDPSpentLabel.setPreferredSize(size);
 		dPSpentColumn.add(mDPSpentLabel);

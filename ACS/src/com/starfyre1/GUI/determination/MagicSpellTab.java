@@ -41,13 +41,12 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class MagicSpellTab extends DeterminationTab implements ItemListener, MouseListener {
-	private static final String	SUCCESSFUL_LABEL		= "Successful:";													//$NON-NLS-1$
-	private static final String	USED_LABEL				= "   Used:    ";													//$NON-NLS-1$
+	private static final String	USED_LABEL				= "DP Spent";														//$NON-NLS-1$
 	private static final String	DP_WEEK_LABEL			= "DP/Week";														//$NON-NLS-1$
 	private static final String	COST_LABEL				= "$ Cost:";														//$NON-NLS-1$
-	private static final String	SPELL_LABEL				= "Spell:";															//$NON-NLS-1$
-	private static final String	SCHOOL_LABEL			= "School:";														//$NON-NLS-1$
-	private static final String	RESEARCH_CHANCE			= "Chance:";														//$NON-NLS-1$
+	private static final String	SPELL_LABEL				= "Spell";															//$NON-NLS-1$
+	private static final String	SCHOOL_LABEL			= "School";															//$NON-NLS-1$
+	private static final String	RESEARCH_CHANCE			= "Chance";															//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Constants
@@ -120,13 +119,12 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 			if (source.equals(mNewButton)) {
 				mNewEntryDialog = new JDialog(ACS.getInstance().getCharacterSheet().getFrame(), MAGIC_SPELL_TAB_TITLE, true);
 				mNewEntryDialog.setSize(800, 400);
-
 				mNewEntryDialog.add(createDialogPanel());
 				mNewEntryDialog.setVisible(true);
 			} else if (source.equals(mGiveUpButton)) {
 				// DW Added game date to record
 			} else if (source.equals(mOkButton)) {
-				MagicSpellDeterminationRecord record = new MagicSpellDeterminationRecord(mSpellLabel.getText(), mSchoolPopup.getSelectedItem(), TKStringHelpers.getFloatValue(mCostField.getText(), 0f), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, CampaignDateChooser.getCampaignDate(), null);
+				MagicSpellDeterminationRecord record = new MagicSpellDeterminationRecord(mSpellLabel.getText(), mSchoolPopup.getSelectedItem(), TKStringHelpers.getFloatValue(mCostField.getText(), 0f), TKStringHelpers.getIntValue(mResearchChanceLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, CampaignDateChooser.getCampaignDate(), null);
 				DeterminationList.addMagicSpellRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();

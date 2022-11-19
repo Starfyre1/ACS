@@ -183,55 +183,61 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	}
 
 	public void addRecords(boolean clear) {
+		boolean tabClear = clear;
 		for (AttributeDeterminationRecord record : DeterminationList.getAttribRecords()) {
 			AttributesTab tab = (AttributesTab) mTabbedPane.getComponent(0);
-			if (clear) {
-				clear = false;
+			if (tabClear) {
+				tabClear = false;
 				tab.clearTab();
 			}
 			tab.addRecord(record);
 		}
 
+		tabClear = clear;
 		for (LanguageDeterminationRecord record : DeterminationList.getLanguageRecords()) {
 			LanguageTab tab = (LanguageTab) mTabbedPane.getComponent(1);
-			if (clear) {
-				clear = false;
+			if (tabClear) {
+				tabClear = false;
 				tab.clearTab();
 			}
 			tab.addRecord(record);
 		}
 
+		tabClear = clear;
 		for (MagicSpellDeterminationRecord record : DeterminationList.getMagicSpellRecords()) {
 			MagicSpellTab tab = (MagicSpellTab) mTabbedPane.getComponent(2);
-			if (clear) {
-				clear = false;
+			if (tabClear) {
+				tabClear = false;
 				tab.clearTab();
 			}
 			tab.addRecord(record);
 		}
 
+		tabClear = clear;
 		for (WeaponProficiencyDeterminationRecord record : DeterminationList.getWeaponRecords()) {
 			WeaponProficiencyTab tab = (WeaponProficiencyTab) mTabbedPane.getComponent(3);
-			if (clear) {
-				clear = false;
+			if (tabClear) {
+				tabClear = false;
 				tab.clearTab();
 			}
 			tab.addRecord(record);
 		}
 
+		tabClear = clear;
 		for (SkillDeterminationRecord record : DeterminationList.getSkillRecords()) {
 			SkillTab tab = (SkillTab) mTabbedPane.getComponent(4);
-			if (clear) {
-				clear = false;
+			if (tabClear) {
+				tabClear = false;
 				tab.clearTab();
 			}
 			tab.addRecord(record);
 		}
 
+		tabClear = clear;
 		for (TeacherDeterminationRecord record : DeterminationList.getTeachersRecords()) {
 			TeacherTab tab = (TeacherTab) mTabbedPane.getComponent(5);
-			if (clear) {
-				clear = false;
+			if (tabClear) {
+				tabClear = false;
 				tab.clearTab();
 			}
 			tab.addRecord(record);

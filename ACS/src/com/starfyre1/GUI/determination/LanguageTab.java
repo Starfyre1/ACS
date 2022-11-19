@@ -106,7 +106,6 @@ public class LanguageTab extends DeterminationTab {
 	private JPanel					mSourceColumn;
 	private JPanel					mDPPerWeekColumn;
 	private JPanel					mDPSpentColumn;
-	private JPanel					mCostColumn;
 	private JPanel					mMaintColumn;
 	private JPanel					mSuccessfulColumn;
 	private JPanel					mStartDateColumn;
@@ -242,7 +241,6 @@ public class LanguageTab extends DeterminationTab {
 		mSourceColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mDPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mDPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mCostColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mMaintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mSuccessfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mStartDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -253,8 +251,7 @@ public class LanguageTab extends DeterminationTab {
 		outerWrapper.add(mLangColumn);
 		outerWrapper.add(mSourceColumn);
 		outerWrapper.add(mDPPerWeekColumn);
-		outerWrapper.add(mDPPerWeekColumn);
-		outerWrapper.add(mCostColumn);
+		outerWrapper.add(mDPSpentColumn);
 		outerWrapper.add(mMaintColumn);
 		outerWrapper.add(mSuccessfulColumn);
 		outerWrapper.add(mStartDateColumn);
@@ -267,8 +264,7 @@ public class LanguageTab extends DeterminationTab {
 		mLangColumn.add(new JLabel(LANGUAGE_TITLE));
 		mSourceColumn.add(new JLabel("Source")); //$NON-NLS-1$
 		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		mDPSpentColumn.add(new JLabel("Used")); //$NON-NLS-1$
-		mCostColumn.add(new JLabel("Cost")); //$NON-NLS-1$
+		mDPSpentColumn.add(new JLabel("DP Spent")); //$NON-NLS-1$
 		mMaintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
 		mSuccessfulColumn.add(new JLabel("Success")); //$NON-NLS-1$
 		mStartDateColumn.add(new JLabel("Start Date")); //$NON-NLS-1$
@@ -280,7 +276,6 @@ public class LanguageTab extends DeterminationTab {
 		mSourceColumn.removeAll();
 		mDPPerWeekColumn.removeAll();
 		mDPSpentColumn.removeAll();
-		mCostColumn.removeAll();
 		mMaintColumn.removeAll();
 		mSuccessfulColumn.removeAll();
 		mStartDateColumn.removeAll();
@@ -295,7 +290,6 @@ public class LanguageTab extends DeterminationTab {
 			JLabel sourceLabel = new JLabel(record.getSource());
 			JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
 			JLabel DPSpentLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
-			JLabel costLabel = new JLabel(String.valueOf(record.getDPCost()));
 			JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
 			JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 			JLabel startDateLabel = new JLabel(record.getStartDate());
@@ -305,7 +299,6 @@ public class LanguageTab extends DeterminationTab {
 			mSourceColumn.add(sourceLabel);
 			mDPPerWeekColumn.add(DPPerWeekLabel);
 			mDPSpentColumn.add(DPSpentLabel);
-			mCostColumn.add(costLabel);
 			mMaintColumn.add(maintLabel);
 			mSuccessfulColumn.add(successLabel);
 			mStartDateColumn.add(startDateLabel);
@@ -401,72 +394,6 @@ public class LanguageTab extends DeterminationTab {
 		return buttonWrapper;
 	}
 
-	//		langPanel.add(new JLabel(LANGUAGE_TAB_TITLE + ":", SwingConstants.CENTER)); //$NON-NLS-1$
-	//
-	//		sourcePanel.add(new JLabel("Source:", SwingConstants.CENTER)); //$NON-NLS-1$
-	//
-	//		JLabel header = new JLabel("DP/Week", SwingConstants.CENTER); //$NON-NLS-1$
-	//		dpPerWeekPanel.add(header);
-	//		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
-	//		dpSpentPanel.add(new JLabel("Used:", SwingConstants.CENTER)); //$NON-NLS-1$
-	//		maintPanel.add(new JLabel("Maint:", SwingConstants.CENTER)); //$NON-NLS-1$
-	//		successfulPanel.add(new JLabel("Successful:", SwingConstants.CENTER)); //$NON-NLS-1$
-	//
-	//		for (int i = 0; i < ROWS; i++) {
-	//			mLangPopup = new TKPopupMenu(getLanguagePopup());
-	//			mLangPopup.setAlignmentX(Component.LEFT_ALIGNMENT);
-	//			Dimension size2 = new Dimension(mLangPopup.getPreferredSize().width, TEXT_FIELD_HEIGHT);
-	//			mLangPopup.setMinimumSize(size2);
-	//			mLangPopup.setPreferredSize(size2);
-	//			mLangPopup.getMenu().setEnabled(false);
-	//			langPanel.add(mLangPopup);
-	//
-	//			mSourcePopup = new TKPopupMenu(getSourcePopup());
-	//			mSourcePopup.setAlignmentX(Component.LEFT_ALIGNMENT);
-	//			Dimension size3 = new Dimension(mSourcePopup.getPreferredSize().width, TEXT_FIELD_HEIGHT);
-	//			mSourcePopup.setMinimumSize(size3);
-	//			mSourcePopup.setPreferredSize(size3);
-	//			mSourcePopup.getMenu().setEnabled(false);
-	//			sourcePanel.add(mSourcePopup);
-	//
-	//			mDPPerWeekField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
-	//			dpPerWeekPanel.add(mDPPerWeekField);
-	//
-	//			// DW mCurrentlySpentLabel && mCostLabel should be values and not labels
-	//			mDPSpentLabel = new JLabel(mCurrentlySpentLabel + " / " + mCostLabel); //$NON-NLS-1$
-	//			mDPSpentLabel.setMinimumSize(size);
-	//			mDPSpentLabel.setPreferredSize(size);
-	//			dpSpentPanel.add(mDPSpentLabel);
-	//
-	//			mMaintLabel = new JLabel(String.valueOf(currentMaintenance));
-	//			mMaintLabel.setMinimumSize(size);
-	//			mMaintLabel.setPreferredSize(size);
-	//			maintPanel.add(mMaintLabel);
-	//
-	//			mSuccessfulLabel = new JLabel(completed + " / " + attempted); //$NON-NLS-1$
-	//			mSuccessfulLabel.setMinimumSize(size);
-	//			mSuccessfulLabel.setPreferredSize(size);
-	//			successfulPanel.add(mSuccessfulLabel);
-	//
-	//			mStartDateLabel = new JLabel();
-	//			mEndDateLabel = new JLabel();
-	//		}
-	//		dpSpentPanel.add(Box.createVerticalGlue());
-	//		maintPanel.add(Box.createVerticalGlue());
-	//		successfulPanel.add(Box.createVerticalGlue());
-	//
-	//		wrapper.add(langPanel);
-	//		wrapper.add(sourcePanel);
-	//		wrapper.add(dpPerWeekPanel);
-	//		wrapper.add(dpSpentPanel);
-	//		wrapper.add(maintPanel);
-	//		wrapper.add(successfulPanel);
-	//
-	//		updateEnabledState();
-	//
-	//		return wrapper;
-	//}
-
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
@@ -534,17 +461,6 @@ public class LanguageTab extends DeterminationTab {
 		//			}
 		//		}
 		//		return false;
-	}
-
-	public ArrayList<LanguageDeterminationRecord> getRecordsToLearn() {
-		ArrayList<LanguageDeterminationRecord> list = new ArrayList<>();
-		for (int i = 0; i < ROWS; i++) {
-			if (!(mLangPopup.getSelectedItem().equals(CHOOSE_LANGUAGE) || mDPPerWeekField.getText().isBlank() || mSourcePopup.getSelectedItem().equals(CHOOSE_SOURCE))) {
-				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new LanguageDeterminationRecord(mLangPopup.getSelectedItem(), mSourcePopup.getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField.getText().trim(), 0), mDPCost, campaignDate, campaignDate));
-			}
-		}
-		return list;
 	}
 
 	@Override

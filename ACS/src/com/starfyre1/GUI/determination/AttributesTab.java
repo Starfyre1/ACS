@@ -235,11 +235,11 @@ public class AttributesTab extends DeterminationTab {
 	private void generateHeaders() {
 		mAttrColumn.add(new JLabel(ATTRIBUTES_TAB_TITLE));
 		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		mDPSpentColumn.add(new JLabel("Used:")); //$NON-NLS-1$
-		mMaintColumn.add(new JLabel("Maint:")); //$NON-NLS-1$
-		mSuccessfulColumn.add(new JLabel("Successful:")); //$NON-NLS-1$
-		mStartDateColumn.add(new JLabel("Start Date:")); //$NON-NLS-1$
-		mEndDateColumn.add(new JLabel("End Date:")); //$NON-NLS-1$
+		mDPSpentColumn.add(new JLabel("DP Spent")); //$NON-NLS-1$
+		mMaintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
+		mSuccessfulColumn.add(new JLabel("Success")); //$NON-NLS-1$
+		mStartDateColumn.add(new JLabel("Start Date")); //$NON-NLS-1$
+		mEndDateColumn.add(new JLabel("End Date")); //$NON-NLS-1$
 	}
 
 	void clearTab() {
