@@ -56,6 +56,9 @@ public class TeacherTab extends DeterminationTab {
 	private static final String	SAVE					= "Save";																									//$NON-NLS-1$
 	private static final String	CANCEL					= "Cancel";																									//$NON-NLS-1$
 
+	static final int			WEAPONS					= 0;
+	static final int			SKILLS					= 1;
+
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
@@ -105,8 +108,7 @@ public class TeacherTab extends DeterminationTab {
 			} else if (source.equals(mGiveUpButton)) {
 				// DW Added game date to record
 			} else if (source.equals(mOkButton)) {
-				// DW fix-up constructor info from dialog
-				TeacherDeterminationRecord record = new TeacherDeterminationRecord(ROWS, SELECT_TEACHER, CHOOSE_EXPERTISE, ROWS, ROWS);
+				TeacherDeterminationRecord record = new TeacherDeterminationRecord(TKStringHelpers.getIntValue(mIDLabel.getText(), -1), mTeacherNameField.getText(), mExpertisePopup.getSelectedItem(), TKStringHelpers.getFloatValue(mCostField.getText(), 0), TKStringHelpers.getIntValue(mBonusField.getText(), 0));
 				DeterminationList.addTeacherRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
@@ -356,10 +358,15 @@ public class TeacherTab extends DeterminationTab {
 		return expertisePopupMenu;
 	}
 
-	public static JMenu getTeacherPopup(ActionListener listener) {
+	public static JMenu getTeacherPopup(ActionListener listener, int profession) {
 		JMenu teacherPopupMenu = TKPopupMenu.createMenu(SELECT_TEACHER);
+		ArrayList<String> teacherList;
 
-		ArrayList<String> teacherList = DeterminationList.getWeaponsTeachersNames();
+		if (profession == WEAPONS) {
+			teacherList = DeterminationList.getWeaponsTeachersNames();
+		} else { // (profession = SKILLS)
+			teacherList = DeterminationList.getSkillsTeachersNames();
+		}
 
 		teacherPopupMenu.addSeparator();
 		for (String name : teacherList) {

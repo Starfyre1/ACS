@@ -96,7 +96,7 @@ public class LanguageTab extends DeterminationTab {
 	private TKPopupMenu				mSourcePopup;
 	private JTextField				mDPPerWeekField;
 	private JLabel					mDPSpentLabel;
-	private int						mCost;
+	private int						mDPCost;
 	private JLabel					mMaintLabel;
 	private JLabel					mSuccessfulLabel;
 	private JLabel					mStartDateLabel;
@@ -143,28 +143,33 @@ public class LanguageTab extends DeterminationTab {
 			} else if (source.equals(mGiveUpButton)) {
 				// DW Added game date to record
 			} else if (source.equals(mOkButton)) {
+				LanguageDeterminationRecord record = new LanguageDeterminationRecord(mLangPopup.getSelectedItem(), mSourcePopup.getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, CampaignDateChooser.getCampaignDate(), null);
+				DeterminationList.addLanguageRecord(record);
+				((DeterminationPointsDisplay) getOwner()).addRecords(true);
+				mNewEntryDialog.dispose();
 			} else if (source.equals(mCancelButton)) {
 				mNewEntryDialog.dispose();
-			} else if (source instanceof JMenuItem) {
-				JPopupMenu popup = (JPopupMenu) ((JMenuItem) source).getParent();
-				if (popup.getInvoker().equals(mSourcePopup.getMenu())) {
-					// DW handle -1 as failure to find index
-					if (((JMenuItem) source).getText().equals(CHOOSE_SOURCE)) {
-						mCost = 0;
-						mDPSpentLabel.setText(mDPSpentLabel + " / " + mCost); //$NON-NLS-1$
-					} else if (((JMenuItem) source).getText().equals(IMMERSIVE)) {
-						mCost = COST40;
-						mDPSpentLabel.setText(0 + " / " + mCost); //$NON-NLS-1$
-					} else if (((JMenuItem) source).getText().equals(TUTOR)) {
-						mCost = COST60;
-						mDPSpentLabel.setText(0 + " / " + mCost); //$NON-NLS-1$
-					} else {
-						mCost = COST80;
-						mDPSpentLabel.setText(0 + " / " + mCost); //$NON-NLS-1$
-					}
+			}
+		} else if (source instanceof JMenuItem) {
+			JPopupMenu popup = (JPopupMenu) ((JMenuItem) source).getParent();
+			if (popup.getInvoker().equals(mSourcePopup.getMenu())) {
+				// DW handle -1 as failure to find index
+				if (((JMenuItem) source).getText().equals(CHOOSE_SOURCE)) {
+					mDPCost = 0;
+					mDPSpentLabel.setText(mDPSpentLabel + " / " + mDPCost); //$NON-NLS-1$
+				} else if (((JMenuItem) source).getText().equals(IMMERSIVE)) {
+					mDPCost = COST40;
+					mDPSpentLabel.setText(0 + " / " + mDPCost); //$NON-NLS-1$
+				} else if (((JMenuItem) source).getText().equals(TUTOR)) {
+					mDPCost = COST60;
+					mDPSpentLabel.setText(0 + " / " + mDPCost); //$NON-NLS-1$
+				} else {
+					mDPCost = COST80;
+					mDPSpentLabel.setText(0 + " / " + mDPCost); //$NON-NLS-1$
 				}
 			}
 		}
+
 	}
 
 	private JPanel createButtonPanel() {
@@ -356,7 +361,7 @@ public class LanguageTab extends DeterminationTab {
 		mDPPerWeekField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
 		dPPerWeekColumn.add(mDPPerWeekField);
 
-		mDPSpentLabel = new JLabel(currentlySpent + " / " + mCost); //$NON-NLS-1$
+		mDPSpentLabel = new JLabel(currentlySpent + " / " + mDPCost); //$NON-NLS-1$
 		mDPSpentLabel.setMinimumSize(size);
 		mDPSpentLabel.setPreferredSize(size);
 		dPSpentColumn.add(mDPSpentLabel);
@@ -536,7 +541,7 @@ public class LanguageTab extends DeterminationTab {
 		for (int i = 0; i < ROWS; i++) {
 			if (!(mLangPopup.getSelectedItem().equals(CHOOSE_LANGUAGE) || mDPPerWeekField.getText().isBlank() || mSourcePopup.getSelectedItem().equals(CHOOSE_SOURCE))) {
 				String campaignDate = CampaignDateChooser.getCampaignDate();
-				list.add(new LanguageDeterminationRecord(mLangPopup.getSelectedItem(), mSourcePopup.getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField.getText().trim(), 0), mCost, campaignDate, campaignDate));
+				list.add(new LanguageDeterminationRecord(mLangPopup.getSelectedItem(), mSourcePopup.getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField.getText().trim(), 0), mDPCost, campaignDate, campaignDate));
 			}
 		}
 		return list;

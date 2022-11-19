@@ -129,7 +129,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 			}
 		} else if (source instanceof JMenuItem) {
 			JMenuItem menuItem = (JMenuItem) source;
-			if (mTeacherColumn == getPopup(menuItem).getParent()) {
+			if (mTeacherPopup == getPopup(menuItem)) { //.getParent()) {
 				updateBonusValueFromTeacher(menuItem);
 			} else {
 				updateTeacherPopup(menuItem);
@@ -363,7 +363,7 @@ public class WeaponProficiencyTab extends DeterminationTab {
 		mWeaponPopup.setMaximumSize(size2);
 		weaponColumn.add(mWeaponPopup);
 
-		mTeacherPopup = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+		mTeacherPopup = new TKPopupMenu(TeacherTab.getTeacherPopup(this, TeacherTab.WEAPONS));
 		Dimension size3 = new Dimension(mTeacherPopup.getPreferredSize().width, POPUP_HEIGHT);
 		mTeacherPopup.setMaximumSize(size3);
 		teacherColumn.add(mTeacherPopup);

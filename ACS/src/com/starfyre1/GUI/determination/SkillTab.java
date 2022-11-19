@@ -8,12 +8,12 @@ import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
+import com.starfyre1.ToolKit.TKPopupMenu.ComboMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
 import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
-import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.startup.ACS;
 
@@ -33,6 +33,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -105,12 +106,6 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source instanceof JButton) {
-			//			if (source.equals(mNewButton)) {
-			//				ArrayList<SkillDeterminationRecord> list = getRecordsToLearn();
-			//				for (SkillDeterminationRecord record : list) {
-			//					DeterminationList.addSkillRecord(record);
-			//				}
-			// DW Create Record
 			if (source.equals(mNewButton)) {
 				mNewEntryDialog = new JDialog(ACS.getInstance().getCharacterSheet().getFrame(), SELECT_SKILL, true);
 				mNewEntryDialog.setSize(800, 400);
@@ -120,19 +115,27 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 			} else if (source.equals(mGiveUpButton)) {
 				// DW Added game date to record
 			} else if (source.equals(mOkButton)) {
-				TeacherDeterminationRecord teacherRecord = DeterminationList.getWeaponsTeacherRecord(mTeacherPopup.getSelectedItem());
+				TeacherDeterminationRecord teacherRecord = DeterminationList.getSkillsTeacherRecord(mTeacherPopup.getSelectedItem());
 				int teacherID = 0;
 				if (teacherRecord != null) {
 					teacherID = teacherRecord.getID();
 				}
 
-				WeaponProficiencyDeterminationRecord record = new WeaponProficiencyDeterminationRecord(mSkillsPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), TKStringHelpers.getIntValue(mDPSpentLabel.getText(), 0), CampaignDateChooser.getCampaignDate(), null);
-				DeterminationList.addWeaponRecord(record);
+				SkillDeterminationRecord record = new SkillDeterminationRecord(mSkillsPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), TKStringHelpers.getIntValue(mDPSpentLabel.getText(), 0), CampaignDateChooser.getCampaignDate(), null);
+				DeterminationList.addSkillRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
 			} else if (source.equals(mCancelButton)) {
 				mNewEntryDialog.dispose();
 			}
+		} else if (source instanceof JMenuItem) {
+			JMenuItem menuItem = (JMenuItem) source;
+			if (mTeacherPopup == getPopup(menuItem)) { //.getParent()) {
+				updateBonusValueFromTeacher(menuItem);
+			} else {
+				updateTeacherPopup(menuItem);
+			}
+			updateEnabledState();
 		}
 	}
 
@@ -156,6 +159,51 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 			mDPPerWeekField.setEnabled(enable);
 			mDPPerWeekField.setEditable(enable);
 		}
+	}
+
+	// This is if the Proficiency has just been set
+	private void updateTeacherPopup(JMenuItem menuItem) {
+		if (!menuItem.getText().equals(SELECT_SKILL)) {
+			// DW probably should remove ActionListener from JMenuItem's in mTeacherPopup's
+			//			mTeacherPopup = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+			//			Dimension size3 = new Dimension(mTeacherPopup.getPreferredSize().width, TEXT_FIELD_HEIGHT);
+			//			mTeacherPopup.setMinimumSize(size3);
+			//			mTeacherPopup.setPreferredSize(size3);
+			mTeacherPopup.setEnabled(true);
+		}
+	}
+
+	// This is if the teacher has just been set
+	private void updateBonusValueFromTeacher(JMenuItem menuItem) {
+		if (!menuItem.getText().equals(TeacherTab.SELECT_TEACHER)) {
+			TeacherDeterminationRecord teacherRecord = DeterminationList.getSkillsTeacherRecord(menuItem.getText());
+			if (teacherRecord != null) {
+				String bonus;
+				if (teacherRecord.getExpertise().equals(mSkillsPopup.getSelectedItem())) {
+					bonus = String.valueOf(teacherRecord.getBonus());
+				} else {
+					bonus = "0"; //$NON-NLS-1$
+				}
+				mBonusLabel.setText(bonus);
+				// DW update Bonus
+			}
+		}
+	}
+
+	private TKPopupMenu getPopup(JMenuItem menuItem) {
+
+		JPopupMenu popup = (JPopupMenu) menuItem.getParent();
+		JMenu menu = (JMenu) popup.getInvoker();
+		TKPopupMenu popup3;
+		if (menu.getParent() instanceof TKPopupMenu) {
+			popup3 = (TKPopupMenu) menu.getParent();
+		} else {
+			JPopupMenu popup2 = (JPopupMenu) menu.getParent();
+			ComboMenu menu2 = (ComboMenu) popup2.getInvoker();
+			popup3 = (TKPopupMenu) menu2.getParent();
+		}
+
+		return popup3;
 	}
 
 	public void updateDisplay() {
@@ -252,9 +300,9 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 
 	}
 
-	void addRecord(WeaponProficiencyDeterminationRecord record) {
+	void addRecord(SkillDeterminationRecord record) {
 		if (record != null) {
-			JLabel weaponLabel = new JLabel(record.getWeapon());
+			JLabel skillLabel = new JLabel(record.getSkill());
 			JLabel teacherLabel = new JLabel(DeterminationList.getTeacher(record.getTeacher()).getTeacher());
 			JLabel bonusLabel = new JLabel(String.valueOf(record.getBonus()));
 			JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
@@ -264,7 +312,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 			JLabel startDateLabel = new JLabel(record.getStartDate());
 			JLabel endDateLabel = new JLabel(record.getEndDate());
 
-			mSkillsColumn.add(weaponLabel);
+			mSkillsColumn.add(skillLabel);
 			mTeacherColumn.add(teacherLabel);
 			mBonusAmountColumn.add(bonusLabel);
 			mDPPerWeekColumn.add(DPPerWeekLabel);
@@ -290,7 +338,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		buttonWrapper.setLayout(new BorderLayout());
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
-		JPanel weaponColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		JPanel skillColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel teacherColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		JPanel dPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
 		JPanel dPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
@@ -299,7 +347,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		JPanel successfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
 		JLabel label = new JLabel(SKILL_TAB_TITLE);
-		weaponColumn.add(label);
+		skillColumn.add(label);
 		JLabel header = new JLabel("Teacher"); //$NON-NLS-1$
 		teacherColumn.add(header);
 		Dimension size = new Dimension(header.getPreferredSize().width, TEXT_FIELD_HEIGHT);
@@ -314,9 +362,9 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		mSkillsPopup.getMenu().addActionListener(this);
 		Dimension size2 = new Dimension(mSkillsPopup.getPreferredSize().width, POPUP_HEIGHT);
 		mSkillsPopup.setMaximumSize(size2);
-		weaponColumn.add(mSkillsPopup);
+		skillColumn.add(mSkillsPopup);
 
-		mTeacherPopup = new TKPopupMenu(TeacherTab.getTeacherPopup(this));
+		mTeacherPopup = new TKPopupMenu(TeacherTab.getTeacherPopup(this, TeacherTab.SKILLS));
 		Dimension size3 = new Dimension(mTeacherPopup.getPreferredSize().width, POPUP_HEIGHT);
 		mTeacherPopup.setMaximumSize(size3);
 		teacherColumn.add(mTeacherPopup);
@@ -353,7 +401,7 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		maintColumn.add(Box.createVerticalGlue());
 		successfulColumn.add(Box.createVerticalGlue());
 
-		outerWrapper.add(weaponColumn);
+		outerWrapper.add(skillColumn);
 		outerWrapper.add(teacherColumn);
 		outerWrapper.add(bonusAmountColumn);
 		outerWrapper.add(dPPerWeekColumn);

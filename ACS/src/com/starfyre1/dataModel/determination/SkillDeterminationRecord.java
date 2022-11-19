@@ -46,9 +46,10 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 	/**
 	 * Creates a new {@link SkillDeterminationRecord}.
 	 */
-	public SkillDeterminationRecord(String skill, int teacher, int dpPerWeek, int cost, String startDate, String lastUpdate) {
+	public SkillDeterminationRecord(String skill, int teacher, int bonus, int dpPerWeek, int cost, String startDate, String lastUpdate) {
 		mSkill = skill;
 		mTeacher = teacher;
+		mBonus = bonus;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
 		mStartDate = startDate;

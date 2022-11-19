@@ -9,6 +9,7 @@ import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
 import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
 import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
 import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
+import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.interfaces.LevelListener;
@@ -192,21 +193,21 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		}
 
 		for (LanguageDeterminationRecord record : DeterminationList.getLanguageRecords()) {
-			//			LanguageTab tab = (LanguageTab) mTabbedPane.getComponent(1);
-			//			if (clear) {
-			//				clear = false;
-			//				tab.clearTab();
-			//			}
-			//			tab.addRecord(record);
+			LanguageTab tab = (LanguageTab) mTabbedPane.getComponent(1);
+			if (clear) {
+				clear = false;
+				tab.clearTab();
+			}
+			tab.addRecord(record);
 		}
 
 		for (MagicSpellDeterminationRecord record : DeterminationList.getMagicSpellRecords()) {
-			//			MagicSpellTab tab = (MagicSpellTab) mTabbedPane.getComponent(2);
-			//			if (clear) {
-			//				clear = false;
-			//				tab.clearTab();
-			//			}
-			//			tab.addRecord(record);
+			MagicSpellTab tab = (MagicSpellTab) mTabbedPane.getComponent(2);
+			if (clear) {
+				clear = false;
+				tab.clearTab();
+			}
+			tab.addRecord(record);
 		}
 
 		for (WeaponProficiencyDeterminationRecord record : DeterminationList.getWeaponRecords()) {
@@ -219,12 +220,21 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		}
 
 		for (SkillDeterminationRecord record : DeterminationList.getSkillRecords()) {
-			//			SkillTab tab = (SkillTab) mTabbedPane.getComponent(4);
-			//			if (clear) {
-			//				clear = false;
-			//				tab.clearTab();
-			//			}
-			//			tab.addRecord(record);
+			SkillTab tab = (SkillTab) mTabbedPane.getComponent(4);
+			if (clear) {
+				clear = false;
+				tab.clearTab();
+			}
+			tab.addRecord(record);
+		}
+
+		for (TeacherDeterminationRecord record : DeterminationList.getTeachersRecords()) {
+			TeacherTab tab = (TeacherTab) mTabbedPane.getComponent(5);
+			if (clear) {
+				clear = false;
+				tab.clearTab();
+			}
+			tab.addRecord(record);
 		}
 
 		ACS.getInstance().getCharacterSheet().getDeterminationPointsDisplay().updateValues();

@@ -296,6 +296,35 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	}
 
 	/** @return The mTeachersRecords. */
+	public static ArrayList<String> getSkillsTeachersNames() {
+		ArrayList<String> teacherNames = new ArrayList<>();
+
+		for (TeacherDeterminationRecord record : mSkillsTeachersRecords) {
+			teacherNames.add(record.getTeacher());
+		}
+
+		return teacherNames;
+	}
+
+	/** @return The mTeachersRecords. */
+	//DW need to use ID in case teachers with same name
+	public static TeacherDeterminationRecord getSkillsTeacherRecord(String name) {
+		for (TeacherDeterminationRecord record : mSkillsTeachersRecords) {
+			if (record.getTeacher().equals(name)) {
+				return record;
+			}
+		}
+		for (TeacherDeterminationRecord record : mThiefTeachersRecords) {
+			if (record.getTeacher().equals(name)) {
+				return record;
+			}
+		}
+		// This shouldn't be able to happen since the parameter name is passed in from a known list
+		return null;
+	}
+
+	/** @return The mTeachersRecords. */
+	//DW need to use ID in case teachers with same name
 	public static TeacherDeterminationRecord getWeaponsTeacherRecord(String name) {
 		for (TeacherDeterminationRecord record : mWeaponsTeachersRecords) {
 			if (record.getTeacher().equals(name)) {
