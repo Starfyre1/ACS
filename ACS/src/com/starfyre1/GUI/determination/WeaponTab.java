@@ -35,7 +35,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class WeaponProficiencyTab extends DeterminationTab {
+public class WeaponTab extends DeterminationTab {
 
 	/*****************************************************************************
 	 * Constants
@@ -90,11 +90,11 @@ public class WeaponProficiencyTab extends DeterminationTab {
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link WeaponProficiencyTab}.
+	 * Creates a new {@link WeaponTab}.
 	 *
 	 * @param owner
 	 */
-	public WeaponProficiencyTab(Object owner) {
+	public WeaponTab(Object owner) {
 		super(owner, WEAPON_PROFICIENCY_TAB_TITLE);
 	}
 

@@ -119,14 +119,14 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		JComponent attributesTab = new AttributesTab(this);
 		JComponent languageTab = new LanguageTab(this);
 		JComponent magicSpellTab = new MagicSpellTab(this);
-		JComponent weaponProficiencyTab = new WeaponProficiencyTab(this);
+		JComponent weaponProficiencyTab = new WeaponTab(this);
 		JComponent skillTab = new SkillTab(this);
 		JComponent teacherTab = new TeacherTab(this);
 
 		mTabbedPane.addTab(AttributesTab.ATTRIBUTES_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, attributesTab, AttributesTab.ATTRIBUTES_TAB_TOOLTIP);
 		mTabbedPane.addTab(LanguageTab.LANGUAGE_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, languageTab, LanguageTab.LANGUAGE_TAB_TOOLTIP);
 		mTabbedPane.addTab(MagicSpellTab.MAGIC_SPELL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, magicSpellTab, MagicSpellTab.MAGIC_SPELL_TAB_TOOLTIP);
-		mTabbedPane.addTab(WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, weaponProficiencyTab, WeaponProficiencyTab.WEAPON_PROFICIENCY_TAB_TOOLTIP);
+		mTabbedPane.addTab(WeaponTab.WEAPON_PROFICIENCY_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, weaponProficiencyTab, WeaponTab.WEAPON_PROFICIENCY_TAB_TOOLTIP);
 		mTabbedPane.addTab(SkillTab.SKILL_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, skillTab, SkillTab.SKILL_TAB_TOOLTIP);
 		mTabbedPane.addTab(TeacherTab.TEACHER_TAB_TITLE, CharacterSheet.DETERMINATION_ICON, teacherTab, TeacherTab.TEACHER_TAB_TOOLTIP);
 
@@ -183,64 +183,37 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	}
 
 	public void addRecords(boolean clear) {
-		boolean tabClear = clear;
+		if (clear) {
+			((AttributesTab) mTabbedPane.getComponent(0)).clearTab();
+			((LanguageTab) mTabbedPane.getComponent(1)).clearTab();
+			((MagicSpellTab) mTabbedPane.getComponent(2)).clearTab();
+			((WeaponTab) mTabbedPane.getComponent(3)).clearTab();
+			((SkillTab) mTabbedPane.getComponent(4)).clearTab();
+			((TeacherTab) mTabbedPane.getComponent(5)).clearTab();
+		}
+
 		for (AttributeDeterminationRecord record : DeterminationList.getAttribRecords()) {
-			AttributesTab tab = (AttributesTab) mTabbedPane.getComponent(0);
-			if (tabClear) {
-				tabClear = false;
-				tab.clearTab();
-			}
-			tab.addRecord(record);
+			((AttributesTab) mTabbedPane.getComponent(0)).addRecord(record);
 		}
 
-		tabClear = clear;
 		for (LanguageDeterminationRecord record : DeterminationList.getLanguageRecords()) {
-			LanguageTab tab = (LanguageTab) mTabbedPane.getComponent(1);
-			if (tabClear) {
-				tabClear = false;
-				tab.clearTab();
-			}
-			tab.addRecord(record);
+			((LanguageTab) mTabbedPane.getComponent(1)).addRecord(record);
 		}
 
-		tabClear = clear;
 		for (MagicSpellDeterminationRecord record : DeterminationList.getMagicSpellRecords()) {
-			MagicSpellTab tab = (MagicSpellTab) mTabbedPane.getComponent(2);
-			if (tabClear) {
-				tabClear = false;
-				tab.clearTab();
-			}
-			tab.addRecord(record);
+			((MagicSpellTab) mTabbedPane.getComponent(2)).addRecord(record);
 		}
 
-		tabClear = clear;
 		for (WeaponProficiencyDeterminationRecord record : DeterminationList.getWeaponRecords()) {
-			WeaponProficiencyTab tab = (WeaponProficiencyTab) mTabbedPane.getComponent(3);
-			if (tabClear) {
-				tabClear = false;
-				tab.clearTab();
-			}
-			tab.addRecord(record);
+			((WeaponTab) mTabbedPane.getComponent(3)).addRecord(record);
 		}
 
-		tabClear = clear;
 		for (SkillDeterminationRecord record : DeterminationList.getSkillRecords()) {
-			SkillTab tab = (SkillTab) mTabbedPane.getComponent(4);
-			if (tabClear) {
-				tabClear = false;
-				tab.clearTab();
-			}
-			tab.addRecord(record);
+			((SkillTab) mTabbedPane.getComponent(4)).addRecord(record);
 		}
 
-		tabClear = clear;
 		for (TeacherDeterminationRecord record : DeterminationList.getTeachersRecords()) {
-			TeacherTab tab = (TeacherTab) mTabbedPane.getComponent(5);
-			if (tabClear) {
-				tabClear = false;
-				tab.clearTab();
-			}
-			tab.addRecord(record);
+			((TeacherTab) mTabbedPane.getComponent(5)).addRecord(record);
 		}
 
 		ACS.getInstance().getCharacterSheet().getDeterminationPointsDisplay().updateValues();

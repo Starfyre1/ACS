@@ -29,22 +29,30 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String										FILE_SECTION_START_KEY	= "DETERMINATION_SECTION_START";	//$NON-NLS-1$
-	public static final String										FILE_SECTION_END_KEY	= "DETERMINATION_SECTION_END";		//$NON-NLS-1$
+	public static final String										FILE_SECTION_START_KEY		= "DETERMINATION_SECTION_START";	//$NON-NLS-1$
+	public static final String										FILE_SECTION_END_KEY		= "DETERMINATION_SECTION_END";		//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	private static CharacterSheet									mOwner;
 
-	private static ArrayList<AttributeDeterminationRecord>			mAttribRecords			= new ArrayList<>(16);
-	private static ArrayList<LanguageDeterminationRecord>			mLanguageRecords		= new ArrayList<>(16);
-	private static ArrayList<MagicSpellDeterminationRecord>			mMagicSpellRecords		= new ArrayList<>(64);
-	private static ArrayList<SkillDeterminationRecord>				mSkillRecords			= new ArrayList<>(16);
-	private static ArrayList<WeaponProficiencyDeterminationRecord>	mWeaponRecords			= new ArrayList<>(16);
-	private static ArrayList<TeacherDeterminationRecord>			mWeaponsTeachersRecords	= new ArrayList<>(16);
-	private static ArrayList<TeacherDeterminationRecord>			mSkillsTeachersRecords	= new ArrayList<>(16);
-	private static ArrayList<TeacherDeterminationRecord>			mThiefTeachersRecords	= new ArrayList<>(16);
+	private static ArrayList<AttributeDeterminationRecord>			mAttribRecords				= new ArrayList<>(16);
+	private static ArrayList<LanguageDeterminationRecord>			mLanguageRecords			= new ArrayList<>(16);
+	private static ArrayList<MagicSpellDeterminationRecord>			mMagicSpellRecords			= new ArrayList<>(32);
+	private static ArrayList<SkillDeterminationRecord>				mSkillRecords				= new ArrayList<>(16);
+	private static ArrayList<WeaponProficiencyDeterminationRecord>	mWeaponRecords				= new ArrayList<>(16);
+	private static ArrayList<TeacherDeterminationRecord>			mWeaponsTeachersRecords		= new ArrayList<>(16);
+	private static ArrayList<TeacherDeterminationRecord>			mSkillsTeachersRecords		= new ArrayList<>(16);
+	private static ArrayList<TeacherDeterminationRecord>			mThiefTeachersRecords		= new ArrayList<>(16);
+
+	private static ArrayList<AttributeDeterminationRecord>			mAttribRecordsCompleted		= new ArrayList<>(16);
+	private static ArrayList<LanguageDeterminationRecord>			mLanguageRecordsCompleted	= new ArrayList<>(16);
+	private static ArrayList<MagicSpellDeterminationRecord>			mMagicSpellRecordsCompleted	= new ArrayList<>(512);
+	private static ArrayList<SkillDeterminationRecord>				mSkillRecordsCompleted		= new ArrayList<>(16);
+	private static ArrayList<WeaponProficiencyDeterminationRecord>	mWeaponRecordsCompleted		= new ArrayList<>(16);
+
+	private static ArrayList<DeterminationRecord>					mCompletedRecords			= new ArrayList<>(16);
 
 	/*****************************************************************************
 	 * Constructors
@@ -78,6 +86,47 @@ public class DeterminationList implements Savable, CampaignDateListener {
 
 	public static void addWeaponRecord(WeaponProficiencyDeterminationRecord record) {
 		mWeaponRecords.add(record);
+	}
+
+	public static void addAttribRecordCompleted(AttributeDeterminationRecord record) {
+		mAttribRecordsCompleted.add(record);
+	}
+
+	public static void addLanguageRecordCompleted(LanguageDeterminationRecord record) {
+		mLanguageRecordsCompleted.add(record);
+	}
+
+	public static void addMagicSpellRecordCompleted(MagicSpellDeterminationRecord record) {
+		mMagicSpellRecordsCompleted.add(record);
+	}
+
+	public static void addSkillRecordCompleted(SkillDeterminationRecord record) {
+		mSkillRecordsCompleted.add(record);
+	}
+
+	public static void addWeaponRecordCompleted(WeaponProficiencyDeterminationRecord record) {
+		mWeaponRecordsCompleted.add(record);
+	}
+
+	public static void moveCompletedRecords() {
+		for (DeterminationRecord record : mCompletedRecords) {
+			if (record instanceof AttributeDeterminationRecord) {
+				mAttribRecords.remove(record);
+				mAttribRecordsCompleted.add((AttributeDeterminationRecord) record);
+			} else if (record instanceof LanguageDeterminationRecord) {
+				mLanguageRecords.remove(record);
+				mLanguageRecordsCompleted.add((LanguageDeterminationRecord) record);
+			} else if (record instanceof MagicSpellDeterminationRecord) {
+				mMagicSpellRecords.remove(record);
+				mMagicSpellRecordsCompleted.add((MagicSpellDeterminationRecord) record);
+			} else if (record instanceof SkillDeterminationRecord) {
+				mSkillRecords.remove(record);
+				mSkillRecordsCompleted.add((SkillDeterminationRecord) record);
+			} else if (record instanceof WeaponProficiencyDeterminationRecord) {
+				mWeaponRecords.remove(record);
+				mWeaponRecordsCompleted.add((WeaponProficiencyDeterminationRecord) record);
+			}
+		}
 	}
 
 	public static void addTeacherRecord(TeacherDeterminationRecord record) {
@@ -124,12 +173,18 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	public void clearRecords() {
 		mAttribRecords = new ArrayList<>(16);
 		mLanguageRecords = new ArrayList<>(16);
-		mMagicSpellRecords = new ArrayList<>(64);
+		mMagicSpellRecords = new ArrayList<>(32);
 		mSkillRecords = new ArrayList<>(16);
 		mWeaponRecords = new ArrayList<>(16);
 		mWeaponsTeachersRecords = new ArrayList<>(16);
 		mSkillsTeachersRecords = new ArrayList<>(16);
 		mThiefTeachersRecords = new ArrayList<>(16);
+
+		mAttribRecordsCompleted = new ArrayList<>(16);
+		mLanguageRecordsCompleted = new ArrayList<>(16);
+		mMagicSpellRecordsCompleted = new ArrayList<>(512);
+		mSkillRecordsCompleted = new ArrayList<>(16);
+		mWeaponRecordsCompleted = new ArrayList<>(16);
 	}
 
 	@Override
@@ -183,9 +238,11 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
 			}
-			mOwner.getDeterminationPointsDisplay().addRecords(true);
 			System.out.println(record.toString());
 		}
+
+		moveCompletedRecords();
+		mOwner.getDeterminationPointsDisplay().addRecords(true);
 		mOwner.getDeterminationPointsDisplay().updateValues();
 	}
 
@@ -198,12 +255,14 @@ public class DeterminationList implements Savable, CampaignDateListener {
 				record.setEndDate(date);
 				record.setDPPerWeek(0);
 				determinationComplete(record);
+				mCompletedRecords.add(record);
 				break;
 			}
 			if (record.getDPCost() - (record.getDPTotalSpent() + record.getDPPerWeek()) < 0) {
 				int extraDPPoints = record.getDPPerWeek() - (record.getDPCost() - record.getDPTotalSpent());
 				record.setDPPerWeek(record.getDPCost() - record.getDPTotalSpent());
-				JOptionPane.showMessageDialog(ACS.getInstance().getCharacterSheet().getFrame(), "You have " + extraDPPoints + " unused determination points\n\n" + record.getName() + " had more points assigned to it\nthan it needed for it to complete.", "Unused Determination Points", JOptionPane.WARNING_MESSAGE);
+				// DW Need to allow the player to assign extra points before going on to the next week.
+				JOptionPane.showMessageDialog(ACS.getInstance().getCharacterSheet().getFrame(), "You have " + extraDPPoints + " unused determination points\n\n" + record.getName() + " had more points assigned to it\nthan it needed for it to complete.", "Unused Determination Points", JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 			}
 		}
 	}
@@ -215,7 +274,8 @@ public class DeterminationList implements Savable, CampaignDateListener {
 
 	private int weekUp(DeterminationRecord record, String date) {
 		int currentIndex = CampaignDateChooser.getCampaignDateIndex(date);
-		int startIndex = CampaignDateChooser.getCampaignDateIndex(record.getStartDate());
+		String offsetDate = record.getLastUpdate().equals("null") ? record.getStartDate() : record.getLastUpdate();
+		int startIndex = CampaignDateChooser.getCampaignDateIndex(offsetDate);
 		if (currentIndex - startIndex > 6) {
 			return (currentIndex - startIndex) / 7;
 		}
@@ -294,6 +354,31 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	/** @return The mWeaponRecords. */
 	public static ArrayList<WeaponProficiencyDeterminationRecord> getWeaponRecords() {
 		return mWeaponRecords;
+	}
+
+	/** @return The mAttribRecords. */
+	public static ArrayList<AttributeDeterminationRecord> getAttribRecordsCompleted() {
+		return mAttribRecordsCompleted;
+	}
+
+	/** @return The mLanguageRecords. */
+	public static ArrayList<LanguageDeterminationRecord> getLanguageRecordsCompleted() {
+		return mLanguageRecordsCompleted;
+	}
+
+	/** @return The mMagicSpellRecords. */
+	public static ArrayList<MagicSpellDeterminationRecord> getMagicSpellRecordsCompleted() {
+		return mMagicSpellRecordsCompleted;
+	}
+
+	/** @return The mSkillRecords. */
+	public static ArrayList<SkillDeterminationRecord> getSkillRecordsCompleted() {
+		return mSkillRecordsCompleted;
+	}
+
+	/** @return The mWeaponRecords. */
+	public static ArrayList<WeaponProficiencyDeterminationRecord> getWeaponRecordsCompleted() {
+		return mWeaponRecordsCompleted;
 	}
 
 	/** @return The mTeachersRecords. */
@@ -389,31 +474,51 @@ public class DeterminationList implements Savable, CampaignDateListener {
 							AttributeDeterminationRecord record = new AttributeDeterminationRecord();
 							tokenizer = record.readValues(br);
 							if (record.getAttribute() >= 0) {
-								addAttribRecord(record);
+								if (record.getEndDate().isBlank()) {
+									addAttribRecord(record);
+								} else {
+									addAttribRecordCompleted(record);
+								}
 							}
 						} else if (LanguageDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							LanguageDeterminationRecord record = new LanguageDeterminationRecord();
 							tokenizer = record.readValues(br);
 							if (record.getLanguage() != TKStringHelpers.EMPTY_STRING) {
-								addLanguageRecord(record);
+								if (record.getEndDate().isBlank()) {
+									addLanguageRecord(record);
+								} else {
+									addLanguageRecordCompleted(record);
+								}
 							}
 						} else if (MagicSpellDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							MagicSpellDeterminationRecord record = new MagicSpellDeterminationRecord();
 							tokenizer = record.readValues(br);
 							if (record.getSpell() != TKStringHelpers.EMPTY_STRING) {
-								addMagicSpellRecord(record);
+								if (record.getEndDate().isBlank()) {
+									addMagicSpellRecord(record);
+								} else {
+									addMagicSpellRecordCompleted(record);
+								}
 							}
 						} else if (SkillDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							SkillDeterminationRecord record = new SkillDeterminationRecord();
 							tokenizer = record.readValues(br);
 							if (record.getSkill() != TKStringHelpers.EMPTY_STRING) {
-								addSkillRecord(record);
+								if (record.getEndDate().isBlank()) {
+									addSkillRecord(record);
+								} else {
+									addSkillRecordCompleted(record);
+								}
 							}
 						} else if (WeaponProficiencyDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							WeaponProficiencyDeterminationRecord record = new WeaponProficiencyDeterminationRecord();
 							tokenizer = record.readValues(br);
 							if (record.getWeapon() != TKStringHelpers.EMPTY_STRING) {
-								addWeaponRecord(record);
+								if (record.getEndDate().isBlank()) {
+									addWeaponRecord(record);
+								} else {
+									addWeaponRecordCompleted(record);
+								}
 							}
 						} else if (TeacherDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {
 							TeacherDeterminationRecord record = new TeacherDeterminationRecord();
@@ -460,6 +565,21 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			record.saveValues(br);
 		}
 		for (WeaponProficiencyDeterminationRecord record : mWeaponRecords) {
+			record.saveValues(br);
+		}
+		for (AttributeDeterminationRecord record : mAttribRecordsCompleted) {
+			record.saveValues(br);
+		}
+		for (LanguageDeterminationRecord record : mLanguageRecordsCompleted) {
+			record.saveValues(br);
+		}
+		for (MagicSpellDeterminationRecord record : mMagicSpellRecordsCompleted) {
+			record.saveValues(br);
+		}
+		for (SkillDeterminationRecord record : mSkillRecordsCompleted) {
+			record.saveValues(br);
+		}
+		for (WeaponProficiencyDeterminationRecord record : mWeaponRecordsCompleted) {
 			record.saveValues(br);
 		}
 		for (TeacherDeterminationRecord record : mSkillsTeachersRecords) {
