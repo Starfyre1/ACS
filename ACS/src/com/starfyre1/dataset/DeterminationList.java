@@ -15,12 +15,15 @@ import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
 import com.starfyre1.interfaces.CampaignDateListener;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.startup.ACS;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+
+import javax.swing.JOptionPane;
 
 public class DeterminationList implements Savable, CampaignDateListener {
 	/*****************************************************************************
@@ -131,7 +134,11 @@ public class DeterminationList implements Savable, CampaignDateListener {
 
 	@Override
 	public void dateUpdated(String date) {
+		// DW should move completed records to a separate ArrayList
 		for (AttributeDeterminationRecord record : mAttribRecords) {
+			if (!record.getEndDate().isBlank()) {
+				continue;
+			}
 			int numOfWeeks = weekUp(record, date);
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
@@ -139,6 +146,9 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			System.out.println(record.toString());
 		}
 		for (LanguageDeterminationRecord record : mLanguageRecords) {
+			if (!record.getEndDate().isBlank()) {
+				continue;
+			}
 			int numOfWeeks = weekUp(record, date);
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
@@ -146,6 +156,9 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			System.out.println(record.toString());
 		}
 		for (MagicSpellDeterminationRecord record : mMagicSpellRecords) {
+			if (!record.getEndDate().isBlank()) {
+				continue;
+			}
 			int numOfWeeks = weekUp(record, date);
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
@@ -153,6 +166,9 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			System.out.println(record.toString());
 		}
 		for (SkillDeterminationRecord record : mSkillRecords) {
+			if (!record.getEndDate().isBlank()) {
+				continue;
+			}
 			int numOfWeeks = weekUp(record, date);
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
@@ -160,6 +176,9 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			System.out.println(record.toString());
 		}
 		for (WeaponProficiencyDeterminationRecord record : mWeaponRecords) {
+			if (!record.getEndDate().isBlank()) {
+				continue;
+			}
 			int numOfWeeks = weekUp(record, date);
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
@@ -174,17 +193,17 @@ public class DeterminationList implements Savable, CampaignDateListener {
 		record.setLastUpdate(date);
 		for (int i = 0; i < numOfWeeks; i++) {
 			record.setDPTotalSpent(record.getDPTotalSpent() + record.getDPPerWeek());
-			// update UI is done from calling method - dateUpdated(String date)
+			// The UI is updated from calling method - dateUpdated(String date)
 			if (record.getDPTotalSpent() >= record.getDPCost()) {
 				record.setEndDate(date);
 				record.setDPPerWeek(0);
 				determinationComplete(record);
 				break;
 			}
-			// is dp/week > dpCost ... reduce dp/week to what's left
 			if (record.getDPCost() - (record.getDPTotalSpent() + record.getDPPerWeek()) < 0) {
+				int extraDPPoints = record.getDPPerWeek() - (record.getDPCost() - record.getDPTotalSpent());
 				record.setDPPerWeek(record.getDPCost() - record.getDPTotalSpent());
-				// notify player of any changes
+				JOptionPane.showMessageDialog(ACS.getInstance().getCharacterSheet().getFrame(), "You have " + extraDPPoints + " unused determination points\n\n" + record.getName() + " had more points assigned to it\nthan it needed for it to complete.", "Unused Determination Points", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}

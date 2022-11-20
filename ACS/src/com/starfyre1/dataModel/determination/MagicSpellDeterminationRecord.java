@@ -92,8 +92,8 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 			roll = TKDice.roll(100);
 		} else {
 			do {
-				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D100 roll", "Roll for " + getSpell() + " Determination Success (roll < " + getChance(), JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				System.out.println("result = " + result); //$NON-NLS-1$
+				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D100 roll", "Roll for " + getSpell() + " Success (roll <= " + getChance() + ")", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				System.out.println("result = " + result);
 				if (result != null) {
 					roll = TKStringHelpers.getIntValue(result, 0);
 				}
@@ -106,6 +106,11 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public String getName() {
+		return mSpell;
+	}
 
 	/** @return The spell. */
 	public String getSpell() {

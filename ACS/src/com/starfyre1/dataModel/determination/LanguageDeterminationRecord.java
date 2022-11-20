@@ -83,24 +83,33 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 		// "1D20 - (1/4 level) < (Wisdom)"
 
 		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
-		int roll;
+		int stat = characterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
+		int roll = 0;
 
 		if (PreferenceStore.getInstance().isAppRollsDice()) {
 			roll = TKDice.roll(20);
 		} else {
 			do {
-				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D20 roll", "Roll for Determination Success", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-				roll = TKStringHelpers.getIntValue(result, 0);
+				String result = JOptionPane.showInputDialog(characterSheet.getFrame(), "Enter 1D20 roll", "Roll for " + getLanguage() + " Success (roll <= " + stat + " )", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				System.out.println("result = " + result);
+				if (result != null) {
+					roll = TKStringHelpers.getIntValue(result, 0);
+				}
 			} while (roll == 0);
 		}
 		roll -= characterSheet.getHeaderRecord().getLevel() / 4;
 		System.out.println(roll);
-		return roll <= characterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
+		return roll <= stat;
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public String getName() {
+		return mLanguage;
+	}
 
 	/** @return The language. */
 	public String getLanguage() {

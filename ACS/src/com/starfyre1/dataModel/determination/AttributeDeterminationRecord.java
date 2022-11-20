@@ -85,13 +85,14 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 		// "1D20 + 1/2 level >= stat"
 
 		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
+		int stat = characterSheet.getAttributesRecord().getModifiedStat(mAttribute);
 		int roll = 0;
 
 		if (PreferenceStore.getInstance().isAppRollsDice()) {
 			roll = TKDice.roll(20);
 		} else {
 			do {
-				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D20 roll", "Roll for " + AttributesTab.ATTRIBUTE_NAMES[getAttribute()] + " Determination Success", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				String result = JOptionPane.showInputDialog(characterSheet.getFrame(), "Enter 1D20 roll", "Roll for " + AttributesTab.ATTRIBUTE_NAMES[getAttribute()] + " Success (roll >= " + stat + " )", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				System.out.println("result = " + result);
 				if (result != null) {
 					roll = TKStringHelpers.getIntValue(result, 0);
@@ -100,12 +101,18 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 		}
 		roll += characterSheet.getHeaderRecord().getLevel() / 2;
 		System.out.println(roll);
-		return roll >= characterSheet.getAttributesRecord().getModifiedStat(mAttribute);
+		return roll >= stat;
 	}
 
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+
+	@Override
+	public String getName() {
+		return AttributesTab.ATTRIBUTE_NAMES[getAttribute()];
+	}
+
 	public boolean isStatMaxed(int which) {
 		return ACS.getInstance().getCharacterSheet().getAttributesRecord().getStat(which) >= MAX_STAT_VALUE || currentNumberOfImprovements[which] >= MAX_NUMBER_OF_IMPROVEMENTS;
 	}

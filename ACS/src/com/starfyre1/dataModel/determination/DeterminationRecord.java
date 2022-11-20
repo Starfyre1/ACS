@@ -51,6 +51,10 @@ public class DeterminationRecord {
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public String getName() {
+		return null;
+	}
+
 	/** @return The bonus. */
 	public int getBonus() {
 		return mBonus;
