@@ -7,7 +7,6 @@ import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
-import com.starfyre1.ToolKit.TKPopupMenu.ComboMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
@@ -148,22 +147,6 @@ public class AttributesTab extends DeterminationTab {
 
 		mDPPerWeekField.setEnabled(enable);
 		mDPPerWeekField.setEditable(enable);
-	}
-
-	private TKPopupMenu getPopup(JMenuItem menuItem) {
-
-		JPopupMenu popup = (JPopupMenu) menuItem.getParent();
-		JMenu menu = (JMenu) popup.getInvoker();
-		TKPopupMenu popup3;
-		if (menu.getParent() instanceof TKPopupMenu) {
-			popup3 = (TKPopupMenu) menu.getParent();
-		} else {
-			JPopupMenu popup2 = (JPopupMenu) menu.getParent();
-			ComboMenu menu2 = (ComboMenu) popup2.getInvoker();
-			popup3 = (TKPopupMenu) menu2.getParent();
-		}
-
-		return popup3;
 	}
 
 	public void updateDisplay() {

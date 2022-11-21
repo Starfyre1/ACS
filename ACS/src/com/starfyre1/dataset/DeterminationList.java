@@ -274,7 +274,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 
 	private int weekUp(DeterminationRecord record, String date) {
 		int currentIndex = CampaignDateChooser.getCampaignDateIndex(date);
-		String offsetDate = record.getLastUpdate().equals("null") ? record.getStartDate() : record.getLastUpdate();
+		String offsetDate = record.getLastUpdate().equals("null") ? record.getStartDate() : record.getLastUpdate(); //$NON-NLS-1$
 		int startIndex = CampaignDateChooser.getCampaignDateIndex(offsetDate);
 		if (currentIndex - startIndex > 6) {
 			return (currentIndex - startIndex) / 7;
