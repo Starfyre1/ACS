@@ -92,13 +92,11 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 		} else {
 			do {
 				String result = JOptionPane.showInputDialog(characterSheet.getFrame(), "Enter 1D20 roll", "Roll for " + getSkill() + " Success (roll <= " + stat + " )", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-				System.out.println("result = " + result);
 				if (result != null) {
 					roll = TKStringHelpers.getIntValue(result, 0);
 				}
 			} while (roll == 0);
 		}
-		System.out.println(roll);
 		return roll <= stat;
 	}
 

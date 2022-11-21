@@ -93,13 +93,11 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 		} else {
 			do {
 				String result = JOptionPane.showInputDialog(ACS.getInstance().getCharacterSheet().getFrame(), "Enter 1D100 roll", "Roll for " + getSpell() + " Success (roll <= " + getChance() + ")", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-				System.out.println("result = " + result);
 				if (result != null) {
 					roll = TKStringHelpers.getIntValue(result, 0);
 				}
 			} while (roll == 0);
 		}
-		System.out.println(roll);
 		return roll <= getChance();
 	}
 
