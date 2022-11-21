@@ -29,15 +29,25 @@ public class AttributesRecord implements Savable {
 	public static final String	PERSONAL_APPEARANCE_KEY			= "PERSONAL_APPEARANCE_KEY";																		//$NON-NLS-1$
 	public static final String	WILLPOWER_KEY					= "WILLPOWER_KEY";																					//$NON-NLS-1$
 
-	public static final String	STRENGTH_MOD_KEY					= "STRENGTH_MOD_KEY";																					//$NON-NLS-1$
-	public static final String	CONSTITUTION_MOD_KEY				= "CONSTITUTION_MOD_KEY";																				//$NON-NLS-1$
-	public static final String	INTELLIGENCE_MOD_KEY				= "INTELLIGENCE_MOD_KEY";																				//$NON-NLS-1$
-	public static final String	WISDOM_MOD_KEY						= "WISDOM_MOD_KEY";																						//$NON-NLS-1$
-	public static final String	DEXTERITY_MOD_KEY					= "DEXTERITY_MOD_KEY";																					//$NON-NLS-1$
-	public static final String	BOW_SKILL_MOD_KEY					= "BOW_SKILL_MOD_KEY";																					//$NON-NLS-1$
-	public static final String	CHARISMA_MOD_KEY					= "CHARISMA_MOD_KEY";																					//$NON-NLS-1$
-	public static final String	PERSONAL_APPEARANCE_MOD_KEY			= "PERSONAL_APPEARANCE_MOD_KEY";																		//$NON-NLS-1$
-	public static final String	WILLPOWER_MOD_KEY					= "WILLPOWER_MOD_KEY";																					//$NON-NLS-1$
+	public static final String	STRENGTH_DP_KEY					= "STRENGTH_DP_KEY";																				//$NON-NLS-1$
+	public static final String	CONSTITUTION_DP_KEY				= "CONSTITUTION_DP_KEY";																			//$NON-NLS-1$
+	public static final String	INTELLIGENCE_DP_KEY				= "INTELLIGENCE_DP_KEY";																			//$NON-NLS-1$
+	public static final String	WISDOM_DP_KEY					= "WISDOM_DP_KEY";																					//$NON-NLS-1$
+	public static final String	DEXTERITY_DP_KEY				= "DEXTERITY_DP_KEY";																				//$NON-NLS-1$
+	public static final String	BOW_SKILL_DP_KEY				= "BOW_DP_SKILL_KEY";																				//$NON-NLS-1$
+	public static final String	CHARISMA_DP_KEY					= "CHARISMA_DP_KEY";																				//$NON-NLS-1$
+	public static final String	PERSONAL_APPEARANCE_DP_KEY		= "PERSONAL_DP_APPEARANCE_KEY";																		//$NON-NLS-1$
+	public static final String	WILLPOWER_DP_KEY				= "WILLPOWER_DP_KEY";																				//$NON-NLS-1$
+
+	public static final String	STRENGTH_MOD_KEY				= "STRENGTH_MOD_KEY";																				//$NON-NLS-1$
+	public static final String	CONSTITUTION_MOD_KEY			= "CONSTITUTION_MOD_KEY";																			//$NON-NLS-1$
+	public static final String	INTELLIGENCE_MOD_KEY			= "INTELLIGENCE_MOD_KEY";																			//$NON-NLS-1$
+	public static final String	WISDOM_MOD_KEY					= "WISDOM_MOD_KEY";																					//$NON-NLS-1$
+	public static final String	DEXTERITY_MOD_KEY				= "DEXTERITY_MOD_KEY";																				//$NON-NLS-1$
+	public static final String	BOW_SKILL_MOD_KEY				= "BOW_SKILL_MOD_KEY";																				//$NON-NLS-1$
+	public static final String	CHARISMA_MOD_KEY				= "CHARISMA_MOD_KEY";																				//$NON-NLS-1$
+	public static final String	PERSONAL_APPEARANCE_MOD_KEY		= "PERSONAL_APPEARANCE_MOD_KEY";																	//$NON-NLS-1$
+	public static final String	WILLPOWER_MOD_KEY				= "WILLPOWER_MOD_KEY";																				//$NON-NLS-1$
 
 	public static final String	STRENGTH						= "Strength";																						//$NON-NLS-1$
 	public static final String	CONSTITUTION					= "Constitution";																					//$NON-NLS-1$
@@ -114,6 +124,8 @@ public class AttributesRecord implements Savable {
 	// mStats[8] -> Willpower};
 	private int					mStats[]						= new int[9];
 	private int					mStatsOld[]						= new int[9];
+	private int					mDPStats[]						= new int[9];
+	private int					mDPStatsOld[]					= new int[9];
 	private int					mModifiedStats[]				= new int[9];
 	private int					mModifiedStatsOld[]				= new int[9];
 	private boolean				mGenerateOwnStats				= true;
@@ -197,6 +209,7 @@ public class AttributesRecord implements Savable {
 
 	private void updateOldRecords() {
 		mStatsOld = mStats.clone();
+		mDPStatsOld = mDPStats.clone();
 	}
 
 	/*****************************************************************************
@@ -228,16 +241,24 @@ public class AttributesRecord implements Savable {
 		return position;
 	}
 
-	public int[] getModifiedStats() {
-		return mModifiedStats;
-	}
-
 	public int getStat(int which) {
 		return mStats[which];
 	}
 
 	public void setStat(int which, int value) {
 		mStats[which] = value;
+	}
+
+	public int getDPStat(int which) {
+		return mDPStats[which];
+	}
+
+	public void setDPStat(int which, int value) {
+		mDPStats[which] = value;
+	}
+
+	public int[] getModifiedStats() {
+		return mModifiedStats;
 	}
 
 	public int getModifiedStat(int which) {
@@ -254,6 +275,14 @@ public class AttributesRecord implements Savable {
 
 	public void setStatOld(int which, int value) {
 		mStatsOld[which] = value;
+	}
+
+	public int getDPStatOld(int which) {
+		return mDPStatsOld[which];
+	}
+
+	public void setDPStatOld(int which, int value) {
+		mDPStatsOld[which] = value;
 	}
 
 	public int getModifiedStatOld(int which) {
@@ -311,15 +340,25 @@ public class AttributesRecord implements Savable {
 
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 
-		br.write(TKStringHelpers.TAB + STRENGTH_KEY + TKStringHelpers.SPACE + mStats[0] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + CONSTITUTION_KEY + TKStringHelpers.SPACE + mStats[1] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + INTELLIGENCE_KEY + TKStringHelpers.SPACE + mStats[2] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + WISDOM_KEY + TKStringHelpers.SPACE + mStats[3] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + DEXTERITY_KEY + TKStringHelpers.SPACE + mStats[4] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + BOW_SKILL_KEY + TKStringHelpers.SPACE + mStats[5] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + CHARISMA_KEY + TKStringHelpers.SPACE + mStats[6] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + PERSONAL_APPEARANCE_KEY + TKStringHelpers.SPACE + mStats[7] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + WILLPOWER_KEY + TKStringHelpers.SPACE + mStats[8] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + STRENGTH_DP_KEY + TKStringHelpers.SPACE + mStats[0] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CONSTITUTION_DP_KEY + TKStringHelpers.SPACE + mStats[1] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + INTELLIGENCE_DP_KEY + TKStringHelpers.SPACE + mStats[2] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WISDOM_DP_KEY + TKStringHelpers.SPACE + mStats[3] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DEXTERITY_DP_KEY + TKStringHelpers.SPACE + mStats[4] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + BOW_SKILL_DP_KEY + TKStringHelpers.SPACE + mStats[5] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CHARISMA_DP_KEY + TKStringHelpers.SPACE + mStats[6] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + PERSONAL_APPEARANCE_DP_KEY + TKStringHelpers.SPACE + mStats[7] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WILLPOWER_DP_KEY + TKStringHelpers.SPACE + mStats[8] + System.lineSeparator());
+
+		br.write(TKStringHelpers.TAB + STRENGTH_KEY + TKStringHelpers.SPACE + mDPStats[0] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CONSTITUTION_KEY + TKStringHelpers.SPACE + mDPStats[1] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + INTELLIGENCE_KEY + TKStringHelpers.SPACE + mDPStats[2] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WISDOM_KEY + TKStringHelpers.SPACE + mDPStats[3] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DEXTERITY_KEY + TKStringHelpers.SPACE + mDPStats[4] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + BOW_SKILL_KEY + TKStringHelpers.SPACE + mDPStats[5] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CHARISMA_KEY + TKStringHelpers.SPACE + mDPStats[6] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + PERSONAL_APPEARANCE_KEY + TKStringHelpers.SPACE + mDPStats[7] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WILLPOWER_KEY + TKStringHelpers.SPACE + mDPStats[8] + System.lineSeparator());
 
 		br.write(TKStringHelpers.TAB + STRENGTH_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[0] + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + CONSTITUTION_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[1] + System.lineSeparator());
@@ -357,6 +396,24 @@ public class AttributesRecord implements Savable {
 			mStats[7] = stat;
 		} else if (key.equals(WILLPOWER_KEY)) {
 			mStats[8] = stat;
+		} else if (key.equals(STRENGTH_DP_KEY)) {
+			mDPStats[0] = stat;
+		} else if (key.equals(CONSTITUTION_DP_KEY)) {
+			mDPStats[1] = stat;
+		} else if (key.equals(INTELLIGENCE_DP_KEY)) {
+			mDPStats[2] = stat;
+		} else if (key.equals(WISDOM_DP_KEY)) {
+			mDPStats[3] = stat;
+		} else if (key.equals(DEXTERITY_DP_KEY)) {
+			mDPStats[4] = stat;
+		} else if (key.equals(BOW_SKILL_DP_KEY)) {
+			mDPStats[5] = stat;
+		} else if (key.equals(CHARISMA_DP_KEY)) {
+			mDPStats[6] = stat;
+		} else if (key.equals(PERSONAL_APPEARANCE_DP_KEY)) {
+			mDPStats[7] = stat;
+		} else if (key.equals(WILLPOWER_DP_KEY)) {
+			mDPStats[8] = stat;
 		} else if (key.equals(STRENGTH_MOD_KEY)) {
 			mModifiedStats[0] = stat;
 		} else if (key.equals(CONSTITUTION_MOD_KEY)) {
@@ -387,10 +444,10 @@ public class AttributesRecord implements Savable {
 	public void finalizeCreation(boolean manual) {
 		if (manual) {
 			mStats = mModifiedStats.clone();
-//		} else {
-//			mModifiedStats = mStats.clone();
+			//		} else {
+			//			mModifiedStats = mStats.clone();
 		}
-		mStatsOld = mModifiedStats.clone();
+		mStatsOld = mStats.clone();
 		mModifiedStatsOld = mModifiedStats.clone();
 	}
 
@@ -400,6 +457,8 @@ public class AttributesRecord implements Savable {
 	public void clearRecords() {
 		mStats = new int[9];
 		mStatsOld = new int[9];
+		mDPStats = new int[9];
+		mDPStatsOld = new int[9];
 		mModifiedStats = new int[9];
 		mModifiedStatsOld = new int[9];
 	}

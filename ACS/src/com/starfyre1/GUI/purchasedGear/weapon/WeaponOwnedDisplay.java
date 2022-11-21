@@ -46,7 +46,7 @@ public class WeaponOwnedDisplay extends WeaponDisplay implements TableModelListe
 		if (list != null) {
 			ArrayList<WeaponRecord> records = list.getRecords();
 			Object[] master = new Object[records.size()];
-			Object[][] data = new Object[master.length][16];
+			Object[][] data = new Object[master.length][17];
 
 			for (int i = 0; i < master.length; i++) {
 				WeaponRecord record = records.get(i);

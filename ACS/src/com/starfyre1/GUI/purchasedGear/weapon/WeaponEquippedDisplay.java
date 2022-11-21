@@ -52,7 +52,7 @@ public class WeaponEquippedDisplay extends WeaponDisplay {
 		//		mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
 
 		// remove in reverse order... as the column numbers will change
-		mTable.removeColumn(mTable.getColumnModel().getColumn(15));
+		mTable.removeColumn(mTable.getColumnModel().getColumn(16));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(7));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(6));
 		mTable.removeColumn(mTable.getColumnModel().getColumn(1));

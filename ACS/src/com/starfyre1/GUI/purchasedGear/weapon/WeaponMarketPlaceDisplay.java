@@ -63,7 +63,7 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 	protected Component createDisplay() {
 		// This is the full equipment list in the Market Place
 		Object[] master = WeaponList.getWeaponCombinedList();
-		Object[][] data = new Object[master.length][16];
+		Object[][] data = new Object[master.length][17];
 
 		for (int i = 0; i < master.length; i++) {
 			WeaponRecord record = (WeaponRecord) master[i];
@@ -84,7 +84,7 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 		mTable.getColumnModel().getColumn(2).setMinWidth(100); // Name
 		mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
 		mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
-		mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
+		mTable.getColumnModel().getColumn(16).setMinWidth(50); // Cost
 
 		mFilterPanel = new JPanel();
 		JTextField filterField = TKRowFilter.createRowFilter(mTable);
@@ -120,7 +120,7 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 			mTable.getColumnModel().getColumn(2).setMinWidth(100); // Name
 			mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
 			mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
-			mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
+			mTable.getColumnModel().getColumn(16).setMinWidth(50); // Cost
 		} else {
 			mTable.setModel(ownedModel);
 			mTable.getColumnModel().getColumn(0).setMinWidth(30); // Count
@@ -128,7 +128,7 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 			mTable.getColumnModel().getColumn(2).setMinWidth(100); // Name
 			mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
 			mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
-			mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
+			mTable.getColumnModel().getColumn(16).setMinWidth(50); // Cost
 
 		}
 		mTable.invalidate();
@@ -227,9 +227,9 @@ public class WeaponMarketPlaceDisplay extends WeaponDisplay implements TableMode
 			model.setValueAt(Integer.valueOf(record.getAttackSpeed() + metal.getASP()), row, 10); // Absorption
 			model.setValueAt(Integer.valueOf(metal.getBreak(record.getWeaponBreak())), row, 11); // Break
 			model.setValueAt(Integer.valueOf(record.getHitBonus() + metal.getHitBonus()), row, 12); // Missile Absorption
-			model.setValueAt(Integer.valueOf(record.getHanded() < 2 ? record.getDamageOneHanded() + metal.getDamage() : 0), row, 13); // 1 handed damage
-			model.setValueAt(Integer.valueOf(record.getHanded() < 3 && record.getHanded() > 0 ? record.getDamageTwoHanded() + metal.getDamage() : 0), row, 14); // 2 handed damage
-			model.setValueAt(Float.valueOf(record.getCost() * metal.getCost()), row, 15); // Cost
+			model.setValueAt(Integer.valueOf(record.getHanded() < 2 ? record.getDamageOneHanded() + metal.getDamage() : 0), row, 14); // 1 handed damage
+			model.setValueAt(Integer.valueOf(record.getHanded() < 3 && record.getHanded() > 0 ? record.getDamageTwoHanded() + metal.getDamage() : 0), row, 15); // 2 handed damage
+			model.setValueAt(Float.valueOf(record.getCost() * metal.getCost()), row, 16); // Cost
 		}
 		updateCost();
 	}

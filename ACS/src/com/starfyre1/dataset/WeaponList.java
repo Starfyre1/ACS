@@ -43,6 +43,7 @@ public class WeaponList implements Savable {
 	private static final String				SPEED_KEY				= "SPEED_KEY";					//$NON-NLS-1$
 	private static final String				BREAK_KEY				= "BREAK_KEY";					//$NON-NLS-1$
 	private static final String				HIT_BONUS_KEY			= "HIT_BONUS_KEY";				//$NON-NLS-1$
+	private static final String				HIT_BONUS_DP_KEY		= "HIT_BONUS_DP_KEY";			//$NON-NLS-1$
 	private static final String				DAMAGE1_KEY				= "DAMAGE1_KEY";				//$NON-NLS-1$
 	private static final String				DAMAGE2_KEY				= "DAMAGE2_KEY";				//$NON-NLS-1$
 	private static final String				COST_KEY				= "COST_KEY";					//$NON-NLS-1$
@@ -70,6 +71,7 @@ public class WeaponList implements Savable {
 	private int								mAttackSpeed;
 	private int								mWeaponBreak;											// -1 = N/A (doesn't break)
 	private int								mHitBonus;
+	private int								mDPHitBonus;
 	private int								mDamageOneHanded;
 	private int								mDamageTwoHanded;
 	private float							mCost;
@@ -102,7 +104,7 @@ public class WeaponList implements Savable {
 			original.update(record);
 		}
 	}
-	
+
 	public float removeWeapons(ArrayList<WeaponRecord> items, boolean calculateCost) {
 		float cost = 0f;
 		// DW Think about stacking and unstacking like items
@@ -172,7 +174,7 @@ public class WeaponList implements Savable {
 
 			String[] splitLine = line.split(", "); //$NON-NLS-1$
 			//					System.out.println("split: [" + Arrays.stream(splitLine).collect(Collectors.joining("][")) + "]"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			if (splitLine.length > 16) {
+			if (splitLine.length > 17) {
 				System.err.println(splitLine[2]);
 			}
 			WeaponRecord record = new WeaponRecord(TKStringHelpers.getIntValue(splitLine[0], 0), //
@@ -190,7 +192,8 @@ public class WeaponList implements Savable {
 							TKStringHelpers.getIntValue(splitLine[12], 0), //
 							TKStringHelpers.getIntValue(splitLine[13], 0), //
 							TKStringHelpers.getIntValue(splitLine[14], 0), //
-							TKStringHelpers.getFloatValue(splitLine[15], 0f));
+							TKStringHelpers.getIntValue(splitLine[15], 0), //
+							TKStringHelpers.getFloatValue(splitLine[16], 0f));
 			list.add(record);
 		}
 
@@ -388,13 +391,15 @@ public class WeaponList implements Savable {
 			mWeaponBreak = TKStringHelpers.getIntValue(value, 0);
 		} else if (HIT_BONUS_KEY.equals(key)) {
 			mHitBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (HIT_BONUS_DP_KEY.equals(key)) {
+			mDPHitBonus = TKStringHelpers.getIntValue(value, 0);
 		} else if (DAMAGE1_KEY.equals(key)) {
 			mDamageOneHanded = TKStringHelpers.getIntValue(value, 0);
 		} else if (DAMAGE2_KEY.equals(key)) {
 			mDamageTwoHanded = TKStringHelpers.getIntValue(value, 0);
 		} else if (COST_KEY.equals(key)) {
 			mCost = TKStringHelpers.getFloatValue(value, 0f);
-			mRecords.add(new WeaponRecord(mCount, mEquipped, mName, mMetal, mType, mHanded, mStrength, mDexterity, mEncumbrance, mWeaponLength, mAttackSpeed, mWeaponBreak, mHitBonus, mDamageOneHanded, mDamageTwoHanded, mCost));
+			mRecords.add(new WeaponRecord(mCount, mEquipped, mName, mMetal, mType, mHanded, mStrength, mDexterity, mEncumbrance, mWeaponLength, mAttackSpeed, mWeaponBreak, mHitBonus, mDPHitBonus, mDamageOneHanded, mDamageTwoHanded, mCost));
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$

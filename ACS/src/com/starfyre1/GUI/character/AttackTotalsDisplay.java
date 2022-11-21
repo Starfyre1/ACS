@@ -105,11 +105,14 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 		if (record.getType() < 3) {
 			hitBonus += cir.getHitBonus();
 			hitBonus += cir.getHitLevelBonus();
+			hitBonus += record.getDPHitBonus();
 		} else if (record.getType() == 3) {
 			hitBonus += cir.getMissileBonus();
+			hitBonus += record.getDPHitBonus();
 		} else if (record.getType() == 4) {
 			hitBonus += cir.getBowBonus();
 			hitBonus += cir.getBowLevelBonus();
+			hitBonus += record.getDPHitBonus();
 		}
 
 		return Integer.valueOf(hitBonus);

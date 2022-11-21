@@ -41,6 +41,7 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 	private int						mAttackSpeed;
 	private int						mWeaponBreak;															// -1 = N/A (doesn't break)
 	private int						mHitBonus;
+	private int						mDPHitBonus;
 	private int						mDamageOneHanded;
 	private int						mDamageTwoHanded;
 	private float					mCost;																	// in Silver
@@ -48,7 +49,7 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public WeaponRecord(int count, boolean equipped, String name, int metal, int type, int handed, int strength, int dexterity, float encumbrance, int weaponLength, int attackSpeed, int weaponBreak, int hitBonus, int damageOneHanded, int damageTwoHanded, float cost) {
+	public WeaponRecord(int count, boolean equipped, String name, int metal, int type, int handed, int strength, int dexterity, float encumbrance, int weaponLength, int attackSpeed, int weaponBreak, int hitBonus, int dpHitBonus, int damageOneHanded, int damageTwoHanded, float cost) {
 
 		mCount = count;
 		mEquipped = equipped;
@@ -63,6 +64,7 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 		mAttackSpeed = attackSpeed;
 		mWeaponBreak = weaponBreak;
 		mHitBonus = hitBonus;
+		mDPHitBonus = dpHitBonus;
 		mDamageOneHanded = damageOneHanded;
 		mDamageTwoHanded = damageTwoHanded;
 		mCost = cost;
@@ -86,9 +88,10 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 		mAttackSpeed = obj.get(10) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(10), 0) : ((Integer) obj.get(10)).intValue();
 		mWeaponBreak = obj.get(11) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(11), 0) : ((Integer) obj.get(11)).intValue();
 		mHitBonus = obj.get(12) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(12), 0) : ((Integer) obj.get(12)).intValue();
-		mDamageOneHanded = obj.get(13) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(13), 0) : ((Integer) obj.get(13)).intValue();
-		mDamageTwoHanded = obj.get(14) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(14), 0) : ((Integer) obj.get(14)).intValue();
-		mCost = obj.get(15) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(15), 0) : ((Float) obj.get(15)).floatValue();
+		mDPHitBonus = obj.get(13) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(13), 0) : ((Integer) obj.get(13)).intValue();
+		mDamageOneHanded = obj.get(14) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(14), 0) : ((Integer) obj.get(14)).intValue();
+		mDamageTwoHanded = obj.get(15) instanceof String ? TKStringHelpers.getIntValue((String) obj.get(15), 0) : ((Integer) obj.get(15)).intValue();
+		mCost = obj.get(16) instanceof String ? TKStringHelpers.getFloatValue((String) obj.get(16), 0) : ((Float) obj.get(16)).floatValue();
 	}
 
 	/*****************************************************************************
@@ -98,14 +101,14 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 	public String toString() {
 		return mCount + " " + mEquipped + " " + mName + " " + mMetal + " " + mType + " " + mHanded + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 						mStrength + " " + mDexterity + " " + mEncumbrance + " " + mWeaponLength + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-						mAttackSpeed + " " + mWeaponBreak + " " + mHitBonus + " " + mDamageOneHanded + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						mAttackSpeed + " " + mWeaponBreak + " " + mHitBonus + " " + mDPHitBonus + " " + mDamageOneHanded + " " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 						mDamageTwoHanded + " " + mCost; //$NON-NLS-1$
 	}
 
 	@Override
 	public WeaponRecord clone() {
 		return new WeaponRecord(mCount, mEquipped, mName, mMetal, mType, mHanded, mStrength, mDexterity, //
-						mEncumbrance, mWeaponLength, mAttackSpeed, mWeaponBreak, mHitBonus, mDamageOneHanded, //
+						mEncumbrance, mWeaponLength, mAttackSpeed, mWeaponBreak, mHitBonus, mDPHitBonus, mDamageOneHanded, //
 						mDamageTwoHanded, mCost);
 	}
 
@@ -133,6 +136,7 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 						mAttackSpeed == record.mAttackSpeed && //
 						mWeaponBreak == record.mWeaponBreak && //
 						mHitBonus == record.mHitBonus && //
+						mDPHitBonus == record.mDPHitBonus && //
 						mDamageOneHanded == record.mDamageOneHanded && //
 						mDamageTwoHanded == record.mDamageTwoHanded) { // && //
 			// mCost == record.mCost) {
@@ -156,6 +160,7 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 		result = prime * result + (mAttackSpeed ^ mAttackSpeed >>> 32);
 		result = prime * result + (mWeaponBreak ^ mWeaponBreak >>> 32);
 		result = prime * result + (mHitBonus ^ mHitBonus >>> 32);
+		result = prime * result + (mDPHitBonus ^ mDPHitBonus >>> 32);
 		result = prime * result + (mDamageOneHanded ^ mDamageOneHanded >>> 32);
 		result = prime * result + (mDamageTwoHanded ^ mDamageTwoHanded >>> 32);
 
@@ -180,6 +185,7 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 		mAttackSpeed = record.getAttackSpeed();
 		mWeaponBreak = record.getWeaponBreak();
 		mHitBonus = record.getHitBonus();
+		mDPHitBonus = record.getDPHitBonus();
 		mDamageOneHanded = record.getDamageOneHanded();
 		mDamageTwoHanded = record.getDamageTwoHanded();
 		mCost = record.getCost();
@@ -192,7 +198,7 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 						mName, getMetalName(mMetal), mTypeLabel[mType], mHandedLabel[mHanded], //
 						Integer.valueOf(mStrength), Integer.valueOf(mDexterity), Float.valueOf(mEncumbrance), //
 						Integer.valueOf(mWeaponLength), Integer.valueOf(mAttackSpeed), Integer.valueOf(mWeaponBreak), //
-						Integer.valueOf(mHitBonus), mDamageOneHanded > 0 ? Integer.valueOf(mDamageOneHanded) : Integer.valueOf(0), //
+						Integer.valueOf(mHitBonus), Integer.valueOf(mDPHitBonus), mDamageOneHanded > 0 ? Integer.valueOf(mDamageOneHanded) : Integer.valueOf(0), //
 						mDamageTwoHanded > 0 ? Integer.valueOf(mDamageTwoHanded) : Integer.valueOf(0), Float.valueOf(mCost) };
 	}
 
@@ -226,10 +232,12 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 			case 12:
 				yield Integer.valueOf(mHitBonus);
 			case 13:
-				yield mDamageOneHanded > 0 ? Integer.valueOf(mDamageOneHanded) : " "; //$NON-NLS-1$
+				yield Integer.valueOf(mDPHitBonus);
 			case 14:
-				yield mDamageTwoHanded > 0 ? Integer.valueOf(mDamageTwoHanded) : " "; //$NON-NLS-1$
+				yield mDamageOneHanded > 0 ? Integer.valueOf(mDamageOneHanded) : " "; //$NON-NLS-1$
 			case 15:
+				yield mDamageTwoHanded > 0 ? Integer.valueOf(mDamageTwoHanded) : " "; //$NON-NLS-1$
+			case 16:
 				yield Float.valueOf(mCost);
 			default:
 				throw new IllegalArgumentException(UNEXPECTED_VALUE + id);
@@ -332,6 +340,11 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 		return mHitBonus;
 	}
 
+	/** @return The hitBonus. */
+	public int getDPHitBonus() {
+		return mDPHitBonus;
+	}
+
 	/** @return The damageOneHanded. */
 	public int getDamageOneHanded() {
 		return mDamageOneHanded;
@@ -350,7 +363,7 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 	public String toRecordFile() {
 		return mCount + ", " + mEquipped + ", \"" + mName + "\", " + mMetal + ", " + mType + ", " + mHanded + ", " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 						mStrength + ", " + mDexterity + ", " + mEncumbrance + ", " + mWeaponLength + ", " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-						mAttackSpeed + ", " + mWeaponBreak + ", " + mHitBonus + ", " + mDamageOneHanded + ", " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+						mAttackSpeed + ", " + mWeaponBreak + ", " + mHitBonus + ", " + mDPHitBonus + ", " + mDamageOneHanded + ", " + //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 						mDamageTwoHanded + ", " + mCost; //$NON-NLS-1$
 	}
 
