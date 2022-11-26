@@ -20,104 +20,152 @@ public class SkillsRecord implements LevelListener, Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String	FILE_SECTION_START_KEY		= "SKILLS_SECTION_START";							//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY		= "SKILLS_SECTION_END";								//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY				= "SKILLS_SECTION_START";										//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY				= "SKILLS_SECTION_END";											//$NON-NLS-1$
 
-	public static final String	CONCEAL_LEVEL_BONUS_KEY		= "CONCEAL_LEVEL_BONUS_KEY";						//$NON-NLS-1$
-	public static final String	STEALTH_LEVEL_BONUS_KEY		= "STEALTH_LEVEL_BONUS_KEY";						//$NON-NLS-1$
-	public static final String	HEAR_LEVEL_BONUS_KEY		= "HEAR_LEVEL_BONUS_KEY";							//$NON-NLS-1$
-	public static final String	LOCK_PICK_LEVEL_BONUS_KEY	= "LOCK_PICK_LEVEL_BONUS_KEY";						//$NON-NLS-1$
-	public static final String	POCKET_PICK_LEVEL_BONUS_KEY	= "POCKET_PICK_LEVEL_BONUS_KEY";					//$NON-NLS-1$
-	public static final String	CLIMB_LEVEL_BONUS_KEY		= "CLIMB_LEVEL_BONUS_KEY";							//$NON-NLS-1$
-	public static final String	FIND_TRAP_LEVEL_BONUS_KEY	= "FIND_TRAP_LEVEL_BONUS_KEY";						//$NON-NLS-1$
-	public static final String	REMOVE_TRAP_LEVEL_BONUS_KEY	= "REMOVE_TRAP_LEVEL_BONUS_KEY";					//$NON-NLS-1$
+	public static final String	CONCEAL_LEVEL_BONUS_KEY				= "CONCEAL_LEVEL_BONUS_KEY";									//$NON-NLS-1$
+	public static final String	STEALTH_LEVEL_BONUS_KEY				= "STEALTH_LEVEL_BONUS_KEY";									//$NON-NLS-1$
+	public static final String	HEAR_LEVEL_BONUS_KEY				= "HEAR_LEVEL_BONUS_KEY";										//$NON-NLS-1$
+	public static final String	LOCK_PICK_LEVEL_BONUS_KEY			= "LOCK_PICK_LEVEL_BONUS_KEY";									//$NON-NLS-1$
+	public static final String	POCKET_PICK_LEVEL_BONUS_KEY			= "POCKET_PICK_LEVEL_BONUS_KEY";								//$NON-NLS-1$
+	public static final String	CLIMB_LEVEL_BONUS_KEY				= "CLIMB_LEVEL_BONUS_KEY";										//$NON-NLS-1$
+	public static final String	FIND_TRAP_LEVEL_BONUS_KEY			= "FIND_TRAP_LEVEL_BONUS_KEY";									//$NON-NLS-1$
+	public static final String	REMOVE_TRAP_LEVEL_BONUS_KEY			= "REMOVE_TRAP_LEVEL_BONUS_KEY";								//$NON-NLS-1$
 
-	private static final String	APPRAISE_TOOLTIP			= "90 + lvl";										//$NON-NLS-1$
-	private static final String	BANDAGING_TOOLTIP			= "(lvl * 10) + (WIS > 12 ? +10) + Class Bonus";	//$NON-NLS-1$
-	private static final String	DEPTH_SENSE_TOOLTIP			= "60 + (lvl * 3)";									//$NON-NLS-1$
-	private static final String	DETECT_MAGIC_TOOLTIP		= "50 + (lvl * 5)";									//$NON-NLS-1$
-	private static final String	DETECT_METALS_TOOLTIP		= "50 + (lvl * 5)";									//$NON-NLS-1$
-	private static final String	DETECT_MORALS_TOOLTIP		= "30 + (diff in lvls * 5)";						//$NON-NLS-1$
-	private static final String	DETECT_SECRET_DOORS_TOOLTIP	= "50 + (lvl * 5)";									//$NON-NLS-1$
-	private static final String	DETECT_TRAPS_TOOLTIP		= "50 + (lvl * 5)";									//$NON-NLS-1$
-	private static final String	HERBAL_LORE_TOOLTIP			= "15 + (lvl * 3) + Class Bonus";					//$NON-NLS-1$
-	private static final String	HUNTING_TOOLTIP				= "WIS + (lvl * 5) + Weapon Bonus";					//$NON-NLS-1$
-	private static final String	PERCEPTION_TOOLTIP			= "15 + INT + WIS + ((lvl -1) * 2) + Class Bonus";	//$NON-NLS-1$
-	private static final String	TRACKING_TOOLTIP			= "70 + (lvl * 3) + Modifiers";						//$NON-NLS-1$
+	private static final String	APPRAISE_TOOLTIP					= "90 + lvl + DP Bonus";										//$NON-NLS-1$
+	private static final String	BANDAGING_TOOLTIP					= "(lvl * 10) + (WIS > 12 ? +10) + Class Bonus + DP Bonus";		//$NON-NLS-1$
+	private static final String	DEPTH_SENSE_TOOLTIP					= "60 + (lvl * 3) + DP Bonus";									//$NON-NLS-1$
+	private static final String	DETECT_MAGIC_TOOLTIP				= "50 + (lvl * 5) + DP Bonus";									//$NON-NLS-1$
+	private static final String	DETECT_METALS_TOOLTIP				= "(50 + (lvl * 5)) + DP Bonus";								//$NON-NLS-1$
+	private static final String	DETECT_MORALS_TOOLTIP				= "30 + DP Bonus + (diff in lvls * 5)";							//$NON-NLS-1$
+	private static final String	DETECT_SECRET_DOORS_TOOLTIP			= "50 + (lvl * 5) + DP Bonus";									//$NON-NLS-1$
+	private static final String	DETECT_TRAPS_TOOLTIP				= "50 + (lvl * 5) + DP Bonus";									//$NON-NLS-1$
+	private static final String	HERBAL_LORE_TOOLTIP					= "15 + (lvl * 3) + Class Bonus + DP Bonus";					//$NON-NLS-1$
+	private static final String	HUNTING_TOOLTIP						= "WIS + (lvl * 5) + Weapon Bonus + DP Bonus";					//$NON-NLS-1$
+	private static final String	PERCEPTION_TOOLTIP					= "15 + INT + WIS + ((lvl -1) * 2) + Class Bonus + DP Bonus";	//$NON-NLS-1$
+	private static final String	TRACKING_TOOLTIP					= "70 + (lvl * 3) + DP Bonus + Modifiers";						//$NON-NLS-1$
 
-	private static final String	CONCEAL_TOOLTIP				= "20 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
-	private static final String	STEALTH_TOOLTIP				= "20 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
-	private static final String	HEAR_TOOLTIP				= "Class Bonus + Skill Bonus";						//$NON-NLS-1$
-	private static final String	LOCK_PICK_TOOLTIP			= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
-	private static final String	PICK_POCKET_TOOLTIP			= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
-	private static final String	CLIMB_TOOLTIP				= "70 + Dex Modifier + Class Bonus + Skill Bonus";	//$NON-NLS-1$
-	private static final String	FIND_TRAP_TOOLTIP			= "20 + Wis & INT Modifier + Skill Bonus";			//$NON-NLS-1$
-	private static final String	REMOVE_TRAP_TOOLTIP			= "20 + Dex Modifier + Skill Bonus";				//$NON-NLS-1$
+	private static final String	CONCEAL_TOOLTIP						= "20 + Dex Modifier + Class Bonus + Skill Bonus + DP Bonus";	//$NON-NLS-1$
+	private static final String	STEALTH_TOOLTIP						= "20 + Dex Modifier + Class Bonus + Skill Bonus + DP Bonus";	//$NON-NLS-1$
+	private static final String	HEAR_TOOLTIP						= "Class Bonus + Skill Bonus + DP Bonus";						//$NON-NLS-1$
+	private static final String	LOCK_PICK_TOOLTIP					= "20 + Dex Modifier + Skill Bonus + DP Bonus";					//$NON-NLS-1$
+	private static final String	PICK_POCKET_TOOLTIP					= "20 + Dex Modifier + Skill Bonus + DP Bonus";					//$NON-NLS-1$
+	private static final String	CLIMB_TOOLTIP						= "70 + Dex Modifier + Class Bonus + Skill Bonus + DP Bonus";	//$NON-NLS-1$
+	private static final String	FIND_TRAP_TOOLTIP					= "20 + (Wis & INT Modifier) + Skill Bonus + DP Bonus";			//$NON-NLS-1$
+	private static final String	REMOVE_TRAP_TOOLTIP					= "20 + Dex Modifier + Skill Bonus + DP Bonus";					//$NON-NLS-1$
 
-	private static final String	UNALLOCATED_TOOLTIP			= "Unallocated";									//$NON-NLS-1$
+	private static final String	APPRAISE_DP_BONUS_KEY				= "APPRAISE_DP_BONUS_KEY";										//$NON-NLS-1$
+	private static final String	BANDAGING_DP_BONUS_KEY				= "BANDAGING_DP_BONUS_KEY";										//$NON-NLS-1$
+	private static final String	DEPTH_SENSE_DP_BONUS_KEY			= "DEPTH_SENSE_DP_BONUS_KEY";									//$NON-NLS-1$
+	private static final String	DETECT_MAGIC_DP_BONUS_KEY			= "DETECT_MAGIC_DP_BONUS_KEY";									//$NON-NLS-1$
+	private static final String	DETECT_METALS_DP_BONUS_KEY			= "DETECT_METALS_DP_BONUS_KEY";									//$NON-NLS-1$
+	private static final String	DETECT_MORALS_DP_BONUS_KEY			= "DETECT_MORALS_DP_BONUS_KEY";									//$NON-NLS-1$
+	private static final String	DETECT_SECRET_DOORS_DP_BONUS_KEY	= "DETECT_SECRET_DOORS_DP_BONUS_KEY";							//$NON-NLS-1$
+	private static final String	DETECT_TRAPS_DP_BONUS_KEY			= "DETECT_TRAPS_DP_BONUS_KEY";									//$NON-NLS-1$
+	private static final String	HERBAL_LORE_DP_BONUS_KEY			= "HERBAL_LORE_DP_BONUS_KEY";									//$NON-NLS-1$
+	private static final String	HUNTING_DP_BONUS_KEY				= "HUNTING_DP_BONUS_KEY";										//$NON-NLS-1$
+	private static final String	PERCEPTION_DP_BONUS_KEY				= "PERCEPTION_DP_BONUS_KEY";									//$NON-NLS-1$
+	private static final String	TRACKING_DP_BONUS_KEY				= "TRACKING_DP_BONUS_KEY";										//$NON-NLS-1$
 
-	private boolean				mIsInnate[]					= new boolean[20];
+	private static final String	BERSERK_DP_BONUS_KEY				= "BERSERK_DP_BONUS_KEY";										//$NON-NLS-1$
+
+	private static final String	CONCEAL_DP_BONUS_KEY				= "CONCEAL_DP_BONUS_KEY";										//$NON-NLS-1$
+	private static final String	STEALTH_DP_BONUS_KEY				= "STEALTH_DP_BONUS_KEY";										//$NON-NLS-1$
+	private static final String	HEAR_DP_BONUS_KEY					= "HEAR_DP_BONUS_KEY";											//$NON-NLS-1$
+	private static final String	LOCK_PICK_DP_BONUS_KEY				= "LOCK_PICK_DP_BONUS_KEY";										//$NON-NLS-1$
+	private static final String	PICK_POCKET_DP_BONUS_KEY			= "PICK_POCKET_DP_BONUS_KEY";									//$NON-NLS-1$
+	private static final String	CLIMB_DP_BONUS_KEY					= "CLIMB_DP_BONUS_KEY";											//$NON-NLS-1$
+	private static final String	FIND_TRAP_DP_BONUS_KEY				= "FIND_TRAP_DP_BONUS_KEY";										//$NON-NLS-1$
+	private static final String	REMOVE_TRAP_DP_BONUS_KEY			= "REMOVE_TRAP_DP_BONUS_KEY";									//$NON-NLS-1$
+
+	private static final String	UNALLOCATED_TOOLTIP					= "Unallocated";												//$NON-NLS-1$
+
+	private boolean				mIsInnate[]							= new boolean[20];
 
 	//	private static final int	BANDAGING					= 0;
-	private static final int	HUNTING						= 1;
-	private static final int	TRACKING					= 2;
-	private static final int	DETECT_MAGIC				= 3;
-	private static final int	DETECT_MORALS				= 4;
-	private static final int	DETECT_METALS				= 5;
-	private static final int	DETECT_SECRET_DOORS			= 6;
-	private static final int	DETECT_TRAPS				= 7;
-	private static final int	APPRAISE					= 8;
-	private static final int	DEPTH_SENSE					= 9;
-	private static final int	CONCEAL						= 10;
-	private static final int	STEALTH						= 11;
-	private static final int	HEAR						= 12;
-	private static final int	LOCK_PICK					= 13;
-	private static final int	PICK_POCKET					= 14;
-	private static final int	CLIMB						= 15;
-	private static final int	FIND_TRAP					= 16;
-	private static final int	REMOVE_TRAP					= 17;
+	private static final int	HUNTING								= 1;
+	private static final int	TRACKING							= 2;
+	private static final int	DETECT_MAGIC						= 3;
+	private static final int	DETECT_MORALS						= 4;
+	private static final int	DETECT_METALS						= 5;
+	private static final int	DETECT_SECRET_DOORS					= 6;
+	private static final int	DETECT_TRAPS						= 7;
+	private static final int	APPRAISE							= 8;
+	private static final int	DEPTH_SENSE							= 9;
+	private static final int	CONCEAL								= 10;
+	private static final int	STEALTH								= 11;
+	private static final int	HEAR								= 12;
+	private static final int	LOCK_PICK							= 13;
+	private static final int	PICK_POCKET							= 14;
+	private static final int	CLIMB								= 15;
+	private static final int	FIND_TRAP							= 16;
+	private static final int	REMOVE_TRAP							= 17;
 	//	private static final int	HERBAL_LORE					= 18;
-	private static final int	BERSERK						= 19;
+	private static final int	BERSERK								= 19;
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
 	private CharacterSheet		mCharacterSheet;
 
-	private int					mAppraise					= 0;
-	private int					mBandaging					= 0;
-	private int					mDepthSense					= 0;
-	private int					mDetectMagic				= 0;
-	private int					mDetectMetals				= 0;
-	private int					mDetectMorals				= 0;
-	private int					mDetectSecretDoors			= 0;
-	private int					mDetectTraps				= 0;
-	private int					mHerbalLore					= 0;
-	private int					mHunting					= 0;
-	private int					mPerception					= 0;
-	private int					mTracking					= 0;
+	private int					mAppraise							= 0;
+	private int					mBandaging							= 0;
+	private int					mDepthSense							= 0;
+	private int					mDetectMagic						= 0;
+	private int					mDetectMetals						= 0;
+	private int					mDetectMorals						= 0;
+	private int					mDetectSecretDoors					= 0;
+	private int					mDetectTraps						= 0;
+	private int					mHerbalLore							= 0;
+	private int					mHunting							= 0;
+	private int					mPerception							= 0;
+	private int					mTracking							= 0;
 
-	private int					mBerserk					= 0;
+	private int					mBerserk							= 0;
 
-	private int					mClimb						= 0;
-	private int					mConceal					= 0;
-	private int					mFindTrap					= 0;
-	private int					mHear						= 0;
-	private int					mLockPick					= 0;
-	private int					mPickPocket					= 0;
-	private int					mRemoveTrap					= 0;
-	private int					mStealth					= 0;
+	private int					mClimb								= 0;
+	private int					mConceal							= 0;
+	private int					mFindTrap							= 0;
+	private int					mHear								= 0;
+	private int					mLockPick							= 0;
+	private int					mPickPocket							= 0;
+	private int					mRemoveTrap							= 0;
+	private int					mStealth							= 0;
 
-	private int					mClimbLevelBonus			= 0;
-	private int					mConcealLevelBonus			= 0;
-	private int					mFindTrapLevelBonus			= 0;
-	private int					mHearLevelBonus				= 0;
-	private int					mLockPickLevelBonus			= 0;
-	private int					mPickPocketLevelBonus		= 0;
-	private int					mRemoveTrapLevelBonus		= 0;
-	private int					mStealthLevelBonus			= 0;
+	private int					mAppraiseDPBonus					= 0;
+	private int					mBandagingDPBonus					= 0;
+	private int					mDepthSenseDPBonus					= 0;
+	private int					mDetectMagicDPBonus					= 0;
+	private int					mDetectMetalsDPBonus				= 0;
+	private int					mDetectMoralsDPBonus				= 0;
+	private int					mDetectSecretDoorsDPBonus			= 0;
+	private int					mDetectTrapsDPBonus					= 0;
+	private int					mHerbalLoreDPBonus					= 0;
+	private int					mHuntingDPBonus						= 0;
+	private int					mPerceptionDPBonus					= 0;
+	private int					mTrackingDPBonus					= 0;
 
-	private int					mUnallocated				= 0;
+	private int					mBerserkDPBonus						= 0;
+
+	private int					mClimbDPBonus						= 0;
+	private int					mConcealDPBonus						= 0;
+	private int					mFindTrapDPBonus					= 0;
+	private int					mHearDPBonus						= 0;
+	private int					mLockPickDPBonus					= 0;
+	private int					mPickPocketDPBonus					= 0;
+	private int					mRemoveTrapDPBonus					= 0;
+	private int					mStealthDPBonus						= 0;
+
+	private int					mClimbLevelBonus					= 0;
+	private int					mConcealLevelBonus					= 0;
+	private int					mFindTrapLevelBonus					= 0;
+	private int					mHearLevelBonus						= 0;
+	private int					mLockPickLevelBonus					= 0;
+	private int					mPickPocketLevelBonus				= 0;
+	private int					mRemoveTrapLevelBonus				= 0;
+	private int					mStealthLevelBonus					= 0;
+
+	private int					mUnallocated						= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -189,6 +237,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 10 * lvl;
 		int wisdomBonus = wisdom > 12 ? 10 : 0;
 		int classBonus = classInfo.getBandaging();
+		int DPBonus = mBandagingDPBonus;
 
 		// DW fix... need to check all magic areas
 		String magicArea = ACS.getInstance().getCharacterSheet().getSpellListDisplay().getMagicArea();
@@ -205,11 +254,12 @@ public class SkillsRecord implements LevelListener, Savable {
 
 		};
 
-		mBandaging = base + wisdomBonus + classBonus + magicAreaBonus;
+		mBandaging = base + wisdomBonus + classBonus + magicAreaBonus + DPBonus;
 	}
 
 	public void generateHunting(BaseClass classInfo, int wisdom) {
 		boolean innate = mIsInnate[HUNTING];
+		int DPBonus = mHuntingDPBonus;
 
 		// Add +20% if they are hunting with a Spear or a Bow.
 		int base = 0;
@@ -218,29 +268,32 @@ public class SkillsRecord implements LevelListener, Savable {
 			base = wisdom;
 			classBonus = classInfo.getHunting();
 		}
-		mHunting = base + classBonus;
+		mHunting = base + classBonus + DPBonus;
 	}
 
 	public void generatePerception(BaseClass classInfo, int lvl, int intel, int wisdom) {
 		int base = intel + wisdom + 15 + (lvl - 1) * 2;
 		int classBonus = classInfo.getPerception();
-		mPerception = base + classBonus;
+		int DPBonus = mPerceptionDPBonus;
+		mPerception = base + classBonus + DPBonus;
 	}
 
 	public void generateTracking(BaseClass classInfo) {
 		boolean innate = mIsInnate[TRACKING];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mTrackingDPBonus;
 
 		if (innate) {
 			base = 70;
 			classBonus = classInfo.getTracking();
 		}
-		mTracking = base + classBonus;
+		mTracking = base + classBonus + DPBonus;
 	}
 
 	public void generateDetectMagic(BaseClass classInfo) {
 		boolean innate = mIsInnate[DETECT_MAGIC];
+		int DPBonus = mDetectMagicDPBonus;
 		int base = 0;
 		int classBonus = 0;
 		if (innate) {
@@ -248,64 +301,70 @@ public class SkillsRecord implements LevelListener, Savable {
 			classBonus = classInfo.getDetectMagic();
 		}
 
-		mDetectMagic = base + classBonus;
+		mDetectMagic = base + classBonus + DPBonus;
 	}
 
 	public void generateDetectMorals() {
 		boolean innate = mIsInnate[DETECT_MORALS];
 		HeaderRecord headerRecord = mCharacterSheet.getHeaderRecord();
 		int lvlBonus = headerRecord.getLevel() * 5;
-		mDetectMorals = innate ? 30 + lvlBonus : 0;
+		int DPBonus = mDetectMoralsDPBonus;
+		mDetectMorals = innate ? 30 + lvlBonus + DPBonus : 0 + DPBonus;
 	}
 
 	public void generateDetectMetals(BaseClass classInfo) {
 		boolean innate = mIsInnate[DETECT_METALS];
-		mDetectMetals = innate ? classInfo.getDetectMetals() : 0;
+		int DPBonus = mDetectMetalsDPBonus;
+		mDetectMetals = innate ? classInfo.getDetectMetals() + DPBonus : 0 + DPBonus;
 	}
 
 	public void generateDetectSecretDoors(BaseClass classInfo) {
 		boolean innate = mIsInnate[DETECT_SECRET_DOORS];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mDetectSecretDoorsDPBonus;
 
 		if (innate) {
 			base = 50;
 			classBonus = classInfo.getDetectSecretDoors();
 		}
-		mDetectSecretDoors = base + classBonus;
+		mDetectSecretDoors = base + classBonus + DPBonus;
 	}
 
 	public void generateDetectTraps(int lvl, BaseClass classInfo) {
 		boolean innate = mIsInnate[DETECT_TRAPS];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mDetectTrapsDPBonus;
 		if (innate) {
 			base = 50 + lvl * 5;
 			classBonus = classInfo.getDetectTraps();
 		}
-		mDetectTraps = base + classBonus;
+		mDetectTraps = base + classBonus + DPBonus;
 	}
 
 	public void generateAppraise(BaseClass classInfo) {
 		boolean innate = mIsInnate[APPRAISE];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mAppraiseDPBonus;
 		if (innate) {
 			base = 90;
 			classBonus = classInfo.getAppraise();
 		}
-		mAppraise = base + classBonus;
+		mAppraise = base + classBonus + DPBonus;
 	}
 
 	public void generateDepthSense(BaseClass classInfo) {
 		boolean innate = mIsInnate[DEPTH_SENSE];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mDepthSenseDPBonus;
 		if (innate) {
 			base = 60;
 			classBonus = classInfo.getDepthSense();
 		}
-		mDepthSense = base + classBonus;
+		mDepthSense = base + classBonus + DPBonus;
 	}
 
 	private int getDexModifier() {
@@ -360,13 +419,14 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 0;
 		int classBonus = 0;
 		int dexModifier = 0;
+		int DPBonus = mConcealDPBonus;
 		if (innate) {
 			base = 20;
 			classBonus = classInfo.getConceal();
 			dexModifier = getDexModifier();
 		}
 
-		mConceal = base + mConcealLevelBonus + classBonus + dexModifier;
+		mConceal = base + mConcealLevelBonus + classBonus + dexModifier + DPBonus;
 	}
 
 	public void generateStealth(BaseClass classInfo) {
@@ -374,13 +434,14 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 0;
 		int classBonus = 0;
 		int dexModifier = 0;
+		int DPBonus = mStealthDPBonus;
 		if (innate) {
 			base = 20;
 			classBonus = classInfo.getStealth();
 			dexModifier = getDexModifier();
 		}
 
-		mStealth = base + mStealthLevelBonus + classBonus + dexModifier;
+		mStealth = base + mStealthLevelBonus + classBonus + dexModifier + DPBonus;
 	}
 
 	public void generateHear(BaseClass classInfo) {
@@ -390,51 +451,54 @@ public class SkillsRecord implements LevelListener, Savable {
 		  		Listener is:				Chance to Hear 		Range
 				Human, Non-thief with a save		20%			60'
 				Vs. Surprise of less than 75%
-
-
+		
+		
 				Human, Non-thief with a save		30%			60'
 				Vs. Surprise of more than 75%
-
+		
 				Elven, Half-Elven and Dwarrow		30% 		120'
-
+		
 				Other--(some monsters will have		20%			60'
 				high hearing abilities)
-
+		
 				Thief					Varies with lvl		60' *
 					*	Add 5’ per 10% above 100% to hear.
-
+		
 				Halve all chances when listening to a door.
-
+		
 		*/
 
 		boolean innate = mIsInnate[HEAR];
 		int classBonus = classInfo.getHear();
+		int DPBonus = mHearDPBonus;
 
-		mHear = classBonus + (innate ? mHearLevelBonus : 0);
+		mHear = classBonus + DPBonus + (innate ? mHearLevelBonus : 0);
 	}
 
 	public void generateLockPick() {
 		boolean innate = mIsInnate[LOCK_PICK];
 		int base = 0;
 		int dexModifier = 0;
+		int DPBonus = mLockPickDPBonus;
 		if (innate) {
 			base = 20;
 			dexModifier = getDexModifier();
 		}
 
-		mLockPick = base + mLockPickLevelBonus + dexModifier;
+		mLockPick = base + mLockPickLevelBonus + dexModifier + DPBonus;
 	}
 
 	public void generatePickPocket() {
 		boolean innate = mIsInnate[PICK_POCKET];
 		int base = 0;
 		int dexModifier = 0;
+		int DPBonus = mPickPocketDPBonus;
 		if (innate) {
 			base = 20;
 			dexModifier = getDexModifier();
 		}
 
-		mPickPocket = base + mPickPocketLevelBonus + dexModifier;
+		mPickPocket = base + mPickPocketLevelBonus + dexModifier + DPBonus;
 	}
 
 	public void generateClimb(BaseClass classInfo) {
@@ -442,24 +506,26 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 0;
 		int dexModifier = 0;
 		int classBonus = 0;
+		int DPBonus = mClimbDPBonus;
 		if (innate) {
 			base = 70;
 			dexModifier = getDexModifier();
 			classBonus = classInfo.getClimb();
 		}
 
-		mClimb = base + mClimbLevelBonus + classBonus + dexModifier;
+		mClimb = base + mClimbLevelBonus + classBonus + dexModifier + DPBonus;
 	}
 
 	public void generateFindTrap() {
 		boolean innate = mIsInnate[FIND_TRAP];
 		int base = 0;
 		int mod = 0;
+		int DPBonus = mFindTrapDPBonus;
 		if (innate) {
 			mod = findTrapModification();
 			base = 20;
 		}
-		mFindTrap = base + mod + mFindTrapLevelBonus;
+		mFindTrap = base + mod + mFindTrapLevelBonus + DPBonus;
 	}
 
 	private int findTrapModification() {
@@ -494,12 +560,13 @@ public class SkillsRecord implements LevelListener, Savable {
 		boolean innate = mIsInnate[REMOVE_TRAP];
 		int base = 0;
 		int dexModifier = 0;
+		int DPBonus = mRemoveTrapDPBonus;
 		if (innate) {
 			base = 20;
 			dexModifier = getDexModifier();
 		}
 
-		mRemoveTrap = base + mRemoveTrapLevelBonus + dexModifier;
+		mRemoveTrap = base + mRemoveTrapLevelBonus + dexModifier + DPBonus;
 	}
 
 	public void generateHerbalLore(int lvl, BaseClass classInfo) {
@@ -507,18 +574,20 @@ public class SkillsRecord implements LevelListener, Savable {
 		// boolean innate = mIsInnate[HERBAL_LORE];
 		int base = 15 + lvl * 3;
 		int classBonus = classInfo.getHerbalLore();
+		int DPBonus = mHerbalLoreDPBonus;
 
-		mHerbalLore = base + classBonus;
+		mHerbalLore = base + classBonus + DPBonus;
 	}
 
 	public void generateBerserk() {
 		boolean innate = mIsInnate[BERSERK];
 		int berserk = 0;
+		int DPBonus = mBerserkDPBonus;
 		if (innate) {
 			// DW fill Berserk out
 		}
 
-		mBerserk = berserk;
+		mBerserk = berserk + DPBonus;
 	}
 
 	public void generateUnallocatedSkills() {
@@ -780,11 +849,12 @@ public class SkillsRecord implements LevelListener, Savable {
 		int level = 10 * headerRecord.getLevel();
 		int wisdomBonus = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.WIS) > 12 ? 10 : 0;
 		int classBonus = headerRecord.getCharacterClass().getBandaging();
+		int DPBonus = mBandagingDPBonus;
 
 		if (ACS.showCalculations()) {
 			sb.append(BANDAGING_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append("(" + level + ") + (" + wisdomBonus + ") + " + classBonus + " = " + (level + wisdomBonus + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		sb.append("(" + level + ") + (" + wisdomBonus + ") + " + classBonus + " + " + DPBonus + " = " + (level + wisdomBonus + classBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
 		return sb.toString();
 	}
@@ -798,6 +868,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		int wisBonus = 0;
 		int classBonus = 0;
 		int weaponBonus = 0;
+		int DPBonus = mHuntingDPBonus;
 		if (innate) {
 			wisBonus = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
 			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getHunting();
@@ -807,7 +878,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(HUNTING_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(wisBonus + " + (" + classBonus + ") + " + weaponBonus + " = " + (wisBonus + classBonus + weaponBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		sb.append(wisBonus + " + (" + classBonus + ") + " + weaponBonus + " + " + DPBonus + " = " + (wisBonus + classBonus + weaponBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
 		return sb.toString();
 	}
@@ -818,6 +889,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		boolean innate = mIsInnate[TRACKING];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mTrackingDPBonus;
 
 		if (innate) {
 			base = 70;
@@ -826,7 +898,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(TRACKING_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + (" + classBonus + ") = " + (base + classBonus) + " +/- modifiers<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		sb.append(base + " + (" + classBonus + ") + " + DPBonus + " = " + (base + classBonus + DPBonus) + " +/- modifiers + " + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
 		return sb.toString();
 	}
@@ -837,6 +909,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		boolean innate = mIsInnate[DETECT_MAGIC];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mDetectMagicDPBonus;
 		if (innate) {
 			base = 50;
 			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getDetectMagic();
@@ -844,7 +917,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(DETECT_MAGIC_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + (" + classBonus + ") = " + (base + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		sb.append(base + " + (" + classBonus + ") + " + DPBonus + " = " + (base + classBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 		return sb.toString();
 	}
@@ -854,10 +927,11 @@ public class SkillsRecord implements LevelListener, Savable {
 		StringBuilder sb = new StringBuilder("<html>"); //$NON-NLS-1$
 		boolean innate = mIsInnate[DETECT_MORALS];
 		int base = innate ? 30 : 0;
+		int DPBonus = mDetectMoralsDPBonus;
 		if (ACS.showCalculations()) {
 			sb.append(DETECT_MORALS_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " = " + base + " +/- level modifiers<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append(base + " + " + DPBonus + " = " + (base + DPBonus) + " +/- level modifiers<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 		return sb.toString();
 	}
@@ -868,10 +942,11 @@ public class SkillsRecord implements LevelListener, Savable {
 
 		boolean innate = mIsInnate[DETECT_METALS];
 		int base = innate ? mCharacterSheet.getHeaderRecord().getCharacterClass().getDetectMetals() : 0;
+		int DPBonus = mDetectMetalsDPBonus;
 		if (ACS.showCalculations()) {
 			sb.append(DETECT_METALS_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " = " + base + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$
+		sb.append("(" + base + ") + " + DPBonus + " = " + (base + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 		return sb.toString();
 	}
@@ -883,6 +958,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		boolean innate = mIsInnate[DETECT_SECRET_DOORS];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mDetectSecretDoorsDPBonus;
 
 		if (innate) {
 			base = 50;
@@ -891,7 +967,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(DETECT_SECRET_DOORS_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + (" + classBonus + ") = " + (base + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		sb.append(base + " + (" + classBonus + ") + " + DPBonus + " = " + (base + classBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 		return sb.toString();
 	}
@@ -903,6 +979,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		boolean innate = mIsInnate[DETECT_TRAPS];
 		int base = 0;
 		int level = 0;
+		int DPBonus = mDetectTrapsDPBonus;
 		if (innate) {
 			base = 50;
 			level = mCharacterSheet.getHeaderRecord().getLevel() * 5;
@@ -910,7 +987,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(DETECT_TRAPS_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + (" + level + ") = " + (base + level) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		sb.append(base + " + (" + level + ") + " + DPBonus + " = " + (base + level + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 		return sb.toString();
 	}
@@ -921,6 +998,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		boolean innate = mIsInnate[APPRAISE];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mAppraiseDPBonus;
 		if (innate) {
 			base = 90;
 			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getAppraise();
@@ -928,7 +1006,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(APPRAISE_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + " + classBonus + " = " + (base + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		sb.append(base + " + " + classBonus + " + " + DPBonus + " = " + (base + classBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 		return sb.toString();
 	}
@@ -939,6 +1017,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		boolean innate = mIsInnate[DEPTH_SENSE];
 		int base = 0;
 		int classBonus = 0;
+		int DPBonus = mDepthSenseDPBonus;
 		if (innate) {
 			base = 60;
 			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getDepthSense();
@@ -946,7 +1025,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(DEPTH_SENSE_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + (" + classBonus + ") = " + (base + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		sb.append(base + " + (" + classBonus + ") + " + DPBonus + " = " + (base + classBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 		return sb.toString();
 	}
@@ -959,6 +1038,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		int classBonus = 0;
 		int skillBonus = 0;
 		int dexModifier = 0;
+		int DPBonus = mConcealDPBonus;
 		if (innate) {
 			base = 20;
 			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getConceal();
@@ -969,7 +1049,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(CONCEAL_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + " + dexModifier + " + " + classBonus + " + " + skillBonus + " = " + (base + dexModifier + classBonus + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		sb.append(base + " + " + dexModifier + " + " + classBonus + " + " + skillBonus + " + " + DPBonus + " = " + (base + dexModifier + classBonus + skillBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
 		return sb.toString();
 	}
@@ -982,6 +1062,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		int dexModifier = 0;
 		int classBonus = 0;
 		int skillBonus = 0;
+		int DPBonus = mStealthDPBonus;
 		if (innate) {
 			base = 20;
 			dexModifier = getDexModifier();
@@ -991,7 +1072,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(STEALTH_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + " + dexModifier + " + " + classBonus + " + " + skillBonus + " = " + (base + dexModifier + classBonus + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		sb.append(base + " + " + dexModifier + " + " + classBonus + " + " + skillBonus + " + " + DPBonus + " = " + (base + dexModifier + classBonus + skillBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
 		return sb.toString();
 	}
@@ -1002,11 +1083,12 @@ public class SkillsRecord implements LevelListener, Savable {
 		//		boolean innate = mIsInnate[HEAR];
 		int classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getHear();
 		int skillBonus = getHearLevelBonus();
+		int DPBonus = mHearDPBonus;
 
 		if (ACS.showCalculations()) {
 			sb.append(HEAR_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(classBonus + " + " + skillBonus + " = " + (classBonus + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		sb.append(classBonus + " + " + skillBonus + " + " + DPBonus + " = " + (classBonus + skillBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 		return sb.toString();
 	}
@@ -1018,6 +1100,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 0;
 		int dexModifier = 0;
 		int skillBonus = 0;
+		int DPBonus = mLockPickDPBonus;
 		if (innate) {
 			base = 20;
 			dexModifier = getDexModifier();
@@ -1026,7 +1109,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(LOCK_PICK_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + " + dexModifier + " + " + skillBonus + " = " + (base + dexModifier + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		sb.append(base + " + " + dexModifier + " + " + skillBonus + " + " + DPBonus + " = " + (base + dexModifier + skillBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
 		return sb.toString();
 	}
@@ -1038,6 +1121,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 0;
 		int dexModifier = 0;
 		int skillBonus = 0;
+		int DPBonus = mPickPocketDPBonus;
 		if (innate) {
 			base = 20;
 			dexModifier = getDexModifier();
@@ -1046,7 +1130,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(PICK_POCKET_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + " + dexModifier + " + " + skillBonus + " = " + (base + dexModifier + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		sb.append(base + " + " + dexModifier + " + " + skillBonus + " + " + DPBonus + " = " + (base + dexModifier + skillBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
 		return sb.toString();
 	}
@@ -1059,6 +1143,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		int dexModifier = 0;
 		int classBonus = 0;
 		int skillBonus = 0;
+		int DPBonus = mClimbDPBonus;
 		if (innate) {
 			base = 70;
 			dexModifier = getDexModifier();
@@ -1068,7 +1153,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(CLIMB_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + " + dexModifier + " + " + classBonus + " + " + skillBonus + " = " + (base + dexModifier + classBonus + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		sb.append(base + " + " + dexModifier + " + " + classBonus + " + " + skillBonus + " + " + DPBonus + " = " + (base + dexModifier + classBonus + skillBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
 		return sb.toString();
 	}
@@ -1080,6 +1165,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 0;
 		int mod = 0;
 		int skillBonus = 0;
+		int DPBonus = mFindTrapDPBonus;
 		if (innate) {
 			mod = findTrapModification();
 			base = 20;
@@ -1088,7 +1174,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(FIND_TRAP_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + " + mod + " + " + skillBonus + " = " + (base + mod + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		sb.append(base + " + (" + mod + ") + " + skillBonus + " + " + DPBonus + " = " + (base + mod + skillBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
 		return sb.toString();
 	}
@@ -1101,6 +1187,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 0;
 		int mod = 0;
 		int skillBonus = 0;
+		int DPBonus = mRemoveTrapDPBonus;
 		if (innate) {
 			base = 20;
 			mod = getDexModifier();
@@ -1109,7 +1196,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(REMOVE_TRAP_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + " + mod + " + " + skillBonus + " = " + (base + mod + skillBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		sb.append(base + " + " + mod + " + " + skillBonus + " + " + DPBonus + " = " + (base + mod + skillBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
 		return sb.toString();
 	}
@@ -1121,11 +1208,12 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 15;
 		int level = headerRecord.getLevel() * 3;
 		int classBonus = headerRecord.getCharacterClass().getHerbalLore();
+		int DPBonus = mHerbalLoreDPBonus;
 
 		if (ACS.showCalculations()) {
 			sb.append(HERBAL_LORE_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + (" + level + ") + " + classBonus + " = " + (base + level + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		sb.append(base + " + (" + level + ") + " + classBonus + " + " + DPBonus + " = " + (base + level + classBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 
 		return sb.toString();
 	}
@@ -1141,11 +1229,12 @@ public class SkillsRecord implements LevelListener, Savable {
 		int base = 15;
 		int level = headerRecord.getLevel() - 1;
 		int classBonus = headerRecord.getCharacterClass().getPerception();
+		int DPBonus = mPerceptionDPBonus;
 
 		if (ACS.showCalculations()) {
 			sb.append(PERCEPTION_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append(base + " + " + intel + " + " + wis + " + (" + level * 2 + ") + " + classBonus + " = " + (base + intel + wis + level * 2 + classBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+		sb.append(base + " + " + intel + " + " + wis + " + (" + level * 2 + ") + " + classBonus + " + " + DPBonus + " = " + (base + intel + wis + level * 2 + classBonus + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 
 		return sb.toString();
 	}
@@ -1208,6 +1297,28 @@ public class SkillsRecord implements LevelListener, Savable {
 		br.write(TKStringHelpers.TAB + FIND_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mFindTrapLevelBonus + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + REMOVE_TRAP_LEVEL_BONUS_KEY + TKStringHelpers.SPACE + mRemoveTrapLevelBonus + System.lineSeparator());
 
+		br.write(TKStringHelpers.TAB + APPRAISE_DP_BONUS_KEY + TKStringHelpers.SPACE + mAppraiseDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + BANDAGING_DP_BONUS_KEY + TKStringHelpers.SPACE + mBandagingDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DEPTH_SENSE_DP_BONUS_KEY + TKStringHelpers.SPACE + mDepthSenseDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DETECT_MAGIC_DP_BONUS_KEY + TKStringHelpers.SPACE + mDetectMagicDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DETECT_METALS_DP_BONUS_KEY + TKStringHelpers.SPACE + mDetectMetalsDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DETECT_MORALS_DP_BONUS_KEY + TKStringHelpers.SPACE + mDetectMoralsDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DETECT_SECRET_DOORS_DP_BONUS_KEY + TKStringHelpers.SPACE + mDetectSecretDoorsDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DETECT_TRAPS_DP_BONUS_KEY + TKStringHelpers.SPACE + mDetectTrapsDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + HERBAL_LORE_DP_BONUS_KEY + TKStringHelpers.SPACE + mHerbalLoreDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + HUNTING_DP_BONUS_KEY + TKStringHelpers.SPACE + mHuntingDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + PERCEPTION_DP_BONUS_KEY + TKStringHelpers.SPACE + mPerceptionDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + TRACKING_DP_BONUS_KEY + TKStringHelpers.SPACE + mTrackingDPBonus + System.lineSeparator());
+
+		br.write(TKStringHelpers.TAB + CONCEAL_DP_BONUS_KEY + TKStringHelpers.SPACE + mConcealDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + STEALTH_DP_BONUS_KEY + TKStringHelpers.SPACE + mStealthDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + HEAR_DP_BONUS_KEY + TKStringHelpers.SPACE + mHearDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + LOCK_PICK_DP_BONUS_KEY + TKStringHelpers.SPACE + mLockPickDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + PICK_POCKET_DP_BONUS_KEY + TKStringHelpers.SPACE + mPickPocketDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CLIMB_DP_BONUS_KEY + TKStringHelpers.SPACE + mClimbDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + FIND_TRAP_DP_BONUS_KEY + TKStringHelpers.SPACE + mFindTrapDPBonus + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + REMOVE_TRAP_DP_BONUS_KEY + TKStringHelpers.SPACE + mRemoveTrapDPBonus + System.lineSeparator());
+
 		br.write(FILE_SECTION_END_KEY + System.lineSeparator());
 	}
 
@@ -1230,6 +1341,48 @@ public class SkillsRecord implements LevelListener, Savable {
 			mFindTrapLevelBonus = TKStringHelpers.getIntValue(value, 0);
 		} else if (REMOVE_TRAP_LEVEL_BONUS_KEY.equals(key)) {
 			mRemoveTrapLevelBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (APPRAISE_DP_BONUS_KEY.equals(key)) {
+			mAppraiseDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (BANDAGING_DP_BONUS_KEY.equals(key)) {
+			mBandagingDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (DEPTH_SENSE_DP_BONUS_KEY.equals(key)) {
+			mDepthSenseDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (DETECT_MAGIC_DP_BONUS_KEY.equals(key)) {
+			mDetectMagicDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (DETECT_METALS_DP_BONUS_KEY.equals(key)) {
+			mDetectMetalsDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (DETECT_MORALS_DP_BONUS_KEY.equals(key)) {
+			mDetectMoralsDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (DETECT_SECRET_DOORS_DP_BONUS_KEY.equals(key)) {
+			mDetectSecretDoorsDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (DETECT_TRAPS_DP_BONUS_KEY.equals(key)) {
+			mDetectTrapsDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (HERBAL_LORE_DP_BONUS_KEY.equals(key)) {
+			mHerbalLoreDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (HUNTING_DP_BONUS_KEY.equals(key)) {
+			mHuntingDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (PERCEPTION_DP_BONUS_KEY.equals(key)) {
+			mPerceptionDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (TRACKING_DP_BONUS_KEY.equals(key)) {
+			mTrackingDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (BERSERK_DP_BONUS_KEY.equals(key)) {
+			mBerserkDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (CLIMB_DP_BONUS_KEY.equals(key)) {
+			mClimbDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (CONCEAL_DP_BONUS_KEY.equals(key)) {
+			mConcealDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (FIND_TRAP_DP_BONUS_KEY.equals(key)) {
+			mFindTrapDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (HEAR_DP_BONUS_KEY.equals(key)) {
+			mHearDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (LOCK_PICK_DP_BONUS_KEY.equals(key)) {
+			mLockPickDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (PICK_POCKET_DP_BONUS_KEY.equals(key)) {
+			mPickPocketDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (REMOVE_TRAP_DP_BONUS_KEY.equals(key)) {
+			mRemoveTrapDPBonus = TKStringHelpers.getIntValue(value, 0);
+		} else if (STEALTH_DP_BONUS_KEY.equals(key)) {
+			mStealthDPBonus = TKStringHelpers.getIntValue(value, 0);
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
@@ -1263,6 +1416,30 @@ public class SkillsRecord implements LevelListener, Savable {
 		mPickPocket = 0;
 		mRemoveTrap = 0;
 		mStealth = 0;
+
+		mAppraiseDPBonus = 0;
+		mBandagingDPBonus = 0;
+		mDepthSenseDPBonus = 0;
+		mDetectMagicDPBonus = 0;
+		mDetectMetalsDPBonus = 0;
+		mDetectMoralsDPBonus = 0;
+		mDetectSecretDoorsDPBonus = 0;
+		mDetectTrapsDPBonus = 0;
+		mHerbalLoreDPBonus = 0;
+		mHuntingDPBonus = 0;
+		mPerceptionDPBonus = 0;
+		mTrackingDPBonus = 0;
+
+		mBerserkDPBonus = 0;
+
+		mClimbDPBonus = 0;
+		mConcealDPBonus = 0;
+		mFindTrapDPBonus = 0;
+		mHearDPBonus = 0;
+		mLockPickDPBonus = 0;
+		mPickPocketDPBonus = 0;
+		mRemoveTrapDPBonus = 0;
+		mStealthDPBonus = 0;
 
 		mClimbLevelBonus = 0;
 		mConcealLevelBonus = 0;
