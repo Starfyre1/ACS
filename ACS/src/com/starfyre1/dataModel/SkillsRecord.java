@@ -503,7 +503,7 @@ public class SkillsRecord implements LevelListener, Savable {
 
 	public void generateClimb(BaseClass classInfo) {
 		boolean innate = mIsInnate[CLIMB];
-		int base = 0;
+		int base = 50;
 		int dexModifier = 0;
 		int classBonus = 0;
 		int DPBonus = mClimbDPBonus;
