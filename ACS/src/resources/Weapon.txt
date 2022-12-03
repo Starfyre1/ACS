@@ -19,8 +19,8 @@
   0, false, Scimitar, Iron, 0, 0, 7, 7, 8, 6, 0, 10, 0, 0, 1, 0, 8
   0, false, Scythe, Iron, 0, 2, 10, 10, 15, 18, -5, 9, 0, 0, 0, 3, 25
   0, false, Short Sword, Iron, 0, 0, 0, 6, 6, 6, 2, 10, 0, 0, 0, 0, 8
-  0, false, Trident, Iron, 1, 1, 11, 8, 12, 12, -1, 12, 0, 0, 0, 1, 15
-  0, false, Wakazashi, Iron, 1, 1, 0, 3, 4, 6, 2, 14, 0, 0, 0, 1, 40
+  0, false, Trident, Iron, 0, 1, 11, 8, 12, 12, -1, 12, 0, 0, 0, 1, 15
+  0, false, Wakazashi, Iron, 0, 0, 0, 3, 4, 6, 2, 14, 0, 0, 0, 1, 40
 
   // Hand-to-Hand Blunt Weapons:
   0, false, Club, Iron, 1, 1, 7, 5, 5, 8, +1, 10, 0, 0, +0, +1, 0
