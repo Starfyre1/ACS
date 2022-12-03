@@ -34,9 +34,9 @@ public class AttributesRecord implements Savable {
 	public static final String	INTELLIGENCE_DP_KEY				= "INTELLIGENCE_DP_KEY";																			//$NON-NLS-1$
 	public static final String	WISDOM_DP_KEY					= "WISDOM_DP_KEY";																					//$NON-NLS-1$
 	public static final String	DEXTERITY_DP_KEY				= "DEXTERITY_DP_KEY";																				//$NON-NLS-1$
-	public static final String	BOW_SKILL_DP_KEY				= "BOW_DP_SKILL_KEY";																				//$NON-NLS-1$
+	public static final String	BOW_SKILL_DP_KEY				= "BOW_SKILL_DP_KEY";																				//$NON-NLS-1$
 	public static final String	CHARISMA_DP_KEY					= "CHARISMA_DP_KEY";																				//$NON-NLS-1$
-	public static final String	PERSONAL_APPEARANCE_DP_KEY		= "PERSONAL_DP_APPEARANCE_KEY";																		//$NON-NLS-1$
+	public static final String	PERSONAL_APPEARANCE_DP_KEY		= "PERSONAL_APPEARANCE_DP_KEY";																		//$NON-NLS-1$
 	public static final String	WILLPOWER_DP_KEY				= "WILLPOWER_DP_KEY";																				//$NON-NLS-1$
 
 	public static final String	STRENGTH_MOD_KEY				= "STRENGTH_MOD_KEY";																				//$NON-NLS-1$
