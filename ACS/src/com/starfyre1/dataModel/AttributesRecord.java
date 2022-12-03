@@ -340,25 +340,25 @@ public class AttributesRecord implements Savable {
 
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 
-		br.write(TKStringHelpers.TAB + STRENGTH_DP_KEY + TKStringHelpers.SPACE + mStats[0] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + CONSTITUTION_DP_KEY + TKStringHelpers.SPACE + mStats[1] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + INTELLIGENCE_DP_KEY + TKStringHelpers.SPACE + mStats[2] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + WISDOM_DP_KEY + TKStringHelpers.SPACE + mStats[3] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + DEXTERITY_DP_KEY + TKStringHelpers.SPACE + mStats[4] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + BOW_SKILL_DP_KEY + TKStringHelpers.SPACE + mStats[5] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + CHARISMA_DP_KEY + TKStringHelpers.SPACE + mStats[6] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + PERSONAL_APPEARANCE_DP_KEY + TKStringHelpers.SPACE + mStats[7] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + WILLPOWER_DP_KEY + TKStringHelpers.SPACE + mStats[8] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + STRENGTH_KEY + TKStringHelpers.SPACE + mStats[0] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CONSTITUTION_KEY + TKStringHelpers.SPACE + mStats[1] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + INTELLIGENCE_KEY + TKStringHelpers.SPACE + mStats[2] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WISDOM_KEY + TKStringHelpers.SPACE + mStats[3] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DEXTERITY_KEY + TKStringHelpers.SPACE + mStats[4] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + BOW_SKILL_KEY + TKStringHelpers.SPACE + mStats[5] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CHARISMA_KEY + TKStringHelpers.SPACE + mStats[6] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + PERSONAL_APPEARANCE_KEY + TKStringHelpers.SPACE + mStats[7] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WILLPOWER_KEY + TKStringHelpers.SPACE + mStats[8] + System.lineSeparator());
 
-		br.write(TKStringHelpers.TAB + STRENGTH_KEY + TKStringHelpers.SPACE + mDPStats[0] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + CONSTITUTION_KEY + TKStringHelpers.SPACE + mDPStats[1] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + INTELLIGENCE_KEY + TKStringHelpers.SPACE + mDPStats[2] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + WISDOM_KEY + TKStringHelpers.SPACE + mDPStats[3] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + DEXTERITY_KEY + TKStringHelpers.SPACE + mDPStats[4] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + BOW_SKILL_KEY + TKStringHelpers.SPACE + mDPStats[5] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + CHARISMA_KEY + TKStringHelpers.SPACE + mDPStats[6] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + PERSONAL_APPEARANCE_KEY + TKStringHelpers.SPACE + mDPStats[7] + System.lineSeparator());
-		br.write(TKStringHelpers.TAB + WILLPOWER_KEY + TKStringHelpers.SPACE + mDPStats[8] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + STRENGTH_DP_KEY + TKStringHelpers.SPACE + mDPStats[0] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CONSTITUTION_DP_KEY + TKStringHelpers.SPACE + mDPStats[1] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + INTELLIGENCE_DP_KEY + TKStringHelpers.SPACE + mDPStats[2] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WISDOM_DP_KEY + TKStringHelpers.SPACE + mDPStats[3] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DEXTERITY_DP_KEY + TKStringHelpers.SPACE + mDPStats[4] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + BOW_SKILL_DP_KEY + TKStringHelpers.SPACE + mDPStats[5] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + CHARISMA_DP_KEY + TKStringHelpers.SPACE + mDPStats[6] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + PERSONAL_APPEARANCE_DP_KEY + TKStringHelpers.SPACE + mDPStats[7] + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + WILLPOWER_DP_KEY + TKStringHelpers.SPACE + mDPStats[8] + System.lineSeparator());
 
 		br.write(TKStringHelpers.TAB + STRENGTH_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[0] + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + CONSTITUTION_MOD_KEY + TKStringHelpers.SPACE + mModifiedStats[1] + System.lineSeparator());
