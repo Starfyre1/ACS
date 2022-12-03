@@ -189,7 +189,6 @@ public class DeterminationList implements Savable, CampaignDateListener {
 
 	@Override
 	public void dateUpdated(String date) {
-		// DW should move completed records to a separate ArrayList
 		for (AttributeDeterminationRecord record : mAttribRecords) {
 			if (!record.getEndDate().isBlank()) {
 				continue;
@@ -198,7 +197,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
 			}
-			System.out.println(record.toString());
+
 		}
 		for (LanguageDeterminationRecord record : mLanguageRecords) {
 			if (!record.getEndDate().isBlank()) {
@@ -208,7 +207,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
 			}
-			System.out.println(record.toString());
+
 		}
 		for (MagicSpellDeterminationRecord record : mMagicSpellRecords) {
 			if (!record.getEndDate().isBlank()) {
@@ -218,7 +217,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
 			}
-			System.out.println(record.toString());
+
 		}
 		for (SkillDeterminationRecord record : mSkillRecords) {
 			if (!record.getEndDate().isBlank()) {
@@ -228,7 +227,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
 			}
-			System.out.println(record.toString());
+
 		}
 		for (WeaponProficiencyDeterminationRecord record : mWeaponRecords) {
 			if (!record.getEndDate().isBlank()) {
@@ -238,7 +237,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			if (numOfWeeks > 0) {
 				updateRecord(record, date, numOfWeeks);
 			}
-			System.out.println(record.toString());
+
 		}
 
 		moveCompletedRecords();
