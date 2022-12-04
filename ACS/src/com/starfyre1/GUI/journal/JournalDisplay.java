@@ -10,6 +10,7 @@ import com.starfyre1.dataModel.JournalRecord;
 import com.starfyre1.interfaces.Savable;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -24,12 +25,15 @@ import java.util.StringTokenizer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class JournalDisplay extends TKTitledDisplay implements ActionListener, Savable {
 
@@ -42,6 +46,9 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	private static final String			CAMPAIGN_KEY			= "CAMPAIGN_KEY";				//$NON-NLS-1$
 	private static final String			JOURNAL_KEY				= "JOURNAL_KEY";				//$NON-NLS-1$
 	private static final String			WORLD_KEY				= "WORLD_KEY";					//$NON-NLS-1$
+	private static final String			CAMPAIGN_DATE_START_KEY	= "CAMPAIGN_DATE_START_KEY";	//$NON-NLS-1$
+	private static final String			LEVEL_UP_KEY			= "LEVEL_UP_KEY";				//$NON-NLS-1$
+	private static final String			DETERMINATION_KEY		= "DETERMINATION_KEY";			//$NON-NLS-1$
 
 	private static final String			JOURNAL_TITLE			= "Journal";					//$NON-NLS-1$
 	private static final String			NEW_ENTRY				= "New Entry";					//$NON-NLS-1$
@@ -56,6 +63,9 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	 * Member Variables
 	 ****************************************************************************/
 	private JButton						mNewEntryButton;
+	private JCheckBox					mCampaignDayCheckbox;
+	private JCheckBox					mLevelUpCheckbox;
+	private JCheckBox					mDeterminationCheckbox;
 	private ArrayList<JournalRecord>	mEntries				= new ArrayList<>();
 	private JPanel						mPanel;
 
@@ -109,11 +119,22 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	@Override
 	protected Component createDisplay() {
 
+		JPanel outerWrapper = new JPanel(new BorderLayout());
+
+		mCampaignDayCheckbox = TKComponentHelpers.createCheckBox(JournalRecord.CAMPAIGN_DAY_START, true, this);
+		mLevelUpCheckbox = TKComponentHelpers.createCheckBox(JournalRecord.LEVEL_UP, true, this);
+		mDeterminationCheckbox = TKComponentHelpers.createCheckBox(JournalRecord.DETERMINATION, true, this);
+
 		mNewEntryButton = TKComponentHelpers.createButton(NEW_ENTRY, this);
 		mNewEntryButton.setBorderPainted(false);
 
-		JPanel wrapper = new JPanel(new GridLayout(1, 3));
-		wrapper.setBorder(new EmptyBorder(0, 5, 0, 5));
+		JPanel wrapper = new JPanel(new GridLayout(2, 3));
+		wrapper.setBorder(new CompoundBorder(new LineBorder(Color.BLACK), new EmptyBorder(0, 5, 0, 5)));
+
+		wrapper.add(mCampaignDayCheckbox);
+		wrapper.add(mLevelUpCheckbox);
+		wrapper.add(mDeterminationCheckbox);
+
 		wrapper.add(new JLabel(CAMPAIGN_DATE_LABEL, SwingConstants.LEADING));
 		wrapper.add(mNewEntryButton);
 		wrapper.add(new JLabel(WORLD_DATE_lABEL, SwingConstants.TRAILING));
@@ -123,25 +144,29 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		BoxLayout bl2 = new BoxLayout(mPanel, BoxLayout.Y_AXIS);
 		mPanel.setLayout(bl2);
 
-		JPanel upperPanel = new JPanel();
-		BoxLayout bl = new BoxLayout(upperPanel, BoxLayout.Y_AXIS);
-		upperPanel.setLayout(bl);
-		upperPanel.add(wrapper, BorderLayout.NORTH);
-		upperPanel.add(mPanel, BorderLayout.CENTER);
-
-		JScrollPane scrollPane = new JScrollPane(upperPanel);
+		JScrollPane scrollPane = new JScrollPane(mPanel);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		scrollPane.getHorizontalScrollBar().setUnitIncrement(10);
 
-		return scrollPane;
+		outerWrapper.add(wrapper, BorderLayout.NORTH);
+		outerWrapper.add(scrollPane, BorderLayout.CENTER);
+
+		return outerWrapper;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(mNewEntryButton)) {
+		Object source = e.getSource();
+		if (source.equals(mNewEntryButton)) {
 			createJournalRecord();
+		} else if (source.equals(mCampaignDayCheckbox)) {
+			updatePreviewPanel();
+		} else if (source.equals(mLevelUpCheckbox)) {
+			updatePreviewPanel();
+		} else if (source.equals(mDeterminationCheckbox)) {
+			updatePreviewPanel();
 		}
 	}
 
@@ -170,9 +195,25 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 		Collections.sort(mEntries);
 
 		for (JournalRecord entry : mEntries) {
-			mPanel.add(entry.getJournalRecordHeader(), BorderLayout.CENTER);
+			JPanel journalRecordHeader = entry.getJournalRecordHeader();
+			if (JournalRecord.CAMPAIGN_DAY_START.equals(entry.getHeaderLabelText())) {
+				if (mCampaignDayCheckbox.isSelected()) {
+					mPanel.add(journalRecordHeader, BorderLayout.CENTER);
+				}
+			} else if (JournalRecord.LEVEL_UP.equals(entry.getHeaderLabelText())) {
+				if (mLevelUpCheckbox.isSelected()) {
+					mPanel.add(journalRecordHeader, BorderLayout.CENTER);
+				}
+			} else if (entry.getHeaderLabelText().startsWith(JournalRecord.DETERMINATION)) {
+				if (mDeterminationCheckbox.isSelected()) {
+					mPanel.add(journalRecordHeader, BorderLayout.CENTER);
+				}
+			} else {
+				mPanel.add(journalRecordHeader, BorderLayout.CENTER);
+			}
 		}
 		mPanel.revalidate();
+		mPanel.repaint();
 	}
 
 	public void clearRecords() {
@@ -227,6 +268,9 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
 
+		br.write(TKStringHelpers.TAB + CAMPAIGN_DATE_START_KEY + TKStringHelpers.SPACE + mCampaignDayCheckbox.isSelected() + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + LEVEL_UP_KEY + TKStringHelpers.SPACE + mLevelUpCheckbox.isSelected() + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + DETERMINATION_KEY + TKStringHelpers.SPACE + mDeterminationCheckbox.isSelected() + System.lineSeparator());
 		for (JournalRecord record : mEntries) {
 			br.write(TKStringHelpers.TAB + CAMPAIGN_KEY + TKStringHelpers.SPACE + record.getCampaignDate() + System.lineSeparator());
 			br.write(TKStringHelpers.TAB + JOURNAL_KEY + TKStringHelpers.SPACE + record.getJournalText().replace("\n", "~") + System.lineSeparator()); //$NON-NLS-1$ //$NON-NLS-2$
@@ -240,7 +284,13 @@ public class JournalDisplay extends TKTitledDisplay implements ActionListener, S
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
 		value = value.replace("~", "\n "); //$NON-NLS-1$ //$NON-NLS-2$
-		if (CAMPAIGN_KEY.equals(key)) {
+		if (CAMPAIGN_DATE_START_KEY.equals(key)) {
+			mCampaignDayCheckbox.setSelected(TKStringHelpers.getBoolValue(value, true));
+		} else if (LEVEL_UP_KEY.equals(key)) {
+			mLevelUpCheckbox.setSelected(TKStringHelpers.getBoolValue(value, true));
+		} else if (DETERMINATION_KEY.equals(key)) {
+			mDeterminationCheckbox.setSelected(TKStringHelpers.getBoolValue(value, true));
+		} else if (CAMPAIGN_KEY.equals(key)) {
 			mCampaignDate = value;
 		} else if (JOURNAL_KEY.equals(key)) {
 			mJournalText = value;

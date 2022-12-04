@@ -38,16 +38,17 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	CREATE							= "Create";							//$NON-NLS-1$
-	private static final String	CANCEL							= "Cancel";							//$NON-NLS-1$
-	private static final String	DELETE							= "Delete";							//$NON-NLS-1$
+	private static final String	CREATE							= "Create";								//$NON-NLS-1$
+	private static final String	CANCEL							= "Cancel";								//$NON-NLS-1$
+	private static final String	DELETE							= "Delete";								//$NON-NLS-1$
 
-	public static final String	CAMPAIGN_DAY_START				= "CAMPAIGN DAY START";				//$NON-NLS-1$
-	public static final String	LEVEL_UP						= "LEVEL UP!";						//$NON-NLS-1$
-	public static final String	CHARACTER_CREATION				= "CHARACTER CREATION!";			//$NON-NLS-1$
-	public static final String	DETERMINATION_START				= "DETERMINATION START";			//$NON-NLS-1$
-	public static final String	DETERMINATION_COMPLETE_SUCCESS	= "DETERMINATION COMPLETE SUCCESS";	//$NON-NLS-1$
-	public static final String	DETERMINATION_COMPLETE_FAILED	= "DETERMINATION COMPLETE FAILED";	//$NON-NLS-1$
+	public static final String	CAMPAIGN_DAY_START				= "CAMPAIGN DAY START";					//$NON-NLS-1$
+	public static final String	LEVEL_UP						= "LEVEL UP!";							//$NON-NLS-1$
+	public static final String	CHARACTER_CREATION				= "CHARACTER CREATION!";				//$NON-NLS-1$
+	public static final String	DETERMINATION					= "DETERMINATION";						//$NON-NLS-1$
+	public static final String	DETERMINATION_START				= DETERMINATION + " START";				//$NON-NLS-1$
+	public static final String	DETERMINATION_COMPLETE_SUCCESS	= DETERMINATION + " COMPLETE SUCCESS";	//$NON-NLS-1$
+	public static final String	DETERMINATION_COMPLETE_FAILED	= DETERMINATION + " COMPLETE FAILED";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -340,6 +341,11 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	/** @return The saveRecordIfCancelled. */
 	public boolean isRecordCancelled() {
 		return mRecordCancelled;
+	}
+
+	/** @return The headerLabel1. */
+	public String getHeaderLabelText() {
+		return mHeaderLabel1.getText().trim();
 	}
 
 	/*****************************************************************************
