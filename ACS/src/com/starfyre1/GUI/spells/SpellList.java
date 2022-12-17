@@ -189,6 +189,10 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public ArrayList<SpellRecord> getKnownSpells() {
+		return mKnownSpells;
+	}
+
 	public boolean isSpellKnown(SpellRecord record) {
 		return mKnownSpells.contains(record);
 	}

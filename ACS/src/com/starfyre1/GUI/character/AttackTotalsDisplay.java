@@ -75,14 +75,14 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 			model.setRowCount(0);
 			for (WeaponRecord record : weapons) {
 				if (record.isEquipped()) {
-					model.addRow(new Object[] { getSpeed(record), getHitBonus(record), getDamageBonus(record) });
+					model.addRow(new Object[] { Integer.valueOf(getSpeed(record)), Integer.valueOf(getHitBonus(record)), Integer.valueOf(getDamageBonus(record)) });
 				}
 			}
 		}
 
 	}
 
-	private Integer getDamageBonus(WeaponRecord record) {
+	private int getDamageBonus(WeaponRecord record) {
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		CombatInformationRecord cir = owner.getCombatInformationRecord();
 		int damage1 = cir.getDamageBonus();
@@ -94,10 +94,10 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 		damage1 += record.getDamageOneHanded();
 		damage2 += record.getDamageTwoHanded();
 
-		return Integer.valueOf(damage1 > damage2 ? damage1 : damage2);
+		return damage1 > damage2 ? damage1 : damage2;
 	}
 
-	private Integer getHitBonus(WeaponRecord record) {
+	public int getHitBonus(WeaponRecord record) {
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		CombatInformationRecord cir = owner.getCombatInformationRecord();
 		int hitBonus = record.getHitBonus();
@@ -115,10 +115,10 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 			hitBonus += record.getDPHitBonus();
 		}
 
-		return Integer.valueOf(hitBonus);
+		return hitBonus;
 	}
 
-	private Integer getSpeed(WeaponRecord record) {
+	public int getSpeed(WeaponRecord record) {
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		CombatInformationRecord cir = owner.getCombatInformationRecord();
 		int speed = record.getAttackSpeed();
@@ -130,7 +130,7 @@ public class AttackTotalsDisplay extends TKTitledDisplay implements TableModelLi
 			speed += cir.getBowSpeed();
 		}
 
-		return Integer.valueOf(speed);
+		return speed;
 	}
 
 	@Override

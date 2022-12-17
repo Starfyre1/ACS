@@ -22,6 +22,7 @@ public class SystemInfo {
 	private static final String	EQUIPMENT_DATA_PATH_SUFFIX		= PATH_SEPARATOR + "Equipment_User.txt";
 	private static final String	MAGIC_ITEM_DATA_PATH_SUFFIX		= PATH_SEPARATOR + "Magic_Item_User.txt";
 	private static final String	WEAPON_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Weapon_User.txt";
+	private static final String	COMBAT_CHART_PATH_SUFFIX		= PATH_SEPARATOR + "Combat_Chart.acs";
 
 	public static String getAnimalUserPath() {
 		return getDataPath() + ANIMAL_DATA_PATH_SUFFIX;
@@ -41,6 +42,10 @@ public class SystemInfo {
 
 	public static String getWeaponUserPath() {
 		return getDataPath() + WEAPON_DATA_PATH_SUFFIX;
+	}
+
+	public static String getCombatChartPath() {
+		return getDataPath() + COMBAT_CHART_PATH_SUFFIX;
 	}
 
 	/**

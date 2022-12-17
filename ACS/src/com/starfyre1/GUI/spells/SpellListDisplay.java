@@ -264,15 +264,15 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		enableFields(false);
 	}
 
-	/*****************************************************************************
-	 * Setter's and Getter's
-	 ****************************************************************************/
 	public void enableFields(boolean enabled) {
 		mNewSpellButton.setEnabled(enabled);
 		mExperienceField.setEditable(enabled);
 		mAreaPopup.getMenu().setEnabled(((CharacterSheet) getOwner()).isCharacterLoaded());
 	}
 
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
 	public String getMagicArea() {
 		return mAreaPopup.getSelectedItem();
 	}
@@ -280,6 +280,10 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	/** @return The currentList. */
 	public SpellList getCurrentList() {
 		return mCurrentList;
+	}
+
+	public Component[] getCards() {
+		return mCards.getComponents();
 	}
 
 	/*****************************************************************************

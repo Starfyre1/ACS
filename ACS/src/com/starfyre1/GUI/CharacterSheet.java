@@ -23,6 +23,7 @@ import com.starfyre1.GUI.purchasedGear.misc.NotesCommentsDisplay;
 import com.starfyre1.GUI.purchasedGear.misc.TitlesLandsPropertiesDisplay;
 import com.starfyre1.GUI.purchasedGear.weapon.WeaponEquippedDisplay;
 import com.starfyre1.GUI.purchasedGear.weapon.WeaponOwnedDisplay;
+import com.starfyre1.GUI.spells.SpellList;
 import com.starfyre1.GUI.spells.SpellListDisplay;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKTable;
@@ -47,6 +48,7 @@ import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.MagicItemList;
 import com.starfyre1.dataset.PriestList;
 import com.starfyre1.dataset.WeaponList;
+import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.interfaces.CampaignDateListener;
 import com.starfyre1.startup.ACS;
 import com.starfyre1.startup.SystemInfo;
@@ -55,6 +57,7 @@ import com.starfyre1.storage.PreferenceStore;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FileDialog;
@@ -125,6 +128,7 @@ public class CharacterSheet implements ActionListener {
 	static final String						HELP						= "Help";														//$NON-NLS-1$
 	private static final String				PREFERENCES					= "Preferences";												//$NON-NLS-1$
 	private static final String				OPTIONS						= "Options";													//$NON-NLS-1$
+	private static final String				TOOLS						= "Tools";														//$NON-NLS-1$
 	private static final String				MARKET_PLACE				= "Market Place";												//$NON-NLS-1$
 	private static final String				EXIT						= "Exit";														//$NON-NLS-1$
 	private static final String				SAVE_AS						= "Save As...";													//$NON-NLS-1$
@@ -179,6 +183,7 @@ public class CharacterSheet implements ActionListener {
 	private JMenuItem						mSaveAsMenuItem;
 
 	private JMenuItem						mMarketPlaceMenuItem;
+	private JMenuItem						mToHitMenuItem;
 
 	private ArrayList<CampaignDateListener>	mCampaignDateListeners;
 
@@ -432,8 +437,9 @@ public class CharacterSheet implements ActionListener {
 		mSaveAsMenuItem.setEnabled(mIsCharacterLoaded);
 	}
 
-	private void enableOptionsMenuItems() {
+	private void enableToolsMenuItems() {
 		mMarketPlaceMenuItem.setEnabled(mIsCharacterLoaded);
+		mToHitMenuItem.setEnabled(mIsCharacterLoaded);
 	}
 
 	private void createMainMenu() {
@@ -482,10 +488,15 @@ public class CharacterSheet implements ActionListener {
 
 		JMenu optionsMenu = new JMenu(OPTIONS);
 		optionsMenu.add(TKComponentHelpers.createMenuItem(PREFERENCES, this));
+
+		JMenu toolsMenu = new JMenu(TOOLS);
 		mMarketPlaceMenuItem = TKComponentHelpers.createMenuItem(MARKET_PLACE, this);
-		optionsMenu.add(mMarketPlaceMenuItem);
+		toolsMenu.add(mMarketPlaceMenuItem);
+		mToHitMenuItem = TKComponentHelpers.createMenuItem(CombatChart.COMBAT_CHART, this);
+		toolsMenu.add(mToHitMenuItem);
+
 		// DW find better way to do this... maybe intercept processMouse Event ?
-		optionsMenu.addMouseListener(new MouseListener() {
+		toolsMenu.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -504,7 +515,7 @@ public class CharacterSheet implements ActionListener {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				enableOptionsMenuItems();
+				enableToolsMenuItems();
 			}
 
 			@Override
@@ -522,6 +533,7 @@ public class CharacterSheet implements ActionListener {
 
 		bar.add(fileMenu);
 		bar.add(optionsMenu);
+		bar.add(toolsMenu);
 		bar.add(helpMenu);
 
 		mFrame.setJMenuBar(bar);
@@ -745,6 +757,8 @@ public class CharacterSheet implements ActionListener {
 			new PreferencesDisplay(mFrame);
 		} else if (cmd.equals(MARKET_PLACE)) {
 			new MarketPlace(mFrame);
+		} else if (cmd.equals(CombatChart.COMBAT_CHART)) {
+			new CombatChart(this);
 		} else if (cmd.equals(ABOUT)) {
 			new AboutDialog(mFrame);
 		} else if (cmd.equals(LOG)) {
@@ -1384,6 +1398,26 @@ public class CharacterSheet implements ActionListener {
 	/** @return The isCharacterLoaded. */
 	public boolean isCharacterLoaded() {
 		return mIsCharacterLoaded;
+	}
+
+	/**
+	 * @return
+	 */
+	public ArrayList<SpellRecord> getAllKnownSpells() {
+		Component comp[] = mSpellTab.getCards();
+		for (Component element : comp) {
+			if (element instanceof SpellList) {
+				String spellArea = ((SpellList) element).getName();
+				ArrayList<SpellRecord> knownSpells = ((SpellList) element).getKnownSpells();
+				for (SpellRecord record : knownSpells) {
+					if (record.getLevel() != -1) {
+						int level = record.getLevel();
+						String name = record.getName();
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	private File verifyDataFileVersion(File file) throws IOException, FileNotFoundException {
