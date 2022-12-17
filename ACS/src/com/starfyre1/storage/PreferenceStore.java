@@ -165,7 +165,7 @@ public class PreferenceStore {
 	 */
 	public boolean isDefaults() {
 		if (mNumDice == DEFAULT_NUM_DICE && //
-						mAppRollsDice == DEFAULT_APP_ROLLS_DICE && // 
+						mAppRollsDice == DEFAULT_APP_ROLLS_DICE && //
 						mRerollLowest == DEFAULT_REROLL_LOWEST && //
 						mUseCommonDie == DEFAULT_USE_COMMON_DIE && //
 						mAutoLoad == DEFAULT_AUTO_LOAD && //
@@ -259,7 +259,7 @@ public class PreferenceStore {
 	public void setAutoLoad(boolean autoLoad) {
 		mAutoLoad = autoLoad;
 	}
-	
+
 	/** @return The savedAutoLoad. */
 	public boolean isSavedAutoLoad() {
 		return mSavedAutoLoad;

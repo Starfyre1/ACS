@@ -31,9 +31,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 
 public class CreateDialog extends JDialog implements ActionListener {
 	/*****************************************************************************
@@ -67,9 +65,6 @@ public class CreateDialog extends JDialog implements ActionListener {
 		super(parent, "Create", true); //$NON-NLS-1$
 
 		mFrame = parent;
-
-		JPanel wrapper = new JPanel(new BorderLayout(10, 10));
-		wrapper.setBorder(new CompoundBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), new EtchedBorder(EtchedBorder.RAISED)), new EtchedBorder(EtchedBorder.LOWERED)));
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		createDisplay();

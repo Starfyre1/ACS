@@ -34,9 +34,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 
 public class MarketPlace extends JDialog implements ActionListener {
 
@@ -134,9 +132,6 @@ public class MarketPlace extends JDialog implements ActionListener {
 
 		mInstance = this;
 		mFrame = parent;
-
-		JPanel wrapper = new JPanel(new BorderLayout(10, 10));
-		wrapper.setBorder(new CompoundBorder(new CompoundBorder(new EtchedBorder(EtchedBorder.LOWERED), new EtchedBorder(EtchedBorder.RAISED)), new EtchedBorder(EtchedBorder.LOWERED)));
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		createDisplay();
