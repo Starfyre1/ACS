@@ -40,12 +40,11 @@ public class CampaignDateChooser extends DateChooser {
 	public static int getCampaignDateIndex(String date) {
 		int dates[] = parseCampaignDate(date);
 		int monthDays = 0;
-		for (int i = 0; i < dates[0] + 1; i++) {
+		for (int i = 0; i < dates[0]; i++) {
 			monthDays += DATES[i];
 		}
 
 		int index = monthDays + dates[1] + dates[2] * 364;
-
 		return index;
 	}
 
