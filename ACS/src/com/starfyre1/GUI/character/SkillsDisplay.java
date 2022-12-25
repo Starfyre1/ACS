@@ -447,38 +447,38 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 			if (!(record == null)) {
 				enableFields(charClass instanceof Thief || charClass instanceof Tsiri);
 
-				mAppraiseField.setText(TKStringHelpers.EMPTY_STRING + record.getAppraise());
-				mBandagingField.setText(TKStringHelpers.EMPTY_STRING + record.getBandaging());
-				mDepthSenseField.setText(TKStringHelpers.EMPTY_STRING + record.getDepthSense());
-				mDetectMagicField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMagic());
-				mDetectMetalsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMetals());
-				mDetectMoralsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectMorals());
-				mDetectSecretDoorsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectSecretDoors());
-				mDetectTrapsField.setText(TKStringHelpers.EMPTY_STRING + record.getDetectTraps());
-				mHerbalLoreField.setText(TKStringHelpers.EMPTY_STRING + record.getHerbalLore());
-				mHuntingField.setText(TKStringHelpers.EMPTY_STRING + record.getHunting());
-				mPerceptionField.setText(TKStringHelpers.EMPTY_STRING + record.getPerception());
-				mTrackingField.setText(TKStringHelpers.EMPTY_STRING + record.getTracking());
+				mAppraiseField.setText(String.valueOf(record.getAppraise()));
+				mBandagingField.setText(String.valueOf(record.getBandaging()));
+				mDepthSenseField.setText(String.valueOf(record.getDepthSense()));
+				mDetectMagicField.setText(String.valueOf(record.getDetectMagic()));
+				mDetectMetalsField.setText(String.valueOf(record.getDetectMetals()));
+				mDetectMoralsField.setText(String.valueOf(record.getDetectMorals()));
+				mDetectSecretDoorsField.setText(String.valueOf(record.getDetectSecretDoors()));
+				mDetectTrapsField.setText(String.valueOf(record.getDetectTraps()));
+				mHerbalLoreField.setText(String.valueOf(record.getHerbalLore()));
+				mHuntingField.setText(String.valueOf(record.getHunting()));
+				mPerceptionField.setText(String.valueOf(record.getPerception()));
+				mTrackingField.setText(String.valueOf(record.getTracking()));
 
-				mClimbField.setText(TKStringHelpers.EMPTY_STRING + (record.getClimb() + record.getClimbLevelBonus()));
-				mConcealField.setText(TKStringHelpers.EMPTY_STRING + (record.getConceal() + record.getConcealLevelBonus()));
-				mFindTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getFindTrap() + record.getFindTrapLevelBonus()));
-				mHearField.setText(TKStringHelpers.EMPTY_STRING + (record.getHear() + record.getHearLevelBonus()));
-				mLockPickField.setText(TKStringHelpers.EMPTY_STRING + (record.getLockPick() + record.getLockPickLevelBonus()));
-				mPickPocketField.setText(TKStringHelpers.EMPTY_STRING + (record.getPickPocket() + record.getPickPocketLevelBonus()));
-				mRemoveTrapField.setText(TKStringHelpers.EMPTY_STRING + (record.getRemoveTrap() + record.getRemoveTrapLevelBonus()));
-				mStealthField.setText(TKStringHelpers.EMPTY_STRING + (record.getStealth() + record.getStealthLevelBonus()));
+				mClimbField.setText(String.valueOf(record.getClimb() + record.getClimbLevelBonus()));
+				mConcealField.setText(String.valueOf(record.getConceal() + record.getConcealLevelBonus()));
+				mFindTrapField.setText(String.valueOf(record.getFindTrap() + record.getFindTrapLevelBonus()));
+				mHearField.setText(String.valueOf(record.getHear() + record.getHearLevelBonus()));
+				mLockPickField.setText(String.valueOf(record.getLockPick() + record.getLockPickLevelBonus()));
+				mPickPocketField.setText(String.valueOf(record.getPickPocket() + record.getPickPocketLevelBonus()));
+				mRemoveTrapField.setText(String.valueOf(record.getRemoveTrap() + record.getRemoveTrapLevelBonus()));
+				mStealthField.setText(String.valueOf(record.getStealth() + record.getStealthLevelBonus()));
 
-				mClimbLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getClimbLevelBonus());
-				mConcealLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getConcealLevelBonus());
-				mFindTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getFindTrapLevelBonus());
-				mHearLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getHearLevelBonus());
-				mLockPickLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getLockPickLevelBonus());
-				mPickPocketLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getPickPocketLevelBonus());
-				mRemoveTrapLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getRemoveTrapLevelBonus());
-				mStealthLevelBonusField.setText(TKStringHelpers.EMPTY_STRING + record.getStealthLevelBonus());
+				mClimbLevelBonusField.setText(String.valueOf(record.getClimbLevelBonus()));
+				mConcealLevelBonusField.setText(String.valueOf(record.getConcealLevelBonus()));
+				mFindTrapLevelBonusField.setText(String.valueOf(record.getFindTrapLevelBonus()));
+				mHearLevelBonusField.setText(String.valueOf(record.getHearLevelBonus()));
+				mLockPickLevelBonusField.setText(String.valueOf(record.getLockPickLevelBonus()));
+				mPickPocketLevelBonusField.setText(String.valueOf(record.getPickPocketLevelBonus()));
+				mRemoveTrapLevelBonusField.setText(String.valueOf(record.getRemoveTrapLevelBonus()));
+				mStealthLevelBonusField.setText(String.valueOf(record.getStealthLevelBonus()));
 
-				mUnallocatedField.setText(TKStringHelpers.EMPTY_STRING + record.getUnallocatedSkills());
+				mUnallocatedField.setText(String.valueOf(record.getUnallocatedSkills()));
 
 				updateToolTips(sheet.getHeaderRecord().getCharacterClass() == null);
 			} else {

@@ -262,25 +262,25 @@ public class AttributesDisplay extends TKTitledDisplay implements DocumentListen
 
 			enableFields(true);
 
-			mStrField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(0));
-			mConField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(1));
-			mIntField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(2));
-			mWisField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(3));
-			mDexField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(4));
-			mBSField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(5));
-			mChaField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(6));
-			mPAField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(7));
-			mWPField.setText(TKStringHelpers.EMPTY_STRING + stats.getStat(8));
+			mStrField.setText(String.valueOf(stats.getStat(0)));
+			mConField.setText(String.valueOf(stats.getStat(1)));
+			mIntField.setText(String.valueOf(stats.getStat(2)));
+			mWisField.setText(String.valueOf(stats.getStat(3)));
+			mDexField.setText(String.valueOf(stats.getStat(4)));
+			mBSField.setText(String.valueOf(stats.getStat(5)));
+			mChaField.setText(String.valueOf(stats.getStat(6)));
+			mPAField.setText(String.valueOf(stats.getStat(7)));
+			mWPField.setText(String.valueOf(stats.getStat(8)));
 
-			mModStrField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(0));
-			mModConField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(1));
-			mModIntField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(2));
-			mModWisField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(3));
-			mModDexField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(4));
-			mModBSField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(5));
-			mModChaField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(6));
-			mModPAField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(7));
-			mModWPField.setText(TKStringHelpers.EMPTY_STRING + stats.getModifiedStat(8));
+			mModStrField.setText(String.valueOf(stats.getModifiedStat(0)));
+			mModConField.setText(String.valueOf(stats.getModifiedStat(1)));
+			mModIntField.setText(String.valueOf(stats.getModifiedStat(2)));
+			mModWisField.setText(String.valueOf(stats.getModifiedStat(3)));
+			mModDexField.setText(String.valueOf(stats.getModifiedStat(4)));
+			mModBSField.setText(String.valueOf(stats.getModifiedStat(5)));
+			mModChaField.setText(String.valueOf(stats.getModifiedStat(6)));
+			mModPAField.setText(String.valueOf(stats.getModifiedStat(7)));
+			mModWPField.setText(String.valueOf(stats.getModifiedStat(8)));
 		} else {
 			enableFields(false);
 

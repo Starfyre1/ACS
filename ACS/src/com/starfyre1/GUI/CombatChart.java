@@ -262,7 +262,7 @@ public class CombatChart extends JDialog implements DocumentListener, ActionList
 			popupMenu.add(weapon);
 		}
 
-		// DW ____Work on next
+		// DW ___Work on next
 		// DW add spells to list
 		//		ArrayList<SpellRecord> spellList = mCharacter.getAllKnownSpells();
 		JMenu spellMenu = new JMenu(SPELL);

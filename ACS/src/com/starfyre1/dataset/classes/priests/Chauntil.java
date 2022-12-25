@@ -20,30 +20,30 @@ public class Chauntil extends PriestsBase {
 		in their own ways.  Some factions are intolerant of other's like Narese the
 		Goddess of Pain, or very tolerant like the Priest's of Narius the God of
 		Knowledge.  Here are the Gods and their Priest's Spells.
-	
+
 		Chauntil
 		Second Requisite - Willpower
-
+	
 			Chauntil was once a maiden of Orn, God of the Ocean's and Sea's, till she saved
 			a child meant to feed one of Orn's Krakens.  That day Orn noticed her, wishing
 			to show his anger, he cursed her to immortality, then gave her into the hands
 			of Narese, the Lady of Pain.
-
+	
 			The deed did not go un-noticed by the other Gods, Thantos, Sautarian and
 			Tarn went to Mistress Night and the other gods to argue in her defense.  After
 			several years of pain, Thantos and Mistress Night gave her a choice, she
 			could die and pass into the afterlife in any of their followers heavens, or they
 			would bestow upon her control of the shallower Sea's.
-
+	
 			She would be raised above all other humanoids and given Demi-Godhood.
 			After 1000 years as a Demi-God, Mistress Night elevated her to a Lesser Power.
 			Chauntil's clerics are not allowed to wear heavy armor, or anything they
 			cannot get out of fast, most of her priests are sailors of one sort or another.
-
+	
 			Armor is restricted as above, having a maximum of 30%.  Their weapons have
 			no restrictions, however you usually will not find one swinging a halberd,
 			or a two-handed sword / axe.
-
+	
 			Power Zero:						Power One:
 			1)Speak with Animals (-1)			1)Calm Waters (-20)F
 			2)Heal Self (-20)				2)Sphere of Air I (-5)
@@ -53,7 +53,7 @@ public class Chauntil extends PriestsBase {
 			6)Protection : Cold (-0)		6)Protection : Fire (-0)
 			7)Clear Water (-8)				7)Star Sight (-12)
 			8)Shield I (-15)				8)Shield II (-20)
-	
+
 			Power Two:						Power Three:
 			1)Water Breathing (-25)			1)Summon Water Beast I(-30)
 			2)Cold Spell I (-4)F			2)Cold Spell II (-5)F
@@ -61,7 +61,7 @@ public class Chauntil extends PriestsBase {
 			4)Stamina II (-20)				4)Stamina III (-25)
 			5)Familiar (-60)F				5)Control Winds (-12)
 			6)Sea Safety (-30)				6)Touch of Death (-4)F
-	
+
 			Power Four:						Power Five:
 			1)Summon water Mon.. II (-40)	1)Summon Water Beast III (-60)
 			2)Sphere of Air II (-100)F		2)Pressure (-25)
@@ -69,12 +69,12 @@ public class Chauntil extends PriestsBase {
 			4)Water Walk (-5)				4)Control Weather (-30)
 			5)Commune (-30)					5)Summon Storm (-30)
 			6)Start Rain (-30)F				6)Summon Aide (-30)
-	
+
 			Power Six:						Power Seven:
 			1)Tidal Wave (-300)				1)Transport via Water (-6)
 			2)Cold Spell V (-8)F			2)Call Behemoth
 			3)Shell of Water Breathing (-35)	3)Transformation (-500)
-
+	
 	*/
 
 	/*****************************************************************************
@@ -121,10 +121,10 @@ public class Chauntil extends PriestsBase {
 		mSpells.add(new ArrayList<SpellRecord>(Arrays.asList( //
 						new SpellRecord(1, "Alertness I", 1, 20, 1), //$NON-NLS-1$
 						new SpellRecord(1, "Calm Waters", 0, 20, 1), //$NON-NLS-1$
-						new SpellRecord(0, "Flash Heal", 0, 7, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Flash Heal", 0, 7, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Freedom", 0, 3, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Protection : Fire", 0, 0, 0), //$NON-NLS-1$
-						new SpellRecord(0, "Shield I", 1, 15, 0), //$NON-NLS-1$
+						new SpellRecord(1, "Shield I", 1, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Sphere of Air I", 1, 5, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Stamina I", 1, 15, 0), //$NON-NLS-1$
 						new SpellRecord(1, "Star Sight", 0, 12, 0)))); //$NON-NLS-1$
@@ -197,36 +197,36 @@ public class Chauntil extends PriestsBase {
 	public void AdvanceLevel() {
 		/*
 		Advancing Levels:
-		
+
 			All classes modify their characters in the following ways when they advance a
 			level of experience:
-		
+
 			1)	Add +4% per level past (1st) to their Saving Throws (except Surprise).
-		
+
 			2)	Add +5% per level, including (1st) to their Belief Rating.
-		
+
 			3)	Add +1 every Odd level past (1st) to their Attack, Missile and Bow Speeds,
 				providing the characters actually use this skill at least once per level.
-		
+
 			4)	Add +3 Determination points per level past (1st).
-		
+
 			5)	Add +2% to Perception every level past (1st).
-		
+
 		Mages / Priests:
-		
+
 			1)	Add +4% per level past (1st) to be divided between their Hit Bonus, Bow
 				Bonus and their Casting Speed.  They may split the 4% as they see fit, but
 				for every +4% added to their Casting Speed it goes up +1.
-		
+
 			2)	Add +2% to their Missile Bonus.
-		
+
 			3)	Add +3 Stamina per level past (1st) until 10th level.  After 10th level add
 				+1 Stamina per level.
-		
+
 			4)	Add +1 Hit Point per level till the 10th level.
-		
+
 			5)	Add +1% per level to their Save Vs. Surprise.
-		
+
 			6)	Their Defense rises the same as their Hit Bonus, and their Free Attack
 				Rises +1% per level past (1st).
 		*/

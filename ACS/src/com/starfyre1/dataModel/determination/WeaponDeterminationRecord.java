@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
-public class WeaponProficiencyDeterminationRecord extends DeterminationRecord implements Savable {
+public class WeaponDeterminationRecord extends DeterminationRecord implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -37,16 +37,16 @@ public class WeaponProficiencyDeterminationRecord extends DeterminationRecord im
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link WeaponProficiencyDeterminationRecord}.
+	 * Creates a new {@link WeaponDeterminationRecord}.
 	 */
-	public WeaponProficiencyDeterminationRecord() {
+	public WeaponDeterminationRecord() {
 
 	}
 
 	/**
-	 * Creates a new {@link WeaponProficiencyDeterminationRecord}.
+	 * Creates a new {@link WeaponDeterminationRecord}.
 	 */
-	public WeaponProficiencyDeterminationRecord(String weapon, int teacher, int bonus, int dpPerWeek, int cost, String startDate, String lastUpdate) {
+	public WeaponDeterminationRecord(String weapon, int teacher, int bonus, int dpPerWeek, int cost, String startDate, String lastUpdate) {
 		mWeapon = weapon;
 		mTeacher = teacher;
 		mBonus = bonus;

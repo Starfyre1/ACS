@@ -12,7 +12,7 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
-import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
+import com.starfyre1.dataModel.determination.WeaponDeterminationRecord;
 import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.dataset.WeaponList;
 import com.starfyre1.startup.ACS;
@@ -120,7 +120,8 @@ public class WeaponTab extends DeterminationTab {
 					teacherID = teacherRecord.getID();
 				}
 
-				WeaponProficiencyDeterminationRecord record = new WeaponProficiencyDeterminationRecord(mWeaponPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), COST, CampaignDateChooser.getCampaignDate(), null);
+				String startDate = CampaignDateChooser.getCampaignDate();
+				WeaponDeterminationRecord record = new WeaponDeterminationRecord(mWeaponPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), COST, startDate, startDate);
 				DeterminationList.addWeaponRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
@@ -211,10 +212,10 @@ public class WeaponTab extends DeterminationTab {
 
 	@Override
 	protected void loadDisplay() {
-		ArrayList<WeaponProficiencyDeterminationRecord> list = DeterminationList.getWeaponRecords();
+		ArrayList<WeaponDeterminationRecord> list = DeterminationList.getWeaponRecords();
 		JPanel wrapper = new JPanel();
 		if (list.size() > 0) {
-			for (WeaponProficiencyDeterminationRecord record : list) {
+			for (WeaponDeterminationRecord record : list) {
 				JLabel weaponLabel = new JLabel(record.getWeapon());
 				JLabel teacherLabel = new JLabel(DeterminationList.getTeacher(record.getTeacher()).getTeacher());
 				JLabel bonusLabel = new JLabel(String.valueOf(record.getBonus()));
@@ -299,7 +300,7 @@ public class WeaponTab extends DeterminationTab {
 
 	}
 
-	void addRecord(WeaponProficiencyDeterminationRecord record) {
+	void addRecord(WeaponDeterminationRecord record) {
 		if (record != null) {
 			JLabel weaponLabel = new JLabel(record.getWeapon());
 			JLabel teacherLabel = new JLabel(DeterminationList.getTeacher(record.getTeacher()).getTeacher());
@@ -422,9 +423,9 @@ public class WeaponTab extends DeterminationTab {
 	@Override
 	public int getDPPerWeekTabTotal() {
 		int pointsSpent = 0;
-		ArrayList<WeaponProficiencyDeterminationRecord> list = DeterminationList.getWeaponRecords();
+		ArrayList<WeaponDeterminationRecord> list = DeterminationList.getWeaponRecords();
 		if (list.size() > 0) {
-			for (WeaponProficiencyDeterminationRecord record : list) {
+			for (WeaponDeterminationRecord record : list) {
 				pointsSpent += record.getDPPerWeek();
 			}
 		}

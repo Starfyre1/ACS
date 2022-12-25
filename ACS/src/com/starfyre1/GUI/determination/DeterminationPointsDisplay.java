@@ -10,7 +10,7 @@ import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
 import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
 import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
 import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
-import com.starfyre1.dataModel.determination.WeaponProficiencyDeterminationRecord;
+import com.starfyre1.dataModel.determination.WeaponDeterminationRecord;
 import com.starfyre1.dataset.DeterminationList;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.startup.ACS;
@@ -204,7 +204,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 			((MagicSpellTab) mTabbedPane.getComponent(2)).addRecord(record);
 		}
 
-		for (WeaponProficiencyDeterminationRecord record : DeterminationList.getWeaponRecords()) {
+		for (WeaponDeterminationRecord record : DeterminationList.getWeaponRecords()) {
 			((WeaponTab) mTabbedPane.getComponent(3)).addRecord(record);
 		}
 
