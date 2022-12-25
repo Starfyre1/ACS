@@ -142,7 +142,8 @@ public class LanguageTab extends DeterminationTab {
 			} else if (source.equals(mGiveUpButton)) {
 				// DW Added game date to record
 			} else if (source.equals(mOkButton)) {
-				LanguageDeterminationRecord record = new LanguageDeterminationRecord(mLangPopup.getSelectedItem(), mSourcePopup.getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, CampaignDateChooser.getCampaignDate(), null);
+				String startDate = CampaignDateChooser.getCampaignDate();
+				LanguageDeterminationRecord record = new LanguageDeterminationRecord(mLangPopup.getSelectedItem(), mSourcePopup.getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, startDate, startDate);
 				DeterminationList.addLanguageRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();

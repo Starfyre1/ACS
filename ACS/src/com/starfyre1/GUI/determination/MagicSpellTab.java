@@ -97,6 +97,8 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 
 	private JDialog				mNewEntryDialog;
 
+	private int					mSpellPower				= 0;
+
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
@@ -124,7 +126,8 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 			} else if (source.equals(mGiveUpButton)) {
 				// DW Added game date to record
 			} else if (source.equals(mOkButton)) {
-				MagicSpellDeterminationRecord record = new MagicSpellDeterminationRecord(mSpellLabel.getText(), mSchoolPopup.getSelectedItem(), TKStringHelpers.getFloatValue(mCostField.getText(), 0f), TKStringHelpers.getIntValue(mResearchChanceLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, CampaignDateChooser.getCampaignDate(), null);
+				String startDate = CampaignDateChooser.getCampaignDate();
+				MagicSpellDeterminationRecord record = new MagicSpellDeterminationRecord(mSpellLabel.getText(), mSchoolPopup.getSelectedItem(), mSpellPower, TKStringHelpers.getFloatValue(mCostField.getText(), 0f), TKStringHelpers.getIntValue(mResearchChanceLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, startDate, startDate);
 				DeterminationList.addMagicSpellRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
@@ -151,9 +154,9 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 					CharacterSheet owner = ACS.getInstance().getCharacterSheet();
 					AttributesRecord attr = owner.getAttributesRecord();
 					int stats = (attr.getModifiedStat(AttributesRecord.INT) + attr.getModifiedStat(AttributesRecord.WIS)) / 2;
-					int spellPower = record.getLevel();
+					mSpellPower = record.getLevel();
 					int charLevel = owner.getHeaderRecord().getLevel();
-					mResearchChanceLabel.setText(String.valueOf(MageList.spellResearchChance(stats, spellPower, charLevel)));
+					mResearchChanceLabel.setText(String.valueOf(MageList.spellResearchChance(stats, mSpellPower, charLevel)));
 					mResearchChanceLabel.revalidate();
 				}
 			} else {
@@ -194,6 +197,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		SpellRecord record = selector.getSpellToLearn();
 		if (record != null) {
 			mSpellLabel.setText(record.getName());
+			mSpellPower = record.getLevel();
 			return record;
 			//					mCurrentList.addToKnownSpells(record);
 		}
@@ -350,7 +354,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 			CharacterSheet owner = ACS.getInstance().getCharacterSheet();
 			AttributesRecord attr = owner.getAttributesRecord();
 			int stats = (attr.getModifiedStat(AttributesRecord.INT) + attr.getModifiedStat(AttributesRecord.WIS)) / 2;
-			int spellPower = 0;
+			int spellPower = record.getLevel();
 			int charLevel = owner.getHeaderRecord().getLevel();
 			JLabel researchChanceLabel = new JLabel(String.valueOf(MageList.spellResearchChance(stats, spellPower, charLevel)));
 			JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$

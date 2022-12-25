@@ -253,8 +253,9 @@ public class AttributesRecord implements Savable {
 		return mDPStats[which];
 	}
 
-	public void setDPStat(int which, int value) {
+	public void setDPStatBonus(int which, int value) {
 		mDPStats[which] = value;
+		mModifiedStats[which] += value;
 	}
 
 	public int[] getModifiedStats() {

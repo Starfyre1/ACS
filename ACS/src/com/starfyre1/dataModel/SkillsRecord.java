@@ -451,21 +451,21 @@ public class SkillsRecord implements LevelListener, Savable {
 		  		Listener is:				Chance to Hear 		Range
 				Human, Non-thief with a save		20%			60'
 				Vs. Surprise of less than 75%
-		
-		
+
+
 				Human, Non-thief with a save		30%			60'
 				Vs. Surprise of more than 75%
-		
+
 				Elven, Half-Elven and Dwarrow		30% 		120'
-		
+
 				Other--(some monsters will have		20%			60'
 				high hearing abilities)
-		
+
 				Thief					Varies with lvl		60' *
 					*	Add 5’ per 10% above 100% to hear.
-		
+
 				Halve all chances when listening to a door.
-		
+
 		*/
 
 		boolean innate = mIsInnate[HEAR];
@@ -946,7 +946,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (ACS.showCalculations()) {
 			sb.append(DETECT_METALS_TOOLTIP + "<br>"); //$NON-NLS-1$
 		}
-		sb.append("(" + base + ") + " + DPBonus + " = " + (base + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		sb.append("(" + base + ") + " + DPBonus + " = " + (base + DPBonus) + "<br></html>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
 		return sb.toString();
 	}
@@ -1242,6 +1242,105 @@ public class SkillsRecord implements LevelListener, Savable {
 	/** @return The UnallocatedSkill tooltip. */
 	public String getUnallocatedSkillsToolTip() {
 		return UNALLOCATED_TOOLTIP;
+	}
+
+	private int adjustBonus(int skill, int bonus) {
+		if (skill >= bonus) {
+			return 0;
+		}
+		return (int) Math.ceil((bonus - skill) / 4);
+
+	}
+
+	public void setSkillDPBonus(String skill, int bonus) {
+		if (skill.equals("Appraise")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mAppraise, bonus);
+			mAppraiseDPBonus += adjustBonus;
+			mAppraise += adjustBonus;
+		} else if (skill.equals("Bandaging")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mBandaging, bonus);
+			mBandagingDPBonus += adjustBonus;
+			mBandaging += adjustBonus;
+		} else if (skill.equals("Depth Sense")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mDepthSense, bonus);
+			mDepthSenseDPBonus += adjustBonus;
+			mDepthSense += adjustBonus;
+		} else if (skill.equals("Detect Magic")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mDetectMagic, bonus);
+			mDetectMagicDPBonus += adjustBonus;
+			mDetectMagic += adjustBonus;
+		} else if (skill.equals("Detect Metals")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mDetectMetals, bonus);
+			mDetectMetalsDPBonus += adjustBonus;
+			mDetectMetals += adjustBonus;
+		} else if (skill.equals("Detect Morals")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mDetectMorals, bonus);
+			mDetectMoralsDPBonus += adjustBonus;
+			mDetectMorals += adjustBonus;
+		} else if (skill.equals("Secret Doors")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mDetectSecretDoors, bonus);
+			mDetectSecretDoorsDPBonus += adjustBonus;
+			mDetectSecretDoors += adjustBonus;
+		} else if (skill.equals("Detect Traps")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mDetectTraps, bonus);
+			mDetectTrapsDPBonus += adjustBonus;
+			mDetectTraps += adjustBonus;
+			mDetectTrapsDPBonus += adjustBonus(mDetectTraps, bonus);
+		} else if (skill.equals("Herbal Lore")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mHerbalLore, bonus);
+			mHerbalLoreDPBonus += adjustBonus;
+			mHerbalLore += adjustBonus;
+		} else if (skill.equals("Hunting")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mHunting, bonus);
+			mHuntingDPBonus += adjustBonus;
+			mHunting += adjustBonus;
+		} else if (skill.equals("Perception")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mPerception, bonus);
+			mPerceptionDPBonus += adjustBonus;
+			mPerception += adjustBonus;
+		} else if (skill.equals("Tracking")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mTracking, bonus);
+			mTrackingDPBonus += adjustBonus;
+			mTracking += adjustBonus;
+		} else if (skill.equals("Berserk")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mBerserk, bonus);
+			mBerserkDPBonus += adjustBonus;
+			mBerserk += adjustBonus;
+		} else if (skill.equals("Climb")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mClimb, bonus);
+			mClimbDPBonus += adjustBonus;
+			mClimb += adjustBonus;
+		} else if (skill.equals("Conceal")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mConceal, bonus);
+			mConcealDPBonus += adjustBonus;
+			mConceal += adjustBonus;
+		} else if (skill.equals("Find Trap")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mFindTrap, bonus);
+			mFindTrapDPBonus += adjustBonus;
+			mFindTrap += adjustBonus;
+		} else if (skill.equals("Hear")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mHear, bonus);
+			mHearDPBonus += adjustBonus;
+			mHear += adjustBonus;
+		} else if (skill.equals("Lock Pick")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mLockPick, bonus);
+			mLockPickDPBonus += adjustBonus;
+			mLockPick += adjustBonus;
+		} else if (skill.equals("Pick Pocket")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mPickPocket, bonus);
+			mPickPocketDPBonus += adjustBonus;
+			mPickPocket += adjustBonus;
+		} else if (skill.equals("Remove Trap")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mRemoveTrap, bonus);
+			mRemoveTrapDPBonus += adjustBonus;
+			mRemoveTrap += adjustBonus;
+		} else if (skill.equals("Stealth")) { //$NON-NLS-1$
+			int adjustBonus = adjustBonus(mStealth, bonus);
+			mStealthDPBonus += adjustBonus;
+			mStealth += adjustBonus;
+		} else {
+			System.err.println("SkillsRecord.setSkillDPBonus() - Skill not found : " + skill); //$NON-NLS-1$
+		}
 	}
 
 	/*****************************************************************************

@@ -48,7 +48,6 @@ import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.MagicItemList;
 import com.starfyre1.dataset.PriestList;
 import com.starfyre1.dataset.WeaponList;
-import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.interfaces.CampaignDateListener;
 import com.starfyre1.startup.ACS;
 import com.starfyre1.startup.SystemInfo;
@@ -1258,6 +1257,14 @@ public class CharacterSheet implements ActionListener {
 		return mAttackTotalsDisplay;
 	}
 
+	public SkillsDisplay getSkillsDisplay() {
+		return mSkillsDisplay;
+	}
+
+	public AttributesDisplay getAttributesDisplay() {
+		return mAttributesDisplay;
+	}
+
 	/** @return The combatInformationRecord. */
 	public CombatInformationRecord getCombatInformationRecord() {
 		return mCombatInformationRecord;
@@ -1400,24 +1407,18 @@ public class CharacterSheet implements ActionListener {
 		return mIsCharacterLoaded;
 	}
 
-	/**
-	 * @return
-	 */
-	public ArrayList<SpellRecord> getAllKnownSpells() {
+	public ArrayList<String> getAllKnownSchoolNames() {
+		if (mSpellTab == null) {
+			return null;
+		}
 		Component comp[] = mSpellTab.getCards();
+		ArrayList<String> knownSchools = new ArrayList<>();
 		for (Component element : comp) {
 			if (element instanceof SpellList) {
-				String spellArea = ((SpellList) element).getName();
-				ArrayList<SpellRecord> knownSpells = ((SpellList) element).getKnownSpells();
-				for (SpellRecord record : knownSpells) {
-					if (record.getLevel() != -1) {
-						int level = record.getLevel();
-						String name = record.getName();
-					}
-				}
+				knownSchools.add(((SpellList) element).getName());
 			}
 		}
-		return null;
+		return knownSchools;
 	}
 
 	private File verifyDataFileVersion(File file) throws IOException, FileNotFoundException {

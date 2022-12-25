@@ -109,7 +109,8 @@ public class AttributesTab extends DeterminationTab {
 			} else if (source.equals(mGiveUpButton)) {
 				// DW Added game date to record
 			} else if (source.equals(mOkButton)) {
-				AttributeDeterminationRecord record = new AttributeDeterminationRecord(getAttributeNumber(mAttrPopup.getSelectedItem()), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), COST, CampaignDateChooser.getCampaignDate(), null);
+				String startDate = CampaignDateChooser.getCampaignDate();
+				AttributeDeterminationRecord record = new AttributeDeterminationRecord(getAttributeNumber(mAttrPopup.getSelectedItem()), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), COST, startDate, startDate);
 				DeterminationList.addAttribRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
@@ -364,11 +365,11 @@ public class AttributesTab extends DeterminationTab {
 			case AttributesRecord.CONSTITUTION:
 				yield 1;
 			case AttributesRecord.WISDOM:
-				yield 2;
-			case AttributesRecord.DEXTERITY:
 				yield 3;
-			case AttributesRecord.BOW_SKILL:
+			case AttributesRecord.DEXTERITY:
 				yield 4;
+			case AttributesRecord.BOW_SKILL:
+				yield 5;
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + getClass() + name); //$NON-NLS-1$
 		};

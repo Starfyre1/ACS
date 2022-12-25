@@ -8,6 +8,7 @@ import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.PriestList;
 import com.starfyre1.startup.ACS;
 
+import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -57,11 +58,18 @@ public class MagicAreaPopup {
 			popupMenu.add(menu);
 		}
 
+		ArrayList<String> knownSchools = ACS.getInstance().getCharacterSheet().getAllKnownSchoolNames();
 		for (JMenu element : menus) {
 			for (int i = 0; i < names.size(); i++) {
 				if (element.getText().equals(records.get(i).getGroup())) {
-					JMenuItem menuItem = new JMenuItem(names.get(i));
+					String school = names.get(i);
+					JMenuItem menuItem = new JMenuItem(school);
 					menuItem.addActionListener(aListener);
+					if (knownSchools != null && knownSchools.contains(school)) {
+						menuItem.setForeground(Color.BLUE);
+					} else {
+						menuItem.setForeground(Color.BLACK);
+					}
 					element.add(menuItem);
 				}
 			}
@@ -69,7 +77,8 @@ public class MagicAreaPopup {
 
 		for (int i = 0; i < names.size(); i++) {
 			if (records.get(i).getGroup() == null) {
-				JMenuItem menuItem = new JMenuItem(names.get(i));
+				String school = names.get(i);
+				JMenuItem menuItem = new JMenuItem(school);
 				menuItem.addActionListener(aListener);
 				popupMenu.add(menuItem, 0);
 			}

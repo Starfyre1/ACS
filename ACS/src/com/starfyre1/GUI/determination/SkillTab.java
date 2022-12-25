@@ -120,7 +120,8 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 				if (teacherRecord != null) {
 					teacherID = teacherRecord.getID();
 				}
-				SkillDeterminationRecord record = new SkillDeterminationRecord(mSkillsPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, CampaignDateChooser.getCampaignDate(), null);
+				String startDate = CampaignDateChooser.getCampaignDate();
+				SkillDeterminationRecord record = new SkillDeterminationRecord(mSkillsPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, startDate, startDate);
 				DeterminationList.addSkillRecord(record);
 				((DeterminationPointsDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();

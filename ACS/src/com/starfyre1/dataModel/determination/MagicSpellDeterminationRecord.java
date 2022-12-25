@@ -4,6 +4,7 @@ package com.starfyre1.dataModel.determination;
 
 import com.starfyre1.ToolKit.TKDice;
 import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
 import com.starfyre1.storage.PreferenceStore;
@@ -24,14 +25,17 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 
 	private static final String	SPELL_KEY				= "SPELL_KEY";									//$NON-NLS-1$
 	private static final String	SCHOOL_KEY				= "SCHOOL_KEY";									//$NON-NLS-1$
+	private static final String	LEVEL_KEY				= "LEVEL_KEY";									//$NON-NLS-1$
 	private static final String	COST_KEY				= "COST_KEY";									//$NON-NLS-1$
 	private static final String	CHANCE_KEY				= "CHANCE_KEY";									//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
+	SpellRecord					mRecord					= null;
 	String						mSpell					= TKStringHelpers.EMPTY_STRING;
 	String						mSchool					= TKStringHelpers.EMPTY_STRING;
+	int							mLevel					= 0;
 	int							mChance					= 0;
 	float						mCost					= 0;
 
@@ -48,9 +52,10 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/**
 	 * Creates a new {@link MagicSpellDeterminationRecord}.
 	 */
-	public MagicSpellDeterminationRecord(String spell, String school, float cost, int chance, int dpPerWeek, int dpCost, String startDate, String lastUpdate) {
+	public MagicSpellDeterminationRecord(String spell, String school, int level, float cost, int chance, int dpPerWeek, int dpCost, String startDate, String lastUpdate) {
 		mSpell = spell;
 		mSchool = school;
+		mLevel = level;
 		mCost = cost;
 		mChance = chance;
 		mDPPerWeek = dpPerWeek;
@@ -71,6 +76,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 
 		sb.append("Spell: " + mSpell); //$NON-NLS-1$
 		sb.append("\nSchool: " + mSchool); //$NON-NLS-1$
+		sb.append("\nLevel: " + mLevel); //$NON-NLS-1$
 		sb.append("\nCost: " + mCost); //$NON-NLS-1$
 		sb.append("\nDP Per Week: " + mDPPerWeek); //$NON-NLS-1$
 		sb.append("\nDP Total Spent: " + mDPTotalSpent + " / " + mDPCost); //$NON-NLS-1$ //$NON-NLS-2$
@@ -118,6 +124,10 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 	/** @return The school. */
 	public String getSchool() {
 		return mSchool;
+	}
+
+	public int getLevel() {
+		return mLevel;
 	}
 
 	/** @return The chance. */
@@ -172,6 +182,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 
 		br.write(TKStringHelpers.TAB + SCHOOL_KEY + TKStringHelpers.SPACE + mSchool + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + SPELL_KEY + TKStringHelpers.SPACE + mSpell + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + LEVEL_KEY + TKStringHelpers.SPACE + mLevel + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + COST_KEY + TKStringHelpers.SPACE + mCost + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + DP_PER_WEEK_KEY + TKStringHelpers.SPACE + mDPPerWeek + System.lineSeparator());
 		br.write(TKStringHelpers.TAB + DP_TOTAL_SPENT_KEY + TKStringHelpers.SPACE + mDPTotalSpent + System.lineSeparator());
@@ -192,6 +203,8 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 			mSchool = value;
 		} else if (SPELL_KEY.equals(key)) {
 			mSpell = value;
+		} else if (LEVEL_KEY.equals(key)) {
+			mLevel = TKStringHelpers.getIntValue(value, 0);
 		} else if (COST_KEY.equals(key)) {
 			mCost = TKStringHelpers.getIntValue(value, 0);
 		} else if (DP_PER_WEEK_KEY.equals(key)) {
