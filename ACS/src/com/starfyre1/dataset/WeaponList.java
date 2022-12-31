@@ -145,9 +145,17 @@ public class WeaponList implements Savable {
 		return null;
 	}
 
-	/** @return The armorList. */
 	public ArrayList<WeaponRecord> getRecords() {
 		return mRecords;
+	}
+
+	public WeaponRecord getRecord(String weapon) {
+		for (WeaponRecord record : mRecords) {
+			if (record.getName().equals(weapon)) {
+				return record;
+			}
+		}
+		return null;
 	}
 
 	public static void addWeaponToFile(ArrayList<WeaponRecord> recordsToAdd) {
@@ -353,6 +361,7 @@ public class WeaponList implements Savable {
 			br.write(TKStringHelpers.TAB + SPEED_KEY + TKStringHelpers.SPACE + record.getAttackSpeed() + System.lineSeparator());
 			br.write(TKStringHelpers.TAB + BREAK_KEY + TKStringHelpers.SPACE + record.getWeaponBreak() + System.lineSeparator());
 			br.write(TKStringHelpers.TAB + HIT_BONUS_KEY + TKStringHelpers.SPACE + record.getHitBonus() + System.lineSeparator());
+			br.write(TKStringHelpers.TAB + HIT_BONUS_DP_KEY + TKStringHelpers.SPACE + record.getDPHitBonus() + System.lineSeparator());
 			br.write(TKStringHelpers.TAB + DAMAGE1_KEY + TKStringHelpers.SPACE + record.getDamageOneHanded() + System.lineSeparator());
 			br.write(TKStringHelpers.TAB + DAMAGE2_KEY + TKStringHelpers.SPACE + record.getDamageTwoHanded() + System.lineSeparator());
 			br.write(TKStringHelpers.TAB + COST_KEY + TKStringHelpers.SPACE + record.getCost() + System.lineSeparator());

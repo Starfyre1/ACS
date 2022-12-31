@@ -78,6 +78,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.StringTokenizer;
 
 import javax.swing.Box;
@@ -185,6 +186,7 @@ public class CharacterSheet implements ActionListener {
 	private JMenuItem						mToHitMenuItem;
 
 	private ArrayList<CampaignDateListener>	mCampaignDateListeners;
+	private Hashtable<String, Integer>		mWeaponDPTable				= new Hashtable<>();
 
 	// Data Files
 	private AttributesRecord				mAttributesRecord;
@@ -1230,12 +1232,17 @@ public class CharacterSheet implements ActionListener {
 		return mArmorList;
 	}
 
-	/** @return The armorRecord. */
+	/** @return The weaponRecord. */
 	public WeaponList getWeaponList() {
 		return mWeaponList;
 	}
 
-	/** @return The armorRecord. */
+	/** @return The weaponRecord. */
+	public WeaponRecord getWeapon(String name) {
+		return mWeaponList.getRecord(name);
+	}
+
+	/** @return The equipmentRecord. */
 	public EquipmentList getEquipmentList() {
 		return mEquipmentList;
 	}
@@ -1312,8 +1319,16 @@ public class CharacterSheet implements ActionListener {
 		mPersonalInformationDisplay.loadDisplay();
 	}
 
+	public WeaponOwnedDisplay getWeaponOwnedDiplay() {
+		return mWeaponOwnedDisplay;
+	}
+
+	public WeaponEquippedDisplay getEquippedWeaponDisplay() {
+		return mWeaponEquippedDisplay;
+	}
+
 	public ArrayList<WeaponRecord> getEquippedWeaponRecords() {
-		return mWeaponEquippedDisplay.getEquippedWeapons();
+		return getEquippedWeaponDisplay().getEquippedWeapons();
 	}
 
 	public void equipWeapon(WeaponRecord equipment, int index) {
@@ -1322,6 +1337,14 @@ public class CharacterSheet implements ActionListener {
 
 	public void unEquipWeapon(WeaponRecord equipment) {
 		mWeaponEquippedDisplay.unEquipWeapon(equipment);
+	}
+
+	public void addWeaponDP(String key, int value) {
+		mWeaponDPTable.put(key, Integer.valueOf(value));
+	}
+
+	public int getWeaponDPValue(String key) {
+		return mWeaponDPTable.containsKey(key) ? mWeaponDPTable.get(key).intValue() : 0;
 	}
 
 	public ClassList getClasses() {

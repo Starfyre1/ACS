@@ -345,8 +345,8 @@ public class WeaponRecord extends TKTableRecord implements Comparable<WeaponReco
 		return mDPHitBonus;
 	}
 
-	public void setDPHitBonus(int hitBonus) {
-		mDPHitBonus += hitBonus;
+	public void setDPHitBonus(int bonus) {
+		mDPHitBonus = bonus;
 	}
 
 	/** @return The damageOneHanded. */

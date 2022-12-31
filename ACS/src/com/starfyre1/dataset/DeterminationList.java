@@ -8,6 +8,7 @@ import com.starfyre1.GUI.character.SkillsDisplay;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.spells.SpellListDisplay;
 import com.starfyre1.ToolKit.TKStringHelpers;
+import com.starfyre1.dataModel.WeaponRecord;
 import com.starfyre1.dataModel.determination.AttributeDeterminationRecord;
 import com.starfyre1.dataModel.determination.DeterminationRecord;
 import com.starfyre1.dataModel.determination.LanguageDeterminationRecord;
@@ -312,9 +313,32 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			display.updateToolTips(false);
 		} else if (record instanceof WeaponDeterminationRecord) {
 			WeaponDeterminationRecord weaponDeterminationRecord = (WeaponDeterminationRecord) record;
-			String weapon = weaponDeterminationRecord.getWeapon();
-			int bonus = weaponDeterminationRecord.getBonus();
+			String name = weaponDeterminationRecord.getWeapon();
+
+			WeaponRecord owned = mOwner.getWeapon(name);
+			int bonus = adjustWeaponDPBonus(owned, weaponDeterminationRecord.getBonus());
+			mOwner.addWeaponDP(name, bonus);
+			int value = mOwner.getWeaponDPValue(name);
+			WeaponList list = mOwner.getWeaponList();
+			for (WeaponRecord weapon : list.getRecords()) {
+				String test = weapon.getName();
+				if (name.equals(test)) {
+					weapon.setDPHitBonus(value);
+				}
+			}
+
+			// DW fix this should probably just have the display update the single field for DP
+			mOwner.getEquippedWeaponDisplay().loadDisplay();
+			mOwner.getWeaponOwnedDiplay().loadDisplay();
+			mOwner.getAttackTotalsDisplay().loadDisplay();
 		}
+	}
+
+	private int adjustWeaponDPBonus(WeaponRecord record, int dpHitBonus) {
+		if (record.getHitBonus() + record.getDPHitBonus() >= dpHitBonus) {
+			return 0;
+		}
+		return record.getDPHitBonus() + (int) Math.ceil(((double) dpHitBonus - (double) (record.getHitBonus() + record.getDPHitBonus())) / 4.0);
 	}
 
 	private int weekUp(DeterminationRecord record, String date) {
