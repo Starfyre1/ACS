@@ -25,7 +25,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	static final String			PERSONAL_INFORMATION_TITLE	= "<html>Personal<br>Information</html>";																					//$NON-NLS-1$
+	static final String			PERSONAL_INFORMATION_TITLE	= "Personal Information";																									//$NON-NLS-1$
 
 	private static final String	HEIGHT_LABEL				= "Height";																													//$NON-NLS-1$
 	private static final String	WEIGHT_LABEL				= "Weight";																													//$NON-NLS-1$

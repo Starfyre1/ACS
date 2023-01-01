@@ -2,7 +2,9 @@
 
 package com.starfyre1.dataset.common;
 
-public abstract class BaseClass extends Object {
+import java.util.ArrayList;
+
+public abstract class BaseClass {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
@@ -113,6 +115,8 @@ public abstract class BaseClass extends Object {
 
 	public abstract int getHitPoints();
 
+	// Languages
+	public abstract ArrayList<String> getLanguages();
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/

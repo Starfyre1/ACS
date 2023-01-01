@@ -2,8 +2,11 @@
 
 package com.starfyre1.dataset.classes.priests;
 
+import com.starfyre1.dataModel.LanguageRecord;
 import com.starfyre1.dataset.common.SpellUser;
 import com.starfyre1.startup.ACS;
+
+import java.util.ArrayList;
 
 public abstract class PriestsBase extends SpellUser {
 
@@ -247,6 +250,17 @@ public abstract class PriestsBase extends SpellUser {
 		}
 
 		return hp;
+	}
+
+	// Languages
+	@Override
+	public ArrayList<String> getLanguages() {
+		ArrayList<String> languages = new ArrayList<>();
+
+		languages.add(LanguageRecord.LANGUAGES[0]);
+
+		return languages;
+
 	}
 
 	/*****************************************************************************

@@ -7,6 +7,7 @@ import com.starfyre1.GUI.character.AttributesDisplay;
 import com.starfyre1.GUI.character.CombatInformationDisplay;
 import com.starfyre1.GUI.character.DefenseInformationDisplay;
 import com.starfyre1.GUI.character.InnateAbilitiesDisplay;
+import com.starfyre1.GUI.character.LanguageDisplay;
 import com.starfyre1.GUI.character.MoneyDisplay;
 import com.starfyre1.GUI.character.PersonalInformationDisplay;
 import com.starfyre1.GUI.character.SavingThowsDisplay;
@@ -33,6 +34,7 @@ import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.CombatInformationRecord;
 import com.starfyre1.dataModel.EquipmentRecord;
 import com.starfyre1.dataModel.HeaderRecord;
+import com.starfyre1.dataModel.LanguageRecord;
 import com.starfyre1.dataModel.MagicItemRecord;
 import com.starfyre1.dataModel.MoneyRecord;
 import com.starfyre1.dataModel.PersonalInformationRecord;
@@ -114,6 +116,7 @@ public class CharacterSheet implements ActionListener {
 	private static final String				EQUIPMENT_SHEET_TITLE		= "Equipment";													//$NON-NLS-1$
 	private static final String				SPELL_SHEET_TITLE			= "Spells";														//$NON-NLS-1$
 	private static final String				JOURNAL_SHEET_TITLE			= "Journal";													//$NON-NLS-1$
+	private static final String				DETERMINATION_SHEET_TITLE	= "Determination";												//$NON-NLS-1$
 	private static final String				TREASURE_SHEET_TITLE		= "Treasure";													//$NON-NLS-1$
 
 	// DW add something useful for the tooltips or remove them
@@ -121,6 +124,7 @@ public class CharacterSheet implements ActionListener {
 	private static final String				EQUIPMENT_SHEET_TOOLTIP		= "Equipment Sheet";											//$NON-NLS-1$
 	private static final String				SPELL_SHEET_TOOLTIP			= "Spell Sheet";												//$NON-NLS-1$
 	private static final String				JOURNAL_SHEET_TOOLTIP		= "Journal Sheet";												//$NON-NLS-1$
+	private static final String				DETERMINATION_SHEET_TOOLTIP	= "Determination Points Sheet";									//$NON-NLS-1$
 	private static final String				TREASURE_SHEET_TOOLTIP		= "Treasure Sheet";												//$NON-NLS-1$
 
 	static final String						ABOUT						= "About";														//$NON-NLS-1$
@@ -193,6 +197,7 @@ public class CharacterSheet implements ActionListener {
 	private CombatInformationRecord			mCombatInformationRecord;
 	private HeaderRecord					mHeaderRecord;
 	private PersonalInformationRecord		mPersonalInformationRecord;
+	private LanguageRecord					mLanguageRecord;
 	private MoneyRecord						mMoneyRecord;
 	private SavingThrowsRecord				mSavingThrowsRecord;
 	private SkillsRecord					mSkillsRecord;
@@ -212,9 +217,10 @@ public class CharacterSheet implements ActionListener {
 	private CombatInformationDisplay		mCombatInformationDisplay;
 
 	private SkillsDisplay					mSkillsDisplay;
-	private DeterminationPointsDisplay		mDeterminationPointsDisplay;
+	//	private DeterminationPointsDisplay		mDeterminationPointsDisplay;
 
 	private PersonalInformationDisplay		mPersonalInformationDisplay;
+	private LanguageDisplay					mLanguageDisplay;
 	private MoneyDisplay					mMoneyDisplay;
 	private InnateAbilitiesDisplay			mInnateAbilitiesDisplay;
 
@@ -239,6 +245,9 @@ public class CharacterSheet implements ActionListener {
 
 	// Journal Tab
 	private JournalDisplay					mJournalTab;
+
+	// Determination Tab
+	private DeterminationPointsDisplay		mDeterminationTab;
 
 	// Treasure Tab
 	private TreasureDisplay					mTreasureTab;
@@ -283,19 +292,22 @@ public class CharacterSheet implements ActionListener {
 		JComponent equipmentTab = makeEquipmentTab();
 		mSpellTab = new SpellListDisplay(this);
 		mJournalTab = new JournalDisplay(this);
+		mDeterminationTab = new DeterminationPointsDisplay(this);
 		//		mTreasureTab = new TreasureDisplay(this);
 
 		tabbedPane.addTab(CHARACTER_SHEET_TITLE, CHARACTER_ICON, characterTab, CHARACTER_SHEET_TOOLTIP);
 		tabbedPane.addTab(EQUIPMENT_SHEET_TITLE, CHARACTER_ICON, equipmentTab, EQUIPMENT_SHEET_TOOLTIP);
 		tabbedPane.addTab(SPELL_SHEET_TITLE, CHARACTER_ICON, mSpellTab, SPELL_SHEET_TOOLTIP);
 		tabbedPane.addTab(JOURNAL_SHEET_TITLE, CHARACTER_ICON, mJournalTab, JOURNAL_SHEET_TOOLTIP);
+		tabbedPane.addTab(DETERMINATION_SHEET_TITLE, CHARACTER_ICON, mDeterminationTab, DETERMINATION_SHEET_TOOLTIP);
 		//		tabbedPane.addTab(TREASURE_SHEET_TITLE, CHARACTER_ICON, mTreasureTab, TREASURE_SHEET_TOOLTIP);
 
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_C);
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_E);
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_S);
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_J);
-		//		tabbedPane.setMnemonicAt(4, KeyEvent.VK_T);
+		tabbedPane.setMnemonicAt(4, KeyEvent.VK_D);
+		//		tabbedPane.setMnemonicAt(5, KeyEvent.VK_T);
 
 		JPanel wrapper = new JPanel(new BorderLayout());
 		wrapper.add(mHeaderDisplay, BorderLayout.NORTH);
@@ -328,7 +340,7 @@ public class CharacterSheet implements ActionListener {
 		mDefenseInformationDisplay = new DefenseInformationDisplay(this);
 		mMoneyDisplay = new MoneyDisplay(this);
 		mPersonalInformationDisplay = new PersonalInformationDisplay(this);
-		mDeterminationPointsDisplay = new DeterminationPointsDisplay(this);
+		mLanguageDisplay = new LanguageDisplay(this);
 		mArmorEquippedDisplay = new ArmorEquippedDisplay(null);
 		mInnateAbilitiesDisplay = new InnateAbilitiesDisplay(this);
 		mWeaponEquippedDisplay = new WeaponEquippedDisplay(null);
@@ -352,7 +364,7 @@ public class CharacterSheet implements ActionListener {
 		wrapper3.setLayout(blw3);
 		wrapper3.add(mMoneyDisplay);
 		wrapper3.add(mPersonalInformationDisplay);
-		wrapper3.add(mDeterminationPointsDisplay);
+		wrapper3.add(mLanguageDisplay);
 
 		JPanel wrapper4 = new JPanel();
 		BoxLayout blw4 = new BoxLayout(wrapper4, BoxLayout.X_AXIS);
@@ -605,6 +617,7 @@ public class CharacterSheet implements ActionListener {
 		mSavingThrowsRecord = new SavingThrowsRecord(this, true);
 		mCombatInformationRecord = new CombatInformationRecord(this, true);
 		mPersonalInformationRecord = new PersonalInformationRecord(this, true);
+		mLanguageRecord = new LanguageRecord(this, true);
 		mMoneyRecord = new MoneyRecord(this, true);
 		mSkillsRecord = new SkillsRecord(this, true);
 		mEquipmentList = new EquipmentList();
@@ -636,6 +649,7 @@ public class CharacterSheet implements ActionListener {
 		mHeaderRecord = new HeaderRecord();
 		mMoneyRecord = new MoneyRecord(this, false);
 		mPersonalInformationRecord = new PersonalInformationRecord(this, false);
+		mLanguageRecord = new LanguageRecord(this, false);
 		mCombatInformationRecord = new CombatInformationRecord(this, false);
 		mSkillsRecord = new SkillsRecord(this, false);
 		mEquipmentList = new EquipmentList();
@@ -649,6 +663,7 @@ public class CharacterSheet implements ActionListener {
 
 		mAttributesRecord.finalizeCreation(false);
 		mPersonalInformationRecord.generateCarry();
+		mLanguageRecord.updateValues();
 		mCombatInformationRecord.updateRecord();
 		mSkillsRecord.updateRecord();
 		mSavingThrowsRecord = new SavingThrowsRecord(this, true);
@@ -700,8 +715,9 @@ public class CharacterSheet implements ActionListener {
 		mSavingThrowsDisplay.loadDisplay();
 		mCombatInformationDisplay.loadDisplay();
 		mSkillsDisplay.loadDisplay();
-		mDeterminationPointsDisplay.loadDisplay();
+		//		mDeterminationPointsDisplay.loadDisplay();
 		mPersonalInformationDisplay.loadDisplay();
+		mLanguageDisplay.loadDisplay();
 		mMoneyDisplay.loadDisplay();
 		mInnateAbilitiesDisplay.loadDisplay();
 
@@ -794,6 +810,10 @@ public class CharacterSheet implements ActionListener {
 			mPersonalInformationRecord.clearRecords();
 			mPersonalInformationRecord = null;
 		}
+		if (mLanguageRecord != null) {
+			mLanguageRecord.clearRecords();
+			mLanguageRecord = null;
+		}
 		if (mMoneyRecord != null) {
 			mMoneyRecord.clearRecords();
 			mMoneyRecord = null;
@@ -828,6 +848,7 @@ public class CharacterSheet implements ActionListener {
 		mInnateAbilitiesDisplay.clearRecords();
 		mSpellTab.clearRecords();
 		mJournalTab.clearRecords();
+		//		mDeterminationTab.clearRecords();
 		//		mTreasureTab.clearRecords();
 		mDefenseInformationDisplay.clearRecords();
 		HistoryManager historyManager = HistoryManager.getInstance();
@@ -912,7 +933,7 @@ public class CharacterSheet implements ActionListener {
 
 			// DW this is probably loading the display twice on character load.
 			mSavingThrowsDisplay.loadDisplay();
-			mDeterminationPointsDisplay.loadDisplay();
+			//			mDeterminationPointsDisplay.loadDisplay();
 			mDefenseInformationDisplay.loadDisplay();
 			mSkillsDisplay.loadDisplay();
 
@@ -921,6 +942,7 @@ public class CharacterSheet implements ActionListener {
 			mHeaderDisplay.updateClassPopup();
 			mInnateAbilitiesDisplay.loadDisplay();
 			mPersonalInformationDisplay.loadDisplay();
+			mLanguageDisplay.loadDisplay();
 		}
 	}
 
@@ -946,6 +968,7 @@ public class CharacterSheet implements ActionListener {
 			//mHeaderDisplay.updateClassPopup();
 			//mInnateAbilitiesDisplay.loadDisplay();
 			mPersonalInformationDisplay.loadDisplay();
+			mLanguageDisplay.loadDisplay();
 		}
 	}
 
@@ -1291,6 +1314,14 @@ public class CharacterSheet implements ActionListener {
 		return mPersonalInformationRecord;
 	}
 
+	public LanguageRecord getLanguageRecord() {
+		return mLanguageRecord;
+	}
+
+	public LanguageDisplay getLanguageDisplay() {
+		return mLanguageDisplay;
+	}
+
 	public SavingThrowsRecord getSavingThrowsRecord() {
 		return mSavingThrowsRecord;
 	}
@@ -1375,7 +1406,7 @@ public class CharacterSheet implements ActionListener {
 	}
 
 	public DeterminationPointsDisplay getDeterminationPointsDisplay() {
-		return mDeterminationPointsDisplay;
+		return mDeterminationTab;
 	}
 
 	public TKTable getArmorOwnedTable() {
@@ -1405,6 +1436,11 @@ public class CharacterSheet implements ActionListener {
 	/** @return The journalTab. */
 	public JournalDisplay getJournalTab() {
 		return mJournalTab;
+	}
+
+	/** @return The determinationTab. */
+	public DeterminationPointsDisplay getDeterminationTab() {
+		return mDeterminationTab;
 	}
 
 	/**
@@ -1529,6 +1565,10 @@ public class CharacterSheet implements ActionListener {
 							tokenizer = mPersonalInformationRecord.readValues(br);
 							break;
 						}
+						case LanguageRecord.FILE_SECTION_START_KEY: {
+							tokenizer = mLanguageRecord.readValues(br);
+							break;
+						}
 						case SpellListDisplay.FILE_SECTION_START_KEY: {
 							tokenizer = mSpellTab.readValues(br);
 							break;
@@ -1627,6 +1667,7 @@ public class CharacterSheet implements ActionListener {
 			mAttributesRecord.saveValues(br);
 			mMoneyRecord.saveValues(br);
 			mPersonalInformationRecord.saveValues(br);
+			mLanguageRecord.saveValues(br);
 			mSpellTab.saveValues(br);
 			mCombatInformationRecord.saveValues(br);
 			mDefenseInformationDisplay.saveValues(br);

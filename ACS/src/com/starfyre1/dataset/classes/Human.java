@@ -2,8 +2,11 @@
 
 package com.starfyre1.dataset.classes;
 
+import com.starfyre1.dataModel.LanguageRecord;
 import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.startup.ACS;
+
+import java.util.ArrayList;
 
 public class Human extends BaseClass {
 
@@ -262,6 +265,17 @@ public class Human extends BaseClass {
 		//		}
 
 		return hp;
+	}
+
+	// Languages
+	@Override
+	public ArrayList<String> getLanguages() {
+		ArrayList<String> languages = new ArrayList<>();
+
+		languages.add(LanguageRecord.LANGUAGES[0]);
+
+		return languages;
+
 	}
 
 	/*****************************************************************************

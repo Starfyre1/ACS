@@ -91,7 +91,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	private static final String	HIT_POINTS_LABEL			= "Hit Points";																			//$NON-NLS-1$
 	private static final String	MANA_LABEL					= "Mana";																				//$NON-NLS-1$
 	private static final String	USED_LABEL					= "Used";																				//$NON-NLS-1$
-	private static final String	PERM_LABEL					= "Perm. Used";																				//$NON-NLS-1$
+	private static final String	PERM_LABEL					= "Perm. Used";																			//$NON-NLS-1$
 	private static final String	FULL_LABEL					= "Full";																				//$NON-NLS-1$
 	private static final String	DAMAGE_LABEL				= "Damage";																				//$NON-NLS-1$
 	private static final String	BALANCE_LABEL				= "Balance";																			//$NON-NLS-1$

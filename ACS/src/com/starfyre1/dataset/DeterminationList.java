@@ -283,6 +283,8 @@ public class DeterminationList implements Savable, CampaignDateListener {
 			display.loadDisplay();
 		} else if (record instanceof LanguageDeterminationRecord) {
 			String language = ((LanguageDeterminationRecord) record).getLanguage();
+			mOwner.getLanguageRecord().addKnownLanguage(language);
+			mOwner.getLanguageDisplay().loadDisplay();
 		} else if (record instanceof MagicSpellDeterminationRecord) {
 			MagicSpellDeterminationRecord magicSpellDeterminationRecord = (MagicSpellDeterminationRecord) record;
 			String spell = magicSpellDeterminationRecord.getSpell();
