@@ -6,13 +6,13 @@ import com.starfyre1.dataModel.ClassesRecord;
 import com.starfyre1.dataset.classes.Dwarrow;
 import com.starfyre1.dataset.classes.Dwarves;
 import com.starfyre1.dataset.classes.Thief;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.dataset.classes.elves.Sailor;
 import com.starfyre1.dataset.classes.elves.Sithrian;
 import com.starfyre1.dataset.classes.elves.Tellorian;
 import com.starfyre1.dataset.classes.elves.Tsiri;
 import com.starfyre1.dataset.classes.warriors.Ranger;
 import com.starfyre1.dataset.classes.warriors.Warrior;
-import com.starfyre1.dataset.common.BaseClass;
 
 import java.util.ArrayList;
 

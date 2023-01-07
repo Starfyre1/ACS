@@ -9,9 +9,9 @@ import com.starfyre1.dataset.classes.Dwarrow;
 import com.starfyre1.dataset.classes.Dwarves;
 import com.starfyre1.dataset.classes.HalfElf;
 import com.starfyre1.dataset.classes.Human;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.dataset.classes.elves.ElvesBase;
 import com.starfyre1.dataset.classes.warriors.Warrior;
-import com.starfyre1.dataset.common.BaseClass;
 import com.starfyre1.interfaces.Savable;
 
 import java.io.BufferedReader;
@@ -93,6 +93,8 @@ public class PersonalInformationRecord implements Savable {
 		mSocialClass = new SocialClassRecord(true);
 		if (mCharacterSheet.getPersonalInformationRecord() != null) {
 			mCharacterSheet.updateMoneyRecord();
+			mCharacterSheet.getLanguageRecord().generate();
+			mCharacterSheet.getLanguageDisplay().loadDisplay();
 		}
 		updateOldRecords();
 	}

@@ -3,7 +3,7 @@
 package com.starfyre1.dataset.classes.elves;
 
 import com.starfyre1.dataModel.LanguageRecord;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.startup.ACS;
 
 import java.util.ArrayList;
@@ -184,7 +184,6 @@ public abstract class ElvesBase extends BaseClass {
 	public ArrayList<String> getLanguages() {
 		ArrayList<String> languages = new ArrayList<>();
 
-		languages.add(LanguageRecord.LANGUAGES[0]);
 		languages.add(LanguageRecord.LANGUAGES[1]);
 
 		return languages;

@@ -3,7 +3,7 @@
 package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.startup.ACS;
 

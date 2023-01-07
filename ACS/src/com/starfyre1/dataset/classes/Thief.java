@@ -3,7 +3,7 @@
 package com.starfyre1.dataset.classes;
 
 import com.starfyre1.dataModel.LanguageRecord;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.startup.ACS;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class Thief extends BaseClass {
 			2)	They may see 1' X level in total darkness.
 			3)	They may use any weapons they can find, although they do receive a -5%
 	    		with any 2- handed weapon.
-			4)	They receive +4% per level to combat adds, +1% of this must go to they’re
+			4)	They receive +4% per level to combat adds, +1% of this must go to theyï¿½re
 	    		Hit Bonus, the rest can be divided between Hit & Bow Bonus'.
 			5)	They receive +3% per level to their Missile Bonus.
 			6)	They add +10% to their Defense when choosing to "Dodge".
@@ -119,7 +119,7 @@ public class Thief extends BaseClass {
 			high hearing abilities)
 	
 			Thief					Varies with Level	60' *
-									•	Add 5’ per 10% above 100% to hear.
+									ï¿½	Add 5ï¿½ per 10% above 100% to hear.
 	
 									Halve all chances when listening to a door.
 	
@@ -143,12 +143,12 @@ public class Thief extends BaseClass {
 					fingers in) Might only subtract 10% to 20% (Ref.'s Discretion).  A
 					Thief climbs at a rate of "3" and may not carry more than his carry
 					(I.E. Un-encumbered).  A "00" rolled when climbing
-					means failure (No Matter what the thief’s chances).  If the thief
+					means failure (No Matter what the thiefï¿½s chances).  If the thief
 					fails to successfully roll his chance to climb, he must roll a save Vs.
 					Agility.  If the thief fails his save, he falls to the ground (taking
 					1D6 pts. of damage per 10' of fall).  If the thief makes his save, he
 					realizes the climb is too dangerous and must immediately re-trace
-					their steps.  The thief must roll his Climb for every 10’.
+					their steps.  The thief must roll his Climb for every 10ï¿½.
 					(The Ref. should encourage the use of grappling hooks and Iron
 					Spikes).
 	

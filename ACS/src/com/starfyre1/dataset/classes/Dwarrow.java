@@ -4,7 +4,7 @@ package com.starfyre1.dataset.classes;
 
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.LanguageRecord;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.startup.ACS;
 
 import java.util.ArrayList;
@@ -15,11 +15,11 @@ public class Dwarrow extends BaseClass {
 	 ****************************************************************************/
 
 	/*
-		D’etri (Dwarrow)
+		Dï¿½etri (Dwarrow)
 
-		Minimum Stat’s Required:
-		ST=”10” CN=”12” IN=”12” WS=”12” DX=15” BS=”15” CH=”*” PA=”*” WP=”12”
-		Maximum ST=”16”
+		Minimum Statï¿½s Required:
+		ST=ï¿½10ï¿½ CN=ï¿½12ï¿½ IN=ï¿½12ï¿½ WS=ï¿½12ï¿½ DX=15ï¿½ BS=ï¿½15ï¿½ CH=ï¿½*ï¿½ PA=ï¿½*ï¿½ WP=ï¿½12ï¿½
+		Maximum ST=ï¿½16ï¿½
 
 				The Wee folk resemble pint sized elves, as a race they can use any missile weapon,
 				Knives, sling, spear or Bow better than most races.  This is for self protection, as
@@ -28,22 +28,22 @@ public class Dwarrow extends BaseClass {
 
 				They are omnivorous and some of the finest hunters of Athri, also gaining the
 				Rangers Tracking Ability.  Their sight is amazing, better even than the elves,
-				having Night Sight as spell and being able to see both Detect Magic and Aura’s.
+				having Night Sight as spell and being able to see both Detect Magic and Auraï¿½s.
 
 				They come in all colors, pale or tan, with hair of blonde, auburn, brown or black.
 				Their eyes though are striking, fauceted and jewel tones of amber, emerald,
-				sapphire, ruby and diamond.  Average height is 2’8” – 4’8” weighing 41-82 lbs.
+				sapphire, ruby and diamond.  Average height is 2ï¿½8ï¿½ ï¿½ 4ï¿½8ï¿½ weighing 41-82 lbs.
 
-				Dwarrow’s can learn magic with determination points spent to learn the areas of
+				Dwarrowï¿½s can learn magic with determination points spent to learn the areas of
 				Natural Lore, the Element of Earth, Air & Water or become Priests of Wynd,
 				Lorrell or Chauntee.  They are also the Only race to know of and practice Rune Lore.
 
-			1)	D’evri have a Maximum Hit bonus of 3 X Strength
-			2)	D’evri have a Maximum Missile bonus of 3 X Dexterity
-			3)	D’evri have no Maximum Bow Bonus
+			1)	Dï¿½evri have a Maximum Hit bonus of 3 X Strength
+			2)	Dï¿½evri have a Maximum Missile bonus of 3 X Dexterity
+			3)	Dï¿½evri have no Maximum Bow Bonus
 			4)	They gain +5 stamina and +1 hit points per level.  After 9th level they go down to
 					+2 Stamina till 15th level where they stop gaining them.
-			5)	D’evri gain +5% with short swords, daggers or rapiers
+			5)	Dï¿½evri gain +5% with short swords, daggers or rapiers
 			6)	They add +7% to their Perception skill at character creation.
 
 	*/

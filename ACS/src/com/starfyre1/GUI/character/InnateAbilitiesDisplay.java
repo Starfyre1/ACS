@@ -7,7 +7,7 @@ import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.HeaderRecord;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 
 import java.awt.Component;
 import java.util.Arrays;

@@ -16,7 +16,7 @@ import com.starfyre1.dataModel.JournalRecord;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.PriestList;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.startup.ACS;
 import com.starfyre1.storage.HistoryManager;
 

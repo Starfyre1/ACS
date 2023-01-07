@@ -3,7 +3,7 @@
 package com.starfyre1.dataset.classes.warriors;
 
 import com.starfyre1.dataModel.LanguageRecord;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.startup.ACS;
 
 import java.util.ArrayList;

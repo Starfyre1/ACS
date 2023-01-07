@@ -9,7 +9,7 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.ArmorRecord;
 import com.starfyre1.dataModel.AttributesRecord;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
 

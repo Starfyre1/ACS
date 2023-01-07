@@ -21,12 +21,14 @@ public class LanguageDisplay extends TKTitledDisplay {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	static final String	LANGUAGE_TITLE	= "Languages";	//$NON-NLS-1$
+	static final String	LANGUAGE_TITLE	= "Languages";				//$NON-NLS-1$
+	static final Color	MEDIUM_GRAY		= new Color(108, 108, 108);
 
 	/*****************************************************************************
 	 * Member Variables
 	 ****************************************************************************/
-	private JLabel		nameLabel[];
+	private JLabel		mNameLabel[];
+	private JLabel		mTypeLabel[];
 
 	/*****************************************************************************
 	 * Constructors
@@ -47,7 +49,8 @@ public class LanguageDisplay extends TKTitledDisplay {
 		String[] languages = LanguageRecord.getLanguages();
 		String[] languageTypes = LanguageRecord.getLanguagesTypes();
 		String[] languageToolTips = LanguageRecord.getLanguagesDescriptions();
-		nameLabel = new JLabel[LanguageRecord.getNumLang()];
+		mNameLabel = new JLabel[LanguageRecord.getNumLang()];
+		mTypeLabel = new JLabel[LanguageRecord.getNumLang()];
 
 		JPanel center = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -55,21 +58,22 @@ public class LanguageDisplay extends TKTitledDisplay {
 		for (int i = 0; i < languages.length; i++) {
 			String name = languages[i];
 
-			nameLabel[i] = new JLabel(name);
-			nameLabel[i].setToolTipText(languageToolTips[i]);
+			mNameLabel[i] = new JLabel(name);
+			mNameLabel[i].setToolTipText(languageToolTips[i]);
+			mNameLabel[i].setForeground(Color.LIGHT_GRAY);
 			c.anchor = GridBagConstraints.LINE_END;
 			c.insets = new Insets(0, 0, 0, 15);
 			c.gridx = 0;
 			c.gridy = i;
-			center.add(nameLabel[i], c);
+			center.add(mNameLabel[i], c);
 
-			JLabel typeLabel = new JLabel(languageTypes[i]);
-			typeLabel.setToolTipText(languageToolTips[i]);
-			typeLabel.setForeground(Color.GRAY);
+			mTypeLabel[i] = new JLabel(languageTypes[i]);
+			mTypeLabel[i].setToolTipText(languageToolTips[i]);
+			mTypeLabel[i].setForeground(Color.LIGHT_GRAY);
 			c.anchor = GridBagConstraints.LINE_START;
 			c.gridx = 1;
 			c.gridy = i;
-			center.add(typeLabel, c);
+			center.add(mTypeLabel[i], c);
 		}
 		return center;
 	}
@@ -80,8 +84,14 @@ public class LanguageDisplay extends TKTitledDisplay {
 		if (record == null) {
 			return;
 		}
-		for (JLabel label : nameLabel) {
-			label.setForeground(record.isLanguageKnown(label.getText()) ? Color.BLACK : Color.GRAY);
+		for (int i = 0; i < mNameLabel.length; i++) {
+			if (record.isLanguageKnown(mNameLabel[i].getText())) {
+				mNameLabel[i].setForeground(Color.BLACK);
+				mTypeLabel[i].setForeground(MEDIUM_GRAY);
+			} else {
+				mNameLabel[i].setForeground(Color.LIGHT_GRAY);
+				mTypeLabel[i].setForeground(Color.LIGHT_GRAY);
+			}
 		}
 	}
 

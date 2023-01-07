@@ -4,7 +4,7 @@ package com.starfyre1.dataset.classes;
 
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.LanguageRecord;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.startup.ACS;
 
 import java.util.ArrayList;
@@ -14,33 +14,33 @@ public class Giants extends BaseClass {
 	 * Constants
 	 ****************************************************************************/
 	/*
-			E’Sprey (Giants):
-
+			Eï¿½Sprey (Giants):
+	
 			Minimum Required Stats:
-			ST=“18” CN=“18” IN=“10” WS=“12” DX=“15” BS=“*” CH=“*” PA=“*” WP=“12”
-
-			The E’Sprey are a race of Giants, they are Athri’s greatest sailors. Traveling on their stone Giant-
+			ST=ï¿½18ï¿½ CN=ï¿½18ï¿½ IN=ï¿½10ï¿½ WS=ï¿½12ï¿½ DX=ï¿½15ï¿½ BS=ï¿½*ï¿½ CH=ï¿½*ï¿½ PA=ï¿½*ï¿½ WP=ï¿½12ï¿½
+	
+			The Eï¿½Sprey are a race of Giants, they are Athriï¿½s greatest sailors. Traveling on their stone Giant-
 			Ships is the safest way to travel the Oceans of the world, even the Kraken think twice about
-			attacking those ships. They appear as extra large humans standing 11’-18’ tall (10’ + 1D8),
+			attacking those ships. They appear as extra large humans standing 11ï¿½-18ï¿½ tall (10ï¿½ + 1D8),
 			weighing about 57.41 lbs per foot of height or 572-1028 lbs.
-
-			The E’sprey get along with most neutral and good races, although they don’t especially like some
-			of the Elven races. Their favorites are the wee folk, the D’evri, their greatest racial enemies are
-			the Ogris & Tch-Quetch along with most goblin kind. Outside of port cities, the E’sprey are not
+	
+			The Eï¿½sprey get along with most neutral and good races, although they donï¿½t especially like some
+			of the Elven races. Their favorites are the wee folk, the Dï¿½evri, their greatest racial enemies are
+			the Ogris & Tch-Quetch along with most goblin kind. Outside of port cities, the Eï¿½sprey are not
 			seen often, thus their large size creates terror when they are seen. They will either be run from or
 			attacked on sight 50% of the time. As long as they only defend, there is a 75% chance their
 			attackers will listen to reason.
-
-			They mostly sail between N’Tal and T’sal, however they do sometimes sail as far as Athri and
+	
+			They mostly sail between Nï¿½Tal and Tï¿½sal, however they do sometimes sail as far as Athri and
 			Tetsuru. Their ships are feared world wide by pirates and raiders, they will Always help ships
 			being attacked or stranded. Being known to hunt down those raiders after helping their victims
 			and returning the goods or prisoners that were taken. They leave no survivors among those they
 			hunt.
-
+	
 			They can be Warriors, Rangers or study these areas of magic - Natural Lore, any of the
 			Elements or the Priesthoods of Adon, Tarn, Chauntil, Wynd or on a very rare occasion Orn.
-
-			1) Max Hit Bonus = 5 X ST E’sprey Innate Abilities:
+	
+			1) Max Hit Bonus = 5 X ST Eï¿½sprey Innate Abilities:
 			2) Max Missile Bonus = 3 X DX Star Sight ( per spell )
 			3) Max Bow Bonus = 3 X BS Swimming ( 75% + 5% per lvl )
 			4) At creation add 1D8 Hit Points Sleep/Charm ( 50% resistant )
@@ -50,10 +50,10 @@ public class Giants extends BaseClass {
 			attacks. But ( 3 ) against crushing attacks due to their bone and flesh density.
 			9) Due to their great size add 6 to any weapon length they use, almost ensuring the first
 			attack of the combat.
-
-			(After meeting the minimum stat’s requirement the player must understand both the bonus’s
-			and limitations they have. The character is so large, it’s impossible to sneak up on anyone
-			and they are a large target for missile weapons. They do not fit into most Inn’s or Hostel’s
+	
+			(After meeting the minimum statï¿½s requirement the player must understand both the bonusï¿½s
+			and limitations they have. The character is so large, itï¿½s impossible to sneak up on anyone
+			and they are a large target for missile weapons. They do not fit into most Innï¿½s or Hostelï¿½s
 			not to mention Caves or Dungeon complexes. Their appearance will scare the locals until
 			they are recognized as not a threat. These are just a few of the drawbacks, your DM will
 			find many more.)
@@ -282,7 +282,7 @@ public class Giants extends BaseClass {
 	public ArrayList<String> getLanguages() {
 		ArrayList<String> languages = new ArrayList<>();
 
-		languages.add(LanguageRecord.LANGUAGES[8]);
+		languages.add(LanguageRecord.LANGUAGES[7]);
 
 		return languages;
 

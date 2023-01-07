@@ -4,7 +4,7 @@ package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.interfaces.Savable;
 
 import java.io.BufferedReader;
@@ -79,11 +79,13 @@ public class LanguageRecord implements Savable {
 	}
 
 	public void generate() {
+		mKnownLanguages.clear();
 		BaseClass base = mCharacterSheet.getHeaderRecord().getCharacterClass();
 		if (base == null) {
 			return;
 		}
 		ArrayList<String> languages = base.getLanguages();
+		addKnownLanguage(LanguageRecord.LANGUAGES[0]);
 		for (String lang : languages) {
 			addKnownLanguage(lang);
 		}

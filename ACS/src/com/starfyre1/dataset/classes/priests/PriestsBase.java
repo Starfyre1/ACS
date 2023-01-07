@@ -3,7 +3,7 @@
 package com.starfyre1.dataset.classes.priests;
 
 import com.starfyre1.dataModel.LanguageRecord;
-import com.starfyre1.dataset.common.SpellUser;
+import com.starfyre1.dataset.classes.common.SpellUser;
 import com.starfyre1.startup.ACS;
 
 import java.util.ArrayList;

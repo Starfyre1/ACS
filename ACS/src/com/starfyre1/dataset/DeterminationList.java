@@ -16,7 +16,7 @@ import com.starfyre1.dataModel.determination.MagicSpellDeterminationRecord;
 import com.starfyre1.dataModel.determination.SkillDeterminationRecord;
 import com.starfyre1.dataModel.determination.TeacherDeterminationRecord;
 import com.starfyre1.dataModel.determination.WeaponDeterminationRecord;
-import com.starfyre1.dataset.common.SpellUser;
+import com.starfyre1.dataset.classes.common.SpellUser;
 import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.interfaces.CampaignDateListener;
 import com.starfyre1.interfaces.Savable;

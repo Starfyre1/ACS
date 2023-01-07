@@ -8,7 +8,7 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.HeaderRecord;
 import com.starfyre1.dataModel.PersonalInformationRecord;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -278,7 +278,7 @@ public class PersonalInformationDisplay extends TKTitledDisplay implements Docum
 
 	//DW will need to implement this
 	/*	Here's how Carry works:
-		1)	Characters may carry up to your encumbrance with out penalty to they’re movement, speeds or combat bonus'.
+		1)	Characters may carry up to your encumbrance with out penalty to theyï¿½re movement, speeds or combat bonus'.
 		2)	Characters can carry up to 2X their encumbrance with these penalties:
 			a)	Movement is cut by 25%.
 			b)	All combat speeds, ASP, MSP, BSP & CSP are at -1.

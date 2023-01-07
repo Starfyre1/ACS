@@ -5,7 +5,7 @@ package com.starfyre1.dataModel;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.ClassList;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
 

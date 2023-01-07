@@ -8,7 +8,7 @@ import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.ClassList;
-import com.starfyre1.dataset.common.SpellUser;
+import com.starfyre1.dataset.classes.common.SpellUser;
 import com.starfyre1.dataset.spells.SpellRecord;
 
 import java.awt.BorderLayout;

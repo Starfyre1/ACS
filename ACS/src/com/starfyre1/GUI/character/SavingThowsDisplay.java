@@ -6,7 +6,7 @@ import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.SavingThrowsRecord;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -70,7 +70,7 @@ import javax.swing.border.EmptyBorder;
 
 Unconsciousness-	This is rolled whenever a character is hit in the head,
 			solar plexus, or tender area, or whenever a character has less than (3)
-			Hit Points or Stamina.  If the character fail’s he is unconscious
+			Hit Points or Stamina.  If the character failï¿½s he is unconscious
 			for 2D10 rounds (30 seconds to 5 minutes).  When that time is up
 			the character will repeat the process until he wakes up, or passes
 			away, depending on the citation
@@ -122,7 +122,7 @@ public class SavingThowsDisplay extends TKTitledDisplay {
 					+ "to try something that requires a test of willpower.</html>";																					//$NON-NLS-1$
 	private static final String	UNCONSCIOUS_TOOLTIP	= "<html>This is rolled whenever a character is hit in the head, solar<br>"										//$NON-NLS-1$
 					+ "plexus, or tender area, or whenever a character has less than (3)<br>"																		//$NON-NLS-1$
-					+ "Hit Points or Stamina.  If the character fail’s he is unconscious<br>"																		//$NON-NLS-1$
+					+ "Hit Points or Stamina.  If the character failï¿½s he is unconscious<br>"																		//$NON-NLS-1$
 					+ "for 2D10 rounds (30 seconds to 5 minutes).  When that time is up<br>"																		//$NON-NLS-1$
 					+ "the character will repeat the process until he wakes up, or passes<br>"																		//$NON-NLS-1$
 					+ "away, depending on the citation</html>";																										//$NON-NLS-1$

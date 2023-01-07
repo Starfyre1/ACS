@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2021. All rights reserved. */
 
-package com.starfyre1.dataset.common;
+package com.starfyre1.dataset.classes.common;
 
 import com.starfyre1.dataset.spells.SpellRecord;
 

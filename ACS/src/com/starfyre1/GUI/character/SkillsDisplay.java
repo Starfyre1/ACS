@@ -9,8 +9,8 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.SkillsRecord;
 import com.starfyre1.dataset.classes.Thief;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.dataset.classes.elves.Tsiri;
-import com.starfyre1.dataset.common.BaseClass;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -153,12 +153,12 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 					+ "fingers in) Might only subtract 10% to 20% (Ref.'s Discretion).  A<br>"																								//$NON-NLS-1$
 					+ "Thief climbs at a rate of \"3\" and may not carry more than his carry<br>"																							//$NON-NLS-1$
 					+ "(I.E. Un-encumbered).  A \"00\" rolled when climbing<br>"																											//$NON-NLS-1$
-					+ "means failure (No Matter what the thief’s chances).  If the thief<br>"																								//$NON-NLS-1$
+					+ "means failure (No Matter what the thiefï¿½s chances).  If the thief<br>"																								//$NON-NLS-1$
 					+ "fails to successfully roll his chance to climb, he must roll a save Vs.<br>"																							//$NON-NLS-1$
 					+ "Agility.  If the thief fails his save, he falls to the ground (taking<br>"																							//$NON-NLS-1$
 					+ "1D6 pts. of damage per 10' of fall).  If the thief makes his save, he<br>"																							//$NON-NLS-1$
 					+ "realizes the climb is too dangerous and must immediately re-trace<br>"																								//$NON-NLS-1$
-					+ "their steps.  The thief must roll his Climb for every 10’.<br>"																										//$NON-NLS-1$
+					+ "their steps.  The thief must roll his Climb for every 10ï¿½.<br>"																										//$NON-NLS-1$
 					+ "(The Ref. should encourage the use of grappling hooks and Iron Spikes).</html>";																						//$NON-NLS-1$
 	private static final String		FIND_TRAP_TOOLTIP			= "<html>Roll 1D100 and if the thief rolls his percentage to Find Traps,<br>"												//$NON-NLS-1$
 					+ "then he has found the triggering device.  If he successfully rolls it<br>"																							//$NON-NLS-1$

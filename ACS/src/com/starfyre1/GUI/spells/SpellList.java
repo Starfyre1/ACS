@@ -8,7 +8,7 @@ import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.ToolKit.TKTableModel;
 import com.starfyre1.dataset.ClassList;
-import com.starfyre1.dataset.common.SpellUser;
+import com.starfyre1.dataset.classes.common.SpellUser;
 import com.starfyre1.dataset.spells.SpellRecord;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;

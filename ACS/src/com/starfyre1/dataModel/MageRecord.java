@@ -2,7 +2,7 @@
 
 package com.starfyre1.dataModel;
 
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 
 public class MageRecord extends ClassesRecord {
 	/*****************************************************************************

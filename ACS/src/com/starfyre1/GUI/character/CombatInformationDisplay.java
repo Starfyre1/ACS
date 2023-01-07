@@ -8,9 +8,9 @@ import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.CombatInformationRecord;
+import com.starfyre1.dataset.classes.common.BaseClass;
+import com.starfyre1.dataset.classes.common.SpellUser;
 import com.starfyre1.dataset.classes.elves.Sailor;
-import com.starfyre1.dataset.common.BaseClass;
-import com.starfyre1.dataset.common.SpellUser;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -61,7 +61,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 
 	public static final String	HIT_DESCRIPTION				= "<html>Hit bonus represents your hand - to - hand combat ability, this percentage is modified by both the Strength<br>"					//$NON-NLS-1$
 					+ "and Dexterity stat. Usually, Fighters will have the highest hit bonus, but you will find some thieves that<br>"																	//$NON-NLS-1$
-					+ "will also score quite high here, Dexterity is quite important. If both your race and your class give’s you a<br>"																//$NON-NLS-1$
+					+ "will also score quite high here, Dexterity is quite important. If both your race and your class giveï¿½s you a<br>"																//$NON-NLS-1$
 					+ "bonus here you should just take the highest of the two.</html>";																													//$NON-NLS-1$
 	public static final String	MISSILE_DESCRIPTION			= "<html>Missile Bonus represents your accuracy with thrown weapons, such as knives, shuriken, darts, rocks, oil<br>"						//$NON-NLS-1$
 					+ "flasks, etc. This is also modified by your Strength and Dexterity statistics, along with your class.</html>";																	//$NON-NLS-1$

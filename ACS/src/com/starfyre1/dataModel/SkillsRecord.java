@@ -5,7 +5,7 @@ package com.starfyre1.dataModel;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataset.ClassList;
-import com.starfyre1.dataset.common.BaseClass;
+import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
@@ -462,7 +462,7 @@ public class SkillsRecord implements LevelListener, Savable {
 				high hearing abilities)
 		
 				Thief					Varies with lvl		60' *
-					*	Add 5’ per 10% above 100% to hear.
+					*	Add 5ï¿½ per 10% above 100% to hear.
 		
 				Halve all chances when listening to a door.
 		
