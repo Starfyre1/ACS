@@ -445,7 +445,7 @@ public class AttributesRecord implements Savable {
 	public void finalizeCreation(boolean manual) {
 		if (manual) {
 			mStats = mModifiedStats.clone();
-		} else {
+		} else if (mModifiedStats[0] == 0) {
 			mModifiedStats = mStats.clone();
 		}
 		mStatsOld = mStats.clone();
