@@ -91,11 +91,15 @@ public class PersonalInformationRecord implements Savable {
 		generateCarry();
 		generateHeightAndWeight();
 		mSocialClass = new SocialClassRecord(true);
+		if (mCharacterSheet.getPersonalInformationRecord() != null) {
+			mCharacterSheet.updateMoneyRecord();
+		}
 		updateOldRecords();
 	}
 
 	private void generateMovement() {
-		setMovement(mCharacterSheet.getHeaderRecord().getCharacterClass().getMovement());
+		BaseClass base = mCharacterSheet.getHeaderRecord().getCharacterClass();
+		setMovement(base != null ? base.getMovement() : 0);
 	}
 
 	private void updateOldRecords() {

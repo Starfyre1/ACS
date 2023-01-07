@@ -1309,6 +1309,11 @@ public class CharacterSheet implements ActionListener {
 		return mMoneyRecord;
 	}
 
+	public void updateMoneyRecord() {
+		mMoneyRecord = new MoneyRecord(this, true);
+		mMoneyDisplay.loadDisplay();
+	}
+
 	/** @return The personalInformationRecord. */
 	public PersonalInformationRecord getPersonalInformationRecord() {
 		return mPersonalInformationRecord;

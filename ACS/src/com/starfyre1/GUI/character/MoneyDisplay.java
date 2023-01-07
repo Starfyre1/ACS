@@ -142,12 +142,12 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 	public void loadDisplay() {
 		MoneyRecord record = ((CharacterSheet) getOwner()).getMoneyRecord();
 
-		mGoldField.setText(record == null ? null : String.valueOf(record.getGold()));
-		mSilverField.setText(record == null ? null : String.valueOf(record.getSilver()));
-		mCopperField.setText(record == null ? null : String.valueOf(record.getCopper()));
-		mGemsArea.setText(record == null ? null : record.getGemsArea());
-		mJewelryArea.setText(record == null ? null : record.getJewelryArea());
-		mOtherArea.setText(record == null ? null : record.getOtherArea());
+		mGoldField.setText(record == null ? "" : String.valueOf(record.getGold())); //$NON-NLS-1$
+		mSilverField.setText(record == null ? "" : String.valueOf(record.getSilver())); //$NON-NLS-1$
+		mCopperField.setText(record == null ? "" : String.valueOf(record.getCopper())); //$NON-NLS-1$
+		mGemsArea.setText(record == null ? "" : record.getGemsArea()); //$NON-NLS-1$
+		mJewelryArea.setText(record == null ? "" : record.getJewelryArea()); //$NON-NLS-1$
+		mOtherArea.setText(record == null ? "" : record.getOtherArea()); //$NON-NLS-1$
 		mOtherArea.setCaretPosition(0);
 	}
 
@@ -180,7 +180,7 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 				record.setCopper(TKStringHelpers.getIntValue(mCopperField.getText(), record.getCopperOld()));
 			}
 			ACS.getInstance().getCharacterSheet().updateForEncubrance();
-			ACS.getInstance().getCharacterSheet().getDefenseInformationDisplay().loadDisplay();
+			// DW why do we do this when money changes?			ACS.getInstance().getCharacterSheet().getDefenseInformationDisplay().loadDisplay();
 		} else {
 			if (document.equals(mGemsArea.getDocument())) {
 				record.setGemsArea(mGemsArea.getText());

@@ -455,7 +455,11 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		CharacterSheet owner = (CharacterSheet) getOwner();
 		int level = owner.getHeaderRecord().getLevel();
 		int bonusMana = 0;
-		int intValue = owner.getAttributesRecord().getModifiedStat(AttributesRecord.INT);
+		AttributesRecord record = owner.getAttributesRecord();
+		if (record == null) {
+			return 0;
+		}
+		int intValue = record.getModifiedStat(AttributesRecord.INT);
 		intValue = (intValue - 10) / 3;
 
 		if (level > 18) {
@@ -464,7 +468,6 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		}
 
 		int mana = manaValues[intValue][level - 1] + bonusMana;
-
 		return mana;
 	}
 
