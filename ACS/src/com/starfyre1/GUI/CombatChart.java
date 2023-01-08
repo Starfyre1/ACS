@@ -109,12 +109,15 @@ public class CombatChart extends JDialog implements DocumentListener, ActionList
 
 	private JButton				mCloseButton;
 
+	private boolean				isCreating			= false;
+
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
 	public CombatChart(CharacterSheet parent) {
 		super(parent.getFrame(), COMBAT_CHART, false);
 
+		isCreating = true;
 		mCharacter = parent;
 		mFrame = parent.getFrame();
 
@@ -125,6 +128,7 @@ public class CombatChart extends JDialog implements DocumentListener, ActionList
 		createDisplay();
 		readValues();
 		updateChart();
+		isCreating = false;
 	}
 
 	/*****************************************************************************
@@ -424,7 +428,7 @@ public class CombatChart extends JDialog implements DocumentListener, ActionList
 			return;
 		}
 
-		if (source instanceof JTextField) {
+		if (source instanceof JTextField && !isCreating) {
 			updateChart();
 		}
 	}
@@ -518,6 +522,7 @@ public class CombatChart extends JDialog implements DocumentListener, ActionList
 			mRightOtherBonusField.setText(value);
 		} else if (key.equals(LEFT_OTHER)) {
 			mLeftOtherBonusField.setText(value);
+			updateChart();
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
