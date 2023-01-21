@@ -211,36 +211,6 @@ public class WeaponTab extends DeterminationTab {
 	}
 
 	@Override
-	protected void loadDisplay() {
-		ArrayList<WeaponDeterminationRecord> list = DeterminationList.getWeaponRecords();
-		JPanel wrapper = new JPanel();
-		if (list.size() > 0) {
-			for (WeaponDeterminationRecord record : list) {
-				JLabel weaponLabel = new JLabel(record.getWeapon());
-				JLabel teacherLabel = new JLabel(DeterminationList.getTeacher(record.getTeacher()).getTeacher());
-				JLabel bonusLabel = new JLabel(String.valueOf(record.getBonus()));
-				JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
-				JLabel usedLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
-				JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
-				JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
-				JLabel startDateLabel = new JLabel(record.getStartDate());
-				JLabel endDateLabel = new JLabel(record.getEndDate());
-
-				wrapper.add(weaponLabel);
-				wrapper.add(teacherLabel);
-				wrapper.add(bonusLabel);
-				wrapper.add(DPPerWeekLabel);
-				wrapper.add(usedLabel);
-				wrapper.add(maintLabel);
-				wrapper.add(successLabel);
-				wrapper.add(startDateLabel);
-				wrapper.add(endDateLabel);
-			}
-		}
-		super.loadDisplay();
-	}
-
-	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), createCenterPanel(), WEAPON_PROFICIENCY_DESCRIPTION, WEAPON_PROFICIENCY_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}

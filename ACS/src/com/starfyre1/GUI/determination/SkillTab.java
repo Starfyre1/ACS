@@ -213,36 +213,6 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	}
 
 	@Override
-	protected void loadDisplay() {
-		ArrayList<SkillDeterminationRecord> list = DeterminationList.getSkillRecords();
-		JPanel wrapper = new JPanel();
-		if (list.size() > 0) {
-			for (SkillDeterminationRecord record : list) {
-				JLabel skillsLabel = new JLabel(record.getSkill());
-				JLabel teacherLabel = new JLabel(String.valueOf(record.getTeacher()));
-				JLabel bonusLabel = new JLabel(String.valueOf(record.getBonus()));
-				JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
-				JLabel DPSpentLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
-				JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
-				JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
-				JLabel startDateLabel = new JLabel(record.getStartDate());
-				JLabel endDateLabel = new JLabel(record.getEndDate());
-
-				wrapper.add(skillsLabel);
-				wrapper.add(teacherLabel);
-				wrapper.add(bonusLabel);
-				wrapper.add(DPPerWeekLabel);
-				wrapper.add(DPSpentLabel);
-				wrapper.add(maintLabel);
-				wrapper.add(successLabel);
-				wrapper.add(startDateLabel);
-				wrapper.add(endDateLabel);
-			}
-		}
-		super.loadDisplay();
-	}
-
-	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), createCenterPanel(), SKILLS_DESCRIPTION, SKILL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}

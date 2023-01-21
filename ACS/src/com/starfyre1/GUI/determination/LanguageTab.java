@@ -185,34 +185,6 @@ public class LanguageTab extends DeterminationTab {
 	}
 
 	@Override
-	protected void loadDisplay() {
-		ArrayList<LanguageDeterminationRecord> list = DeterminationList.getLanguageRecords();
-		JPanel wrapper = new JPanel();
-		if (list.size() > 0) {
-			for (LanguageDeterminationRecord record : list) {
-				JLabel languageLabel = new JLabel(record.getLanguage());
-				JLabel sourceLabel = new JLabel(record.getSource());
-				JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
-				JLabel usedLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
-				JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
-				JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
-				JLabel startDateLabel = new JLabel(record.getStartDate());
-				JLabel endDateLabel = new JLabel(record.getEndDate());
-
-				wrapper.add(languageLabel);
-				wrapper.add(sourceLabel);
-				wrapper.add(DPPerWeekLabel);
-				wrapper.add(usedLabel);
-				wrapper.add(maintLabel);
-				wrapper.add(successLabel);
-				wrapper.add(startDateLabel);
-				wrapper.add(endDateLabel);
-			}
-		}
-		super.loadDisplay();
-	}
-
-	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), createCenterPanel(), LANGUAGE_DESCRIPTION, LANGUAGE_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}

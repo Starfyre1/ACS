@@ -151,28 +151,6 @@ public class TeacherTab extends DeterminationTab {
 	}
 
 	@Override
-	protected void loadDisplay() {
-		ArrayList<TeacherDeterminationRecord> list = DeterminationList.getTeachersRecords();
-		JPanel wrapper = new JPanel();
-		if (list.size() > 0) {
-			for (TeacherDeterminationRecord record : list) {
-				JLabel idLabel = new JLabel(String.valueOf(record.getID()));
-				JLabel teacherNameLabel = new JLabel(String.valueOf(record.getTeacher()));
-				JLabel expertiseLabel = new JLabel(record.getExpertise());
-				JLabel bonusLabel = new JLabel(String.valueOf(record.getBonus()));
-				JLabel costLabel = new JLabel(String.valueOf(record.getCost()));
-
-				wrapper.add(idLabel);
-				wrapper.add(teacherNameLabel);
-				wrapper.add(expertiseLabel);
-				wrapper.add(bonusLabel);
-				wrapper.add(costLabel);
-			}
-		}
-		super.loadDisplay();
-	}
-
-	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), null, TEACHERS_DESCRIPTION, "", "", "", "", ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	}

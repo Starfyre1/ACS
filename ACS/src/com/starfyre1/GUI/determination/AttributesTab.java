@@ -156,34 +156,6 @@ public class AttributesTab extends DeterminationTab {
 	}
 
 	@Override
-	protected void loadDisplay() {
-		ArrayList<AttributeDeterminationRecord> list = DeterminationList.getAttribRecords();
-		JPanel wrapper = new JPanel();
-		if (list.size() > 0) {
-			for (AttributeDeterminationRecord record : list) {
-				JLabel attrLabel = new JLabel(AttributesTab.ATTRIBUTE_NAMES[record.getAttribute()]);
-				JLabel DPPerWeekLabel = new JLabel(String.valueOf(record.getDPPerWeek()));
-				JLabel usedLabel = new JLabel(String.valueOf(record.getDPTotalSpent()) + " / " + record.getDPCost()); //$NON-NLS-1$
-				JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
-				// DW _Count successful vs attempted
-				JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
-				JLabel startDateLabel = new JLabel(record.getStartDate());
-				JLabel endDateLabel = new JLabel(record.getEndDate());
-
-				wrapper.add(attrLabel);
-				wrapper.add(DPPerWeekLabel);
-				wrapper.add(usedLabel);
-				wrapper.add(maintLabel);
-				wrapper.add(successLabel);
-				wrapper.add(startDateLabel);
-				wrapper.add(endDateLabel);
-			}
-		}
-		//		updateEnabledState();
-		super.loadDisplay();
-	}
-
-	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), createCenterPanel(), PHYSICAL_DESCRIPTION, ATTRIBUTES_TAB_TOOLTIP, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}

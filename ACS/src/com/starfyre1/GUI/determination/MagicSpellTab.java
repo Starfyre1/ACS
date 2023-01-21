@@ -251,40 +251,6 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	}
 
 	@Override
-	protected void loadDisplay() {
-		ArrayList<MagicSpellDeterminationRecord> list = DeterminationList.getMagicSpellRecords();
-		JPanel wrapper = new JPanel();
-		CharacterSheet owner = ACS.getInstance().getCharacterSheet();
-		if (list.size() > 0) {
-			for (MagicSpellDeterminationRecord record : list) {
-				JLabel schoolLabel = new JLabel(record.getSchool());
-				JLabel spellLabel = new JLabel(record.getSpell());
-				JLabel costLabel = new JLabel(String.valueOf(record.getCost()));
-				JLabel usedLabel = new JLabel(record.getDPTotalSpent() + " / " + record.getDPCost()); //$NON-NLS-1$
-				AttributesRecord attr = owner.getAttributesRecord();
-				int stats = (attr.getModifiedStat(AttributesRecord.INT) + attr.getModifiedStat(AttributesRecord.WIS)) / 2;
-				int spellPower = 0;
-				int charLevel = owner.getHeaderRecord().getLevel();
-				JLabel researchChanceLabel = new JLabel(String.valueOf(MageList.spellResearchChance(stats, spellPower, charLevel)));
-				// DW _Count successful vs attempted
-				JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
-				JLabel startDateLabel = new JLabel(record.getStartDate());
-				JLabel endDateLabel = new JLabel(record.getEndDate());
-
-				wrapper.add(schoolLabel);
-				wrapper.add(spellLabel);
-				wrapper.add(costLabel);
-				wrapper.add(usedLabel);
-				wrapper.add(researchChanceLabel);
-				wrapper.add(successLabel);
-				wrapper.add(startDateLabel);
-				wrapper.add(endDateLabel);
-			}
-		}
-		super.loadDisplay();
-	}
-
-	@Override
 	protected Component createDisplay() {
 		return createPage(createCenterPanel(), createCenterPanel(), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TEXT, null, SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
