@@ -216,6 +216,26 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 			((TeacherTab) mTabbedPane.getComponent(5)).addRecord(record);
 		}
 
+		for (AttributeDeterminationRecord record : DeterminationList.getAttribRecordsCompleted()) {
+			((AttributesTab) mTabbedPane.getComponent(0)).addRecord(record);
+		}
+
+		for (LanguageDeterminationRecord record : DeterminationList.getLanguageRecordsCompleted()) {
+			((LanguageTab) mTabbedPane.getComponent(1)).addRecord(record);
+		}
+
+		for (MagicSpellDeterminationRecord record : DeterminationList.getMagicSpellRecordsCompleted()) {
+			((MagicSpellTab) mTabbedPane.getComponent(2)).addRecord(record);
+		}
+
+		for (WeaponDeterminationRecord record : DeterminationList.getWeaponRecordsCompleted()) {
+			((WeaponTab) mTabbedPane.getComponent(3)).addRecord(record);
+		}
+
+		for (SkillDeterminationRecord record : DeterminationList.getSkillRecordsCompleted()) {
+			((SkillTab) mTabbedPane.getComponent(4)).addRecord(record);
+		}
+
 		ACS.getInstance().getCharacterSheet().getDeterminationPointsDisplay().updateValues();
 
 	}

@@ -74,15 +74,15 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	private JLabel				mStartDateLabel;
 	private JLabel				mEndDateLabel;
 
-	private JPanel				mSkillsColumn;
-	private JPanel				mTeacherColumn;
-	private JPanel				mDPPerWeekColumn;
-	private JPanel				mDPSpentColumn;
-	private JPanel				mBonusAmountColumn;
-	private JPanel				mMaintColumn;
-	private JPanel				mSuccessfulColumn;
-	private JPanel				mStartDateColumn;
-	private JPanel				mEndDateColumn;
+	private JPanel				mSkillsColumn[];
+	private JPanel				mTeacherColumn[];
+	private JPanel				mDPPerWeekColumn[];
+	private JPanel				mDPSpentColumn[];
+	private JPanel				mBonusAmountColumn[];
+	private JPanel				mMaintColumn[];
+	private JPanel				mSuccessfulColumn[];
+	private JPanel				mStartDateColumn[];
+	private JPanel				mEndDateColumn[];
 
 	private JDialog				mNewEntryDialog;
 
@@ -214,61 +214,86 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), createCenterPanel(), SKILLS_DESCRIPTION, SKILL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
+		mSkillsColumn = new JPanel[2];
+		mTeacherColumn = new JPanel[2];
+		mDPPerWeekColumn = new JPanel[2];
+		mDPSpentColumn = new JPanel[2];
+		mBonusAmountColumn = new JPanel[2];
+		mMaintColumn = new JPanel[2];
+		mSuccessfulColumn = new JPanel[2];
+		mStartDateColumn = new JPanel[2];
+		mEndDateColumn = new JPanel[2];
+
+		return createPage(createCenterPanel(false), createCenterPanel(true), SKILLS_DESCRIPTION, SKILL_TEXT, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
-	private JPanel createCenterPanel() {
+	private JPanel createCenterPanel(boolean complete) {
+		int test = complete ? 1 : 0;
+
 		JPanel outerWrapper = new JPanel();
-		mSkillsColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mTeacherColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mDPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
-		mDPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mBonusAmountColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mMaintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mSuccessfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		mStartDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		mEndDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mSkillsColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mTeacherColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mDPPerWeekColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		mDPSpentColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mBonusAmountColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mMaintColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mSuccessfulColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mStartDateColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mEndDateColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		generateHeaders();
+		generateHeaders(complete);
 
-		outerWrapper.add(mSkillsColumn);
-		outerWrapper.add(mTeacherColumn);
-		outerWrapper.add(mBonusAmountColumn);
-		outerWrapper.add(mDPPerWeekColumn);
-		outerWrapper.add(mDPSpentColumn);
-		outerWrapper.add(mMaintColumn);
-		outerWrapper.add(mSuccessfulColumn);
-		outerWrapper.add(mStartDateColumn);
-		outerWrapper.add(mEndDateColumn);
+		outerWrapper.add(mSkillsColumn[test]);
+		outerWrapper.add(mTeacherColumn[test]);
+		outerWrapper.add(mBonusAmountColumn[test]);
+		outerWrapper.add(mDPPerWeekColumn[test]);
+		outerWrapper.add(mDPSpentColumn[test]);
+		outerWrapper.add(mMaintColumn[test]);
+		outerWrapper.add(mSuccessfulColumn[test]);
+		outerWrapper.add(mStartDateColumn[test]);
+		outerWrapper.add(mEndDateColumn[test]);
 
 		//		updateEnabledState();
 		//		updateDialogButtons();
 		return outerWrapper;
 	}
 
-	private void generateHeaders() {
-		mSkillsColumn.add(new JLabel(SKILL_TAB_TITLE));
-		mTeacherColumn.add(new JLabel("Teacher")); //$NON-NLS-1$
-		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		mDPSpentColumn.add(new JLabel("DP Spent")); //$NON-NLS-1$
-		mBonusAmountColumn.add(new JLabel("Bonus")); //$NON-NLS-1$
-		mMaintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
-		mSuccessfulColumn.add(new JLabel("Success")); //$NON-NLS-1$
-		mStartDateColumn.add(new JLabel("Start Date")); //$NON-NLS-1$
-		mEndDateColumn.add(new JLabel("End Date")); //$NON-NLS-1$
+	private void generateHeaders(boolean complete) {
+		int test = complete ? 1 : 0;
+
+		mSkillsColumn[test].add(new JLabel(SKILL_TAB_TITLE));
+		mTeacherColumn[test].add(new JLabel("Teacher")); //$NON-NLS-1$
+		mDPPerWeekColumn[test].add(new JLabel("DP/Week")); //$NON-NLS-1$
+		mDPSpentColumn[test].add(new JLabel("DP Spent")); //$NON-NLS-1$
+		mBonusAmountColumn[test].add(new JLabel("Bonus")); //$NON-NLS-1$
+		mMaintColumn[test].add(new JLabel("Maint")); //$NON-NLS-1$
+		mSuccessfulColumn[test].add(new JLabel("Success")); //$NON-NLS-1$
+		mStartDateColumn[test].add(new JLabel("Start Date")); //$NON-NLS-1$
+		mEndDateColumn[test].add(new JLabel("End Date")); //$NON-NLS-1$
 	}
 
 	void clearTab() {
-		mSkillsColumn.removeAll();
-		mTeacherColumn.removeAll();
-		mBonusAmountColumn.removeAll();
-		mDPPerWeekColumn.removeAll();
-		mDPSpentColumn.removeAll();
-		mSuccessfulColumn.removeAll();
-		mMaintColumn.removeAll();
-		mStartDateColumn.removeAll();
-		mEndDateColumn.removeAll();
-		generateHeaders();
+		mSkillsColumn[0].removeAll();
+		mTeacherColumn[0].removeAll();
+		mBonusAmountColumn[0].removeAll();
+		mDPPerWeekColumn[0].removeAll();
+		mDPSpentColumn[0].removeAll();
+		mSuccessfulColumn[0].removeAll();
+		mMaintColumn[0].removeAll();
+		mStartDateColumn[0].removeAll();
+		mEndDateColumn[0].removeAll();
+		generateHeaders(false);
+
+		mSkillsColumn[1].removeAll();
+		mTeacherColumn[1].removeAll();
+		mBonusAmountColumn[1].removeAll();
+		mDPPerWeekColumn[1].removeAll();
+		mDPSpentColumn[1].removeAll();
+		mSuccessfulColumn[1].removeAll();
+		mMaintColumn[1].removeAll();
+		mStartDateColumn[1].removeAll();
+		mEndDateColumn[1].removeAll();
+		generateHeaders(true);
 
 	}
 
@@ -282,17 +307,19 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 			JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 			JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
 			JLabel startDateLabel = new JLabel(record.getStartDate());
-			JLabel endDateLabel = new JLabel(record.getEndDate());
+			String endDate = record.getEndDate();
+			JLabel endDateLabel = new JLabel(endDate);
 
-			mSkillsColumn.add(skillLabel);
-			mTeacherColumn.add(teacherLabel);
-			mBonusAmountColumn.add(bonusLabel);
-			mDPPerWeekColumn.add(DPPerWeekLabel);
-			mDPSpentColumn.add(usedLabel);
-			mMaintColumn.add(maintLabel);
-			mSuccessfulColumn.add(successLabel);
-			mStartDateColumn.add(startDateLabel);
-			mEndDateColumn.add(endDateLabel);
+			int which = endDate.isBlank() ? 0 : 1;
+			mSkillsColumn[which].add(skillLabel);
+			mTeacherColumn[which].add(teacherLabel);
+			mBonusAmountColumn[which].add(bonusLabel);
+			mDPPerWeekColumn[which].add(DPPerWeekLabel);
+			mDPSpentColumn[which].add(usedLabel);
+			mMaintColumn[which].add(maintLabel);
+			mSuccessfulColumn[which].add(successLabel);
+			mStartDateColumn[which].add(startDateLabel);
+			mEndDateColumn[which].add(endDateLabel);
 		}
 	}
 

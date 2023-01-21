@@ -70,13 +70,13 @@ public class AttributesTab extends DeterminationTab {
 	private JLabel					mStartDateLabel;
 	private JLabel					mEndDateLabel;
 
-	private JPanel					mAttrColumn;
-	private JPanel					mDPPerWeekColumn;
-	private JPanel					mDPSpentColumn;
-	private JPanel					mMaintColumn;
-	private JPanel					mSuccessfulColumn;
-	private JPanel					mStartDateColumn;
-	private JPanel					mEndDateColumn;
+	private JPanel					mAttrColumn[];
+	private JPanel					mDPPerWeekColumn[];
+	private JPanel					mDPSpentColumn[];
+	private JPanel					mMaintColumn[];
+	private JPanel					mSuccessfulColumn[];
+	private JPanel					mStartDateColumn[];
+	private JPanel					mEndDateColumn[];
 
 	private JDialog					mNewEntryDialog;
 
@@ -157,56 +157,76 @@ public class AttributesTab extends DeterminationTab {
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), createCenterPanel(), PHYSICAL_DESCRIPTION, ATTRIBUTES_TAB_TOOLTIP, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
+		mAttrColumn			= new JPanel[2];
+		mDPPerWeekColumn		= new JPanel[2];
+		mDPSpentColumn		= new JPanel[2];
+		mMaintColumn			= new JPanel[2];
+		mSuccessfulColumn		= new JPanel[2];
+		mStartDateColumn		= new JPanel[2];
+		mEndDateColumn		= new JPanel[2];
+
+		return createPage(createCenterPanel(false), createCenterPanel(true), PHYSICAL_DESCRIPTION, ATTRIBUTES_TAB_TOOLTIP, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
-	private JPanel createCenterPanel() {
+	private JPanel createCenterPanel(boolean complete) {
 		// DW _add Start and End Date (popup?)
 		//		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
+		int test = complete ? 1 : 0;
 
 		JPanel outerWrapper = new JPanel();
-		mAttrColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mDPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
-		mDPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mMaintColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mSuccessfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		mStartDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		mEndDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mAttrColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mDPPerWeekColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		mDPSpentColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mMaintColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mSuccessfulColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mStartDateColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mEndDateColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		generateHeaders();
+		generateHeaders(complete);
 
-		outerWrapper.add(mAttrColumn);
-		outerWrapper.add(mDPPerWeekColumn);
-		outerWrapper.add(mDPSpentColumn);
-		outerWrapper.add(mMaintColumn);
-		outerWrapper.add(mSuccessfulColumn);
-		outerWrapper.add(mStartDateColumn);
-		outerWrapper.add(mEndDateColumn);
+		outerWrapper.add(mAttrColumn[test]);
+		outerWrapper.add(mDPPerWeekColumn[test]);
+		outerWrapper.add(mDPSpentColumn[test]);
+		outerWrapper.add(mMaintColumn[test]);
+		outerWrapper.add(mSuccessfulColumn[test]);
+		outerWrapper.add(mStartDateColumn[test]);
+		outerWrapper.add(mEndDateColumn[test]);
 
 		//		updateEnabledState();
 		//		updateDialogButtons();
 		return outerWrapper;
 	}
 
-	private void generateHeaders() {
-		mAttrColumn.add(new JLabel(ATTRIBUTES_TAB_TITLE));
-		mDPPerWeekColumn.add(new JLabel("DP/Week")); //$NON-NLS-1$
-		mDPSpentColumn.add(new JLabel("DP Spent")); //$NON-NLS-1$
-		mMaintColumn.add(new JLabel("Maint")); //$NON-NLS-1$
-		mSuccessfulColumn.add(new JLabel("Success")); //$NON-NLS-1$
-		mStartDateColumn.add(new JLabel("Start Date")); //$NON-NLS-1$
-		mEndDateColumn.add(new JLabel("End Date")); //$NON-NLS-1$
+	private void generateHeaders(boolean complete) {
+		int test = complete ? 1 : 0;
+
+		mAttrColumn[test].add(new JLabel(ATTRIBUTES_TAB_TITLE));
+		mDPPerWeekColumn[test].add(new JLabel("DP/Week")); //$NON-NLS-1$
+		mDPSpentColumn[test].add(new JLabel("DP Spent")); //$NON-NLS-1$
+		mMaintColumn[test].add(new JLabel("Maint")); //$NON-NLS-1$
+		mSuccessfulColumn[test].add(new JLabel("Success")); //$NON-NLS-1$
+		mStartDateColumn[test].add(new JLabel("Start Date")); //$NON-NLS-1$
+		mEndDateColumn[test].add(new JLabel("End Date")); //$NON-NLS-1$
 	}
 
 	void clearTab() {
-		mAttrColumn.removeAll();
-		mDPPerWeekColumn.removeAll();
-		mDPSpentColumn.removeAll();
-		mMaintColumn.removeAll();
-		mSuccessfulColumn.removeAll();
-		mStartDateColumn.removeAll();
-		mEndDateColumn.removeAll();
-		generateHeaders();
+		mAttrColumn[0].removeAll();
+		mDPPerWeekColumn[0].removeAll();
+		mDPSpentColumn[0].removeAll();
+		mMaintColumn[0].removeAll();
+		mSuccessfulColumn[0].removeAll();
+		mStartDateColumn[0].removeAll();
+		mEndDateColumn[0].removeAll();
+		generateHeaders(false);
+
+		mAttrColumn[1].removeAll();
+		mDPPerWeekColumn[1].removeAll();
+		mDPSpentColumn[1].removeAll();
+		mMaintColumn[1].removeAll();
+		mSuccessfulColumn[1].removeAll();
+		mStartDateColumn[1].removeAll();
+		mEndDateColumn[1].removeAll();
+		generateHeaders(true);
 
 	}
 
@@ -218,15 +238,17 @@ public class AttributesTab extends DeterminationTab {
 			JLabel maintLabel = new JLabel(String.valueOf(record.hasMaintenance()));
 			JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 			JLabel startDateLabel = new JLabel(record.getStartDate());
-			JLabel endDateLabel = new JLabel(record.getEndDate());
+			String endDate = record.getEndDate();
+			JLabel endDateLabel = new JLabel(endDate);
 
-			mAttrColumn.add(attrLabel);
-			mDPPerWeekColumn.add(DPPerWeekLabel);
-			mDPSpentColumn.add(usedLabel);
-			mMaintColumn.add(maintLabel);
-			mSuccessfulColumn.add(successLabel);
-			mStartDateColumn.add(startDateLabel);
-			mEndDateColumn.add(endDateLabel);
+			int which = endDate.isBlank() ? 0 : 1;
+			mAttrColumn[which].add(attrLabel);
+			mDPPerWeekColumn[which].add(DPPerWeekLabel);
+			mDPSpentColumn[which].add(usedLabel);
+			mMaintColumn[which].add(maintLabel);
+			mSuccessfulColumn[which].add(successLabel);
+			mStartDateColumn[which].add(startDateLabel);
+			mEndDateColumn[which].add(endDateLabel);
 		}
 	}
 

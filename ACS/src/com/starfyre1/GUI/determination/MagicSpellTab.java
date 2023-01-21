@@ -85,15 +85,15 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 
 	private Color				mOldColor;
 
-	private JPanel				mSchoolColumn;
-	private JPanel				mSpellColumn;
-	private JPanel				mCostColumn;
-	private JPanel				mDPPerWeekColumn;
-	private JPanel				mDPSpentColumn;
-	private JPanel				mResearchChanceColumn;
-	private JPanel				mSuccessfulColumn;
-	private JPanel				mStartDateColumn;
-	private JPanel				mEndDateColumn;
+	private JPanel				mSchoolColumn[];
+	private JPanel				mSpellColumn[];
+	private JPanel				mCostColumn[];
+	private JPanel				mDPPerWeekColumn[];
+	private JPanel				mDPSpentColumn[];
+	private JPanel				mResearchChanceColumn[];
+	private JPanel				mSuccessfulColumn[];
+	private JPanel				mStartDateColumn[];
+	private JPanel				mEndDateColumn[];
 
 	private JDialog				mNewEntryDialog;
 
@@ -252,61 +252,86 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), createCenterPanel(), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TEXT, null, SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
+		mSchoolColumn = new JPanel[2];
+		mSpellColumn = new JPanel[2];
+		mCostColumn = new JPanel[2];
+		mDPPerWeekColumn = new JPanel[2];
+		mDPSpentColumn = new JPanel[2];
+		mResearchChanceColumn = new JPanel[2];
+		mSuccessfulColumn = new JPanel[2];
+		mStartDateColumn = new JPanel[2];
+		mEndDateColumn = new JPanel[2];
+
+		return createPage(createCenterPanel(false), createCenterPanel(true), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TEXT, null, SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
-	private JPanel createCenterPanel() {
+	private JPanel createCenterPanel(boolean complete) {
+		int test = complete ? 1 : 0;
+
 		JPanel outerWrapper = new JPanel();
-		mSchoolColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mSpellColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mCostColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mDPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
-		mDPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mResearchChanceColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
-		mSuccessfulColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		mStartDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
-		mEndDateColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mSchoolColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mSpellColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mCostColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mDPPerWeekColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
+		mDPSpentColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mResearchChanceColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
+		mSuccessfulColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mStartDateColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
+		mEndDateColumn[test] = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 0));
 
-		generateHeaders();
+		generateHeaders(complete);
 
-		outerWrapper.add(mSchoolColumn);
-		outerWrapper.add(mSpellColumn);
-		outerWrapper.add(mCostColumn);
-		outerWrapper.add(mDPPerWeekColumn);
-		outerWrapper.add(mDPSpentColumn);
-		outerWrapper.add(mResearchChanceColumn);
-		outerWrapper.add(mSuccessfulColumn);
-		outerWrapper.add(mStartDateColumn);
-		outerWrapper.add(mEndDateColumn);
+		outerWrapper.add(mSchoolColumn[test]);
+		outerWrapper.add(mSpellColumn[test]);
+		outerWrapper.add(mCostColumn[test]);
+		outerWrapper.add(mDPPerWeekColumn[test]);
+		outerWrapper.add(mDPSpentColumn[test]);
+		outerWrapper.add(mResearchChanceColumn[test]);
+		outerWrapper.add(mSuccessfulColumn[test]);
+		outerWrapper.add(mStartDateColumn[test]);
+		outerWrapper.add(mEndDateColumn[test]);
 
 		//		updateEnabledState();
 		//		updateDialogButtons();
 		return outerWrapper;
 	}
 
-	private void generateHeaders() {
-		mSchoolColumn.add(new JLabel(SCHOOL_LABEL));
-		mSpellColumn.add(new JLabel(SPELL_LABEL));
-		mCostColumn.add(new JLabel(COST_LABEL));
-		mDPPerWeekColumn.add(new JLabel(DP_WEEK_LABEL));
-		mDPSpentColumn.add(new JLabel(USED_LABEL));
-		mResearchChanceColumn.add(new JLabel(RESEARCH_CHANCE));
-		mSuccessfulColumn.add(new JLabel(SUCCESS_TEXT));
-		mStartDateColumn.add(new JLabel("Start Date")); //$NON-NLS-1$
-		mEndDateColumn.add(new JLabel("End Date")); //$NON-NLS-1$
+	private void generateHeaders(boolean complete) {
+		int test = complete ? 1 : 0;
+
+		mSchoolColumn[test].add(new JLabel(SCHOOL_LABEL));
+		mSpellColumn[test].add(new JLabel(SPELL_LABEL));
+		mCostColumn[test].add(new JLabel(COST_LABEL));
+		mDPPerWeekColumn[test].add(new JLabel(DP_WEEK_LABEL));
+		mDPSpentColumn[test].add(new JLabel(USED_LABEL));
+		mResearchChanceColumn[test].add(new JLabel(RESEARCH_CHANCE));
+		mSuccessfulColumn[test].add(new JLabel(SUCCESS_TEXT));
+		mStartDateColumn[test].add(new JLabel("Start Date")); //$NON-NLS-1$
+		mEndDateColumn[test].add(new JLabel("End Date")); //$NON-NLS-1$
 	}
 
 	void clearTab() {
-		mSchoolColumn.removeAll();
-		mSpellColumn.removeAll();
-		mCostColumn.removeAll();
-		mDPPerWeekColumn.removeAll();
-		mDPSpentColumn.removeAll();
-		mResearchChanceColumn.removeAll();
-		mSuccessfulColumn.removeAll();
-		mStartDateColumn.removeAll();
-		mEndDateColumn.removeAll();
-		generateHeaders();
+		mSchoolColumn[0].removeAll();
+		mSpellColumn[0].removeAll();
+		mCostColumn[0].removeAll();
+		mDPPerWeekColumn[0].removeAll();
+		mDPSpentColumn[0].removeAll();
+		mResearchChanceColumn[0].removeAll();
+		mSuccessfulColumn[0].removeAll();
+		mStartDateColumn[0].removeAll();
+		mEndDateColumn[0].removeAll();
+		generateHeaders(false);
+
+		mSchoolColumn[1].removeAll();
+		mSpellColumn[1].removeAll();
+		mCostColumn[1].removeAll();
+		mDPPerWeekColumn[1].removeAll();
+		mDPSpentColumn[1].removeAll();
+		mResearchChanceColumn[1].removeAll();
+		mSuccessfulColumn[1].removeAll();
+		mStartDateColumn[1].removeAll();
+		mEndDateColumn[1].removeAll();
+		generateHeaders(true);
 
 	}
 
@@ -325,17 +350,19 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 			JLabel researchChanceLabel = new JLabel(String.valueOf(MageList.spellResearchChance(stats, spellPower, charLevel)));
 			JLabel successLabel = new JLabel(record.isSuccessful() + " / " + 0); //$NON-NLS-1$
 			JLabel startDateLabel = new JLabel(record.getStartDate());
-			JLabel endDateLabel = new JLabel(record.getEndDate());
+			String endDate = record.getEndDate();
+			JLabel endDateLabel = new JLabel(endDate);
 
-			mSchoolColumn.add(schoolLabel);
-			mSpellColumn.add(spellLabel);
-			mCostColumn.add(costLabel);
-			mDPPerWeekColumn.add(DPPerWeekLabel);
-			mDPSpentColumn.add(usedLabel);
-			mResearchChanceColumn.add(researchChanceLabel);
-			mSuccessfulColumn.add(successLabel);
-			mStartDateColumn.add(startDateLabel);
-			mEndDateColumn.add(endDateLabel);
+			int which = endDate.isBlank() ? 0 : 1;
+			mSchoolColumn[which].add(schoolLabel);
+			mSpellColumn[which].add(spellLabel);
+			mCostColumn[which].add(costLabel);
+			mDPPerWeekColumn[which].add(DPPerWeekLabel);
+			mDPSpentColumn[which].add(usedLabel);
+			mResearchChanceColumn[which].add(researchChanceLabel);
+			mSuccessfulColumn[which].add(successLabel);
+			mStartDateColumn[which].add(startDateLabel);
+			mEndDateColumn[which].add(endDateLabel);
 		}
 	}
 
