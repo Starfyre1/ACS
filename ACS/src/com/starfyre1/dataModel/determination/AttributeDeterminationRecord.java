@@ -82,24 +82,23 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 	public boolean successRoll() {
 		// DW This should move to the AttributesTab
 		// success roll
-		// "1D20 + 1/2 level >= stat"
+		// "1D20 >= stat - 1/2 level"
 
 		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
-		int stat = characterSheet.getAttributesRecord().getModifiedStat(mAttribute);
+		int target = characterSheet.getAttributesRecord().getModifiedStat(mAttribute) - characterSheet.getHeaderRecord().getLevel() / 2;
 		int roll = 0;
 
 		if (PreferenceStore.getInstance().isAppRollsDice()) {
 			roll = TKDice.roll(20);
 		} else {
 			do {
-				String result = JOptionPane.showInputDialog(characterSheet.getFrame(), "Enter 1D20 roll", "Roll for " + AttributesTab.ATTRIBUTE_NAMES[getAttribute()] + " Success (roll >= " + stat + " )", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				String result = JOptionPane.showInputDialog(characterSheet.getFrame(), "Enter 1D20 roll", "Roll for " + AttributesTab.ATTRIBUTE_NAMES[getAttribute()] + " Success (roll >= " + target + " )", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				if (result != null) {
 					roll = TKStringHelpers.getIntValue(result, 0);
 				}
 			} while (roll == 0);
 		}
-		roll += characterSheet.getHeaderRecord().getLevel() / 2;
-		return roll >= stat;
+		return roll >= target;
 	}
 
 	/*****************************************************************************

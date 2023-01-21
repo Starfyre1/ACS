@@ -83,21 +83,20 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 		// "1D20 - (1/4 level) < (Wisdom)"
 
 		CharacterSheet characterSheet = ACS.getInstance().getCharacterSheet();
-		int stat = characterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
+		int target = characterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.WIS) + characterSheet.getHeaderRecord().getLevel() / 4;
 		int roll = 0;
 
 		if (PreferenceStore.getInstance().isAppRollsDice()) {
 			roll = TKDice.roll(20);
 		} else {
 			do {
-				String result = JOptionPane.showInputDialog(characterSheet.getFrame(), "Enter 1D20 roll", "Roll for " + getLanguage() + " Success (roll <= " + stat + " )", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				String result = JOptionPane.showInputDialog(characterSheet.getFrame(), "Enter 1D20 roll", "Roll for " + getLanguage() + " Success (roll <= " + target + " )", JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 				if (result != null) {
 					roll = TKStringHelpers.getIntValue(result, 0);
 				}
 			} while (roll == 0);
 		}
-		roll -= characterSheet.getHeaderRecord().getLevel() / 4;
-		return roll <= stat;
+		return roll <= target;
 	}
 
 	/*****************************************************************************

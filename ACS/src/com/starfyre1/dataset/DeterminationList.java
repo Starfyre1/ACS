@@ -3,7 +3,6 @@
 package com.starfyre1.dataset;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.character.AttributesDisplay;
 import com.starfyre1.GUI.character.SkillsDisplay;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.spells.SpellListDisplay;
@@ -272,67 +271,70 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	}
 
 	private void determinationComplete(DeterminationRecord record) {
-		// DW ____Work on next
-		record.setSuccessful(record.successRoll());
-		// update affected areas
-		if (record instanceof AttributeDeterminationRecord) {
-			int attrib = ((AttributeDeterminationRecord) record).getAttribute();
-			int bonus = 1;
-			mOwner.getAttributesRecord().setDPStatBonus(attrib, bonus);
-			AttributesDisplay display = mOwner.getAttributesDisplay();
-			display.loadDisplay();
-		} else if (record instanceof LanguageDeterminationRecord) {
-			String language = ((LanguageDeterminationRecord) record).getLanguage();
-			mOwner.getLanguageRecord().addKnownLanguage(language);
-			mOwner.getLanguageDisplay().loadDisplay();
-		} else if (record instanceof MagicSpellDeterminationRecord) {
-			MagicSpellDeterminationRecord magicSpellDeterminationRecord = (MagicSpellDeterminationRecord) record;
-			String spell = magicSpellDeterminationRecord.getSpell();
-			String school = magicSpellDeterminationRecord.getSchool();
-			int level = magicSpellDeterminationRecord.getLevel();
-			SpellRecord spellToAdd = null;
-			SpellUser caster = (SpellUser) ClassList.getCharacterClass(school);
-			ArrayList<SpellRecord> spells = caster.getSpellList(level);
-			for (SpellRecord spellRecord : spells) {
-				if (spellRecord.getName().equals(spell)) {
-					spellToAdd = spellRecord;
-					break;
+
+		boolean success = record.successRoll();
+		record.setSuccessful(success);
+		if (success) {
+			boolean hasMaintenance = record.hasMaintenance();
+			// update affected areas
+			if (record instanceof AttributeDeterminationRecord) {
+				int attrib = ((AttributeDeterminationRecord) record).getAttribute();
+				int bonus = 1;
+				mOwner.getAttributesRecord().setDPStatBonus(attrib, bonus);
+				mOwner.getAttributesDisplay().loadDisplay();
+			} else if (record instanceof LanguageDeterminationRecord) {
+				String language = ((LanguageDeterminationRecord) record).getLanguage();
+				mOwner.getLanguageRecord().addKnownLanguage(language);
+				mOwner.getLanguageDisplay().loadDisplay();
+			} else if (record instanceof MagicSpellDeterminationRecord) {
+				MagicSpellDeterminationRecord magicSpellDeterminationRecord = (MagicSpellDeterminationRecord) record;
+				String spell = magicSpellDeterminationRecord.getSpell();
+				String school = magicSpellDeterminationRecord.getSchool();
+				int level = magicSpellDeterminationRecord.getLevel();
+				SpellRecord spellToAdd = null;
+				SpellUser caster = (SpellUser) ClassList.getCharacterClass(school);
+				ArrayList<SpellRecord> spells = caster.getSpellList(level);
+				for (SpellRecord spellRecord : spells) {
+					if (spellRecord.getName().equals(spell)) {
+						spellToAdd = spellRecord;
+						break;
+					}
 				}
-			}
-			if (spellToAdd != null) {
-				SpellListDisplay display = mOwner.getSpellListDisplay();
+				if (spellToAdd != null) {
+					SpellListDisplay display = mOwner.getSpellListDisplay();
 
-				display.swapPanels(school);
-				display.getCurrentList().addToKnownSpells(spellToAdd);
-			}
-		} else if (record instanceof SkillDeterminationRecord) {
-			SkillDeterminationRecord skillDeterminationRecord = (SkillDeterminationRecord) record;
-			String skill = skillDeterminationRecord.getSkill();
-			int bonus = skillDeterminationRecord.getBonus();
-			mOwner.getSkillsRecord().setSkillDPBonus(skill, bonus);
-			SkillsDisplay display = mOwner.getSkillsDisplay();
-			display.loadDisplay();
-			display.updateToolTips(false);
-		} else if (record instanceof WeaponDeterminationRecord) {
-			WeaponDeterminationRecord weaponDeterminationRecord = (WeaponDeterminationRecord) record;
-			String name = weaponDeterminationRecord.getWeapon();
-
-			WeaponRecord owned = mOwner.getWeapon(name);
-			int bonus = adjustWeaponDPBonus(owned, weaponDeterminationRecord.getBonus());
-			mOwner.addWeaponDP(name, bonus);
-			int value = mOwner.getWeaponDPValue(name);
-			WeaponList list = mOwner.getWeaponList();
-			for (WeaponRecord weapon : list.getRecords()) {
-				String test = weapon.getName();
-				if (name.equals(test)) {
-					weapon.setDPHitBonus(value);
+					display.swapPanels(school);
+					display.getCurrentList().addToKnownSpells(spellToAdd);
 				}
-			}
+			} else if (record instanceof SkillDeterminationRecord) {
+				SkillDeterminationRecord skillDeterminationRecord = (SkillDeterminationRecord) record;
+				String skill = skillDeterminationRecord.getSkill();
+				int bonus = skillDeterminationRecord.getBonus();
+				mOwner.getSkillsRecord().setSkillDPBonus(skill, bonus);
+				SkillsDisplay display = mOwner.getSkillsDisplay();
+				display.loadDisplay();
+				display.updateToolTips(false);
+			} else if (record instanceof WeaponDeterminationRecord) {
+				WeaponDeterminationRecord weaponDeterminationRecord = (WeaponDeterminationRecord) record;
+				String name = weaponDeterminationRecord.getWeapon();
 
-			// DW fix this should probably just have the display update the single field for DP
-			mOwner.getEquippedWeaponDisplay().loadDisplay();
-			mOwner.getWeaponOwnedDiplay().loadDisplay();
-			mOwner.getAttackTotalsDisplay().loadDisplay();
+				WeaponRecord owned = mOwner.getWeapon(name);
+				int bonus = adjustWeaponDPBonus(owned, weaponDeterminationRecord.getBonus());
+				mOwner.addWeaponDP(name, bonus);
+				int value = mOwner.getWeaponDPValue(name);
+				WeaponList list = mOwner.getWeaponList();
+				for (WeaponRecord weapon : list.getRecords()) {
+					String test = weapon.getName();
+					if (name.equals(test)) {
+						weapon.setDPHitBonus(value);
+					}
+				}
+
+				// DW fix this should probably just have the display update the single field for DP
+				mOwner.getEquippedWeaponDisplay().loadDisplay();
+				mOwner.getWeaponOwnedDiplay().loadDisplay();
+				mOwner.getAttackTotalsDisplay().loadDisplay();
+			}
 		}
 	}
 
