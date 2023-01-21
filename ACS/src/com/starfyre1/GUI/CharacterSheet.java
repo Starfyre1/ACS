@@ -1414,6 +1414,10 @@ public class CharacterSheet implements ActionListener {
 		return mDeterminationTab;
 	}
 
+	public void loadDeterminationPointsDisplay() {
+		mDeterminationTab.loadDisplay();
+	}
+
 	public TKTable getArmorOwnedTable() {
 		return mArmorOwnedDisplay.getTable();
 	}

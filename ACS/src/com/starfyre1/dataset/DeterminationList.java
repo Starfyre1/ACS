@@ -539,6 +539,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 				while (tokenizer.hasMoreTokens()) {
 					String key = tokenizer.nextToken();
 					if (key.equals(FILE_SECTION_END_KEY)) {
+						mOwner.loadDeterminationPointsDisplay();
 						return tokenizer;
 					} else if (!tokenizer.hasMoreTokens()) {
 						if (AttributeDeterminationRecord.FILE_SECTION_START_KEY.equals(key)) {

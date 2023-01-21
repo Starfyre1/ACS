@@ -286,11 +286,11 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TEXT, null, SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
+		return createPage(createCenterPanel(), createCenterPanel(), MAGIC_SPELL_DESCRIPTION, MAGIC_SPELL_TEXT, null, SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
 	private JPanel createCenterPanel() {
-		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
+		JPanel outerWrapper = new JPanel();
 		mSchoolColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mSpellColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mCostColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));

@@ -65,12 +65,29 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 	/*****************************************************************************
 	 * Methods
 	 ****************************************************************************/
-	public JComponent createPage(JPanel lowerPanel, String description, String text, String successText, String successTooltip, String cost, String maint) {
+	/**
+	 * @param lowerPanel Use null if it is not used
+	 * @param lowerPanel2 Use null if it is not used
+	 * @param description
+	 * @param text
+	 * @param successText
+	 * @param successTooltip
+	 * @param cost
+	 * @param maint
+	 * @return The created page
+	 */
+	public JComponent createPage(JPanel lowerPanel, JPanel lowerPanel2, String description, String text, String successText, String successTooltip, String cost, String maint) {
 		JPanel page = new JPanel(new BorderLayout());
 
-		JPanel top = new JPanel(new BorderLayout());
-		top.setBorder(new EmptyBorder(5, 5, 5, 5));
+		page.add(createTopPanel(description, text, successText, successTooltip, cost, maint), BorderLayout.NORTH);
+		page.add(createLowerPanel(lowerPanel, lowerPanel2), BorderLayout.CENTER);
+		page.add(getButtonPanel(), BorderLayout.SOUTH);
 
+		return page;
+
+	}
+
+	private JPanel createTopPanel(String description, String text, String successText, String successTooltip, String cost, String maint) {
 		JPanel titleWrapper = new JPanel();
 		BoxLayout bl3 = new BoxLayout(titleWrapper, BoxLayout.Y_AXIS);
 		titleWrapper.setLayout(bl3);
@@ -83,7 +100,6 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 		JPanel costWrapper = new JPanel();
 		BoxLayout bl2 = new BoxLayout(costWrapper, BoxLayout.Y_AXIS);
 		costWrapper.setLayout(bl2);
-
 		JLabel costLabel1 = new JLabel(cost);
 		JLabel costLabel2 = new JLabel(maint);
 		costWrapper.add(costLabel1);
@@ -99,15 +115,31 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 		descriptionTextArea.setWrapStyleWord(true);
 		descriptionTextArea.setText(description);
 
+		JPanel top = new JPanel(new BorderLayout());
+		top.setBorder(new EmptyBorder(5, 5, 5, 5));
 		top.add(titleWrapper, BorderLayout.WEST);
 		top.add(costWrapper, BorderLayout.EAST);
 		top.add(descriptionTextArea, BorderLayout.NORTH);
 
-		page.add(top, BorderLayout.NORTH);
-		if (lowerPanel != null) {
-			page.add(lowerPanel, BorderLayout.CENTER);
-		}
+		return top;
+	}
 
+	private JPanel createLowerPanel(JPanel lowerPanel, JPanel lowerPanel2) {
+		JPanel tempPage = new JPanel();
+		BoxLayout bl = new BoxLayout(tempPage, BoxLayout.Y_AXIS);
+		tempPage.setLayout(bl);
+		if (lowerPanel != null) {
+			lowerPanel.setBorder(new LineBorder(Color.BLACK));
+			tempPage.add(lowerPanel, BorderLayout.CENTER);
+		}
+		if (lowerPanel2 != null) {
+			lowerPanel2.setBorder(new LineBorder(Color.BLACK));
+			tempPage.add(lowerPanel2, BorderLayout.CENTER);
+		}
+		return tempPage;
+	}
+
+	private JPanel getButtonPanel() {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBorder(new EmptyBorder(TKComponentHelpers.BORDER_INSETS));
 		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
@@ -118,10 +150,7 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 		buttonPanel.add(mGiveUpButton);
 		buttonPanel.add(Box.createHorizontalGlue());
 		buttonPanel.add(mNewButton);
-
-		page.add(buttonPanel, BorderLayout.SOUTH);
-		return page;
-
+		return buttonPanel;
 	}
 
 	@Override

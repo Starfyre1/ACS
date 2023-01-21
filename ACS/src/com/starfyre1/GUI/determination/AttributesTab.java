@@ -185,14 +185,14 @@ public class AttributesTab extends DeterminationTab {
 
 	@Override
 	protected Component createDisplay() {
-		return createPage(createCenterPanel(), PHYSICAL_DESCRIPTION, ATTRIBUTES_TAB_TOOLTIP, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
+		return createPage(createCenterPanel(), createCenterPanel(), PHYSICAL_DESCRIPTION, ATTRIBUTES_TAB_TOOLTIP, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
 
 	private JPanel createCenterPanel() {
 		// DW _add Start and End Date (popup?)
 		//		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 
-		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
+		JPanel outerWrapper = new JPanel();
 		mAttrColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
 		mDPPerWeekColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 15, 0, 5));
 		mDPSpentColumn = getPanel(BoxLayout.Y_AXIS, new EmptyBorder(0, 5, 0, 5));
