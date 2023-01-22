@@ -35,6 +35,7 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	 ****************************************************************************/
 	public static final String								FILE_SECTION_START_KEY		= "DETERMINATION_SECTION_START";	//$NON-NLS-1$
 	public static final String								FILE_SECTION_END_KEY		= "DETERMINATION_SECTION_END";		//$NON-NLS-1$
+	private static final String								PERM_USED_DPPOINTS_KEY		= "PERM_USED_DPPOINTS_KEY";			//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -275,7 +276,9 @@ public class DeterminationList implements Savable, CampaignDateListener {
 		boolean success = record.successRoll();
 		record.setSuccessful(success);
 		if (success) {
-			boolean hasMaintenance = record.hasMaintenance();
+			if (record.hasMaintenance()) {
+				mOwner.getDeterminationPointsDisplay().adjustPermUsedDPPoints(1);
+			}
 			// update affected areas
 			if (record instanceof AttributeDeterminationRecord) {
 				int attrib = ((AttributeDeterminationRecord) record).getAttribute();
@@ -600,6 +603,12 @@ public class DeterminationList implements Savable, CampaignDateListener {
 							if (record.getTeacher() != TKStringHelpers.EMPTY_STRING) {
 								addTeacherRecord(record);
 							}
+						} else {
+							String value = tokenizer.nextToken();
+							while (tokenizer.hasMoreTokens()) {
+								value = value + " " + tokenizer.nextToken(); //$NON-NLS-1$
+							}
+							setKeyValuePair(key, value);
 						}
 					} else {
 						String value = tokenizer.nextToken();
@@ -625,6 +634,8 @@ public class DeterminationList implements Savable, CampaignDateListener {
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
+
+		br.write(TKStringHelpers.TAB + PERM_USED_DPPOINTS_KEY + TKStringHelpers.SPACE + mOwner.getDeterminationPointsDisplay().getPermUsedDPPoints() + System.lineSeparator());
 
 		for (AttributeDeterminationRecord record : mAttribRecords) {
 			record.saveValues(br);
@@ -671,7 +682,14 @@ public class DeterminationList implements Savable, CampaignDateListener {
 
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
-		// not used here
+		int value = TKStringHelpers.getIntValue(((String) obj).trim(), 0);
+		if (PERM_USED_DPPOINTS_KEY.equals(key)) {
+			mOwner.getDeterminationPointsDisplay().setPermUsedDPPoints(value);
+		} else {
+			//DW9:: log this
+			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+
 	}
 
 }

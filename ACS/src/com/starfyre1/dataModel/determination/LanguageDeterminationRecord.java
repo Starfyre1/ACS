@@ -51,6 +51,7 @@ public class LanguageDeterminationRecord extends DeterminationRecord implements 
 		mSource = source;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
+		mMaintenance = false; // true if learning it fluently;
 		mStartDate = startDate;
 		setLastUpdate(lastUpdate);
 	}

@@ -52,6 +52,7 @@ public class WeaponDeterminationRecord extends DeterminationRecord implements Sa
 		mBonus = bonus;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
+		mMaintenance = true;
 		mStartDate = startDate;
 		setLastUpdate(lastUpdate);
 	}

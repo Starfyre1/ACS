@@ -34,10 +34,12 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	private static final String		DETERMINATION_POINTS_TITLE		= "Determination Points";		//$NON-NLS-1$
 
 	private static final String		TOTAL_POINTS_WEEK_LABEL			= "Total:";						//$NON-NLS-1$
+	private static final String		PERM_USED_POINTS_WEEK_LABEL		= "Perm:";						//$NON-NLS-1$
 	private static final String		USED_POINTS_WEEK_LABEL			= "Used:";						//$NON-NLS-1$
 	private static final String		REMAINING_POINTS_WEEK_LABEL		= "Left:";						//$NON-NLS-1$
 
 	private static final String		TOTAL_POINTS_WEEK_TOOLTIP		= "Total Points per Week";		//$NON-NLS-1$
+	private static final String		PERM_USED_POINTS_WEEK_TOOLTIP	= "Perm Used Points per Week";	//$NON-NLS-1$
 	private static final String		USED_POINTS_WEEK_TOOLTIP		= "Used Points per Week";		//$NON-NLS-1$
 	private static final String		REMAINING_POINTS_WEEK_TOOLTIP	= "Remaining Points per Week";	//$NON-NLS-1$
 
@@ -49,9 +51,11 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	 * Member Variables
 	 ****************************************************************************/
 	private int						mTotalDPPoints;
+	private int						mPermUsedDPPoints;
 	private int						mUsedDPPoints;
 	private int						mRemainingDPPoints;
 	private JLabel					mTotalDPPointsLabel;
+	private JLabel					mPermUsedDPPointsLabel;
 	private JLabel					mUsedDPPointsLabel;
 	private JLabel					mRemainingDPPointsLabel;
 	private JTabbedPane				mTabbedPane;
@@ -91,6 +95,15 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 		totalTitle.setToolTipText(TOTAL_POINTS_WEEK_TOOLTIP);
 		innerWrapper.add(totalTitle);
 		innerWrapper.add(mTotalDPPointsLabel);
+		pointsPanel.add(innerWrapper);
+
+		innerWrapper = new JPanel();
+		mPermUsedDPPointsLabel = new JLabel(String.valueOf(mPermUsedDPPoints));
+		mPermUsedDPPointsLabel.setToolTipText(PERM_USED_POINTS_WEEK_TOOLTIP);
+		JLabel PermUsedTitle = new JLabel(PERM_USED_POINTS_WEEK_LABEL);
+		PermUsedTitle.setToolTipText(PERM_USED_POINTS_WEEK_TOOLTIP);
+		innerWrapper.add(PermUsedTitle);
+		innerWrapper.add(mPermUsedDPPointsLabel);
 		pointsPanel.add(innerWrapper);
 
 		innerWrapper = new JPanel();
@@ -173,10 +186,12 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 			}
 		}
 		mUsedDPPoints = pointsSpent;
+		//		mPermUsedDPPoints = ???
 		mTotalDPPoints = getDeterminationPoints();
-		mRemainingDPPoints = mTotalDPPoints - mUsedDPPoints;
+		mRemainingDPPoints = mTotalDPPoints - mPermUsedDPPoints - mUsedDPPoints;
 		// DW ___Need to update labels
 		mUsedDPPointsLabel.setText(String.valueOf(mUsedDPPoints));
+		mPermUsedDPPointsLabel.setText(String.valueOf(mPermUsedDPPoints));
 		mTotalDPPointsLabel.setText(String.valueOf(mTotalDPPoints));
 		mRemainingDPPointsLabel.setText(String.valueOf(mRemainingDPPoints));
 
@@ -256,6 +271,20 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 			}
 		}
 		return value;
+	}
+
+	public int getPermUsedDPPoints() {
+		return mPermUsedDPPoints;
+	}
+
+	public void setPermUsedDPPoints(int permUsed) {
+		mPermUsedDPPoints = permUsed;
+		updateRecord();
+	}
+
+	public void adjustPermUsedDPPoints(int adjustment) {
+		mPermUsedDPPoints += adjustment;
+		updateRecord();
 	}
 
 	/*****************************************************************************

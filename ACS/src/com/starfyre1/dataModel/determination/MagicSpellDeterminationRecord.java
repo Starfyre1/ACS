@@ -60,6 +60,7 @@ public class MagicSpellDeterminationRecord extends DeterminationRecord implement
 		mChance = chance;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = dpCost;
+		mMaintenance = false;
 		mStartDate = startDate;
 		setLastUpdate(lastUpdate);
 

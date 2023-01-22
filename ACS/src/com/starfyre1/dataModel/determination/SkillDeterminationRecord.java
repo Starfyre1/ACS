@@ -52,6 +52,7 @@ public class SkillDeterminationRecord extends DeterminationRecord implements Sav
 		mBonus = bonus;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
+		mMaintenance = true;
 		mStartDate = startDate;
 		setLastUpdate(lastUpdate);
 	}

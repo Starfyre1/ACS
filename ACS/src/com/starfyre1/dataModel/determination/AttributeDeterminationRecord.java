@@ -52,6 +52,7 @@ public class AttributeDeterminationRecord extends DeterminationRecord implements
 		mAttribute = attrib;
 		mDPPerWeek = dpPerWeek;
 		mDPCost = cost;
+		mMaintenance = true;
 		mStartDate = startDate;
 		setLastUpdate(lastUpdate);
 	}
