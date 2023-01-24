@@ -110,7 +110,7 @@ public class TeacherTab extends DeterminationTab {
 			} else if (source.equals(mOkButton)) {
 				TeacherDeterminationRecord record = new TeacherDeterminationRecord(TKStringHelpers.getIntValue(mIDLabel.getText(), -1), mTeacherNameField.getText(), mExpertisePopup.getSelectedItem(), TKStringHelpers.getFloatValue(mCostField.getText(), 0), TKStringHelpers.getIntValue(mBonusField.getText(), 0));
 				DeterminationList.addTeacherRecord(record);
-				((DeterminationPointsDisplay) getOwner()).addRecords(true);
+				((DeterminationDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
 			} else if (source.equals(mCancelButton)) {
 				mNewEntryDialog.dispose();

@@ -26,12 +26,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-public class DeterminationPointsDisplay extends TKTitledDisplay implements LevelListener {
+public class DeterminationDisplay extends TKTitledDisplay implements LevelListener {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String		DETERMINATION_POINTS_TITLE		= "Determination Points";		//$NON-NLS-1$
+	private static final String		DETERMINATION_TITLE		= "Determination Points";		//$NON-NLS-1$
 
 	private static final String		TOTAL_POINTS_WEEK_LABEL			= "Total:";						//$NON-NLS-1$
 	private static final String		PERM_USED_POINTS_WEEK_LABEL		= "Perm:";						//$NON-NLS-1$
@@ -63,8 +63,8 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public DeterminationPointsDisplay(CharacterSheet owner) {
-		super(owner, DETERMINATION_POINTS_TITLE);
+	public DeterminationDisplay(CharacterSheet owner) {
+		super(owner, DETERMINATION_TITLE);
 
 		updateValues();
 	}
@@ -199,12 +199,7 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 	public void addRecords(boolean clear) {
 		if (clear) {
-			((AttributesTab) mTabbedPane.getComponent(0)).clearTab();
-			((LanguageTab) mTabbedPane.getComponent(1)).clearTab();
-			((MagicSpellTab) mTabbedPane.getComponent(2)).clearTab();
-			((WeaponTab) mTabbedPane.getComponent(3)).clearTab();
-			((SkillTab) mTabbedPane.getComponent(4)).clearTab();
-			((TeacherTab) mTabbedPane.getComponent(5)).clearTab();
+			clearRecords();
 		}
 
 		for (AttributeDeterminationRecord record : DeterminationList.getAttribRecords()) {
@@ -253,6 +248,15 @@ public class DeterminationPointsDisplay extends TKTitledDisplay implements Level
 
 		ACS.getInstance().getCharacterSheet().getDeterminationPointsDisplay().updateValues();
 
+	}
+
+	public void clearRecords() {
+		((AttributesTab) mTabbedPane.getComponent(0)).clearTab();
+		((LanguageTab) mTabbedPane.getComponent(1)).clearTab();
+		((MagicSpellTab) mTabbedPane.getComponent(2)).clearTab();
+		((WeaponTab) mTabbedPane.getComponent(3)).clearTab();
+		((SkillTab) mTabbedPane.getComponent(4)).clearTab();
+		((TeacherTab) mTabbedPane.getComponent(5)).clearTab();
 	}
 
 	/*****************************************************************************

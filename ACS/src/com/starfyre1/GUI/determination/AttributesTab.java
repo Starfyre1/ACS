@@ -112,7 +112,7 @@ public class AttributesTab extends DeterminationTab {
 				String startDate = CampaignDateChooser.getCampaignDate();
 				AttributeDeterminationRecord record = new AttributeDeterminationRecord(getAttributeNumber(mAttrPopup.getSelectedItem()), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), COST, startDate, startDate);
 				DeterminationList.addAttribRecord(record);
-				((DeterminationPointsDisplay) getOwner()).addRecords(true);
+				((DeterminationDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
 			} else if (source.equals(mCancelButton)) {
 				mNewEntryDialog.dispose();

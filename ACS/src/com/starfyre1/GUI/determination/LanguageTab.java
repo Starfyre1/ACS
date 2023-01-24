@@ -129,7 +129,7 @@ public class LanguageTab extends DeterminationTab {
 				String startDate = CampaignDateChooser.getCampaignDate();
 				LanguageDeterminationRecord record = new LanguageDeterminationRecord(mLangPopup.getSelectedItem(), mSourcePopup.getSelectedItem(), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, startDate, startDate);
 				DeterminationList.addLanguageRecord(record);
-				((DeterminationPointsDisplay) getOwner()).addRecords(true);
+				((DeterminationDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
 			} else if (source.equals(mCancelButton)) {
 				mNewEntryDialog.dispose();

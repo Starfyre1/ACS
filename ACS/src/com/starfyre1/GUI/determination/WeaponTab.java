@@ -123,7 +123,7 @@ public class WeaponTab extends DeterminationTab {
 				String startDate = CampaignDateChooser.getCampaignDate();
 				WeaponDeterminationRecord record = new WeaponDeterminationRecord(mWeaponPopup.getSelectedItem(), teacherID, TKStringHelpers.getIntValue(mBonusLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), COST, startDate, startDate);
 				DeterminationList.addWeaponRecord(record);
-				((DeterminationPointsDisplay) getOwner()).addRecords(true);
+				((DeterminationDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
 			} else if (source.equals(mCancelButton)) {
 				mNewEntryDialog.dispose();

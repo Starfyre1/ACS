@@ -129,7 +129,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 				String startDate = CampaignDateChooser.getCampaignDate();
 				MagicSpellDeterminationRecord record = new MagicSpellDeterminationRecord(mSpellLabel.getText(), mSchoolPopup.getSelectedItem(), mSpellPower, TKStringHelpers.getFloatValue(mCostField.getText(), 0f), TKStringHelpers.getIntValue(mResearchChanceLabel.getText(), 0), TKStringHelpers.getIntValue(mDPPerWeekField.getText(), 0), mDPCost, startDate, startDate);
 				DeterminationList.addMagicSpellRecord(record);
-				((DeterminationPointsDisplay) getOwner()).addRecords(true);
+				((DeterminationDisplay) getOwner()).addRecords(true);
 				mNewEntryDialog.dispose();
 			} else if (source.equals(mCancelButton)) {
 				mNewEntryDialog.dispose();
@@ -193,7 +193,7 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	}
 
 	private SpellRecord selectSpell(String school) {
-		SpellSelector selector = new SpellSelector((CharacterSheet) ((DeterminationPointsDisplay) getOwner()).getOwner(), school);
+		SpellSelector selector = new SpellSelector((CharacterSheet) ((DeterminationDisplay) getOwner()).getOwner(), school);
 		SpellRecord record = selector.getSpellToLearn();
 		if (record != null) {
 			mSpellLabel.setText(record.getName());
