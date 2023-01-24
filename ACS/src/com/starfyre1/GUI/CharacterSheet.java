@@ -12,7 +12,7 @@ import com.starfyre1.GUI.character.MoneyDisplay;
 import com.starfyre1.GUI.character.PersonalInformationDisplay;
 import com.starfyre1.GUI.character.SavingThowsDisplay;
 import com.starfyre1.GUI.character.SkillsDisplay;
-import com.starfyre1.GUI.determination.DeterminationPointsDisplay;
+import com.starfyre1.GUI.determination.DeterminationDisplay;
 import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.GUI.marketPlace.MarketPlace;
 import com.starfyre1.GUI.purchasedGear.animal.AnimalsOwnedDisplay;
@@ -247,7 +247,7 @@ public class CharacterSheet implements ActionListener {
 	private JournalDisplay					mJournalTab;
 
 	// Determination Tab
-	private DeterminationPointsDisplay		mDeterminationTab;
+	private DeterminationDisplay		mDeterminationTab;
 
 	// Treasure Tab
 	private TreasureDisplay					mTreasureTab;
@@ -292,22 +292,22 @@ public class CharacterSheet implements ActionListener {
 		JComponent equipmentTab = makeEquipmentTab();
 		mSpellTab = new SpellListDisplay(this);
 		mJournalTab = new JournalDisplay(this);
-		mDeterminationTab = new DeterminationPointsDisplay(this);
-		//		mTreasureTab = new TreasureDisplay(this);
+		mDeterminationTab = new DeterminationDisplay(this);
+		mTreasureTab = new TreasureDisplay(this);
 
 		tabbedPane.addTab(CHARACTER_SHEET_TITLE, CHARACTER_ICON, characterTab, CHARACTER_SHEET_TOOLTIP);
 		tabbedPane.addTab(EQUIPMENT_SHEET_TITLE, CHARACTER_ICON, equipmentTab, EQUIPMENT_SHEET_TOOLTIP);
 		tabbedPane.addTab(SPELL_SHEET_TITLE, CHARACTER_ICON, mSpellTab, SPELL_SHEET_TOOLTIP);
 		tabbedPane.addTab(JOURNAL_SHEET_TITLE, CHARACTER_ICON, mJournalTab, JOURNAL_SHEET_TOOLTIP);
 		tabbedPane.addTab(DETERMINATION_SHEET_TITLE, CHARACTER_ICON, mDeterminationTab, DETERMINATION_SHEET_TOOLTIP);
-		//		tabbedPane.addTab(TREASURE_SHEET_TITLE, CHARACTER_ICON, mTreasureTab, TREASURE_SHEET_TOOLTIP);
+		tabbedPane.addTab(TREASURE_SHEET_TITLE, CHARACTER_ICON, mTreasureTab, TREASURE_SHEET_TOOLTIP);
 
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_C);
 		tabbedPane.setMnemonicAt(1, KeyEvent.VK_E);
 		tabbedPane.setMnemonicAt(2, KeyEvent.VK_S);
 		tabbedPane.setMnemonicAt(3, KeyEvent.VK_J);
 		tabbedPane.setMnemonicAt(4, KeyEvent.VK_D);
-		//		tabbedPane.setMnemonicAt(5, KeyEvent.VK_T);
+		tabbedPane.setMnemonicAt(5, KeyEvent.VK_T);
 
 		JPanel wrapper = new JPanel(new BorderLayout());
 		wrapper.add(mHeaderDisplay, BorderLayout.NORTH);
@@ -848,8 +848,8 @@ public class CharacterSheet implements ActionListener {
 		mInnateAbilitiesDisplay.clearRecords();
 		mSpellTab.clearRecords();
 		mJournalTab.clearRecords();
-		//		mDeterminationTab.clearRecords();
-		//		mTreasureTab.clearRecords();
+		mDeterminationTab.clearRecords();
+		mTreasureTab.clearRecords();
 		mDefenseInformationDisplay.clearRecords();
 		HistoryManager historyManager = HistoryManager.getInstance();
 		historyManager.clearRecords();
@@ -1410,7 +1410,7 @@ public class CharacterSheet implements ActionListener {
 		return true;
 	}
 
-	public DeterminationPointsDisplay getDeterminationPointsDisplay() {
+	public DeterminationDisplay getDeterminationPointsDisplay() {
 		return mDeterminationTab;
 	}
 
@@ -1448,7 +1448,7 @@ public class CharacterSheet implements ActionListener {
 	}
 
 	/** @return The determinationTab. */
-	public DeterminationPointsDisplay getDeterminationTab() {
+	public DeterminationDisplay getDeterminationTab() {
 		return mDeterminationTab;
 	}
 

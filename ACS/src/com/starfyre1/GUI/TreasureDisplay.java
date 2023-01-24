@@ -60,7 +60,7 @@ public class TreasureDisplay extends TKTitledDisplay implements ActionListener, 
 	protected Component createDisplay() {
 		// This is the full equipment list in the Market Place
 		Object[] master = WeaponList.getWeaponCombinedList();
-		Object[][] data = new Object[master.length][16];
+		Object[][] data = new Object[master.length][15];
 
 		for (int i = 0; i < master.length; i++) {
 			WeaponRecord record = (WeaponRecord) master[i];
@@ -81,7 +81,7 @@ public class TreasureDisplay extends TKTitledDisplay implements ActionListener, 
 		mTable.getColumnModel().getColumn(2).setMinWidth(100); // Name
 		mTable.getColumnModel().getColumn(3).setMinWidth(70); // Metal - give it enough room for popup
 		mTable.getColumnModel().getColumn(4).setMinWidth(70); // Type
-		mTable.getColumnModel().getColumn(15).setMinWidth(50); // Cost
+		mTable.getColumnModel().getColumn(14).setMinWidth(50); // Cost
 
 		mFilterPanel = new JPanel();
 		JTextField filterField = TKRowFilter.createRowFilter(mTable);
