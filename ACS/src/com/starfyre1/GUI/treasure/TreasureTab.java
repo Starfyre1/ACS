@@ -1,0 +1,68 @@
+/* Copyright (C) Starfyre Enterprises 2023. All rights reserved. */
+
+package com.starfyre1.GUI.treasure;
+
+import com.starfyre1.ToolKit.TKTitledDisplay;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+public abstract class TreasureTab extends TKTitledDisplay implements DocumentListener, ActionListener {
+
+	/*****************************************************************************
+	 * Constants
+	 ****************************************************************************/
+
+	/*****************************************************************************
+	 * Member Variables
+	 ****************************************************************************/
+
+	/*****************************************************************************
+	 * Constructors
+	 ****************************************************************************/
+	/**
+	 * Creates a new {@link TreasureTab}.
+	 *
+	 * @param owner
+	 * @param title
+	 */
+	public TreasureTab(Object owner, String title) {
+		super(owner, title);
+	}
+
+	/*****************************************************************************
+	 * Methods
+	 ****************************************************************************/
+	abstract int getValueTabTotal();
+
+	@Override
+	protected void loadDisplay() {
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	}
+
+	@Override
+	public void insertUpdate(DocumentEvent e) {
+	}
+
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+	}
+
+	@Override
+	public void changedUpdate(DocumentEvent e) {
+	}
+
+	/*****************************************************************************
+	 * Setter's and Getter's
+	 ****************************************************************************/
+
+	/*****************************************************************************
+	 * Serialization
+	 ****************************************************************************/
+}

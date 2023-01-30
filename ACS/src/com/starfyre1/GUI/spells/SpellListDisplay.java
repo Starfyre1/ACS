@@ -53,10 +53,10 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	public static final String	SELECTED_MAGICAL_AREA_KEY				= "SELECTED_MAGICAL_AREA_KEY";				//$NON-NLS-1$
 	public static final String	SELECTED_MAGICAL_AREA_EXPERIENCE_KEY	= "SELECTED_MAGICAL_AREA_EXPERIENCE_KEY";	//$NON-NLS-1$
 
-	private static final String	MAGIC_AREA_LABEL						= "Magic Area";								//$NON-NLS-1$
-	private static final String	EXPERIENCE_IN_AREA_LABEL				= "Experience in Area";						//$NON-NLS-1$
-	private static final String	LEVEL_IN_AREA_LABEL						= "Level in Area";							//$NON-NLS-1$
-	private static final String	LEARN_SPELL								= "Learn Spell";							//$NON-NLS-1$
+	private static final String	MAGIC_AREA_LABEL						= "Magic Area:";							//$NON-NLS-1$
+	private static final String	EXPERIENCE_IN_AREA_LABEL				= "Experience in Area:";					//$NON-NLS-1$
+	private static final String	LEVEL_IN_AREA_LABEL						= "Level in Area:";							//$NON-NLS-1$
+	private static final String	LEARN_SPELL								= "Learn Spell:";							//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables

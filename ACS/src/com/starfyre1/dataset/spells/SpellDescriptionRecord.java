@@ -28,7 +28,6 @@ public class SpellDescriptionRecord {
 		mName = name;
 		mDescription = description;
 		mEffects = new ArrayList<>(Arrays.asList(effects));
-		//		System.out.println(mIndex + " " + mName);
 	}
 
 	public static class Pair {

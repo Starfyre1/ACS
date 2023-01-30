@@ -26,6 +26,7 @@ import com.starfyre1.GUI.purchasedGear.weapon.WeaponEquippedDisplay;
 import com.starfyre1.GUI.purchasedGear.weapon.WeaponOwnedDisplay;
 import com.starfyre1.GUI.spells.SpellList;
 import com.starfyre1.GUI.spells.SpellListDisplay;
+import com.starfyre1.GUI.treasure.TreasureDisplay;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.dataModel.AnimalRecord;
