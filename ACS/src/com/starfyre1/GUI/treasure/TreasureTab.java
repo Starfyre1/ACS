@@ -7,6 +7,10 @@ import com.starfyre1.ToolKit.TKTitledDisplay;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.AbstractBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -56,6 +60,21 @@ public abstract class TreasureTab extends TKTitledDisplay implements DocumentLis
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
+	}
+
+	/**
+	 *
+	 */
+	protected abstract void addRecord(JFrame frame);
+
+	protected JPanel getPanel(int compLayout, AbstractBorder border) {
+		JPanel panel = new JPanel();
+		BoxLayout bl = new BoxLayout(panel, compLayout);
+		panel.setLayout(bl);
+		panel.setBorder(border);
+		panel.setAlignmentY(TOP_ALIGNMENT);
+
+		return panel;
 	}
 
 	/*****************************************************************************

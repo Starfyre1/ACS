@@ -4,6 +4,7 @@ package com.starfyre1.GUI.treasure;
 
 import java.awt.Component;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class WeaponsTab extends TreasureTab {
@@ -40,6 +41,10 @@ public class WeaponsTab extends TreasureTab {
 	@Override
 	int getValueTabTotal() {
 		return 0;
+	}
+
+	@Override
+	protected void addRecord(JFrame frame) {
 	}
 
 	/*****************************************************************************
