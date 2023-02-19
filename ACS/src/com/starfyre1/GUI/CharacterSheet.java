@@ -1102,7 +1102,7 @@ public class CharacterSheet implements ActionListener {
 	/**
 	 * remove listener from list.
 	 */
-	public void remvoeCampaignDateListener(CampaignDateListener listener) {
+	public void removeCampaignDateListener(CampaignDateListener listener) {
 		mCampaignDateListeners.remove(listener);
 	}
 

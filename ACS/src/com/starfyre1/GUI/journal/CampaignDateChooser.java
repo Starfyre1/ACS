@@ -22,8 +22,8 @@ public class CampaignDateChooser extends DateChooser {
 
 	private static final int	YEAR_AL					= 573;																																																				// YEAR_AD			= YEAR_AL - 268;
 	private static final int	DEFAULT_CAMPAIGN_YEAR	= YEAR_AL;
-	private static final int	DEFAULT_CAMPAIGN_MONTH	= 4;																																																				// 0=January... 15=Winter
-	private static final int	DEFAULT_CAMPAIGN_DAY	= 15;
+	private static final int	DEFAULT_CAMPAIGN_MONTH	= 02;																																																				// 0=January... 15=Winter
+	private static final int	DEFAULT_CAMPAIGN_DAY	= 01;
 
 	/*****************************************************************************
 	 * Member Variables
