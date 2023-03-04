@@ -143,7 +143,7 @@ public class TreasureDisplay extends TKTitledDisplay implements Savable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TreasureTab tab = (TreasureTab) mTabbedPane.getSelectedComponent();
-				tab.addRecord(((CharacterSheet) getOwner()).getFrame());
+				tab.addRecord();
 
 				// DW get active table and add record
 			}

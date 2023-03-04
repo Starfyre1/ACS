@@ -3,6 +3,7 @@
 package com.starfyre1.GUI.treasure;
 
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -10,7 +11,6 @@ import java.awt.Component;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -60,9 +60,8 @@ public class GemsTab extends TreasureTab {
 		return 0;
 	}
 
-	@Override
-	protected void addRecord(JFrame frame) {
-		JDialog dialog = new JDialog(frame, GEMS_TAB_TITLE, true);
+	protected void addRecord(GemsTreasureRecord record) {
+		JDialog dialog = new JDialog(ACS.getInstance().getCharacterSheet().getFrame(), GEMS_TAB_TITLE, true);
 		dialog.setSize(800, 400);
 		dialog.add(createDialogPanel());
 		dialog.setVisible(true);
