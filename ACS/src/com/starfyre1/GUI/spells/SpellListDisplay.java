@@ -335,9 +335,11 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		Component comp[] = mCards.getComponents();
 		for (Component element : comp) {
 			if (element instanceof SpellList) {
-				br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + ((SpellList) element).getName() + System.lineSeparator());
-				br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperienceField.getText() + System.lineSeparator());
-				((SpellList) element).saveValues(br);
+				if (!((SpellList) element).getKnownSpells().isEmpty()) {
+					br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + ((SpellList) element).getName() + System.lineSeparator());
+					br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperienceField.getText() + System.lineSeparator());
+					((SpellList) element).saveValues(br);
+				} 
 			}
 		}
 
