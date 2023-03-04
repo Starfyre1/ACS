@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.AbstractBorder;
 import javax.swing.event.DocumentEvent;
@@ -61,11 +60,6 @@ public abstract class TreasureTab extends TKTitledDisplay implements DocumentLis
 	@Override
 	public void changedUpdate(DocumentEvent e) {
 	}
-
-	/**
-	 *
-	 */
-	protected abstract void addRecord(JFrame frame);
 
 	protected JPanel getPanel(int compLayout, AbstractBorder border) {
 		JPanel panel = new JPanel();

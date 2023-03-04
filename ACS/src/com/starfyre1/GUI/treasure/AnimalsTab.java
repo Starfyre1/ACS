@@ -4,7 +4,6 @@ package com.starfyre1.GUI.treasure;
 
 import java.awt.Component;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class AnimalsTab extends TreasureTab {
@@ -43,8 +42,7 @@ public class AnimalsTab extends TreasureTab {
 		return 0;
 	}
 
-	@Override
-	protected void addRecord(JFrame frame) {
+	protected void addRecord(AnimalsTreasureRecord record) {
 	}
 
 	/*****************************************************************************
