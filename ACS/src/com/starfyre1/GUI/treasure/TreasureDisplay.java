@@ -3,7 +3,7 @@
 package com.starfyre1.GUI.treasure;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.component.JButtonRollover;
+import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKTitledDisplay;
@@ -134,7 +134,7 @@ public class TreasureDisplay extends TKTitledDisplay implements Savable {
 
 		innerWrapper = new JPanel();
 		JLabel newEntryTitle = new JLabel(NEW_ENTRY_TITLE);
-		mNewEntryButton = new JButtonRollover(this, ACS.IMAGE_PLUS_ICON, false);
+		mNewEntryButton = new TKButtonRollover(this, ACS.IMAGE_PLUS_ICON, false);
 		mNewEntryButton.setOpaque(true);
 		mNewEntryButton.setPreferredSize(new Dimension(25, 25));
 		mNewEntryButton.setFocusable(false);

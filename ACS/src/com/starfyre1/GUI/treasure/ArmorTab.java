@@ -2,6 +2,8 @@
 
 package com.starfyre1.GUI.treasure;
 
+import com.starfyre1.dataModel.treasure.ArmorTreasureRecord;
+
 import java.awt.Component;
 
 import javax.swing.JPanel;
@@ -42,7 +44,9 @@ public class ArmorTab extends TreasureTab {
 		return 0;
 	}
 
-	protected void addRecord(ArmorTreasureRecord record) {
+	@Override
+	protected void addRecord() {
+		ArmorTreasureRecord record;
 	}
 
 	/*****************************************************************************

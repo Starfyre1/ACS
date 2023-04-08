@@ -4,8 +4,8 @@
 package com.starfyre1.GUI.spells;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.component.JButtonRollover;
 import com.starfyre1.GUI.component.MagicAreaPopup;
+import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
@@ -105,7 +105,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		mLevelField.setEditable(false);
 
 		JLabel newSpell = new JLabel(LEARN_SPELL, SwingConstants.RIGHT);
-		mNewSpellButton = new JButtonRollover(this, ACS.IMAGE_PLUS_ICON, false);
+		mNewSpellButton = new TKButtonRollover(this, ACS.IMAGE_PLUS_ICON, false);
 		mNewSpellButton.setOpaque(true);
 		mNewSpellButton.setPreferredSize(new Dimension(25, 25));
 		mNewSpellButton.setFocusable(false);
@@ -339,7 +339,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 					br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + ((SpellList) element).getName() + System.lineSeparator());
 					br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperienceField.getText() + System.lineSeparator());
 					((SpellList) element).saveValues(br);
-				} 
+				}
 			}
 		}
 

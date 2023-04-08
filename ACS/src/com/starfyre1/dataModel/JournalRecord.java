@@ -3,10 +3,10 @@
 package com.starfyre1.dataModel;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.component.JButtonRollover;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.GUI.journal.WorldDateChooser;
+import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKStringHelpers;
 
@@ -282,7 +282,7 @@ public class JournalRecord extends JTextArea implements Comparable<JournalRecord
 	}
 
 	public static JButton getDateButton(String date, ActionListener listener) {
-		JButtonRollover button = new JButtonRollover(null, date, false);
+		TKButtonRollover button = new TKButtonRollover(null, date, false);
 		button.setFont(CharacterSheet.MONOSPACED_FONT);
 		button.setAlignmentX(LEFT_ALIGNMENT);
 		button.setBorderPainted(false);

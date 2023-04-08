@@ -2,6 +2,8 @@
 
 package com.starfyre1.GUI.treasure;
 
+import com.starfyre1.ToolKit.TKFloatFilter;
+import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 
 import java.awt.event.ActionEvent;
@@ -18,6 +20,8 @@ public abstract class TreasureTab extends TKTitledDisplay implements DocumentLis
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
+	static TKIntegerFilter	intFilter	= TKIntegerFilter.getFilterInstance();
+	static TKFloatFilter	floatFilter	= TKFloatFilter.getFilterInstance();
 
 	/*****************************************************************************
 	 * Member Variables
@@ -40,6 +44,8 @@ public abstract class TreasureTab extends TKTitledDisplay implements DocumentLis
 	 * Methods
 	 ****************************************************************************/
 	abstract int getValueTabTotal();
+
+	abstract void addRecord();
 
 	@Override
 	protected void loadDisplay() {

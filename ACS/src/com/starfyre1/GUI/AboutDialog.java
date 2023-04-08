@@ -2,7 +2,7 @@
 
 package com.starfyre1.GUI;
 
-import com.starfyre1.GUI.component.JButtonRollover;
+import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.startup.ACS;
 
@@ -41,7 +41,7 @@ public class AboutDialog extends JDialog {
 		mMessageLabel.setOpaque(false);
 		mMessageLabel.setText(ACS.TITLE + "\n\n" + ACS.getVersion() + "\n" + ACS.getBuildDate() + "\n" + ACS.COPYRIGHT); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-		JButton okButton = new JButtonRollover(this, "OK", true); //$NON-NLS-1$
+		JButton okButton = new TKButtonRollover(this, "OK", true); //$NON-NLS-1$
 		okButton.setFocusable(false);
 
 		JPanel messagePanel = new JPanel();

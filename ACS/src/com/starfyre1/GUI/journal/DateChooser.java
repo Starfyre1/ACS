@@ -2,7 +2,7 @@
 
 package com.starfyre1.GUI.journal;
 
-import com.starfyre1.GUI.component.JButtonRollover;
+import com.starfyre1.ToolKit.TKButtonRollover;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -100,7 +100,7 @@ public abstract class DateChooser extends JDialog {
 
 		JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
 
-		JButton previous = new JButtonRollover(this, "<<Prevous", false); //$NON-NLS-1$
+		JButton previous = new TKButtonRollover(this, "<<Prevous", false); //$NON-NLS-1$
 		previous.setFocusable(false);
 		previous.getModel().addActionListener(new ActionListener() {
 
@@ -119,7 +119,7 @@ public abstract class DateChooser extends JDialog {
 			}
 		});
 
-		JButton next = new JButtonRollover(this, "Next>>", false); //$NON-NLS-1$
+		JButton next = new TKButtonRollover(this, "Next>>", false); //$NON-NLS-1$
 		next.setFocusable(false);
 		next.getModel().addActionListener(new ActionListener() {
 

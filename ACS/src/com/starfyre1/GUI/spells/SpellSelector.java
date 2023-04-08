@@ -3,7 +3,7 @@
 package com.starfyre1.GUI.spells;
 
 import com.starfyre1.GUI.CharacterSheet;
-import com.starfyre1.GUI.component.JButtonRollover;
+import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
@@ -246,7 +246,7 @@ public class SpellSelector extends JDialog implements ActionListener, MouseListe
 	}
 
 	private JButton getButton(String name) {
-		JButton button = new JButtonRollover(this, name, false);
+		JButton button = new TKButtonRollover(this, name, false);
 		button.setFocusable(false);
 		button.getModel().addActionListener(new ActionListener() {
 

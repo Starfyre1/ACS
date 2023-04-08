@@ -3,6 +3,7 @@
 package com.starfyre1.GUI.treasure;
 
 import com.starfyre1.ToolKit.TKComponentHelpers;
+import com.starfyre1.dataModel.treasure.GemsTreasureRecord;
 import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class GemsTab extends TreasureTab {
@@ -60,7 +62,9 @@ public class GemsTab extends TreasureTab {
 		return 0;
 	}
 
-	protected void addRecord(GemsTreasureRecord record) {
+	@Override
+	protected void addRecord() {
+		GemsTreasureRecord record;
 		JDialog dialog = new JDialog(ACS.getInstance().getCharacterSheet().getFrame(), GEMS_TAB_TITLE, true);
 		dialog.setSize(800, 400);
 		dialog.add(createDialogPanel());
@@ -75,9 +79,21 @@ public class GemsTab extends TreasureTab {
 
 		JPanel outerWrapper = getPanel(BoxLayout.X_AXIS, new EmptyBorder(5, 15, 5, 5));
 
-		JLabel count = new JLabel(COUNT);
-		JLabel value = new JLabel(VALUE);
-		JLabel magic = new JLabel(MAGIC);
+		JLabel countLabel = new JLabel(COUNT);
+		JLabel valueLabel = new JLabel(VALUE);
+		JLabel magicLabel = new JLabel(MAGIC);
+		// DW ___Work on next
+		JTextField countField = TKComponentHelpers.createTextField(5, 20, this, intFilter);
+		JTextField valueField = TKComponentHelpers.createTextField(10, 20, this, floatFilter);
+		JTextField magicField = TKComponentHelpers.createTextField(50, 20, this);
+
+		outerWrapper.add(countLabel);
+		outerWrapper.add(valueLabel);
+		outerWrapper.add(magicLabel);
+
+		outerWrapper.add(countField);
+		outerWrapper.add(valueField);
+		outerWrapper.add(magicField);
 
 		buttonWrapper.add(outerWrapper, BorderLayout.NORTH);
 		buttonWrapper.add(createButtonPanel(), BorderLayout.SOUTH);

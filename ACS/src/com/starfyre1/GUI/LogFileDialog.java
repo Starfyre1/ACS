@@ -2,7 +2,7 @@
 
 package com.starfyre1.GUI;
 
-import com.starfyre1.GUI.component.JButtonRollover;
+import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.startup.ACS;
@@ -45,10 +45,10 @@ public class LogFileDialog extends JDialog {
 		mMessageLabel.setOpaque(false);
 		mMessageLabel.setText(ACS.TITLE + "\n\n" + ACS.getVersion() + "\n" + ACS.getBuildDate() + "\n" + ACS.COPYRIGHT); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
-		JButton closeButton = new JButtonRollover(this, "Close", true); //$NON-NLS-1$
+		JButton closeButton = new TKButtonRollover(this, "Close", true); //$NON-NLS-1$
 		closeButton.setFocusable(false);
 
-		JButton clearButton = new JButtonRollover(this, "Clear", true); //$NON-NLS-1$
+		JButton clearButton = new TKButtonRollover(this, "Clear", true); //$NON-NLS-1$
 		clearButton.setFocusable(false);
 
 		JPanel messagePanel = new JPanel();

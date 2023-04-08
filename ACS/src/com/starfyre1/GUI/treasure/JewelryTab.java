@@ -2,6 +2,8 @@
 
 package com.starfyre1.GUI.treasure;
 
+import com.starfyre1.dataModel.treasure.JewelryTreasureRecord;
+
 import java.awt.Component;
 
 import javax.swing.JPanel;
@@ -42,7 +44,9 @@ public class JewelryTab extends TreasureTab {
 		return 0;
 	}
 
-	protected void addRecord(JewelryTreasureRecord record) {
+	@Override
+	protected void addRecord() {
+		JewelryTreasureRecord record;
 	}
 
 	/*****************************************************************************

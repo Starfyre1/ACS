@@ -2,7 +2,7 @@
 
 package com.starfyre1.GUI;
 
-import com.starfyre1.GUI.component.JButtonRollover;
+import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 
 import java.awt.BorderLayout;
@@ -45,7 +45,7 @@ public class HelpDialog extends JDialog {
 		mMessageLabel.setOpaque(false);
 		mMessageLabel.setText(getTutorial());
 
-		JButton okButton = new JButtonRollover(this, "OK", true); //$NON-NLS-1$
+		JButton okButton = new TKButtonRollover(this, "OK", true); //$NON-NLS-1$
 		okButton.setFocusable(false);
 
 		JPanel messagePanel = new JPanel();
