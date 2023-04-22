@@ -1,6 +1,6 @@
 /* Copyright (C) Starfyre Enterprises 2022. All rights reserved. */
 
-package com.starfyre1.GUI.treasure;
+package com.starfyre1.GUI.treasure.old;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKButtonRollover;

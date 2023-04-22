@@ -26,7 +26,7 @@ import com.starfyre1.GUI.purchasedGear.weapon.WeaponEquippedDisplay;
 import com.starfyre1.GUI.purchasedGear.weapon.WeaponOwnedDisplay;
 import com.starfyre1.GUI.spells.SpellList;
 import com.starfyre1.GUI.spells.SpellListDisplay;
-import com.starfyre1.GUI.treasure.TreasureDisplay;
+import com.starfyre1.GUI.treasure.TreasureDisplay2;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKTable;
 import com.starfyre1.dataModel.AnimalRecord;
@@ -248,10 +248,10 @@ public class CharacterSheet implements ActionListener {
 	private JournalDisplay					mJournalTab;
 
 	// Determination Tab
-	private DeterminationDisplay		mDeterminationTab;
+	private DeterminationDisplay			mDeterminationTab;
 
 	// Treasure Tab
-	private TreasureDisplay					mTreasureTab;
+	private TreasureDisplay2				mTreasureTab;
 
 	/*****************************************************************************
 	 * Constructors
@@ -294,7 +294,7 @@ public class CharacterSheet implements ActionListener {
 		mSpellTab = new SpellListDisplay(this);
 		mJournalTab = new JournalDisplay(this);
 		mDeterminationTab = new DeterminationDisplay(this);
-		mTreasureTab = new TreasureDisplay(this);
+		mTreasureTab = new TreasureDisplay2(this);
 
 		tabbedPane.addTab(CHARACTER_SHEET_TITLE, CHARACTER_ICON, characterTab, CHARACTER_SHEET_TOOLTIP);
 		tabbedPane.addTab(EQUIPMENT_SHEET_TITLE, CHARACTER_ICON, equipmentTab, EQUIPMENT_SHEET_TOOLTIP);

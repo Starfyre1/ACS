@@ -1,19 +1,19 @@
 /* Copyright (C) Starfyre Enterprises 2023. All rights reserved. */
 
-package com.starfyre1.GUI.treasure;
+package com.starfyre1.GUI.treasure.old;
 
-import com.starfyre1.dataModel.treasure.WeaponsTreasureRecord;
+import com.starfyre1.dataModel.treasure.JewelryTreasureRecord;
 
 import java.awt.Component;
 
 import javax.swing.JPanel;
 
-public class WeaponsTab extends TreasureTab {
+public class JewelryTab extends TreasureTab {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String WEAPON_TAB_TITLE = "Weapons"; //$NON-NLS-1$
+	public static final String JEWELRY_TAB_TITLE = "Jewelry"; //$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -23,12 +23,12 @@ public class WeaponsTab extends TreasureTab {
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link WeaponsTab}.
+	 * Creates a new {@link JewelryTab}.
 	 *
 	 * @param owner
 	 */
-	public WeaponsTab(Object owner) {
-		super(owner, WEAPON_TAB_TITLE);
+	public JewelryTab(Object owner) {
+		super(owner, JEWELRY_TAB_TITLE);
 	}
 
 	/*****************************************************************************
@@ -46,7 +46,7 @@ public class WeaponsTab extends TreasureTab {
 
 	@Override
 	protected void addRecord() {
-		WeaponsTreasureRecord record;
+		JewelryTreasureRecord record;
 	}
 
 	/*****************************************************************************

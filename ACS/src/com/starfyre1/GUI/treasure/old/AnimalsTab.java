@@ -1,19 +1,19 @@
 /* Copyright (C) Starfyre Enterprises 2023. All rights reserved. */
 
-package com.starfyre1.GUI.treasure;
+package com.starfyre1.GUI.treasure.old;
 
-import com.starfyre1.dataModel.treasure.ArmorTreasureRecord;
+import com.starfyre1.dataModel.treasure.AnimalsTreasureRecord;
 
 import java.awt.Component;
 
 import javax.swing.JPanel;
 
-public class ArmorTab extends TreasureTab {
+public class AnimalsTab extends TreasureTab {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String ARMOR_TAB_TITLE = "Armor"; //$NON-NLS-1$
+	public static final String ANIMALS_TAB_TITLE = "Animals"; //$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -23,12 +23,12 @@ public class ArmorTab extends TreasureTab {
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link ArmorTab}.
+	 * Creates a new {@link AnimalsTab}.
 	 *
 	 * @param owner
 	 */
-	public ArmorTab(Object owner) {
-		super(owner, ARMOR_TAB_TITLE);
+	public AnimalsTab(Object owner) {
+		super(owner, ANIMALS_TAB_TITLE);
 	}
 
 	/*****************************************************************************
@@ -46,7 +46,7 @@ public class ArmorTab extends TreasureTab {
 
 	@Override
 	protected void addRecord() {
-		ArmorTreasureRecord record;
+		AnimalsTreasureRecord record;
 	}
 
 	/*****************************************************************************

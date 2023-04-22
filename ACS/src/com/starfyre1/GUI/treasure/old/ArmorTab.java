@@ -1,19 +1,19 @@
 /* Copyright (C) Starfyre Enterprises 2023. All rights reserved. */
 
-package com.starfyre1.GUI.treasure;
+package com.starfyre1.GUI.treasure.old;
 
-import com.starfyre1.dataModel.treasure.MiscellaneousTreasureRecord;
+import com.starfyre1.dataModel.treasure.ArmorTreasureRecord;
 
 import java.awt.Component;
 
 import javax.swing.JPanel;
 
-public class MiscellaneousTab extends TreasureTab {
+public class ArmorTab extends TreasureTab {
 
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String MISCELLANEOUS_TAB_TITLE = "Miscellaneous"; //$NON-NLS-1$
+	public static final String ARMOR_TAB_TITLE = "Armor"; //$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -23,12 +23,12 @@ public class MiscellaneousTab extends TreasureTab {
 	 * Constructors
 	 ****************************************************************************/
 	/**
-	 * Creates a new {@link MiscellaneousTab}.
+	 * Creates a new {@link ArmorTab}.
 	 *
 	 * @param owner
 	 */
-	public MiscellaneousTab(Object owner) {
-		super(owner, MISCELLANEOUS_TAB_TITLE);
+	public ArmorTab(Object owner) {
+		super(owner, ARMOR_TAB_TITLE);
 	}
 
 	/*****************************************************************************
@@ -46,7 +46,7 @@ public class MiscellaneousTab extends TreasureTab {
 
 	@Override
 	protected void addRecord() {
-		MiscellaneousTreasureRecord record;
+		ArmorTreasureRecord record;
 	}
 
 	/*****************************************************************************
