@@ -44,6 +44,7 @@ public class ACS {
 	public static String				COPYRIGHT					= "Copyright:\t2022 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
 
 	public static ImageIcon				IMAGE_PLUS_ICON;
+	public static ImageIcon				IMAGE_MINUS_ICON;
 
 	/*****************************************************************************
 	 * Member Variables
@@ -84,6 +85,7 @@ public class ACS {
 				ToolTipManager.sharedInstance().setEnabled(PreferenceStore.getInstance().isShowToolTips());
 
 				IMAGE_PLUS_ICON = new ImageIcon(getClass().getClassLoader().getResource("resources/ImagePlus.png")); //$NON-NLS-1$
+				IMAGE_MINUS_ICON = new ImageIcon(getClass().getClassLoader().getResource("resources/ImageMinus.png")); //$NON-NLS-1$
 				new CharacterSheet();
 				if (PreferenceStore.getInstance().isAutoLoad()) {
 					String lastCharacter = PreferenceStore.getInstance().getCurrentLastCharacter();

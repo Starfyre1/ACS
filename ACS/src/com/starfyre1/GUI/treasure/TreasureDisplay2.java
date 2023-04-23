@@ -3,6 +3,7 @@
 package com.starfyre1.GUI.treasure;
 
 import com.starfyre1.GUI.CharacterSheet;
+import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
@@ -16,8 +17,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -31,6 +36,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -48,31 +54,31 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	public static final String			FILE_SECTION_START_KEY	= "PARTY_TREASURE_SECTION_START";		//$NON-NLS-1$
-	public static final String			FILE_SECTION_END_KEY	= "PARTY_TREASURE_SECTION_END";			//$NON-NLS-1$
+	public static final String			FILE_SECTION_START_KEY	= "PARTY_TREASURE_SECTION_START";	//$NON-NLS-1$
+	public static final String			FILE_SECTION_END_KEY	= "PARTY_TREASURE_SECTION_END";		//$NON-NLS-1$
 
-	private static final String			GOLD_KEY				= "GOLD_KEY";							//$NON-NLS-1$
-	private static final String			SILVER_KEY				= "SILVER_KEY";							//$NON-NLS-1$
-	private static final String			COPPER_KEY				= "COPPER_KEY";							//$NON-NLS-1$
-	private static final String			COUNT_KEY				= "COUNT_KEY";							//$NON-NLS-1$
-	private static final String			VALUE_KEY				= "VALUE_KEY";							//$NON-NLS-1$
-	private static final String			DESCRIPTION_KEY			= "DESCRIPTION_KEY";					//$NON-NLS-1$
+	private static final String			GOLD_KEY				= "GOLD_KEY";						//$NON-NLS-1$
+	private static final String			SILVER_KEY				= "SILVER_KEY";						//$NON-NLS-1$
+	private static final String			COPPER_KEY				= "COPPER_KEY";						//$NON-NLS-1$
+	private static final String			COUNT_KEY				= "COUNT_KEY";						//$NON-NLS-1$
+	private static final String			VALUE_KEY				= "VALUE_KEY";						//$NON-NLS-1$
+	private static final String			DESCRIPTION_KEY			= "DESCRIPTION_KEY";				//$NON-NLS-1$
 
-	private static final String			TREASURE_TITLE			= "Party Treasure";						//$NON-NLS-1$
+	private static final String			TREASURE_TITLE			= "Party Treasure";					//$NON-NLS-1$
 
-	private static final String			PARTY_TREASURE_FILENAME	= "PartyTreasure.apt";					//$NON-NLS-1$
-	private static final String			TREASURE_RECORD_KEY		= "TREASURE_RECORD_KEY";				//$NON-NLS-1$
-	private static final String			TOTAL_TITLE				= "Total (SP):";						//$NON-NLS-1$
-	private static final String			GOLD_TITLE				= "Gold:";								//$NON-NLS-1$
-	private static final String			SILVER_TITLE			= "Silver:";							//$NON-NLS-1$
-	private static final String			COPPER_TITLE			= "Copper:";							//$NON-NLS-1$
+	private static final String			PARTY_TREASURE_FILENAME	= "PartyTreasure.apt";				//$NON-NLS-1$
+	private static final String			TREASURE_RECORD_KEY		= "TREASURE_RECORD_KEY";			//$NON-NLS-1$
+	private static final String			TOTAL_TITLE				= "Total (SP):";					//$NON-NLS-1$
+	private static final String			GOLD_TITLE				= "Gold:";							//$NON-NLS-1$
+	private static final String			SILVER_TITLE			= "Silver:";						//$NON-NLS-1$
+	private static final String			COPPER_TITLE			= "Copper:";						//$NON-NLS-1$
 
-	private static final String			TOTAL_TITLE2			= "Total";								//$NON-NLS-1$
-	private static final String			COUNT_TITLE				= "Count";								//$NON-NLS-1$
-	private static final String			VALUE_TITLE				= "Value";								//$NON-NLS-1$
-	private static final String			DESCRIPTION_TITLE		= "Description";						//$NON-NLS-1$
+	private static final String			DELETE_ENTRY_TITLE		= "Delete Entry:";					//$NON-NLS-1$
 
-	private static final String			NEW_ENTRY_TITLE			= "New Entry:";							//$NON-NLS-1$
+	private static final String			TOTAL_TITLE2			= "Total";							//$NON-NLS-1$
+	private static final String			COUNT_TITLE				= "Count";							//$NON-NLS-1$
+	private static final String			VALUE_TITLE				= "Value";							//$NON-NLS-1$
+	private static final String			DESCRIPTION_TITLE		= "Description";					//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -87,23 +93,23 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 	private int							mTotalSilver;
 	private int							mTotalCopper;
 
+	private JButton						mDeleteEntryButton;
+
 	private ArrayList<TreasureRecord>	mEntries				= new ArrayList<>();
 	private JPanel						mPanel;
+	private static Color				mOldColor;
 
 	private String						mCountText				= TKStringHelpers.EMPTY_STRING;
 	private String						mValueText				= TKStringHelpers.EMPTY_STRING;
 	private String						mDescriptionText		= TKStringHelpers.EMPTY_STRING;
-	private String						mTotalValue				= TKStringHelpers.EMPTY_STRING;
 
-	TKIntegerFilter						intFilter				= TKIntegerFilter.getFilterInstance();
+	TKIntegerFilter						mIntegerFilter;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
 	public TreasureDisplay2(CharacterSheet owner) {
 		super(owner, TREASURE_TITLE);
-
-		//		updateValues();
 		addRecordsToDisplay(true);
 	}
 
@@ -114,6 +120,8 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 	protected Component createDisplay() {
 		JPanel outerWrapper = new JPanel();
 		outerWrapper.setLayout(new BoxLayout(outerWrapper, BoxLayout.Y_AXIS));
+
+		mIntegerFilter = TKIntegerFilter.getFilterInstance();
 
 		outerWrapper.add(generateValuePanel());
 		outerWrapper.add(getTreasureDisplay());
@@ -127,13 +135,13 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 
 		JPanel innerWrapper = new JPanel();
 		mTotalLabel = TKComponentHelpers.createLabel(NumberFormat.getNumberInstance().format(mTotal));
-		JLabel totalTitle = new JLabel(TOTAL_TITLE);
-		innerWrapper.add(totalTitle);
+		innerWrapper.add(new JLabel(TOTAL_TITLE));
 		innerWrapper.add(mTotalLabel);
 		valuePanel.add(innerWrapper);
 
 		innerWrapper = new JPanel();
 		mGoldField = new FocusTextField(String.valueOf(mTotalGold), 10);
+		((AbstractDocument) mGoldField.getDocument()).setDocumentFilter(mIntegerFilter);
 		mGoldField.addFocusListener(new FocusListener() {
 
 			@Override
@@ -147,9 +155,7 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 				// nothing to do
 			}
 		});
-		((AbstractDocument) mGoldField.getDocument()).setDocumentFilter(intFilter);
-		JLabel goldTitle = new JLabel(GOLD_TITLE);
-		innerWrapper.add(goldTitle);
+		innerWrapper.add(new JLabel(GOLD_TITLE));
 		innerWrapper.add(mGoldField);
 		valuePanel.add(innerWrapper);
 
@@ -168,9 +174,8 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 				// nothing to do
 			}
 		});
-		((AbstractDocument) mSilverField.getDocument()).setDocumentFilter(intFilter);
-		JLabel silverTitle = new JLabel(SILVER_TITLE);
-		innerWrapper.add(silverTitle);
+		((AbstractDocument) mSilverField.getDocument()).setDocumentFilter(mIntegerFilter);
+		innerWrapper.add(new JLabel(SILVER_TITLE));
 		innerWrapper.add(mSilverField);
 		valuePanel.add(innerWrapper);
 
@@ -189,10 +194,39 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 				// nothing to do
 			}
 		});
-		((AbstractDocument) mCopperField.getDocument()).setDocumentFilter(intFilter);
-		JLabel copperTitle = new JLabel(COPPER_TITLE);
-		innerWrapper.add(copperTitle);
+		((AbstractDocument) mCopperField.getDocument()).setDocumentFilter(mIntegerFilter);
+		innerWrapper.add(new JLabel(COPPER_TITLE));
 		innerWrapper.add(mCopperField);
+		valuePanel.add(innerWrapper);
+
+		innerWrapper = new JPanel();
+		JLabel deleteEntryTitle = new JLabel(DELETE_ENTRY_TITLE);
+		mDeleteEntryButton = new TKButtonRollover(this, ACS.IMAGE_MINUS_ICON, false);
+		mDeleteEntryButton.setOpaque(true);
+		mDeleteEntryButton.setPreferredSize(new Dimension(25, 25));
+		mDeleteEntryButton.setFocusable(false);
+		mDeleteEntryButton.setEnabled(false);
+		mDeleteEntryButton.getModel().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int count = mPanel.getComponentCount() - 1;
+				for (int i = count; i > 0; i--) {
+					JPanel panel = (JPanel) mPanel.getComponent(i);
+					if (panel.getBackground() == Color.BLUE) {
+						TreasureRecord record = (TreasureRecord) panel.getClientProperty(TREASURE_RECORD_KEY);
+						mEntries.remove(record);
+						mPanel.remove(panel);
+					}
+				}
+				updateValues();
+				mPanel.revalidate();
+				mPanel.repaint();
+				mDeleteEntryButton.setEnabled(hasSelectedRows());
+			}
+		});
+		innerWrapper.add(deleteEntryTitle);
+		innerWrapper.add(mDeleteEntryButton);
 		valuePanel.add(innerWrapper);
 
 		return valuePanel;
@@ -209,35 +243,27 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 		countField.setEditable(false);
 		countField.setFocusable(false);
 		countField.setBorder(new EmptyBorder(countField.getInsets()));
-		((AbstractDocument) countField.getDocument()).setDocumentFilter(intFilter);
-		SwingUtilities.invokeLater(new Runnable() {
 
-			@Override
-			public void run() {
-				countField.requestFocusInWindow();
-			}
-		});
 		JTextField valueField = new JTextField(VALUE_TITLE, 5);
 		valueField.setMaximumSize(new Dimension(150, 20));
 		valueField.setEditable(false);
 		valueField.setFocusable(false);
 		valueField.setBorder(new EmptyBorder(valueField.getInsets()));
-		((AbstractDocument) valueField.getDocument()).setDocumentFilter(intFilter);
+
 		JTextField descriptionField = new JTextField(DESCRIPTION_TITLE, 20);
 		descriptionField.setEditable(false);
 		descriptionField.setFocusable(false);
 		descriptionField.setBorder(new EmptyBorder(descriptionField.getInsets()));
+
 		JTextField totalField = new JTextField(TOTAL_TITLE2, 5);
 		totalField.setMaximumSize(new Dimension(200, 20));
 		totalField.setEditable(false);
 		totalField.setFocusable(false);
 		totalField.setBorder(new EmptyBorder(totalField.getInsets()));
-		((AbstractDocument) totalField.getDocument()).setDocumentFilter(intFilter);
 
-		//		JPanel wrapper = new JPanel(new GridLayout(1, 4));
 		JPanel wrapper = new JPanel();
+		mOldColor = wrapper.getBackground();
 		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.X_AXIS));
-
 		wrapper.setBorder(new CompoundBorder(new LineBorder(Color.GRAY, 1), new EmptyBorder(0, 5, 0, 5)));
 
 		wrapper.add(countField);
@@ -290,10 +316,12 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 	}
 
 	private JPanel generateDisplayRecord(TreasureRecord record) {
+		boolean enable = record == null;
 		JTextField countField = new FocusTextField(COUNT_TITLE, 5);
 		countField.setMaximumSize(new Dimension(100, 20));
 		countField.setHorizontalAlignment(SwingConstants.RIGHT);
-		((AbstractDocument) countField.getDocument()).setDocumentFilter(intFilter);
+		countField.setEditable(enable);
+		((AbstractDocument) countField.getDocument()).setDocumentFilter(mIntegerFilter);
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -301,22 +329,63 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 				countField.requestFocusInWindow();
 			}
 		});
-		countField.requestFocus();
+
 		JTextField valueField = new FocusTextField(VALUE_TITLE, 5);
 		valueField.setMaximumSize(new Dimension(150, 20));
 		valueField.setHorizontalAlignment(SwingConstants.RIGHT);
-		((AbstractDocument) valueField.getDocument()).setDocumentFilter(intFilter);
+		valueField.setEditable(enable);
+		((AbstractDocument) valueField.getDocument()).setDocumentFilter(mIntegerFilter);
+
 		JTextField descriptionField = new FocusTextField(DESCRIPTION_TITLE, 20);
+		descriptionField.setEditable(enable);
+
 		JTextField totalField = new FocusTextField(TOTAL_TITLE2, 5);
 		totalField.setMaximumSize(new Dimension(200, 20));
 		totalField.setHorizontalAlignment(SwingConstants.RIGHT);
-		totalField.setEditable(false);
-		((AbstractDocument) totalField.getDocument()).setDocumentFilter(intFilter);
+		totalField.setEditable(enable);
+		((AbstractDocument) totalField.getDocument()).setDocumentFilter(mIntegerFilter);
 
 		JPanel wrapper = new JPanel();
 		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.X_AXIS));
 		wrapper.putClientProperty(TREASURE_RECORD_KEY, record);
 		wrapper.setBorder(new CompoundBorder(new LineBorder(Color.LIGHT_GRAY, 1), new EmptyBorder(0, 5, 0, 5)));
+		wrapper.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// nothing to do
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// nothing to do
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// nothing to do
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// nothing to do
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JPanel source = (JPanel) e.getSource();
+				if (mPanel.getComponent(0).equals(source)) {
+					return;
+				}
+				if (source.getBackground() == Color.BLUE) {
+					source.setBackground(mOldColor);
+					mDeleteEntryButton.setEnabled(hasSelectedRows());
+				} else {
+					source.setBackground(Color.BLUE);
+					mDeleteEntryButton.setEnabled(true);
+				}
+			}
+		});
 
 		wrapper.add(countField);
 		wrapper.add(valueField);
@@ -332,6 +401,18 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 		wrapper.setMaximumSize(new Dimension(wrapper.getMaximumSize().width, wrapper.getMinimumSize().height));
 
 		return wrapper;
+	}
+
+	private boolean hasSelectedRows() {
+		boolean test = false;
+		int count = mPanel.getComponentCount();
+		for (int i = 1; i < count; i++) {
+			if (mPanel.getComponent(i).getBackground() == Color.BLUE) {
+				test = true;
+				break;
+			}
+		}
+		return test;
 	}
 
 	// adds display record
@@ -530,7 +611,6 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 	@Override
 	public void setKeyValuePair(String key, Object obj) {
 		String value = (String) obj;
-		value = value.replace("~", "\n "); //$NON-NLS-1$ //$NON-NLS-2$
 		if (GOLD_KEY.equals(key)) {
 			mGoldField.setText(value);
 			mTotalGold = TKStringHelpers.getIntValue(value, 0);
@@ -584,4 +664,5 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 	public String getPartyTreasureFileName() {
 		return PreferenceStore.getInstance().getCurrentFileLocation() + PARTY_TREASURE_FILENAME;
 	}
+
 }
