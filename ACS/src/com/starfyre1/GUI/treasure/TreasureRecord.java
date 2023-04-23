@@ -13,10 +13,10 @@ public class TreasureRecord {
 	 ****************************************************************************/
 	TreasureDisplay2	mParent;
 
-	private int			mCount		= 0;
-	private int			mValue		= 0;
-	private String		mItem		= "";	//$NON-NLS-1$
-	private int			mTotalValue	= 0;
+	private int			mCount			= 0;
+	private int			mValue			= 0;
+	private String		mDescription	= "";	//$NON-NLS-1$
+	private int			mTotalValue		= 0;
 
 	/*****************************************************************************
 	 * Constructors
@@ -28,12 +28,12 @@ public class TreasureRecord {
 		mParent = parent;
 	}
 
-	public TreasureRecord(TreasureDisplay2 parent, int count, int value, String magic) {
+	public TreasureRecord(TreasureDisplay2 parent, int count, int value, String description) {
 		mParent = parent;
 
 		mCount = count;
 		mValue = value;
-		mItem = magic;
+		mDescription = description;
 		mTotalValue = mCount * mValue;
 	}
 
@@ -59,9 +59,9 @@ public class TreasureRecord {
 		return mTotalValue;
 	}
 
-	/** @return The itemDescription. */
-	public String getItem() {
-		return mItem;
+	/** @return The Description. */
+	public String getDescription() {
+		return mDescription;
 	}
 
 	/** @param count The value to set for count. */
@@ -74,9 +74,9 @@ public class TreasureRecord {
 		mValue = value;
 	}
 
-	/** @param item The value to set for item. */
-	public void setItem(String item) {
-		mItem = item;
+	/** @param description The value to set for description. */
+	public void setDescription(String description) {
+		mDescription = description;
 	}
 
 	/** @param totalValue The value to set for totalValue. */

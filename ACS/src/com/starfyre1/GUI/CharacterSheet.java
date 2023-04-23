@@ -661,6 +661,7 @@ public class CharacterSheet implements ActionListener {
 		mDeterminationList = new DeterminationList(this);
 
 		openFile(file);
+		mTreasureTab.readPartyTreasure();
 
 		mAttributesRecord.finalizeCreation(false);
 		mPersonalInformationRecord.generateCarry();
@@ -1490,7 +1491,7 @@ public class CharacterSheet implements ActionListener {
 		return knownSchools;
 	}
 
-	private File verifyDataFileVersion(File file) throws IOException, FileNotFoundException {
+	public File verifyDataFileVersion(File file) throws IOException, FileNotFoundException {
 		BufferedReader br = null;
 		String in;
 
@@ -1693,6 +1694,7 @@ public class CharacterSheet implements ActionListener {
 			JOptionPane.showMessageDialog(mFrame, "File Saved: " + file.getName()); //$NON-NLS-1$
 			PreferenceStore.getInstance().setCurrentLastCharacter(mCharacterFile);
 			mFrame.setTitle(ACS.TITLE + " " + file.getName()); //$NON-NLS-1$
+			mTreasureTab.savePartyTreasure();
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		} finally {
