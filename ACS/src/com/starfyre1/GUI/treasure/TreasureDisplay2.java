@@ -4,6 +4,7 @@ package com.starfyre1.GUI.treasure;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKButtonRollover;
+import com.starfyre1.ToolKit.TKCalculator;
 import com.starfyre1.ToolKit.TKComponentHelpers;
 import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
@@ -21,6 +22,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -49,7 +52,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.AbstractDocument;
 
-public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
+public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyListener {
 
 	/*****************************************************************************
 	 * Constants
@@ -155,12 +158,14 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 				// nothing to do
 			}
 		});
+		mGoldField.addKeyListener(this);
 		innerWrapper.add(new JLabel(GOLD_TITLE));
 		innerWrapper.add(mGoldField);
 		valuePanel.add(innerWrapper);
 
 		innerWrapper = new JPanel();
 		mSilverField = new FocusTextField(String.valueOf(mTotalSilver), 10);
+		((AbstractDocument) mSilverField.getDocument()).setDocumentFilter(mIntegerFilter);
 		mSilverField.addFocusListener(new FocusListener() {
 
 			@Override
@@ -174,13 +179,14 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 				// nothing to do
 			}
 		});
-		((AbstractDocument) mSilverField.getDocument()).setDocumentFilter(mIntegerFilter);
+		mSilverField.addKeyListener(this);
 		innerWrapper.add(new JLabel(SILVER_TITLE));
 		innerWrapper.add(mSilverField);
 		valuePanel.add(innerWrapper);
 
 		innerWrapper = new JPanel();
 		mCopperField = new FocusTextField(String.valueOf(mTotalCopper), 10);
+		((AbstractDocument) mCopperField.getDocument()).setDocumentFilter(mIntegerFilter);
 		mCopperField.addFocusListener(new FocusListener() {
 
 			@Override
@@ -194,7 +200,7 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 				// nothing to do
 			}
 		});
-		((AbstractDocument) mCopperField.getDocument()).setDocumentFilter(mIntegerFilter);
+		mCopperField.addKeyListener(this);
 		innerWrapper.add(new JLabel(COPPER_TITLE));
 		innerWrapper.add(mCopperField);
 		valuePanel.add(innerWrapper);
@@ -342,7 +348,7 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 		JTextField totalField = new FocusTextField(TOTAL_TITLE2, 5);
 		totalField.setMaximumSize(new Dimension(200, 20));
 		totalField.setHorizontalAlignment(SwingConstants.RIGHT);
-		totalField.setEditable(enable);
+		totalField.setEditable(false);
 		((AbstractDocument) totalField.getDocument()).setDocumentFilter(mIntegerFilter);
 
 		JPanel wrapper = new JPanel();
@@ -665,4 +671,39 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 		return PreferenceStore.getInstance().getCurrentFileLocation() + PARTY_TREASURE_FILENAME;
 	}
 
+	private boolean validateCalculatorInput(String originalValue, String operator) {
+		try {
+			Float.parseFloat(originalValue.trim());
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		if (!operator.equals("+") && !operator.equals("-") && !operator.equals("*") && !operator.equals("÷") && !operator.equals("/")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		JTextField source = (JTextField) e.getSource();
+		String value = source.getText();
+		String operator = String.valueOf(e.getKeyChar());
+		if (validateCalculatorInput(value, operator)) {
+			TKCalculator calc = new TKCalculator(((CharacterSheet) getOwner()).getFrame(), value, operator);
+			String returnValue = calc.getReturnValue();
+			if (returnValue != null) {
+				source.setText(returnValue);
+			}
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// nothing to do
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// nothing to do
+	}
 }
