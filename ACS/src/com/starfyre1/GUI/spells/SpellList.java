@@ -45,6 +45,7 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	public static final String		FILE_SECTION_END_KEY	= "SPELL_LIST_END";													//$NON-NLS-1$
 	public static final String		SPELL_KEY				= "SPELL_KEY";														//$NON-NLS-1$
 	public static final String		LEVEL_KEY				= "LEVEL_KEY";														//$NON-NLS-1$
+	public static final String		EXPERIENCE_OFFSET_KEY	= "EXPERIENCE_OFFSET_KEY";											//$NON-NLS-1$
 
 	private static final String		LEVEL_LABEL				= "Level";															//$NON-NLS-1$
 	private static final String		SPELL_LABEL				= "Spell";															//$NON-NLS-1$
@@ -59,14 +60,17 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	//	private JPanel					mFilterPanel;
 	private TKTable					mTable;
 	private ArrayList<SpellRecord>	mKnownSpells			= new ArrayList<>(128);
+	private int						mExperienceOffset;
 
 	private SpellDescriptionCard	mSpellDescriptionCard	= null;
 
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
-	public SpellList(String name) {
+	public SpellList(String name, int experienceOffset) {
 		super();
+
+		mExperienceOffset = experienceOffset;
 		setLayout(new BorderLayout());
 		setName(name);
 
@@ -202,6 +206,11 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 		return commonList.containsAll(mKnownSpells);
 	}
 
+	/** @return The experienceOffset. */
+	public int getExperienceOffset() {
+		return mExperienceOffset;
+	}
+
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
@@ -244,6 +253,7 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
+		br.write(TKStringHelpers.TAB + EXPERIENCE_OFFSET_KEY + TKStringHelpers.SPACE + mExperienceOffset + System.lineSeparator());
 
 		for (SpellRecord record : mKnownSpells) {
 			if (record.getLevel() != -1) {
@@ -267,6 +277,12 @@ public class SpellList extends JPanel implements TableModelListener, Savable, Li
 			if (spell != null) {
 				addToKnownSpells(spell);
 			}
+		} else if (key.equals(EXPERIENCE_OFFSET_KEY)) {
+			mExperienceOffset = TKStringHelpers.getIntValue(value, 0);
+			int experience = ACS.getInstance().getCharacterSheet().getHeaderRecord().getCurrentExperience() - mExperienceOffset;
+			SpellListDisplay display = ACS.getInstance().getCharacterSheet().getSpellListDisplay();
+			display.setExperienceField(String.valueOf(experience));
+			display.setLevelField(String.valueOf(ACS.getLevel(experience)));
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$

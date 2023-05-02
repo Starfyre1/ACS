@@ -945,6 +945,7 @@ public class CharacterSheet implements ActionListener {
 			mInnateAbilitiesDisplay.loadDisplay();
 			mPersonalInformationDisplay.loadDisplay();
 			mLanguageDisplay.loadDisplay();
+			mSpellTab.loadDisplay();
 		}
 	}
 

@@ -46,17 +46,16 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	/*****************************************************************************
 	 * Constants
 	 ****************************************************************************/
-	private static final String	SPELL_LIST_TITLE						= "Spell List";								//$NON-NLS-1$
+	private static final String	SPELL_LIST_TITLE			= "Spell List";					//$NON-NLS-1$
 
-	public static final String	FILE_SECTION_START_KEY					= "SPELL_LIST_SECTION_START";				//$NON-NLS-1$
-	public static final String	FILE_SECTION_END_KEY					= "SPELL_LIST_SECTION_END";					//$NON-NLS-1$
-	public static final String	SELECTED_MAGICAL_AREA_KEY				= "SELECTED_MAGICAL_AREA_KEY";				//$NON-NLS-1$
-	public static final String	SELECTED_MAGICAL_AREA_EXPERIENCE_KEY	= "SELECTED_MAGICAL_AREA_EXPERIENCE_KEY";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_START_KEY		= "SPELL_LIST_SECTION_START";	//$NON-NLS-1$
+	public static final String	FILE_SECTION_END_KEY		= "SPELL_LIST_SECTION_END";		//$NON-NLS-1$
+	public static final String	SELECTED_MAGICAL_AREA_KEY	= "SELECTED_MAGICAL_AREA_KEY";	//$NON-NLS-1$
 
-	private static final String	MAGIC_AREA_LABEL						= "Magic Area:";							//$NON-NLS-1$
-	private static final String	EXPERIENCE_IN_AREA_LABEL				= "Experience in Area:";					//$NON-NLS-1$
-	private static final String	LEVEL_IN_AREA_LABEL						= "Level in Area:";							//$NON-NLS-1$
-	private static final String	LEARN_SPELL								= "Learn Spell:";							//$NON-NLS-1$
+	private static final String	MAGIC_AREA_LABEL			= "Magic Area:";				//$NON-NLS-1$
+	private static final String	EXPERIENCE_IN_AREA_LABEL	= "Experience in Area:";		//$NON-NLS-1$
+	private static final String	LEVEL_IN_AREA_LABEL			= "Level in Area:";				//$NON-NLS-1$
+	private static final String	LEARN_SPELL					= "Learn Spell:";				//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -68,8 +67,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	private JPanel				mCards;
 	private SpellList			mCurrentList;
 
-	JTextField					mExperienceField;
-	JTextField					mLevelField;
+	private JTextField			mExperienceField;
+	private JTextField			mLevelField;
 
 	/*****************************************************************************
 	 * Constructors
@@ -99,6 +98,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		JLabel experienceLabel = new JLabel(EXPERIENCE_IN_AREA_LABEL, SwingConstants.RIGHT);
 		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
 		mExperienceField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20, this, filter);
+		mExperienceField.setEditable(false);
 
 		JLabel levelLabel = new JLabel(LEVEL_IN_AREA_LABEL, SwingConstants.RIGHT);
 		mLevelField = new JTextField(CharacterSheet.FIELD_SIZE_LARGE);
@@ -119,7 +119,8 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 					SpellRecord record = selector.getSpellToLearn();
 					if (record != null) {
 						if (mCurrentList == null) {
-							SpellList list = new SpellList(magicArea);
+							int experienceOffset = ((CharacterSheet) getOwner()).getHeaderRecord().getCurrentExperience();
+							SpellList list = new SpellList(magicArea, experienceOffset);
 							mCards.add(magicArea, list);
 							mCurrentList = list;
 							((CardLayout) mCards.getLayout()).show(mCards, magicArea);
@@ -217,12 +218,17 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		for (Component element : comp) {
 			if (element.getName().equals(text)) {
 				mCurrentList = MagicAreaPopup.SELECT_MAGIC_AREA.equals(text) ? null : (SpellList) element;
+				updateExperience();
+
 				found = true;
 				break;
 			}
 		}
 		if (!found) {
-			SpellList list = new SpellList(text);
+			int experienceOffset = ((CharacterSheet) getOwner()).getHeaderRecord().getCurrentExperience();
+			mExperienceField.setText("0"); //$NON-NLS-1$
+			mLevelField.setText("1"); //$NON-NLS-1$
+			SpellList list = new SpellList(text, experienceOffset);
 			mCards.add(text, list);
 			mCurrentList = list;
 		}
@@ -244,7 +250,17 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 	@Override
 	public void loadDisplay() {
 		enableFields(!MagicAreaPopup.SELECT_MAGIC_AREA.equals(getMagicArea()));
+		updateExperience();
 
+	}
+
+	private void updateExperience() {
+		int experience = 0;
+		if (mCurrentList != null) {
+			experience = ((CharacterSheet) getOwner()).getHeaderRecord().getCurrentExperience() - mCurrentList.getExperienceOffset();
+		}
+		mExperienceField.setText(String.valueOf(experience));
+		mLevelField.setText(String.valueOf(ACS.getLevel(experience)));
 	}
 
 	public void clearRecords() {
@@ -266,7 +282,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 
 	public void enableFields(boolean enabled) {
 		mNewSpellButton.setEnabled(enabled);
-		mExperienceField.setEditable(enabled);
 		mAreaPopup.getMenu().setEnabled(((CharacterSheet) getOwner()).isCharacterLoaded());
 	}
 
@@ -284,6 +299,16 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 
 	public Component[] getCards() {
 		return mCards.getComponents();
+	}
+
+	/** @param experience The value to set for experience. */
+	public void setExperienceField(String experience) {
+		mExperienceField.setText(experience);
+	}
+
+	/** @param level The value to set for level. */
+	public void setLevelField(String level) {
+		mLevelField.setText(level);
 	}
 
 	/*****************************************************************************
@@ -337,7 +362,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 			if (element instanceof SpellList) {
 				if (!((SpellList) element).getKnownSpells().isEmpty()) {
 					br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_KEY + TKStringHelpers.SPACE + ((SpellList) element).getName() + System.lineSeparator());
-					br.write(TKStringHelpers.TAB + SELECTED_MAGICAL_AREA_EXPERIENCE_KEY + TKStringHelpers.SPACE + mExperienceField.getText() + System.lineSeparator());
 					((SpellList) element).saveValues(br);
 				}
 			}
@@ -352,10 +376,6 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		if (key.equals(SELECTED_MAGICAL_AREA_KEY)) {
 			mAreaPopup.selectPopupMenuItem(value);
 			swapPanels(mAreaPopup.getSelectedItem());
-		} else if (key.equals(SELECTED_MAGICAL_AREA_EXPERIENCE_KEY)) {
-			mExperienceField.setText(value);
-			mLevelField.setText(String.valueOf(ACS.getLevel(TKStringHelpers.getIntValue(value, 0))));
-			enableFields(!MagicAreaPopup.SELECT_MAGIC_AREA.equals(getMagicArea()));
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + getClass().getName() + " " + key); //$NON-NLS-1$ //$NON-NLS-2$
