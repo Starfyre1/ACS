@@ -232,7 +232,7 @@ public class TeacherTab extends DeterminationTab {
 		bonusAmountPanel.add(new JLabel(BONUS));
 		costPanel.add(new JLabel(COST));
 
-		mIDLabel = TKComponentHelpers.createLabel("0"); //$NON-NLS-1$
+		mIDLabel = TKComponentHelpers.createLabel(String.valueOf(TeacherDeterminationRecord.ID_NUMBER++));
 		mIDLabel.setMinimumSize(size);
 		mIDLabel.setPreferredSize(size);
 		idPanel.add(mIDLabel);

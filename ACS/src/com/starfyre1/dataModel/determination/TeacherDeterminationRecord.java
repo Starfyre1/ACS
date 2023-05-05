@@ -22,7 +22,6 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	private static final String	EXPERTISE_KEY			= "EXPERTISE_KEY";							//$NON-NLS-1$
 	private static final String	COST_KEY				= "COST_KEY";								//$NON-NLS-1$
 
-	// DW still need to save out and restore the static ID_NUMBER;
 	public static int			ID_NUMBER				= 0;
 
 	/*****************************************************************************
@@ -107,7 +106,6 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 	/*****************************************************************************
 	 * Serialization
 	 ****************************************************************************/
-	// DW may need to save out a serial number for the teacher id so it remains consistent (right now they are saved and restored in the same order)
 	@Override
 	public StringTokenizer readValues(BufferedReader br) {
 		String in;
@@ -141,7 +139,6 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 		writeValues(br);
 	}
 
-	// DW may need to save out a serial number for the teacher id so it remains consistent (right now they are saved and restored in the same order)
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
 		br.write(FILE_SECTION_START_KEY + System.lineSeparator());
@@ -160,6 +157,9 @@ public class TeacherDeterminationRecord extends DeterminationRecord implements S
 		String value = (String) obj;
 		if (TEACHER_ID_KEY.equals(key)) {
 			mID = Integer.parseInt(value);
+			if (mID >= ID_NUMBER) {
+				ID_NUMBER = mID + 1;
+			}
 		} else if (TEACHER_KEY.equals(key)) {
 			mTeacher = value;
 		} else if (EXPERTISE_KEY.equals(key)) {
