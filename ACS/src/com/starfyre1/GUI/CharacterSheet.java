@@ -617,9 +617,9 @@ public class CharacterSheet implements ActionListener {
 		mIsCharacterLoaded = true;
 		mSavingThrowsRecord = new SavingThrowsRecord(this, true);
 		mCombatInformationRecord = new CombatInformationRecord(this, true);
-		mPersonalInformationRecord = new PersonalInformationRecord(this, true);
+		mPersonalInformationRecord = new PersonalInformationRecord(this, false); // this will be generated during class creation
 		mLanguageRecord = new LanguageRecord(this, true);
-		mMoneyRecord = new MoneyRecord(this, true);
+		mMoneyRecord = new MoneyRecord(this, false); // this will be generated during class creation
 		mSkillsRecord = new SkillsRecord(this, true);
 		mEquipmentList = new EquipmentList();
 		mArmorList = new ArmorList();
