@@ -75,19 +75,15 @@ public class HelpDialog extends JDialog {
 		StringBuilder text = new StringBuilder();
 
 		text.append("<html> Start by either <b>File->New</b> or <b>File->Open</b> from the file menu.<br>"); //$NON-NLS-1$
-		text.append("You will then be asked, 'is this a new game day?'. Answer yes to start a new calendar day.<br>"); //$NON-NLS-1$
 		text.append("Once you have your <b>Attributes</b> you can then enter your character and player names.<br>"); //$NON-NLS-1$
 		text.append("Then select your <b>Class</b>. Your attributes may limit some selections.<br><br>"); //$NON-NLS-1$
-		text.append("If you are entering a character that already has equipment, you will want to give<br>"); //$NON-NLS-1$
-		text.append("your character a bunch of gold before buying your equipment. Remember to reduce<br>"); //$NON-NLS-1$
-		text.append("your gold to what you actually have after you get your equipment.<br>"); //$NON-NLS-1$
-		text.append("To purchase your equipment go to <b>Options->Market Place</b>.<br>"); //$NON-NLS-1$
+		text.append("To purchase your equipment go to <b>Tools->Market Place</b>.<br>"); //$NON-NLS-1$
+		text.append("If you are entering a character that already has equipment, remember to select the <b>Free</b> checkbox<br>"); //$NON-NLS-1$
 		text.append("Enter the number of items you want, select the checkbox to equip/carry them.<br>"); //$NON-NLS-1$
 		text.append("In the case of <b>Weapons</b> or <b>Armor</b> you can also change the <b>Material</b>.<br>"); //$NON-NLS-1$
 		text.append("Yes, I know that <b>Leather</b> is listed as <b>Iron</b>. Also <b>Magic Items</b> are not enabled yet.<br><br>"); //$NON-NLS-1$
 		text.append("<b>Spells</b> first select the <b>Magic Area</b> and then click the green <b>Learn Spell</b> button.<br>"); //$NON-NLS-1$
 		text.append("If you already know a spell it will be grey and unselectable.<br><br>"); //$NON-NLS-1$
-		text.append("<b>Journal</b> .<br>"); //$NON-NLS-1$
 
 		return text.toString();
 	}
