@@ -49,22 +49,27 @@ public abstract class TreasureTab extends TKTitledDisplay implements DocumentLis
 
 	@Override
 	protected void loadDisplay() {
+		// DW not implemented yet - old treasure display
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// DW not implemented yet - old treasure display
 	}
 
 	@Override
 	public void insertUpdate(DocumentEvent e) {
+		// DW not implemented yet - old treasure display
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
+		// DW not implemented yet - old treasure display
 	}
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
+		// DW not implemented yet - old treasure display
 	}
 
 	protected JPanel getPanel(int compLayout, AbstractBorder border) {

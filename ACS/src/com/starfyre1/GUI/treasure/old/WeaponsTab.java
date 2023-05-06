@@ -2,8 +2,6 @@
 
 package com.starfyre1.GUI.treasure.old;
 
-import com.starfyre1.dataModel.treasure.WeaponsTreasureRecord;
-
 import java.awt.Component;
 
 import javax.swing.JPanel;
@@ -46,7 +44,8 @@ public class WeaponsTab extends TreasureTab {
 
 	@Override
 	protected void addRecord() {
-		WeaponsTreasureRecord record;
+		// DW not implemented yet - old treasure display
+		//		WeaponsTreasureRecord record;
 	}
 
 	/*****************************************************************************

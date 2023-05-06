@@ -80,8 +80,9 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 	private int					mDPCost;
 	private JLabel				mResearchChanceLabel;
 	private JLabel				mSuccessfulLabel;
-	private JLabel				mStartDateLabel;
-	private JLabel				mEndDateLabel;
+	// DW not implemented yet - Determination dates
+	//	private JLabel				mStartDateLabel;
+	//	private JLabel				mEndDateLabel;
 
 	private Color				mOldColor;
 
@@ -436,8 +437,9 @@ public class MagicSpellTab extends DeterminationTab implements ItemListener, Mou
 		mSuccessfulLabel.setPreferredSize(size);
 		successfulColumn.add(mSuccessfulLabel);
 
-		mStartDateLabel = new JLabel();
-		mEndDateLabel = new JLabel();
+		// DW not implemented yet - Determination dates
+		//		mStartDateLabel = new JLabel();
+		//		mEndDateLabel = new JLabel();
 
 		schoolColumn.add(Box.createVerticalGlue());
 		spellColumn.add(Box.createVerticalGlue());

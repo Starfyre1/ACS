@@ -71,8 +71,9 @@ public class WeaponTab extends DeterminationTab {
 	private JLabel				mBonusLabel;
 	private JLabel				mMaintLabel;
 	private JLabel				mSuccessfulLabel;
-	private JLabel				mStartDateLabel;
-	private JLabel				mEndDateLabel;
+	// DW not implemented yet - Determination date
+	//	private JLabel				mStartDateLabel;
+	//	private JLabel				mEndDateLabel;
 
 	private JPanel				mWeaponColumn[];
 	private JPanel				mTeacherColumn[];
@@ -390,8 +391,9 @@ public class WeaponTab extends DeterminationTab {
 		mSuccessfulLabel.setPreferredSize(size);
 		successfulColumn.add(mSuccessfulLabel);
 
-		mStartDateLabel = new JLabel();
-		mEndDateLabel = new JLabel();
+		// DW not implemented yet - Determination dates
+		//		mStartDateLabel = new JLabel();
+		//		mEndDateLabel = new JLabel();
 
 		teacherColumn.add(Box.createVerticalGlue());
 		dPSpentColumn.add(Box.createVerticalGlue());

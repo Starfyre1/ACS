@@ -67,8 +67,9 @@ public class AttributesTab extends DeterminationTab {
 	private JLabel					mDPSpentLabel;
 	private JLabel					mMaintLabel;
 	private JLabel					mSuccessfulLabel;
-	private JLabel					mStartDateLabel;
-	private JLabel					mEndDateLabel;
+	// DW not implemented yet - Determination date
+	//	private JLabel					mStartDateLabel;
+	//	private JLabel					mEndDateLabel;
 
 	private JPanel					mAttrColumn[];
 	private JPanel					mDPPerWeekColumn[];
@@ -157,13 +158,13 @@ public class AttributesTab extends DeterminationTab {
 
 	@Override
 	protected Component createDisplay() {
-		mAttrColumn			= new JPanel[2];
-		mDPPerWeekColumn		= new JPanel[2];
-		mDPSpentColumn		= new JPanel[2];
-		mMaintColumn			= new JPanel[2];
-		mSuccessfulColumn		= new JPanel[2];
-		mStartDateColumn		= new JPanel[2];
-		mEndDateColumn		= new JPanel[2];
+		mAttrColumn = new JPanel[2];
+		mDPPerWeekColumn = new JPanel[2];
+		mDPSpentColumn = new JPanel[2];
+		mMaintColumn = new JPanel[2];
+		mSuccessfulColumn = new JPanel[2];
+		mStartDateColumn = new JPanel[2];
+		mEndDateColumn = new JPanel[2];
 
 		return createPage(createCenterPanel(false), createCenterPanel(true), PHYSICAL_DESCRIPTION, ATTRIBUTES_TAB_TOOLTIP, getSuccessText(), SUCCESS_TOOLTIP, COST_TEXT, MAINTENANCE_TEXT);
 	}
@@ -306,8 +307,9 @@ public class AttributesTab extends DeterminationTab {
 		mSuccessfulLabel.setPreferredSize(size);
 		successfulColumn.add(mSuccessfulLabel);
 
-		mStartDateLabel = new JLabel();
-		mEndDateLabel = new JLabel();
+		// DW not implemented yet - Determination date
+		//		mStartDateLabel = new JLabel();
+		//		mEndDateLabel = new JLabel();
 
 		dPSpentColumn.add(Box.createVerticalGlue());
 		maintColumn.add(Box.createVerticalGlue());

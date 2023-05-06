@@ -61,9 +61,10 @@ public class TreasureDisplay extends TKTitledDisplay implements Savable {
 	private int						mSilver;
 	private int						mCopper;
 
-	private ArrayList<GemsTriple>	mGemsList;
-	private ArrayList<JewelryPair>	mJewleryList;
-	private ArrayList<MagicQuad>	mMagicItemsList;
+	// DW not implemented yet - old treasure display
+	//	private ArrayList<GemsTriple>	mGemsList;
+	//	private ArrayList<JewelryPair>	mJewleryList;
+	//	private ArrayList<MagicQuad>	mMagicItemsList;
 
 	private JButton					mNewEntryButton;
 
@@ -262,14 +263,17 @@ public class TreasureDisplay extends TKTitledDisplay implements Savable {
 
 	@Override
 	public void saveValues(BufferedWriter br) throws IOException {
+		// DW not implemented yet - old treasure display
 	}
 
 	@Override
 	public void writeValues(BufferedWriter br) throws IOException {
+		// DW not implemented yet - old treasure display
 	}
 
 	@Override
 	public void setKeyValuePair(String key, Object value) {
+		// DW not implemented yet - old treasure display
 	}
 
 	public static class GemsTriple {

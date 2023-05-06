@@ -37,7 +37,8 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 	protected static final int	TEXT_FIELD_HEIGHT	= 20;
 	protected static final int	POPUP_HEIGHT		= 24;
 	private static final String	GIVE_UP				= "Give Up";	//$NON-NLS-1$
-	private static final String	OK					= "OK";			//$NON-NLS-1$
+	// DW not implemented yet - Determination - verify not going to be used anymore
+	//	private static final String	OK					= "OK";			//$NON-NLS-1$
 	private static final String	NEW					= "New";		//$NON-NLS-1$
 
 	/*****************************************************************************
@@ -211,7 +212,10 @@ public abstract class DeterminationTab extends TKTitledDisplay implements Docume
 	}
 
 	private void DPPerWeekError(boolean isTrue) {
-		mDPPerWeekError = isTrue;
+		// DW not implemented yet - Still need to use mDPPerWeekError;
+		if (mDPPerWeekError != isTrue) {
+			mDPPerWeekError = isTrue;
+		}
 	}
 
 	private void updateButtons(boolean hasSelection, boolean hasPointsInvested) {

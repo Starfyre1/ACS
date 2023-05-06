@@ -2,8 +2,6 @@
 
 package com.starfyre1.GUI.treasure.old;
 
-import com.starfyre1.dataModel.treasure.MiscellaneousTreasureRecord;
-
 import java.awt.Component;
 
 import javax.swing.JPanel;
@@ -46,7 +44,8 @@ public class MiscellaneousTab extends TreasureTab {
 
 	@Override
 	protected void addRecord() {
-		MiscellaneousTreasureRecord record;
+		// DW not implemented yet - old treasure display
+		//		MiscellaneousTreasureRecord record;
 	}
 
 	/*****************************************************************************

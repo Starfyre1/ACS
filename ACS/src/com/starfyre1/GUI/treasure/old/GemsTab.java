@@ -3,7 +3,6 @@
 package com.starfyre1.GUI.treasure.old;
 
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.dataModel.treasure.GemsTreasureRecord;
 import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
@@ -27,9 +26,9 @@ public class GemsTab extends TreasureTab {
 	private static final String	SAVE			= "Save";	//$NON-NLS-1$
 	private static final String	CANCEL			= "Cancel";	//$NON-NLS-1$
 
-	private static final String	COUNT			= "#";
-	private static final String	VALUE			= "Value";
-	private static final String	MAGIC			= "Magic";
+	private static final String	COUNT			= "#";		//$NON-NLS-1$
+	private static final String	VALUE			= "Value";	//$NON-NLS-1$
+	private static final String	MAGIC			= "Magic";	//$NON-NLS-1$
 
 	/*****************************************************************************
 	 * Member Variables
@@ -64,7 +63,8 @@ public class GemsTab extends TreasureTab {
 
 	@Override
 	protected void addRecord() {
-		GemsTreasureRecord record;
+		// DW not implemented yet - old treasure display
+		//		GemsTreasureRecord record;
 		JDialog dialog = new JDialog(ACS.getInstance().getCharacterSheet().getFrame(), GEMS_TAB_TITLE, true);
 		dialog.setSize(800, 400);
 		dialog.add(createDialogPanel());

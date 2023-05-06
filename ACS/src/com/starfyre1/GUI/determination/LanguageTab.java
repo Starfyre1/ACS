@@ -83,8 +83,9 @@ public class LanguageTab extends DeterminationTab {
 	private int						mDPCost;
 	private JLabel					mMaintLabel;
 	private JLabel					mSuccessfulLabel;
-	private JLabel					mStartDateLabel;
-	private JLabel					mEndDateLabel;
+	// DW not implemented yet - Determination dates
+	//	private JLabel					mStartDateLabel;
+	//	private JLabel					mEndDateLabel;
 
 	private JPanel					mLangColumn[];
 	private JPanel					mSourceColumn[];
@@ -351,8 +352,9 @@ public class LanguageTab extends DeterminationTab {
 		mSuccessfulLabel.setPreferredSize(size);
 		successfulColumn.add(mSuccessfulLabel);
 
-		mStartDateLabel = new JLabel();
-		mEndDateLabel = new JLabel();
+		// DW not implemented yet - Determination dates
+		//		mStartDateLabel = new JLabel();
+		//		mEndDateLabel = new JLabel();
 
 		teacherColumn.add(Box.createVerticalGlue());
 		dPSpentColumn.add(Box.createVerticalGlue());

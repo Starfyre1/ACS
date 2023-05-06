@@ -71,8 +71,9 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 	private JLabel				mBonusLabel;
 	private JLabel				mMaintLabel;
 	private JLabel				mSuccessfulLabel;
-	private JLabel				mStartDateLabel;
-	private JLabel				mEndDateLabel;
+	// DW not implemented yet - Determination dates
+	//	private JLabel				mStartDateLabel;
+	//	private JLabel				mEndDateLabel;
 
 	private JPanel				mSkillsColumn[];
 	private JPanel				mTeacherColumn[];
@@ -391,8 +392,9 @@ public class SkillTab extends DeterminationTab implements ItemListener {
 		mSuccessfulLabel.setPreferredSize(size);
 		successfulColumn.add(mSuccessfulLabel);
 
-		mStartDateLabel = new JLabel();
-		mEndDateLabel = new JLabel();
+		// DW not implemented yet - Determination dates
+		//		mStartDateLabel = new JLabel();
+		//		mEndDateLabel = new JLabel();
 
 		teacherColumn.add(Box.createVerticalGlue());
 		dPSpentColumn.add(Box.createVerticalGlue());
