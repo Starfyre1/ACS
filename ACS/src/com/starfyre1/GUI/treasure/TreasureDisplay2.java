@@ -12,7 +12,6 @@ import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
 import com.starfyre1.startup.SystemInfo;
-import com.starfyre1.storage.PreferenceStore;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -639,36 +638,8 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 		}
 	}
 
-	class FocusTextField extends JTextField {
-		/**
-		 * Creates a new {@link FocusTextField}.
-		 *
-		 * @param countTitle
-		 * @param columns
-		 */
-		public FocusTextField(String countTitle, int columns) {
-			super(countTitle, columns);
-			addFocusListener(new FocusListener() {
-
-				@Override
-				public void focusLost(FocusEvent e) {
-					select(0, 0);
-					setEditable(false);
-					processRecord((TreasureDisplay2.FocusTextField) e.getSource());
-				}
-
-				@Override
-				public void focusGained(FocusEvent e) {
-					setEditable(true);
-					getCaret().setVisible(true);
-					select(0, getText().length());
-				}
-			});
-		}
-	}
-
 	public String getPartyTreasureFileName() {
-		return PreferenceStore.getInstance().getCurrentFileLocation() + SystemInfo.PATH_SEPARATOR + PARTY_TREASURE_FILENAME;
+		return ((CharacterSheet) getOwner()).getCharacterFilename(false) + "-" + PARTY_TREASURE_FILENAME; //$NON-NLS-1$
 	}
 
 	private boolean validateCalculatorInput(String originalValue, String operator) {
@@ -706,4 +677,33 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 	public void keyPressed(KeyEvent e) {
 		// nothing to do
 	}
+
+	class FocusTextField extends JTextField {
+		/**
+		 * Creates a new {@link FocusTextField}.
+		 *
+		 * @param countTitle
+		 * @param columns
+		 */
+		public FocusTextField(String countTitle, int columns) {
+			super(countTitle, columns);
+			addFocusListener(new FocusListener() {
+
+				@Override
+				public void focusLost(FocusEvent e) {
+					select(0, 0);
+					setEditable(false);
+					processRecord((TreasureDisplay2.FocusTextField) e.getSource());
+				}
+
+				@Override
+				public void focusGained(FocusEvent e) {
+					setEditable(true);
+					getCaret().setVisible(true);
+					select(0, getText().length());
+				}
+			});
+		}
+	}
+
 }

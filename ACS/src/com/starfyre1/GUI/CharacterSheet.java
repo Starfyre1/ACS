@@ -597,6 +597,13 @@ public class CharacterSheet implements ActionListener {
 		}
 	}
 
+	/**
+	 * @param lastCharacter
+	 */
+	public void setCharacter(String lastCharacter) {
+		mCharacterFile = lastCharacter;
+	}
+
 	private void createAndUpdate() {
 		int result = JOptionPane.showConfirmDialog(mFrame, "Do you want to roll your own stats?", "New Character", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
 		if (result == JOptionPane.YES_OPTION) {
@@ -678,6 +685,22 @@ public class CharacterSheet implements ActionListener {
 
 	}
 
+	public String getCharacterFilename(boolean withExtension) {
+		if (mCharacterFile == null) {
+			return ""; //$NON-NLS-1$
+		}
+		String filename = mCharacterFile;
+		if (!withExtension) {
+			int extensionStart = filename.indexOf("."); //$NON-NLS-1$
+			if (extensionStart == -1) {
+				return filename;
+			}
+			filename = filename.substring(0, extensionStart);
+		}
+
+		return filename;
+	}
+
 	private File getCharacterFile() {
 		File file = null;
 		String os = System.getProperty("os.name"); //$NON-NLS-1$
@@ -705,6 +728,7 @@ public class CharacterSheet implements ActionListener {
 			fc.setCurrentDirectory(new File(PreferenceStore.getInstance().getCurrentFileLocation()));
 			if (fc.showOpenDialog(mFrame) == JFileChooser.APPROVE_OPTION) {
 				file = fc.getSelectedFile();
+				mCharacterFile = file.getAbsolutePath();
 			}
 		}
 		return file;

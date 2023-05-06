@@ -92,6 +92,7 @@ public class ACS {
 					if (lastCharacter != null) {
 						File character = new File(lastCharacter);
 						if (character.exists()) {
+							mCharacterSheet.setCharacter(lastCharacter);
 							mCharacterSheet.loadAndUpdate(character);
 						} else {
 							new HelpDialog(mCharacterSheet.getFrame());
