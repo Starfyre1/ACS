@@ -1504,7 +1504,7 @@ public class CharacterSheet implements ActionListener {
 				return file;
 			}
 			if (in.startsWith(ACS.DATA_FILE_VERSION_TITLE)) {
-				// has file version -- not up to date
+				// has invalid file version -- not up to date
 				// not used yet.
 			} else {
 				// no file version -- fix SECTTION -> SECTION

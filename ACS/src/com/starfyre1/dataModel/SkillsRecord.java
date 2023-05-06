@@ -451,21 +451,21 @@ public class SkillsRecord implements LevelListener, Savable {
 		  		Listener is:				Chance to Hear 		Range
 				Human, Non-thief with a save		20%			60'
 				Vs. Surprise of less than 75%
-		
-		
+
+
 				Human, Non-thief with a save		30%			60'
 				Vs. Surprise of more than 75%
-		
+
 				Elven, Half-Elven and Dwarrow		30% 		120'
-		
+
 				Other--(some monsters will have		20%			60'
 				high hearing abilities)
-		
+
 				Thief					Varies with lvl		60' *
 					*	Add 5� per 10% above 100% to hear.
-		
+
 				Halve all chances when listening to a door.
-		
+
 		*/
 
 		boolean innate = mIsInnate[HEAR];
@@ -872,7 +872,7 @@ public class SkillsRecord implements LevelListener, Savable {
 		if (innate) {
 			wisBonus = mCharacterSheet.getAttributesRecord().getModifiedStat(AttributesRecord.WIS);
 			classBonus = mCharacterSheet.getHeaderRecord().getCharacterClass().getHunting();
-			// DW __add weapon bonus
+			// DW __add weapon bonus to Hunting Skill
 			//			weaponBonus = hasWeaponBonus() ? 20 : 0; // Spear or Bow
 		}
 		if (ACS.showCalculations()) {

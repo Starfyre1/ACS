@@ -668,7 +668,7 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 	}
 
 	public String getPartyTreasureFileName() {
-		return PreferenceStore.getInstance().getCurrentFileLocation() + PARTY_TREASURE_FILENAME;
+		return PreferenceStore.getInstance().getCurrentFileLocation() + SystemInfo.PATH_SEPARATOR + PARTY_TREASURE_FILENAME;
 	}
 
 	private boolean validateCalculatorInput(String originalValue, String operator) {

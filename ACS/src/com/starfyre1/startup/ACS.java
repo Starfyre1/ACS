@@ -33,11 +33,11 @@ public class ACS {
 	public static final String			TITLE						= "ACS (Athri Character Sheet)";										//$NON-NLS-1$
 
 	private static int					MAJOR						= 0;																	// Incompatible changes
-	private static int					MINOR						= 1;																	// Compatible changes
-	private static int					PATCH						= 10;																	// Bug fixes
+	private static int					MINOR						= 2;																	// Compatible changes
+	private static int					PATCH						= 1;																	// Bug fixes
 
 	public static String				DATA_FILE_VERSION_TITLE		= "Data file version: ";												//$NON-NLS-1$
-	public static int					DATA_FILE_VERSION_NUMBER	= 1;
+	public static int					DATA_FILE_VERSION_NUMBER	= 2;
 
 	private static String				RELEASE_DATE				= "April 09, 2022";														//$NON-NLS-1$
 	private static String				RELEASE_TIME				= "14:15 UTC/GMT";														//$NON-NLS-1$
