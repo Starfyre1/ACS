@@ -7,14 +7,21 @@ import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 
 public class AboutDialog extends JDialog {
 	/*****************************************************************************
@@ -35,12 +42,31 @@ public class AboutDialog extends JDialog {
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setUndecorated(true);
 
-		JTextArea mMessageLabel = new JTextArea(20, 20);
+		JTextPane mMessageLabel = new JTextPane();
 		mMessageLabel.setEditable(false);
 		mMessageLabel.setFocusable(false);
 		mMessageLabel.setOpaque(false);
-		mMessageLabel.setText(ACS.TITLE + "\n\n" + ACS.getVersion() + "\n" + ACS.getBuildDate() + "\n" + ACS.COPYRIGHT); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
+		mMessageLabel.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
+		mMessageLabel.setText("<html>" + ACS.TITLE + "<br><br>" + ACS.getVersion() + "<br>" + ACS.getBuildDate() + "<br>" + ACS.COPYRIGHT + "<br><br>" + "GitHub: "
+				+ "<br><a href=\"https://www.github.com/Starfyre1/ACS/releases\">Athri Character Sheet (ACS)</a>" + "<br>" + "<a href=\"https://github.com/Starfyre1/ACS/issues\">ACS Issues/Bugs</a>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mMessageLabel.addHyperlinkListener(new HyperlinkListener() {
+			
+			@Override
+			public void hyperlinkUpdate(HyperlinkEvent e) {
+		        if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+		        	if(Desktop.isDesktopSupported()) {
+		        	    try {
+							Desktop.getDesktop().browse(e.getURL().toURI());
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (URISyntaxException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+		        	}		        }
+		    }
+		});
 		JButton okButton = new TKButtonRollover(this, "OK", true); //$NON-NLS-1$
 		okButton.setFocusable(false);
 

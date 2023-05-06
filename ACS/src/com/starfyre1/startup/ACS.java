@@ -41,7 +41,7 @@ public class ACS {
 
 	private static String				RELEASE_DATE				= "April 09, 2022";														//$NON-NLS-1$
 	private static String				RELEASE_TIME				= "14:15 UTC/GMT";														//$NON-NLS-1$
-	public static String				COPYRIGHT					= "Copyright:\t2022 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
+	public static String				COPYRIGHT					= "Copyright:\t2023 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
 
 	public static ImageIcon				IMAGE_PLUS_ICON;
 	public static ImageIcon				IMAGE_MINUS_ICON;
