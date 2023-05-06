@@ -2,10 +2,6 @@
 
 package com.starfyre1.GUI;
 
-import com.starfyre1.ToolKit.TKButtonRollover;
-import com.starfyre1.ToolKit.TKPageTitleLabel;
-import com.starfyre1.startup.ACS;
-
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.io.IOException;
@@ -16,12 +12,15 @@ import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+
+import com.starfyre1.ToolKit.TKButtonRollover;
+import com.starfyre1.ToolKit.TKPageTitleLabel;
+import com.starfyre1.startup.ACS;
 
 public class AboutDialog extends JDialog implements HyperlinkListener {
 	/*****************************************************************************
