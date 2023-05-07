@@ -8,7 +8,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-@SuppressWarnings("nls")
 public class SystemInfo {
 
 	private static final String	OS_NAME							= System.getProperty("os.name").toLowerCase();
