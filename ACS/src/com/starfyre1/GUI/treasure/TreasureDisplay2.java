@@ -4,9 +4,8 @@ package com.starfyre1.GUI.treasure;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKButtonRollover;
-import com.starfyre1.ToolKit.TKCalculator;
+import com.starfyre1.ToolKit.TKCalculatorTextField;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.interfaces.Savable;
@@ -21,8 +20,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -51,7 +48,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.AbstractDocument;
 
-public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyListener {
+public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 
 	/*****************************************************************************
 	 * Constants
@@ -105,8 +102,6 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 	private String						mValueText				= TKStringHelpers.EMPTY_STRING;
 	private String						mDescriptionText		= TKStringHelpers.EMPTY_STRING;
 
-	TKIntegerFilter						mIntegerFilter;
-
 	/*****************************************************************************
 	 * Constructors
 	 ****************************************************************************/
@@ -122,8 +117,6 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 	protected Component createDisplay() {
 		JPanel outerWrapper = new JPanel();
 		outerWrapper.setLayout(new BoxLayout(outerWrapper, BoxLayout.Y_AXIS));
-
-		mIntegerFilter = TKIntegerFilter.getFilterInstance();
 
 		outerWrapper.add(generateValuePanel());
 		outerWrapper.add(getTreasureDisplay());
@@ -143,7 +136,7 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 
 		innerWrapper = new JPanel();
 		mGoldField = new FocusTextField(String.valueOf(mTotalGold), 10);
-		((AbstractDocument) mGoldField.getDocument()).setDocumentFilter(mIntegerFilter);
+		((AbstractDocument) mGoldField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		mGoldField.addFocusListener(new FocusListener() {
 
 			@Override
@@ -157,14 +150,13 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 				// nothing to do
 			}
 		});
-		mGoldField.addKeyListener(this);
 		innerWrapper.add(new JLabel(GOLD_TITLE));
 		innerWrapper.add(mGoldField);
 		valuePanel.add(innerWrapper);
 
 		innerWrapper = new JPanel();
 		mSilverField = new FocusTextField(String.valueOf(mTotalSilver), 10);
-		((AbstractDocument) mSilverField.getDocument()).setDocumentFilter(mIntegerFilter);
+		((AbstractDocument) mSilverField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		mSilverField.addFocusListener(new FocusListener() {
 
 			@Override
@@ -178,14 +170,13 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 				// nothing to do
 			}
 		});
-		mSilverField.addKeyListener(this);
 		innerWrapper.add(new JLabel(SILVER_TITLE));
 		innerWrapper.add(mSilverField);
 		valuePanel.add(innerWrapper);
 
 		innerWrapper = new JPanel();
 		mCopperField = new FocusTextField(String.valueOf(mTotalCopper), 10);
-		((AbstractDocument) mCopperField.getDocument()).setDocumentFilter(mIntegerFilter);
+		((AbstractDocument) mCopperField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		mCopperField.addFocusListener(new FocusListener() {
 
 			@Override
@@ -199,7 +190,6 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 				// nothing to do
 			}
 		});
-		mCopperField.addKeyListener(this);
 		innerWrapper.add(new JLabel(COPPER_TITLE));
 		innerWrapper.add(mCopperField);
 		valuePanel.add(innerWrapper);
@@ -326,7 +316,7 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 		countField.setMaximumSize(new Dimension(100, 20));
 		countField.setHorizontalAlignment(SwingConstants.RIGHT);
 		countField.setEditable(enable);
-		((AbstractDocument) countField.getDocument()).setDocumentFilter(mIntegerFilter);
+		((AbstractDocument) countField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
@@ -339,7 +329,7 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 		valueField.setMaximumSize(new Dimension(150, 20));
 		valueField.setHorizontalAlignment(SwingConstants.RIGHT);
 		valueField.setEditable(enable);
-		((AbstractDocument) valueField.getDocument()).setDocumentFilter(mIntegerFilter);
+		((AbstractDocument) valueField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 
 		JTextField descriptionField = new FocusTextField(DESCRIPTION_TITLE, 20);
 		descriptionField.setEditable(enable);
@@ -348,7 +338,7 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 		totalField.setMaximumSize(new Dimension(200, 20));
 		totalField.setHorizontalAlignment(SwingConstants.RIGHT);
 		totalField.setEditable(false);
-		((AbstractDocument) totalField.getDocument()).setDocumentFilter(mIntegerFilter);
+		((AbstractDocument) totalField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 
 		JPanel wrapper = new JPanel();
 		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.X_AXIS));
@@ -495,6 +485,9 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 	/*****************************************************************************
 	 * Setter's and Getter's
 	 ****************************************************************************/
+	public String getPartyTreasureFileName() {
+		return ((CharacterSheet) getOwner()).getCharacterFilename(false) + "-" + PARTY_TREASURE_FILENAME; //$NON-NLS-1$
+	}
 
 	/*****************************************************************************
 	 * Serialization
@@ -638,47 +631,7 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable, KeyLis
 		}
 	}
 
-	public String getPartyTreasureFileName() {
-		return ((CharacterSheet) getOwner()).getCharacterFilename(false) + "-" + PARTY_TREASURE_FILENAME; //$NON-NLS-1$
-	}
-
-	private boolean validateCalculatorInput(String originalValue, String operator) {
-		try {
-			Float.parseFloat(originalValue.trim());
-		} catch (NumberFormatException e) {
-			return false;
-		}
-		if (!operator.equals("+") && !operator.equals("-") && !operator.equals("*") && !operator.equals("÷") && !operator.equals("/")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		JTextField source = (JTextField) e.getSource();
-		String value = source.getText();
-		String operator = String.valueOf(e.getKeyChar());
-		if (validateCalculatorInput(value, operator)) {
-			TKCalculator calc = new TKCalculator(((CharacterSheet) getOwner()).getFrame(), value, operator);
-			String returnValue = calc.getReturnValue();
-			if (returnValue != null) {
-				source.setText(returnValue);
-			}
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// nothing to do
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// nothing to do
-	}
-
-	class FocusTextField extends JTextField {
+	class FocusTextField extends TKCalculatorTextField {
 		/**
 		 * Creates a new {@link FocusTextField}.
 		 *

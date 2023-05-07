@@ -7,7 +7,6 @@ import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.component.MagicAreaPopup;
 import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPageTitleLabel;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKPopupMenu.ComboMenu;
@@ -96,8 +95,7 @@ public class SpellListDisplay extends TKTitledDisplay implements ActionListener,
 		mAreaPopup = new TKPopupMenu(MagicAreaPopup.generateMagicAreaPopup(this, this));
 
 		JLabel experienceLabel = new JLabel(EXPERIENCE_IN_AREA_LABEL, SwingConstants.RIGHT);
-		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
-		mExperienceField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20, this, filter);
+		mExperienceField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, 20, this, ACS.INTEGER_FILTER);
 		mExperienceField.setEditable(false);
 
 		JLabel levelLabel = new JLabel(LEVEL_IN_AREA_LABEL, SwingConstants.RIGHT);

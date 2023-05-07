@@ -5,7 +5,6 @@ package com.starfyre1.GUI.treasure.old;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKButtonRollover;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.interfaces.Savable;
 import com.starfyre1.startup.ACS;
@@ -94,8 +93,6 @@ public class TreasureDisplay extends TKTitledDisplay implements Savable {
 	}
 
 	private JPanel generateValuePanel() {
-		TKIntegerFilter intFilter = TKIntegerFilter.getFilterInstance();
-
 		JPanel valuePanel = new JPanel();
 		valuePanel.setLayout(new BoxLayout(valuePanel, BoxLayout.X_AXIS));
 
@@ -108,7 +105,7 @@ public class TreasureDisplay extends TKTitledDisplay implements Savable {
 
 		innerWrapper = new JPanel();
 		mGoldField = TKComponentHelpers.createTextField(10, 20);
-		((AbstractDocument) mGoldField.getDocument()).setDocumentFilter(intFilter);
+		((AbstractDocument) mGoldField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		mGoldField.setText(String.valueOf(mGold));
 		JLabel goldTitle = new JLabel(GOLD_TITLE);
 		innerWrapper.add(goldTitle);
@@ -117,7 +114,7 @@ public class TreasureDisplay extends TKTitledDisplay implements Savable {
 
 		innerWrapper = new JPanel();
 		mSilverField = TKComponentHelpers.createTextField(10, 20);
-		((AbstractDocument) mSilverField.getDocument()).setDocumentFilter(intFilter);
+		((AbstractDocument) mSilverField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		mSilverField.setText(String.valueOf(mSilver));
 		JLabel silverTitle = new JLabel(SILVER_TITLE);
 		innerWrapper.add(silverTitle);
@@ -126,7 +123,7 @@ public class TreasureDisplay extends TKTitledDisplay implements Savable {
 
 		innerWrapper = new JPanel();
 		mCopperField = TKComponentHelpers.createTextField(10, 20);
-		((AbstractDocument) mCopperField.getDocument()).setDocumentFilter(intFilter);
+		((AbstractDocument) mCopperField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		mCopperField.setText(String.valueOf(mCopper));
 		JLabel copperTitle = new JLabel(COPPER_TITLE);
 		innerWrapper.add(copperTitle);

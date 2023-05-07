@@ -5,7 +5,6 @@ package com.starfyre1.GUI.determination;
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
@@ -260,8 +259,6 @@ public class AttributesTab extends DeterminationTab {
 		boolean currentMaintenance = false;
 		int currentlySpent = 0;
 
-		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
-
 		JPanel buttonWrapper = new JPanel();
 		buttonWrapper.setBorder(new EmptyBorder(5, 15, 5, 5));
 		buttonWrapper.setLayout(new BorderLayout());
@@ -289,7 +286,7 @@ public class AttributesTab extends DeterminationTab {
 		mAttrPopup.setMaximumSize(size2);
 		attrColumn.add(mAttrPopup);
 
-		mDPPerWeekField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, filter);
+		mDPPerWeekField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_LARGE, TEXT_FIELD_HEIGHT, this, ACS.INTEGER_FILTER);
 		dPPerWeekColumn.add(mDPPerWeekField);
 
 		mDPSpentLabel = new JLabel(currentlySpent + " / " + COST); //$NON-NLS-1$

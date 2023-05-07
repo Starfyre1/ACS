@@ -4,7 +4,6 @@ package com.starfyre1.GUI.character;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.ArmorRecord;
@@ -12,6 +11,7 @@ import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.interfaces.LevelListener;
 import com.starfyre1.interfaces.Savable;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -38,11 +38,11 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 	/*
 		There are many ways to figure your characters Base Armor Rating,
 		the two that have worked best for me in my games are as follows:
-
+	
 		1)	Start your character at a base of 50%, then add the Protection
 			Percentage from the armor you are wearing, this will give you
 			your Armor Rating.
-
+	
 		2)	Start your character with (2 X Dex) + 50% = Base Armor Rating,
 			then add the Protection Percentage from the armor you are
 			wearing, this will give you your Armor Rating.  This rule heavily
@@ -52,7 +52,7 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 			1/2 their allotted carry capacity, at the time of combat.
 			(Remember this is a Optional rule, this way they can't take
 			Total advantage of a 18 Dexterity, and wear Field Plate!)
-
+	
 	*/
 
 	private int					manaValues[][]				= { { 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 50 },		//
@@ -223,12 +223,10 @@ public class DefenseInformationDisplay extends TKTitledDisplay implements Savabl
 		mManaFullField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		mManaFullField.setEditable(false);
 
-		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
-
-		mStaminaDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
-		mHitPointsDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
-		mManaDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
-		mManaPermField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, filter);
+		mStaminaDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, ACS.INTEGER_FILTER);
+		mHitPointsDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, ACS.INTEGER_FILTER);
+		mManaDamageField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, ACS.INTEGER_FILTER);
+		mManaPermField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_MEDIUM, 20, this, ACS.INTEGER_FILTER);
 
 		mStaminaBalanceField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		mStaminaBalanceField.setEditable(false);

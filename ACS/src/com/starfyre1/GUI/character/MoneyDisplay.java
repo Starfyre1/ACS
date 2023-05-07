@@ -4,7 +4,6 @@ package com.starfyre1.GUI.character;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.MoneyRecord;
@@ -65,23 +64,21 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 		outerWrapper.setBorder(new EmptyBorder(0, 5, 5, 10));
 		outerWrapper.setLayout(new BoxLayout(outerWrapper, BoxLayout.Y_AXIS));
 
-		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
-
 		JPanel wrapper = new JPanel();
 		wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.X_AXIS));
 		wrapper.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 		JLabel goldLabel = new JLabel(GOLD_LABEL, SwingConstants.RIGHT);
 		goldLabel.setBorder(new EmptyBorder(0, 0, 0, 5));
-		mGoldField = TKComponentHelpers.createTextField(4, 20, this, filter);
+		mGoldField = TKComponentHelpers.createTextField(4, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel silverLabel = new JLabel(SILVER_LABEL, SwingConstants.RIGHT);
 		silverLabel.setBorder(new EmptyBorder(0, 5, 0, 5));
-		mSilverField = TKComponentHelpers.createTextField(4, 20, this, filter);
+		mSilverField = TKComponentHelpers.createTextField(4, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel copperLabel = new JLabel(COPPER_LABEL, SwingConstants.RIGHT);
 		copperLabel.setBorder(new EmptyBorder(0, 5, 0, 5));
-		mCopperField = TKComponentHelpers.createTextField(4, 20, this, filter);
+		mCopperField = TKComponentHelpers.createTextField(4, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel gemsLabel = new JLabel(GEMS_LABEL, SwingConstants.RIGHT);
 		mGemsArea = new JTextArea(3, 10);

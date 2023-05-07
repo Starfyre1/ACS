@@ -9,7 +9,6 @@ import com.starfyre1.GUI.purchasedGear.equipment.EquipmentMarketPlaceDisplay;
 import com.starfyre1.GUI.purchasedGear.magicItems.MagicItemsMarketPlaceDisplay;
 import com.starfyre1.GUI.purchasedGear.weapon.WeaponMarketPlaceDisplay;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.MoneyRecord;
 import com.starfyre1.startup.ACS;
@@ -187,8 +186,7 @@ public class MarketPlace extends JDialog implements ActionListener {
 		mCreateButton = TKComponentHelpers.createButton(CREATE, this, true);
 
 		mPercentLabel = TKComponentHelpers.createLabel(PERCENT_COST, SwingConstants.RIGHT);
-		TKIntegerFilter intFilter = TKIntegerFilter.getFilterInstance();
-		mPercentField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, null, intFilter);
+		mPercentField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, null, ACS.INTEGER_FILTER);
 		mPercentField.setText("100"); //$NON-NLS-1$
 
 		mFreeCheckbox = TKComponentHelpers.createCheckBox(FREE, false, this);

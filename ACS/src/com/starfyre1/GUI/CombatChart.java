@@ -4,11 +4,11 @@ package com.starfyre1.GUI;
 
 import com.starfyre1.GUI.character.AttackTotalsDisplay;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.dataModel.AttributesRecord;
 import com.starfyre1.dataModel.WeaponRecord;
+import com.starfyre1.startup.ACS;
 import com.starfyre1.startup.SystemInfo;
 
 import java.awt.BorderLayout;
@@ -150,25 +150,24 @@ public class CombatChart extends JDialog implements DocumentListener, ActionList
 		JLabel totalToHitLabel = new JLabel(TOTAL_TO_HIT, SwingConstants.RIGHT);
 		JLabel additionalD6Label = new JLabel(ADDITIONAL_D6, SwingConstants.RIGHT);
 
-		TKIntegerFilter intFilter = TKIntegerFilter.getFilterInstance();
 		mRightHandPopupMenu = new TKPopupMenu(getMenu()); // None, Weapon, Spell
 		mRightHandPopupMenu.setPreferredSize(new Dimension(mRightHandPopupMenu.getPreferredSize().width, 20));
 		mLeftHandPopupMenu = new TKPopupMenu(getMenu()); // None, Weapon, Spell
 		mLeftHandPopupMenu.setPreferredSize(new Dimension(mLeftHandPopupMenu.getPreferredSize().width, 20));
 		mInitBaseField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20);
 		mInitBaseField.setEditable(false);
-		mInitField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, intFilter);
+		mInitField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 		mInitTotalField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20);
 		mInitTotalField.setEditable(false);
 
-		mToHitField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, intFilter);
+		mToHitField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 		mRightHitBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20);
 		mRightHitBonusField.setEditable(false);
 		mLeftHitBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20);
 		mLeftHitBonusField.setEditable(false);
-		mRightOtherBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, intFilter);
-		mLeftOtherBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, intFilter);
-		mRollField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, intFilter);
+		mRightOtherBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
+		mLeftOtherBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
+		mRollField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 		mMinimumField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20);
 		mMinimumField.setEditable(false);
 		mTotalField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20);

@@ -5,6 +5,7 @@ package com.starfyre1.GUI;
 import com.starfyre1.GUI.journal.CampaignDateChooser;
 import com.starfyre1.GUI.journal.JournalDisplay;
 import com.starfyre1.GUI.journal.WorldDateChooser;
+import com.starfyre1.ToolKit.TKCalculatorTextField;
 import com.starfyre1.ToolKit.TKPopupMenu;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
@@ -37,6 +38,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AbstractDocument;
 
 public class HeaderDisplay extends TKTitledDisplay implements FocusListener, ActionListener {
 
@@ -104,7 +106,8 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		mLevelField.setEditable(false);
 
 		JLabel currentExperienceLabel = new JLabel(CURRENT_EXPERIENCE_LABEL);
-		mCurrentExperienceField = new JTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
+		mCurrentExperienceField = new TKCalculatorTextField("", CharacterSheet.FIELD_SIZE_MEDIUM); //$NON-NLS-1$
+		((AbstractDocument) mCurrentExperienceField.getDocument()).setDocumentFilter(ACS.FLOAT_FILTER);
 		mCurrentExperienceField.addFocusListener(this);
 
 		JLabel nextLevelLabel = new JLabel(EXPERIENCE_FOR_NEXT_LEVEL_LABEL);

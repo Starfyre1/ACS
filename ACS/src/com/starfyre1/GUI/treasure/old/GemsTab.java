@@ -83,8 +83,8 @@ public class GemsTab extends TreasureTab {
 		JLabel valueLabel = new JLabel(VALUE);
 		JLabel magicLabel = new JLabel(MAGIC);
 		// DW ___Work on next
-		JTextField countField = TKComponentHelpers.createTextField(5, 20, this, intFilter);
-		JTextField valueField = TKComponentHelpers.createTextField(10, 20, this, floatFilter);
+		JTextField countField = TKComponentHelpers.createTextField(5, 20, this, ACS.INTEGER_FILTER);
+		JTextField valueField = TKComponentHelpers.createTextField(10, 20, this, ACS.FLOAT_FILTER);
 		JTextField magicField = TKComponentHelpers.createTextField(50, 20, this);
 
 		outerWrapper.add(countLabel);

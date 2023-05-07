@@ -4,13 +4,13 @@ package com.starfyre1.GUI.character;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.SkillsRecord;
 import com.starfyre1.dataset.classes.Thief;
 import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.dataset.classes.elves.Tsiri;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -158,7 +158,7 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 					+ "Agility.  If the thief fails his save, he falls to the ground (taking<br>"																							//$NON-NLS-1$
 					+ "1D6 pts. of damage per 10' of fall).  If the thief makes his save, he<br>"																							//$NON-NLS-1$
 					+ "realizes the climb is too dangerous and must immediately re-trace<br>"																								//$NON-NLS-1$
-					+ "their steps.  The thief must roll his Climb for every 10�.<br>"																										//$NON-NLS-1$
+					+ "their steps.  The thief must roll his Climb for every 10�.<br>"																									//$NON-NLS-1$
 					+ "(The Ref. should encourage the use of grappling hooks and Iron Spikes).</html>";																						//$NON-NLS-1$
 	private static final String		FIND_TRAP_TOOLTIP			= "<html>Roll 1D100 and if the thief rolls his percentage to Find Traps,<br>"												//$NON-NLS-1$
 					+ "then he has found the triggering device.  If he successfully rolls it<br>"																							//$NON-NLS-1$
@@ -230,8 +230,6 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 	@Override
 	protected Component createDisplay() {
 
-		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
-
 		JPanel outer = new JPanel();
 		outer.setBorder(new EmptyBorder(0, 5, 5, 10));
 		outer.setLayout(new BoxLayout(outer, BoxLayout.Y_AXIS));
@@ -300,49 +298,49 @@ public class SkillsDisplay extends TKTitledDisplay implements DocumentListener {
 		concealLabel.setToolTipText(CONCEAL_TOOLTIP);
 		mConcealField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mConcealField.setEditable(false);
-		mConcealLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mConcealLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel stealthLabel = new JLabel(STEALTH_LABEL, SwingConstants.RIGHT);
 		stealthLabel.setToolTipText(STEALTH_TOOLTIP);
 		mStealthField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mStealthField.setEditable(false);
-		mStealthLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mStealthLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel hearLabel = new JLabel(HEAR_LABEL, SwingConstants.RIGHT);
 		hearLabel.setToolTipText(HEAR_TOOLTIP);
 		mHearField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mHearField.setEditable(false);
-		mHearLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mHearLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel lockPickLabel = new JLabel(LOCK_PICK_LABEL, SwingConstants.RIGHT);
 		lockPickLabel.setToolTipText(LOCK_PICK_TOOLTIP);
 		mLockPickField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mLockPickField.setEditable(false);
-		mLockPickLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mLockPickLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel pickPocketLabel = new JLabel(PICK_POCKET_LABEL, SwingConstants.RIGHT);
 		pickPocketLabel.setToolTipText(PICK_POCKET_TOOLTIP);
 		mPickPocketField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mPickPocketField.setEditable(false);
-		mPickPocketLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mPickPocketLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel climbLabel = new JLabel(CLIMB_LABEL, SwingConstants.RIGHT);
 		climbLabel.setToolTipText(CLIMB_TOOLTIP);
 		mClimbField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mClimbField.setEditable(false);
-		mClimbLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mClimbLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel findTrapLabel = new JLabel(FIND_TRAP_LABEL, SwingConstants.RIGHT);
 		findTrapLabel.setToolTipText(FIND_TRAP_TOOLTIP);
 		mFindTrapField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mFindTrapField.setEditable(false);
-		mFindTrapLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mFindTrapLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel removeTrapLabel = new JLabel(REMOVE_TRAP_LABEL, SwingConstants.RIGHT);
 		removeTrapLabel.setToolTipText(REMOVE_TRAP_TOOLTIP);
 		mRemoveTrapField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mRemoveTrapField.setEditable(false);
-		mRemoveTrapLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mRemoveTrapLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 
 		JLabel levelBonusLabel = new JLabel(LEVEL_BONUS_LABEL, SwingConstants.CENTER);
 

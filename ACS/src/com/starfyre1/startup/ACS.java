@@ -4,6 +4,8 @@ package com.starfyre1.startup;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.GUI.HelpDialog;
+import com.starfyre1.ToolKit.TKFloatFilter;
+import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.dataset.ClassList;
 import com.starfyre1.dataset.MageList;
 import com.starfyre1.dataset.MetalList;
@@ -45,6 +47,9 @@ public class ACS {
 
 	public static ImageIcon				IMAGE_PLUS_ICON;
 	public static ImageIcon				IMAGE_MINUS_ICON;
+
+	public static final TKIntegerFilter	INTEGER_FILTER				= TKIntegerFilter.getFilterInstance();
+	public static final TKFloatFilter	FLOAT_FILTER				= TKFloatFilter.getFilterInstance();
 
 	/*****************************************************************************
 	 * Member Variables

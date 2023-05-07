@@ -4,13 +4,13 @@ package com.starfyre1.GUI.character;
 
 import com.starfyre1.GUI.CharacterSheet;
 import com.starfyre1.ToolKit.TKComponentHelpers;
-import com.starfyre1.ToolKit.TKIntegerFilter;
 import com.starfyre1.ToolKit.TKStringHelpers;
 import com.starfyre1.ToolKit.TKTitledDisplay;
 import com.starfyre1.dataModel.CombatInformationRecord;
 import com.starfyre1.dataset.classes.common.BaseClass;
 import com.starfyre1.dataset.classes.common.SpellUser;
 import com.starfyre1.dataset.classes.elves.Sailor;
+import com.starfyre1.startup.ACS;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -115,8 +115,6 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 	@Override
 	protected Component createDisplay() {
 
-		TKIntegerFilter filter = TKIntegerFilter.getFilterInstance();
-
 		JPanel wrapper = new JPanel(new GridLayout(8, 7, 5, 0));
 		wrapper.setBorder(new EmptyBorder(0, 0, 5, 10));
 
@@ -125,7 +123,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		mHitBonusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mHitBonusField.setEditable(false);
 		mHitBonusField.setToolTipText(HIT_BONUS_TOOLTIP);
-		mHitLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mHitLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 		mHitBonusMaxField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mHitBonusMaxField.setEditable(false);
 		JLabel attackSpeedLabel = new JLabel(ATTACK_SPEED_LABEL, SwingConstants.RIGHT);
@@ -136,7 +134,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		missileLabel.setToolTipText(MISSILE_DESCRIPTION);
 		mMissileBonusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mMissileBonusField.setEditable(false);
-		mCastingSpeedLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mCastingSpeedLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 		mMissileBonusMaxField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mMissileBonusMaxField.setEditable(false);
 		JLabel missileSpeedLabel = new JLabel(MISSILE_SPEED_LABEL, SwingConstants.RIGHT);
@@ -147,7 +145,7 @@ public class CombatInformationDisplay extends TKTitledDisplay implements Documen
 		bowLabel.setToolTipText(BOW_DESCRIPTION);
 		mBowBonusField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mBowBonusField.setEditable(false);
-		mBowLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, filter);
+		mBowLevelBonusField = TKComponentHelpers.createTextField(CharacterSheet.FIELD_SIZE_SMALL, 20, this, ACS.INTEGER_FILTER);
 		mBowBonusMaxField = new JTextField(CharacterSheet.FIELD_SIZE_SMALL);
 		mBowBonusMaxField.setEditable(false);
 		JLabel bowSpeedLabel = new JLabel(BOW_SPEED_LABEL, SwingConstants.RIGHT);
