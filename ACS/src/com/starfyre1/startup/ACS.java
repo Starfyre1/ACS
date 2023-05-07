@@ -36,13 +36,13 @@ public class ACS {
 
 	private static int					MAJOR						= 0;																	// Incompatible changes
 	private static int					MINOR						= 2;																	// Compatible changes
-	private static int					PATCH						= 1;																	// Bug fixes
+	private static int					PATCH						= 2;																	// Bug fixes
 
 	public static String				DATA_FILE_VERSION_TITLE		= "Data file version: ";												//$NON-NLS-1$
 	public static int					DATA_FILE_VERSION_NUMBER	= 2;
 
-	private static String				RELEASE_DATE				= "April 09, 2022";														//$NON-NLS-1$
-	private static String				RELEASE_TIME				= "14:15 UTC/GMT";														//$NON-NLS-1$
+	private static String				RELEASE_DATE				= "May 07, 2023";														//$NON-NLS-1$
+	private static String				RELEASE_TIME				= "14:36 UTC/GMT";														//$NON-NLS-1$
 	public static String				COPYRIGHT					= "Copyright:\t2023 Starfyre Enterprises, LLC. All rights reserved.";	//$NON-NLS-1$
 
 	public static ImageIcon				IMAGE_PLUS_ICON;
