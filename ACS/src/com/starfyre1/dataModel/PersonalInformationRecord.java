@@ -551,9 +551,17 @@ public class PersonalInformationRecord implements Savable {
 		return null;
 	}
 
+	private boolean isValid() {
+		// DW need to validate file before saving it out...
+		return mHeight != 0 && mWeight != 0 && !mSex.equals(TKStringHelpers.EMPTY_STRING) && !mHair.equals(TKStringHelpers.EMPTY_STRING) && //
+						!mEyes.equals(TKStringHelpers.EMPTY_STRING) && mAge != 0 && mSocialClass != null;
+	}
+
 	@Override
 	public void saveValues(BufferedWriter br) throws IOException {
-		writeValues(br);
+		if (isValid()) {
+			writeValues(br);
+		}
 	}
 
 	@Override
