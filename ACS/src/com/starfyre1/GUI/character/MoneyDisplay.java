@@ -70,15 +70,15 @@ public class MoneyDisplay extends TKTitledDisplay implements DocumentListener {
 
 		JLabel goldLabel = new JLabel(GOLD_LABEL, SwingConstants.RIGHT);
 		goldLabel.setBorder(new EmptyBorder(0, 0, 0, 5));
-		mGoldField = TKComponentHelpers.createTextField(4, 20, this, ACS.INTEGER_FILTER);
+		mGoldField = TKComponentHelpers.createTextField(4, 20, this, ACS.INTEGER_FILTER, true);
 
 		JLabel silverLabel = new JLabel(SILVER_LABEL, SwingConstants.RIGHT);
 		silverLabel.setBorder(new EmptyBorder(0, 5, 0, 5));
-		mSilverField = TKComponentHelpers.createTextField(4, 20, this, ACS.INTEGER_FILTER);
+		mSilverField = TKComponentHelpers.createTextField(4, 20, this, ACS.INTEGER_FILTER, true);
 
 		JLabel copperLabel = new JLabel(COPPER_LABEL, SwingConstants.RIGHT);
 		copperLabel.setBorder(new EmptyBorder(0, 5, 0, 5));
-		mCopperField = TKComponentHelpers.createTextField(4, 20, this, ACS.INTEGER_FILTER);
+		mCopperField = TKComponentHelpers.createTextField(4, 20, this, ACS.INTEGER_FILTER, true);
 
 		JLabel gemsLabel = new JLabel(GEMS_LABEL, SwingConstants.RIGHT);
 		mGemsArea = new JTextArea(3, 10);

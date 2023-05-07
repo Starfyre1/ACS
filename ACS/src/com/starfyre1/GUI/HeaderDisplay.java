@@ -106,7 +106,7 @@ public class HeaderDisplay extends TKTitledDisplay implements FocusListener, Act
 		mLevelField.setEditable(false);
 
 		JLabel currentExperienceLabel = new JLabel(CURRENT_EXPERIENCE_LABEL);
-		mCurrentExperienceField = new TKCalculatorTextField("", CharacterSheet.FIELD_SIZE_MEDIUM); //$NON-NLS-1$
+		mCurrentExperienceField = new TKCalculatorTextField(CharacterSheet.FIELD_SIZE_MEDIUM);
 		((AbstractDocument) mCurrentExperienceField.getDocument()).setDocumentFilter(ACS.FLOAT_FILTER);
 		mCurrentExperienceField.addFocusListener(this);
 

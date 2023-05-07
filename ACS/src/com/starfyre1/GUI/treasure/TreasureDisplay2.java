@@ -135,7 +135,8 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 		valuePanel.add(innerWrapper);
 
 		innerWrapper = new JPanel();
-		mGoldField = new FocusTextField(String.valueOf(mTotalGold), 10);
+		mGoldField = new FocusTextField(10);
+		mGoldField.setText(String.valueOf(mTotalGold));
 		((AbstractDocument) mGoldField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		mGoldField.addFocusListener(new FocusListener() {
 
@@ -155,7 +156,8 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 		valuePanel.add(innerWrapper);
 
 		innerWrapper = new JPanel();
-		mSilverField = new FocusTextField(String.valueOf(mTotalSilver), 10);
+		mSilverField = new FocusTextField(10);
+		mSilverField.setText(String.valueOf(mTotalSilver));
 		((AbstractDocument) mSilverField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		mSilverField.addFocusListener(new FocusListener() {
 
@@ -175,7 +177,8 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 		valuePanel.add(innerWrapper);
 
 		innerWrapper = new JPanel();
-		mCopperField = new FocusTextField(String.valueOf(mTotalCopper), 10);
+		mCopperField = new FocusTextField(10);
+		mCopperField.setText(String.valueOf(mTotalCopper));
 		((AbstractDocument) mCopperField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 		mCopperField.addFocusListener(new FocusListener() {
 
@@ -312,7 +315,8 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 
 	private JPanel generateDisplayRecord(TreasureRecord record) {
 		boolean enable = record == null;
-		JTextField countField = new FocusTextField(COUNT_TITLE, 5);
+		JTextField countField = new FocusTextField(5);
+		countField.setText(COUNT_TITLE);
 		countField.setMaximumSize(new Dimension(100, 20));
 		countField.setHorizontalAlignment(SwingConstants.RIGHT);
 		countField.setEditable(enable);
@@ -325,16 +329,19 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 			}
 		});
 
-		JTextField valueField = new FocusTextField(VALUE_TITLE, 5);
+		JTextField valueField = new FocusTextField(5);
+		valueField.setText(VALUE_TITLE);
 		valueField.setMaximumSize(new Dimension(150, 20));
 		valueField.setHorizontalAlignment(SwingConstants.RIGHT);
 		valueField.setEditable(enable);
 		((AbstractDocument) valueField.getDocument()).setDocumentFilter(ACS.INTEGER_FILTER);
 
-		JTextField descriptionField = new FocusTextField(DESCRIPTION_TITLE, 20);
+		JTextField descriptionField = new FocusTextField(20);
+		descriptionField.setText(DESCRIPTION_TITLE);
 		descriptionField.setEditable(enable);
 
-		JTextField totalField = new FocusTextField(TOTAL_TITLE2, 5);
+		JTextField totalField = new FocusTextField(5);
+		totalField.setText(TOTAL_TITLE2);
 		totalField.setMaximumSize(new Dimension(200, 20));
 		totalField.setHorizontalAlignment(SwingConstants.RIGHT);
 		totalField.setEditable(false);
@@ -635,11 +642,10 @@ public class TreasureDisplay2 extends TKTitledDisplay implements Savable {
 		/**
 		 * Creates a new {@link FocusTextField}.
 		 *
-		 * @param countTitle
 		 * @param columns
 		 */
-		public FocusTextField(String countTitle, int columns) {
-			super(countTitle, columns);
+		public FocusTextField(int columns) {
+			super(columns);
 			addFocusListener(new FocusListener() {
 
 				@Override
