@@ -621,7 +621,6 @@ public class CharacterSheet implements ActionListener {
 			return;
 		}
 
-		mIsCharacterLoaded = true;
 		mSavingThrowsRecord = new SavingThrowsRecord(this, true);
 		mCombatInformationRecord = new CombatInformationRecord(this, true);
 		mPersonalInformationRecord = new PersonalInformationRecord(this, false); // this will be generated during class creation
@@ -638,6 +637,7 @@ public class CharacterSheet implements ActionListener {
 		loadDisplay();
 		mJournalTab.characterCreated();
 		mJournalTab.characterLevelUp(mHeaderRecord.getLevel());
+		mIsCharacterLoaded = true;
 		mIsLoadingData = false;
 
 	}
@@ -652,7 +652,6 @@ public class CharacterSheet implements ActionListener {
 			}
 		}
 
-		mIsCharacterLoaded = true;
 		mAttributesRecord = new AttributesRecord(false);
 		mHeaderRecord = new HeaderRecord();
 		mMoneyRecord = new MoneyRecord(this, false);
@@ -681,6 +680,7 @@ public class CharacterSheet implements ActionListener {
 
 		loadDisplay();
 
+		mIsCharacterLoaded = true;
 		mIsLoadingData = false;
 
 	}
