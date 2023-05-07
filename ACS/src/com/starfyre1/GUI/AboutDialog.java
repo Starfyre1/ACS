@@ -1,6 +1,10 @@
-/* Copyright (C) Starfyre Enterprises 2020. All rights reserved. */
+/* Copyright (C) Starfyre Enterprises 2023. All rights reserved. */
 
 package com.starfyre1.GUI;
+
+import com.starfyre1.ToolKit.TKButtonRollover;
+import com.starfyre1.ToolKit.TKPageTitleLabel;
+import com.starfyre1.startup.ACS;
 
 import java.awt.BorderLayout;
 import java.awt.Desktop;
@@ -17,10 +21,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-
-import com.starfyre1.ToolKit.TKButtonRollover;
-import com.starfyre1.ToolKit.TKPageTitleLabel;
-import com.starfyre1.startup.ACS;
 
 public class AboutDialog extends JDialog implements HyperlinkListener {
 	/*****************************************************************************
@@ -45,10 +45,10 @@ public class AboutDialog extends JDialog implements HyperlinkListener {
 		mMessageLabel.setEditable(false);
 		mMessageLabel.setFocusable(false);
 		mMessageLabel.setOpaque(false);
-		mMessageLabel.setEditorKit(JEditorPane.createEditorKitForContentType("text/html"));
+		mMessageLabel.setEditorKit(JEditorPane.createEditorKitForContentType("text/html")); //$NON-NLS-1$
 		mMessageLabel.addHyperlinkListener(this);
-		mMessageLabel.setText("<html>" + ACS.TITLE + "<br><br>" + ACS.getVersion() + "<br>" + ACS.getBuildDate() + "<br>" + ACS.COPYRIGHT + "<br><br>" + "GitHub: "
-				+ "<br><a href=\"https://www.github.com/Starfyre1/ACS/releases\">Athri Character Sheet (ACS)</a>" + "<br>" + "<a href=\"https://github.com/Starfyre1/ACS/issues\">ACS Issues/Bugs</a>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		mMessageLabel.setText("<html>" + ACS.TITLE + "<br><br>" + ACS.getVersion() + "<br>" + ACS.getBuildDate() + "<br>" + ACS.COPYRIGHT + "<br><br>" + "GitHub: " //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+						+ "<br><a href=\"https://www.github.com/Starfyre1/ACS/releases\">Athri Character Sheet (ACS)</a>" + "<br>" + "<a href=\"https://github.com/Starfyre1/ACS/issues\">ACS Issues/Bugs</a>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		JButton okButton = new TKButtonRollover(this, "OK", true); //$NON-NLS-1$
 		okButton.setFocusable(false);
 
@@ -71,6 +71,7 @@ public class AboutDialog extends JDialog implements HyperlinkListener {
 		setLocationRelativeTo(parent);
 		setVisible(true);
 	}
+
 	/*****************************************************************************
 	 * METHODS
 	 ****************************************************************************/
@@ -80,9 +81,9 @@ public class AboutDialog extends JDialog implements HyperlinkListener {
 	 ****************************************************************************/
 	@Override
 	public void hyperlinkUpdate(HyperlinkEvent e) {
-        if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-        	if(Desktop.isDesktopSupported()) {
-        	    try {
+		if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+			if (Desktop.isDesktopSupported()) {
+				try {
 					Desktop.getDesktop().browse(e.getURL().toURI());
 				} catch (IOException ioe) {
 					//DW9:: Log this
@@ -91,9 +92,9 @@ public class AboutDialog extends JDialog implements HyperlinkListener {
 					//DW9:: Log this
 					System.err.println(urise.getMessage());
 				}
-        	}
-        }
-    }
+			}
+		}
+	}
 
 	/*****************************************************************************
 	 * ACCESSORS

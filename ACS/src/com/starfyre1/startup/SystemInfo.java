@@ -10,18 +10,18 @@ import java.awt.Rectangle;
 
 public class SystemInfo {
 
-	private static final String	OS_NAME							= System.getProperty("os.name").toLowerCase();
-	public static final String	PATH_SEPARATOR					= System.getProperty("file.separator");
+	private static final String	OS_NAME							= System.getProperty("os.name").toLowerCase();					//$NON-NLS-1$
+	public static final String	PATH_SEPARATOR					= System.getProperty("file.separator");							//$NON-NLS-1$
 	private static final String	LINE_SEPARATOR					= System.lineSeparator();
-	private static final String	GAME_PREFERENCE_PATH_SUFFIX		= PATH_SEPARATOR + ".ACS" + PATH_SEPARATOR + ".preferences";
-	private static final String	GAME_DATA_PATH_SUFFIX			= PATH_SEPARATOR + ".ACS" + PATH_SEPARATOR + ".data";
-	private static final String	GAME_LAUNCH_OPTIONS_PATH_SUFFIX	= PATH_SEPARATOR + ".ACS" + PATH_SEPARATOR + ".launch_options";
-	private static final String	ANIMAL_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Animal_User.txt";
-	private static final String	ARMOR_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Armor_User.txt";
-	private static final String	EQUIPMENT_DATA_PATH_SUFFIX		= PATH_SEPARATOR + "Equipment_User.txt";
-	private static final String	MAGIC_ITEM_DATA_PATH_SUFFIX		= PATH_SEPARATOR + "Magic_Item_User.txt";
-	private static final String	WEAPON_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Weapon_User.txt";
-	private static final String	COMBAT_CHART_PATH_SUFFIX		= PATH_SEPARATOR + "Combat_Chart.acs";
+	private static final String	GAME_PREFERENCE_PATH_SUFFIX		= PATH_SEPARATOR + ".ACS" + PATH_SEPARATOR + ".preferences";	//$NON-NLS-1$ //$NON-NLS-2$
+	private static final String	GAME_DATA_PATH_SUFFIX			= PATH_SEPARATOR + ".ACS" + PATH_SEPARATOR + ".data";			//$NON-NLS-1$ //$NON-NLS-2$
+	private static final String	GAME_LAUNCH_OPTIONS_PATH_SUFFIX	= PATH_SEPARATOR + ".ACS" + PATH_SEPARATOR + ".launch_options";	//$NON-NLS-1$ //$NON-NLS-2$
+	private static final String	ANIMAL_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Animal_User.txt";							//$NON-NLS-1$
+	private static final String	ARMOR_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Armor_User.txt";							//$NON-NLS-1$
+	private static final String	EQUIPMENT_DATA_PATH_SUFFIX		= PATH_SEPARATOR + "Equipment_User.txt";						//$NON-NLS-1$
+	private static final String	MAGIC_ITEM_DATA_PATH_SUFFIX		= PATH_SEPARATOR + "Magic_Item_User.txt";						//$NON-NLS-1$
+	private static final String	WEAPON_DATA_PATH_SUFFIX			= PATH_SEPARATOR + "Weapon_User.txt";							//$NON-NLS-1$
+	private static final String	COMBAT_CHART_PATH_SUFFIX		= PATH_SEPARATOR + "Combat_Chart.acs";							//$NON-NLS-1$
 
 	public static String getAnimalUserPath() {
 		return getDataPath() + ANIMAL_DATA_PATH_SUFFIX;
@@ -55,16 +55,16 @@ public class SystemInfo {
 
 	public static String getApplicationLocalPath() {
 		if (isWindows()) {
-			return System.getenv("APPDATA");
+			return System.getenv("APPDATA"); //$NON-NLS-1$
 		} else if (isMac()) {
-			return System.getProperty("user.home") + PATH_SEPARATOR + "Library" + PATH_SEPARATOR + "Application Support";
+			return System.getProperty("user.home") + PATH_SEPARATOR + "Library" + PATH_SEPARATOR + "Application Support"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} else if (isUnix()) {
-			return System.getProperty("user.home");
+			return System.getProperty("user.home"); //$NON-NLS-1$
 		} else if (isSolaris()) {
 			// DW Find Solaris app data
-			return System.getProperty("user.dir");
+			return System.getProperty("user.dir"); //$NON-NLS-1$
 		} else {
-			return System.getProperty("user.dir");
+			return System.getProperty("user.dir"); //$NON-NLS-1$
 		}
 	}
 
@@ -85,25 +85,25 @@ public class SystemInfo {
 	}
 
 	public static boolean isWindows() {
-		return OS_NAME.indexOf("win") >= 0;
+		return OS_NAME.indexOf("win") >= 0; //$NON-NLS-1$
 	}
 
 	public static boolean isMac() {
-		return OS_NAME.indexOf("mac") >= 0;
+		return OS_NAME.indexOf("mac") >= 0; //$NON-NLS-1$
 	}
 
 	public static boolean isUnix() {
-		return OS_NAME.indexOf("nix") >= 0 || OS_NAME.indexOf("nux") >= 0 || OS_NAME.indexOf("aix") >= 0;
+		return OS_NAME.indexOf("nix") >= 0 || OS_NAME.indexOf("nux") >= 0 || OS_NAME.indexOf("aix") >= 0; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 	public static boolean isSolaris() {
-		return OS_NAME.indexOf("sunos") >= 0;
+		return OS_NAME.indexOf("sunos") >= 0; //$NON-NLS-1$
 	}
 
 	@Override
 	public String toString() {
-		System.out.println("OS Name: " + OS_NAME);
-		return "OS Name: " + OS_NAME;
+		System.out.println("OS Name: " + OS_NAME); //$NON-NLS-1$
+		return "OS Name: " + OS_NAME; //$NON-NLS-1$
 	}
 
 	public static Point getCenterLocationPoint(Rectangle outer, Dimension inner) {
