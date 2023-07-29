@@ -540,7 +540,7 @@ public class PreferenceStore {
 		} else if (key.equals(FILE_LOCATION_KEY)) {
 			mFileLocation = value;
 		} else if (key.equals(LAST_CHARACTER_KEY)) {
-			mLastCharacter = value;
+			mLastCharacter = value.equals("null") ? null : value; //$NON-NLS-1$
 		} else {
 			//DW9:: log this
 			System.err.println("Unknown key read from file: " + key); //$NON-NLS-1$
